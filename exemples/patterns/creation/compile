@@ -1,0 +1,67 @@
+# /******************************************************************************
+# 
+# compile - execute from current directory
+# Permet de compiler un seul package à la fois
+# 
+# Pour tout compiler pas à pas :
+# ./compile model
+# ./compile model/enchanted
+# ./compile model/bomb
+# ./compile patterns/basic
+# ./compile patterns/factorymethod
+# ./compile patterns/builder
+# ./compile patterns/abstractfactory
+# ./compile patterns/prototype
+# ./compile (faire en plus pour compiler Main.java)
+# 
+# Pour tout compiler d'un coup :
+# ./compile
+#
+# @license    GPL
+# @author    Thierry Graff
+# @history    2017-11-16 12:24:32+02:00 : Creation
+# ********************************************************************************/
+
+dirbin='../../../bin'
+dirsrc='src/maze'
+dirdest="$dirbin/exemples"
+
+mkdir -p $dirdest
+
+if [ $# == 0 ]; then
+    # compile all
+    command="javac -classpath $dirdest -d $dirdest $dirsrc/Main.java"
+    echo $command; $command
+    command="javac -classpath $dirdest -d $dirdest $dirsrc/model/*.java"
+    echo $command; $command
+    command="javac -classpath $dirdest -d $dirdest $dirsrc/model/*/*.java"
+    echo $command; $command
+    command="javac -classpath $dirdest -d $dirdest $dirsrc/patterns/*/*.java"
+    echo $command; $command
+    command="javac -classpath $dirdest -d $dirdest $dirsrc/patterns/*/*/*.java"
+    echo $command; $command
+
+else
+    # compile one package (a directory)
+    ### arguments ###
+    if [ $# != 1 ]; then
+        echo -e "usage: $0 <directory>"
+        echo "example : $0 model"
+        echo "example : $0 patterns/abstractfactory"
+        
+        exit 1
+    fi
+    
+    dir=$1
+    command="javac -classpath $dirdest -d $dirdest $dirsrc/$dir/*.java"
+    
+fi 
+
+echo $command
+
+$command
+
+echo
+exit
+
+

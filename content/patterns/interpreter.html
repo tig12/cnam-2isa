@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Interpreter | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Interpreter et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="command.html">&larr;</a>
+    <a class="next" title="Next" href="bridge.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>
+Interpreter
+<div class="subtitle">(Interpréteur)</div>
+</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-exemple">Exemple</a>
+            <ul>
+                <li><a href="#1-1-sans-pattern">Sans pattern </a></li>
+                <li><a href="#1-2-avec-pattern">Avec pattern </a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-structure">Structure</a>
+        </li>
+        <li>
+            <a href="#3-remarques">Remarques</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+<div class="intro">
+Si plusieurs problèmes voisins peuvent s'exprimer par des phrases d'un langage simple, on peut construire un interpréteur qui résoud les problèmes en interprétant ces phrases.
+<br>
+<br>Le pattern <i>Interpreter</i> indique comment définir une grammaire d'un langage simple, comment représenter et interpréter les phrases de ce langage.
+</div>
+
+L'interpréteur utilise une structure arborescente pour représenter les phrases du langage, appelée <b>AST (Abtract Syntax Tree)</b>.
+<br>Par exemple,
+<pre>myvar = (134 + 265) * 3;</pre>
+est représenté par :
+<pre>
+    =
+  /   \
+myvar  *
+      / \
+     +   3
+   /   \
+ 134   265
+</pre>
+
+L'AST est fourni par le <b>parsing</b>, qui part du code source (<code>String[]</code>) et isole les <b>tokens</b> (jetons), petites chaînes représentant les éléments syntaxiques du langage ; les tokens sont ensuite organisés en arbres syntatxiques concrets (<b>parse tree</b>), eux mêmes convertis en AST.
+<br>AST : Abstract car dépouillé d'une partie des jetons : accolades, parenthèses, point-virgules etc.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-exemple">Exemple</a></h2>
+
+On prend un langage très simple permettant d'écrire en français les additions et multiplications entre les entiers de 1 à 9.
+<br>Les phrases sont du type :
+<pre class="normal">
+    trois plus deux
+    six fois sept
+</pre>
+
+Ecrire un programme qui donne le résultat numérique de l'opération exprimée par une phrase.
+
+<!-- ************************************* -->
+<h3><a name="1-1-sans-pattern">Sans pattern </a></h3>
+On pourrait répondre à la question avec ce genre de code :
+<pre>
+/** 
+    @param str Phrase à interpréter, par exemple "cinq plus deux";
+
+**/
+public static int interpret(String str){
+    switch(str){
+        case "un plus un" : return 2; break;
+        case "un plus deux" : return 3; break;
+        case "deux plus un" : return 3; break;
+        // ...
+        case "neuf plus neuf" : return 18; break;
+        // ...
+        case "un fois un" : return 1; break;
+        case "un fois deux" : return 2; break;
+        case "deux fois un" : return 2; break;
+        // ...
+        case "neuf fois neuf" : return 81; break;
+    }
+}
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="1-2-avec-pattern">Avec pattern </a></h3>
+
+(code dans <a href="../../exemples/patterns/interpreter/unplusun/UnPlusUn.java">UnPlusUn.java</a>)
+
+<h4>1 - Description de la grammaire</h4>
+
+Notre langage contient neuf nombres écrit en lettres, de "un" à "neuf", et deux opérations, "plus" et "fois".
+<br>La grammaire est :
+
+<pre class="normal">
+    operation ::= 'plus' | 'fois'
+    nombre ::= 'un'|'deux'| ... |'neuf'
+    expression ::= nombre operation nombre
+</pre>
+
+<h4>2 - Traduction de la grammaire</h4>
+
+Dans le pattern <i>Interpreter</i>,
+<br>- <b>Chaque règle de grammaire est représentée par une classe.</b>
+<br>- <b>Toutes les règles implémentent ou dérivent d'une Règle Abstraite, qui contient une méthode <code>interpret()</code></b>.
+
+<pre>
+// === Expression abstraite ===
+<b>interface AbstractExpression {
+    public int interpret();
+}</b>
+
+// === Expressions composées ===
+abstract class BinaryExpression implements AbstractExpression {
+    
+    protected AbstractExpression exp1, exp2;
+    
+    public BinaryExpression(AbstractExpression exp1, AbstractExpression exp2){
+        this.exp1 = exp1;
+        this.exp2 = exp2;
+    }
+}
+
+class Plus extends BinaryExpression {
+    public Plus(AbstractExpression exp1, AbstractExpression exp2){
+        super(exp1, exp2);
+    }
+    public int <b>interpret()</b> {
+        <b>return exp1.interpret() + exp2.interpret()</b>;
+    }
+}
+
+class Fois extends BinaryExpression {
+    public Fois(AbstractExpression exp1, AbstractExpression exp2){
+        super(exp1, exp2);
+    }
+    public int <b>interpret()</b> {
+        <b>return exp1.interpret() * exp2.interpret()</b>;
+    }
+}
+
+// === Expressions terminales ===
+class Nb implements AbstractExpression{
+    private int value;
+    public Nb(String str) throws IllegalExpressionException{
+        switch(str){
+            case "un" : value = 1; break;
+            case "deux" : value = 2; break;
+            case "trois" : value = 3; break;
+            case "quatre" : value = 4; break;
+            case "cinq" : value = 5; break;
+            case "six" : value = 6; break;
+            case "sept" : value = 7; break;
+            case "huit" : value = 8; break;
+            case "neuf" : value = 9; break;
+            default:
+                throw new IllegalExpressionException("Illegal number string : " + str);
+        }
+}
+    
+    public int <b>interpret()</b> {
+        <b>return value</b>;
+    }
+}
+</pre>
+
+<h4>3 - Utilisation</h4>
+
+<pre>
+public class UnPlusUn{
+
+    public static void main(String[] args) {
+        //String str = "neuf plus quatre";
+        String str = "quatre fois huit";
+        try{
+            AbstractExpression exp = <b>parse(str)</b>;
+            System.out.println(str + " = " + <b>exp.interpret()</b>);
+            
+        }
+        catch(IllegalExpressionException e){
+            e.printStackTrace();
+        }
+    }
+    
+    /** 
+        Méthode auxiliaire, qui effectue le parsing
+        Transforme une chaîne en AST
+        Etape antérieure à l'interprétation, ne fait pas partie du pattern Interpreter
+    **/
+    static AbstractExpression parse(String str) throws IllegalExpressionException{
+        String[] parts = str.split(" ");
+        if(parts.length != 3){
+            throw new IllegalExpressionException("Illegal expression : " + str);
+        }
+        AbstractExpression e1 = new Nb(parts[0]);
+        AbstractExpression e2 = new Nb(parts[2]);
+        
+        AbstractExpression operation = null;
+        switch(parts[1]){
+            case "fois" : operation = new Fois(e1, e2); break;
+            case "plus" : operation = new Plus(e1, e2); break;
+            default: throw new IllegalExpressionException("Illegal expression '" + str + "' : '" + parts[1] + "' n'est pas un opérateur valable");
+        }
+        return operation;
+    }
+}
+
+class IllegalExpressionException extends Exception{
+    public IllegalExpressionException(String msg){
+        super(msg);
+    }
+}
+</pre>
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-structure">Structure</a></h2>
+
+<img class="border margin padding05" src="img/interpreter-gof-structure.jpg" alt="Interpreter - structure" />
+
+<ul class="spaced">
+    <li>
+        Chaque règle de grammaire est représentée par une classe.
+    </li>
+    <li>
+        Toutes les règles implémentent ou dérivent d'une Règle Abstraite, qui contient une méthode <code>interpret()</code> (parfois appelée <code>execute()</code>).
+    </li>
+    <li>
+        Les expression composées contiennent leurs sous-expressions dans des variables de classe.
+        <br>L'implémentation de <code>interpret()</code> d'une expression composée contient nécessairement l'appel à <code>interpret()</code> des sous-expressions.
+        <br>Fonctionnement récursif.
+    </li>
+    <li>
+        Le contexte est initialisé par le client. Il contient des informations globales à l'interpréteur. Chaque opération <code>interpret()</code> peut stocker ou récupérer de l'information.
+    </li>
+</ul>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-remarques">Remarques</a></h2>
+
+<ul class="spaced">
+    <li>
+        Ce pattern est bien adapté pour des langages simples. Si la grammaire est trop complexe, la hiérarchie des classes devient difficile à gérer.
+    </li>
+    <li>
+        Ce pattern ne répond qu'à une partie du problème ; le client a la charge de fabriquer l'AST, donc de parser le texte.
+    </li>
+    <li>
+        <i>Interpreter</i> est similaire à <a href="composite.html">Composite</a> : structure arborescente, méthode récursive.
+        <br>Si on veut implémenter plusieurs manières d'interpréter (pretty printing, métrique sur le code...), on peut aussi utiliser <a href="visitor.html">Visitor</a>.
+    </li>
+    <li>
+        Pour des langages plus compliqués, on utilise des générateurs de parser (comme Bison ou Yacc).
+    </li>
+</ul>
+
+
+
+<div class="exo">
+<b>Exercice</b> :
+<br>
+<br>1 - Modifier l'exemple <code>UnPlusUn</code> pour aussi permettre des phrases composées :
+<pre class="normal">trois plus six plus sept fois dix</pre>
+que l'on traite comme
+<pre class="normal">(trois plus six) plus (sept fois dix)</pre>
+La grammaire devient :
+<pre class="normal">
+operation ::= 'plus' | 'fois'
+nombre ::= 'un'|'deux'| ... |'neuf'
+expression ::= nombre operation nombre
+<b>composed ::= expression operation expression</b></pre>
+
+L'interpréteur doit à la fois pouvoir interpréter une chaîne exprimant une <code>expression</code> (par ex : <code>un plus un</code>)  ou une <code>composed</code> (par ex : <code>un plus deux fois cinq plus neuf</code>). 
+<br>Mais ne doit pas pouvoir interpréter une chaîne comme <code>un plus deux fois cinq</code>.
+<br>
+<br>2 - Rajouter une opération "moins" (qui effectue une soustraction).
+</div>
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

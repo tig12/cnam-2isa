@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Builder | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Builder et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="prototype.html">&larr;</a>
+    <a class="next" title="Next" href="decorator.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>
+Builder
+<div class="subtitle">(Monteur)</div>
+</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-exemple-pizza">Exemple : pizza</a>
+        </li>
+        <li>
+            <a href="#2-presentation-gof">Présentation GOF</a>
+        </li>
+        <li>
+            <a href="#3-exemple-du-labyrinthe">Exemple du labyrinthe</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+<div class="intro">
+But : Séparer la construction d'un objet complexe de sa représentation de manière à pouvoir utiliser le même processus de création pour différentes représentations (gof).
+</div>
+Concerne <b>la création d'objets complexes pas à pas.</b>
+<br>Lorsqu'on a un ensemble objets à construire, et que tous ces objets partagent les mêmes étapes de création.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-exemple-pizza">Exemple : pizza</a></h2>
+On fabrique différents types de pizza.
+<br>Le produit fini est une pizza :
+<pre>
+
+class Pizza {
+    private String name = "";
+    private String pate = "";
+    private String sauce = "";
+    private String garniture = "";
+    // ...
+}
+</pre>
+
+On modélise la fabrication d'une pizza en 3 étapes :
+<ul>
+    <li>Faire la pâte</li>
+    <li>Faire la sauce</li>
+    <li>Faire la garniture</li>
+</ul>
+Qu'on fabrique une pizza blanche, une sicilienne ou une montagnarde, on fait toujours ces 3 étapes.
+<br>Le pattern Builder utilise cette structure :
+
+<img class="border margin margin-left2 padding05" src="img/builder-pizza-classes.jpg" alt="Builder - PizzasBuilders" />
+
+La classe <code>PizzaBuilder</code> :
+<pre>
+abstract class PizzaBuilder {
+    protected Pizza pizza;
+    public Pizza getPizza() { return pizza; }
+    public void createNewPizzaProduct(){}
+    public void buildPate(){}
+    public void buildSauce(){}
+    public void buildGarniture(){}
+}
+</pre>
+
+Associée à une classe <b>PizzaDirector</b> qui fournit une méthode <b>constructPizza()</b> :
+<pre>
+class <b>PizzaDirector</b>{
+    private PizzaBuilder pizzaBuilder;
+
+    public void setPizzaBuilder(PizzaBuilder pb) {
+        pizzaBuilder = pb;
+    }
+
+    public Pizza getPizza() {
+        return pizzaBuilder.getPizza(); // ne fait que forwarder au builder concret
+    }
+    public void <b>constructPizza</b>() {
+        pizzaBuilder.buildPate();
+        pizzaBuilder.buildSauce();
+        pizzaBuilder.buildGarniture();
+    }
+}</pre>
+
+<code>PizzaDirector</code> n'utilise que l'interface abstraite de <code>PizzaBuilder</code>, ne connaît rien des builders concrets.
+<br>
+<br>Le client crée un <code>PizzaDirector</code> et ordonne la fabrication d'objets :
+
+<pre>
+        <b>PizzaDirector pizzaDirector = new PizzaDirector();</b>
+        
+        PizzaBuilder siciliennePizzaBuilder = <code>new SiciliennePizzaBuilder()</code>;
+        PizzaBuilder blanchePizzaBuilder = new BlanchePizzaBuilder();
+
+        pizzaDirector.<b>setPizzaBuilder</b>( siciliennePizzaBuilder );
+        pizzaDirector.<b>constructPizza</b>();
+        Pizza pizza1 = pizzaDirector.getPizza();
+        
+        pizzaDirector.setPizzaBuilder( blanchePizzaBuilder );
+        pizzaDirector.constructPizza();
+        Pizza pizza2 = pizzaDirector.getPizza();
+</pre>
+
+Code dans <a href="../../exemples/patterns/builder/PizzaBuilderDemo.java">PizzaBuilderDemo.java</a>
+<br>
+<br>Si on veut maintenant produire une pizza aux fruits de mer, on a juste à construire un <code>FruitsDeMerPizzaBuilder</code>, qui devient utilisable par le code client <i>sans avoir du tout touché aux classes <code>PizzaDirector</code> et <code>PizzaBuilder</code></i>.
+
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-presentation-gof">Présentation GOF</a></h2>
+
+<img class="border margin" src="img/builder-gof-diagram.jpg" alt="Builder - Diagramme gof" />
+
+<img class="border margin" src="img/builder-gof-sequence.jpg" alt="Builder - Séquence gof" />
+
+<h4>Applications</h4>
+Utilisez ce pattern quand :
+<ul>
+    <li>L'algorithme de création d'un objet complexe doit être indépendant des parties qui fabriquent l'objet et de comment elles sont assemblées.</li>
+    <li>Le processus de construction doit permettre différentes représentations de l'objet qui est construit.</li>
+</ul>
+
+<h4>Conséquences</h4>
+<ul>
+    <li>
+        <i>Permet de varier la représentation interne du produit</i> :
+        <br/l'objet <code>Builder</code> fournit au <code>Director</code> une interface abstraite pour construire le produit.
+        <br>L'interface permet au Builder de cacher la représentation et la structure interne du produit.
+        <br>Comme le produit est construit à travers une interface abstraite, pour changer la représentation interne du produit, il suffit de créer un nouveau builder.
+    </li>
+    <li>
+        <i>Isole le code de construction et la représentation</i> :
+        <br><code>Builder</code> améliore la modularité en encapsulant la manière dont le produit est fabriqué et représenté.
+        <br>Le client n'a pas besoin de connaître les classes qui définissent la représentation interne du produit.
+    </li>
+    <li>
+        <i>Permet un contrôle plus fin sur le processus de construction</i> :
+        <br>Contrairement aux autre patterns de création, qui contruisent les objets d'un seul coup,
+        <br>Builder construit l'objet pas à pas sous le contrôle du Director.
+    </li>
+</ul>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-exemple-du-labyrinthe">Exemple du labyrinthe</a></h2>
+On crée 2 variantes du jeu : le jeu standard et un faux jeu, qui ne construit pas les objets mais les compte.
+<br>
+<div class="exo"><b>Exercice</b>
+<br>Voir <a href="../../exemples/patterns/creation/src/maze/patterns/builder">l'implémentation java de l'exemple gof</a> et identifier les différents acteurs du pattern builder.
+</div>
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>

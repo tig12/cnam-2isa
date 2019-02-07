@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>State | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern State et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="bridge.html">&larr;</a>
+    <a class="next" title="Next" href="mediator.html">&rarr;</a>
+</nav>
+
+<!--                                                                                                                                             
+p 418 du pdf headfirst
+-->
+
+<header>
+<h1>
+State
+<div class="subtitle">(Etat)</div>
+</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-exemple">Exemple</a>
+            <ul>
+                <li><a href="#1-1-resolution-sans-utiliser-de-pattern">Résolution sans utiliser de pattern</a></li>
+                <li><a href="#1-2-demande-de-modification">Demande de modification</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-structure">Structure</a>
+        </li>
+        <li>
+            <a href="#3-remarques">Remarques</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+<div class="intro">
+    But : permettre à un objet de changer son comportement lorsque son état change.
+    <br>L'objet donnera l'impression d'avoir changé de classe.
+</div>
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-exemple">Exemple</a></h2>
+Cet exemple vient de <i>Design Patterns Head First</i> (p 386 du livre).
+<br>
+<br>Scénario : on doit informatiser le fonctionnement d'un distributeur de chewing-gum.
+<br>On nous fournit le schéma suivant : 
+
+<div class="flex-wrap">
+
+<img class="margin" src="img/state-headfirst1.jpg" alt="State - diagramme headfirst" />
+
+<div class="margin">
+    Vocabulaire :
+    <br>Quarter = pièce de 25 cents (1/4 de dollar)
+    <br>Crank = manivelle
+    <br>Gumball = boule de gomme
+</div>
+</div><!-- end class="flex-wrap" -->
+
+Ce diagramme montre différents <b>états</b> ainsi que des <b>transitions</b> entre ces états.
+<br>On doit aussi gérer les cas de comportements incohérents (par ex l'utilisateur tourne la manivelle alors qu'il n'y a pas de pièce dans la machine).
+<br>Le client nous informe que des évolutions seront sans doute demandées par la suite.
+
+
+<!-- ************************************* -->
+<h3><a name="1-1-resolution-sans-utiliser-de-pattern">Résolution sans utiliser de pattern</a></h3>
+(code dans <a href="../../exemples/patterns/state/headfirst/1-base/">exemples/patterns/state/headfirst/1-base/</a>)
+<br>
+<br>On peut très bien répondre à cette demande sans utiliser de pattern :
+<ul>
+    <li>Une classe représente le distributeur.</li>
+    <li>Le distributeur a une variable d'instance qui indique le nombre de gommes restantes.</li>
+    <li>Les différents états possibles sont représentés par des constantes.</li>
+    <li>L'état courant est exprimé par une variable d'instance.</li>
+    <li>Les transitions entre états sont implémentés par des méthodes.</li>
+</ul>
+
+<pre>
+public class GumballMachine {
+
+    // Les différents états possibles
+    final static int SOLD_OUT = 0;
+    final static int NO_QUARTER = 1;
+    final static int HAS_QUARTER = 2;
+    final static int SOLD = 3;
+ 
+    int state = SOLD_OUT;    // l'état courant
+    int count = 0;           // le nombre de gommes restant
+  
+    public GumballMachine(int count) {
+        this.count = count;
+        if (count > 0) {
+            state = NO_QUARTER;
+        }
+    }
+  
+    public void insertQuarter() {
+        if (state == HAS_QUARTER) {
+            System.out.println("You can't insert another quarter");
+        } else if (state == NO_QUARTER) {
+            state = HAS_QUARTER;
+            System.out.println("You inserted a quarter");
+        } else if (state == SOLD_OUT) {
+            System.out.println("You can't insert a quarter, the machine is sold out");
+        } else if (state == SOLD) {
+            System.out.println("Please wait, we're already giving you a gumball");
+        }
+    }
+    
+    // etc. code similaire pour les autres transistions
+}
+</pre>
+Cette implémentation fonctionne très bien, on peut la faire fonctionner, voir la classe <code>Main</code>.
+
+<pre>
+public class Main {
+
+	public static void main(String[] args) {
+		GumballMachine gumballMachine = new GumballMachine(5);
+
+		System.out.println(gumballMachine);
+
+		gumballMachine.insertQuarter();
+		gumballMachine.turnCrank();
+
+		System.out.println(gumballMachine);
+
+		gumballMachine.insertQuarter();
+		gumballMachine.ejectQuarter();
+		gumballMachine.turnCrank();
+
+		System.out.println(gumballMachine);
+
+		gumballMachine.insertQuarter();
+		gumballMachine.turnCrank();
+		gumballMachine.insertQuarter();
+		gumballMachine.turnCrank();
+		gumballMachine.ejectQuarter();
+
+		System.out.println(gumballMachine);
+
+		gumballMachine.insertQuarter();
+		gumballMachine.insertQuarter();
+		gumballMachine.turnCrank();
+		gumballMachine.insertQuarter();
+		gumballMachine.turnCrank();
+		gumballMachine.insertQuarter();
+		gumballMachine.turnCrank();
+
+		System.out.println(gumballMachine);
+	}
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="1-2-demande-de-modification">Demande de modification</a></h3>
+La demande est de faire évoluer la machine pour qu'il y ait un gagnant une fois sur 10 ; dans ce cas, la machine doit distribuer une gomme gratuite.
+<br>Le diagramme évolue de la manière suivante :
+<img class="margin" src="img/state-headfirst2.jpg" alt="State - diagramme headfirst" />
+
+<br>Pour répondre à la demande, il y a plusieurs modifications à apporter au code :
+<ul>
+    <li>Introduire un nouvel état, <code>WINNER</code>.</li>
+    <li>Introduire une nouvelle variable d'instance qui varie de 0 à 9, <code>winnerCount</code>, pour détecter un gagnant.</li>
+    <li>
+        Modifier chacune des fonctions qui expriment les transitions.
+        <br>Pour chacune de ces méthodes, il faut ajouter un nouveau test.
+        <br>On doit faire particulièrement attention à <code>turnCrank()</code> :
+        <br>Il faudra introduire un test sur <code>winnerCount</code> à l'intérieur du test
+        <pre>
+} else if (state == HAS_QUARTER) {
+    System.out.println("You turned...");
+    state = SOLD;
+    dispense();
+}
+</pre>
+        pour savoir si on envoie vers l'état <code>SOLD</code> ou <code>WINNER</code>.
+    </li>
+</ul>
+
+On arrive donc à répondre à la demande d'évolution, mais :
+<br>- On voit qu'à chaque demande de modification, on va devoir modifier le code existant en le complexifiant.
+<br>- On voit aussi que le code ne respecte pas plusieurs principes (voir <a href="../oop/solid.html">page SOLID</a>) :
+<ul>
+    <li>Single Responsability principle</li>
+    <li>Encapsulate what varies</li>
+    <li>Open-closed principle</li>
+</ul>
+
+<h4>Refactoring</h4>
+
+Le pattern <i>State</i> permet de répondre à la demande d'évolution en évitant ces inconvénients :
+<br>- Isoler le comportement de chaque état, de manière à pouvoir les modifier sans risque d'affecter le comportement des autres états.
+<br>- Avoir une classe par état, et le distributeur pourrait déléguer la gestion des transitions à ces classes.
+<br>Dans cette nouvelle organisation, ajouter un état reviendra à créer une nouvelle classe et modifier les transitions dans certaines classes d'états existant.
+<br>
+<br>La refactorisation va impliquer :
+<ul>
+    <li>Définir une interface <code>State</code> contenant une méthode pour chaque action du distributeur.</li>
+    <li>Implémenter une classe par état possible de la machine.</li>
+    <li>Remplacer les <code>if</code> par une délégation aux sous-classes de <code>State</code>.</li>
+</ul>
+
+Voir le code dans <a href="../../exemples/patterns/state/headfirst/2-refactored/">exemples/patterns/state/headfirst/2-refactored/</a>.
+
+
+<pre>
+public interface State {
+    public void insertQuarter();
+    public void ejectQuarter();
+    public void turnCrank();
+    public void dispense();
+    public void refill();
+}
+</pre>
+
+Dans <code>GumballMachine</code>, la délégation a remplacé le code conditionnel.
+<br>Les constantes exprimant les états sont replacés par des objets de classes implémentant <code>State</code>.
+<br>La variable <code>state</code> contient maintenant un objet.
+
+<pre>
+public class GumballMachine {
+ 
+    State soldOutState;
+    State noQuarterState;
+    State hasQuarterState;
+    State soldState;
+ 
+    State state;
+    int count = 0;
+ 
+    public GumballMachine(int numberGumballs) {
+        soldOutState = new SoldOutState(this);
+        noQuarterState = new NoQuarterState(this);
+        hasQuarterState = new HasQuarterState(this);
+        soldState = new SoldState(this);
+
+        this.count = numberGumballs;
+        if (numberGumballs > 0) {
+            state = noQuarterState;
+        } else {
+            state = soldOutState;
+        }
+    }
+ 
+    public void insertQuarter() {
+        state.insertQuarter();
+    }
+    
+    // ...
+    
+    void setState(State state) { this.state = state; }
+    public State getState() { return state; }
+    
+    public State getSoldOutState() { return soldOutState; }
+    
+    // ...
+}
+</pre>
+
+Dans les classes d'états concrets, le code de chaque méthode est simple :
+
+<pre>
+public class HasQuarterState implements State {
+    GumballMachine gumballMachine;
+ 
+    public HasQuarterState(GumballMachine gumballMachine) {
+        this.gumballMachine = gumballMachine;
+    }
+  
+    public void insertQuarter() {
+        System.out.println("You can't insert another quarter");
+    }
+ 
+    public void ejectQuarter() {
+        System.out.println("Quarter returned");
+        <b>gumballMachine.setState(gumballMachine.getNoQuarterState());</b>
+    }
+    
+    // ...
+}
+</pre>
+On voit que les transitions se font à l'intérieur des classes concrètes, par ex <code>HasQuarterState</code> passe à <code>NoQuarterState</code> dans <code>ejectQuarter()</code>.
+<br>
+<br>A noter :
+<ul>
+    <li>
+        chaque état contient une référence vers <code>GunballMachine</code>, ce qui lui pemet de connaître l'état du système, et donc de savoir quoi faire (action et / ou passage à un autre état).
+    </li>
+</ul>
+
+On peut comprendre la phrase du GOF "L'objet donnera l'impression d'avoir changé de classe" : en utilisant la composition, la gestion des transitions est gérée par les sous-classes de <code>State</code>, donc une même transition se comporte différemment d'un état à l'autre.
+
+<div class="exo"><b>Exercice</b> :
+<br>Faire le diagramme de séquence traduisant ces actions : on est dans l'état <code>NoQuarterState</code>, on insère une pièce et on tourne la manivelle.
+</div>
+
+<h4>Implémentation de la modification</h4>
+
+On peut maintenant impléménter la demande de modification en rajoutant une classe <code>WinnerState</code>.
+
+<div class="exo"><b>Exercice</b> :
+<br>En partant de l'implémentation de <a href="../../exemples/patterns/state/headfirst/2-refactored/">exemples/patterns/state/headfirst/2-refactored/</a>, implémenter la demande de modification.
+<br>
+<br>Vous pouvez utiliser ces instructions pour gérer le fait qu'on peut gagner une fois sur 10 :
+<pre>
+Random randomWinner = new Random(System.currentTimeMillis());
+int winner = randomWinner.nextInt(10);
+</pre>
+</div>
+<!-- 
+<br>Voir le code dans <a href="../../exemples/patterns/state/headfirst/3-winner/">exemples/patterns/state/headfirst/3-winner/</a>.
+-->
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-structure">Structure</a></h2>
+
+<img class="border margin padding05" src="img/state-gof-structure.jpg" alt="State - structure" />
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-remarques">Remarques</a></h2>
+
+On utilise la composition pour associer un état au contexte, ce qui permet au contexte de changer dynamiquement d'état.
+
+<br>
+<br>Le diagramme de classe est exactement le même que celui du pattern <a href="strategy.html">Strategy</a>, mais l'intention et le fonctionnement des deux patterns sont bien différents :
+<ul>
+    <li>
+        Dans le pattern <i>State</i>, différents états ont été encapsulés dans des objets, et l'état courant change en fonction du temps.
+        <br>Le client n'a pas besoin de connaître ces états.
+    </li>
+    <li>Dans le pattern <i>Strategy</i>, le client choisit une stratégie, qui va s'exécuter en entier.</li>
+</ul>
+
+<div class="exo">
+<b>Exercice</b> : <a href="../../exos/patterns/state/radio/radio.html">Poste de radio</a>
+</div>
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

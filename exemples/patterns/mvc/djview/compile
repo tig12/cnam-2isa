@@ -1,0 +1,14 @@
+
+
+dirbin='../../../../bin'
+dirdest="$dirbin/exemples/mvc/djview"
+mkdir -p $dirdest
+
+command="javac -classpath $dirdest -d $dirdest -sourcepath . *.java"
+echo $command
+$command
+
+echo
+exit
+
+

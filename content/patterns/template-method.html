@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Template Method | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Template Method et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="decorator.html">&larr;</a>
+    <a class="next" title="Next" href="strategy.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>
+Template Method
+<div class="subtitle">(Patron de méthode)</div>
+</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-exemples">Exemples</a>
+            <ul>
+                <li><a href="#1-1-the-et-cafe">Thé et café</a></li>
+                <li><a href="#1-2-hooks">Hooks</a></li>
+                <li><a href="#1-3-autre-exemple">Autre exemple</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-structure">Structure</a>
+        </li>
+        <li>
+            <a href="#3-remarques">Remarques</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+<div class="big2 margin">
+But : Définir le squelette d'un algorithme dans une méthode, et déléguer certaines étapes de l'algo à des sous-classes.
+</div>
+<br>Permet aux sous-classes de redéfinir certaines étapes de l'algo sans en changer la structure.
+<br>
+<br>Les parties invariantes de l'algo sont implémentées dans une classe abstraite, et les parties variables sont redéfinies dans les sous-classes.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-exemples">Exemples</a></h2>
+
+
+<!-- ************************************* -->
+<h3><a name="1-1-the-et-cafe">Thé et café</a></h3>
+
+Exemple venant de "Design patterns head first".
+<br>
+<br>On veut développer un programme faisant du thé et du café.
+<br>Si on compare les recettes, elles sont similaires sans être identiques : 
+
+<div class="flex-wrap margin-top">
+
+<div>
+    <div class="center"><a href="../../exemples/patterns/template-method/headfirst/1-basic/Coffee.java">Coffee.java</a></div>
+    <div><pre class="inline-block">
+    void prepareRecipe() {
+        <b>boilWater();</b>
+        brewCoffeeGrinds();
+        <b>pourInCup();</b>
+        addSugarAndMilk();
+    }
+    </pre></div>
+</div>
+
+<div>
+    <div class="center"><a href="../../exemples/patterns/template-method/headfirst/1-basic/Tea.java">Tea.java</a></div>
+    <div>
+    <pre class="inline-block">
+    void prepareRecipe() {
+        <b>boilWater();</b>
+        steepTeaBag();
+        <b>pourInCup();</b>
+        addLemon();
+    }
+    </pre></div>
+</div>
+
+</div><!-- end class="flex-wrap" -->
+
+
+On voit que certaines parties du code sont communes, on cherche à factoriser le code.
+<br>
+<br><i>Template method</i> traduit une manière simple et intuitive de procéder :
+<br>On identifie les étapes identiques et celles qui sont différentes.
+<br>On voit qu'on est dans un cas où les étapes différentes sont suffisamment similaires pour être décrites de manière commune.
+<br>Par exemple avoir :
+<br><pre class="inline-block">
+void prepareRecipe() {
+    boilWater();
+    <b>brew();</b>
+    pourInCup();
+    <b>addCondiments();</b>
+}
+</pre>
+<br>Pour implémenter ça, on crée une super-classe commune à <code>Coffee</code> et <code>Tea</code> : <code>CaffeineBeverage</code>,
+<br>dans laquelle on implémente la méthode <code>prepareRecipe()</code>, ainsi que les étapes communes (<code>boilWater()</code> et <code>pourInCup()</code>).
+<br>Les étapes spécifiques sont déclarées <code>abstract</code> dans la super-classe et seront implémentées dans les sous-classes (<code>Coffee</code> et <code>Tea</code>).
+
+<pre>
+public abstract class CaffeineBeverage {
+  
+	final void prepareRecipe() {
+		boilWater();
+		brew();
+		pourInCup();
+		addCondiments();
+	}
+ 
+	abstract void brew();
+  
+	abstract void addCondiments();
+ 
+	void boilWater() { System.out.println("Boiling water"); }
+  
+	void pourInCup() { System.out.println("Pouring into cup"); }
+}
+</pre>
+
+<div class="flex-wrap">
+
+<pre>
+public class Coffee extends CaffeineBeverage {
+	public void brew() {
+		System.out.println("Dripping Coffee through filter");
+	}
+	public void addCondiments() {
+		System.out.println("Adding Sugar and Milk");
+	}
+}
+</pre>
+
+<pre>
+public class Tea extends CaffeineBeverage {
+	public void brew() {
+		System.out.println("Steeping the tea");
+	}
+	public void addCondiments() {
+		System.out.println("Adding Lemon");
+	}
+}
+</pre>
+
+</div><!-- end class="flex-wrap" -->
+
+<br>- On appelle <b>factory method </b><code>prepareRecipe()</code>.
+<br>- Noter l'emploi de <code>final</code> dans la factory method : la structure de l'algo est définie dans la super-classe, les sous-classes ne redéfinissent que certaines étapes.
+<br>- Noter que certaines étapes ont une implémentation par défaut (ce qui n'empêche pas les sous-classes de les redéfinir).
+
+<!-- ************************************* -->
+<h3><a name="1-2-hooks">Hooks</a></h3>
+(hook = crochet)
+<br>Contrairement aux étapes de l'algo obligatoires pour toutes les sous-classes, les hooks permettent de rendre certaines étapes <b>optionnelles</b>.
+<br>La super-classe en fournit une implémentation par défaut.
+<pre>
+public abstract class CaffeineBeverageWithHook {
+	final void prepareRecipe() {
+		boilWater();
+		brew();
+		pourInCup();
+		<b>if (customerWantsCondiments()) {
+			addCondiments();
+		}</b>
+	}
+	
+	void addCondiments(){}
+	
+	boolean <b>customerWantsCondiments()</b> {
+		return false;
+	}
+    // ...	
+}
+</pre>
+
+
+<!-- ************************************* -->
+<h3><a name="1-3-autre-exemple">Autre exemple</a></h3>
+Voir <a href="../../exemples/patterns/template-method/PersonneDemo.java">PersonneDemo.java</a>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-structure">Structure</a></h2>
+Le diagramme gof est très simple :
+
+<img class="border margin padding05" src="img/template-method-gof-diagram.jpg" alt="Classes formant le labyrinthe" />
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-remarques">Remarques</a></h2>
+On peut définir <code>protected</code> les <i>primitive operations</i> afin de s'assurer qu'elles ne seront pas appelées de l'extérieur.
+<br>
+<br>On parle d'<b>inversion de contrôle</b>, car c'est la super-classe qui appelle les méthodes des sous-classes, et non l'inverse.
+<br>(autre formulation, le <i>principe d'Hollywood</i> : "Ne nous appelez pas, nous vous appelerons").
+<br>Les sous-classes participent au calcul, mais c'est la super-classe qui décide quand.
+
+<br>
+<br><i>Template method</i> utilise des sous-classes pour faire varier les parties d'un algorithme, alors que <code>Strategy</code> utilise la délégation pour faire varier l'algorithme entier.
+
+<br>
+<br><cite>"Les template methods sont si fondamentales qu'on les trouve dans presque toutes les classes abstraites"</cite> (gof)
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+# /******************************************************************************
+# 
+# run - execute from current directory
+#
+# @license    GPL
+# @author    Thierry Graff
+# @history    2018-01-11 09:06:08+01:00 : Creation
+# ********************************************************************************/
+
+dirbin='../../../../bin'
+dirdest="$dirbin/exemples/junit3/exception"
+
+
+# junit in classpath only used for test classes
+command="java -classpath $dirdest::$dirbin/junit-3.8.2.jar Main"
+
+echo $command
+
+$command
+
+echo
+exit
+
+
+

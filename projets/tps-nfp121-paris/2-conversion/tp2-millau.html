@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Conversion Celcius Fahrenheit | NFP121</title>
+    <meta name="description" content="Compléments pour effectuer le TP2 (conversion degrés), pour NFP121 du CNAM Millau.">
+    <meta name="robots" content="index,follow">
+    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="NFP121" href="../../../index.html">&uarr;</a>
+</nav>
+
+<header>
+<h1>Conversion Celcius Fahrenheit</h1>
+</header>
+
+<article>
+
+<br>
+<br>1 - Convertir des degrés Fahrenheit en degrés Celcius :
+<br>La formule de conversion : °C = 5/9 * (°F - 32)
+<br>Les valeurs en degrés Fahrenheit à convertir sont données sur la ligne de commande.
+<br>Ce sont des valeurs entières.
+<br>
+<br>Le résultat est attendu avec un seul chiffre derrière la virgule, obtenu uniquement par le calcul. ( par exemple r = ((int)resultat*10)/10.0 )
+<br>Format de sortie demandé : 80°F -> 26.6°C
+<br>
+<br>Le code doit gérer les erreurs d'entrée : 
+<br>- le programme a besoin d'un seul paramètre ;
+<br>- ce paramètre doit représenter un entier.
+<br>En cas d'erreur, le programme doit afficher un message expliquant l'erreur et se terminer.
+<br>
+<br>Le code doit se trouver dans les packages spécifiés plus bas.
+<br>L'implémentation est constituée de 3 méthodes <i>static</i>, sans créer aucune instance.
+<br>
+<br>Utiliser la hiérarchie de fichiers suivante :
+<pre class="normal">
+tp2-conversion
+    ├── apidoc                      // contient la doc html générée par javadoc
+    ├── bin                         // contient les .class générés par javac
+    ├── src
+    │   └── conversion
+    │       ├── Conversion.java     // contient <code>public static void main(String[] args)</code>
+    │       ├── model
+    │       │   ├── Degres.java     // contient <code>public static float fahrenheitToCelsius(int f)</code>
+    │       │   └── package.html
+    │       ├── overview.html
+    │       ├── package.html
+    │       └── utils
+    │           ├── Format.java    // contient <code>public static float uneDecimale(float x)</code>
+    │           └── package.html
+    └── tests
+</pre>
+
+Les instructions utilisées en console (à adapter à vos IDEs) depuis le répertoire <code>conversion</code>
+<br>compilation :
+<code class="color">javac -d bin -sourcepath src src/conversion/Conversion.java</code>
+<br>exécution :
+<code class="color">java -classpath bin conversion.Conversion 70</code>
+<br>javadoc :
+<pre>
+javadoc \
+    -sourcepath src \
+    -classpath bin \
+    -html5 \
+    -d apidoc \
+    -charset utf8 \
+    -encoding utf8 \
+    -docencoding utf8 \
+    -overview src/conversion/overview.html \
+    -subpackages \
+    conversion
+</pre>
+Note : les <code>\</code> indiquent sous linux que la même instruction se poursuit sur la ligne suivante.
+<br>Sur une seule ligne, l'instruction est : <code>javadoc -sourcepath src -classpath bin ...</code>
+<br>
+<br>optionnel :
+<br>
+<br>2 - Au papier ou par logiciel, faire le diagramme de séquence représentant les classes, et les appels des méthodes dans l'exécution normale (pas d'erreur en entrée).
+<br>
+<br>3 - Faire la documentation en utilisant la syntaxe javadoc et générer la doc avec l'outil javadoc.
+<br>
+<br>4 - Ecrire des tests unitaires pour les classes <code>Degres</code> et <code>Format</code>.
+</div>

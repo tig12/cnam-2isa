@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Mix patterns | NFP121 Millau</title>
+    <meta name="description" content="Utilisation simultanée de plusieurs design patterns.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="dependency-injection.html">&larr;</a>
+    <a class="next" title="Next" href="mix-gof.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Mix patterns</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1"></a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+<div class="intro">
+    Cette page a pour but de lister des exemples où plusieurs patterns sont utilisés ensemble.
+</div>
+
+Attention, on parle de <b>patterns composés</b> (compound patterns) lorsque la combinaison de plusieurs patterns forme un nouveau pattern (ex : MVC).
+<br>En général, on peut utiliser plusieurs patterns dans un design sans nécessairement utiliser de pattern composé.
+<br>Les exemples qui suivent ne sont en général PAS des patterns composés.
+
+<ul class="spaced naked">
+
+    <li>
+        <div class="big4 bold">GOF</div>
+        (GOF = "gang of four", désigne le livre "Design Patterns: Elements of Reusable Object-Oriented Software").
+        <ul>
+            <li>
+                <div class="big3">Chapter 2 - A Case Study: Designing a Document Handler</div>
+                Composite
+                <br>Strategy
+                <br>Decorator
+                <br>Abstract Factory
+                <br>Bridge
+                <br>Command
+                <br>Iterator
+                <br>Visitor
+
+            </li>
+        </ul>
+    </li>
+    
+    <li>
+        <div class="big4 bold"><a href="mix-headfirst.html">Design Patterns Head First</a></div>
+        <ul>
+            <li>
+                <div class="big3">Chapter 9 - The Iterator and Composite Patterns: Well-Managed Collections</div>
+            </li>
+            <li>
+                <div class="big3">Simulateur de canards</div>
+                Adapter
+                <br>Decorator
+                <br>Abstract factory
+                <br>Composite
+                <br>Observer
+                <br>Flyweight
+            </li>
+            <li>MVC</li>
+        </ul>
+    </li>
+    
+    <li>
+        <div class="big4 bold">Cours CNAM NFP 121 Paris</div>
+        <ul>
+            <li>
+                <div class="big3">Cours 6-1 Composite Interpreteur Visiteur</div>
+                Composite
+                <br>Interpreter                                                        
+                <br>Visitor
+                <br>Iterator
+            </li>
+            <li>
+                <div class="big3">Cours 6-2 Memento Command Template Method</div>
+                Memento
+                <br>Command
+                <br>Template Method
+                <br>Composite
+                <br>Visitor
+            </li>
+            <li>
+                <div class="big3">TP n° 6 - WhileL et les Visiteurs</div>
+                Composite,
+                <br>Visitor,
+                <br>Interpreter
+            </li>
+            <li>
+                <div class="big3">TP commit - Les transactions</div>
+                Composite,
+                <br>Visitor,
+                <br>Template Method
+            </li>
+        </ul>
+    </li>
+    
+    <li>
+        <div class="big4 bold">java API</div>
+        <ul>
+            <li>
+                <div class="big3">Exemples stackoverflow.com</div>
+                Abstract factory
+                <br>Builder
+                <br>Factory
+                <br>Prototype
+                <br>Singleton
+                <br>Adapter
+                <br>Bridge
+                <br>Composite
+                <br>Decorator
+                <br>Facade
+                <br>Flyweight
+                <br>Proxy
+                <br>Command
+                <br>Interpreter
+                <br>Iterator
+                <br>Mediator
+                <br>Memento
+                <br>Observer
+                <br>State
+                <br>Strategy
+                <br>Template method
+                <br>Visitor
+            </li>
+        </ul>
+    </li>
+
+    <!-- 
+    <li>
+        <div class="big4 bold">Made in Millau</div>
+        <ul>
+            <li><div class="big3">Généalogie</div></li>
+        </ul>
+    </li>
+    -->
+
+</ul>
+
+
+<br>
+<center>
+<img src="img/gof-liens-patterns.jpg" alt="gof liens patterns" />
+<br>GOF : Liens entre patterns
+</center>
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Deprecated | NFP121</title>
+    <link href="../../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Deprecated</h1>
+</header>
+
+<article>
+
+<a href="enonce">Code source de l'énoncé</a>
+<br>
+<br>Soit le code :
+<pre>
+interface House {
+    @Deprecated
+    void open();
+    void openFrontDoor();
+    void openBackDoor();
+}
+
+class MyHouse implements House {
+    public void open() {}
+    public void openFrontDoor() {}
+    public void openBackDoor() {}
+}
+</pre>
+- Ecrire un exemple de javadoc associé à l'annotation <code>@Deprecated</code>.
+<br>- Compiler, constater le warning, recompiler avec <code>-Xlint:deprecation</code> pour avoir le détail du warning.
+<br>- Modifier le code pour ne plus obtenir de warning à la compilation.
+
+
+</article>
+
+</body>
+</html>
+

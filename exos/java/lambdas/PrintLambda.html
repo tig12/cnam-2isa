@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice PrintLambda | NFP121</title>
+    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+    <meta name="description" content="Exercice d'introduction à l'utilisation de lambdas expressions">
+    <meta name="robots" content="index,follow">
+</head>
+<body>
+
+<header>
+<h1>Exercice : PrintLambda</h1>
+</header>
+
+<article>
+
+Ecrivez une interface fonctionnelle <code>Printer</code> dont la SAM est une fonction <code>print</code> prenant en paramètre une <code>String</code>.
+<br>
+<br>Ecrivez une classe de test, <code>PrintLambda</code>, dont la fonction <code>main()</code> :
+
+<ol class="spaced">
+    <li>Teste que la classe est appelée avec un seul paramètre.</li>
+    <li>Définit et appelle plusieurs lambdas de type <code>Printer</code>, en passant <code>args[0]</code> à <code>print()</code> :</li>
+    <ul>
+        <li>Une qui affiche simplement la chaîne,</li>
+        <li>Une qui affiche "J'affiche la chaîne '&lt;chaîne passée en paramètre>'",</li>
+        <li>Une qui affiche la chaîne à l'envers.</li>
+    </ul>    
+
+</ol>
+
+Exemples d'exécution :
+
+<pre>java PrintLambda</pre>
+<pre>
+Utilisation : java PrintLambda &lt;une String>
+</pre>
+<br>
+<pre>java PrintLambda "bonjour tout le monde"</pre>
+<pre>
+bonjour tout le monde
+J'affiche la chaîne 'bonjour tout le monde'
+A l'envers : ednom el tuot ruojnob
+
+</pre>
+
+Pour ceux qui ont fini :
+<br>Cette implémentation oblige de définir une variable de type <code>Printer</code>. 
+<br>Comment modifier le code afin de pouvoir passer en paramètre la lambda de manière complètement anonyme, sans avoir à définir de variable ?
+
+
+</article>
+
+</body>
+</html>
+

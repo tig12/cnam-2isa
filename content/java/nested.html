@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Nested types | NFP121 Millau</title>
+    <meta name="description" content="Introduction aux types imbriqués, souvent appelés classes internes.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="outils-java.html">&larr;</a>
+    <a class="next" title="Next" href="lambdas.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Nested types</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-membres-static">Membres static</a>
+        </li>
+        <li>
+            <a href="#2-membre-d-instance">Membre d'instance</a>
+        </li>
+        <li>
+            <a href="#3-shadowing">Shadowing</a>
+        </li>
+        <li>
+            <a href="#4-classes-locales">Classes locales</a>
+        </li>
+        <li>
+            <a href="#5-classes-anonymes">Classes anonymes</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+
+
+( = types imbriqués)
+<br>Deux raisons liées à l'encapsulation peuvent mener à faire des types imbriqués :
+<br>- Si un type n'est utilisé que dans une petite partie du code, faire un type interne permet de renforcer l'encapsulation (par exemple <code>Pile4</code> dans TP3).
+<br>- Si un type a besoin de manipuler l'état interne de son type englobant, le type interne accède aux données privées de son type englobant (de la même manière que les méthodes d'une classe).
+<br>Un type imbriqué n'a pas d'existence indépendante, existe au sein de son type englobant.
+<br>
+<br>Souvent appelés "classes internes" (désignation imprécise, mais syntaxe java précise).
+<br>
+<br>Important : bien distinguer <i>inheritance hierarchy</i> et <i>containment hierarchy</i>.
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-membres-static">Membres static</a></h2>
+Exemple dans TP3, question 2 : la classe <code>Maillon</code> est un membre static de <code>Pile4</code>.
+<ul>
+    <li>Les classes internes static doivent utiliser le mot-clé static.</li>
+    <li>Comme les méthodes statiques, ont accès aux membres statiques du type englobant (y compris les autres types imbriqués static).</li>
+    <li>Mais n'ont pas accès aux membres d'instance (donc mot-clé <code>this</code> pas accessible).</li>
+    <li>Ont accès aux membres privés du type englobant, <i>et inversement</i>.</li>
+    <li>Peuvent accéder aux membres du type englobant sans préfixer par le nom de la classe (sauf en cas de conflit de nom).</li>
+    <li>Un type imbriqué dans une interface ou une annotation est implicitement static (ce qui est normal).</li>
+    <li>Interfaces, enums, annotations sont toujours static (même si déclarés sans mot-clé static).</li>                             
+    <li>Un type imbriqué ne peut pas avoir le même nom qu'une classe englobante.</li>
+    <li>java supporte un nombre arbitraire de niveaux d'imbrication.</li>
+</ul>
+
+<pre>
+class OuterClass {
+    ...
+    static class StaticNestedClass {
+        ...
+    }
+}
+</pre>
+On utilise le nom de la classe englobante pour y accéder, par ex :
+<pre>
+OuterClass.StaticNestedClass nestedObject = new OuterClass.StaticNestedClass();
+</pre>
+
+Les membres static d'accès public ou package peuvent être utilisés ailleurs :
+<pre>
+import package1.Class1.ClasseInterne;
+import package1.Class1.*;
+</pre>
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-membre-d-instance">Membre d'instance</a></h2>
+(Uniquement pour les classes, pas les interfaces ou enums)
+<ul>
+    <li>Toujours associé à une <b>instance</b> de la classe englobante.</li>
+    <li>A accès aux membres static et d'instance de la classe englobante, même s'ils sont déclarés <code>private</code>.</li>
+    <li>Comme est associé à une instance de sa classe englobante, ne peut pas déclarer de champs static.</li>
+</ul>
+
+<pre>
+class OuterClass {
+    ...
+    class InnerClass {
+        ...
+    }
+}
+</pre>
+Pour instancier une inner class :
+<pre>
+OuterClass outerObject = new OuterClass();
+OuterClass.InnerClass innerObject = <b>outerObject.new InnerClass()</b>;
+</pre>
+
+<!-- 
+<div class="exo">
+    <a href="../../exos/java/nested/Cache.html">Cache</a>
+</div>
+-->
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-shadowing">Shadowing</a></h2>
+
+Si une variable porte le même nom qu'une autre variable dans un contexte englobant, elle cache le nom (shadowing), donc syntaxe spéciale.
+
+<pre>
+public class ShadowTest {
+
+    public int x = 0;
+
+    class FirstLevel {
+
+        public int x = 1;
+
+        void methodInFirstLevel(int x) {
+            System.out.println("x = " + x);
+            System.out.println("this.x = " + this.x);
+            System.out.println("ShadowTest.this.x = " + <b>ShadowTest.this.x</b>);
+        }
+    }
+
+    public static void main(String... args) {
+        ShadowTest st = new ShadowTest();
+        ShadowTest.FirstLevel fl = st.new FirstLevel();
+        fl.methodInFirstLevel(23);
+    }
+}
+</pre>
+(code dans <a href="../../exemples/java/nested/shadowing/ShadowTest.java">ShadowTest.java</a>).
+
+
+<div class="exo"><b>Exercice</b>
+<br>Récupérer les fichiers du répertoire <a href="../../exemples/java/nested/tests">exemples/java/nested/tests</a>, compiler et exécuter et bien comprendre l'output.
+</div>
+
+<pre>
+import static java.lang.System.out;
+
+class Class1{
+    
+    // ***** static *****
+    
+    private static int a = 1;
+    private static int b = 2;
+    public static void printStatic(){
+        out.println("Class1.printStatic(), a = " + a);
+    }
+    
+    public static class ClasseInterneStatic{
+        private static int a = 3;
+        public static void printStatic(){
+            out.println("ClasseInterneStatic.printStatic(), a = " + a);
+            out.println("ClasseInterneStatic.printStatic(), Class1.a = " + Class1.a);
+            out.println("ClasseInterneStatic.printStatic(), b = " + b);
+        }
+    }
+    
+    // ***** instance *****
+    
+    private int c = 4;
+    private int d = 5;                                                                                                                                         
+    public void printInstance(){
+        out.println("Class1.printInstance(), c = " + this.c);
+    }
+    
+    public class ClasseInterne{
+        private int c = 6;
+        public void printInstance(){
+            out.println("ClasseInterne.printInstance(), c = " + <b>c</b>);
+            out.println("ClasseInterne.printInstance(), this.c = " + <b>this.c</b>);
+            out.println("ClasseInterne.printInstance(), Class1.this.c = " + <b>Class1.this.c</b>); // syntaxe spéciale
+            out.println("ClasseInterne.printInstance(), d = " + d);
+        }
+        // Les deux lignes suivantes ne passent pas à la compilation :
+        // on ne peut pas définir de membres static dans une classe qui est un membre d'instance 
+        // public static int e = 7;
+        // public static void printStaticInterne(){ }
+    }
+    
+}
+</pre>
+<pre>
+import static java.lang.System.out;
+
+class Main{
+    
+    public static void main(String[] args){
+        
+        out.println("==== tests static ====");
+        Class1.printStatic();
+        Class1.ClasseInterneStatic.printStatic();
+        
+        out.println("\n==== tests instance ====");
+        Class1 c1 = new Class1();
+        <b>Class1.ClasseInterne interne1 = c1.new ClasseInterne();</b>
+        c1.printInstance();
+        interne1.printInstance();
+        
+    }
+    
+}
+</pre>
+<pre>
+java Main 
+==== tests static ====
+Class1.printStatic(), a = 1
+ClasseInterneStatic.printStatic(), a = 3
+ClasseInterneStatic.printStatic(), Class1.a = 1
+ClasseInterneStatic.printStatic(), b = 2
+
+==== tests instance ====
+Class1.printInstance(), c = 4
+ClasseInterne.printInstance(), c = 6
+ClasseInterne.printInstance(), this.c = 6
+ClasseInterne.printInstance(), Class1.this.c = 4
+ClasseInterne.printInstance(), d = 5
+</pre>
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-classes-locales">Classes locales</a></h2>
+On peut définir une classe interne dans n'importe quel bloc, par ex dans une méthode, un initialisateur statique ou d'instance, une boucle for, dans un if.
+<br>Une classe locale a accès aux champs de sa classe environnante et aux variables locales de son bloc.
+<br>Ne peut pas être définie <code>public</code>, <code>protected</code>, <code>private</code> ou <code>static</code>.
+
+<div class="exo"><b>Exercice</b>
+<br>Allez voir l'API de <a href="https://docs.oracle.com/javase/8/docs/api/javax/swing/Box.html"><code>javax.swing.Box</code></a>.
+<br>- Quelle classe imbriquée statique (static nested class) est définie dans <code>Box</code> ?
+<br>- Quelle classe interne (inner class) est définie dans <code>Box</code> ?
+<br>- Quelle est la supeclasse de cette classe interne ?
+<br>- Quelle classe interne de <code>Box</code> peut on utiliser depuis n'importe quelle classe ?
+<br>- Quel code permet de créer une instance de la classe interne <code>Filler</code> ?
+<!-- new Box.Filler(minDimension, prefDimension, maxDimension) -->
+</div>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="5-classes-anonymes">Classes anonymes</a></h2>
+Classes utilisées à un seul endroit ; n'ont même pas de nom.
+<br>
+<br>Exemple : on cherche à afficher les fichiers ".java" d'un répertoire.
+<br>(code des exemples dans <a href="../../exemples/java/nested/filter">exemples/java/nested/filter</a>).
+<br>De manière classique : 
+<pre>
+import java.io.File;
+public class TestFilter1{
+    public static void main(String[] args){
+        <b>File dir = new File</b>(args[0]);
+        String[] files = <b>dir.list()</b>;
+        for(String file : files){
+            if(file.endsWith(".java")){
+                System.out.println(file);
+            }
+        }
+    }
+}
+</pre>
+On a utilisé <code>java.io.File.list()</code> :
+<pre>
+package java.io;
+public class <b>File</b> extends Object implements Serializable, Comparable&lt;File>{
+    ...
+    
+    /**
+        Returns an array of strings naming the files and directories
+        in the directory denoted by this abstract pathname.
+    **/
+    <b>public String[] list()</b>{ ... }
+    
+    /**
+        Returns an array of strings naming the files and directories
+        in the directory denoted by this abstract pathname that satisfy the specified filter.
+    **/
+    <b>public String[] list(FilenameFilter filter)</b>{ ... }
+    
+    ...
+}
+</pre>
+
+Mais on peut aussi utiliser <code>File.list(FilenameFilter filter)</code>, qui prend en paramètre un objet d'une classe implémentant <code>java.io.FilenameFilter</code>.
+<pre>
+@FunctionalInterface
+public interface FilenameFilter{
+    boolean accept(File dir, String name);
+}
+</pre>
+
+
+<div class="flex-wrap">
+
+<div>
+<h4>Utilisation classique</h4>
+<pre>
+import java.io.File;
+import java.io.FilenameFilter;
+
+public class TestFilter2{
+    public static void main(String[] args){
+        File dir = new File(args[0]);
+        String[] files = dir.list(<b>new JavaFilenameFilter()</b>);
+        for(String file : files){
+            System.out.println(file);
+        }
+    }
+}
+
+class JavaFilenameFilter implements FilenameFilter{
+    public boolean accept(File f, String s) {
+        return s.endsWith(".java");
+    }
+}
+</pre>
+</div>
+
+<div>
+<h4>Avec classe anonyme</h4>
+<pre>
+import java.io.File;
+import java.io.FilenameFilter;
+
+public class TestFilter3{
+    public static void main(String[] args){
+        File dir = new File(args[0]);
+        String[] files = dir.list(<b>new FilenameFilter() {
+            public boolean accept(File f, String s) {
+                return s.endsWith(".java");
+            }
+        }</b>);
+        for(String file : files){
+            System.out.println(file);
+        }
+    }
+}
+</pre>
+</div>
+
+</div><!-- end class="flex-wrap" -->
+
+Mais comment le compilateur sait ce que représentent <code>f</code> et <code>s</code> ?
+<br>La réponse est dans l'implémentation de <code>java.io.File.list(FilenameFilter filter)</code> (<a href="http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/java/io/File.java">voir le code source</a>) :
+<pre>
+public String[] list(FilenameFilter filter) {
+    String names[] = list();
+    if ((names == null) || (filter == null)) {
+        return names;
+    }
+    List&lt;String> v = new ArrayList<>();
+    for (int i = 0 ; i &lt; names.length ; i++) {
+        if (<b>filter.accept(this, names[i])</b>) {
+            v.add(names[i]);
+        }
+    }
+    return v.toArray(new String[v.size()]);
+}
+</pre>
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>

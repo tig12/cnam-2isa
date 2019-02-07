@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Injection de dépendance | NFP121 Millau</title>
+    <meta name="description" content="Introduction à l'injection de dépendance et exemples d'implémentation java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="flyweight.html">&larr;</a>
+    <a class="next" title="Next" href="mix-patterns.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Injection de dépendance
+<div class="subtitle">(Dependency injection)</div>
+</h1>
+
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-sans-injection-de-dependance">Sans injection de dépendance</a>
+            <ul>
+                <li><a href="#1-1-problemes">Problèmes</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-injection-de-dependance">Injection de dépendance</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+<div class="intro">
+On est dans une situation où un objet "de haut niveau" (le client) a besoin d'utiliser un objet "de plus bas niveau" (un service ou un composant logiciel).
+<br>On sépare l'utilisation du service de sa configuration.
+<br>On parle d'injection de dépendance lorsque <b>ce n'est pas le client qui choisit quel service utiliser</b>.
+</div>
+
+Sources : <a href="https://martinfowler.com/articles/injection.html">martinfowler.com</a>
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-sans-injection-de-dependance">Sans injection de dépendance</a></h2>
+
+C'est le client qui décide quel service utiliser.
+
+<pre>
+// ********** client **************
+class Client1{
+
+    private ServiceI service;
+
+    <b>public Client1() {
+        service = new Service1(); // ICI le client choisit
+    }</b>
+
+    public void action(){
+        System.out.println("Client.action() : " + service.doSomething());
+    }
+}
+
+// ********** service **************
+interface ServiceI{
+    public String doSomething();
+}
+
+class Service1 implements ServiceI{
+    public String doSomething(){
+        return this.getClass() + ".doSomething()";
+    }
+}
+
+// ********** main **************
+public class Test1{
+    public static void main(String[] args){
+        <b>Client1 client = new Client1()</b>;
+        client.action();
+    }
+}
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="1-1-problemes">Problèmes</a></h3>
+Cette solution fonctionne, mais elle est rigide car le client est lié à une implémentation donnée du service.
+<br>De plus, il n'est pas possible de tester le client indépendamment du service.
+
+<img class="border padding05 margin margin-left2" src="img/dependency-injection1.jpg" alt="Injection de dépendance" />
+
+Dans un vrai système, on peut avoir des dizaines de services, avec plusieurs implémentations possibles par service, il faut que le client puisse fonctionner avec n'importe quelle implémentation du service.
+<br>On aussi a parfois besoin de pouvoir déployer des clients utilisant des implémentations différentes des services utilisés.
+<br>
+<br>On cherche à se retrouver dans une situation de <b>plugin</b> (des programmes complètement indépendants qui fonctionnent ensemble).
+<br>
+<br>Deux patterns répondent à cette problématique : <b>dependency injection</b> et <b>service locator</b>.
+<br>
+<br>On parle d'<b>inversion de contrôle</b>, car le client ne décide plus de l'implémentation des composants qu'il utilise.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-injection-de-dependance">Injection de dépendance</a></h2>
+
+On définit habituellement 3 types d'injection :
+<ul>
+    <li>Injection par constructeur</li>
+    <li>Injection par setter</li>
+    <li>Injection par interface</li>
+</ul>
+
+Dans tous les cas, c'est du code extérieur au client qui décide de l'implémentation des services utilisés par le client.
+
+<img class="border padding05 margin margin-left2" src="img/dependency-injection2.jpg" alt="Injection de dépendance" /></div>
+
+Le client est déconnecté de l'implémentation.
+
+<!-- ************************************* -->
+<h3>Injection par constructeur (type 3)</h3>
+Le service à utiliser est "injecté" dans le client par le biais d'un constructeur. 
+
+<pre>
+// ********** client **************
+class Client2{
+
+    private ServiceI service;
+
+    <b>public Client2(ServiceI service) {
+        this.service = service; // ICI injection
+    }</b>
+
+    public void action(){
+        System.out.println("Client.action() : " + service.doSomething());
+    }
+}
+
+// ********** service **************
+interface ServiceI{
+    public String doSomething();
+}
+
+class Service2 implements ServiceI{
+    public String doSomething(){
+        return this.getClass() + ".doSomething()";
+    }
+}
+
+// ********** main **************
+public class Test2{
+    public static void main(String[] args){
+        <b>Client2 client = new Client2(new Service2());</b>
+        client.action();
+    }
+}
+</pre>
+
+<h4>Intérêts</h4>
+<ul>
+    <li>
+        Le service est toujours disponible pour le client.
+    </li>
+    <li>
+        On a bien rendu client et service indépendants.
+    </li>
+    <li>
+        On peut tester le service et le client indépendamment :
+<pre>
+ServiceI service1 = new ServiceDeTest();
+Client client1 = new ServiceDeTest(service1);
+
+ServiceI service2 = new ServiceRéel();
+Client client2 = new ServiceDeTest(service2);
+</pre>
+    </li>
+</ul>
+
+<h4>Inconvénients</h4>
+<ul>
+    <li>
+        Pas très flexible, par exemple si le client peut faire certaines choses sans avoir besoin du service.
+        <br>Ce problème devient plus aigü si le client utilise plusieurs services.
+    </li>
+</ul>
+
+<!-- ************************************* -->
+<h3>Injection par setter (type 2)</h3>
+
+Le client peut être créé sans service, et le service lui est injecté par le biais d'un setter.
+
+<pre>
+// ********** client **************
+class Client3{
+
+    private ServiceI service;
+
+    <b>public void setService(ServiceI service){
+        this.service = service; // ICI injection
+    }</b>
+    
+    public void action(){
+        System.out.println("Client.action() : " + service.doSomething());
+    }
+}
+
+// ********** service **************
+interface ServiceI{
+    public String doSomething();
+}
+
+class Service3 implements ServiceI{
+    public String doSomething(){
+        return this.getClass() + ".doSomething()";
+    }
+}
+
+// ********** main **************
+public class Test3{
+    public static void main(String[] args){
+        Client3 client = new Client3();
+        <b>client.setService(new Service3());</b>
+        client.action();
+    }
+}
+</pre>
+
+<!-- ************************************* -->
+<h3>Injection par interface (type 1)</h3>
+Même chose que l'injection par setter, mais on demande en plus au client d'implémenter une interface.
+
+<pre>
+// ********** client **************
+<b>interface ServiceUser{
+    public void injectService(ServiceI service);
+}</b>
+
+class Client4 implements ServiceUser{
+
+    private ServiceI service;
+
+    <b>public void injectService(ServiceI service){
+        this.service = service; // ICI injection
+    }</b>
+    
+    public void action(){
+        System.out.println("Client.action() : " + service.doSomething());
+    }
+}
+
+// ********** service **************
+interface ServiceI{
+    public String doSomething();
+}
+
+class Service4 implements ServiceI{
+    public String doSomething(){
+        return this.getClass() + ".doSomething()";
+    }
+}
+
+// ********** main **************
+public class Test4{
+    public static void main(String[] args){
+        Client4 client = new Client4();
+        <b>client.injectService(new Service4());</b>
+        client.action();
+    }
+}
+</pre>
+
+<!-- ************************************* -->
+<h3>Remarques</h3>
+
+<ul>
+    <li>
+        Une règle pouvant être utile : utiliser l'injection par constructeur pour les services obligatoires (sans lesquels le client ne peut pas fonctionner), et l'injection par setter pour les services optionnels (dont le client n'a pas tout le temps besoin).
+    </li>
+    <li>
+        Il existe plusieurs moyens de réaliser l'injection de dépendances :
+        <ul>
+            <li>l'injection peut être codé en dur, comme dans la fonction <code>main()</code> des exemples.</li>
+            <li>On peut utiliser un fichier de configuration pour spécifier les types de service à utiliser (et utiliser la reflection pour construire les services).</li>
+            <li>On peut utiliser des annotations ; moyen utilisé par JEE pour fabriquer des EJB.</li>
+            <li>L'injection de dépendance peut permettre de faire des pools d'objets.</li>
+        </ul>
+    </li>
+</ul>
+
+
+<!-- ********************************************************************************* -->
+<h2>Service locator</h2>
+
+L'idée est d'avoir un objet (le service locator) qui sait comment créer tous les services dont une application (un client) peut avoir besoin.
+<br>Le diagramme exprimant les dépendances devient le suivant :
+<img class="padding05 border margin margin-left2" src="img/service-locator.jpg" alt="Service Locator" />
+
+Exemple de JNDI en JEE.
+<!-- 
+
+http://www.procata.com/talks/phptek-may2007-dependency.pdf
+
++ from https://stackoverflow.com/questions/557742/dependency-injection-vs-factory-pattern
+
+Instead of instantiating the parts itself a car asks for the parts it needs to function.
+
+class Car
+{
+    private Engine;
+    private SteeringWheel;
+    private Tires tires;
+
+    public Car(Engine engine, SteeringWheel wheel, Tires tires)
+    {
+        this.Engine = engine;
+        this.SteeringWheel = wheel;
+        this.Tires = tires;
+    }
+}
+
+Factory
+
+Puts the pieces together to make a complete object and hides the concrete type from the caller.
+
+static class CarFactory
+{
+    public ICar BuildCar()
+    {
+        Engine engine = new Engine();
+        SteeringWheel steeringWheel = new SteeringWheel();
+        Tires tires = new Tires();
+        ICar car = new RaceCar(engine, steeringWheel, tires);
+        return car;
+    }   
+}
+
+Result
+
+As you can see, Factories and DI complement each other.
+
+static void Main()
+{
+     ICar car = CarFactory.BuildCar();
+     // use car
+}
+
+Do you remember goldilocks and the three bears? Well, dependency injection is kind of like that. Here are three ways to do the same thing.
+
+void RaceCar() // example #1
+{
+    ICar car = CarFactory.BuildCar();
+    car.Race();
+}
+
+void RaceCar(ICarFactory carFactory) // example #2
+{
+    ICar car = carFactory.BuildCar();
+    car.Race();
+}
+
+void RaceCar(ICar car) // example #3
+{
+    car.Race();
+}
+
+Example #1 - This is the worst because it completely hides the dependency. If you looked at the method as a black box you would have no idea it required a car.
+
+Example #2 - This is a little better because now we know we need a car since we pass in a car factory. But this time we are passing too much since all the method actually needs is a car. We are passing in a factory just to build the car when the car could be built outside the method and passed in.
+
+Example #3 - This is ideal because the method asks for exactly what it needs. Not too much or too little. I don't have to write a MockCarFactory just to create MockCars, I can pass the mock straight in. It is direct and the interface doesn't lie.
+
+This Google Tech Talk by Misko Hevery is amazing and is the basis of what I derived my example from. http://www.youtube.com/watch?v=XcT4yYu_TTs
+-->
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

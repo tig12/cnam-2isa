@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Abstract Factory Prototypes | NFP121</title>
+    <meta name="description" content="Implémentation du pattern Abstract Factory utilisant des prototypes.">
+    <meta name="robots" content="index,follow">
+    <link href="../../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Abstract factory implémentée avec des prototypes.</h1>
+</header>
+
+<article>
+
+L'implémentation de l'exemple GOF pour le pattern Abstract Factory (<a href="../../../../exemples/patterns/abstract-factory/ExempleGOF.java">ExempleGOF.java</a>) utilise des Factory Methods dans les fabriques concrètes.
+
+<ol class="spaced">
+    
+    <li>
+        Transformez cette classe afin d'implémenter les fabriques concrètes avec des prototypes (qui doivent donc remplacer les <code>new()</code> par un mécanisme de clonage).
+        <br>Cette transformation doit être complètement transparente pour le client (la fonction <code>main()</code> doit rester exactement identique).
+    </li>
+    <li>
+        Examinez le <a href="../../../../solutions/exos/patterns/prototype/widgets/solution1">corrigé de la réponse à la question 1</a> ; on peut constater que cette implémentation présente le même inconvénient que <a href="../../../../exemples/patterns/prototype/PrototypeDemo1.java">PrototypeDemo1.java</a> : chaque fabrique concrète crée tous les widgets qu'elle est capable de créer, même si le code client n'en a pas besoin.
+        <br>Implémentez une solution n'ayant pas cet inconvénient.
+    </li>
+</ol>
+
+</article>
+
+</body>
+</html>
+

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Git, premiers pas| Millau CNAM 2ISA</title>
+    <meta name="description" content="">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <meta name="robots" content="index,follow">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2019">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="NFP121" href="git.html">&uarr;</a>
+<!-- 
+    <a class="prev" title="Previous" href=".html">&larr;</a>
+-->
+    <a class="next" title="Next" href="branches-git.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Git, premiers pas</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-creer-un-depot">Créer un dépôt</a>
+            <ul>
+                <li><a href="#1-1-creer-un-depot-vide">Créer un dépôt vide</a></li>
+                <li><a href="#1-2-cloner-un-depot-distant">Cloner un dépôt distant</a></li>
+                <li><a href="#1-3-cloner-un-depot-local">Cloner un dépôt local</a></li>
+                <li><a href="#1-4-gitignore">.gitignore</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-config">Config</a>
+            <ul>
+                <li><a href="#2-1-modifier-la-config">Modifier la config</a></li>
+                <li><a href="#2-2-git-completion">Git completion</a></li>
+                <li><a href="#2-3-display-current-branch-in-console">Display current branch in console</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#3-premier-commit-git-diff-git-add-git-status-git-log">Premier commit, git diff, git add, git status, git log</a>
+        </li>
+        <li>
+            <a href="#4-les-3-etats-d-un-fichier">Les 3 états d'un fichier</a>
+        </li>
+        <li>
+            <a href="#5-remotes-pull">Remotes, pull</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+Créez un répertoire vide et allez dedans :
+<pre>
+mkdir git-tests
+cd git-tests
+</pre>
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-creer-un-depot">Créer un dépôt</a></h2>
+
+
+<!-- ************************************* -->
+<h3><a name="1-1-creer-un-depot-vide">Créer un dépôt vide</a></h3>
+Si on fait :
+<pre>git init</pre>
+git va initialiser un dépôt dans le répertoire courant.
+<br>
+<br>Comme on va travailler avec plusieurs dépôts, on va plutôt créer un dépôt dans un sous-répertoire :
+
+<pre>git init repo1</pre>
+
+Cette instruction crée un dosssier <code>repo1/</code> ET initialise un dépôt dans ce dossier.
+<br>
+<br>Mais git refuse de créer un dépôt sans un minimum de configuration (voir paragraphe suivant).
+<br>Donc avant de créer un dépôt, faire (en adaptant à vos données) :
+<pre>
+git config --global user.name "My name"
+git config --global user.email "email@example.org"
+</pre>
+
+Il est maintenant possible de créer le dépôt avec <code>git init repo1</code>.
+<br>
+<br>En listant les fichiers cachés, on voit qu'un répertoire <code>repo1/.git/</code> a été créé :
+<pre>
+ls -a repo1/
+.git
+</pre>
+
+Cest dans ce répertoire caché que git va gérer toute l'historique du dépôt.
+
+<!-- ************************************* -->
+<h3><a name="1-2-cloner-un-depot-distant">Cloner un dépôt distant</a></h3>
+
+<pre>
+# Crée un répertoire <code>cours-millau/</code> et clone le dépôt distant dedans.
+git clone https://gitea.tig12.net/tig12/cnam-millau.git cours-millau
+</pre>
+
+
+<!-- ************************************* -->
+<h3><a name="1-3-cloner-un-depot-local">Cloner un dépôt local</a></h3>
+
+Le chemin indiqué à clone peut être une uri distante ou un chemin local, relatif ou absolu.
+
+<pre>
+# en étant toujours dans git-tests :
+git clone repo1 clone-repo1
+
+# exactement pareil que
+mkdir clone-repo1
+cd clone-repo1
+git clone ../repo1
+</pre>
+
+                  
+<!-- ************************************* -->
+<h3><a name="1-4-gitignore">.gitignore</a></h3>
+
+git utilise un fichier nommé <code>.gitignore</code> pour exclure du versionnage certains fichiers.
+<br>La documentation de référence peut s'obtenir en tapant <code>git help gitignore</code> ; version web de cette doc sur <a href="https://git-scm.com/docs/gitignore">git-scm.com/docs/gitignore</a>.
+<br>Il existe de nombreuses pages documentant <code>.gitignore</code>, par exemple <a href="https://help.github.com/articles/ignoring-files/">help.github.com/articles/ignoring-files/</a>.
+
+<!-- 
+/___ avoids recursivity - only matches it to current directory
+__/ matches all files in that directory
+*___ matches all files with that ending
+! negates a pattern - i.e. don't match this
+[__] matches a character to any of the characters in the square brackets.
+? matches any character
+/**/ matches nested directories e.g. a/**/d matches a/d a/b/d a/b/c/d etc.
+-->
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-config">Config</a></h2>
+
+git contient <b>3 niveaux de configuration</b> :
+<ul>
+    <li><b>System-wide</b> : pour tous les utilisateurs (unix ou windows) de la machine.</li>
+    <li><b>User-wide</b> : pour tous les dépôts git locaux de l'utilisateur courant</li>
+    <li><b>Local</b> : spécifique au dépôt courant.</li>
+</ul>
+
+Les options system-wide peuvent être overridées par les options user-wide, qui peuvent elles-mêmes être overridées par les options locales.
+<br>
+<br>Les options de configuration de niveau <code>local</code> sont stockées dans <code><b>.git/config</b></code>.
+<br>L'endroit où sont stockées les autres options dépendent du système d'exploitation.
+<br>
+<br><code>git config</code> permet de gérer les options de configuration.
+<pre>
+# lister les options de git config:
+git config --list
+
+# afficher le man complet :
+git help config
+
+# Lister la valeur des options :
+git config --list
+
+# Lister la valeur des options en précisant où elles sont stockées :
+git config --list --show-origin
+</pre>
+
+Exemples de résultat : 
+<pre>
+git config --list --show-origin
+
+###
+### Config pour tous les dépôts git locaux de l'utilisateur (unix ou windows) courant
+###
+file:/home/user1/.gitconfig	user.name=User1
+file:/home/user1/.gitconfig	user.email=user1@example.com
+file:/home/user1/.gitconfig	core.editor=vim
+file:/home/user1/.gitconfig	core.pager=cat
+file:/home/user1/.gitconfig	core.quotepath=false
+file:/home/user1/.gitconfig	core.ignorecase=false
+file:/home/user1/.gitconfig	merge.tool=meld
+file:/home/user1/.gitconfig	color.ui=true
+file:/home/user1/.gitconfig	alias.s=status
+file:/home/user1/.gitconfig	alias.st=status -uall
+file:/home/user1/.gitconfig	alias.ci=commit
+file:/home/user1/.gitconfig	alias.cia=commit -am
+file:/home/user1/.gitconfig	alias.slog=log -15 --graph --abbrev-commit --decorate --date=iso --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ad)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)
+' --all
+file:/home/user1/.gitconfig	alias.br=branch
+file:/home/user1/.gitconfig	alias.bl=show-branch --list
+file:/home/user1/.gitconfig	alias.co=checkout
+file:/home/user1/.gitconfig	push.default=simple
+
+###
+### Config spécifique au dépôt courant
+###
+file:.git/config	core.repositoryformatversion=0
+file:.git/config	core.filemode=true
+file:.git/config	core.bare=false
+file:.git/config	core.logallrefupdates=true
+file:.git/config	remote.origin.url=ssh://user1@my-git-host.org/path/to/repo/repo-name.git
+file:.git/config	remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+file:.git/config	branch.master.remote=origin
+file:.git/config	branch.master.merge=refs/heads/master
+</pre>
+
+Dans l'exemple précédent, remarquer les alias ; cette syntaxe est parfois utilisée dans la suite.
+<br>Remarquer aussi slog.
+
+
+<!-- ************************************* -->
+<h3><a name="2-1-modifier-la-config">Modifier la config</a></h3>
+On peut modifier la config avec <code>git config</code> :
+<pre>
+git config --system     # System-wide
+git config --global     # User-wide
+git config --local      # Dépôt courant
+</pre>
+
+Par exemple :
+<pre>git config --global alias.br "branch"</pre>
+(permet d'utiliser <code>git br</code> au lieu de <code>git branch</code>).
+<br>
+<br>Au lieu d'utiliser <code>git config</code>, on peut directement éditer et modifier le fichier <code>.git/config</code> ou les fichiers contenant les configs <code>global</code> et <code>system</code>.
+
+<!-- ************************************* -->
+<h3><a name="2-2-git-completion">Git completion</a></h3>
+Pour pouvoir utiliser la touche <code>TAB</code> pour compléter la commande qu'on est en train de taper.
+<br>Pré-configuré sous Windows ; sous bash, voir <a href="https://git-scm.com/book/fr/v1/Les-bases-de-Git-Trucs-et-astuces">cette page</a>.
+
+<!-- ************************************* -->
+<h3><a name="2-3-display-current-branch-in-console">Display current branch in console</a></h3>
+Pour afficher sur la console le nom de la branche courante, lorsqu'on est dans un répertoire versionné par git.
+<br>Pré-configuré sous Windows ; sous bash, voir <a href="https://stackoverflow.com/questions/15883416/adding-git-branch-on-the-bash-command-prompt">cette page</a>.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-premier-commit-git-diff-git-add-git-status-git-log">Premier commit, git diff, git add, git status, git log</a></h2>
+
+Aller dans le dépôt vide :
+<pre>cd repo1</pre>
+
+<code>git status</code> permet de voir ce qui a été modifié depuis le dernier commit.
+<br>On peut vérifier que rien n'a été modifié :
+<pre>
+git st
+Sur la branche master
+rien à valider, la copie de travail est propre
+</pre>
+
+Créer un premier fichier <code>test1.txt</code> dans lequel on écrit "<code>Une première ligne</code>" :
+<pre>echo 'Une première ligne' > test1.txt</pre>
+Maintenant, <code>git status</code> indique quelque chose :
+<pre>git st</pre>
+<pre>
+git st
+Sur la branche master
+
+Aucun commit
+
+Fichiers non suivis:
+  (utilisez "git add &lt;fichier>..." pour inclure dans ce qui sera validé)
+
+	test1.txt
+
+aucune modification ajoutée à la validation mais des fichiers non suivis sont présents (utilisez "git add" pour les suivre)
+</pre>
+
+<code>test1.txt</code> ne fait pas partie des fichiers versionnés. Pour indiquer à git qu'on veut suivre ce fichier, on fait :
+
+<pre>git add test1.txt</pre>
+
+Si on a plusieurs fichiers à versionner, on peut tous les ajouter en faisant
+<pre>git add -A</pre>
+
+Maintenant, <code>git status</code> donne un résultat différent :
+<pre>
+git st
+Sur la branche master
+
+Aucun commit
+
+Modifications qui seront validées :
+  (utilisez "git rm --cached &lt;fichier>..." pour désindexer)
+
+	nouveau fichier : test1.txt
+</pre>
+
+git indique que <code>test1.txt</code> est bien pris en compte et que ses modifications seront enregistrées au prochain commit.
+<br>
+<br>On peut maintenant faire un premier commit :
+<pre>
+git ci -m "Création de test1.txt"
+[master (commit racine) 2eb9fa0] Création de test1.txt
+ 1 file changed, 1 insertion(+)
+ create mode 100644 test1.txt
+</pre>
+
+<code>git slog</code> montre que ce commit a bien été pris en compte :
+<pre>
+git slog 
+* 2eb9fa0 - (2019-01-19 12:35:48 +0100) Création de test1.txt - Thierry (HEAD -> master)
+</pre>
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-les-3-etats-d-un-fichier">Les 3 états d'un fichier</a></h2>
+
+Pour un fichier donné, git connaît trois états différents.
+Si on fait <code>git status</code>, on voit que rien n'a été modifié.
+<br>
+<br>Le fichier <code>test1.txt</code> est dans l'état <b>committed</b> : son état courant est enregistré par git.
+<br>
+On ajoute une seconde ligne à <code>test1.txt</code>
+<pre>echo "Une seconde ligne" >> test1.txt</pre>
+On peut voir l'état des modifications avec <code>git diff</code> et <code>git status</code>.
+<pre>
+git st
+Sur la branche master
+Modifications qui ne seront pas validées :
+  (utilisez "git add &lt;fichier>..." pour mettre à jour ce qui sera validé)
+  (utilisez "git checkout -- &lt;fichier>..." pour annuler les modifications dans la copie de travail)
+
+	modifié :         test1.txt
+
+aucune modification n'a été ajoutée à la validation (utilisez "git add" ou "git commit -a")
+</pre>
+Le fichier <code>test1.txt</code> est maintenant dans l'état <b>modified</b> : des modifications ont été faites mais elles ne seront pas prises en compte au prochain commit.
+<br>
+<br>On indique à git que ces modifications seront à inclure dans le prochain commit en faisant :
+<pre>git add test1.txt</pre>
+<code>git status</code> donne maintenant :
+<pre>
+git st
+Sur la branche master
+Modifications qui seront validées :
+  (utilisez "git reset HEAD &lt;fichier>..." pour désindexer)
+
+	modifié :         test1.txt
+</pre>
+
+</pre>
+Le fichier <code>test1.txt</code> est maintenant dans l'état <b>staged</b> : il a été modifié depuis le dernier commit, ces modifications ont été signalées à git et seront prises en compte lors du prochain commit. On dit que <code>test1.txt</code> est dans la <b>staging area</b> ou dans l'<b>index</b> (la liste des modifications à prendre en compte au prochain commit se trouve dans <code>.git/index</code>).
+<br>
+<br>Si on fait un commit, les modifications faites sur <code>test1.txt</code> seront donc enregistrées dans git.
+<br>
+<br>Mais on peut très bien continuer à modifier <code>test1.txt</code> ; on ajoute une troisième ligne :
+<pre>echo "Une troisième ligne" >> test1.txt</pre>
+
+<code>test1.txt</code> se trouve maintenant à la fois dans l'état <b>modified</b> et <b>staged</b>, comme l'indique <code>git status</code> :
+<pre>
+git st
+Sur la branche master
+Modifications qui seront validées :
+  (utilisez "git reset HEAD &lt;fichier>..." pour désindexer)
+
+	modifié :         test1.txt
+
+Modifications qui ne seront pas validées :
+  (utilisez "git add &lt;fichier>..." pour mettre à jour ce qui sera validé)
+  (utilisez "git checkout -- &lt;fichier>..." pour annuler les modifications dans la copie de travail)
+
+	modifié :         test1.txt
+</pre>
+Si on fait un commit maintenant, seules les modifications enregistrées dans l'index seront enregistrées :
+<pre>git ci -m "Ajout d'une seconde ligne dans test1.txt"</pre>
+
+<code>git status</code> permet de voir que <code>test1.txt</code> reste dans l'état <b>modified</b>.
+
+On peut enregistrer ces modifications en faisant :
+<pre>
+git add test1.txt
+git ci -m "Ajout d'une troisième ligne dans test1.txt"
+</pre>
+Ou de manière plus courte :
+<pre>git ci -am "Ajout d'une troisième ligne dans test1.txt"</pre>
+Le "a" indique qu'on fait un add juste avant de faire le commit.
+<br>Mais attention : ce "a" ne va concerner que les fichiers déjà gérés par git. Si vous voulez ajouter un fichier qui n'a jamais été versionné, il faut faire explicitement <code>git add</code>.
+<br>
+<br>Pour résumer :
+
+<table class="wikitable margin">
+    <th>Etat d'un fichier</th><th>Signification</th>
+    <tr>
+        <td><b>Non versionné</b></td>
+        <td>
+            Inconnu de git
+            <br>Ne fait pas partie des 3 états officiellement reconnus.
+            <br>Un <code>git add</code> est nécessaire pour qu'il devienne versionné.
+        </td>
+    </tr>
+    <tr>
+        <td><b>Modified</b></td>
+        <td>
+            Le fichier a été modifié depuis le dernier commit.
+            <br>Les modifications ne seront pas prises en compte lors du prochain commit.
+            <br>Pour le faire passer en état <b>staged</b>, il faut faire <code>git add</code> ou utiliser l'option <code>a</code> de <code>git commit</code>.
+        </td>
+    </tr>
+    <tr>
+        <td><b>Staged</b></td>
+        <td>
+            Des modifications on été faites sur le fichier depuis le dernier commit, et seront enregistrées au prochain commit.
+        </td>
+    </tr>
+    <tr>
+        <td><b>Commited</b></td>
+        <td>L'état du fichier est conforme à la base de données de git.</td>
+    </tr>
+</table>
+
+<!-- ********************************************************************************* -->
+<h2><a name="5-remotes-pull">Remotes, pull</a></h2>
+
+Chaque dépôt git peut être connecté à des dépôts distants (remote repository en anglais), que l'on peut lister avec <code>git remote</code>.
+<br>Si on fait <code>git remote</code> depuis <code>repo1</code>, git n'affiche rien car il a été créé de manière autonome et on ne lui a rien indiqué.
+<br>Mais si on va dans le dépôt <code>clone-repo1</code> (créé dans le paragraphe "Cloner un dépôt local"), git affiche quelque chose :
+<pre>
+cd ../clone-repo1
+
+# on est dans git-tests/clone-repo1
+
+git remote 
+</pre>
+<pre>
+origin
+</pre>
+Lorsqu'on a cloné le dépot <code>repo1</code>, git a automatiquement créé un remote qu'il a appelé "origin".
+<br>Cette information est stockée dans <code>.git/config</code> :
+<pre>
+[remote "origin"]
+	url = /path/to/git-test/repo1/
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+</pre>
+
+Si on fait <code>git slog</code>, git ne renvoie rien car on a créé <code>clone-repo1</code> alors que <code>repo1</code> ne contenait aucun commit.
+<br>
+<br>On peut récupérer les commits de <code>repo1</code> en faisant :
+<pre>git pull origin</pre>
+<pre>
+remote: Décompte des objets: 9, fait.
+remote: Compression des objets: 100% (4/4), fait.
+remote: Total 9 (delta 0), reused 0 (delta 0)
+Dépaquetage des objets: 100% (9/9), fait.
+Depuis /home/thierry/dev/jobs/cnam/git-repos/git-test/repo1
+ * [nouvelle branche] master     -> origin/master
+</pre>
+
+On peut constater deux effets de <code>git pull</code> :
+<ul>
+    <li>
+        Toute l'historique des commits de <code>repo1</code> a été récupérée dans le clone (faire <code>git slog</code> pour le constater).
+    </li>
+    <li>
+        Le dossier <code>clone-repo1/</code> contient le fichier <code>test1.txt</code>.
+    </li>
+</ul>
+
+<!-- ********************************************************************************* -->
+<!-- 
+<h3>push</h3>
+
+On crée un fichier <code>clone.txt</code>, on le versionne et on commit :
+<pre>
+echo "Fichier créé dans clone-repo1" > clone.txt
+git add -A
+git ci -m "Création de clone.txt, effectuée depuis clone-repo1"
+</pre>
+
+Si on veut envoyer ce commit dans le dépôt <code>repo1</code> :
+<pre>git push origin</pre>
+git envoie un message d'erreur.
+<br>En effet, par défaut, git ne permet pas de faire un <code>push</code> dans un dépôt qui n'est pas "bare" (nu), et explique comment rendre ça possible en réglant <code>receive.denyCurrentBranch</code> dans la config du dépôt distant.
+<br>
+<br>Si on veut synchroniser les deux dépôts, on a deux solutions :
+
+<ol>
+    
+    <li>
+        On suit les indications données par git
+        <br>(Ne pas faire ça, faire la solution 2)
+<pre>
+# on retourne dans repo1/
+cd ../repo1/
+
+# on autorise repo1 à recevoir des push même s'il n'est pas bare.
+git config --local receive.denyCurrentBranch "ignore"
+
+# on revient dans clone-repo1/
+cd -    # équivalent à cd ../clone-repo1
+
+# maintenant on peut faire le push
+git push origin
+</pre>
+        Si on revient dans <code>repo1</code>, <code>git slog</code> montre que le commit effectué dans le clone est bien présent, mais le fichier <code>clone.txt</code> n'est pas présent.
+        <br><code>git status</code> montre qu'il a été ajouté à l'index et est prêt à être versionné.
+        <br>Il faut faire un <code>git reset --hard</code> pour régler cela.
+    </li>
+    
+    <li>
+        On va dans <code>repo1</code> pour faire un pull.
+        <br>Avant ça, il faut connecter <code>repo1</code> avec son clone, ce qui se fait avec <code>git remote add</code>
+<pre>
+# on ajoute un remote appelé clone en spécifiant son chemin.
+git remote add clone ../clone-repo1/
+</pre>
+        Et on peut faire
+        <pre>git pull --ff-only clone master</pre>
+        
+    </li>
+
+</ol>
+-->
+
+<!-- ********************************************************************************* -->
+<!-- ************************************* -->
+<!-- ******************* -->
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Visiteur Ruche | NFP121</title>
+    <link href="../../../../static/style.css" rel="stylesheet" type="text/css">
+    <meta name="description" content="Modélisation de l'activité d'une ruche en utilisant le pattern Visitor">
+    <meta name="robots" content="index,follow">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Ruche (Visitor)</h1>
+</header>
+
+<article>
+
+Le code contenu dans <code><a href="enonce">enonce/</a></code> simule le fonctionnement d'une ruche peuplée d'abeilles.
+<br>Une ruche est composée de rayons, eux mêmes composés de cellules.
+<br>Il existe 3 types de cellule, dépendant de leur usage : <code>CelluleOuvriere</code>, <code>CelluleRoyale</code> et <code>CelluleMale</code>.
+<br>Le pattern <i>Composite</i> est utilisé pour modéliser cette hiérarchie.
+<br>L'implémentation de ce composite est fournie dans <code>enonce/apiculture/ruche</code>.
+<br>
+<br>Au cours de leur vie, les abeilles occupent différentes fonctions liées à l'entretien des cellules : elles peuvent être nettoyeuse, nourrice, architecte, maçonne, manutentionnaire, ventileuse.
+<br>L'entretien des cellule est simulé en utilisant le pattern <i>Visitor</i>.
+<br>Chaque visiteur concret correspond à une des fonctions des abeilles.
+<br>L'implémentation du visiteur abstrait <code>Abeille</code> et des visiteurs concrets <code>Nettoyeuse</code> et <code>Nourrice</code> se trouve dans <code>enonce/apiculture/abeilles</code>.
+<br>
+<br>Questions (les questions sont indépendantes les unes des autres) :
+
+<ol class="spaced">
+
+    <li>
+        Compilez le code fourni, exécutez-le et vérifiez que les deux visiteurs concrets créés dans <code>main()</code> (<code>nettoyeuse1</code> et <code>nourrice1</code>) visitent bien toutes les cellules de <code>ruche1</code>.
+    </li>
+    
+    <li>
+        Dans <code>main()</code>, créez une seconde abeille de type <code>Nourrice</code> dont le nom est "Nourrice 2".
+        <br>Faites travailler cette abeille sur <code>rayon2</code> (uniquement sur ce rayon, pas sur la ruche entière).
+        <br>Lors de l'exécution de la fonction <code>main()</code>, vous devez obtenir l'affichage supplémentaire suivant :
+<pre>
+=== Travail de nourrice2 ===
+Visite de Cellule ouvrière 2_1 par Nourrice 2
+Visite de Cellule ouvrière 2_2 par Nourrice 2
+Visite de Cellule royale 2_3 par Nourrice 2
+</pre>
+    </li>
+    
+    <li>
+        Implémentez un nouveau visiteur concret : <code>Ventileuse</code>.
+        <br>Son action sur une cellule sera similaire à celles des visiteurs concrets déjà implémentés, c'est à dire afficher une chaîne de caractère du type :
+        <pre>Visite de &lt;nom de la cellule> par &lt;nom de l'abeille></pre>
+        Dans <code>main()</code>, créez une <code>Ventileuse</code> ayant pour nom "Ventileuse 1", et faites la travailler sur <code>ruche1</code>.
+        <br>Vérifiez qu'elle agit bien sur toutes les cellules de <code>ruche1</code> en générant l'affichage suivant :
+<pre>
+=== Travail de ventileuse1 ===
+Visite de Cellule ouvrière 1_1 par Ventileuse 1
+Visite de Cellule mâle 1_2 par Ventileuse 1
+Visite de Cellule ouvrière 1_3 par Ventileuse 1
+Visite de Cellule ouvrière 2_1 par Ventileuse 1
+Visite de Cellule ouvrière 2_2 par Ventileuse 1
+Visite de Cellule royale 2_3 par Ventileuse 1
+Visite de Cellule ouvrière 3_1 par Ventileuse 1
+Visite de Cellule ouvrière 3_2 par Ventileuse 1
+Visite de Cellule ouvrière 3_3 par Ventileuse 1
+</pre>
+    </li>
+    
+    <li>
+        On souhaite maintenant modifier le comportement des abeilles de type <code>Nourrice</code> de manière à ne rien faire sur les cellules de type <code>CelluleMale</code>.
+        <ol>
+            <li>
+                Proposez une solution en rajoutant un test dans la méthode <code>Nourrice.visit()</code>.
+            </li>
+            <li>
+                Justifiez pourquoi cette solution n'est pas satisfaisante.
+            </li>
+            <li>
+                Cette réflexion conduit à la conclusion que notre pattern <i>Visitor</i> n'est pas correctement implémenté : 
+                <br>Au lieu d'avoir dans <code>Abeille</code> une seule méthode <pre>abstract public void visit(Node n);</pre>
+                il faut une méthode par type de noeud représenté : 
+<pre>
+abstract public void visit(CelluleOuvriere n);
+abstract public void visit(CelluleMale n);
+abstract public void visit(CelluleRoyale n);
+</pre>
+                Modifiez la classe abeille et ses sous-classes pour répondre à la question de cette manière.
+                <br>Recompilez, exécutez et vérifiez dans l'affichage que les abeilles de type <code>Nourrice</code> n'ont plus d'action sur les cellules mâles.
+            </li>
+        </ol>
+        
+    </li>
+    
+</ol>
+
+
+</article>
+
+</body>
+</html>
+

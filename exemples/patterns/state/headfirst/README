@@ -1,0 +1,11 @@
+
+Example de "Design Patterns Head First" p 386
+
+Code venant de https://github.com/bethrobson/Head-First-Design-Patterns.git
+directory src/headfirst/designpatterns/state/
+
+1-base : Implémentation sans classes d'état.
+
+2-refactored : Mêmes fcontionnalités que 1-base, en ayant introduit des classes d'état
+
+3-winner : Implémentation de la demande de modifcation.

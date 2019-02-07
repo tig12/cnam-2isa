@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Génériques | NFP121 Millau</title>
+    <meta name="description" content="Intoduction aux types génériques, permettant de paramétrer les types manipulés dans du code java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="enums.html">&larr;</a>
+    <a class="next" title="Next" href="io.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Generics</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-generic-types">Generic types</a>
+            <ul>
+                <li><a href="#1-1-inference-de-type">Inférence de type</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-parametrer-avec-plusieurs-types">Paramétrer avec plusieurs types</a>
+        </li>
+        <li>
+            <a href="#3-raw-types">Raw types</a>
+        </li>
+        <li>
+            <a href="#4-methodes-generiques">Méthodes génériques</a>
+        </li>
+        <li>
+            <a href="#5-bounded-type-parameters">Bounded type parameters</a>
+        </li>
+        <li>
+            <a href="#6-heritage">Héritage</a>
+        </li>
+        <li>
+            <a href="#7-sous-classage">Sous-classage</a>
+        </li>
+        <li>
+            <a href="#8-wildcard">Wildcard</a>
+        </li>
+        <li>
+            <a href="#9-type-erasure">Type erasure</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+
+
+En français, <b>types paramétrés</b> ; introduits en java 5.
+<br>Permettent de paramétrer classes, interfaces et méthodes par des <i>types</i>, comme les paramètres habituels des méthodes permettent de paramétrer par des <i>valeurs</i>.
+<br>Beaucoup utilisés pour les collections.
+<br>La syntaxe utilise <code>&lt; &gt;</code>
+<br>
+<br>Par exemple <code>java.util.List</code>
+<br>Sans type paramétré, une <code>List</code> gère une collection de <code>java.lang.object</code>.
+<pre>
+public interface List extends Collection{ ... }
+</pre>
+Utilisation : 
+<pre>
+List l = new List();
+l.add("toto");
+</pre>
+
+Les méthodes pour gérer des éléments (<code>add()</code>, <code>get()</code> ...) manipulent des <code>Object</code>.
+<br>Avec les generics, on peut <b>paramétrer par un type</b> la création d'une liste :
+<pre>public interface List&lt;E> extends Collection&lt;E>{ ... }</pre>
+Permet de créer une liste dont les éléments sont de type <code>E</code>.
+<br><code>E</code> représente un <b>type non primitif</b>.
+
+<pre>
+List&lt;String> l = new ArrayList&lt;String>();
+List&lt;Integer> l = new ArrayList&lt;Integer>();
+</pre>
+
+Intérêts : 
+<ul>
+    <li>
+        Simplifier le code.
+<pre>
+List l = new ArrayList();
+l.add("hello");
+<b>String s = (String) l.get(0);</b> // cast obligatoire
+</pre>
+<pre>
+List&lt;String> l = new ArrayList&lt;String>();
+l.add("hello");
+<b>String s = l.get(0);</b>   // pas besoin de cast
+</pre>
+    </li>
+    <li>
+        Faire apparaître des bugs à la compilation en renforçant le typage.
+<pre>
+List l = new ArrayList();
+l.add("hello");
+l.add(Integer.valueOf(3));
+String s1 = (String) l.get(0);
+String s2 = (String) l.get(1); // erreur à l'exécution
+</pre>
+        (code dans <a href="../../exemples/java/generics/basic/TestGenerics1.java">TestGenerics1.java</a>)
+<pre>
+List&lt;String> l = new ArrayList&lt;String>();
+l.add("hello");
+l.add(Integer.valueOf(3)); // erreur à la compilation
+
+</pre>
+        (code dans <a href="../../exemples/java/generics/basic/TestGenerics2.java">TestGenerics2.java</a>)
+    </li>
+    <li>Ecrire des structures génériques.</li>
+</ul>
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-generic-types">Generic types</a></h2>
+(= types génériques)
+<br>
+<br>Soit une classe <code>Box</code> qui encapsule un objet, avec deux méthodes, <code>get()</code> et <code>set()</code>.
+
+<pre>
+public class Box {
+
+    private Object object;
+
+    public void set(Object object) { this.object = object; }
+    
+    public Object get() { return object; }
+}
+</pre>
+
+Dans la version de la classe paramétrée par un type, <code>T</code> peut être utilisé dans tous le code de la classe : 
+
+<pre>
+    /**
+     * Generic version of the Box class.
+     * @param &lt;T> the type of the value being boxed
+     */
+    public class Box&lt;T> {
+
+        private T t;
+    
+        public void set(T t) { this.t = t; }
+        
+        public T get() { return t; }
+    }
+</pre>
+
+A l'utilisation : 
+<pre>
+Box&lt;String> b = new Box&lt;String>;
+b.set("hello");
+String s = b.get();
+</pre>
+
+<!-- 
+Permet parfois d'économiser beaucoup de code :
+<pre>
+public class Printer&lt;T>{
+  public void print(T t){
+    System.out.print(t);
+  }
+}
+</pre>
+-->
+
+Conventions pour les noms de types (utilisées dans l'API java) :
+<pre class="normal">
+    E - Element
+    K - Key
+    N - Number
+    R - Return
+    T - Type
+    V - Value
+</pre>
+
+Exemples très nombreux dans l'api java :
+<pre>
+java.util.Collection&lt;E>
+java.util.Map&lt;K,​V>
+java.util.stream.Stream&lt;T>
+    static &lt;T> Stream&lt;T> concat​(Stream&lt;? extends T> a, Stream&lt;? extends T> b)
+    static &lt;T> Stream&lt;T> iterate​(T seed, Predicate&lt;? super T> hasNext, UnaryOperator&lt;T> next)
+    &lt;R> R collect​(Supplier&lt;R> supplier, BiConsumer&lt;R,​? super T> accumulator, BiConsumer&lt;R,​R> combiner)
+</pre>
+
+
+                                                         
+<!-- ************************************* -->
+<h3><a name="1-1-inference-de-type">Inférence de type</a></h3>
+
+Depuis java 7, il est possible de ne pas spécifier le type lorsqu'il peut être <b>inféré</b> (deviné) par le compilateur :
+<pre>Box&lt;String> b = new Box&lt;String>;</pre>
+peut être remplacé par :
+<pre>Box&lt;String> b = new Box&lt;>;</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-parametrer-avec-plusieurs-types">Paramétrer avec plusieurs types</a></h2>
+La syntaxe générale est <code>&lt;T1, T2, ..., Tn></code> (les <code>Ti</code> représentent des types).
+<pre>
+public interface Pair&lt;K, V> {
+    public K getKey();
+    public V getValue();
+}
+
+public class OrderedPair&lt;K, V> implements Pair&lt;K, V> {
+
+    private K key;
+    private V value;
+
+    public OrderedPair(K key, V value) {
+	this.key = key;
+	this.value = value;
+    }
+
+    public K getKey()	{ return key; }
+    public V getValue() { return value; }
+}
+
+// en utilisant l'inférence de type :
+Pair&lt;String, Integer> p1 = new OrderedPair&lt;>("Even", 8);   // autoboxing de 8 vers un Integer
+Pair&lt;String, String>  p2 = new OrderedPair&lt;>("hello", "world");
+</pre>
+Voir par exemple dans l'API <code>java.util.Map</code>
+<br>
+<br>Un type paramétré peut être lui-même paramétré :
+<pre>OrderedPair&lt;String, Box&lt;Integer>> p = new OrderedPair&lt;>("primes", new Box&lt;Integer>(...));</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-raw-types">Raw types</a></h2>
+Si on a :
+<pre>
+public class Box&lt;T> {
+    public void set(T t) { ... }
+    // ...
+}
+</pre>
+
+A l'utilisation, on fait normalement :
+<pre>Box&lt;Integer> intBox = new Box&lt;>();</pre>
+
+Mais on peut faire aussi :
+<pre>Box rawBox = new Box();</pre>
+Dans ce cas, <code>T</code> vaut implicitement <code>Object</code>, et on parle du <b>raw type</b> (type brut) de <code>Box&lt;>();</code>
+<br>Attention : un type non générique n'est pas un raw type.
+
+<!-- 
+Les conversions ne se font que dans un sens (pour des raisons de compatibilité ascendante) :
+<pre>
+Box rawBox = new Box();
+Box&lt;String> stringBox = new Box&lt;>();
+
+Box rawBox = stringBox;             // OK
+
+Box rawBox = new Box();
+Box&lt;Integer> intBox = rawBox;    // warning: unchecked conversion
+
+Box&lt;String> stringBox = new Box&lt;>();
+Box rawBox = stringBox;
+rawBox.set(8);  // warning: unchecked invocation to set(T)
+</pre>
+-->
+
+<br>
+<br>L'utilisation de raw types génère des warnings à la compilation.
+<pre>
+public class TestRawType1{
+    public static void main(String[] args){
+        List l = new ArrayList();
+        l.add("hello");                    // ici warning compilation
+        l.add(Integer.valueOf(3));         // ici warning compilation
+        String s1 = (String) l.get(0);
+        String s2 = (String) l.get(1);
+    }
+}
+</pre>
+<pre>
+javac TestRawType1.java
+</pre>
+<pre>
+Note: Main1.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+</pre>
+<pre>
+javac <b>-Xlint:unchecked</b> TestRawType1.java
+</pre>
+<pre>
+TestRawType1.java:7: warning: [unchecked] unchecked call to add(E) as a member of the raw type List
+        l.add("hello");
+             ^
+  where E is a type-variable:
+    E extends Object declared in interface List
+
+</pre>
+
+(code dans <a href="../../exemples/java/generics/rawtype/TestRawType1.java">TestRawType1.java</a>)
+<br>
+<br>Pour désactiver les warnings, utiliser l'annotation <code>@SuppressWarnings("unchecked")</code>
+<pre>
+<b>@SuppressWarnings("unchecked")</b>
+public class TestRawType2{
+    public static void main(String[] args){
+        // ...
+    }
+}
+</pre>
+(code dans <a href="../../exemples/java/generics/rawtype/TestRawType2.java">TestRawType2.java</a>)
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-methodes-generiques">Méthodes génériques</a></h2>
+Méthode générique = méthode qui introduit ses propres types paramétrés, <i><b>mais dont la portée est limitée à la méthode</b></i>. 
+<br>Meme syntaxe que pour la déclaration de types paramétrés.
+<br>Peut se trouver dans des méthodes statiques, d'instance ou des constructeurs.
+<br>
+<br>Pour les méthodes statiques, les types doivent se trouver <b>avant le type de retour</b>.
+<pre>
+class Util {
+    <b>public static &lt;K, V> boolean compare(Pair&lt;K, V> p1, Pair&lt;K, V> p2) {</b>
+        return p1.getKey().equals(p2.getKey()) &&
+               p1.getValue().equals(p2.getValue());
+    }
+}
+
+class Pair&lt;K, V> {
+
+    private K key;
+    private V value;
+
+    public Pair(K key, V value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public void setKey(K key) { this.key = key; }
+    public void setValue(V value) { this.value = value; }
+    public K getKey()   { return key; }
+    public V getValue() { return value; }
+}
+</pre>
+Utilisation :
+<pre>
+public class TestGenericMethods1{
+    public static void main(String[] args){
+        Pair&lt;Integer, String> p1 = new Pair&lt;>(1, "apple");
+        Pair&lt;Integer, String> p2 = new Pair&lt;>(2, "pear");
+        <b>boolean same = Util.&lt;Integer, String>compare(p1, p2);</b>
+        // Mais le compilateur est capable d'inférer le type, donc on peut faire :
+        boolean same = Util.compare(p1, p2);
+    }
+}
+
+</pre>
+(code dans <a href="../../exemples/java/generics/methods/TestGenericMethods1.java">TestGenericMethods1.java</a>)
+<br>
+<br>Bien voir la différence : dans la classe <code>Pair&lt;K, V></code>, les types <code>K</code> et <code>V</code> sont définis au niveau de la classe, donc sont connus par tout le code de cette classe.
+<br>La classe <code>Util</code> ne définit pas de type paramétré. Pour permettre à <code>compare()</code> d'utiliser des types paramétrés, on a besoin de paramétrer la méthode.
+
+<!-- ********************************************************************************* -->
+<h2><a name="5-bounded-type-parameters">Bounded type parameters</a></h2>
+( = types paramétrés limités)
+
+<!-- 
+Exemple dans l'api java :
+public static <T extends Enum<T>> T valueOf​(Class<T> enumType, String name)
+-->
+
+<br>
+<br><code>extends</code> signifie ici "extends" ou "implements" (même sémantique que l'annotation <code>@Override</code>).
+
+<pre>
+public class BoundedTypeInGenericMethod{
+    public static void main(String[] args) {
+        Box&lt;Integer> ib = new Box&lt;>();
+        ib.set(Integer.valueOf(10));
+        // ib.inspect("some text"); // erreur de compilation
+        ib.inspect(3.2); // autoboxing vers Double
+    }
+}
+
+class Box&lt;T> {
+    private T t;          
+
+    public void set(T t) { this.t = t; }
+
+    public T get() { return t; }
+
+    public <b>&lt;U extends Number></b> void inspect(U u){
+        System.out.println("T: " + t.getClass().getName());
+        System.out.println("U: " + u.getClass().getName());
+    }
+}
+
+</pre>
+(code dans <a href="../../exemples/java/generics/bounded/BoundedTypeInGenericMethod.java">BoundedTypeInGenericMethod.java</a>)
+<br>
+<br>Intéressant : permet d'utiliser les méthodes du type limité :
+<pre>
+public class NumberBox&lt;T extends Integer> {
+
+    private T n;
+
+    public NumberBox(T n)  { this.n = n; }
+
+    public boolean isEven() {
+        return n.<b>intValue()</b> % 2 == 0;
+    }
+}
+</pre>
+Dans <code>isEven()</code>, <code>n</code> est un objet de type Integer (ou d'une sous-classe), donc les méthodes de la classe <code>Integer</code> sont utilisables.
+<br>
+<br>Exemple d'utilité de la clause <code>extends</code> :
+<pre>
+public static &lt;T> int countGreaterThan(T[] anArray, T elem) {
+    int count = 0;
+    for (T e : anArray)
+        if (e > elem)  // erreur de compilation
+            ++count;
+    return count;
+}
+</pre>
+Erreur de compilation car l'opérateur <code>></code> ne s'applique pas aux objets en général, uniquement à certains types primitifs tels que <code>int</code>.
+<br>Pour pouvoir comparer des objets, on utilise l'interface <code>java.lang.Comparable</code>.
+<pre>
+public static <b>&lt;T extends Comparable&lt;T>></b> int countGreaterThan(T[] anArray, T elem) {
+    int count = 0;
+    for (T e : anArray)
+        if (<b>e.compareTo(elem) > 0</b>)
+            ++count;
+    return count;
+}
+</pre>
+
+(noter au passage que <code>extends</code> ici signifie <code>implements</code>)
+
+<h4>Limites multiples</h4>
+On peut aussi spécifier des limites multiples : 
+<pre>&lt;T extends B1 & B2 & B3></pre>
+<code>T</code> doit être un sous-type de tous les types séparés par des <code>&</code>.
+<br>Cette syntaxe n'a de sens que pour spécifier des <code>implements</code> multiples.
+<br>Si un des <code>Bi</code> est une classe, doit être mis en premier.
+
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="6-heritage">Héritage</a></h2>
+En java, on peut assigner des objets d'un type à des objets d'un autre type, si ces types sont compatibles :
+<pre>
+Object someObject = new Object();
+Integer someInteger = Integer.valueOf(10);
+someObject = someInteger;   // OK
+</pre>
+
+OK parceque <code>Integer</code> est un <code>Object</code> (qui peut le plus peut le moins).
+<br>
+<br>Mais <code>Integer</code> est aussi un <code>Number</code>, donc on peut faire :
+<pre>
+public void someMethod(Number n) { ... }
+
+someMethod(Integer.valueOf(10));   // OK
+someMethod(Double.valueOf(10.1));   // OK
+</pre>
+
+Marche aussi avec les generics :
+<pre>
+Box&lt;Number> box = new Box&lt;>();
+box.add(Integer.valueOf(10));   // OK
+box.add(Double.valueOf(10.1));  // OK
+</pre>
+
+Mais ATTENTION, si on a la méthode :
+<pre>public void boxTest(Box&lt;Number> n) { ... }</pre>
+Est-ce qu'on peut passer à cette méthode des <code>Box&lt;Integer></code> ou des <code>Box&lt;Double></code> ?
+<br>
+<br>NON car
+<img class="border margin margin-left3 padding05" src="img/generics-subtypeRelationship.gif" alt="Generics supbtype relationship" />
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="7-sous-classage">Sous-classage</a></h2>
+On peut sous-classer une classe ou une interface générique avec les clauses <code>extends</code> et <code>implements</code>.
+<br>Exemple pour les sous-classes de <code>java.util.Collection</code>
+<pre>
+List&lt;E> extends Collection&lt;E>
+ArrayList&lt;E> implements List&lt;E>                                                      
+</pre>
+Donc <code>ArrayList&lt;String></code> est un sous-type de <code>List&lt;String></code>, qui est un sous-type de <code>Collection&lt;String></code>
+
+<img class="border margin margin-left3 padding05" src="img/generics-sampleHierarchy.gif" alt="Generics ArrayList hierarchy" />
+
+Si on définit notre propre interface pour gérer des listes :
+<br>(une liste où chaque élément est associé à un élément de type <code>P</code>)
+<pre>
+interface PayloadList&lt;E,P> extends List&lt;E> {
+  void setPayload(int index, P val);
+}
+</pre>
+(PayloadList ~ liste enrichie).
+<br>
+<br>Tous ces paramétrages de <code>PayloadList</code> sont sous-classes de <code>List&lt;String></code> :
+<pre>
+    PayloadList&lt;String,String>
+    PayloadList&lt;String,Integer>
+    PayloadList&lt;String,Exception>
+</pre>
+
+<img class="border margin margin-left3 padding05" src="img/generics-payloadListHierarchy.gif" alt="Generics PayloadList hierarchy" />
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="8-wildcard">Wildcard</a></h2>
+(wildcard = joker, comme <code>*</code> dans une expression régulière ou <code>%</code> en sql)
+<br>Ici, le caractère utilisé est <code><b>?</b></code>
+<br><code>?</code> représente un <b>type inconnu à la compilation</b>.
+
+<h4>Upper bounded wildcard</h4>
+(= wildcard avec limite supérieure)
+<br>
+<br>Alors que
+<pre>List&lt;Number></pre>
+repésente uniquement une liste de type <code>Number</code>,
+
+<pre><b>List&lt;? extends Number></b></pre>
+représente une liste de <code>Number</code> <i>ou de ses sous-classes</i>, comme <code>List&lt;Integer></code> ou <code>List&lt;Double></code>
+<br>Donc <code>List&lt;? extends Number></code> est moins restrictif que <code>List&lt;Number></code>.
+<br>
+<br>NOTE : ici, <i>extends</i> est pris au sens de <code>extends</code> ou <code>implements</code>.
+<br>
+<br>Très utilisé dans l'API java, par exemple dans <code>Interface java.util.Map&lt;K,V></code>
+<pre>
+void putAll(Map&lt;? extends K,? extends V> m)
+</pre>
+
+Dans certains cas, l'usage du wildcard peut etre évité :
+<pre>
+import java.util.List;
+import java.util.Arrays;
+public class TestWildcard{
+
+    public static void main(String[] args){
+        List&lt;Integer> li = Arrays.asList(1, 2, 3);
+        System.out.println("sumOfList1 = " + sumOfList1(li));
+        System.out.println("sumOfList2 = " + sumOfList2(li));
+    }
+
+    public static double sumOfList1(<b>List&lt;? extends Number></b> list) {
+        double s = 0.0;
+        for (Number n : list)
+            s += n.doubleValue();
+        return s;
+    }
+    
+    public static <b>&lt;T extends Number></b> double sumOfList2(List&lt;T> list) {
+        double s = 0.0;
+        for (Number n : list)
+            s += n.doubleValue();
+        return s;                                                                                                         
+    }
+    
+}
+</pre>
+(code dans <a href="../../exemples/java/generics/bounded/TestWildcard.java">TestWildcard.java</a>)
+<br><br>On verra plus loin que si ces 2 méthodes donnent le même résultat, elles ne sont pas strictement équivalentes
+<br>car <code>&lt;? extends Number></code> et <code>&lt;T extends Number></code> sont de types différents, dans deux hiérarchies d'héritage différentes.
+
+<h4>Unbounded wildcard</h4>
+(= wildcard sans limite) ; par ex
+<pre>List&lt;?></pre>
+
+Si on veut afficher une liste de n'importe quel type,
+<pre>
+public static void printList(List&lt;Object> list) {
+    for (Object elem : list)
+        System.out.println(elem + " ");
+    System.out.println();
+}</pre>
+ne permet pas d'afficher tous les types, par ex <code>List&lt;Integer></code> ou <code>List&lt;Double></code>, qui dérivent de <code>Object</code> mais pas de <code>List&lt;Object></code>.
+<br>
+<br>Mais
+<pre>public static void printList(<b>List&lt;?></b> list) { ... }</pre>
+accepte une liste de n'importe quel type, comme <code>List&lt;Object></code>, <code>List&lt;Integer></code> ou <code>List&lt;Double></code>.
+
+<div class="warning">
+    <b>INCERTITUDE</b>
+    <br><code>printList()</code> est l'<a href="https://docs.oracle.com/javase/tutorial/java/generics/unboundedWildcards.html">exemple donné par Oracle</a> pour justifier le besoin de unbounded wildcard.
+    <br>Pourtant cette syntaxe fonctionne aussi :
+    <pre>public static void printList(List&lt;? extends Object> list) { ... }</pre>
+    (code dans <a href="../../exemples/java/generics/wildcard/UnboundedOracle.java">UnboundedOracle.java</a>)
+    <br><code class="color">&lt;?></code> est peut-être seulement un raccourci syntaxique de <code class="color">&lt;? extends Object></code>.
+</div>
+
+<h4>Lower bounded wildcard</h4>
+(= wildcard avec limite inférieure)
+<pre><b>List&lt;? super Integer</b>></pre>
+permet de travailler avec des listes dont le type paramétré est une superclasse de <code>Integer</code>
+<br>Par exemple, pour écrire une méthode qui travaille sur des listes d'entiers et de tous ses supertypes (<code>Number</code>, <code>Object</code>) :
+<pre>
+public static void addNumbers(<b>List&lt;? super Integer></b> list) {
+    for (int i = 1; i &lt;= 10; i++) {
+        list.add(i);
+    }
+}
+</pre>
+<code>List&lt;? super Integer></code> est moins restrictif que <code>List&lt;Number></code>.
+
+<h4>Wildcard et héritage</h4>
+Rappel : 
+<pre>
+class A { ... }
+class B extends A { ... }
+
+// on peut tout à fait écrire :
+B b = new B();
+A a = b; // qui peut le plus (B) peut le moins (A)
+
+// mais pas :
+List&lt;B> lb = new ArrayList&lt;>();
+List&lt;A> la = lb;   // erreur de compilation
+</pre>
+En effet, on a vu que <code>List&lt;B></code> n'est pas un sous-type de <code>List&lt;A></code>.
+<br>
+<br>Les wildcards permettent de créer des relations d'héritage.
+<br>Déjà, on a la relation suivante :
+
+<img class="border margin margin-left2 padding05" src="img/generics-list-parent.gif" alt="Generics - héritage avec wildcard" />
+
+Plus généralement, si <code>B</code> est un sous-type de <code>A</code>, <code>&lt; ? extends B></code> est un sous-type de <code>&lt; ? extends A></code>.
+<br>Par exemple :
+
+<img class="border margin margin-left3 padding05" src="img/generics-wildcardSubtyping.gif" alt="Generics - exemple d'héritage avec wildcard" />
+
+Donc dans l'exemple précédent, si on ne peut pas faire :
+<pre>
+List&lt;B> lb = new ArrayList&lt;>();
+List&lt;A> la = lb;
+</pre>
+on peut faire :
+<pre>
+List&lt;? extends B> lb = new ArrayList&lt;>();
+List&lt;? extends A>  la = lb;
+</pre>
+
+<div class="exo">
+    <b>Exercice</b> : <a href="../../exos/java/generics/personnes/Personnes.html">Personnes</a>
+</div>
+
+<div class="exo">
+    <b>Exercice</b> : <a href="../../exos/java/generics/schema/Schema.html">Erreur de schéma</a>
+</div>
+
+<div class="exo">
+    <b>Exercice</b> : <a href="../../exos/java/generics/compare/Compare.html">Compare</a>
+</div>
+
+<!-- ********************************************************************************* -->
+<h2><a name="9-type-erasure">Type erasure</a></h2>
+A savoir : tous les types sont traduits à la compilation ; le code compilé se retrouve sans type générique.
+<br>La traduction n'est pas triviale, par exemple des casts sont rajoutés, des méthodes supplémentaires sont générées dans le cas d'utilisation de <code>extends</code>.
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+
+</article>
+
+</body>
+</html>
+

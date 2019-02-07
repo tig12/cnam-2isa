@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice : Palindrome | NFP121</title>
+    <link href="../../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Palindrome</h1>
+</header>
+
+<article>
+
+<ol class="spaced">
+    
+    <li>
+        Ecrire une classe <code>Palindrome1</code> contenant deux méthodes statiques :
+        <ul class="spaced">
+            <li>
+                Une méthode <code>inverser</code>, qui prend en paramètre une <code>String</code> et renvoie une <code>String</code>.
+                <br>Par exemple, <code>inverse("azerty") = "ytreza"</code>.
+            </li>
+            <li>
+                La méthode <code>main()</code>, qui doit tester qu'elle a été appelée avec un seul argument (tableau <code>args</code>).
+                <br>Si la méthode n'est pas appelée avec un seul argument, elle doit afficher un message d'erreur et termier l'exécution.
+                <br>
+                <br>Dans le cas où l'appel est correct, affiche le mot entré en paramètre, l'inverse de ce mot, et indique si c'est un palindrome.
+            </li>
+            Exemples d'exécution :
+            <pre>
+java Palindrome1 
+La fonction doit être appelée avec un seul argument
+Exemple : java Palindrome1 mot
+
+java Palindrome1 azerty
+mot : azerty
+inverse : ytreza
+azerty n'est pas un palindrome
+
+java Palindrome1 ressasser
+mot : ressasser
+inverse : ressasser
+ressasser est un palindrome
+            </pre>
+        </ul>
+    </li>
+
+    <li>
+        Ecrire une classe <code>Palindrome2</code> contenant trois méthodes statiques :
+        <ul class="spaced">
+            <li>
+                Une méthode <code>inverser</code>, identique à celle de la question précédente.
+            </li>
+            <li>
+                Une méthode <code>normaliser</code>, qui prend en paramètre une <code>String</code> et renvoie une <code>String</code>.
+                <br>Ele doit supprimer les espaces, apostrophes et tous les caractères qui ne sont pas alphabétiques dans la chaîne passée en paramètre.
+                <br>Par exemple <code>normaliser("Elu par cette crapule") = "eluparcettecrapule"</code>.
+            </li>
+            <li>
+                La méthode <code>main()</code> se comportera différemment que dans <code>Palindrome1</code> :
+                Au lieu d'utiliser <code>args</code>, on va utiliser un <code>Scanner</code> pour attendre une saisie de l'utilisateur :
+                <pre>
+java.util.Scanner scanner = new java.util.Scanner(System.in);
+String str, inverse;
+
+while(true){
+    System.out.println("\nSaisissez une chaîne de caractères ou Q pour terminer");
+    str = scanner.nextLine();
+    if(str.equals("Q")){
+        break;
+    }
+    // A compléter
+}
+                </pre>
+                Exemple d'exécution :
+                <pre>
+Saisissez une chaîne de caractères ou Q pour terminer
+une chaine de caracteres
+mot normalisé : unechainedecaracteres
+inverse : seretcaracedeniahcenu
+'unechainedecaracteres' n'est pas un palindrome
+
+Saisissez une chaîne de caractères ou Q pour terminer
+Élu par cette crapule                                                                    
+mot normalisé : éluparcettecrapule
+inverse : eluparcettecrapulé
+'éluparcettecrapule' n'est pas un palindrome
+
+Saisissez une chaîne de caractères ou Q pour terminer
+Elu par cette crapule
+mot normalisé : eluparcettecrapule
+inverse : eluparcettecrapule
+'eluparcettecrapule' est un palindrome
+
+Saisissez une chaîne de caractères ou Q pour terminer
+Q
+                </pre>
+            </li>
+        </ul>
+        Vous pouvez tester avec des palindromes trouvés sur <a href="https://fr.wikipedia.org/wiki/Liste_de_palindromes_fran%C3%A7ais">la liste de palindromes français sur wikipedia</a> (mais attention, <code>normaliser()</code> ne gère pas les accents.
+    </li>
+    
+    <li>
+        Pour ceux qui ont fini : Comment améliorer <code>normaliser()</code> pour gérer aussi les caractères accentués ?
+    </li>
+</ol>
+
+</article>
+
+</body>
+</html>
+

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Intro POO | NFP121 Millau</title>
+    <meta name="description" content="Introduction à la programmation orientée objet : classes, objets, héritage.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="NFP121" href="../../index.html">&uarr;</a>
+    <!-- <a class="prev" title="Previous" href=".html">&larr;</a> -->
+    <a class="next" title="Next" href="solid.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Introduction à la POO</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-programmation-imperative-et-fonctionnelle">Programmation impérative et fonctionnelle</a>
+        </li>
+        <li>
+            <a href="#2-classes-et-objets">Classes et objets</a>
+        </li>
+        <li>
+            <a href="#3-etat-d-un-objet-et-donnees-d-instance">État d'un objet et données d’instance</a>
+        </li>
+        <li>
+            <a href="#4-variables-et-methodes-de-classe">Variables et méthodes de classe</a>
+        </li>
+        <li>
+            <a href="#5-visibilite">Visibilité</a>
+        </li>
+        <li>
+            <a href="#6-heritage">Héritage</a>
+            <ul>
+                <li><a href="#6-1-illustration">Illustration</a></li>
+                <li><a href="#6-2-polymorphisme-par-heritage">Polymorphisme par héritage</a></li>
+                <li><a href="#6-3-limites-et-problemes-de-l-heritage">Limites et problèmes de l'héritage</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#7-interfaces">Interfaces</a>
+        </li>
+        <li>
+            <a href="#8-classes-ou-methodes-abstraites">Classes ou méthodes abstraites</a>
+        </li>
+        <li>
+            <a href="#9-poo-en-java">POO en java</a>
+            <ul>
+                <li><a href="#9-1-java-lang-object">java.lang.Object</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+
+
+<b>POO : Programmation orientée objet</b>
+<br><b>OOP : Object-oriented programming</b>
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-programmation-imperative-et-fonctionnelle">Programmation impérative et fonctionnelle</a></h2>
+La programmation objet s'inscrit comme une évolution de la <i>programmation impérative</i> : un programme est une suite d'instructions qui spécifient précisément ce que doit effectuer la machine ; c'est la manière la plus naturelle et spontanée qu'on a d'aborder la programmation, qui correspond à la structure des processeurs, manipulable en assembleur et facilement manipulable en utilisant les langages évolués bâtis sur l'assembleur. On a des <b>données</b>, stockées en mémoire, modifiées par les programmes au cours du temps. Le système est caractérisé par son <b>état</b>.
+<br>
+<br>La notion de <b>fonction</b> permet la réutilisation et facilite l'écriture de gros programmes.
+<br>
+<br>Les notions de <b>fonction</b> et de <b>type de données</b> sont centrales en programmation.
+<br>
+<br>Tous les langages mainstream sont des langages impératifs. C'est intuitif et ça marche mais un problème important de la programmation impérative est la gestion des <b>effets de bord</b>, problème dont hérite la POO.
+<br>
+<br>D'autres langages ne sont pas impératifs, par exemple la programmation fonctionnelle, qui interdit les effets de bord.
+<a href="https://fr.wikipedia.org/wiki/Paradigme_(programmation)"></a>
+
+<br>
+<br>On peut illustrer l'évolution des langages impératifs à partir du titre d’un ouvrage de Niklaus Wirth (Pascal, Modula-2, Oberon) : <b>Algorithm + Data Structures = Program</b>
+<br>A + d = P langage de type pascal, années 70
+<br>A + D = P langage modulaire, Ada, modula-2, années 80
+<br>a + D = P langage Orienté Objet années 90, simula67...
+<br>
+<br>Exemple : Programme calculant la surface et le périmètre d'un carré
+
+<!-- ************************************* -->
+<h4>A + d = P</h4>
+<pre>
+function surfaceCarré(float côté)
+function perimetreCarré(float côté)
+</pre>
+Utilisation: import de la <b>lib</b>, puis :
+<br>(Note : lib = library = "bibliothèque" en anglais ; souvent improprement traduit par "librairie")
+<pre>s = surfaceCarré(1.5)</pre>
+On voit ici que la notion de carré n'apparaît pas explicitement dans le code ; existe seulement à travers un chiffre, la valeur de son côté.
+
+<!-- ************************************* -->
+<h4>A + D = P</h4>
+<pre>
+type carré{
+    float côté
+}
+
+function surface(carré c)
+function perimetre(carré c)
+</pre>
+Utilisation: import du <b>module</b> carré, puis :
+<pre>
+carré c
+c.côté = 1.5
+float s = surface(c)
+</pre>
+Le carré a une existence explicite, il est composé de différentes variables ; des fonctions, extérieures au module, peuvent manipuler des carrés.
+
+<!-- ************************************* -->
+<h4>a + D = P</h4>
+A partir de maintenant, les exemples utilisent la syntaxe java. 
+<pre>
+class Carré{
+    float côté;
+    
+    Carré(float côté){ ... } // constructeur
+    
+    float surface(){ ... }
+    float périmètre(){ ... }
+}
+</pre>
+Utilisation : import de la <b>classe</b> Carré, puis :
+<pre>
+Carré c = new Carré(1.5)
+float s = c.surface()
+</pre>
+Non seulement le carré a une existence, peut contenir des variables, mais aussi des fonctions, qui font maintenant partie de la classe.
+<br>
+<br>Notes java :
+<br>- En java les constructeurs sont des fonctions qui portent exactement le même nom que la classe.
+<br>- En java, on utilise le mot-clé <b><code>new</code></b> pour créer des objets.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-classes-et-objets">Classes et objets</a></h2>
+
+Une classe regroupe des variables et des fonctions.
+<br>En POO, on appelle souvent <b>champs</b> les variables d'une classe, et <b>méthodes</b> ses fonctions.
+
+<table class="wikitable margin05">
+    <tr>
+        <th>procédural</th><th>objet</th>
+    </tr>
+    <tr>
+        <td>Fonction</td>
+        <td>Méthode (method)</td>
+    </tr>
+    <tr>
+        <td>Variable</td>
+        <td>Champ (field)</td>
+    </tr>
+</table>
+
+Champs et méthodes sont appelés les <b>membres</b> de la classe.
+
+<pre>
+class Carré{
+    // variables
+    float côté
+    
+    // méthodes
+    Carré(float côté){
+        this.côté = côté;
+    }
+    float surface(){
+        return côté * côté;
+    }
+    float périmètre(){
+        return 4.0 * côté;
+    }
+}
+</pre>
+<br>Un objet est une <b>instance</b> d'une classe.
+<br>Pour créer un objet, on fait appel à un <b>constructeur</b> de la classe.
+<pre>Carré c = new Carré(1.5)</pre>
+On dit qu'on a <b>instancié</b> la classe <code>Carré</code>.
+<br>
+<br>Notes java :
+<br>- Dans le code d'une classe, on peut désigner l'instance courante en utilisant le mot-clé <b>this</b> ; il est optionnel sauf lorsqu'il y a une ambiguïté (c'est le cas dans le constructeur).
+<br>
+<br><u>Très important</u> : <b>en créant une classe, on crée un nouveau type de données</b>. En plus de pouvoir manipuler des variables de type prédéfini, comme <code>int</code> (nombre entier) ou <code>String</code> (chaîne de caractère), on peut manipuler des variables de type <code>Carré</code>.
+<br>
+<br>Notation UML :
+<img class="margin" src="../uml/img/object.jpg" alt="Instance d'un type, notation UML" />
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-etat-d-un-objet-et-donnees-d-instance">État d'un objet et données d’instance</a></h2>
+
+On parle de l'<b>état</b> d'un objet (défini par les valeurs de ses variables d'instance)
+<br>et de son <b>comportement</b> (méthodes agissant sur les variables d'instances).
+
+<pre>
+class Carré{
+    float côté;
+    Couleur couleur;
+    
+    Carré(float côté, Couleur couleur){
+        this.côté = côté;
+        this.couleur = couleur;
+    }
+}
+</pre>
+<pre>
+Carré c1 = new Carré(10, vert);
+Carré c2 = new Carré(15, rouge);
+Carré c3 = new Carré(20, noir);
+</pre>
+<img class="border border-radius10 padding05" src="img/poo-instances.jpg" alt="Variables d'instance" />
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-variables-et-methodes-de-classe">Variables et méthodes de classe</a></h2>
+Les variables que l'on vient de voir (<code>côté</code>, <code>couleur</code>) ont une valeur spécifique pour chaque objet de la classe.
+<br>
+<br>Il existe aussi des <b>variables et méthodes de classe</b>, communes à tous les objets de la même classe.
+<br>On utilise le mot-clé <b>static</b> en java.
+<br>En utilisant que du static, possible d'utiliser l'objet comme simple moyen de ranger des fonctions.
+
+<img class="margin" src="img/poo-static.jpg" alt="Variable statique" />
+
+<pre>
+class Carré{
+    // variables de classe
+    public final static nombreDeCôtés = 4;
+
+    // variables d'instance
+    float côté;
+    Couleur couleur;
+    
+    // méthodes
+    Carré(float côté){ ... }
+    float surface(){ ... }
+    float périmètre(){ ... }
+}
+</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="5-visibilite">Visibilité</a></h2>
+
+Il est possible de limiter l'accès aux membres d'une classe ; l'accès aux variables ou méthodes peut être public (<b>public</b>) ou privé (<b>private</b>).
+<pre>
+class Carré{
+    private int longueurDuCoté;
+    private Couleur couleur;
+    
+    public Couleur getCouleur(){ ... }
+    public void setCouleur(Couleur couleur){ ... }
+    
+    public int getLongueur(){ ... }
+    public void setLongueur(int longueur){ ... }
+}
+</pre>
+
+Notes java :
+<br>- On verra que java permet d'autres types de visibilité.
+
+<!-- ************************************* -->
+<h4>Encapsulation</h4>
+
+La maîtrise de la visibilité permet de limiter leur visibilité au strict minimum.
+<br>Cacher l'état interne d'un objet (ses variables privées) et exposer son comportement via les méthodes qui agissent sur cet état s'appelle l'<b>encapsulation des données</b>.
+<br>Cet aspect "boîte noire" a plusieurs avantages :
+<ul>
+    <li><b>Modularité</b> : le code d'un objet peut être développé et débuggé indépendamment du code des autres objets.</li>
+    <li><b>Clarté</b> : contrat clair pour le code utilisateur : les détails d'implémentation ne viennent pas perturber la compréhension des fonctionnalités proposées.</li>
+    <li><b>Réutilisabilité</b> : possibilité d'utiliser des objets écrits par d'autres dans son code, ou de développer des objets réutilisables.</li>
+    <li><b>Evolution, debug</b> : un objet problématique peut être remplacé par un autre ; cf le monde réel : si une durite casse, on change la durite, pas la voiture.</li>
+</ul>
+
+<!-- ************************************* -->
+<h4>Getters et setters</h4>
+
+Pour assure l'encapsulation, on met en général en privé les variables d'instance et on permet au code externe de les manipuler en définissant des <b>getters</b> et <b>setters</b> (accesseurs / mutateurs).
+<br>Par exemple <code>getCouleur()</code> et <code>setCouleur()</code>
+<br>Convention d'écriture : <code>getNomDeLaVariable()</code> et <code>setNomDeLaVariable()</code>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="6-heritage">Héritage</a></h2>
+
+L’héritage est un mécanisme qui permet, lors de la déclaration d’une nouvelle classe, d'y inclure les caractéristiques d’une autre classe.
+<br>
+<br>L'héritage établit une relation de généralisation-spécialisation qui permet d'hériter dans la déclaration d’une nouvelle classe (appelée classe dérivée, classe fille, classe enfant ou sous-classe) des caractéristiques (propriétés et méthodes) de la déclaration d'une autre classe (appelée classe de base, classe mère, classe parent ou super-classe).
+<br>
+<br>En java, on utilise le mot-clé <b>extends</b>.
+<pre>
+class A{ ... }
+class B extends class A{ ...}
+</pre>
+Représentation UML :
+<img class="margin padding05 border" src="../uml/img/extends.svg" alt="UML extends" />
+
+En déclarant une nouvelle classe B par héritage de la classe A, on peut alors dire que :
+<div class="margin-left2">
+A est une généralisation de B et B est une spécialisation de A ;
+<br>A est une superclasse de B et B est une sous-classe de A ;
+<br>A est la classe mère de B et B est une classe fille de A.
+</div>
+Lorsqu'une classe fille hérite d'une classe mère, elle peut alors utiliser les caractéristiques de la classe mère.
+<br>
+<br>La relation d'héritage est une relation :
+<div class="margin-left2 pre">- transitive : si B hérite de A et si C hérite de B alors C hérite de A ;
+- non réflexive : une classe ne peut hériter d’elle-même ;
+- non symétrique : si A hérite de B, B n’hérite pas de A ;
+- sans cycle : il n'est pas possible que B hérite de A, C hérite de B et que A hérite de C.
+</div>
+
+<br>Permet de définir une nouvelle classe en ajoutant de nouvelles fonctionnalités à une classe existante
+<br>– ajout de nouvelles fonctions
+<br>– ajout de nouvelles données
+<br>– redéfinition de certaines propriétés héritées (masquage).
+<br>
+<br>Permet une approche de la classification en langage naturel.
+
+
+<!-- ************************************* -->
+<h3><a name="6-1-illustration">Illustration</a></h2>
+<img class="margin border" src="img/heritage-polygone.jpg" alt="Polygones, illustration de l'héritage" />
+Les carrés sont des polygones réguliers
+
+<h4>Les carrés héritent des propriétés des polygones réguliers</h4>
+Exemple <a href="../exemples/java/polygone/Polygone1/Polygone1.java">Polygone1</a>
+<pre>
+class Polygone1{
+    public static void main(String[] args) {
+        PolygoneRégulier pr = new PolygoneRégulier();
+        Carré c = new Carré();
+        System.out.println("pr.surface() = " + pr.surface());
+        System.out.println("c.surface() = " + c.surface());
+    }
+}
+
+class PolygoneRégulier{
+    public String surface(){
+        return "surface() dans PolygoneRégulier";
+    }
+}
+
+class Carré extends PolygoneRégulier{
+    // vide
+}
+</pre>
+Exécution :
+<pre>
+java Polygone1
+pr.surface() = surface() dans PolygoneRégulier
+c.surface() = surface() dans PolygoneRégulier
+</pre>
+La classe Carré est vide, mais elle hérite des fonctionnalités de sa superclasse
+
+<!-- ************************************* -->
+<h4>Redéfinition des méthode dans une classe fille</h4>
+Exemple <a href="../exemples/java/polygone/Polygone2/Polygone2.java">Polygone2</a> : identique à <code>Polygone1</code> mais <code>surface()</code> a été redéfinie dans la classe <code>Carré</code>
+<pre>
+class Polygone2{
+    public static void main(String[] args) {
+        PolygoneRégulier pr = new PolygoneRégulier();
+        Carré c = new Carré();
+        System.out.println("pr.surface() = " + pr.surface());
+        System.out.println("c.surface() = " + c.surface());
+    }
+}
+
+class PolygoneRégulier{
+    public String surface(){
+        return "surface() dans PolygoneRégulier";
+    }
+}
+
+class Carré extends PolygoneRégulier{
+    public String surface(){
+        return "surface() dans Carré";
+    }
+}
+</pre>
+Exécution :
+<pre>
+java Polygone2 
+pr.surface() = surface() dans PolygoneRégulier
+c.surface() = surface() dans Carré
+</pre>
+La méthode redéfinie a bien été utilisée
+
+<!-- ************************************* -->
+<h4>Liaison dynamique</h4>
+Exemple <a href="../exemples/java/polygone/Polygone3/Polygone3.java">Polygone3</a> : les classes <code>Carré</code> et <code>PolygoneRégulier</code> restent identiques.
+<pre>
+class Polygone3{
+    public static void main(String[] args) {
+        Carré c = new Carré();
+        PolygoneRégulier pr = c; // **** ICI ****
+        System.out.println("pr.surface() = " + pr.surface());
+        System.out.println("c.surface() = " + c.surface());
+    }
+}
+</pre>
+Une instruction pose question : 
+<pre>PolygoneRégulier pr = c;</pre>
+On définit la variable <code>pr</code> de type <code>PolygoneRégulier</code>.
+<br>Mais on lui affecte une variable de type <code>Carré</code>.
+<br>=> AMBIGUITE ; intuitivement on voudrait que <code>pr</code> se comporte comme un carré.
+<br>Java permet ça par un mécanisme appelé <b>liaison dynamique</b>. On parle d'<b>affectation polymorphe</b>.
+<br>Il peut donc y avoir une différence entre le <b>type déclaré</b> et le <b>type constaté</b> d'une variable. Le choix de la méthode est résolu dynamiquement (lors de l'exécution) en fonction du type constaté de l'objet receveur.
+<br>
+<br>On voit bien la liaison dynamique à l'exécution :
+<pre>
+java Polygone3
+pr.surface() = surface() dans Carré
+c.surface() = surface() dans Carré
+</pre>
+
+<br>A manipuler avec précaution ; exemple <a href="../exemples/java/polygone/Polygone4/Polygone4.java">Polygone4</a>  :
+<pre>
+class Polygone4{
+    public static void main(String[] args) {
+        
+        Carré c = new Carré();
+        Hexagone h = new Hexagone();
+        
+        PolygoneRégulier p1 = c;
+        PolygoneRégulier p2 = h;
+        
+        System.out.println("AVANT, p1.surface() = " + p1.surface());
+        p1 = p2; // **** ICI ****
+        System.out.println("APRES, p1.surface() = " + p1.surface());
+
+    }
+}
+
+// les classes PolygoneRégulier et Carré restent inchangées
+
+// on rajoute une classe
+class Hexagone extends PolygoneRégulier{
+    public String surface(){
+        return "surface() dans Hexagone";
+    }
+}
+</pre>
+Exécution : 
+<pre>
+java Polygone4 
+AVANT, p1.surface() = surface() dans Carré
+APRES, p1.surface() = surface() dans Hexagone
+</pre>
+
+<code>p1</code> est d'abord un carré, puis devient un hexagone.
+<br>La même variable a changé de comportement => source potentielle de bug.
+
+
+<!-- ************************************* -->
+<h3><a name="6-2-polymorphisme-par-heritage">Polymorphisme par héritage</a></h3>
+Le polymorphisme est le concept consistant à fournir une interface unique à des entités pouvant avoir différents types.
+<br>
+<br>Il existe plusieurs types de polymorphisme en POO ; la possibilité de redéfinir une fonctionnalité dans une sous-classe s'appelle <b>polymorphisme par héritage</b>, ou <b>polymorphisme par inclusion</b>.
+
+
+<!-- ************************************* -->
+<h3><a name="6-3-limites-et-problemes-de-l-heritage">Limites et problèmes de l'héritage</a></h3>
+<img class="margin padding05 border" src="img/heritage-multiple.jpg" alt="Exemple d'héritage multiple" />
+On rencontre souvent des situations où on aurait besoin qu'une classe hérite de plusieurs classes.
+<br>On parle alors d'<b>héritage multiple</b>.
+<br>C++ le permet mais JAVA NE LE PERMET PAS, le modèle objet de java ne permet que l'héritage simple.
+
+<h4>Le "problème du diamant"</h4>
+
+<div class="flex-wrap">
+<div>
+    <img class="margin padding05 border" src="img/diamond-inheritance.svg" alt="Problème du diamant" />
+</div>
+<div>
+    Que se passe-t-il si :
+    <br>- <code>A</code> définit une méthode <code>method1()</code>
+    <br>- <code>B</code> et <code>C</code> redéfinissent <code>method1()</code>
+    <br>- <code>D</code> ne redéfinit pas <code>method1()</code>
+    <br>- on appelle <code>D.method1()</code>
+    <br>Doit-il exécuter la méthode de B ou de C ???
+</div>
+</div><!-- end class="flex-wrap" -->
+
+Sans la classe <code>A</code>, le problème pourrait être détecté à la compilation.
+<br>Mais il se poserait à l'exécution si on faisait : 
+<pre>A a = new D()</pre>
+
+<h4>Rigidité des systèmes</h4>
+
+L'héritage génère un autre problème important : la rigidité des systèmes et la difficulté à les faire évoluer : une modification dans une superclasse peut générer des modifications dans toutes les classes en dessous dans la hiérarchie.
+<br>
+<br>Conclusion : l'héritage simple permet de classifier les objets manipulés par un programme, mais reste rigide, ce qui mène à un conseil général de programmation :
+<div class="margin big20">Préférez la composition à l'héritage</div>
+La relation "a un" est plus souple que la relation "est un".
+<br>Dans le problème du cheval, se traduirait par "un cheval a la capacite de manger" et "un cheval a la capacite d'avancer".
+<br>
+<br>On verra plus loin que plusieurs design patterns fournissent des moyens de remplacer l'héritage par de la composition.
+
+
+<!-- ************************************* -->
+<h2><a name="7-interfaces">Interfaces</a></h2>
+Le problème de l'héritage multiple est partiellement contourné en java avec la notion d'<b>interface</b> (et depuis java 8 avec les <b>default methods</b> et les méthodes statiques dans les interfaces).
+<br>Les interfaces sont comme des classes ne contenant que des méthodes abstraites, c'est-à-dire ne contenant aucun code.
+<br>Une classe ne peut hériter que d'une seule super classe mais peut implémenter un nombre quelconque d'interfaces.
+<br>C'est à la classe d'implémenter toutes les méthodes de toutes ses interfaces.
+<br>Les interfaces sont dans ce cas assimilables à des contrats forçant toutes les classes les utilisant d'implémenter les mêmes méthodes.
+<br>
+<br>En java, 2 mots-clés permettent de définir / utiliser des intercaces : <b>interface</b> et <b>implements</b>.
+<br>
+<br>Pour le problème du cheval, on pourrait faire :
+<pre>
+interface ChoseQuiAvance{
+    public void avancer();
+}
+
+interface ChoseQuiMange{
+    public void manger();
+}
+
+class Voiture implements ChoseQuiAvance{
+    public void avancer(){ ... }
+}
+class Vélo implements ChoseQuiAvance{
+    public void avancer(){ ... }
+}
+
+<b>class Cheval implements ChoseQuiAvance, ChoseQuiMange{
+    public void avancer(){ ... }
+    public void manger(){ ... }
+}</b>
+
+class Chien implements ChoseQuiMange{
+    public void manger(){ ... }
+}
+</pre>
+
+L'utilisation d'interfaces permet ici de classifier correctement les classes.
+<br>Les interfaces sont utiles (et largement utilisées en java) pour spécifier des <b>contrats</b>.
+<br>
+<br>Représentation UML :
+<img class="margin padding05 border" src="../uml/img/implements.jpg" alt="Implements - UML" />
+
+Les interfaces supportent l'héritage simple, comme les classes :
+<pre>
+    interface I1{
+        public method1();
+    }
+    
+    interface I2 extends I1{
+        public method2();
+    }
+    
+    class ClasseConcrète implements I2{
+        public method1(){ ... }
+        public method2(){ ... }
+    }
+</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="8-classes-ou-methodes-abstraites">Classes ou méthodes abstraites</a></h2>
+
+Une méthode peut être définie abstaite (mot clé <b>abstract</b> en java).
+<br>Dans ce cas, elle est définie mais pas implémentée, mais constitue un type à part entière.
+<br>
+<br>Toute classe contenant au moins une méthode abstraite doit être aussi déclarée abstraite.
+<br>
+<br>Les classes filles peuvent implémenter ou pas les méthodes abstraites de leur classe mère. Mais pour pouvoir devenir une classe concrète (pour pouvoir être implémentées), les classes filles doivent impléménter TOUTES les méthodes abstraites de la classe mère.
+
+<pre>
+abstract class Shape{
+    <b>public abstract double area();</b> // notez la syntaxe
+}
+
+class Circle extends Shape{
+    protected double radius;
+    
+    public Circle(double radius){
+        this.radius = radius;
+    }
+    
+    public double area{
+        return 2 * 3.14 * this.radius;
+    }
+}
+</pre>
+La classe Circle peut être instanciée car elle a implémenté toutes les méthodes abstraites de sa superclasse.
+<br>
+<br>On peut voir une interface comme une classe ne contenant que des méthodes abstraites.
+<br>
+<br>A noter : une classe peut être déclarée abstraite même si elle n'a pas de méthodes abstraites.</li>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="9-poo-en-java">POO en java</a></h2>
+
+Java implémente les notions de POO vues précédemment : classes, membres d'instance et de classe, héritage, interfaces, classes abstraites.
+<br>
+<br>Tout code écrit en java fait partie d'une classe, que ce soit le code écrit par les utilisateurs de java (programmeurs) ou le code fourni par l'API java.
+
+<!-- ************************************* -->
+<h3><a name="9-1-java-lang-object">java.lang.Object</a></h3>
+Toutes les classes java ont un ancêtre commun : <code><b><a href="../java/object.html">java.lang.Object</a></b></code>.
+<br>
+<br>Si une classe ne précise pas quelle est sa classe mère avec le mot-clé <code><b>extends</b></code>, alors elle descend de <code>Object</code> (c'est le cas de la classe <code>Shape</code>).
+<br>
+<br>Toutes les classes java héritent des méthodes de <code>Object</code> - <a href="https://docs.oracle.com/javase/10/docs/api/java/lang/Object.html">voir la doc de <code>Object</code></a>.
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>

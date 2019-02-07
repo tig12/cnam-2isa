@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">                                                       
+<head>
+    <meta charset="utf-8">
+    <title>JDBC | Intro java Millau</title>
+    <meta name="description" content="Introduction à JDBC, API java permettant de travailler sur des bases de données de manière uniforme.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+
+<!-- 
+https://www.tutorialspoint.com/jdbc/index.htm
+https://docs.oracle.com/javase/tutorial/jdbc/TOC.html
+https://en.wikipedia.org/wiki/Java_Database_Connectivity
+-->
+
+<body>
+<nav class="prevnext">
+    <a class="top" title="NFP121" href="../../index.html">&uarr;</a>
+</nav>
+
+<header>
+<h1>JDBC</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-tests-de-connection">Tests de connection</a>
+            <ul>
+                <li><a href="#1-1-sqlite">Sqlite</a></li>
+                <li><a href="#1-2-postgresql">Postgresql</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-requetes">Requêtes</a>
+        </li>
+        <li>
+            <a href="#3-prepared-statements">Prepared statements</a>
+        </li>
+        <li>
+            <a href="#4-transactions">Transactions</a>
+        </li>
+        <li>
+            <a href="#5-maps">Maps</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="big2">JDBC = Java Database Connectivity</div>
+API standard, pour utiliser un grand nombre de moteurs de bases de données (DBMS) de manière uniforme.
+<br>Spécification fournissant des interfaces permettant de travailler sur une base de données :
+<ul>
+    <li>Se connecter à une base de données.</li>
+    <li>Créer des "statements" SQL.</li>
+    <li>Exécuter des requêtes sur la base.</li>
+    <li>Voir et modifier les résultats.</li>
+</ul>
+
+Permet d'écrire du code indépendant du DBMS utilisé ; attention cependant aux variantes du langage SQL, qui peuvent entraver la compatibilité avec certains DBMS.
+<br>
+<br>JDBC fait partie de JSE depuis java 1 ; version actuelle : JDBC 4.3, depuis java 9.
+<br>
+<br>Les principaux composants de JDBC sont :
+<ul class="spaced margin">
+    <li>
+        <b>JDBC driver</b> : ensemble de classes java permettant de se connecter à un type particulier de base de données.
+        <br>Chaque type de base de données fournit un driver différent.
+        <br>Notre code n'accède pas directement à un driver particulier, on utilise l'interface <code>java.sql.Driver</code>, que l'on manipule en général via <code>java.sql.DriverManager</code> ou <code>javax.sql.DataSource</code>.
+    </li>
+    <li>
+        <b>Connection</b> : une fois que le driver est chargé et initialisé, on se connecte à la base de données avec un object implémentant l'interface <code>java.sql.Connection</code>.
+    </li>
+    <li>
+        <b>Statement</b> : Une fois la connection à la base effectuée, on crée des objets implémentant l'interface <code>java.sql.Statement</code> pour effectuer des requêtes.
+    </li>
+    <li><b>ResultSet</b> : le résultat des requêtes nous parvient sous forme d'objet implémentant l'interface <code>java.sql.ResultSet</code>,que l'on peut parcourir.
+    </li>
+
+</ul>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-tests-de-connection">Tests de connection</a></h2>
+
+Le code suivant teste la connection à différents DBMS :
+<pre>
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import java.util.Arrays;
+
+public class ConnectionTests {
+    
+    public static void main(String[] args) {
+        
+        // Vérification des arguments
+        String[] possibles = {"postgres", "sqlite"};
+        String usage = "Utilisation : java ConnectionTests &lt;DBMS>\n&lt;DBMS> peut prendre les valeurs : " + String.join(", ", possibles);
+        
+        if(args.length != 1){
+            System.out.println(usage);
+            System.out.println("Vous n'avez pas spécifié quel DBMS tester");
+            System.exit(0);
+        }
+        
+        if(!Arrays.asList(possibles).contains(args[0])){
+            System.out.println(usage);
+            System.out.println("Valeur incorrecte pour le DBMS : " + args[0]);
+            System.exit(0);
+        }
+        
+        Connection conn = null;
+        String dburl, dbuser, dbpassword;
+        try {
+            switch(args[0]){
+                case "sqlite" : 
+                    dburl = "jdbc:sqlite:test1.sqlite3";
+                    conn = DriverManager.getConnection(dburl);
+                break;
+                case "postgres" :
+                    dburl = "jdbc:postgresql://localhost/cnamtest";
+                    dbuser = "cnam";
+                    dbpassword = "cnam";
+                    conn = DriverManager.getConnection(dburl, dbuser, dbpassword);
+                break;
+            }
+            System.out.printf("Connection à %s OK.%n", args[0]);
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            }
+            catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+}
+</pre>
+(code dans <a href="../../exemples/java/jdbc/ConnectionTests.java">ConnectionTests.java</a>)
+<br>
+<br>La compilation se fait sans aucune mention du driver utilisé :
+<pre>javac ConnectionTests.java</pre>
+
+Mais chaque DBMS a un driver spécifique, et l'exécution demande d'avoir le jar contenant le driver dans le classpath.
+<pre>java -classpath .:../../../bin/sqlite-jdbc-3.23.1.jar ConnectionTests sqlite</pre>
+<pre>java -classpath .:../../../bin/postgresql-42.2.5.jar ConnectionTests postgres</pre>
+
+Pour se connecter, il faut spécifier les paramètres de connection, ce qui est fait via la chaîne <code>dburl</code>, que l'on passe à <code>DriverManager.getConnection()</code>.
+<br>Cette <code>String</code> a le même format pour tous les DBMS :
+
+<pre>jdbc:&lt;nom du driver>:&lt;infos spécifiques au DBMS></pre>
+
+
+<!-- ************************************* -->
+<h3><a name="1-1-sqlite">Sqlite</a></h3>
+Il faut télécharger le driver jdbc correspondant à la version de sqlite installée sur votre machine, sur <a href="https://bitbucket.org/xerial/sqlite-jdbc/downloads/">https://bitbucket.org/xerial/sqlite-jdbc/downloads/</a>.
+<br>L'url de connection est de la forme :
+<pre>jdbc:sqlite:/path/to/dbfile></pre>
+
+Dans l'url de connection, on spécifie le chemin (relatif ou absolu) vers le fichier contenant la base de données.
+<br>En allant dans le répertoire contenant <code>Sqlite_Example1.class</code>, on voit qu'un fichier <code>test1.sqlite3</code> a été créé.
+<br>
+<br>Noter que la connection à sqlite n'appelle pas la même méthode que les autres DBMS, car il n'y a ni nom d'utilisateur ni mot de passe.
+
+
+<!-- ************************************* -->
+<h3><a name="1-2-postgresql">Postgresql</a></h3>
+Le driver peut être récupéré sur <a href="https://jdbc.postgresql.org/">https://jdbc.postgresql.org/</a>
+<br>Pour postgres, l'url de connection est de la forme :
+<pre>jdbc:postgresql://&lt;database_host>:&lt;port>/&lt;database_name></pre>
+Le port est optionnel si on utilise le port par défaut (5432)
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-requetes">Requêtes</a></h2>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-prepared-statements">Prepared statements</a></h2>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-transactions">Transactions</a></h2>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="5-maps">Maps</a></h2>
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

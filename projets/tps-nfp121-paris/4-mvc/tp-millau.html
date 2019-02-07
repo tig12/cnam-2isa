@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>TP4 MVC Millau | NFP121</title>
+    <meta name="description" content="Compléments pour faire le TP4 du CNAM Paris : Observer, MVC">
+    <meta name="robots" content="index,follow">
+    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2018">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="NFP121" href="../../../index.html">&uarr;</a>
+</nav>
+
+<header>
+<h1>TP4 - infos supplémentaires</h1>
+</header>
+
+<article>
+
+<a href="cnam-paris/tp4.html">Copie locale de l'énoncé de Paris</a>
+<br>Le code source des énoncés (en UTF-8) est dans le répertoire <a href="enonce">enonce/</a>
+
+<h2>Question 1</h2>
+Question facultative, car utilise le mécanisme java déprecié en java 9.
+<br>Si vous voulez exécuter <code>test1()</code> sans voir les erreurs générées par les méthodes suivantes, commentez <code>test2()</code> et <code>test3()</code>.
+
+<h2>Question 2</h2>
+
+<h3>Question 2.1</h3>
+On a donc des boutons, et on veut qu'ils réagissent si on clique dessus.
+<br/>Les boutons sont les observables ; en swing, les observateurs sont des classes implémentant <code>EventListener</code>.
+<br/>Pour savoir quel type de listener utiliser, on peut aller voir le javadoc de la classe <code>JButton</code>, on arrive vite à la conclusion qu'il nous faut ici un <code>ActionListener</code>.
+<br/>
+<br/>Un début du listener est fourni par l'énoncé : <code>JButtonObserver</code>.
+<br/>Dans cette classe, il faut donc compléter :
+<pre>public class JButtonObserver implements ActionListener{</pre>
+et implémenter la seule méthode de l'interface : <code>actionPerformed</code>
+<br/>Pour l'implémentation, l'énoncé vous aide en vous disant d'aller voir <code>getActionCommand()</code>, une méthode de <code>ActionEvent</code>.
+<br/>
+<br/>Une fois que le listener est écrit, on peut l'utiliser :
+<br/>Dans le code de IHMQuestion2_1, en reprenant les conseils donnés dans les commentaires, on le crée de cette manière :
+<pre>JButtonObserver jbo1 = new JButtonObserver("jbo1", contenu);</pre>
+Puis on l'enregistre comme observateur du bouton :
+<pre>boutonA.addActionListener(jbo1);</pre>
+
+Avec ces indications, vous devriez pouvoir reproduire exactement le comportement de l'applet.
+
+<h3>Question 2.2</h3>
+Dans la fonction <code>IHMQuestion2_2.main()</code>, on peut supprimer la ligne :
+
+<pre>new IHMQuestion2_1();</pre>
+
+On a besoin d'un type différent de listener pour déclencher une action lorsque la souris entre dans la zone d'affichage du bouton. A l'aide de javadoc, on peut voir que c'est un <code>MouseListener</code> qui nous intéresse. Un début d'implémentation est fourni par <code>JMouseObserver</code>.
+<br/>Pour trouver les méthodes à utiliser pour reproduire le comportement de l'énoncé, c'est dans le javadoc de <code>MouseEvent</code>.
+<br/>
+<br/>Cette question est très similaire à la question 2.1, vous avez tous les éléments pour pouvoir l'implémenter.
+
+<h2>Question 3</h2>
+
+<h3>Question 3.1</h3>
+
+<h4>Compléments d'énoncé</h4>
+<ul>
+    <li>
+        Sous dos, exécutez la version opérationnelle de l'applet : 
+        <pre>appletviewer http://jfod.cnam.fr/progAvancee/tp4/tp4.html</pre>
+    </li>
+    <li>Compiler le package tp3</li>
+    <li>Compléter et compiler PileModele.java</li>
+    <li>Compiler Controleur.java, Vue.java, IHMCalculette.java</li>
+    <li>Exécuter IHMCalculette.java</li>
+</ul>
+L'IHM ne fait rien pour l'instant, mais on a un résultat visuel en local.
+<br/>
+<br/>Compléter <code>Vue.java</code> pour en faire un observateur incrit auprès du modèle.
+<br/>
+<br/>Le gros du travail consiste à implémenter <code>Controleur.java</code>
+
+<h4>Indications pour la réponse</h4>
+
+Bien identifier les acteurs en jeu.
+<br/>Point de vue UI, on a :
+<br/>- La zone en vert est un <code>JPanel</code> implémenté dans la classe <code>Vue</code>.
+<br/>- La zone de saisie et les boutons sont dans un <code>JPanel</code> implémenté dans la classe <code>Controleur</code>.
+<br/>- Ces deux <code>JPanel</code> sont placés dans un <code>JFrame</code> créé dans <code>IHMCalculette</code>.
+<br/>
+<br/>Une seule instance du modèle est créee ; la vue et le modèle peuvent y accéder (le modèle est passé en paramètre dans les constructeurs).
+
+<h5>Compléter <code>PileModele</code></h5>
+L'énoncé donne la moitié de la réponse : <code>empiler()</code> contient déjà le code de notification des observateurs.
+<br/>La seule autre méthode qui modifie l'état de la pile et qui doit générer une notification des observateurs est <code>depiler()</code>, qui est à compléter.
+
+<h5>Compléter <code>Controleur</code></h5>
+Comme d'habitude, on doit associer des listeners aux boutons.
+<br/>Ici aussi, on peut utliser des <code>ActionListener</code>.
+<br/>L'énoncé indique que les listener doivent être gérés localement par le contrôleur.
+<br/>Il faut donc créer des classes internes, membres privés de la classe <code>Controleur</code>.
+<br/>On va appeler ces classes <code>XXXOperation</code>, XXX étant le nom du bouton concerné - par exemple <code>PushOperation</code>, <code>AddOperation</code>...
+<br/>Exemple pour le listener du bouton push (dans le code de <code>Controleur</code>) :
+<pre>
+private class PushOperation implements ActionListener{
+    public void actionPerformed(ActionEvent ae){
+        try{
+            pile.empiler(operande());
+        }
+        catch(NumberFormatException nfe){
+        }
+        catch(PilePleineException e){
+        }
+        actualiserInterface();
+    }
+}
+</pre>
+On peut associer ce listener au bouton push :
+<pre>boutons.add(push);  push.addActionListener(new PushOperation());</pre>
+De la même manière, on peut implémenter les autres listeners.
+<br/>
+<br/>L'énoncé donne à implémenter <code>actualiserInterface()</code> ; c'est indispensable pour enable ou disable les boutons.
+<br/>Voila un bout de la réponse :
+<pre>
+public void actualiserInterface() {
+    if (pile.estPleine()){
+        push.setEnabled(false);
+    }
+    else if (pile.taille()==0){
+        push.setEnabled(true);
+        // à compléter
+    }else if (pile.taille()==1){
+        // à compléter
+    }
+    // à compléter
+}
+</pre>
+
+Pour vous aider, vous pouvez faire le diagramme de séquence qui traduit ce qui se passe :
+<ul>
+    <li>L'utilisateur clique sur un bouton</li>
+    <li><code>Controleur.XXXOperation.actionPerformed()</code> est appelée</li>
+    <li><code>actionPerformed()</code> appelle <code>PileModele.empiler()</code> ou <code>depiler()</code></li>
+    <li><code>empiler()</code> ou <code>depiler()</code> vont appeler <code>setChanged()</code> et <code>notify()</code></li>
+    <li>Cela va déclencher l'appel de <code>Vue.update()</code> et la zone en vert sera mise à jour</li>
+</ul>
+
+<h3>Question 3.2</h3>
+Voir énoncé, analyser le problème en oubliant tout ce qui a été fait précédemment.
+
+
+<h3>Question 3.3</h3>
+A faire en partant du code de la question 3.1
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>

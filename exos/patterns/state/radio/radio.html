@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Radio | NFP121</title>
+    <link href="../../../../static/style.css" rel="stylesheet" type="text/css">
+    <meta name="description" content="Exercice sur le pattern State : gérer les différents états d'un poste radio">
+    <meta name="robots" content="index,follow">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2018">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Radio</h1>
+</header>
+
+<article>
+<a href="enonce">Code source de l'énoncé</a>
+<br>
+<br>Un poste de radio peut être dans différents états : "OFF", "FM", "AM", "LW".
+
+<ol class="spaced">
+    <li>A partir du code source de l'énoncé, faire le diagramme états-transitions décrivant les états et changements possibles.</li>
+    <li>Implémenter le même comportement en utilisant le pattern <i>State</i>.</li>
+    <li>
+        On voit que lorsque le poste est mis à "ON", il se trouve dans la première station de la bande FM.
+        <br>Ajouter un nouvel état, "VEILLE", qui se comporte comme l'état "OFF" pour les différentes transitions existantes.
+        <br>Mais lorsque le poste sort de l'état "VEILLE", il se remet dans le même état qu'avant sa mise en veille (même bande de fréquence, même station).
+        <br>
+        <br>On passe dans l'état "VEILLE" par une nouvelle transition, <code>mettreEnVeille()</code>. Cette transition ne fait rien si on est dans l'état "OFF" et passe dans "VEILLE" depuis les autres états.
+        <br>Lorsqu'on est dans l'état de veille, 
+        <ul>
+            <li>la transition <code>on()</code> permet de sortir de l'état de veille (et de retrouver l'état précédnt la mise en veille).</li>
+            <li>la transition <code>off()</code> passe à l'état "OFF".</li>
+        </ul>
+    </li>
+</ol>
+
+</article>
+
+</body>
+</html>
+

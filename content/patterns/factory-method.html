@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Factory Method | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Factory Method (Fabrique) et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="creational.html">&larr;</a>
+    <a class="next" title="Next" href="abstract-factory.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>
+Factory method
+<div class="subtitle">(Fabrique)</div>
+</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-exemple-du-labyrinthe">Exemple du labyrinthe</a>
+            <ul>
+                <li><a href="#1-1-factory-method">Factory method</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-structure">Structure</a>
+        </li>
+        <li>
+            <a href="#3-variantes">Variantes</a>
+        </li>
+        <li>
+            <a href="#4-inconvenients">Inconvénients</a>
+        </li>
+        <li>
+            <a href="#5-liens-avec-d-autres-patterns">Liens avec d'autres patterns</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+<br>Connu aussi sous le nom de <i>constructeur virtuel</i>.
+
+<div class="intro">
+But : définir une interface pour créer un objet, mais déléguer l'instanciation aux sous-classes.
+</div>
+
+Pour une présentation pas à pas du pattern, voir le chapitre 4 de "Design patterns Head First", p 109 et suivantes.
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-exemple-du-labyrinthe">Exemple du labyrinthe</a></h2>
+On veut créer deux variantes du jeu : 
+<br>- <code>EnchantedMazeGame</code>, qui utilise des portes et des pièces enchantées (<code>DoorNeedingSpell</code> et <code>EnchantedRoom</code>).
+<br>- <code>BombedMazeGame</code>, qui utilise des murs et des pièces piégées (<code>BombedWall</code> et <code>RoomWithBomb</code>).
+<br>
+<br>Mais dans toutes les nouvelles variantes de jeu, on ne souhaite pas changer le layout (la disposition des parties du jeu).
+<!-- 
+<br>
+<br>Une première solution pourrait consister à donner un paramètre à <code>createMaze()</code> : 
+
+<div class="flex-wrap">
+
+<div>
+Remplacer :
+<pre>
+public static Maze createMaze(){
+
+    Maze aMaze = new Maze();
+    Room r1 = new Room(1);
+    Room r2 = new Room(2);
+    Door theDoor = new Door(r1, r2);
+    // ...
+}
+</pre>
+</div>
+<div>
+    par :
+<pre>
+public static Maze createMaze(String typeJeu){
+    Maze aMaze = new Maze();
+    switch(typeJeu){
+        case "basic" : 
+            Room r1 = new Room(1);
+            Room r2 = new Room(2);
+            Door theDoor = new Door(r1, r2);
+        break;
+        case "enchanted" : 
+            Room r1 = new EnchantedRoom(1);
+            Room r2 = new EnchantedRoom(2);
+            Door theDoor = new DoorNeedingSpell(r1, r2);
+        break;
+        case "bombed" : 
+            Room r1 = new RoomWithBomb(1);
+            Room r2 = new RoomWithBomb(2);
+            Door theDoor = new Door(r1, r2);
+        break;
+    }
+    // ...
+}
+</pre>
+</div>
+</div><!-- end class="flex-wrap" --><!-- 
+Cette solution n'est pas satisfaisante pour plusieurs raisons :
+<br>- On a utilisé <code>new Wall()</code> dans le code construisant le layout, on devrait aussi modifier ce code.
+<br>- A chaque fois qu'on ajoute un type de jeu, il faudrait modifier cette fonction ; difficile à maintenir et ne respecte pas le O de SOLID (open for extension, closed for modification).
+-->
+
+<br>
+<br>Rappel : on a
+<pre>
+public class MazeGame{
+    public static Maze createMaze(){
+    
+        // création des MapSite
+        Maze aMaze = new Maze();
+        Room r1 = new Room(1);
+        Room r2 = new Room(2);
+        Door theDoor = new Door(r1, r2);
+        
+        // layout, partie qui n'a pas besoin de changer
+        // ...
+    }
+
+}</pre>
+
+Coment faire pour pouvoir créer différentes sortes de <code>Maze</code> ?
+
+
+<!-- ************************************* -->
+<h3><a name="1-1-factory-method">Factory method</a></h3>
+Une solution consiste à <b>externaliser la création des objets dans des sous-classes de <code>MazeGame</code></b>.
+<br>
+<br>Dans <code>MazeGame.createMaze()</code>, on remplace les appels à des constructeurs des composant par des <b>factory methods</b>.
+<br>Chaque sous-classe de <code>MazeGame</code> redéfinit les factory methods spécifiques à une variante du jeu.
+
+<div class="flex-wrap margin-top">
+<div>
+<code>MazeGame.createMaze()</code> modifiée :
+<pre>
+package maze.patterns.factorymethod;
+
+import maze.model.*;
+import static maze.model.Direction.*;
+
+// Creator et Concrete creator
+public class MazeGame{
+
+    public static Maze createMaze(){
+    
+        Maze aMaze = <b>makeMaze</b>();
+        Room r1 = <b>makeRoom</b>(1);
+        Room r2 = <b>makeRoom</b>(2);
+        Door theDoor = <b>makeDoor</b>(r1, r2);
+        
+        aMaze.addRoom(r1);
+        aMaze.addRoom(r2);
+        
+        r1.setSide(NORTH, makeWall());
+        r1.setSide(EAST, theDoor);
+        r1.setSide(SOUTH, makeWall());
+        r1.setSide(WEST, makeWall());
+        
+        r2.setSide(NORTH, makeWall());
+        r2.setSide(EAST, makeWall());
+        r2.setSide(SOUTH, makeWall());
+        r2.setSide(WEST, theDoor);
+        
+        return aMaze;
+    }
+    
+    // factory methods
+    
+    public static Maze makeMaze(){
+        return new Maze();
+    }
+
+    public static Room <b>makeRoom</b>(int n){
+        return new <b>Room</b>(n);
+    }
+
+    public static Wall <b>makeWall</b>(){
+        return new <b>Wall</b>();
+    }
+    
+    public static Door <b>makeDoor</b>(Room r1, Room r2){
+        return new <b>Door</b>(r1, r2);
+    }
+
+}
+</pre>
+</div>
+
+<div>
+Sous-classes avec composants adaptés
+<pre>
+package maze.patterns.factorymethod;
+
+import maze.model.*;
+import maze.model.enchanted.*;
+
+// Concrete creator
+public class EnchantedMazeGame extends MazeGame{
+
+    // factory methods
+    
+    public static Room <b>makeRoom</b>(int n){
+        return new <b>EnchantedRoom</b>(n);
+    }
+
+    public static Door <b>makeDoor</b>(Room r1, Room r2){
+        return new <b>DoorNeedingSpell</b>(r1, r2);
+    }
+    
+}
+</pre>
+<pre>
+package maze.patterns.factorymethod;
+
+import maze.model.*;
+import maze.model.bomb.*;
+
+// Concrete creator
+public class BombedMazeGame extends MazeGame{
+
+    // factory methods
+    
+    public static Room <b>makeRoom</b>(int n){
+        return new <b>RoomWithBomb</b>(n);
+    }
+
+    public static Wall <b>makeWall</b>(){
+        return new <b>BombedWall</b>();
+    }
+    
+}
+</pre>
+</div>
+
+</div><!-- end class="flex-wrap" -->
+
+<br>Noter que dans <code>createMaze()</code> on a isolé la partie fixe du code (le layout) de la partie variable (création des objets).
+<br>
+<br>Utilisation : 
+<pre>
+Maze maze;
+
+// jeu standard
+MazeGame game1 = new MazeGame();
+maze = game1.createMaze();
+
+// jeu enchanted
+EnchantedMazeGame game2 = new EnchantedMazeGame();
+maze = game2.createMaze();
+
+// jeu bombed
+BombedMazeGame game3 = new BombedMazeGame();
+maze = game3.createMaze();
+</pre>
+
+<div class="exo">
+<b>Exercice</b> :
+<br>Faire le diagramme de classes correspondant.
+</div>
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-structure">Structure</a></h2>
+Diagramme gof :
+<div class="flex-wrap">
+<div>
+    <img class="border margin margin-top2" src="img/factory-method-gof-diagram.jpg" alt="Classes formant le labyrinthe" />
+</div>
+
+<div>
+    Dans le labyrinthe,
+    <br><code>Creator</code> : <code>MazeGame</code>.
+    <br><code>ConcreteCreator</code> : <code>BombedMazeGame</code>, <code>EnchantedMazeGame</code>...
+    <br><code>Product</code> : <code>Room</code>, <code>Door</code>...
+    <br><code>ConcreteProduct</code> : <code>Room</code>, <code>EnchantedRoom</code>, <code>Door</code>, <code>DoorNeedingSpell</code>...
+</div>
+
+</div><!-- end class="flex-wrap" -->
+
+Pour traduire fidèlement le diagramme, l'exemple du labyrinthe serait :
+<br>
+
+<div class="flex-wrap margin-top">
+
+<div>
+Abstract Creator
+<pre>
+public abstract class MazeGame{
+
+    public static Maze createMaze(){
+    
+        Maze aMaze = <b>makeMaze</b>();
+        Room r1 = <b>makeRoom</b>(1);
+        Room r2 = <b>makeRoom</b>(2);
+        Door theDoor = <b>makeDoor</b>(r1, r2);
+        // ...
+        return aMaze;
+    }
+    
+    // factory methods
+    public static Maze makeMaze(){ return new Maze(); }
+    public static Room makeRoom(int n){ return new Room(n); }
+    public static Wall makeWall(){ return new Wall(); }
+    public static Door makeDoor(Room r1, Room r2){ return new Door(r1, r2); }
+
+}
+</pre>
+</div>
+
+<div>
+Concrete creators avec composants adaptés
+
+<pre>
+public class BasicMazeGame extends MazeGame{}
+</pre>
+<pre>
+public class EnchantedMazeGame extends MazeGame{
+    public static Room <b>makeRoom</b>(int n){ return new EnchantedRoom(n); }
+    public static Door <b>makeDoor</b>(Room r1, Room r2){ return new DoorNeedingSpell(r1, r2); }
+}
+</pre>
+<pre>
+public class BombedMazeGame extends MazeGame{
+    public static Room <b>makeRoom</b>(int n){ return new RoomWithBomb(n); }
+    public static Wall <b>makeWall</b>(){ return new BombedWall(); }
+}
+</pre>
+</div>
+
+</div><!-- end class="flex-wrap" -->
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-variantes">Variantes</a></h2>
+Deux principales variantes du pattern :
+<ul>
+    <li>
+        Cas où <code>Creator</code> est une classe concrète et fournit une implémentation par défaut (c'est le cas du labyrinthe).
+    </li>
+    <li>
+        Cas où <code>Creator</code> est une interface, les sous-classes devront implémenter toutes les factory methods.
+        <br>Exemple dans <a href="../../exemples/patterns/factory-method/CarDemo.java">CarDemo.java</a>
+    </li>
+</ul>
+
+On rencontre aussi une variante paramétrée :
+<pre>
+public class ParametrizedMazeGame{
+
+    public static Maze doCreateMaze(String gameId){
+        Maze maze = null;
+        switch(gameId){
+        	case "standard"    : maze = MazeGame.createMaze(); break;
+        	case "bombed"      : maze = BombedMazeGame.createMaze(); break;
+        	case "enchanted"   : maze = EnchantedMazeGame.createMaze(); break;
+        }
+        return maze;
+    }
+}
+</pre>
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-inconvenients">Inconvénients</a></h2>
+Un inconvénient de ce pattern est d'obliger de sous-classer <code>Creator</code> pour chaque type d'utilisation.
+<br>On se retrouve à devoir gérer 2 hiérarchies parallèles :
+<br>- une hiérarchie de classes produits (classes de <code>model</code> dans le labyrinthe).
+<br>- une hiérarchie de classes creators (sous-classes de <code>MazeGame</code> dans le labyrinthe).
+<br>
+<br><i>Prototype</i>, qui est souvent comparé à <i>Factory Method</i>, n'a pas cet inconvénient.
+<br>
+<br>Une caractéristique peut être vue comme un avantage ou un inconvénient : on ne peut pas mélanger des produits de types différents : une fois qu'on a décidé de faire un <code>BombedMazeGame</code>, on ne peut utiliser que des <code>RoomWithBomb</code>, pas des <code>Room</code> normales.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="5-liens-avec-d-autres-patterns">Liens avec d'autres patterns</a></h2>
+<i><a href="abstract-factory.html">Abstract factory</a></i> est souvent implémenté avec <i>Factory Method</i>, et peut aussi l'être avec <i><a href="prototype.html">Prototype</a></i>
+
+<div class="exo">
+<b>Exercice</b> :
+<br>Regardez le code de <a href="../../exemples/patterns/factory-method/ImageReaderDemo.java">ImageReaderDemo.java</a> et identifiez les acteurs du pattern.
+</div>
+
+<!-- 
+<div class="exo">
+<b>Exrecice</b> :
+<br>Imaginez une situation où le pattern Factory Method résout un problème de création et implémentez la.
+<br>On veut faire quelque chose, et on veut pouvoir le faire de différentes manières.
+</div>
+-->
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Hello world en java | NFP121 Millau</title>
+    <meta name="description" content="Introduction informelle à la syntaxe de java à travers des variantes de l'affichage d'une chaîne de caractères.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="ecosysteme-java.html">&larr;</a>
+    <a class="next" title="Next" href="syntaxe-java1.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Hello world</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-hello-world">Hello World</a>
+            <ul>
+                <li><a href="#1-1-hello-world-1">Hello World 1</a></li>
+                <li><a href="#1-2-la-fonction-main">La fonction main()</a></li>
+                <li><a href="#1-3-hello-world-2">Hello World 2</a></li>
+                <li><a href="#1-4-hello-world-3">Hello World 3</a></li>
+                <li><a href="#1-5-hello-world-4">Hello World 4</a></li>
+                <li><a href="#1-6-hello-world-5">Hello World 5</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-hello-swing">Hello Swing</a>
+            <ul>
+                <li><a href="#2-1-hello-swing-1">Hello Swing 1</a></li>
+                <li><a href="#2-2-hello-swing-2">Hello Swing 2</a></li>
+                <li><a href="#2-3-hello-swing-3">Hello Swing 3</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-hello-world">Hello World</a></h2>
+
+<!-- ************************************* -->
+<h3><a name="1-1-hello-world-1">Hello World 1</a></h3>
+
+(voir <a href="../../exemples/java/hello/HelloWorld1.java">HelloWorld1.java</a>)
+<br>
+<br>Créer un répertoire <code>HelloWorld</code> et dedans créer un fichier <code>HelloWorld1.java</code>.
+<br>Copier le code suivant dans <code>HelloWorld1.java</code> :
+
+<pre>
+/** 
+    Premier exemple
+**/
+class HelloWorld1{
+
+    /**
+        Point d'entrée du programme
+        @param  args Tableau de chaînes passé au programme
+    **/
+    public static void main(String[] args) {
+        System.out.println("Hello World!"); // Affiche une chaîne de caractères
+    }
+}
+</pre>
+
+Compiler le programme : 
+<pre>
+javac HelloWorld1.java
+</pre>
+On voit que ça a généré un fichier <code>HelloWorld1.class</code>
+<br>
+<br>Exécuter le programme : 
+<pre>
+java HelloWorld1
+</pre>
+
+Notes :
+
+<ul class="spaced">
+
+    <li>
+        Il n'y a pas de directive <code>package</code> ; on se trouve donc dans le package par défaut.
+    </li>
+    <li>
+        La déclaration de <code>HelloWorld1</code> ne contient pas le mot-clé <code>extends</code>, elle dérive donc de <code>java.lang.Object</code>.
+    </li>
+    <li>
+        Notre classe contient une seule méthode statique, on n'a pour l'instant pas instancié d'objet.
+    </li>
+    <li>
+        On va voir plus loin que la méthode <code>main()</code> est particulière.
+    </li>
+    <li>
+        La ligne qui affiche "Hello World" utilise la classe <code>System</code>.
+        <br>On n'a pas importé cette classe, c'est donc une classe du package <code>java.lang</code>.
+        <br>En allant voir la doc d'Oracle, on peut voir que cette classe a une variable statique, <code>out</code>.
+        <br><code>out</code> est de type <code>java.io.PrintStream</code>, qui contient plusieurs méthodes <code>println()</code>.
+        Une de ces méthodes a la signature <code>public void println​(String x)</code> ; c'est elle qui est utilisée.
+    </li>
+
+</ul>
+
+<!-- ************************************* -->
+<h3><a name="1-2-la-fonction-main">La fonction main()</a></h3>
+
+la méthode <code>main()</code> est particulière car elle fournit un point d'entrée à l'interpréteur <code>java</code>.
+<br>Lorsqu'on exécute du code java, l'interpéteur va chercher un méthode dont la <b>signature</b> est <i>exactement</i> :
+<pre>public static void main(String[] args)</pre>
+
+Une classe donnée ne peut avoir qu'une seule fonction <code>main()</code> avec cette signature précise.
+<br>Mais deux classes peuvent avoir chacune leur fonction <code>main()</code>, ce qui permet d'avoir plusieurs points d'entrée dans une application.
+<br>
+<br>Le paramètre <code>args</code> est un tableau contenant des éléments de type <code>String</code>.
+<br>On accède aux éléments de ce tableau par <code>args[0]</code>, <code>args[1]</code> etc.
+
+
+<!-- ************************************* -->
+<h3><a name="1-3-hello-world-2">Hello World 2</a></h3>
+(voir <a href="../../exemples/java/hello/HelloWorld2.java">HelloWorld2.java</a>)
+<br>
+<br>On déporte l'affichage dans une méthode statique :
+<pre>
+class HelloWorld2 {
+    
+    public static void main(String[] args) {
+        echo();
+    }
+    
+    public static void echo() {
+        System.out.println("Hello World!");
+    }
+    
+}
+</pre>
+
+Notes :
+
+<ul class="spaced">
+    <li>
+        Syntaxe de l'appel d'une méthode statique de la même classe.
+        <br> A la place de
+        <pre>echo();</pre>
+        on aurait aussi pu écrire
+        <pre>HelloWorld2.echo();</pre>
+    </li>
+</ul>
+
+
+
+<!-- ************************************* -->
+<h3><a name="1-4-hello-world-3">Hello World 3</a></h3>
+(voir <a href="../../exemples/java/hello/HelloWorld3.java">HelloWorld3.java</a>)
+<br>
+<br>On passe le message à afficher en paramètre au programme :
+<pre>
+class HelloWorld3 {
+    
+    public static void main(String[] args) {
+        echo(args[0]);
+    }
+    
+    public static void echo(String msg) {
+        System.out.println(msg);
+    }
+    
+}
+</pre>
+
+Pour appeler le programme :
+<pre>java HelloWorld3 "Mon message"</pre>
+
+Notes :
+<ul class="spaced">
+    <li>
+        On n'a pas géré les erreurs possibles : appel sans paramètre ou avec plusieurs paramètres.
+        <br>Générez une erreur en appelant la fonction sans paramètre :
+        <pre>java HelloWorld3</pre>
+        <pre>
+Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: 0
+	at HelloWorld3.main(HelloWorld3.java:4)
+        </pre>
+        L'interpréteur java essaye d'accéder au premier élément du tableau <code>args</code> mais le tableau est vide.
+        <br>Une <b>exception</b> est lancée, de type <code>ArrayIndexOutOfBoundsException</code>.
+    </li>
+</ul>
+
+
+<!-- ************************************* -->
+<h3><a name="1-5-hello-world-4">Hello World 4</a></h3>
+
+(voir <a href="../../exemples/java/hello/HelloWorld4.java">HelloWorld4.java</a>)
+<br>
+<br>On déporte l'affichage dans une autre classe :
+<br>
+<br>Le fichier <code>HelloWorld4.java</code> contient
+<pre>
+class HelloWorld4 {
+    
+    public static void main(String[] args) {
+        Afficheur.afficher(args[0]);
+    }
+    
+}
+
+class Afficheur{
+ 
+    public static void afficher(String msg) {
+        System.out.println(msg);
+    }
+    
+}
+</pre>
+
+Pour compiler :
+<pre>javac HelloWorld4.java</pre>
+Pour compiler la classe <code>HelloWorld4</code>, le compilateur voit qu'il doit aussi compiler la classe <code>Afficheur</code> et  génère <code>HelloWorld4.class</code> et <code>Afficheur.class</code>.
+<br>
+<br>Notes :
+<ul class="spaced">
+    <li>On n'a toujours pas instancié d'objet.</li>
+    <li>Syntaxe de l'appel d'une méthode statique d'une autre classe : <code>NomdelaClasse.nomDeLeMéthode(paramètres)</code></li>
+    <li>
+        On a mis les classes <code>HelloWorld4</code> et <code>Afficheur</code> dans le même fichier. C'est possible mais déconseillé.
+    </li>
+</ul>
+
+<!-- ************************************* -->
+<h3><a name="1-6-hello-world-5">Hello World 5</a></h3>
+
+(voir <a href="../../exemples/java/hello/hello5">hello5</a>)
+<br>
+<br>On va créer une instance de <code>Afficheur</code>.
+<br>Créez un répertoire <code>hello5</code> avec 2 fichiers :
+<br>
+<br><code>HelloWorld5.java</code>
+<pre>
+class HelloWorld5 {
+    
+    public static void main(String[] args) {
+        Afficheur a = new Afficheur(args[0]);
+        a.afficher();
+    }
+    
+}
+</pre>
+
+<code>Afficheur.java</code>
+<pre>
+class Afficheur{
+ 
+    /** Le message à afficher **/
+    private String msg;
+    
+    public Afficheur(String msg){
+        this.msg = msg;
+    }
+    
+    public void afficher(){
+        System.out.println(msg);
+    }
+}
+</pre>
+
+Pour compiler :
+<pre>javac HelloWorld5.java</pre>
+
+Notes :
+<ul class="spaced">
+    <li>Création d'une instance avec le mot-clé <b><code>new</code></b>.</li>
+    <li>
+        Appel d'une méthode d'instance <code>unObjet.nomDeLaMéthode(paramètres)</code>
+    </li>
+    <li>
+        Dans le constructeur <code>Afficheur(String msg)</code>, on utilise le mot-clé <b><code>this</code></b> pour référer à l'instance courante.
+        <br>C'est ici obligatoire car le paramètre <code>msg</code> et la variable d'instance <code>msg</code> ont le même nom.
+        <br>Avec des noms différents, on n'aurait pas été obligés d'utiliser <code>this</code> :
+        <pre>
+public Afficheur(String message){
+    msg = message;
+}
+        </pre>
+    </li>
+    <li>
+        Dans <code>afficher()</code>, on se réfère à la variable d'instance par son nom, <code>msg</code> sans avoir besoin d'utiliser <code>this</code>.
+        <br>Mais on aurait pu aussi écrire explicitement : <code>System.out.println(this.msg);</code>
+    </li>
+</ul>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-hello-swing">Hello Swing</a></h2>
+
+<!-- ************************************* -->
+<h3><a name="2-1-hello-swing-1">Hello Swing 1</a></h3>
+
+(voir <a href="../../exemples/java/hello/HelloSwing1.java">HelloSwing1.java</a>)
+<pre>
+import javax.swing.*;
+
+public class HelloSwing1 {
+
+    public static void main(String argv[]) {
+        JFrame frame = new JFrame("Hello Swing");
+        
+        JPanel contentPane = new JPanel();
+        
+        JTextArea text = new JTextArea("Hello swing");
+        contentPane.add(text);
+        
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setContentPane(contentPane);
+        frame.setSize(300,100);
+        frame.setVisible(true);
+    }
+    
+}
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="2-2-hello-swing-2">Hello Swing 2</a></h3>
+
+Autre manière possible :
+<br>
+<br>(voir <a href="../../exemples/java/hello/HelloSwing2.java">HelloSwing2.java</a>)
+
+<pre>
+import javax.swing.*;
+
+public class HelloSwing2 <b>extends JFrame</b> {
+
+    public static void main(String argv[]) {
+        HelloSwing2 helloSwing = new HelloSwing2();
+    }
+    
+    public HelloSwing2(){
+        setTitle("Hello Swing");
+        
+        JPanel contentPane = new JPanel();
+        
+        JTextArea text = new JTextArea("Hello swing 2");
+        contentPane.add(text);
+        
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setContentPane(contentPane);
+        setSize(300,100);
+        setVisible(true);
+    }
+}
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="2-3-hello-swing-3">Hello Swing 3</a></h3>
+
+On peut faire aussi plus court :
+<br>
+<br>(voir <a href="../../exemples/java/hello/HelloSwing3.java">HelloSwing3.java</a>)
+
+<pre>
+import javax.swing.JOptionPane;
+
+public class HelloSwing3 {
+   public static void main(String args[]){
+      JOptionPane.showMessageDialog(null, "Hello Swing 3");
+      // JOptionPane.showMessageDialog(null, "Hello Swing 3", "Hello Swing", JOptionPane.PLAIN_MESSAGE);
+   }
+}
+</pre>
+
+<div class="exo">
+    - Allez voir dans l'API javadoc pour comprendre ce code (que signifie ce <code>null</code> dans la première ligne ?).
+    <br>- Décommentez la seconde ligne et regardez ce que ça donne.
+    <br>- Quelles autres constantes aurait-on pu utiliser à la place de <code>JOptionPane.PLAIN_MESSAGE</code> ?
+</div>
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>

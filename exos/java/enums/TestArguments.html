@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Enum : Test arguments | NFP121</title>
+    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice Enum : Test arguments</h1>
+</header>
+
+<article>
+
+<a href="enonce">Code source de l'énoncé</a>
+<br>
+<br>Dans <code>TestArgument.main()</code> (voir énoncé), on vérifie que l'utilisateur appelle cette classe avec un seul paramètre pouvant prendre les valeurs <code>"ROOT"</code>, <code>"ADMIN"</code> ou <code>"USER"</code>.
+<br>
+<br>A l'utilisation, cela donne :
+
+<pre>
+java TestArguments 
+Utilisation : java TestArguments &lt;rôle>
+&lt;rôle> peut prendre les valeurs : ROOT, ADMIN, USER
+il manque le paramètre rôle.
+</pre>
+
+<pre>
+java TestArguments toto
+Utilisation : java TestArguments &lt;rôle>
+&lt;rôle> peut prendre les valeurs : ROOT, ADMIN, USER
+Valeur incorrecte : toto
+</pre>
+
+<pre>
+java TestArguments ROOT
+OK, role = ROOT
+</pre>
+
+Ecrire le code de vérification en utilisant l'API enum, <i>sans coder en dur les chaînes <code>"ROOT"</code>, <code>"ADMIN"</code> et <code>"USER"</code></i>. 
+<br>
+<br>Vérifiez que si vous rajoutez un rôle (par exemple <code>"VISITOR"</code>), la fonction <code>main()</code> intègre ce nouveau rôle sans aucune modification.
+
+</article>
+
+</body>
+</html>
+

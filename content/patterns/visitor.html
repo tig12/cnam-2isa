@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Visitor | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Visitor et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="iterator.html">&larr;</a>
+    <a class="next" title="Next" href="memento.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>
+Visitor
+<div class="subtitle">(Visiteur)</div>
+</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-exemple-abstract-syntax-tree-ast">Exemple : Abstract Syntax Tree (AST)</a>
+        </li>
+        <li>
+            <a href="#2-autre-exemple">Autre exemple</a>
+        </li>
+        <li>
+            <a href="#3-structure">Structure</a>
+        </li>
+        <li>
+            <a href="#4-remarques">Remarques</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+<div class="intro">
+But : Représenter une opération à effectuer sur une structure d'objets.
+</div>
+
+Permet d'ajouter des opérations sans avoir à modifier les classes des objets sur lesquels il opère.
+<br>Ces opérations sont externalisées pour éviter de "polluer" les classes de la structure
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-exemple-abstract-syntax-tree-ast">Exemple : Abstract Syntax Tree (AST)</a></h2>
+Un AST est une repésentation intermédiaire souvent utilisée lors de la compilation.
+<br>Par exemple
+<pre>
+if(x > y){
+    max = x;
+}
+else{
+    max = y;
+}
+</pre>
+est traduit en 
+<img class="border margin margin-bottom2 padding05" src="img/visitor-ast.gif" alt="Abstract Syntax Tree" />
+
+Un compilateur peut avoir de nombreuses opérations à effectuer sur cet arbre : vérification du type, optimisation, génération de code... ;
+<br>l'AST peut aussi être utilisé pour faire du pretty printing, calculer des métriques sur le code.
+<br>
+<br>Ces opérations ont souvent besoin d'effectuer des traitement spécifiques à chaque type d'élément (opérateur, variable, constante...).
+<br>
+<br>On pourrait faire ça en ajoutant des méthodes aux classes des éléments de l'AST, que le code qui parcourt l'arbre utiliserait,
+<br>mais revient à charger les classes de nombreuses méthodes, et mélanger des fonctionnalités différentes à un même endroit :
+
+<img class="border margin padding05" src="img/visitor-detail1.jpg" alt="Visitor Node detail" />
+
+L'idéal serait de pouvoir ajouter chaque opération indépendamment, et que les traitements ne polluent pas les classes de l'arbre.
+<br>
+<br>Le pattern <i>Visitor</i> permet cela : chaque traitement se trouve dans un objet, appelé visiteur, et est transmis aux éléments de l'arbre lorsqu'il est traversé.
+<br>Cela se fait par le biais d'une méthode, <code>accept()</code> dans gof.
+<br>Lorsqu'un élément "accepte" le visiteur, il envoie une requête au visiteur contenant l'élément lui-même.
+<br>
+<br>Dans cette configuration, les éléments de l'arbre n'ont qu'une méthode supplémentaire à implémenter, <code><b>accept()</b></code>, pour permettre toutes les opérations possibles
+<br>
+<br>Par exemple, sans <i>visitor</i>, le code qui parcourt l'arbre appelle <code>typeCheck()</code> pour chaque composant,
+<br>Avec <i>visitor</i>,
+<br>- le code qui parcourt l'arbre appelle la méthode <code>accept()</code> en passant en paramètre un visiteur <code>TypeCheckVisitor</code>.
+<br>- L'élément appelle en retour (callback) le visiteur en lui passant : la classe de l'élément + l'élément lui-même.
+<br>- Le visiteur peut alors effectuer l'opération sur l'élément.
+
+<div class="flex-wrap">
+<div class="margin margin-right3">
+    <img class="border padding05" src="img/visitor-detail2.jpg" alt="Visitor detail" />
+</div>
+
+<div class="margin">
+    <img class="border padding05" src="img/visitor-detail3.jpg" alt="Visitor Node detail" />
+</div>
+
+</div><!-- end class="flex-wrap" -->
+
+On voit que ce mécanisme ne rajoute que très peu de code à chaque élément de l'arbre : 
+<pre>
+class AssignmentNode{
+    // ...
+    public accept(Visitor v){
+        visitAssignment(this);
+    }
+    // ...
+}
+</pre>
+Pour que le mécanisme fonctionne,
+<br>- <b>les élements doivent implémenter l'interface <code>Node</code>, pour la méthode <code>accept()</code></b>.
+<br>- <b>Les visiteurs doivent implémenter une interface, <code>NodeVisitor</code></b>.
+<br>
+<br>Les éléments ne connaissent pas les visiteurs, mais les visiteurs connaissent les noeuds.
+<br>
+<br>Le mécanisme utilise ici une <b>convention de nommage</b>, par ex <code>visitAssignment()</code> pour visiter un <code>AssignmentNode</code>.
+<br>Mais en java, on peut s'en passer en utilisant le <b>polymorphisme ad'hoc</b> (overriding) :
+<pre>
+class ConcreteVisitor1 implements Visitor{
+    public void visit(ConcreteElementA elt){ ...}
+    public void visit(ConcreteElementB elt){ ...}
+}
+
+class ConcreteElementA{
+    public void accept(Visitor v){
+        v.visit(this);
+    }
+}
+</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-autre-exemple">Autre exemple</a></h2>
+Code dans <a href="../../exemples/patterns/visitor/VisitorDemo1.java">VisitorDemo1.java</a>
+<br>
+<br>Cet exemple utilise un <i>Composite</i>.
+<br>Remarquer qu'il y a deux méthodes <code>operation()</code> : <code>print()</code> et <code>accept()</code>.
+<br>Remarquer que le polymorphisme ad'hoc est utilisé.
+
+<div class="exo">
+<b>Exercice :</b>
+<br>A partir de l'exemple <code>VisitorDemo1</code> :
+<ol>
+    <li>
+        Modifiez <code>TypeCheckVisitor</code> de manière à ce qu'il ne fasse rien sur un <code>AffectationNode</code>.
+        <br>Recompilez et vérifiez que l'affichage est bien modifié.
+    </li>
+    <li>
+        Créez un nouveau visiteur <code>CodeMetricsVisitor</code> affichant un message similaire aux autres visiteurs.
+    </li>
+    
+    <li>
+        Modifiez <code>main()</code> pour que seul ce visiteur agisse sur le composite.
+    </li>
+</ol>
+L'affichage doit devenir :
+<pre>
+=== CodeMetricsVisitor ===
+CodeMetricsVisitor visiting IfNode : if
+CodeMetricsVisitor visiting SuperiorNode : >
+CodeMetricsVisitor visiting VariableNode : x
+CodeMetricsVisitor visiting VariableNode : y
+CodeMetricsVisitor visiting AffectationNode : =
+CodeMetricsVisitor visiting VariableNode : max
+CodeMetricsVisitor visiting VariableNode : x
+CodeMetricsVisitor visiting AffectationNode : =
+CodeMetricsVisitor visiting VariableNode : max
+CodeMetricsVisitor visiting VariableNode : y
+</pre>
+
+Pour ceux qui ont fini :
+<br>Dans l'implémentation du composite, on voit que <code>accept()</code> est définie comme méthode abstraite dans <code>Node</code>, et qu'elle n'est implémentée que dans les noeuds concrets.
+<br>Mais tous les noeuds composites ont la même implémentation, d'où l'idée de l'implémenter dans <code>Composite</code>.
+<br>- Est-ce que c'est une bonne idée dans un cas général ?
+<br>- Dans le cadre de cet exemple, modifier l'implémentation pour implémenter <code>accept()</code> dans <code>composite</code>.
+
+</div>
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-structure">Structure</a></h2>
+Diagramme gof :
+<img class="border margin padding05" src="img/visitor-gof-diagram.jpg" alt="Visitor GOF" />
+Remarques :
+<br>- Dans ce pattern, l'abstraction (interface ou classe abstraite) <code>Visitor</code> est indispensable car la méthode <code>accept()</code> en a besoin.
+<br>- Mais l'abstraction <code>Element</code> ne l'est pas (mais elle est nécesssaire si on utilise un composite).
+
+<br>
+<br>Diagramme de séquence :
+<img class="border margin padding05" src="img/visitor-gof-sequence.jpg" alt="Visitor sequence" />
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-remarques">Remarques</a></h2>
+
+- Ajouter une nouvelle opération revient à rajouter une classe implémentant <code>Visitor</code>.
+<br>
+<br>- Le code est facilement évolutif si la structure visitée évolue peu ; si on rajoute un <code>ConcreteElement</code>, il faut rajouter une méthode à chaque <code>ConcreteVisitor</code>, donc <b>ce pattern n'est pas adapté aux structures qui doivent beaucoup évoluer</b>.
+<br>
+<!-- <br>- Alors qu'un <i>iterator</i> peut parcourir des éléments ayant un parent commun (<code>Item</code>), <i>visitor</i> n'a pas cette limite.
+<br> -->
+<br>- Un visiteur peut accumuler de l'information au fur et à mesure qu'il parcourt la structure. 
+<br>
+<br>- Ce pattern demande que les visiteurs aient accès aux informations nécessaires pour faire leur travail.
+<br>Exige donc parfois d'exposer certains détails des éléments visités, donc compromettre leur encapsulation.
+
+<div class="exo">
+<b>Exercice</b> <a href="../../exos/patterns/visitor/ruche/Ruche.html">Ruche</a> : modélisation de l'activité d'une ruche en utilisant le pattern Visitor
+</div>
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

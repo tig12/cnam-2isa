@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Classes, interfaces | NFP121 Millau</title>
+    <meta name="description" content="Classes, interfaces, classes abstraites en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+
+<body>
+
+<!-- 
+Java 8 introduces default methods on interfaces. If A,B,C are interfaces, B,C can each provide a different implementation to an abstract method of A, causing the diamond problem. Either class D must reimplement the method (the body of which can simply forward the call to one of the super implementations), or the ambiguity will be rejected as a compile error.[7] Prior to Java 8, Java was not subject to the Diamond problem risk because it did not support multiple inheritance.
+-->
+
+
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="syntaxe-java2.html">&larr;</a>
+    <a class="next" title="Next" href="outils-java.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Classes, interfaces</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-classes">Classes</a>
+            <ul>
+                <li><a href="#1-1-visibilite-des-classes">Visibilité des classes</a></li>
+                <li><a href="#1-2-membres-d-une-classe">Membres d'une classe</a></li>
+                <li><a href="#1-3-variables-de-classe-ou-d-instance">Variables de classe ou d'instance</a></li>
+                <li><a href="#1-4-constructeurs">Constructeurs</a></li>
+                <li><a href="#1-5-initialisations">Initialisations</a></li>
+                <li><a href="#1-6-sous-classes-et-heritage">Sous-classes et héritage</a></li>
+                <li><a href="#1-7-overloading-overriding-hiding">Overloading, overriding, hiding</a></li>
+                <li><a href="#1-8-utilisations-de-super">Utilisations de super</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-abstract-classes">Abstract classes</a>
+        </li>
+        <li>
+            <a href="#3-interfaces">Interfaces</a>
+            <ul>
+                <li><a href="#3-1-definir-un-contrat">Définir un contrat</a></li>
+                <li><a href="#3-2-definir-une-interface">Définir une interface</a></li>
+                <li><a href="#3-3-implementer-une-interface">Implémenter une interface</a></li>
+                <li><a href="#3-4-default-methods">Default methods</a></li>
+                <li><a href="#3-5-interface-static-methods">Interface static methods</a></li>
+                <li><a href="#3-6-interfaces-vides">Interfaces vides</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#4-classe-abstraite-ou-interface">Classe abstraite ou interface ?</a>
+        </li>
+        <li>
+            <a href="#5-packages-java-namespace">Packages, java namespace</a>
+            <ul>
+                <li><a href="#5-1-conflits">Conflits</a></li>
+                <li><a href="#5-2-import-static">import static</a></li>
+                <li><a href="#5-3-structure-d-une-application-java">Structure d'une application java</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#6-modules">Modules</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+
+
+
+
+
+
+Les classes et les interfaces sont les 2 types référence les plus importants en java.
+<br>Autres types référence : Arrays, enumerated types (“enums”), annotation types (“annotations”).
+<br>
+<br>Un fichier <i>.java</i> peut contenir :
+<br>- un seul type référence déclaré <code>public</code> ainsi que 0 ou plus types références de visibilité package.
+<br>- ou une ou plusieurs types références de visibilité package.
+<br>
+<br>Mais attention lorsqu'on met plusieurs type références dans le même fichier.
+<br>Voir <a href="../../exemples/java/packages/danger">exemples/java/packages/danger</a>.
+<br>
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-classes">Classes</a></h2>
+
+Syntaxe générale :
+
+<pre>public abstract class TheClass extends TheSuperClass implements Interface1, Interface2 { ... }</pre>
+
+La déclaration d'une classe contient, dans l'ordre :
+<ol>
+    <li>Modifiers (abstract, public, final) - <i>mais pas private ou protected</i></li>
+    <li>Le nom de la classe</li>
+    <li>Eventuellement <code>extends</code> le nom de la classe parent</li>
+    <li>Eventuellement <code>implements</code> suivi du nom de(s) interface(s) implémentée(s)</li>
+    <li>Le corps de la classe, encadré par <code>{ ... }</code></li>
+</ol>
+
+Exemple de classe :
+
+<pre>
+public class Circle {
+
+    public static final double PI= 3.14159;
+
+    public static double radiansToDegrees(double radians) { return radians * 180 / PI; }
+    
+    private double r;
+
+    public Circle() { <b>this(1.0)</b>; }
+    
+    public Circle(double r) { this.r = r; }
+    
+    public double getRadius() { return r; }
+    
+    public void setRadius(double r) {
+        if (r < 0.0){
+            throw new IllegalArgumentException("radius may not be negative.");
+        }
+        this.r = r;
+    }
+    
+    public double area() { return PI * r * r; }
+    
+    public double circumference() { return 2 * PI * r; }
+    
+}
+</pre>
+(code dans <a href="../../exemples/java/circle/Circle.java">Circle.java</a>)
+
+
+<!-- ************************************* -->
+<h3><a name="1-1-visibilite-des-classes">Visibilité des classes</a></h3>
+<ul>
+    <li><b>public</b> : classe accessible partout</li>
+    <li>Non spécifié (<b>package</b>) : la classe ne sera accessible qu'aux classes du même package.</li>
+    
+    <li class="margin-top">
+        <b>private</b> et <b>protected</b> : ne sont <b>pas</b> des mots-clés permettant d'exprimer la visibilité d'une classe.
+        <br>Mais on peut écrire ce genre de code :
+<pre>
+public class Main1{
+    <b>private class MyClass1{ ... }</b>
+    <b>protected class MyClass2{ ... }</b>
+}
+</pre>
+        (code dans <a href="../../exemples/java/visibility/Main1.java">Main1.java</a>)
+        <br>Ici on spécifie la visibilité d'un membre de la classe <code>Main1</code> (qui se trouve être une classe).
+    </li>
+</ul>
+
+
+<!-- ************************************* -->
+<h3><a name="1-2-membres-d-une-classe">Membres d'une classe</a></h3>
+
+Une classe peut avoir comme membres des variables, des méthodes ou des classes (voir classes internes plus loin).
+<br>
+<br>Les membres peuvent être de classe (static) ou d'instance.
+
+
+<h4>Visibilité des membres</h4>
+<table class="wikitable margin">
+    <tr>
+        <th style="border:none; background:none;"></th><th>public</th><th>protected</th><th><i>default</i></th><th>private</th>
+    </tr>
+    <tr>
+        <th>Classe où le membre est défini</th>
+        <td>Oui</td>
+        <td>Oui</td>
+        <td>Oui</td>
+        <td>Oui</td>
+    </tr>
+    <tr>
+        <th>Classe dans le même package</th>
+        <td>Oui</td>
+        <td>Oui</td>
+        <td>Oui</td>
+        <td>Non</td>
+    </tr>
+    <tr>
+        <th>Sous-classe dans un package différent</th>
+        <td>Oui</td>
+        <td>Oui</td>
+        <td>Non</td>
+        <td>Non</td>
+    </tr>
+    <tr>
+        <th>Non sous-classe dans un package différent</th>
+        <td>Oui</td>
+        <td>Non</td>
+        <td>Non</td>
+        <td>Non</td>
+    </tr>
+</table>
+
+Les visibilités <code>public</code> et <code>protected</code> font partie de l'API publique de la classe (puisque <code>protected</code> peut être utilisé dans un autre package).
+<br>Mais pas les visibilités <code><i>default</i></code> et <code>private</code>.
+<br>
+<br>Donc bien noter que la visibilité <code><i>default</i></code> est plus restrictive que <code>protected</code>.
+
+<!-- ************************************* -->
+<h3><a name="1-3-variables-de-classe-ou-d-instance">Variables de classe ou d'instance</a></h3>
+
+La syntaxe pour déclarer ou initialiser une variable de classe ou d'instance est similaire aux variables locales (à l'intérieur d'une méthode).
+<pre>
+class Exemples{
+    public static final int DAYS_PER_WEEK = 7;
+    
+    protected String[] daynames = new String[DAYS_PER_WEEK];
+
+    private String name;
+    
+    int x = 1;
+    
+    public int a = 17, b = 37, c = 53;
+    
+    private static int nbInstances = 0;
+}
+</pre>
+
+<h4>Valeurs par défaut</h4>
+Si elles ne sont pas initialisées, les variables de classe prennent une valeur par défaut.
+<br>ATTENTION, ce comportement est différent des variables locales, qui doivent être initialisées avant d'être utilisées.
+
+<div class="flex-wrap padding-top">
+<div>
+<pre>
+class TestDefaultValues1{
+    static int a;
+    public static void main(String[] args){
+        System.out.println("a = " + a);
+    }
+}
+</pre>
+<pre>java TestDefaultValues1</pre>
+<pre>a = 0</pre>
+</div>
+
+<div>
+Mais cette classe ne passe pas à la compilation :
+<pre>
+class TestDefaultValues2{
+    public static void main(String[] args){
+        int b;
+        System.out.println("b = " + b);
+    }
+}
+</pre>
+</div>
+</div><!-- end class="flex-wrap" -->
+(code dans <a href="../../exemples/java/classes">exemples/java/classes</a>)
+
+<table class="wikitable margin">
+<tr><th align="left"><strong>Type</strong></th><th align="left"><strong>Valeur par défaut</strong></th></tr>
+<tr><td>byte</td><td>0</td></tr>
+<tr><td>short</td><td>0</td></tr>
+<tr><td>int</td><td>0</td></tr>
+<tr><td>long</td><td>0L</td></tr>
+<tr><td>float</td><td>0.0f</td></tr>
+<tr><td>double</td><td>0.0d</td></tr>
+<tr><td>char</td><td>'\u0000'</td></tr>
+<tr><td>boolean</td><td>false</td></tr>
+<tr><td>Types références</td><td>null</td></tr>
+</table>
+
+<!-- **************** -->
+<h4>Manipuler des variables de classe (static)</h4>
+
+<h5>A l'extérieur de la classe</h5>
+<code>NomDeLaClasse.nomDeLaVariable</code>, par exemple <code>Circle.PI</code>
+<br>Mais la syntaxe peut être simplifiée avec <code>import static</code>
+<pre>
+import package1.Circle;
+...
+double piSur2 = Circle.PI / 2.0;
+...
+</pre>
+équivalent à
+<pre>
+import static package1.Circle.*;
+...
+double piSur2 = PI / 2.0;
+...
+</pre>
+
+<h5>A l'intérieur de la classe</h5>
+Tout simplement <code>PI</code>, ou <code>Circle.PI</code> ; <code>this.PI</code> est aussi possible dans les méthodes d'instance.
+
+<h4>Manipuler des variables d'instance</h4>
+
+<h5>A l'extérieur de la classe</h5>
+Les instances d'une classe doivent être instanciées avec le mot-clé <code>new</code>.
+<pre>
+public class Circle {
+    ...
+    public Circle() { <b>this</b>(1.0); }
+    public Circle(double r) { this.r = r; }
+    ...
+}
+</pre>
+Le choix du constructeur invoqué dépendra des paramètres utilisés :
+<pre>
+Circle c1 = new Circle(3.5);
+Circle c2 = new Circle();
+</pre>
+
+Une fois l'instance créée, on utilise <code>.</code> pour accéder aux membres de la classe :
+<pre>
+Circle c = new Circle(3.5);
+double radius = c.r;
+double surface = c.area();
+</pre>
+
+<h5>A l'intérieur de la classe (<code>this</code>)</h5>
+
+<code>this</code> représente l'instance courante.
+
+<br>Mais <code>this</code> peut être omis à l'intérieur de la classe.
+
+<pre>
+    public double area() { return PI * this.r * this.r; }
+    // identique à :
+    public double area() { return PI * r * r; }
+</pre>
+
+Attention : <code>this</code> est obligatoire si une variable locale porte le même nom qu'un membre de la classe.
+<br>Très fréquent, dans les constructeurs ou les setters :
+<pre>
+public class Circle {
+    public Circle(double r) { this.r = r; }
+    public void setRadius(double r) { this.r = r; }
+}
+</pre>
+
+<!-- **************** -->
+<h4>Modifier <i>final</i></h4>
+La variable ne peut plus être modifiée une fois qu'elle a été initialisée.
+<br>Une variable déclarée <code>public static final</code> désigne donc une constante.
+
+<!-- **************** -->
+<h4>Autres modifiers</h4>
+<code>transient</code> sert à indiquer que la variable ne fait pas partie de l'état permanent de l'objet, pas besoin de le stocker lors de la serialization.
+<br><code>volatile</code> sert lorsqu'une classe ou un objet est utilisé par plusieurs threads, pour indiquer que la variable ne doit pas être stockée au niveau du thread mais dans la mémoire centrale (commune).
+
+
+<!-- ************************************* -->
+<h3><a name="1-4-constructeurs">Constructeurs</a></h3>
+Méthodes <b>static</b> ayant exactement le même nom de la classe, servent à initialiser les variables d'instances des nouveaux objets créés.
+<br>Chaque classe a au moins un constructeur ; s'il n'est pas explicitement présent, javac en crée un (appelé <i>constructeur par défaut</i>), sans paramètre et qui ne fait rien.
+<br>La signature d'un constructeur ne comporte aucun type de retour (pas même <code>void</code>) et pas le mot-clé <code>static</code>.
+<br>Un constructeur ne doit rien renvoyer (pas même <code>this</code>).
+<br>
+<br>Utilisé avec le mot-clé <code>new</code>.
+<pre>Circle c = new Circle(0.25);</pre>
+
+Une classe peut avoir plusieurs constructeurs dont les paramètres doivent être différents (analogue à l'overload pour les méthodes).
+<br>
+<br>Un constructeur peut en appeler un autre en utilisant <code>this()</code> :
+<pre>
+public Circle(double r) { this.r = r; }
+public Circle() { this(1.0); }
+</pre>
+
+Restriction importante : l'appel utilisant <code>this()</code> <b>ne peut être que la première instruction</b> (voir héritage plus loin).
+
+<!-- ************************************* -->
+<h3><a name="1-5-initialisations">Initialisations</a></h3>
+
+<!-- **************** -->
+<h4>Dans un contexte d'instance</h4>
+<pre>
+public class ClasseAvecTableau {
+
+    public int len = 10;
+    
+    public int[] table = new int[len];
+    
+    public ClasseAvecTableau() {
+        for(int i = 0; i < len; i++){
+            table[i] = i;
+        }
+    }
+}
+</pre>
+
+Dans les constructeurs, les initialisations faites sur les variables d'instance sont toujours disponibles.
+<br>Le constructeur précédent est strictement équivalent à :
+<pre>
+    public int len;
+    
+    public int[] table;
+    
+    public ClasseAvecTableau() {
+        len = 10;               // ou this.len = 10;
+        table = new int[len];   // ou this.table = new int[this.len]
+        for(int i = 0; i < len; i++){
+            table[i] = i;
+        }
+    }
+</pre>
+
+On peut aussi écrire du code d'initialisation entre accolades au même niveau que les déclarations des champs et méthodes :
+<pre>
+public class MyClass{
+
+    // variables
+    private static final int NUMPTS = 100;
+    private int[] data = new int[NUMPTS];
+    
+    <b>// initialisation
+    {
+        for(int i = 0; i < NUMPTS; i++){
+            data[i] = i;
+        }
+    }</b>
+    
+    // méthodes
+    public MyClass(){ ... }
+    
+}
+</pre>
+Peut parfois clarifier le code en plaçant l'initialisation à coté de la déclaration de la variable.
+<br>Là aussi, équivalent à écrire ce code <b>dans chaque constructeur</b>.
+
+
+<h4>Dans un contexte static</h4>
+<i>javac</i> génère automatiquement pour chaque classe une méthode statique d'initialisation (<b>static initializer</b>), invoquée une seule fois à la première utilisation de la classe.
+<br>On peut définir un initialisateur static avec un bloc <code>static{ ... }</code> :
+<pre>
+public class Circle2 {
+    
+    private static final int NUM = 500;
+    
+    private static double sines[] = new double[NUM];
+    
+    private static double cosines[] = new double[NUM];
+    
+    <b>static {
+        double delta_x = (Circle.PI/2)/(NUM-1);
+        double x = 0.0;
+        for(int i = 0; i < NUM; i++, x += delta_x) {
+            sines[i] = Math.sin(x);
+            cosines[i] = Math.cos(x);
+        }
+    }</b>
+    
+    public static void main(String[] args){
+        System.out.println("NUM = " + NUM);
+        System.out.println("delta_x = " + delta_x); // <b>Ne passe pas à la compilation</b>
+    }
+}
+</pre>
+
+<ul>
+    <li>Comme dans les méthodes statiques, <code>this</code> ne peut pas être utilisé dans les static initializers.</li>
+    <li>Une classe peut avoir plusieurs initialisateurs statiques, qui seront ajoutés par javac à la méthode d'initialisation statique.</li>
+    <li>
+        Les variables locales aux initialisateurs statiques ne sont pas accessibles au reste de la classe.
+<pre>
+javac Circle2.java
+</pre>
+<pre>
+Circle2.java:20: error: cannot find symbol
+        System.out.println("delta_x = " + delta_x);
+                                          ^
+  symbol:   variable delta_x
+  location: class Circle2
+1 error
+</pre>
+    </li>
+</ul>
+
+<div class="exo">
+<b>Exercice</b> : <a href="../../exos/java/banque/CompteEnBanque1.html">Compte en banque 1</a>
+</div>
+
+<!-- ************************************* -->
+<h3><a name="1-6-sous-classes-et-heritage">Sous-classes et héritage</a></h3>
+
+<pre>
+/**
+    Un Circle est caractérisé par son rayon
+    Un PlaneCircle est en plus caractérisé par les coordonnées de son centre dans un plan
+**/
+public class PlaneCircle extends Circle {
+    
+    private final double cx, cy;    // coordonnées du centre
+    
+    public PlaneCircle(double r, double x, double y) {
+        <b>super(r)</b>;
+        this.cx = x;
+        this.cy = y;
+    }
+    
+    public double getCentreX() { return cx; }
+    
+    public double getCentreY() { return cy; }
+    
+    public boolean isInside(double x, double y) {
+        double dx = x - cx, dy = y - cy;
+        double distance = Math.sqrt(dx*dx + dy*dy); // théorème de Pythagore
+        return (distance < getRadius());      // this.getRadius() nécessaire car Circle.r est private
+    }
+}
+</pre>
+
+(<a href="../../exemples/java/circle/PlaneCircle.java">PlaneCircle.java</a>)
+
+<ul>
+    <li>Utilisation de <code>extends</code></li>
+    <li>Tous les membres <i>non privés</i> de la classe mère sont accessibles dans la classe fille.</li>
+    <li>Syntaxe <code>super()</code> pour appeler le constructeur de la classe mère.</li>
+</ul>
+
+<u>Note importante</u> : les variables privées de la classe mère ne sont pas accessibles dans la classe fille (sauf de manière indirecte si des getters et des setters ont été définis dans la classe mère). Mais lorsqu'on crée un objet de la classe fille, <b>les variables privées de la classe mère font partie de cet objet</b>.
+<br>Un objet de la classe <code>PlaneCircle</code> possède aussi un rayon.
+
+<!-- **************** -->
+<h4>Narrowing and widening conversions (rappel)</h4>
+Tout objet <code>PlaneCircle</code> est un <code>Circle</code> parfaitement légal.
+<pre>
+PlaneCircle pc = new PlaneCircle(1.0, 0.0, 0.0);
+Circle c = pc;
+</pre>
+Widening conversion, possible sans type cast ; <code>c</code> a perdu les facultés supplémentaires de <code>pc</code> ; qui peut le plus peut le moins, pas de problème.
+<br>
+<br>Mais une narrowing conversion doit être fait avec un type cast explicite :
+<pre>PlaneCircle pc2 = (PlaneCircle) c;</pre>
+ATTENTION : ici le type cast ne va pas générer d'erreur à l'exécution <i>car c était le résultat d'une narrowing conversion</i>.
+<br>Dans le cas général, passe à la compilation mais génère une erreur à l'exécution :
+<pre>
+public class TestTypecast{
+
+    public static void main(String[] args){
+        PlaneCircle pc1 = new PlaneCircle(1.0, 0.0, 0.0);
+        Circle c1 = pc1; // widening conversion
+        PlaneCircle pc1bis = (PlaneCircle) c1; // narrowing conversion OK
+        System.out.println("pc1bis : " + pc1bis);
+        
+        Circle c2 = new Circle();
+        PlaneCircle pc2 = (PlaneCircle) c2; // narrowing conversion erreur exécution
+        System.out.println("pc2 : " + pc2);
+    }
+    
+}
+</pre>
+(<a href="../../exemples/java/circle/TestTypecast.java">TestTypecast.java</a>)
+
+<pre>
+javac TestTypecast.java
+java TestTypecast 
+</pre>
+<pre>
+pc1bis : PlaneCircle@42f30e0a
+Exception in thread "main" java.lang.ClassCastException: Circle cannot be cast to PlaneCircle
+	at TestTypecast.main(TestTypecast.java:13)
+</pre>
+
+<!-- **************** -->
+<h4>Classe déclarée <code>final</code></h4>
+Sous-classage impossible. Par exemple <code>java.lang.String</code> est final => si du code tiers (hors de votre contrôle) vous passe une <code>String</code>, vous êtes sûr(e) qu'il s'agit bien de cette classe, et pas d'une extension douteuse.
+
+<!-- **************** -->
+<h4>Constructeurs de sous-classe, chaînage d'appel, constructeur par défaut</h4>
+L'utilisation de <code>super()</code> a les mêmes limites que l'utilisation de <code>this()</code> :
+<ul>
+    <li>Ne peut s'utiliser que dans le constructeur de la sous-classe.</li>
+    <li>Doit être la première instruction du constructeur</li>
+</ul>
+
+Java garantit que le constructeur d'une classe est appelé lorsqu'un objet de cette classe est instancié.
+<br>Java garantit aussi que ce constructeur est appelé lorsqu'un objet de la sous-classe est créé.
+<br>Donc si un constructeur n'a pas pour première instruction <code>this()</code> ou <code>super()</code>, <i>javac</i> insère une instruction <code>super()</code> au début de chaque constructeur.
+<br>Si la superclasse n'a pas de constructeur visible (par ex constructeur déclaré <code>private</code>), erreur à la compilation (voir <a href="../patterns/singleton.html">pattern singleton</a>).
+<br>
+<br>Exemple : lorsque l'instruction <pre>PlaneCircle pc1 = new PlaneCircle(1.0, 0.0, 0.0);</pre> est exécutée :
+<ol>
+    <li>Le constructeur de <code>PlaneCircle</code> est appelé.</li>
+    <li>Ce constructeur appelle explicitement <code>super()</code>, et appelle donc le constrcteur de <code>Circle</code>.</li>
+    <li>
+        Le constructeur de <code>Circle</code> appelle implicitement le constructeur de <code>Object</code>.
+        <br>On atteint le sommet de la hiérarchie, les constructeurs vont pouvoir s'exécuter.
+    </li>
+    <li>Le constructeur de <code>Object</code> est exécuté.</li>
+    <li>Le constructeur de <code>Circle</code> est exécuté.</li>
+    <li>Le constructeur de <code>PlaneCircle</code> est exécuté.</li>
+</ol>
+
+Si on déclare une classe sans définir explicitement de constructeur, java en crée un implicitement.
+<br>Donc revient au même qu'avoir ce constructeur :
+<pre>public MyClass() {
+    super();
+}</pre>
+
+Noter au passage que <i>les constructeurs ne sont jamais hérités</i>.
+<br>
+<br>Certaines classes sont uniquement static et n'ont pas vocation à être instanciées (comme <code>java.lang.Math</code> ou <code>java.lang.System</code>).
+<br>Pour interdire d'en faire des sous-classes, <i>on crée explicitement un constructeur privé</i> (cf <a href="../patterns/singleton.html">pattern Singleton</a>).
+
+
+<!-- ************************************* -->
+<h3><a name="1-7-overloading-overriding-hiding">Overloading, overriding, hiding</a></h3>
+
+Ce sont trois notions distinctes qu'il ne faut pas confondre.
+
+<!-- **************** -->
+<h4>Overloading</h4>
+
+Method overloading (surcharge de méthode) : consiste à définir dans une même classe plusieurs méthodes de même nom mais <i>prenant des paramètres de types différents</i>.
+<br>C'est l'exemple de <code>PrintStream.println()</code> ou <code>org.junit.jupiter.api.Assertions.assertEquals()</code>.
+<br>On appelle ça le <b>polymorphisme ad'hoc</b>, qui n'est pas lié à la notion d'héritage.
+
+<!-- **************** -->
+<h4>Overriding</h4>
+
+Method overriding (redéfinition ou spécialisation de méthode) : consiste à redéfinir dans une sous-classe une méthode, avec la même signature (ou presque, voir exemple de <code>clone()</code>).
+<br>Un exemple classique est la redéfinition de <code>toString()</code>.
+<br>
+<br>On appelle ça le <b>polymorphisme par inclusion</b> ou <b>polymorphisme par héritage</b>.
+<br>
+<br>Important : cela n'est possible que pour les méthodes d'instance.
+<br>IMPORTANT : bien comprendre que seules les méthodes d'instances sont polymorphiques, pas les méthodes statiques.
+<br>
+<br>On peut utiliser l'annotation <code>@Override</code> pour signaler notre intention au compilateur (c'est conseillé).
+<br>
+<br>La signature de la méthode doit être la même à deux exceptions près :
+<br>- Lorsqu'on override, on peut rendre une méthode moins privée, mais pas plus privée.
+<br>- La méthode de la sous-classe peut renvoyer un sous-type.
+<br>Exemple fréquemment rencontré : <code>clone()</code>
+<br><code>Object.clone()</code> est définie ainsi : 
+<pre>protected Object clone() throws CloneNotSupportedException</pre>
+Lorsqu'on override <code>clone()</code>, on fait souvent : 
+<pre>
+class MyClass[
+    @Override <b>public</b> MyClass clone(){ /* ... */ }
+}
+</pre>
+(noter que <code>@Override</code> ne génère pas de warning).
+<br>
+<br>La surcharge de méthode est très pratique car elle permet d'invoquer la méthode de la sous-classe, même lorsque le type déclaré est celui de la superclasse :
+
+<pre>
+public class TestOverriding{
+    
+    public static void main(String[] args){
+        Animal[] animaux = {
+            new Chien(),
+            new Chat()
+        };
+        for(Animal a : animaux){
+            System.out.println(a.grogner());
+        }
+    }
+}
+
+class Animal{
+    public String grogner(){
+        return "grogner() dans Animal";
+    }
+}
+class Chat extends Animal {
+    @Override
+    public String grogner(){
+        return "grogner() dans Chat";
+    }
+}
+class Chien extends Animal {
+    @Override
+    public String grogner(){
+        return "grogner() dans Chien";
+    }
+}                                                                      
+</pre>
+(<a href="../../exemples/java/overriding/TestOverriding.java">TestOverriding.java</a>)
+<pre>
+java TestOverriding 
+</pre>
+<pre>
+grogner() dans Chien
+grogner() dans Chat
+</pre>
+
+<!-- **************** -->
+<h4>Method hiding</h4>
+
+Pour les méthodes statiques, cette subtilité n'est pas possible car on invoque une métode statique en spécifiant le nom de la classe.
+<br>On parle alors de <b>method hiding</b>.
+
+<pre>
+public class TestMethodHiding{
+    
+    public static void main(String[] args){
+        System.out.println(Animal.grogner());
+        System.out.println(Chat.grogner());
+        System.out.println(Chien.grogner());
+    }
+}
+
+class Animal{
+    public static String grogner(){
+        return "grogner() dans Animal";
+    }
+}
+class Chat extends Animal {
+    public static String grogner(){
+        return "grogner() dans Chat";
+    }
+}
+class Chien extends Animal {
+    public static String grogner(){
+        return "grogner() dans Chien";
+    }
+}
+</pre>
+
+(<a href="../../exemples/java/hiding/TestMethodHiding.java">TestMethodHiding.java</a>)
+
+<pre>
+java TestMethodHiding 
+</pre>
+
+<pre>
+grogner() dans Animal
+grogner() dans Chat
+grogner() dans Chien
+</pre>
+
+
+<!-- **************** -->
+<h4>Danger de confusion</h4>
+Cependant, java permet d'invoquer des méthodes statiques sur des instances, bien que ça soit très déconseillé.
+<br>On reprend l'exemple <code>TestOverriding</code>, que l'on renomme en <code>TestMethodHiding2</code>.
+<br>On passe en static les méthodes <code>grogner()</code> :
+<pre>
+public class <b>TestMethodHiding2</b>{
+    
+    public static void main(String[] args){
+        Animal[] animaux = {
+            new Chien(),
+            new Chat()
+        };
+        for(Animal a : animaux){
+            System.out.println(a.grogner());
+        }
+    }
+}
+
+class Animal{
+    public <b>static</b> String grogner(){
+        return "grogner() dans Animal";
+    }
+}
+class Chat extends Animal {
+    // @Override
+    public <b>static</b> String grogner(){
+        return "grogner() dans Chat";
+    }
+}
+class Chien extends Animal {
+    // @Override
+    public <b>static</b> String grogner(){
+        return "grogner() dans Chien";
+    }
+}
+</pre>
+A la compilation, javac nous indique :
+<pre>
+TestMethodHiding2.java:21: error: static methods cannot be annotated with @Override
+TestMethodHiding2.java:27: error: static methods cannot be annotated with @Override
+</pre>
+
+En supprimant les annotations, on peut compiler sans erreur.
+
+<pre>
+java TestMethodHiding2 
+</pre>
+<pre>
+grogner() dans Animal
+grogner() dans Animal
+</pre>
+
+<!-- **************** -->
+<h4>Field hiding</h4>
+
+Dans une sous-classe, si un champ a le même nom qu'un champ de la classe mère, Il le cache, même s'il est d'un type différent.
+<br><b>C'est une pratique déconseillée</b>.
+<br>Dans ce cas, si on veut accéder au champ caché, il faut utiliser le mot-clé <code>super</code> ou faire du type cast
+
+<pre>
+public class TestFieldHiding{
+    public static void main(String[] args){
+        C c = new C();
+        c.print();
+    }
+}
+
+class A{
+    public String x = "A";
+}
+class B extends A{
+    public String x = "B";
+}
+class C extends B{
+    public String x = "C";
+    
+    public void print(){
+        System.out.println("x = \t\t" + x);
+        System.out.println("this.x = \t" + this.x);
+        System.out.println("super.x = \t" + super.x);
+        System.out.println("((B)this).x = \t" + ((B)this).x);
+        System.out.println("((A)this).x = \t" + ((A)this).x);
+    }
+}
+</pre>
+
+(<a href="../../exemples/java/hiding/TestFieldHiding.java">TestFieldHiding.java</a>)
+
+<pre>
+java TestFieldHiding 
+</pre>
+<pre>
+x = 		C
+this.x = 	C
+super.x = 	B
+((B)this).x = 	B
+((A)this).x = 	A
+</pre>
+
+Notez qu'on est ici dans un contexte d'instance, et que variables et méthodes ne sont pas traitées de la même manière :
+<br>- Pour les méthodes, on est en situation d'overriding.
+<br>- Pour les variables, on est en situation de hiding.
+
+<!-- ************************************* -->
+<h3><a name="1-8-utilisations-de-super">Utilisations de super</a></h3>
+
+On a vu que le mot-clé <code>super</code> a plusieurs utilisations dont la syntaxe et la sématique sont différentes :
+<br>- <code>super()</code> pour appeler un constrcteur de la superclasse.
+<br>- <code>super</code> pour se référer à un champ de la superclasse.
+<br>Cette dernière utilisation est aussi possible avec les méthodes :
+<pre>
+public class TestSuper {
+    public static void main(String[] args) {
+        var obj = new SousClasse();
+        obj.instanceMethod();
+    }
+}
+
+
+class SuperClasse {
+    public void instanceMethod() {
+        System.out.println("SuperClasse.instanceMethod()");
+    }
+}
+
+class SousClasse extends SuperClasse {
+    @Override
+    public void instanceMethod(){
+        System.out.println("SousClasse.instanceMethod()");
+        <b>super.instanceMethod()</b>;
+    }
+}
+</pre>
+(code dans <a href="../../exemples/java/classes/TestSuper.java">TestSuper.java</a>)
+
+
+<div class="exo">
+<b>Exercice</b> : <a href="../../exos/java/banque/CompteEnBanque2.html">Compte en banque 2</a>
+</div>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-abstract-classes">Abstract classes</a></h2>
+
+Imaginons qu'on développe une API qui manipule différentes formes : <code>Cercle</code>, <code>Carre</code>, <code>Triangle</code>, et que chacune de ces formes ait deux méthodes en commun : <code>aire()</code> et <code>circonference()</code>.
+<br>Pour pouvoir facilement manipuler des tableaux de formes, on a besoin de créer une classe <code>Forme</code>, mais donner une implémentation générale aux méthodes <code>aire()</code> et <code>circonference()</code> n'a pas de sens.
+<br>
+<br>Les classes abstraites sont bien adaptées à ce genre de situation :
+<pre>
+abstract class Forme{
+    public abstract double aire();
+    public abstract double circonference();
+}
+
+class Carre extends Forme{
+    public double aire(){ return 1.0; }
+    public double circonference(){ return 1.0; }
+}
+
+class Triangle extends Forme{
+    public double aire(){ return 1.0; }
+    public double circonference(){ return 1.0; }
+}
+</pre>
+
+Les règles sont :
+
+<ul class="spaced naked">
+
+    <li>
+        Une classe qui a au moins une méthode déclarée <code>abstract</code> doit être déclarée <code>abstract</code> (sinon erreur de compilation).
+    </li>
+    <li>
+        Une class abstraite ne peut être instanciée.
+    </li>
+    <li>
+        Une sous-classe d'une classe abstraite qui implémente toutes les méthodes abstraites de sa super-classe peut être instanciée.
+    </li>
+    <li>
+        Les méthodes <code>static</code>, <code>private</code> ou <code>final</code> ne peuvent être déclarées <code>abstract</code> puisqu'elles ne peuvent pas être overridées.
+    </li>
+    <li>
+        Une classe peut être déclarée abstraite même si elle n'a aucune méthode abstraite ; elle ne peut pas être implémentée.
+    </li>
+</ul>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-interfaces">Interfaces</a></h2>
+
+<!-- ************************************* -->
+<h3><a name="3-1-definir-un-contrat">Définir un contrat</a></h3>
+Un aspect important des interfaces est qu'elles permettent de définir des <b>contrats</b> que les implémentations doivent respecter.
+<br>Exemple : une société qui développe des véhicules autonomes va définir et publier des interfaces pour faire déplacer une voiture (tourner, accélérer, freiner...), des interfaces liées au guidage (positionnement, environnement géographique, conditions de traffic) et développer le code qui articule ces sous-systèmes pour faire fonctioner la voiture.
+<br>Des sociétés tierces vont pouvoir développer des implémentations de ces différentes interfaces (constructeurs auto pour le déplacement, sociétés spécialisées dans le guidage électronique pour le guidage). Chacune ignore les implémentations des autres, mais elles vont pouvoir collaborer grace aux interfaces qu'elles sont tenues de respecter. Il sera aussi possible de changer l'implémentation d'un sous-système sans affecter les autres parties.
+<pre>
+interface DéplacerVoiture{
+    int tourner(Direction direction,
+                double rayonDeCourbure,
+                double vitesseInitiale,
+                double vitesseFinale);
+    
+    int accélérer(...);
+}
+</pre>
+
+Implémentations développées par différents acteurs :
+<table>
+    <tr>
+        <td class="vertical-align-top">
+<pre>
+public Class Déplacer2CV implements DéplacerVoiture{
+    public int tourner( ... ){ ... }
+    public int accélérer( ... ){ ... }
+}
+</pre>
+        </td>
+        <td class="vertical-align-top">
+<pre>
+public Class DéplacerMégane implements DéplacerVoiture{
+    public int tourner( ... ){ ... }
+    public int accélérer( ... ){ ... }
+}
+</pre>
+        </td>
+    </tr>
+</table>
+
+<!-- ************************************* -->
+<h3><a name="3-2-definir-une-interface">Définir une interface</a></h3>
+Similaire à la définition d'une classe
+<pre>
+interface Interface1 extends Interface2, Interface3{
+    
+    // déclaration de constante
+    double constante1 = 2.718282;       // = public static final
+ 
+    // déclaration de méthode
+    void méthode1 (int i, double x);    // = public abstract
+}
+</pre>
+
+<b>
+Comme pour une classe, lorsqu'on définit une nouvelle interface, on définit un nouveau type.
+<br>Un objet d'une classe implémentant des interfaces est à la fois du type de sa classe et de toutes les interfaces implémentées par cet objet.
+</b>
+
+<ul class="spaced naked">
+    <li>Une interface peut être déclarée <code>public</code> ou de visibilité <code>package</code> (même règle de visibilité que pour les classes).</li>
+    <li>
+        Tous les membres d'une interface sont par défaut publics (déclarer un membre <code>private</code> ou <code>protected</code> déclenche une erreur de compilation).
+        <br>Par convention, le mot-clé <code>public</code> est en général omis dans la déclaration des membres.
+    </li>
+    <li>
+        Une interface ne peut contenir que des méthodes <code>abstract</code>, <code>static</code> ou des <i>default methods</i> (depuis java8, voir plus loin).
+        <br>Le mot-clé <code>abstract</code> est aussi omis par convention.
+        <br>La définition d'une méthode abstraite se termine par un point-virgule (semicolon).
+    </li>
+    <li>
+        On ne peut pas définir dans une interface des variables d'instance (car c'est un détail d'implémentation).
+        <br>Mais on peut définir des constantes.
+        <br>Comme tous les champs d'une interface sont nécessairement des constantes, les mots-clés <code>public static final</code> sont par convention omis.
+    </li>
+    <li>Une interface ne peut définir de constructeur (ce qui est normal puisqu'elle ne peut être instanciée).</li>
+    <li>
+        Une interface peut étendre plusieurs interfaces ; elle hérite de toutes les méthodes et constantes des super-interfaces.
+    </li>
+</ul>
+
+
+<!-- ************************************* -->
+<h3><a name="3-3-implementer-une-interface">Implémenter une interface</a></h3>
+Pour déclarer une classe qui implémente une interface, on utilise la clause <code>implements</code> dans la déclaration de la classe.
+<br>Si la déclaration de la classe contient aussi une clause <code>extends</code>, on la place avant (par convention).
+<pre>public Class1 extends class2 implements interface1, interface2{ ... }</pre>
+Les classes doivent fournir une implémentation de toutes les méthodes abstraites qu'elles implémentent.
+<br>
+<br>Un objet d'une classe implémentant des interfaces est à la fois du type de la classe et du type des interfaces implémentées par la classe.
+
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/interfaces1/interfaces1.html">interfaces1</a>, questions 1 et 2.
+</div>
+
+
+<!-- ************************************* -->
+<h3><a name="3-4-default-methods">Default methods</a></h3>
+Le but principal est de pouvoir faire évoluer des interfaces sans casser le code existant (la compatibilité ascendante est un des points forts de java).
+<br>C'est possible depuis java 8 avec la possibilité de fournir des implémentations par défaut dans les interfaces.
+<pre>
+interface DoIt {
+    // ...
+   default void aNewMethod(int i){
+    // ...  implémentation fournie
+   }
+}
+</pre>
+
+Une classe implémentant une interface peut implémenter les méthodes par défaut (mais n'est pas obligée).
+<br>Si elle l'implémente, c'est cette version qui sera utilisée, sinon, c'est l'implémentation par défaut fournie par l'interface.
+<br>
+<br>Cela permet aussi d'éviter de répéter du code, si l'implémentation est commune à plusieurs classes.
+<br>
+<br>Une limite : overrider les méthodes de <code>Object</code> n'est pas possible.
+<pre>
+interface I{
+    @Override default public String toString(){ ... }
+}
+</pre>
+
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/interfaces1/interfaces1.html">interfaces1</a>, questions 3.
+</div>
+
+
+<!-- **************** -->
+<h4>Implémenter plusieurs interfaces avec les mêmes default methods</h4>
+
+<pre>
+interface Interface1{
+    default void method1(){
+        System.out.println("Interface1.method1()");
+    }
+}
+interface Interface2{
+    default void method1(){
+        System.out.println("Interface2.method1()");
+    }
+}
+
+<b>/* 
+Ne passe pas à la compilation :
+DefaultMethods.java:23: error: class C1 inherits unrelated defaults for method1() from types Interface1 and Interface2
+*/
+class C1 implements Interface1, Interface2{}
+
+/* Compilation OK */
+class C2 implements Interface1, Interface2{
+    public void method1(){}
+}</b>
+</pre>
+
+(<a href="../../exemples/java/interfaces/ambigue/DefaultMethodsAmbigues.java">DefaultMethodsAmbigues.java</a>)
+<br>
+<br>Dans ce cas, l'implémentation de la classe doit lever l'ambiguité en ré-implémentant la méthode.
+
+<!-- **************** -->
+<h4>Etendre une interface avec des default methods</h4>
+
+Si une interface dérive d'une interface avec une default method, trois situations sont possibles :
+<ol>
+    <li>Ne pas mentionner la default method - dans ce cas, hérite de la default method.</li>
+    <li>Redéclarer la default method sans l'implémenter - dans ce cas, l'implémentation de la default method est "perdue".</li>
+    <li>Redéfinir la default method - dans ce cas, la nouvelle implémentation remplace la première.</li>
+</ol>
+
+<pre>
+interface Interface0{
+    default void methode(){
+        System.out.println("methode() dans Interface0");
+    }
+}
+
+// cas 1
+// OK ; C1 utilise l'implémentation de Interface0
+interface Interface1 extends Interface0{ }
+class C1 implements Interface1{}
+
+// cas 2
+interface Interface2 extends Interface0{
+    void methode();
+}
+// erreur de compilation
+// ExtendsDefault.java:19: error: C2 is not abstract and does not override abstract method methode() in Interface2
+class C2 implements Interface2{}
+
+// cas 3
+// OK ; C3 utilise l'implémentation de Interface3
+interface Interface3 extends Interface0{
+     default void methode(){
+        System.out.println("methode() dans Interface3");
+    }
+}
+class C3 implements Interface3{}
+</pre>
+(<a href="../../exemples/java/interfaces/extend-default/ExtendsDefault.java">ExtendsDefault.java</a>)
+
+
+
+<!-- ************************************* -->
+<h3><a name="3-5-interface-static-methods">Interface static methods</a></h3>
+Depuis java 8, il est aussi possible d'implémenter des méthodes statiques dans les interfaces.
+<pre>
+interface Interface1{
+    static String doSomething(){ ... }
+}
+</pre>
+Lorsqu'on fabrique une API, permet de rassembler du code utilitaire dans des interfaces (avant, on mettait les constantes dans les interfaces et les méthodes static dans des classes).
+<br>Le mot-clé <code>public</code> est là aussi  implicite.
+
+
+<!-- ************************************* -->
+<h3><a name="3-6-interfaces-vides">Interfaces vides</a></h3>
+Appelées aussi <b>marker interfaces</b>, elles permettent de signaler des caractéristiques de certaines classes.
+<br>
+<br>Exemple d'utilisation : l'interface <code>java.util.RandomAccess</code> est vide.
+<br>Elle est utilisée par certaines implémentations de <code>java.util.list</code> pour signaler cette caractéristique (la possibilité d'accéder rapidement à tous ses éléments). Par exemple, <code>ArrayList</code> l'implémente, mais pas <code>LinkedList</code>.
+<br>On peut s'en servir comme ça :
+<pre>
+// on a une liste, mais on ne sait pas quelle est sa classe concrète
+List l = ...;
+// on veut trier l
+// on sait que la classe concrète de l contient une méthode sort()
+// mais l'implémentation de sort() est beaucoup plus efficace pour des listes en random access
+// donc avant de faire le sort(), on teste si on est dans un cas de random access
+// si ce n'est pas le cas, on convertit l dans une implémentation en random access
+if (l.size() > 2 && !(l instanceof RandomAccess)){
+    l = new ArrayList(l);
+}
+l.sort();
+</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-classe-abstraite-ou-interface">Classe abstraite ou interface ?</a></h2>
+
+Avant java 8, les interfaces ne pouvaient que contenir des spécifications de méthodes, sans aucune implémentation, ce qui pouvait mener à dupliquer du code, dans les différentes implémentations d'une interface.
+<br>On trouvait souvent des classes abstraites couplées à des interfaces : les interfaces contenaient la spécification de l'API, et une classe abstraite fournissait l'implémentation de certaines méthodes.
+<br>Les implémentations de l'interface dérivaient de la classe abstraites.
+<br>
+<br>Par exemple
+<img class="border margin padding05" src="img/list-inheritance.jpg" alt="List et AbstractList" />
+
+Depuis les default et static methods, on a le choix. Quelques considérations :
+
+<ul class="spaced naked">
+    <li>Une classe ne peut hériter que d'une seule classe.</li>
+    <li>Une interface ne peut pas contenir de variable (que des constantes).</li>
+    <li>
+        Si on ajoute une méthode à une API publique, le problème est de ne pas casser la compatibilité du code existant. Dans les deux cas, l'ajout de nouvelles méthodes peut entrer en collision de nom avec des méthodes supplémentaires implémentées dans les classes concrètes.
+    </li>
+    <li>La "philosophie" des interfaces est de servir pour spécifier des APIs et de fournir une default method s'il n'y a qu'une implémentation possible, ou si la méthode est optionnelle, mais de laisser abstraites les méthodes qui doivent être implémentées par les classes concrètes.</li>
+</ul>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="5-packages-java-namespace">Packages, java namespace</a></h2>
+Package = ensemble de classes (ou d'interfaces) ; sert à regrouper du code et à fournir un espace de nommage (namespace) aux classes qu'ils contiennent.
+<br>
+<br>Par convention, les noms de packages sont en lettres minuscules.
+<br>
+<br>Utilités :
+<br>- Eviter les collisions de nom.
+<br>- Organiser son code en sous-ensembles cohérents.
+<br>- Permet aux classes et méthode d'avoir une visibilité <code>package</code>, importante dans des gros programmes.
+<br>
+<br>NOTE : concevoir ses packages en n'utilisant qu'un nombre mimimum de classes publiques est conseillé, afin de renforcer l'encapsulation au niveau package.
+<br>Si une classe n'a pas vocation a être utilisée par d'autres package, donnez-lui une visibilité <i>package</i> : simplifie l'API publique et vous permet de faire évoluer le package sans perturber le code client.
+<br>Exemple : Comparer <a href="https://docs.oracle.com/javase/8/docs/api/javax/swing/colorchooser/package-summary.html">la doc du package javax.swing.colorchooser</a> et <a href="http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/javax/swing/colorchooser">le code source</a>.
+<br>
+<br>Les classes centrales de l'API sont dans un package qui commence par <code>java</code>.
+En particulier <code>java.lang</code> et <code>java.util</code>, aussi <code>java.io</code>, <code>java.net</code>.
+<br><code>javax*</code> = eXtensions qui ont été intégrées à la plateforme.
+<br>Oracle contrôle les packages commençant par <code>java</code>, <code>javax</code>, <code>sun</code>.
+<br>
+<br>Une classe a donc à la fois un nom simple et un <b>fully qualified name</b>.
+<div class="pre">Nom simple :              <code>System</code>
+Fully qualified name : <code>java.lang.System</code>
+</div>
+<br>2 classes de même nom simple ne peuvent être différenciées que par leur fully qualified name, par exemple <code>java.util.List</code> et <code>java.awt.List</code>.
+<br>Par défaut, pour référencer une classe dans le code, il faut utilser son fully qualified name, à 3 exceptions :
+<br>- les classes de <code>java.lang</code>
+<br>- les classes du package courant
+<br>- les classes qui ont été importées dans la package courant avec la déclaration <code>import</code>.
+<br>
+<br>Une toute petite application peut être écrite dans un répertoire sans spécifier le package, elle se trouve dans le <b>package par défaut</b>.
+<br>Mais dès qu'une application grossit, elle est packagée ; le nom du package courant est spécifié en utilisant l'instruction <code>package</code>.
+<br>
+<br>Les clauses <code>import</code> doivent apparaître en début de fichier, juste après la clause <code>package</code>.
+<pre>
+package myapp.mypackage;
+
+import java.io.File;    // <b>single</b> type import
+import java.io.*;       // <b>on-demand</b> type import - ne s'applique pas aux sub-packages
+</pre>
+
+On-demand import équivalent à simple type import <i>uniquement pour les classes que l'on utilse</i>.
+
+<!-- ************************************* -->
+<h3><a name="5-1-conflits">Conflits</a></h3>
+<pre>
+import java.util.List;
+import java.awt.List;
+</pre>
+Génère une erreur de compilation.
+<pre>
+import java.util.*;
+import java.awt.*;
+</pre>
+est légal, mais l'utilisation de <code>List</code> dans le code génère une erreur de compilation.
+<br>Dans ce cas, on peut faire : 
+<pre>
+import java.util.*;
+import java.awt.*;
+import java.util.List; // pour lever l'ambiguité
+</pre>
+Dans le code, l'identifiant "<code>List</code>" désignera une <code>java.util.List</code> et pour utiliser <code>java.awt.List</code>, on doit faire :
+<pre>java.awt.List = new java.awt.List(...)</pre>
+
+<!-- ************************************* -->
+<h3><a name="5-2-import-static">import static</a></h3>
+Introduit en java 5.
+<br>Possible d'importer les membres statiques (variables et méthodes) d'une classe en faisant : 
+<pre>import static java.lang.System.out;</pre>
+Permet par exemple d'utiliser dans le code <code>out.println()</code> au lieu de <code>System.out.println()</code>.
+<br>Utilisation courante :
+<pre>
+import static java.lang.Math.*;
+// permet de remplacer :
+Math.sqrt(Math.abs(Math.sin(x)))
+// par 
+sqrt(abs(sin(x)))
+</pre>
+
+Aussi utile pour les constantes (utiliser <code>PI</code> au lieu de <code>Math.PI</code>).
+<br>
+<br>Mais <b>ATTENTION</b>, à utiliser avec parcimonie car diminue la lisibilité du code : il faut faire des efforts pour savoir si une variable est locale ou vient d'un <code>import static</code> (pire en cas de multiples <code>import static *</code>). Favoriser l'import des variables une par une plutôt que la syntaxe avec <code>*</code>.
+
+<!-- ************************************* -->
+<h3><a name="5-3-structure-d-une-application-java">Structure d'une application java</a></h3>
+
+En java, le code est écrit dans des fichiers <b>.java</b>.
+<br>Les fichiers .java doivent être compilés (transformés en bytecode lisible par la JVM) en utilisant <b>javac</b>. Le bytecode est stocké dans des fichiers <b>.class</b>.
+<br>La (quasi ?) totalité des projets java stocke les .java et les .class dans deux dossiers séparés.
+<br>La structure typique d'un projet java est :
+<pre>
+projet/
+    ├── bin             // contient les .class
+    └── src             // contient les .java
+</pre>
+
+<h4>Packages</h4>
+Le code java est organisé en packages et il y a <i>obligatoirement</i> une correspondance entre la hiérarchie des packages et la hiérarchie des fichiers.
+<br>
+<br>Si on a :
+<pre>
+src/
+    └── projet
+        ├── package1
+        │   └── Class1.java
+        ├── package2
+        │   └── Class2.java
+        └── Projet.java
+</pre>
+
+alors l'application doit être packagée de cette manière :
+<br>
+<br>
+
+<div class="flex-wrap">
+<div class="margin-left padding05 border">
+Projet.java
+<pre>
+package projet;
+...
+</pre>
+</div>
+<div class="margin-left padding05 border">
+package1/Class1.java
+<pre>
+package projet.package1;
+...
+</pre>
+</div>
+<div class="margin-left padding05 border">
+package2/Class2.java
+<pre>
+package projet.package2;
+...
+</pre>
+</div>
+
+</div><!-- end class="flex-wrap" -->
+
+<br>La même hiérarchie se trouve dans <code>bin/</code> :
+<pre>
+bin/
+    └── projet
+        ├── package1
+        │   └── Class1.class
+        ├── package2
+        │   └── Class2.class
+        └── Projet.class
+</pre>
+
+Une manière assez répandue de nommer les packages utilise l'url de(s) auteur(s) pour former le nom du package principal.
+<br>Par exemple <code>http://commons.apache.org</code> met ses projets dans les packages
+<br><code>org.apache.commons.projet1</code>
+<br><code>org.apache.commons.projet2</code>
+<br>Ce qui correspond à une hiérarchie de fichiers <code>org/apache/commons/projet1</code> et <code>org/apache/commons/projet2</code>
+
+
+<div class="exo">
+<b>Exercice</b> : <a href="../../cours/nfp121/tps/2-conversion/tp2-millau.html">TP Conversion Celcius Fahrenheit</a>
+</div>
+
+<!-- ********************************************************************************* -->
+<h2><a name="6-modules">Modules</a></h2>
+La notion de module a été introduite en java 9. Un module regroupe un ou plusieurs packages.
+<br>Java SE a été découpé en modules, ce qui permet de déployer une application en n'incluant que les modules utiles.
+<br>Voir <a href="https://www.oracle.com/corporate/features/understanding-java-9-modules.html">https://www.oracle.com/corporate/features/understanding-java-9-modules.html</a>
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>
+
+

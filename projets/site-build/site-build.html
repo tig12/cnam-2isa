@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Build site Projet | NFP121 Millau</title>
+    <meta name="description" content="">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="NFP121" href="../../index.html">&uarr;</a>
+    <!-- 
+    <a class="prev" title="Previous" href=".html">&larr;</a>
+    <a class="next" title="Next" href=".html">&rarr;</a>
+    -->
+</nav>
+
+<header>
+<h1>Build site project</h1>
+</header>
+
+<article>
+
+<div class="intro">
+    But : Manipuler le site de ce cours.
+    <br>Charger les fichiers présents dans le dépôt git dans des objets javas
+</div>
+
+
+<h2>Modèliser un site</h2>
+<ol class="spaced">
+    <li>
+        <b>API modèle</b>
+        <br>Un site est composé de cours, et un cours est composé de pages.
+        <br>Faire un diagramme de classes contenant les notions de site, cours, pages.
+        <br>Identifiez les champs de chaque classe, et fournissez les getters setters. 
+        <br>Tests unitaires
+        <br>+ Mécanisme de main() pour pouvoir tester avec println() pendant l'écriture du code.
+    </li>
+    <li>
+        <b>Import</b>
+        <br>Parcourir la hiérarchie de fichiers présents dans le dépôt git, lire chaque fichier, chaque répertoire pour construire des objets Page de l'API modèle ;
+        remplir leurs différents champs (titre, contenu...). => regex
+        <br>A définir : règles de correspondance entre les fichiers et les objects de l'API.
+        <br>
+        <br>Avant de commencer, faire évoluer le modèle pour intégrer l'import ; diagramme de classe. 
+        <br>Faire évoluer les package pour organiser ce code ; structure simple et lisible.
+    </li>
+    <li>
+        <b>Composite</b>
+        <br>Ecrire un composite pour représenter un site : le noeud racine est le site, les enfants du site sont les cours, les enfants d'un cours sont des pages.
+        <br>Remplissez ce composite avec les objets créés en 2.
+        <br>Faire une "opération composite" print(), et afficher le composite.
+        <br>Intégrez le nouveau code aux tests unitaires.
+    </li>
+    <li>
+        <b>Sous-pages et hiérarchie de rubriques</b>
+        <br>On ajoute aux pages du site la possibilité d'avoir des enfants de type Page.
+        <br>Une page sans enfant est une page normale, un noeud terminal ; une page avec enfants est une rubrique.
+        <br>Le composite Site nous donne donc un moyen pour fabriquer une hiérarchie de rubriques à partir des pages.
+    </li>
+    <li>
+        <b>Visitors</b>
+        <br>Ajouter au composite un mécanisme de Visiteur
+        <br>Ecrire un visiteur de test qui affiche les titres des pages, des rubriques et des cours.
+        <br>Trouver un moyen pour visiter une seule page ; un seul cours ; une rubrique ; une rubrique et ses sous-rubriques.
+        <br>Ecrire quelques visiteurs : vérification d'erreur dans les pages, find 'n' replace avec regex dans les pages.
+        <br>Un visiteur possible : appeler le <a href="https://gitea.larzac.info/tig12/pagetoc">code qui génère les sommaires des pages</a> ; java pilote l'exécution d'un programme écrit en go. 
+    </li>
+    <li>
+        <b>Commands</b>
+        <br>On a une application qui permet de :
+        <br>- charger des données à partir d'un site en html brut,
+        <br>- analyser le contenu des pages,
+        <br>- produire des informations sur le site ou générer des versions modifier des pages.
+        <br>
+        <br>Il faut organiser l'utilisation de l'application.
+        <br>Comment la piloter, quelles choses peut-on lui demander ?
+        <br>Par exemple
+        <br>- affiche la liste des pages qui n'ont pas le tag <code>&lt;meta name="description"</code>
+        <br>- regénère la table des matières de la page content/java/lambdas.html
+        <br>Etablir la syntaxe du dialogue : comment spécifier une commande, liste des options possibles.
+        <br>Envisager les différentes manières d'intéragir entre l'application et ses utilisateurs.
+        
+    </li>
+    <li>
+        <b>Flux</b>
+        <br>
+    </li>
+    
+</ol>
+
+
+
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

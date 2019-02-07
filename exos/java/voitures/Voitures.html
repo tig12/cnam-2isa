@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Multiples1 | NFP121</title>
+    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+    <style>
+table.wikitable td{text-align:center;}
+    </style>
+</head>
+<body>
+
+<header>
+<h1>Exercice : Voitures</h1>
+</header>
+
+<article>
+
+On a le tableau de vente suivant :
+
+<table class="wikitable" style="margin:1em;">
+    <tr><th></th><th>2 CV</th><th>205</th><th>R5</th><th>404</th></tr>
+    <tr><th>Jean</th><td>0</td><td>5</td><td>2</td><td>3</td></tr>
+    <tr><th>Paul</th><td>4</td><td>6</td><td>5</td><td>0</td></tr>
+    <tr><th>Jeanne</th><td>3</td><td>0</td><td>4</td><td>3</td></tr>
+    <tr><th>Paule</th><td>6</td><td>2</td><td>0</td><td>7</td></tr>
+</table>
+
+On donne aussi les prix de chaque voiture :
+<table class="wikitable" style="margin:1em;">
+    <tr><th>2 CV</th><th>205</th><th>R5</th><th>404</th></tr>
+    <tr><td>20 000</td><td>30 500</td><td>25 000</td><td>22 400</td></tr>
+</table>
+
+<br>Dans une classe <code>Voiture</code> :
+
+<ul>
+    <li>Créez un tableau à deux dimensions qui contient le tableau des ventes.</li>
+    <li>
+        Créez trois autres tableaux (à une dimension) contenant :
+        <br>les noms des vendeurs ou vendeuses ;
+        <br>les noms des modèles ;
+        <br>les prix des modèles.
+    </li>
+    <li>
+        Ecrivez un programme qui affiche le tableau des ventes avec les totaux :
+        <br>- Pour chaque ligne, le chiffre d'affaire du vendeur / de la vendeuse.
+        <br>- Pour chaque colonne, le nombre de voitures vendues.
+    </li>
+</ul>
+
+Résultat attendu :
+
+<pre>
+java Voitures 
+</pre>
+<pre>
+	2CV	205	R5	404	TOTAL
+Jean	0	5	2	3	269700
+Paul	4	6	5	0	388000
+Jeanne	3	0	4	3	227200
+Paule	6	2	0	7	337800
+TOTAL	13	13	11	13	
+</pre>
+
+</article>
+
+</body>
+</html>

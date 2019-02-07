@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Bridge | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Bridge et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="interpreter.html">&larr;</a>
+    <a class="next" title="Next" href="state.html">&rarr;</a>
+</nav>
+
+<!-- 
+p 645 de headfirst
+
+http://www.oodesign.com/bridge-pattern-object-persistence-api-example-java-sourcecode.html
+exemple intéressant, mais pas convaincu.
+-->
+
+<header>
+<h1>
+Bridge
+<div class="subtitle">(Pont)</div>
+</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-exemple">Exemple</a>
+        </li>
+        <li>
+            <a href="#2-structure">Structure</a>
+        </li>
+        <li>
+            <a href="#3-remarques">Remarques</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+Autres noms : Handle / Body.
+
+<div class="intro">
+    But : découpler une abstraction de ses implémentations de manières à ce que les deux puissent varier indépendamment.
+</div>
+
+Lorsqu'une abstraction peut avoir plusieurs implémentations, on utilise en général l'héritage. Cela permet de faire varier les implémentations sans modifier l'abstraction, mais ce n'est parfois pas assez flexible. L'héritage crée un lien permanent entre l'abstraction et ses implémentations, et on ne peut pas faire varier les deux indépendamment.
+<br>
+<br>Le pattern <i>Bridge</i> permet de séparer complètement abstractions (<i>handle</i>) et implémentations (<i>body</i>).
+<br>On se retrouve avec deux hiérarchies d'héritage.
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-exemple">Exemple</a></h2>
+(code dans <a href="../../exemples/patterns/bridge/VehicleDemo.java">VehicleDemo.java</a>)
+<br>
+<br>On veut gérer différents types de véhicules avec différents types de boîtes de vitesse (gear = engrenage, boîte de vitesse).
+<br>L'abstraction est ici <code>Vehicle</code> et ses implémentations sont les différentes variantes de véhicules avec leurs différents types de boîte.
+<br>
+<br>Sans utiliser le pattern <i>Bridge</i>, on peut se retrouver avec la hiérarchie suivante :
+
+<img class="border margin padding05" src="img/bridge-gear1.jpg" alt="Bridge - gear exemple 1" />
+
+Pose un problème : si on rajoute un véhicule <code>Van</code> (camionette), on va se retouver avec 3 x 2 = 6 classes.
+<br>Si on rajoute en plus des boîtes semi-automatiques, on va avoir 3 x 3 = 9 classes.
+<br>
+<br>Encore pire : si on ajoute une autre caractéristique aux véhicules, le nombre de sous-classes va exploser.
+<br>Par exemple, si un véhicule pouvait aussi avoir 2 ou 4 roues motrices, on aurait 3 x 3 x 2 = 18 classes.
+<br>
+<br>Pour éviter cela,
+<ul>
+    <li>On isole les implémentations de l'abstraction. Ici, l'abstraction est <code>Vehicle</code> et ses implémentations sont les différentes variantes de boîte de vitesse.</li>
+    <li>On introduit une nouvelle abstraction (<code>Gear</code>).</li>
+    <li>On relie les abstractions en utilisant la composition.</li>
+</ul>
+
+Remplacer l'héritage par la composition permet à l'abstraction et aux implémentations de varier indépendamment.
+<br>
+<br>On pourrait qualifier <code>Gear</code> d'"abstraction concrète" (!) dans le sens où on identifie notre abstraction principale (<code>Vehicle</code>), et on regarde ce qui génère les différentes implémentations. Ici, c'est la notion de <code>Gear</code> ; on crée une abstraction, ce qui permet d'utiliser la composition.
+
+
+<img class="border margin padding05" src="img/bridge-gear2.jpg" alt="Bridge - gear exemple 2" />
+
+<div class="flex-wrap">
+
+<div>
+<pre>
+public class VehicleDemo {
+    public static void main(String args[]){
+        Gear gear;
+        
+        gear = new ManualGear();
+        Vehicle vehicle = new Car(gear);
+        vehicle.displayGear();
+
+        gear = new AutomaticGear();
+        vehicle = new Car(gear);
+        vehicle.displayGear();
+
+        gear = new ManualGear();
+        vehicle = new Truck(gear);
+        vehicle.displayGear();
+
+        gear = new AutomaticGear();
+        vehicle = new Truck(gear);
+        vehicle.displayGear();
+    }
+}
+</pre>
+</div>
+
+<div>
+<pre>
+java VehicleDemo 
+
+Car handles Manual gear
+Car handles Auto gear
+Truck handles Manual gear
+Truck handles Auto gear
+</pre>
+</div>
+
+</div><!-- end class="flex-wrap" -->
+
+<div class="exo">
+<b>Exercice</b> :
+<br>A partir de l'exemple <code>VehicleDemo</code>, introduire une nouvelle source de variabilité : 2 ou 4 roues motrices (<code>DriveWheel</code>).
+<br>Faire un second <i>Bridge</i> pour ajouter cette notion.
+<br>Exemple possible de code de test (les affichages avec <code>===</code> viennent de <code>main()</code>) :
+<pre>
+java VehicleDemo
+
+=== Voiture - boîte manuelle - 2 roues motrices === 
+Car handles Manual gear
+Car handles 2 drive wheels
+=== Voiture - boîte auto - 2 roues motrices === 
+Car handles Auto gear
+Car handles 2 drive wheels
+=== Camion - boîte manuelle - 4 roues motrices === 
+Truck handles Manual gear
+Truck handles 4 drive wheels
+</pre>
+</div>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-structure">Structure</a></h2>
+
+<img class="border margin padding05" src="img/bridge-gof-structure.jpg" alt="Bridge - structure" />
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-remarques">Remarques</a></h2>
+
+<ul class="spaced">
+    <li>
+        Le découplage complet entre abstraction et implémentation permet de changer d'implémentation à l'exécution.
+        <br>On peut recompiler abstraction et implémentation indépendamment.
+    </li>
+    <li>
+        Si on a N abstractions et M implémentations, <i>Bridge</i> permet de passer de N x M classes à N + M classes.
+    </li>
+    <li>
+        <i>Bridge</i> ne peut s'appliquer que si les deux hiérarchies (abstraction et implémentation) sont <b>orthogonales</b> (indépendantes).
+    </li>
+    <li>
+        Un intérêt de ce pattern est de pouvoir utiliser l'implémentation dans différentes abstractions (par exemple utiliser <code>Gear</code> pour des pompes).
+    </li>
+    <li>
+        <a href="abstract-factory.html">Abstract Factory</a> permet de faire un bridge : on a plusieurs implémentations possibles, on en choisit une à l'exécution.
+    </li>
+    
+</ul>
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

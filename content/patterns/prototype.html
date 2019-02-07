@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Prototype | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Prototype et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="abstract-factory.html">&larr;</a>
+    <a class="next" title="Next" href="builder.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Prototype</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-presentation">Présentation</a>
+        </li>
+        <li>
+            <a href="#2-remarques">Remarques</a>
+        </li>
+        <li>
+            <a href="#3-exemple-du-labyrinthe">Exemple du labyrinthe</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+<!-- 
+- Peut-être un exemple vraiment utile : https://en.wikipedia.org/wiki/Prototype_pattern#Pseudocode
+- https://www.tutorialspoint.com/design_pattern/prototype_pattern.htm
+- http://www.oodesign.com/prototype-pattern.html
+-->
+
+<div class="intro">
+Création d'objets par clonage
+</div>
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-presentation">Présentation</a></h2>
+
+Cas d'utilisation de ce pattern :
+<ul>
+    <li>La création, composition et représentation des objets doivent être cachées au client.</li>
+    <li>La classe des objets à créer n'est connue qu'à l'exécution.</li>
+    <li>La création d'objet est complexe, et on veut cacher cette complexité au client.</li>
+    <li>La création d'un objet coûte cher, et il est plus efficace de cloner un objet.</li>
+</ul>
+
+Le diagramme gof est assez simple :
+<br>L'interface prototype fournit une méthode <code>clone()</code>, que les classes qu'on a besoin de cloner implémentent.
+
+<img class="border margin" src="img/prototype-gof-diagram.jpg" alt="Prototype - Diagramme gof" />
+
+En général, pour permettre au client de cloner simplement les objets, on utilise une classe (par ex appelée <i>Factory</i>, <i>Pool</i> ou <i>Registry</i>) qui maintient une map associant un id au type d'objet à créer.
+
+<div class="exo">
+    <b>Exercice</b> : Compilez et exécutez <a href="../../exemples/patterns/prototype/PrototypeDemo1.java">PrototypeDemo1.java</a>.
+    <br>Quel est l'inconvénient de ce type d'implémentation ?
+    <br>Quelles solutions mettre en place pour y remédier ?
+</div>
+
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-remarques">Remarques</a></h2>
+
+<i><a href="abstract-factory.html">Abstract factory</a></i> pourrait stocker un ensemble de prototypes utilisés pour cloner et fabriquer des objets produit.
+<br>
+<br>Les designs utilisant <i><a href="composite.html">Composite</a></i> et <i><a href="decorator.html">Decorator</a></i> peuvent aussi utiliser <i>Prototype</i>.
+
+<div class="exo">
+<b>Exercice</b> : <a href="../../exos/patterns/prototype/widgets/Widgets.html">Abstract factory implémentée avec des prototypes</a>
+</div>
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-exemple-du-labyrinthe">Exemple du labyrinthe</a></h2>
+
+L'implémentation créé une Abstract Factory qui utilise Prototype au lieu de Factory Method.
+<br>Le code se trouve dans <a href="../../exemples/patterns/creation/src/maze/patterns/prototype">ce répertoire</a>.
+
+<div class="flex-wrap">
+
+<div>
+<pre>
+public class MazeGame{
+    public Maze createMaze(MazePrototypeFactory factory){
+        Maze aMaze = factory.makeMaze();
+        Room r1 = factory.makeRoom(1);
+        Room r2 = factory.makeRoom(2);
+        Door aDoor = factory.makeDoor(r1, r2);
+        
+        aMaze.addRoom(r1);
+        // ...
+        return aMaze;
+    }
+}
+</pre>
+
+<pre>
+public class MazePrototypeFactory{
+
+    protected Maze mazeProto;
+    protected Wall wallProto;
+    protected Room roomProto;
+    protected Door doorProto;
+    
+    public MazePrototypeFactory(){
+        this.mazeProto = new Maze();
+        this.wallProto = new Wall();
+        this.roomProto = new Room(0);
+        this.doorProto = new Door(null, null);
+    }
+    
+    public Maze makeMaze(){
+        return mazeProto.clone();
+    }
+
+    public Room makeRoom(int n){
+        Room result = roomProto.clone();
+        result.setRoomNb(n);
+        return result;
+    }
+
+    public Wall makeWall(){
+        return wallProto.clone();
+    }
+    
+    public Door makeDoor(Room r1, Room r2){
+        Door result = doorProto.clone();
+        result.setRooms(r1, r2);
+        return result;
+    }
+    
+}
+</pre>
+</div>
+
+<div>
+<pre>
+public class EnchantedMazePrototypeFactory extends MazePrototypeFactory {
+
+    protected EnchantedRoom roomProto;
+    protected DoorNeedingSpell doorProto;
+    
+    public EnchantedMazePrototypeFactory(){
+        this.roomProto = new EnchantedRoom(0);
+        this.doorProto = new DoorNeedingSpell(null, null);
+    }
+    
+}
+</pre>
+<pre>
+public class BombedMazePrototypeFactory extends MazePrototypeFactory {
+
+    protected BombedWall wallProto;
+    protected RoomWithBomb roomProto;
+    
+    public BombedMazePrototypeFactory(){
+        this.wallProto = new BombedWall();
+        this.roomProto = new RoomWithBomb(0);
+    }
+    
+}
+</pre>
+</div>
+
+</div><!-- end class="flex-wrap" -->
+
+Utilisation :
+<pre>
+    private static void test_prototype(){
+        var mazeGame = new maze.patterns.prototype.MazeGame();
+        Maze maze;
+        
+        // 1ere utilisation - jeu standard
+        var factory1 = new maze.patterns.prototype.MazePrototypeFactory();
+        maze = mazeGame.createMaze(factory1);
+        
+        // 2e utilisation - enchanted
+        var factory2 = new maze.patterns.prototype.EnchantedMazePrototypeFactory();
+        maze = mazeGame.createMaze(factory2);
+        
+        // 3e utilisation - bombed
+        var factory3 = new maze.patterns.prototype.BombedMazePrototypeFactory();
+        maze = mazeGame.createMaze(factory3);
+    }
+</pre>
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>

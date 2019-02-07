@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Intro design patterns | NFP121 Millau</title>
+    <meta name="description" content="Présentation des design patterns classiques, introduits en 1994 par Gamma, Helm, Johnson et Vlissides.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="next" title="Next" href="creational.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Introduction aux design patterns</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1"></a>
+            <ul>
+                <li><a href="#1-1-catalogue">Catalogue</a></li>
+                <li><a href="#1-2-references">References</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+(en français : <b>Patron de conception</b>)
+<br>
+<br>Vient de l'architecture : "A Pattern Language: Towns, Buildings, Construction" (Christopher Alexander, 1977).
+
+<blockquote>
+At the core […] is the idea that people should design for themselves their own houses, streets and communities. This idea […] comes simply from the observation that most of the wonderful places of the world were not made by architects but by the people.
+</blockquote>
+
+<blockquote>
+Patterns describe a problem and then offer a solution
+</blockquote>
+
+Adapté à l'informatique, livre de référence "<b>Design Patterns: Elements of Reusable Object-Oriented Software</b>".
+<br>Les 4 auteurs sont souvent désignés par "<b>the gang of four</b>" (<b>GOF</b>).
+<br>Contient 23 patterns.
+
+<div class="big2 margin">
+Un pattern est une solution à un problème dans un contexte
+</div>
+<img class="margin border" src="img/pattern-headfirst.jpg" alt="pattern-headfirst.jpg" />
+(Head First)
+
+<br>
+<br>En résumé, un pattern est :
+<pre class="normal">
+• Un moyen d’accomplir quelque chose
+• Une méthode éprouvée, réutilisée
+• Un code simple, « propre et peu perfectible »
+• Un jargon pour discuter du savoir faire
+• Quelque soit le langage à Objet
+</pre>
+
+En pratique, un pattern est un assemblage de classes pour un discours plus clair.
+<br>Une application = assemblage de patterns ? (en rêve)
+<br>
+<br>Chaque pattern fournit une solution à un genre de situation donnée.
+<br>Outil de conception non figé : chaque pattern a des variantes, des formes dégradées ; la définition "académique" est à adapter à chaque cas.
+<br>
+<br>Bien noter que les patterns ne sont pas spécifiques à java.
+
+<!-- ************************************* -->
+<h3><a name="1-1-catalogue">Catalogue</a></h3>
+Les 23 patterns historiques sont habituellement classés de cette manière :
+    
+<!-- ************************************* -->
+<h4>Creational</h4>
+Concernent l'instanciation des objets, fournissent un moyen de découpler un client des objets qu'il a besoin d'instancier.
+<br>Donnent aux programmes plus de flexibilité, en permettant de décider quels objets doivent être créées suivant les besoins.
+<ul>
+    <li><b><a href="abstract-factory.html">Abstract factory</a></b> (Fabrique abstraite) : groups object factories that have a common theme.</li>
+    <li><b><a href="builder.html">Builder</a></b> (Monteur) : constructs complex objects by separating construction and representation.</li>
+    <li><b><a href="factory-method.html">Factory method</a></b> (Fabrique) : creates objects without specifying the exact class to create.</li>
+    <li><b><a href="prototype.html">Prototype</a></b> (Prototype) : creates objects by cloning an existing object.</li>
+    <li><b><a href="singleton.html">Singleton</a></b> (Singleton) : restricts object creation for a class to only one instance.</li>
+</ul>
+
+<!-- ************************************* -->
+<h4>Structural</h4>
+Permettent de composer des classes ou des objets pour former des structures plus vastes.
+<ul>
+    <li><b><a href="adapter.html">Adapter</a></b> (Adapteur) :  allows classes with incompatible interfaces to work together by wrapping its own interface around that of an already existing class.</li>
+    <li><b><a href="bridge.html">Bridge</a></b> (Pont) :  decouples an abstraction from its implementation so that the two can vary independently.</li>
+    <li><b><a href="composite.html">Composite</a></b> (Objet Composite) :  composes zero-or-more similar objects so that they can be manipulated as one object.</li>
+    <li><b><a href="decorator.html">Decorator</a></b> (Décorateur) :  dynamically adds/overrides behaviour in an existing method of an object.</li>
+    <li><b><a href="facade.html">Facade</a></b> (Façade) :  provides a simplified interface to a large body of code.</li>
+    <li><b><a href="flyweight.html">Flyweight</a></b> (Poids-mouche) :  reduces the cost of creating and manipulating a large number of similar objects.</li>
+    <li><b><a href="proxy.html">Proxy</a></b> (Proxy) :  provides a placeholder for another object to control access, reduce cost, and reduce complexity.</li>
+</ul>
+
+<!-- ************************************* -->
+<h4>Behavioral</h4>
+Concernent les interactions des classes et des objets et la distribution des resposabilités.
+<ul>
+    <li><b><a href="chain-of-responsability.html">Chain of responsibility</a></b> (Chaîne de responsabilité) :  delegates commands to a chain of processing objects.</li>
+    <li><b><a href="command.html">Command</a></b> (Commande) :  creates objects which encapsulate actions and parameters.</li>
+    <li><b><a href="interpreter.html">Interpreter</a></b> (Interpréteur) :  implements a specialized language.</li>
+    <li><b><a href="iterator.html">Iterator</a></b> (Itérateur) :  accesses the elements of an object sequentially without exposing its underlying representation.</li>
+    <li><b><a href="mediator.html">Mediator</a></b> (Médiateur) :  allows loose coupling between classes by being the only class that has detailed knowledge of their methods.</li>
+    <li><b><a href="memento.html">Memento</a></b> (Mémento) :  provides the ability to restore an object to its previous state (undo).</li>
+    <li><b><a href="observer.html">Observer</a></b> (Observateur) :  is a publish/subscribe pattern which allows a number of observer objects to see an event.</li>
+    <li><b><a href="state.html">State</a></b> (Etat) :  allows an object to alter its behavior when its internal state changes.</li>
+    <li><b><a href="strategy.html">Strategy</a></b> (Stratégie) :  allows one of a family of algorithms to be selected on-the-fly at runtime.</li>
+    <li><b><a href="template-method.html">Template method</a></b> (Patron de méthode) : defines the skeleton of an algorithm as an abstract class, allowing its subclasses to provide concrete behavior.</li>
+    <li><b><a href="visitor.html">Visitor</a></b> (Visiteur) :  separates an algorithm from an object structure by moving the hierarchy of methods into one object.</li>
+</ul>
+
+Nous verrons aussi d'autres patterns ou assemblages importants : <b>injection de dépendance</b>, <b>MVC</b>, <b>CQRS</b>.
+
+<!-- ************************************* -->
+<h3><a name="1-2-references">References</a></h3>
+<ul>
+    <li><b>Design Patterns: Elements of Reusable Object-Oriented Software</b> (Erich Gamma, Richard Helm, Ralph Johnson and John Vlissides, 1994)</li>
+    <li>Design patterns, Head First (O'Reilly)</li>
+    <li><a href="img/extras_designpatternscard.pdf">Cheatsheet du CNAM</a></li>
+    <li>Sans doute intéressant : <a href="https://martinfowler.com/books/eaa.html">Patterns of Enterprise Application Architecture</a> (Martin Fowler)</li>
+    <!-- <li><a href="https://sourcemaking.com/design_patterns">sourcemaking.com/design_patterns</a></li> -->
+</ul>
+
+<center>
+<img class="border" src="img/gof-liens-patterns.jpg" alt="gof liens patterns" />
+GOF : Liens entre patterns
+</center>
+
+<div class="exo">
+<b>Exercice</b> :
+Regardez la liste des patterns, et trouvez un ou plusieurs exemples de patterns que vous avez déjà utilisé en programmation. Décrivez rapidement la problématique et la manière dont le pattern a résolu le problème.
+</div>
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>

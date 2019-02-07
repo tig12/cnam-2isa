@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Multiples2 | NFP121</title>
+    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Multiples2</h1>
+</header>
+
+<article>
+
+<ol class="spaced">
+    <li>
+        <ul>
+            <li>Recopier la classe <code>Multiples1</code> pour faire une classe <code>Multiples2</code>.</li>
+            <li>
+                Modifier le code de <code>Multiples2</code> en ajoutant un bloc try catch permettant de gérer les cas d'erreur :
+                <ul>
+                    <li>
+                        La classe est appelée en oubliant de passer la limite en paramètre
+                        <br>Vous pouvez tester <code>args.length</code>
+                    </li>
+                    <li>
+                        La classe est appelée en passant un paramètre invalide
+                        <br>Vous pouvez utiliser
+                        <pre>Integer limit = Integer.parseInt(args[0])</pre>
+                    </li>
+                </ul>
+                Afficher un message approprié dans chaque cas.
+            </li>
+        </ul>
+    </li>
+    
+    <li>
+        Ecrivez une classe <code>Multiples3</code> qui utilise la classe <code>java.util.Scanner</code> :
+<pre>
+<b>Scanner sc = new Scanner(System.in)</b>;
+System.out.println("Saisissez un nombre entier");
+while(true){
+    // attention,rajouter les try catch
+    afficheTable(Integer.parseInt(<b>sc.nextLine()</b>));
+    System.out.println("Saisissez un nombre entier");
+}
+</pre>
+        En essayant d'obtenir le comportement suivant :
+<pre>
+java Multiples3 
+</pre>
+<pre>
+Saisissez un nombre entier
+30
+5 7 10 14 15 20 21 25 28 30 
+Saisissez un nombre entier
+jj
+Saisie incorrecte
+Saisissez un nombre entier
+12
+5 7 10 
+Saisissez un nombre entier
+</pre>
+        Pour interrompre le programme en ligne de commande, utilisez <code>Ctrl C</code>.
+    </li>
+</ol>
+
+</article>
+
+</body>
+</html>
+

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Git submodules | Millau CNAM 2ISA</title>
+    <meta name="description" content="">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <meta name="robots" content="index,follow">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2019">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="NFP121" href="git.html">&uarr;</a>
+<!-- 
+    <a class="prev" title="Previous" href=".html">&larr;</a>
+    <a class="next" title="Next" href=".html">&rarr;</a>
+-->
+</nav>
+
+<header>
+<h1>Git submodules</h1>
+
+</header>
+
+<article>
+
+<div class="intro">
+La notion de submodule permet d'avoir des dépôts git à l'intérieur d'un dépôt, tout en gardant la gestion des différents dépôts séparée.
+<br>Permet par exemple d'intégrer une lib à l'intérieur d'un projet, ou de séparer la gestion d'un projet en plusieurs sous-projets tout en pouvant les utiliser ensemble.
+</div>
+
+<!-- ********************************************************************************* -->
+<h2>Premiers pas</h2>
+
+On se place dans le répertoire <code>git-tests</code>, qui contient déjà les dépôts <code>repo1</code>, <code>clone-repo1</code>, et on initialise un nouveau dépôt de test :
+<pre>git init submodule-test</pre>
+
+On crée un fichier et fait un premier commit :
+<pre>
+cd submodule-test
+
+echo "première ligne" > fichier1.txt
+git add fichier1.txt
+git ci -m "Première ligne dans fichier1.txt"
+</pre>
+
+On ajoute maintenant le dépôt <code>repo1</code> comme submodule du dépôt <code>submodule-test</code> :
+<pre><b>git submodule add</b> ../repo1/</pre>
+<pre>
+Clonage dans '/path/to/git-test/submodule-test/repo1'...
+fait.
+</pre>
+
+On constater l'effet de la commande avec <code>git status</code> :
+<pre>git st</pre>
+<pre>
+Sur la branche master
+Modifications qui seront validées :
+  (utilisez "git reset HEAD <fichier>..." pour désindexer)
+
+	nouveau fichier : .gitmodules
+	nouveau fichier : repo1
+</pre>
+
+<!-- ************************************* -->
+<h3>Fichier .gitmodules</h3>
+
+Le fichier <code>.gitmodules</code> a été créé par git :
+<pre>cat .gitmodules</pre>
+<pre>
+[submodule "repo1"]
+	path = repo1
+	url = ../repo1/
+</pre>
+
+On peut voir aussi que <code>.git/config</code> a été modifié :
+<pre>
+[submodule "repo1"]
+	url = /path/to/git-test/repo1
+	active = true
+</pre>
+
+Ce qu'on a fait est correct dans le cadre d'un exercice, mais pas adapté à la vie réelle, car si quelqu'un clone le dépôt <code>submodule-test</code>, git va aller voir le fichier <code>.submodule</code> et essayer de le rappatrier depuis le path <code>../repo1</code>. A moins que l'utilisateur ait déjà le dépôt <code>repo1</code> sur sa machine, il n'arrivera pas à récupérer le submodule.
+<br>Donc il aurait mieux valu créer le submodule avec un path que tous les utilisateurs peuvent utiliser, par exemple 
+<pre>git submodule add https://github.com/.../repo1.git</pre>
+
+Ça ne nous empêche pas d'utiliser la version locale de <code>repo1</code>, en faisant :
+<pre>git config submodule.repo1.url ../repo1</pre>
+Cela modifie <code>.git/config</code>, donc affecter uniquement la version locale du dépôt <code>submodule-test</code>.
+
+
+<!-- ************************************* -->
+<h3>Dans le submodule</h3>
+Si on va dedans, on peut voir que ce dépôt a été cloné avec tout son historique :
+<pre>
+cd repo1
+git slog
+git remote -v
+</pre>
+
+Pourtant, on voit que <code>.git</code> n'est plus un répertoire mais un fichier qui contient une seule ligne :
+<pre>gitdir: ../.git/modules/repo1</pre>
+</article>
+
+<!-- ********************************************************************************* -->
+<!-- ************************************* -->
+</body>
+</html>

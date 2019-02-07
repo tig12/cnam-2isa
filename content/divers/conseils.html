@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Conseils | NFP121 Millau</title>
+    <meta name="description" content="Conseils généraux de programmation">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">                                                  
+    <a class="top" title="NFP121" href="../../index.html">&uarr;</a>
+</nav>
+
+<header>
+<h1>Conseils</h1>
+
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-gof-head-first">GOF &amp; Head First</a>
+            <ul>
+                <li><a href="#1-1-oo-basics">OO Basics</a></li>
+                <li><a href="#1-2-oo-principles">OO Principles</a></li>
+                <li><a href="#1-3-pattern-mind">Pattern mind</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-the-art-of-unix-programming">The Art of Unix Programming</a>
+        </li>
+        <li>
+            <a href="#3-unix-autre">Unix autre</a>
+        </li>
+        <li>
+            <a href="#4-divers-1">Divers 1</a>
+        </li>
+        <li>
+            <a href="#5-divers-2">Divers 2</a>
+        </li>
+    </ul>
+</nav>
+</header>
+
+<article>
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-gof-head-first">GOF & Head First</a></h2>
+Conseils issus de "Design Patterns Head First", dont certains (la plupart) viennent de GOF.
+
+<!-- ************************************* -->
+<h3><a name="1-1-oo-basics">OO Basics</a></h3>
+<ul class="spaced">
+    <li>Abstraction</li>
+    <li>Encapsulation</li>
+    <li>Polymorphism</li>
+    <li>Inheritance</li>
+</ul>
+
+<!-- ************************************* -->
+<h3><a name="1-2-oo-principles">OO Principles</a></h3>
+<ul class="spaced">
+    <li>Encapsulate what varies.</li>
+    <li>Favor composition over inheritance.</li>
+    <li>Program to interfaces, not to implementations.</li>
+    <li>Strive for loosely-coupled designs between objects that interact.</li>
+    <li>Classes should be open for extension but closed to modification.</li>
+    <li>Depend on abstraction. Do not depend on concrete classes.</li>                                                        
+    <li>Only talk to your friends.</li>
+    <li>Don't call us, we'll call you.</li>
+    <li>A class should have only one reason to change</li>
+</ul>
+
+<!-- ************************************* -->
+<h3><a name="1-3-pattern-mind">Pattern mind</a></h3>
+<img class="border margin" src="img/headfirst-beginner.jpg" alt="headfirst-beginner.jpg" />
+<img class="border margin" src="img/headfirst-intermediate.jpg" alt="headfirst-intermediate.jpg" />
+<img class="border margin" src="img/headfirst-zen.jpg" alt="headfirst-zen.jpg" />
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-the-art-of-unix-programming">The Art of Unix Programming</a></h2>
+By Eric Steven Raymond, 2003
+<br>
+<br>Basics of the Unix philosophy :
+
+<ol class="spaced">
+    <li>Rule of Modularity: Write simple parts connected by clean interfaces.</li>
+    <li>Rule of Clarity: Clarity is better than cleverness.</li>
+    <li>Rule of Composition: Design programs to be connected to other programs.</li>
+    <li>Rule of Separation: Separate policy from mechanism; separate interfaces from engines.</li>
+    <li>Rule of Simplicity: Design for simplicity; add complexity only where you must.</li>
+    <li>Rule of Parsimony: Write a big program only when it is clear by demonstration that nothing else will do.</li>
+    <li>Rule of Transparency: Design for visibility to make inspection and debugging easier.</li>
+    <li>Rule of Robustness: Robustness is the child of transparency and simplicity.</li>
+    <li>Rule of Representation: Fold knowledge into data so program logic can be stupid and robust.</li>
+    <li>Rule of Least Surprise: In interface design, always do the least surprising thing.</li>
+    <li>Rule of Silence: When a program has nothing surprising to say, it should say nothing.</li>
+    <li>Rule of Repair: When you must fail, fail noisily and as soon as possible.</li>
+    <li>Rule of Economy: Programmer time is expensive; conserve it in  preference to machine time.</li>
+    <li>Rule of Generation: Avoid hand-hacking; write programs to write programs when you can.</li>
+    <li>Rule of Optimization: Prototype before polishing. Get it working before you optimize it.</li>
+    <li>Rule of Diversity: Distrust all claims for &#8220;one true way&#8221;.</li>
+    <li>Rule of Extensibility: Design for the future, because it will be here sooner than you think.</li>
+</ol>
+
+The Unix Philosophy in One Lesson : <b>KISS : Keep It Simple and Stupid</b>.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-unix-autre">Unix autre</a></h2>
+
+<ul class="spaced naked">
+    <li>(i) Make each program do one thing well. To do a new job, build
+    afresh rather than complicate old programs by adding new
+    features.</li>
+    
+    <li>(ii) Expect the output of every program to become the input to
+    another, as yet unknown, program. Don't clutter output with
+    extraneous information. Avoid stringently columnar or binary input
+    formats. Don't insist on interactive input.</li>
+    
+    <li>(iii) Design and build software, even operating systems, to be
+    tried early, ideally within weeks. Don't hesitate to throw away the
+    clumsy parts and rebuild them.</li>
+    
+    <li>(iv) Use tools in preference to unskilled help to lighten a
+    programming task, even if you have to detour to build the tools and
+    expect to throw some of them out after you've finished using
+    them.</li>
+    
+    <li>This is the Unix philosophy: Write programs that do one
+    thing and do it well. Write programs to work together. Write
+    programs to handle text streams, because that is a universal
+    interface.</li>
+    
+    <li>Rule 1. You can't tell where a program is going to spend its
+    time. Bottlenecks occur in surprising places, so don't try to second
+    guess and put in a speed hack until you've proven that's where the
+    bottleneck is.</li>
+    
+    <li>Rule 2. Measure. Don't tune for speed until you've measured, and
+    even then don't unless one part of the code overwhelms the
+    rest.</li>
+    
+    <li>Rule 3. Fancy algorithms are slow when <tt>n</tt> is small, and <tt>n</tt> is usually small. Fancy algorithms have big
+    constants. Until you know that <tt>n</tt> is
+    frequently going to be big, don't get fancy. (Even if <tt>n</tt> does get big, use Rule 2 first.)</li>
+    
+    <li>Rule 4. Fancy algorithms are buggier than simple ones, and
+    they're much harder to implement. Use simple algorithms as well as
+    simple data structures.</li>
+    
+    <li>Rule 5. Data dominates. If you've chosen the right data
+    structures and organized things well, the algorithms will almost
+    always be self-evident. Data structures, not algorithms, are central
+    to programming.</li>
+    
+    <li>When in doubt, use brute force.</li>
+</ul>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-divers-1">Divers 1</a></h2>
+
+<ul>
+    <li>
+        "Programs are meant to be read by humans, and only incidentally for computers to execute."
+        <br>Donald Knuth
+    </li>
+    <li>
+        "Write programs for people first, computers second."
+        <br>Steve McConnell
+    </li>
+</ul>
+
+<!-- ********************************************************************************* -->
+<h2><a name="5-divers-2">Divers 2</a></h2>
+<ul>
+    <li>Ecrire du code lisible, compréhensible, maintenable - très important (7. Rule of Transparency)</li>
+    <li>Une fonction, un fonctionnalité ; une classe, un rôle.</li>
+    <li>Seul du code non écrit est garanti sans bug (éviter d'écrire du code qui servira "au cas où").</li>
+</ul>
+</div>
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

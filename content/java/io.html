@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>I / O, fichiers | NFP121 Millau</title>
+    <meta name="description" content="Introduction à java.io et java.nio, packages java permettant de manipuler des entrées / sorties en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="generics.html">&larr;</a>
+    <a class="next" title="Next" href="collections.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>I / O, fichiers</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-java-i-o-classique">Java I / O classique</a>
+            <ul>
+                <li><a href="#1-1-streams">Streams</a></li>
+                <li><a href="#1-2-readers-et-writers">Readers et Writers</a></li>
+                <li><a href="#1-3-try-with-resources-twr">try with resources (TWR)</a></li>
+                <li><a href="#1-4-fichiers-distants">Fichiers distants</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-java-i-o-moderne">Java I / O moderne</a>
+            <ul>
+                <li><a href="#2-1-paths">Paths</a></li>
+                <li><a href="#2-2-files">Files</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+
+
+(I/O = Input / Output)
+<br>
+<br>Préliminaires : lien symbolique (raccourci) ; chemin absolu / relatif.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-java-i-o-classique">Java I / O classique</a></h2>
+
+API présente dès le début de java, package <code>java.io</code>.
+<br>La classe principale est <b><code>java.io.File</code></b>, qui représente à la fois un fichier et ou un répertoire.
+<br>
+<br>Exemple d'utilisation :
+<br>on suppose que le répertoire home contient un fichier <code>app.conf</code>
+<br>Créer un répertoire <code>.configdir</code> et déplacer <code>app.conf</code> dedans.
+<br>=> faire en java ce qui se ferait en bash de cette manière :
+<pre>
+cd ~
+mkdir .configdir
+mv app.conf .configdir
+</pre>
+En java : 
+<pre>
+File homedir = new File(System.getProperty("user.home"));
+File f = new File(homedir, "app.conf");
+if (f.exists() && f.isFile() && f.canRead()) {
+    File configdir = new File(f, ".configdir");
+    configdir.mkdir();
+    f.renameTo(new File(configdir, ".config"));
+}
+</pre>
+
+<code>java.io.File</code> contient un grand nombre de méthodes :
+<pre class="normal">
+File f = new File("/path/to/file");
+
+// Gestion des droits
+boolean canX = f.canExecute();
+boolean canR = f.canRead();
+boolean canW = f.canWrite();
+boolean ok;
+ok = f.setReadOnly();
+ok = f.setExecutable(true);
+ok = f.setReadable(true);
+ok = f.setWritable(false);
+
+// Différents aspects du nom du fichier
+File absF = f.getAbsoluteFile();
+File canF = f.getCanonicalFile();
+String absName = f.getAbsolutePath();
+String canName = f.getCanonicalPath();
+String name = f.getName();
+String pName = f.getParent();
+URI fileURI = f.toURI(); // Create URI for File path
+
+// Metadata
+boolean exists = f.exists();
+boolean isAbs = f.isAbsolute();
+boolean isDir = f.isDirectory();
+boolean isFile = f.isFile();
+boolean isHidden = f.isHidden();
+long modTime = f.lastModified(); // milliseconds since epoch
+boolean updateOK = f.setLastModified(updateTime); // milliseconds
+long fileLen = f.length();
+
+// Opérations sur le fichier
+boolean renamed = f.renameTo(new File("/new/filename"));
+boolean deleted = f.delete();
+boolean createdOK = f.createNewFile(); // n'écrase pas le fichier existant
+
+// Gestion de fichier temporaire
+File tmp = File.createTempFile("my-tmp", ".tmp");
+tmp.deleteOnExit();
+
+// Gestion de répertoire
+File dir = new File("/path/to/dir");
+boolean createdDir = dir.mkdir();
+String[] fileNames = dir.list();
+File[] files = dir.listFiles();
+</pre>
+(voir <a href="../../exemples/java/io/FileMethodsExamples.java">FileMethodsExamples.java</a>)
+<br>
+<br>Noter qu'il n'y a pas de méthode pour lire le contenu d'un fichier.
+
+<!-- ************************************* -->
+<h3><a name="1-1-streams">Streams</a></h3>
+Les I/O streams (attention : différents des streams introduits en java8 pour les collections) permettent de gérer des <b>flux d'octets</b> en provenance du disque <i>ou d'autres sources</i>.
+<br>API organisée autour de 2 classes abstraites : <code>InputStream</code> et <code>OutputStream</code> et de leurs sous-classes.
+<br>
+<br><code>System.in</code> et <code>System.out</code> sont des instances de ces classes.
+<br>
+<br>Exemple : compte le nombre de "a" dans un fichier (code ASCII 97)
+<pre>
+    public static void main(String[] args){
+        <b>try (InputStream is = new FileInputStream("test.txt"))</b> {
+            byte[] buf = new byte[4096];
+            int len, count = 0;
+            while ((len = <b>is.read(buf)</b>) > 0) {
+                for (int i=0; i&lt;len; i++)
+                    if (buf[i] == 97) count++;
+            }
+            System.out.println("Trouvé "+ count + " 'a'");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+</pre>
+(voir <a href="../../exemples/java/io/InputStreamExample.java">InputStreamExample.java</a>)
+<br>
+<br>Noter la syntaxe inhabituelle du try, voir try-with-resources plus loin.
+
+<!-- ************************************* -->
+<h3><a name="1-2-readers-et-writers">Readers et Writers</a></h3>
+Travailler avec des octets n'étant pas toujours pratique, deux autres classes abstraites, <code>Reader</code> et <code>Writer</code> permettent de travailler au niveau des <b>caractères</b>.
+<br>Sous-classes fréquemment utilisées :
+<pre class="normal">
+FileReader
+BufferedReader
+InputStreamReader
+FileWriter
+PrintWriter
+BufferedWriter
+</pre>
+Permet de travailler sur des fichiers en emboîtant des readers (cf pattern Decorator) : 
+<pre>
+<b>try (BufferedReader in = new BufferedReader(new FileReader("test.txt")))</b> {
+    String line;
+    while((line = in.readLine()) != null) {
+        System.out.println(line);
+    }
+} catch (IOException e) { }
+</pre>
+(code dans <a href="../../exemples/java/io/BufferedReaderExample.java">BufferedReaderExample.java</a>)
+
+
+<!-- ************************************* -->
+<h3><a name="1-3-try-with-resources-twr">try with resources (TWR)</a></h3>
+Mécanisme introduit en java 7, particulièrement utile pour java.io :
+<br>Lorsqu'on fait un <code>try</code> "normal", si on utilise des resources qui doivent être libérées, les clauses <code>catch</code> et <code>finally</code> sont souvent fastidieuses à écrire.
+<br>Cette nouvelle syntaxe permet de passer en paramètre au bloc try des objets qui ont éventuellement besoin de nettoyage.
+<br>javac s'occupe alors d'insérer le code nécessaire pour libérer les resources, qu'on n'a donc plus besoin d'écrire.
+<br>
+<br>A UTILISER CHAQUE FOIS QUE C'EST POSSIBLE, c'est à dire pour construire des objets de classes implémentant <b><code>java.lang.AutoCloseable</code></b>
+<br>
+<br>TWR permet de passer en paramètre de <code>try</code> la création de plusieurs objets :
+<pre>
+try (
+    <b>BufferedReader in = new BufferedReader(new FileReader("profile"));
+    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("profile.bak")))</b>
+) {
+    String line;
+    while((line = in.readLine()) != null) {
+        out.println(line);
+    }
+} catch (IOException e) {
+    // FileNotFoundException, etc.
+}
+</pre>
+Similaire à <code>using</code> en C#.
+
+<!-- ************************************* -->
+<h3><a name="1-4-fichiers-distants">Fichiers distants</a></h3>
+En utilisant des classes du package <code>java.net</code>, on peut lire des fichiers distants :
+<pre>
+import java.io.*;
+import java.net.*;
+
+class RemoteExample{
+    
+    public static void main(String[] args){
+        URL url = null;
+        try{
+            url = new URL("https://larzac.info/cnam/nfp121/cours/index.html");
+        }
+        catch(MalformedURLException e){
+            e.printStackTrace();
+        }
+        try(
+            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+        ){
+            String line;
+            while((line = reader.readLine()) != null){
+                System.out.println(line);
+            }
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+}
+</pre>
+(code dans <a href="../../exemples/java/io/RemoteExample.java">RemoteExample.java</a>)
+
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/io/LectureEcriture.html">Lecture / Ecriture</a>
+</div>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-java-i-o-moderne">Java I / O moderne</a></h2>
+<!-- 
+http://tutorials.jenkov.com/java-nio/index.html
+https://www.ibm.com/developerworks/java/tutorials/j-nio/j-nio.html
+-->
+
+Nouvelle API introduite en java 4, fournit un remplacement presque complet de <code>java.io</code> ; plus simple d'utilisation.
+<br>Les sous-classes de <code>Reader</code> et <code>Writer</code> sont toujours utilisées.
+<br>
+<br>Les classes principales sont dans le package <b><code>java.nio.file</code></b>.
+
+<!-- ************************************* -->
+<h3><a name="2-1-paths">Paths</a></h3>
+Représente le chemin d'un fichier dans un système de fichier.
+<br>Peut être absolu ou relatif
+<br>Peut correspondre ou pas à un fichier existant.
+<br>Peut représenter un fichier ou un répertoire.
+<br>
+<br>Un path est une séquence de noms de répertoires, éventuellement suivie par un nom de fichier.
+<br>Si le premier élément est un <b>composant racine</b>, comme <code>/</code> ou <code>C:\</code> (dépend de l'OS), alors représente un chemin absolu.
+<br>
+<br>L'interface <code>java.nio.file.Path</code> représente un path.
+
+<h4>java.nio.file.Paths</h4>
+La classe <code>java.nio.file.Paths</code> fournit 2 méthodes statiques pour créer un path.
+<pre>
+public static Path get(String first, String... more)
+public static Path get(URI uri)
+</pre>
+
+La première méthode (avec <code>String</code>) fonctionne de 2 manières, suivant qu'on utilise un ou plusieurs arguments :
+<br>Les 2 instructions suivantes sont équivalentes : 
+<pre>
+Path p1 = Paths.get("/tmp/foo");
+Path p2 = Paths.get("/", "tmp", "foo");
+</pre>
+La seconde méthode attend une uri.
+<pre>Path p3 = Paths.get(URI.create("file:///Users/joe/FileTest.java"));</pre>
+(code dans <a href="../../exemples/java/nio/CreatePathExamples.java">CreatePathExamples.java</a>)
+
+<pre>
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+class PathExamples{
+    
+    public static void main(String[] args){
+        
+        // sous Windows : Path home = Paths.get("C:\\Users\\Moi");
+        Path home = <b>Paths.get</b>("/home/moi");
+        System.out.println(home);    // /home/moi
+        
+        Path p1 = home.<b>resolve</b>("dev/myapp/src");
+        // Equivalent à : Path p1 = home.resolve(Paths.get("dev/myapp/src"));
+        System.out.println(p1);    // /home/moi/dev/myapp/src
+        
+        Path p2 = p1.<b>resolveSibling</b>("tmp.txt");
+        System.out.println(p2);    // /home/moi/dev/myapp/tmp.txt
+        
+        Path p3 = p1.<b>relativize</b>(Paths.get("/home/moi/dev/myapp2/src"));
+        System.out.println(p3);    // ../../myapp2/src
+        
+        // part de l'endroit où a été démarrée la JVM
+        Path p4 = Paths.get("config").<b>toAbsolutePath</b>();
+        System.out.println(p4);    // /home/thierry/dev/jobs/cnam/git-repos/public/exemples/java/nio/config
+        
+        Path test;
+        test = p2.<b>getParent</b>();
+        System.out.println(test);       // /home/moi/dev/myapp
+        test = p2.<b>getFileName</b>(); // le dernier élément
+        System.out.println(test);       // tmp.txt
+        test = p2.<b>getRoot</b>(); // "/" ou "C:\" ou null pour un chemin relatif
+        System.out.println(test);       // /
+        test = p2.<b>getName</b>(0); // le premier element
+        System.out.println(test);       // home
+        test = p2.<b>subpath</b>(1, p2.getNameCount()); // tout sauf le premier élément
+        System.out.println(test);       // moi/dev/myapp/tmp.txt
+        
+        // Utilise le fait que <b>Path extends Iterable&lt;Path></b>
+        for (Path component : p4) {
+            System.out.print(component + " - ");
+        }
+        System.out.println();
+        // home - thierry - dev - jobs - cnam - git-repos - public - exemples - java - nio - config - 
+    }
+}
+</pre>
+(code dans <a href="../../exemples/java/nio/PathExamples.java">PathExamples.java</a>)
+<br>Remarquer qu'aucune <code>IOException</code> n'est lancée.
+
+<!-- ************************************* -->
+<h3><a name="2-2-files">Files</a></h3>
+On peut toujours travailler avec des <code>java.io.File</code> ou directement avec des <code>java.nio.file.Path</code>.
+<br>Pour passer de l'un à l'autre, on peut utiliser <code>Path.toFile()</code> ou <code>File.toPath()</code> (since java 1.7).
+<br>
+<br>La classe principale est <code>java.nio.file.Files</code>, qui ne contient que des méthodes statiques.
+
+<pre>
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.FileVisitResult;
+import java.nio.file.attribute.BasicFileAttributes;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+class FilesExamples{
+    
+    public static void main(String[] args){
+        try{
+            String input;
+            
+            // touch toto1.txt
+            Path p1 = Paths.get("toto1.txt").toAbsolutePath();
+            Files.<b>createFile</b>(p1); // que si n'existe pas (sinon FileAlreadyExistsException)
+            
+            // cat "du contenu" > toto1.txt
+            PrintWriter out = new PrintWriter(p1.toFile()); // TWR préférable ici (pas besoin de close())
+            out.println("du contenu");
+            out.close();
+            
+            // cp toto1.txt toto2.txt
+            Path p2 = p1.resolveSibling("toto2.txt");
+            <b>Files.copy</b>(p1, p2);
+            
+            System.out.print("toto1.txt et toto2.txt ont été créés - appuyez sur 'Enter' pour les effacer");
+            input = System.console().readLine();
+
+            // rm toto1.txt toto2.txt
+            <b>Files.delete</b>(p1);
+            Files.delete(p2);
+            
+            // mkdir -p test/{dir1,dir2,dir3/dir4}
+            <b>Files.createDirectories</b>(p1.resolveSibling("test/dir1"));
+            Files.createDirectories(p1.resolveSibling("test/dir2"));
+            Files.createDirectories(p1.resolveSibling("test/dir3/dir4"));
+            
+            Path test = p1.resolveSibling("test");
+            
+            // for i in $(tree -fi test | grep test); do touch $i/test.txt; done;
+            <b>Files.walkFileTree</b>(test, new SimpleFileVisitor&lt;Path>() {
+                 @Override public FileVisitResult postVisitDirectory(Path dir, IOException e) throws IOException {
+                     if (e == null) {
+                         Files.createFile(dir.resolve("test.txt"));
+                         return FileVisitResult.CONTINUE;
+                     } else {
+                         throw e; // directory iteration failed
+                     }
+                 }
+             });
+            
+            System.out.print("test/ a été créé - appuyez sur 'Enter' pour l'effacer");
+            input = System.console().readLine();
+            
+            // rm -fr test/
+            Files.walkFileTree(test, new SimpleFileVisitor&lt;Path>() {
+                 @Override public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                     Files.delete(file);
+                     return FileVisitResult.CONTINUE;
+                 }
+                 @Override public FileVisitResult postVisitDirectory(Path dir, IOException e) throws IOException {
+                     if (e == null) {
+                         Files.delete(dir);
+                         return FileVisitResult.CONTINUE;
+                     } else {
+                         throw e; // directory iteration failed
+                     }
+                 }
+             });
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+                
+    }
+}
+</pre>
+
+(code dans  dans <a href="../../exemples/java/nio/FilesExamples.java">FilesExamples.java</a>).
+<br>
+<br>Autres méthodes utiles de <code>Files</code>: 
+<pre>
+createDirectories(path)
+createDirectory(path)
+createFile(path)
+
+exists(path)
+
+isDirectory(path)
+isRegularFile(path)
+</pre>
+
+Certaines fonctions utilisent des enums du package :
+<pre>
+AccessMode
+FileVisitOption
+FileVisitResult
+LinkOption
+StandardCopyOption
+StandardOpenOption
+</pre>
+
+
+<!-- 
+TODO
+filesystem
+nio channels and buffers
+async io
+    future-based style
+    callback based style
+    watchers
+    directory searching
+-->
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

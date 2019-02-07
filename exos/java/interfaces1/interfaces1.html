@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice interfaces1 | NFP121</title>
+    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : interfaces1</h1>
+</header>
+
+<article>
+
+<a href="enonce/">Code source de l'énoncé</a>
+
+<br>
+<br>Soient les classes <code>Cercle</code> et <code>Carre</code> :
+
+<table>
+    <tr>
+        <td class="vertical-align-top">
+<pre>
+public class Cercle{
+    public static final double PI= 3.14159;
+    private double r;
+    public Cercle(double r) { this.r = r; }
+}
+</pre>
+        </td>
+        <td class="vertical-align-top">
+<pre>
+public class Carre{
+    private double c;
+    public Carre(double c) { this.c = c; }
+}
+</pre>
+        </td>
+    </tr>
+</table>
+
+et les interfaces <code>Forme</code> et <code>FormeComparable</code> :
+
+<table>
+    <tr>
+        <td class="vertical-align-top">
+<pre>
+public interface Forme{
+    double surface();
+}
+</pre>
+        </td>
+        <td class="vertical-align-top">
+<pre>
+public interface FormeComparable extends Forme{
+    /** 
+        Renvoie true si l'objet courant
+        a une surface supérieure à f
+    **/
+    boolean estPlusGrand(FormeComparable f);
+}
+</pre>
+        </td>
+    </tr>
+</table>
+
+1) Modifiez les classes <code>Cercle</code> et <code>Carre</code> pour qu'elles implémentent <code>FormeComparable</code> 
+<br>(pour le cercle, <b>surface = PI * r * r</b> ; pour le carré, <b>surface = c * c</b>).
+
+<br>
+<br>2) Soit la classe Main :
+<pre>
+class Main{
+    public static void main(String[] args) {
+        FormeComparable[] tableau = {
+            new Carre(2),
+            new Cercle(2),
+            new Carre(3),
+        };
+    }
+}
+</pre>
+
+2.1) Ajoutez à <code>Carre</code> et <code>Cercle</code> une méthode <code>public String toString()</code>
+<br>affichant respectivement <code class="color">Cercle 2.0</code> et <code class="color">Carré 2.0</code> (affiche le rayon ou le coté au lieu de 2.0).
+<br>
+<br>2.2) Complétez <code>Main</code> pour obtenir l'affichage :
+
+<pre>
+Carré 2.0 ; surface = 4.0
+Cercle 2.0 ; surface = 12.56636
+Carré 3.0 ; surface = 9.0
+
+Carré 2.0 est plus grand que Cercle 2.0 ? false
+</pre>
+
+(l'affichage des éléments de <code>tableau</code> doit se faire dans une boucle).
+<br>
+<br>
+3) Modifiez <code>FormeComparable</code>, <code>Cercle</code> et <code>Carre</code> pour transférer l'implémentation de la méthode <code>estPlusGrand()</code> dans l'interface.
+
+
+</article>
+
+</body>
+</html>
+

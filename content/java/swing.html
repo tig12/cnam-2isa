@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Swing | NFP121 Millau</title>
+    <meta name="description" content="Brève introduction à swing, pour écrire des applications graphiques en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="regex.html">&larr;</a>
+</nav>
+
+<header>
+<h1>Swing</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-survol-de-swing">Survol de swing</a>
+            <ul>
+                <li><a href="#1-1-layout">Layout</a></li>
+                <li><a href="#1-2-look-and-feel">Look and feel</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-swing-et-le-mvc">Swing et le MVC</a>
+            <ul>
+                <li><a href="#2-1-vue-controleur">Vue / Contrôleur</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+@todo
+https://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/synth.html
+https://docs.oracle.com/javase/10/docs/api/javax/swing/plaf/basic/BasicButtonUI.html
+https://docs.oracle.com/javase/10/docs/api/javax/swing/plaf/synth/SynthButtonUI.html
+-->
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-survol-de-swing">Survol de swing</a></h2>
+
+Dans les premières versions de java, les applications graphiques utilisaient AWT (Abstract Window Toolkit, package <code>java.awt</code>).
+<br>Les composants graphiques de awt utilisaient directement les composants de l'OS hôte (appelés <i>heavyweight</i>).
+<br>AWT a été complété / remplacé par swing (package <code>javax.swing</code>).
+<br>Les composants swing sont dits <i>lightweight</i> car ils sont développés en java et n'utilisent pas de code natif (sauf les top-level components).
+<br>
+<br>Les principaux top-level components sont <b>JDialog</b> et <b>JFrame</b> :
+
+<!-- <div><img class="margin border-none" src="img/swing-top-level.jpg" alt="Swing top-level components" /></div> -->
+
+<br>Tous les autres composants doivent etre placés dans un top-level component.
+<br>Ils descendent tous de <b>JComponent</b>.
+<br>
+
+<div class="flex-wrap">
+<img class="margin" class="border" src="img/swing-components.png" alt="Hiérarchie composants swing" />
+<img class="margin" src="img/swing-components-demo.jpg" alt="Démo omposants swing" />
+</div><!-- end class="flex-wrap" -->
+
+Les composants ne sont pas placés directement dans un top-level container mais dans le <b>content pane</b> qui lui est associé.
+<br>(voir <code>JFrame.getContentPane()</code>)
+
+<img class="margin" src="img/swing-content-panel.jpg" alt="Content panel swing" />
+
+<div class="exo"><b>Exercice</b> : Hello world en swing.
+<br>Recopiez et exécutez le code de <a href="../../exemples/java/swing/HelloSwing.java">HelloSwing.java</a>.
+</div>
+
+<!-- ************************************* -->
+<h3><a name="1-1-layout">Layout</a></h3>
+On verra plus loin que swing utilise les patterns <b>Strategy</b> et <b>Composite</b> pour représenter les composants.
+<br>Le <i>layout</i> peut etre fait de plusieurs manières :
+<br>
+<br>BorderLayout
+<img class="margin border-none" src="img/swing-border-layout.jpg" alt="Border layout" />
+
+FlowLayout (comme ils viennent)
+<div class="flex-wrap">
+<img class="margin" src="img/swing-flow-layout1.jpg" alt="Flow layout" />
+<img class="margin" src="img/swing-flow-layout2.jpg" alt="Flow layout" />
+</div><!-- end class="flex-wrap" -->
+
+GridLayout
+<img class="margin border-none" src="img/swing-grid-layout.jpg" alt="Grid layout" />
+
+CardLayout
+<br>GridBagLayout (plus complexe mais plus souple).
+
+<!-- ************************************* -->
+<h3><a name="1-2-look-and-feel">Look and feel</a></h3>
+(plaf = pluggable look and feel, package <code>javax.swing.plaf</code>)
+<br>Permet aux applications de choisir plusieurs apparences : 
+<br>- CrossPlatformLookAndFeel => Metal (défaut)
+<br>- SystemLookAndFeel => Windows, Motif, Macintosh
+<br>
+<br>Peut etre changé lors de l'exécution de l'application.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-swing-et-le-mvc">Swing et le MVC</a></h2>
+
+Swing fait un grand usage du MVC, l'API fournit de nombreux mécanismes permettant de l'implémenter.
+
+<!-- ************************************* -->
+<h3><a name="2-1-vue-controleur">Vue / Contrôleur</a></h3>
+
+Les <b>observables</b> sont les éléments de la vue, composants graphiques descendant de <code>JComponent</code>.
+<br>On peut leur associer des observateurs, appelés <b>listeners</b>.
+<br>Pour savoir quel genre de listener on peut associer à un composant, il suffit de regarder ses méthodes <code>adXXXListener()</code>.
+<br>Par ex, <code>JComboBox</code> contient <code>addActionListener()</code>, <code>addItemListener()</code>,  <code>addPopupMenuListener()</code>
+<br>
+<br>Les <b>observateurs</b> sont donc les listeners, qui implémentent l'interface <code>java.util.EventListener</code>.
+<br>Swing fournit un grand nombre de listeners, voir le <a href="https://docs.oracle.com/javase/tutorial/uiswing/events/eventsandcomponents.html">tutorial Oracle</a> pour une liste complète.
+<br>Selon les observateurs, la méthode <code>update()</code> se traduit par une ou plusieurs méthodes comme <code>actionPerformed()</code>, <code>mousePressed()</code>, <code>mouseReleased()</code> etc.
+<br>
+
+<div class="exo"><b>Exercice</b> : Gestion d'événements.
+<br>Recopiez et exécutez le code de <a href="../../exemples/java/swing/EventDemo.java">EventDemo.java</a>.
+</div>
+
+<table class="wikitable margin">
+    <tr><th>Pattern observer</th><th>Swing</th></tr>
+    <tr><td>classe Observable</td><td>javax.swing.JButton</td></tr>
+    <tr><td>addObserver(Observer o)</td><td>addActionListener(ActionListener l)</td></tr>
+    <tr><td>notifyObservers(Object arg)</td><td>actionPerformed(ActionEvent ae)</td></tr>
+    <tr><td>interface Observer</td><td>interface java.awt.event.ActionListener</td></tr>
+</table>
+
+
+<div class="exo"><b>TP4 question 2</b></div>
+<div class="exo"><b>TP4 question 3.1</b></div>                                                                                                              
+
+<div class="flex-wrap">
+<div class="margin">
+    <img src="../patterns/img/mvc-simple.png" alt="MVC simple" />
+</div>
+
+<div class="margin">
+Pour récapituler :
+<ul>
+    <li>Une vue s'inscrit au modèle comme listener.</li>
+    <li>Tout changement dans le modèle est envoyé aux observateurs du modèle.</li>
+    <li>
+        La vue reçoit une notification et peut se mettre à jour.
+        <br>Note : le modèle ne connaît ni les vues ni le contrôleur.
+    </li>
+    <li>
+        Le contrôleur est lié à la vue et contient une référence vers le modèle.
+        <br>Lorsque l'utilisateur interagit avec la vue :
+        <ul>
+            <li>La vue identifie qu'une action utilisateur a été effectuée en utilisant un listener.</li>
+            <li>La vue appelle la méthode appropriée du contrôleur.</li>
+            <li>Si besoin, le contrôleur demande au modèle de se mettre à jour.</li>
+            <li>Si le modèle a été mis à jour, il notifie ses observateurs.</li>
+        </ul>
+    </li>
+</ul>
+</div>
+
+</div><!-- end class="flex-wrap" -->
+
+<!-- 
+
+The view registers as a listener on the model. Any changes to the underlying data of the model immediately result in a broadcast change notification, which the view receives. This is an example of the push model described earlier. Note that the model is not aware of the view or the controller -- it simply broadcasts change notifications to all interested listeners.
+The controller is bound to the view. This typically means that any user actions that are performed on the view will invoke a registered listener method in the controller class.
+The controller is given a reference to the underlying model.
+
+Once a user interacts with the view, the following actions occur:
+
+The view recognizes that a GUI action -- for example, pushing a button or dragging a scroll bar -- has occurred, using a listener method that is registered to be called when such an action occurs.
+The view calls the appropriate method on the controller.
+The controller accesses the model, possibly updating it in a way appropriate to the user's action.
+If the model has been altered, it notifies interested listeners, such as the view, of the change. In some architectures, the controller may also be responsible for updating the view. This is common in Java technology-based enterprise applications.
+
+-->
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

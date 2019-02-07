@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Compare | NFP121</title>
+    <link href="../../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Compare</h1>
+</header>
+
+<article>
+
+<a href="enonce">Code source de l'énoncé</a>
+<br>
+<br>Le code suivant passe-t-il à la compilation ?
+<br>Si non, le modifier pour qu'il passe.
+<pre>
+final class Algorithm {
+    public static &lt;T> T max(T x, T y) {
+        return x > y ? x : y;
+    }
+}
+</pre>
+Indication : c'est l'opérateur <code>></code> qui pose problème car il ne s'applique qu'aux types primitifs.
+<br><code>T</code> doit implémenter <code>Comparable</code> et utiliser <code>compareTo()</code> à la place de <code>></code>
+
+</article>
+
+</body>
+</html>
+

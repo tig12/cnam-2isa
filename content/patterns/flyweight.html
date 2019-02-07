@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Flyweight | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Flyweight et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="chain-of-responsability.html">&larr;</a>
+    <a class="next" title="Next" href="dependency-injection.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>
+Flyweight
+<div class="subtitle">(Poids-plume)</div>
+</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-structure">Structure</a>
+        </li>
+        <li>
+            <a href="#2-exemples">Exemples</a>
+            <ul>
+                <li><a href="#2-1-representer-les-canards">Représenter les canards</a></li>
+                <li><a href="#2-2-boutons-sourcemaking">Boutons sourcemaking</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+<div class="intro">
+But : Utiliser le partage pour gérer un grand nombre d'objets.
+</div>
+
+Par exemple un éditeur de texte utilise des objets pour représenter les éléments inclus dans un texte, comme les tables et les figures.
+<br>Mais gérer chaque caractère comme un objet coûte trop cher en mémoire et temps d'exécution.
+
+<img class="border margin padding05" src="img/flyweight-gof-example1.jpg" alt="Flyweight - Exemple 1" />
+
+Le pattern <i>Flyweight</i> décrit comment partager les objets.
+<br>
+<br>Un <b>flyweight</b> est un objet partagé qui peut être utilisé dans plusieurs contextes simultanément.
+<br>Un flyweight agit comme un objet indépendant dans chaque contexte, il ne peut être distingué d'un objet normal.
+<br>Mais il ne connaît pas son contexte, s'il doit l'utliser dans ses opérations, le client doit le passer en paramètre.
+<br>
+<br>Le pattern repose sur la distinction entre <b>état intrinsèque</b> et <b>état extrinsèque</b> de l'objet.
+<br>L'état intrinsèque est stocké dans l'objet flyweight ; est composé d'informations indépendantes de son contexte.
+<br>L'état extrinsèque dépend du contexte et ne peut être partagé.
+<br><b>Le client a la responsabilité de passer au flyweight les informations extrinsèques lorsque le flyweight en a besoin</b>.
+<br>
+<br>Dans l'exemple du traitement de texte, l'état intrinsèque d'un caractère est son code.
+<br>Les autre informations, comme sa position dans le texte, ses décorations gras, souligné... sont extrinsèques. 
+<br>
+<br>Structure <i>logique</i> : on a un objet par caractère.
+<br>Mais physiquement, chaque occurence d'un même caractère pointe vers le même objet flyweight :
+
+<div class="margin">
+    <img class="vertical-align-top margin-right inline-block border" src="img/flyweight-gof-example2.jpg" alt="Flyweight - Exemple 2" />
+    <img class="inline-block border" src="img/flyweight-gof-example3.jpg" alt="Flyweight - Exemple 3" />
+</div>
+
+Certains objets sont flyweight, d'autres non.
+<br>Le client ne sait pas s'il a à faire à un objet concret ou un flyweight :
+
+<img class="margin padding05 border" src="img/flyweight-gof-example4.jpg" alt="Flyweight - Exemple 4" />
+
+<br>Lorsqu'une opération sur un flyweight est effectuée, l'application passe en paramètre les informations nécessaires (état externe, non stockable par les objets fictifs).
+
+<!-- ************************************* -->
+<h3>Création</h3>
+En pratique, le client utilise une <b>factory</b> pour construire les flyweights.
+<br>La factory gère un <b>pool</b> d'objets.
+
+<!--
+<img class="margin padding05 border" src="img/z.flyweight-sourcemaking1.svg" alt="Flyweight factory" />
+-->
+
+<br>Le client passe par la factory pour créer et utiliser les flyweights.
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-structure">Structure</a></h2>
+
+<img class="margin padding05 border" src="img/flyweight-gof-structure.jpg" alt="Flyweight - structure" />
+
+Deux point importants : 
+<ul>
+    <li>
+        Une <b>abstraction</b>, <code>Flyweight</code>, qui permet de traiter de la même manière objets partagés ("ConcreteFlyweight") et objets non-partagés ("UnsharedConcreteFlyweight").
+        <br>A l'utilisation, le client ne sait pas si l'objet qu'il utilse est partagé ou pas.
+    </li>
+    <li>
+        <b><code>FlyweightFactory</code></b>
+        <br>- Rend opaque au client la création des objets.
+        <br>- Gère le partage des objets (pool).
+    </li>
+</ul>
+
+Noter que la factory n'est indispensable que pour les objets partagés : le client pourrait utiliser la factory pour les objets partégés et instancier directement les objets non-partagés. Mais implémenter une factory pour tous les objets simplifie le code client.
+<br>
+<br>Diagramme objet montrant comment les flyweights sont partagés :
+<img class="margin padding05 border" src="img/flyweight-gof-example5.jpg" alt="Flyweight - Exemple 5" />
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-exemples">Exemples</a></h2>
+
+<!-- ************************************* -->
+<h3><a name="2-1-representer-les-canards">Représenter les canards</a></h3>
+Scénario : Le quackologist de <a href="mix-headfirst.html">l'exemple Head First</a> veut pouvoir représenter sur une carte la position des canards.
+<br>Il est aussi demandé de représenter les huttes situées dans le parc.
+<br>
+<div class="flex-wrap">
+<div>
+<img class="margin border" src="img/flyweight-duck.jpg" alt="Flyweight - Exemple 5" />
+</div>
+<div>
+<pre>
+java Main
+
+creating Hut
+creating Hut
+creating MallardDuck
+creating RedheadDuck
+</pre>
+</div>
+</div><!-- end class="flex-wrap" -->
+
+(<a href="../../exemples/patterns/flyweight/ducks">voir le code</a>)
+<br>
+<br>Comme il y a des milliers de canards, créer un objet par canard coûterait trop cher, on utilise donc <i>Flyweight</i> ("ConcreteFlyweight").
+<br>Les huttes ne sont pas nombreuses, donc on peut créer un objet par hutte ("UnsharedConcreteFlyweight").
+<br>
+Les canards sont représentés par un cercle, les huttes par un rectangle.
+<br>
+<br>On gère 2 espèces de canards (mallard et redhead)
+<br>Pour chaque espèce de canard, son état intrinsèque est la couleur et la taille du cercle ; son état extrinsèque est sa position sur la carte.
+<br>
+<br>Le client (<code>Main</code>) ne sait pas si les objets qu'il utilise sont partagés ou pas.
+<br>Cela est rendu possible par une interface, <code>Drawable</code>, et par la classe <code>DrawableFactory</code>.
+<br><code>draw()</code> prend en paramètre l'état extrinsèque des objets, gérés par le client (x et y).
+<br>Dans <code>Hut</code>, l'état intrinsèque (w, h) est stocké dans des variables d'instance.
+<br>Dans les classes de canard, l'état intrinsèque est partagé.
+
+<pre>
+public interface Drawable{
+    public void draw(Graphics g, int x, int y);
+}
+</pre>
+<pre>
+public class Hut implements Drawable{
+    private int w, h; // width, height
+    public Hut(int w, int h){
+        this.w = w;
+        this.h = h;
+        System.out.println("creating Hut");
+    }
+    public void draw(Graphics g, int x, int y){
+        g.drawRect(x, y, w, h);
+        g.drawRect(x+1, y+1, w, h);
+    }
+    
+}
+</pre>
+
+<pre>public class RedheadDuck implements Drawable{
+
+    // état intrinsèque, commun à tous les canards de cette espèce
+    private static Color color = Color.RED;
+    private static int radius = 15; // rayon du cercle représentant cette espèce
+    
+    public RedheadDuck(){
+        System.out.println("creating RedheadDuck");
+    }
+    
+    public void draw(Graphics g, int x, int y){
+        g.setColor(color);
+        g.drawOval(x, y, radius, radius);
+        g.fillOval(x, y, radius, radius);        
+    }
+    
+}
+</pre>
+
+<pre>
+public class DrawableFactory{
+    
+    // Pool d'objets qui vont être partagés
+    private static MallardDuck mallard;
+    private static RedheadDuck redhead;
+    
+    public static Drawable getHut(int w, int h){
+        <b>return new Hut(w, h);</b>
+    }
+    
+    public static Drawable getMallardDuck(){
+        if(mallard == null){
+            mallard = new MallardDuck();
+        }
+        <b>return mallard;</b>
+    }
+    
+    public static Drawable getRedheadDuck(){
+        if(redhead == null){
+            redhead = new RedheadDuck();
+        }
+        <b>return redhead;</b>
+    }
+}
+</pre>
+
+<pre>
+public class Main {                                             
+    static List&lt;Drawable> drawables = new ArrayList&lt;Drawable>();
+    // ...
+    public static void main(String[] args) {
+        drawables.add(DrawableFactory.<b>getHut</b>(50, 70));                                                                   
+        drawables.add(DrawableFactory.<b>getMallardDuck</b>());
+    }
+}
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="2-2-boutons-sourcemaking">Boutons sourcemaking</a></h3>
+<div class="exo">
+<b>Exercice</b> :
+<br>- Récupérez la <a href="../../exemples/patterns/flyweight/button/FlyweightDemo.java.orig">copie locale</a> de l'exemple 2 de <a href="https://sourcemaking.com/design_patterns/flyweight">https://sourcemaking.com/design_patterns/flyweight</a>.
+<br>- Complétez le pour le faire compiler et exécuter.
+<br>- Modifiez le code pour supprimer les warnings à la compilation.
+<br>- Identifiez de quelle manière est implémenté (ou pas) le pattern flyweight.
+</div>
+
+<!-- ************************************* -->
+<!-- 
+<h3><a name="2-2-arbres-head-first">Arbres Head First</a></h3>
+p 618 du livre
+<br>
+<br>Scénario : vous voulez ajouter des arbres à votre application de dessin de paysages.
+<br>Les arbres ne font pas grand chose : ils ont des coordonnées x, y et peuvent se dessiner dynamiquement, leur grosseur varie en fonction de leur âge.
+
+<img class="margin" src="img/flyweight-headfirst.jpg" alt="flyweight-headfirst.jpg" />
+-->
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

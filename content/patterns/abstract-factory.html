@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Abstract Factory | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Abstract Factory et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="factory-method.html">&larr;</a>
+    <a class="next" title="Next" href="prototype.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>
+Abstract Factory
+<div class="subtitle">(Fabrique abstraite)</div>
+</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-exemple-look-and-feel">Exemple (look and feel)</a>
+        </li>
+        <li>
+            <a href="#2-structure">Structure</a>
+        </li>
+        <li>
+            <a href="#3-remarques">Remarques</a>
+        </li>
+        <li>
+            <a href="#4-exemple-labyrinthe">Exemple (labyrinthe)</a>
+            <ul>
+                <li><a href="#4-1-abstract-factory-vs-factory-method">Abstract factory vs Factory Method</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+Pour une introduction détaillée, <i>Abstract factory</i> est introduit après <i>Factory method</i> dans le chapitre 4 de "Design patterns Head First", p 144 et suivantes.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-exemple-look-and-feel">Exemple (look and feel)</a></h2>
+
+Lorsque swing fournit plusieurs look and feel (laf), le code client (le code que nous, utilisateurs de swing, écrivons) ne dépend pas du laf courant.
+<br>
+<br>Exemple avec 2 laf : PM (Presentation Manager) et Motif
+
+<img class="border margin" src="img/abstract-factory-gof-example.jpg" alt="Abstract factory example" />
+(PM = Presentation Manager)
+
+<br>
+<br>Implémentation java : <a href="../../exemples/patterns/abstract-factory/ExempleGOF.java">ExempleGOF.java</a>
+<br>
+<br>Remarquer dans main() les seuls endroits où l'implémentation concrète est évoquée.
+<pre>
+WidgetFactory factory1 = new LinuxFactory();
+// ...
+WidgetFactory factory2 = new MacFactory();
+</pre>
+Tout le reste du code ignore l'implémentation utilisée.
+<br>
+<br>Remarquer aussi l'utilisation de <b>factory methods</b> dans les fabriques abstraites et concrètes.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-structure">Structure</a></h2>
+
+Diagramme gof :
+<img class="border margin" src="img/abstract-factory-gof-diagram.jpg" alt="Abstract factory diagram" />
+
+Traduction java du diagramme :
+<br>- <a href="../../exemples/patterns/abstract-factory/DiagrammeGOF1.java">DiagrammeGOF1.java</a> (abstract products et abstract factory sont des interfaces)
+<br>- <a href="../../exemples/patterns/abstract-factory/DiagrammeGOF2.java">DiagrammeGOF2.java</a> (abstract products et abstract factory sont des classes abstraites). 
+<br>
+<br>Remarquer l'intérêt qu'il peut y avoir à utiliser des classes abstraites plutôt que des interfaces pour les <code>AbstractProduct</code> (dans l'exemple, pour factoriser la méthode <code>toString()</code>).
+<br>Des classes abstraites sont souvent utilisées en fournissant des méthodes vides, ce qui permet de n'avoir à implémenter que les méthodes utiles lorsqu'on crée un nouveau produit.
+
+<div class="exo">
+<b>Exercice</b> <a href="../../exos/patterns/abstract-factory/database/Database.html">Accès à plusieurs DBMS en utilisant une abstract factory</a>
+</div>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-remarques">Remarques</a></h2>
+
+- Abstract factory renforce les dépendances entre objets d'une même famille.
+<br>Par exemple, une <code>MotifWindow</code> doit être utilisé avec une <code>MotifScrollBar</code>.
+<br>Cette contrainte est une conséquence naturelle de l'utilisation de la fabrique concrète Motif.
+<br>
+<br>- On peut changer facilement au runtime la famille de produit utilisée.
+<br>
+<br>- Ajouter de nouveaux produits aux familles n'est pas simple, car il faut faire évoluer <code>AbstractFactory</code>, ce qui implique potentiellement de retoucher à toutes les <code>ConcreteFactory</code>.
+<br>
+<br>- En général une application n'a besoin que d'une instance de <code>ConcreteFactory</code> à la fois, donc souvent implémenté avec un <b>singleton</b>.
+
+<br>- S'il y a beaucoup de familles, <code>ConcreteFactory</code> peut être implémenté en utilisant un <b>prototype</b>.
+<br>La <code>ConcreteFactory</code> est initialisée avec une instance de chaque produit de la famille et crée un nouveau produit par clonage.
+<br>Elimine le besoin d'une <code>ConcreteFactory</code> pour chaque famille.
+<!-- TODO tester, comprendre mieux cf gof p 90-91-->
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-exemple-labyrinthe">Exemple (labyrinthe)</a></h2>
+On se place aussi dans le cas où on veut créer deux variantes du jeu (EnchantedMazeGame et BombedMazeGame).
+
+<div class="exo"><b>Exercice</b>
+<br>Voir <a href="../../exemples/patterns/creation/src/maze/patterns/abstractfactory/">l'implémentation java du labyrinthe</a> et identifier les différents acteurs du pattern abstract factory.
+<br>Comparer les implémentations Factory method et Abstract factory, analyser les différences.
+</div>
+
+<div class="flex-wrap">
+
+<div>
+<pre>
+public class MazeGame{
+    public Maze createMaze(MazeFactory factory){
+        Maze aMaze = factory.makeMaze();
+        Room r1 = factory.makeRoom(1);
+        Room r2 = factory.makeRoom(2);
+        Door aDoor = factory.makeDoor(r1, r2);
+        
+        aMaze.addRoom(r1);
+        // ...
+        return aMaze;
+    }
+}
+</pre>
+
+<pre>
+public class MazeFactory{
+    
+    public static Maze makeMaze(){
+        return new Maze();
+    }
+
+    public static Room makeRoom(int n){
+        return new Room(n);
+    }
+
+    public static Wall makeWall(){
+        return new Wall();
+    }
+    
+    public static Door makeDoor(Room r1, Room r2){
+        return new Door(r1, r2);
+    }
+
+}
+</pre>
+</div>
+
+<div>
+<pre>
+public class BombedMazeFactory extends MazeFactory{
+    
+    public static Room makeRoom(int n){
+        return new RoomWithBomb(n);
+    }
+
+    public static Wall makeWall(){
+        return new BombedWall();
+    }
+    
+}
+</pre>
+<pre>
+public class EnchantedMazeFactory extends MazeFactory{
+    
+    public static Room makeRoom(int n){
+        return new EnchantedRoom(n);
+    }
+    
+    // inutile
+    public static Door makeDoor(Room r1, Room r2){
+        return new Door(r1, r2);
+    }
+
+}
+</pre>
+</div>
+
+</div><!-- end class="flex-wrap" -->
+
+Utilisation :
+<pre>
+    private static void test_abstractfactory(){
+        // dans ce pattern la fabrique abstraite est MazeGame
+        var mazeGame = new maze.patterns.abstractfactory.MazeGame();
+        Maze maze;
+        
+        // 1ere utilisation - jeu standard
+        var factory1 = new maze.patterns.abstractfactory.MazeFactory();
+        maze = mazeGame.createMaze(factory1);
+        
+        // 2e utilisation - enchanted
+        var factory2 = new maze.patterns.abstractfactory.EnchantedMazeFactory();
+        maze = mazeGame.createMaze(factory2);
+        
+        // 3e utilisation - bombed
+        var factory3 = new maze.patterns.abstractfactory.BombedMazeFactory();
+        maze = mazeGame.createMaze(factory3);
+    }
+</pre>
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-1-abstract-factory-vs-factory-method">Abstract factory vs Factory Method</a></h2>
+
+<blockquote>
+The Abstract Factory pattern is very similar to the Factory Method pattern.
+The main difference between the two is that with the Abstract Factory
+pattern, a class <b>delegates</b> the responsibility of object instantiation to another
+object via composition whereas the Factory Method pattern uses
+<b>inheritance</b> and relies on a subclass to handle the desired object
+instantiation
+</blockquote>
+<cite>(<a href="http://www.buyya.com/254/Patterns/Factory-2pp.pdf">www.buyya.com</a>)</cite>
+<br>
+<br>En utilisant <i>Abstract Factory</i>, la classe <code>MazeGame</code> délègue à ses sous-classes la création des objets.
+<br>Avec <i><a href="factory-method.html">Factory method</a></i>, elle délègue la création à la concrete factory passée en paramètre.
+<br><br>Cette différence se retrouve dans les schémas GOF :
+<ul>
+    <li>
+        Dans le schéma de <i>Factory Method</i>, le code client se trouve dans la classe <code>Creator</code>, et seules les opérations de création sont déléguées aux sous-classes.
+        <br>On retrouve la même chose dans l'exemple du labyrinthe : la classe <code>MazeGame</code> (<code>Creator</code>) contient du code utilisant la création : <code>createMaze()</code> (correspond à <code>AnOperation()</code> dans le schéma).
+    </li>
+    <li>
+        Dans le schéma de <i>Abstract Factory</i>, le code client est complètement dissocié de la création, et est obligé de créer une concrete factory, à laquelle il délègue la création des objets.
+    </li>
+</ul>
+
+Cette dissociation permet d'utiliser dans <i>Abstract Factory</i> soit <i><a href="factory-method.html">Factory Method</a></i> soit <i><a href="prototype.html">Prototype</a></i> dans l'implémentation des concrete factories.
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>

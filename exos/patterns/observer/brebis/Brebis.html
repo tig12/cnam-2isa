@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Brebis | NFP121</title>
+    <link href="../../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Brebis</h1>
+</header>
+
+<article>
+
+<a href="enonce">Code source de l'énoncé</a>
+<br>
+<br>Un GAEC s'est équipé de deux caméras pour surveiller les attaques de loup.
+<br>Chaque fois qu'une caméra détecte un mouvement, sa méthode <code>detecte()</code> est appelée.
+<br>
+<br>En partant du code situé dans l'énoncé, ajoutez un mécanisme qui alerte les paysans et les gendarmes chargés de surveiller ces caméras.
+<br>Une caméra doit alerter ses observateurs chaque fois que sa méthode <code>detecte()</code> est appelée.
+<br><code>paysan1</code> et <code>paysan2</code> surveillent les deux caméras ; <code>gendarme1</code> ne surveille que la caméra de la bergerie.
+<br>
+<br>Dans main(), l'affichage doit ressembler à :
+<pre>
+Paysan 1 : Camera portail : Un loup a franchi le portail
+Paysan 2 : Camera portail : Un loup a franchi le portail
+Paysan 1 : Camera bergerie : Un loup est entré dans la bergerie
+Paysan 2 : Camera bergerie : Un loup est entré dans la bergerie
+Gendarme 1 : Camera bergerie : Un loup est entré dans la bergerie
+</pre>
+
+Le mécanisme est à implémenter sans utiliser les classes <code>java.util.Observer</code> et <code>java.util.Observable</code>.
+<br>
+<br>L'implémentation peut utiliser des interfaces ou des classes abstraites.
+
+</article>
+
+</body>
+</html>
+

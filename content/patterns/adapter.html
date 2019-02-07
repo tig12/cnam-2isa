@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Adapter | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Adapter et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="singleton.html">&larr;</a>
+    <a class="next" title="Next" href="proxy.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>
+Adapter
+<div class="subtitle">(Adaptateur)</div>
+</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-exemple">Exemple</a>
+        </li>
+        <li>
+            <a href="#2-utilisation-de-l-heritage">Utilisation de l'héritage</a>
+            <ul>
+                <li><a href="#2-1-structure">Structure</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#3-utilisation-de-la-composition">Utilisation de la composition</a>
+        </li>
+        <li>
+            <a href="#4-remarques">Remarques</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+Autre nom : Wrapper
+
+<div class="intro">
+Convertit l'interface d'une classe en une interface attendue par les clients.
+</div>
+
+Dans le cas le plus simple, sert à faire collaborer 2 systèmes qui font (plus ou moins) les mêmes choses avec 2 vocabulaires différents.
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-exemple">Exemple</a></h2>
+(code dans <a href="../../exemples/patterns/adapter/chevaux1/Chevaux1.java">Chevaux1.java</a>).
+<br>
+<br>On a un programme qui manipule différents types de chevaux : <code>ChevalDeCamargue</code>, <code>ChevalArabe</code>, <code>PoneyShetland</code>.
+<br>Tous ces chevaux implémentent l'interface <code>Cheval</code> :
+<pre>
+interface Cheval{
+    public void hennir();
+}
+</pre>
+On peut par exemple les utiliser de cette manière :
+<pre>
+public static void main(String[] args){
+    Cheval[] chevaux = {
+        new ChevalDeCamargue(),
+        new ChevalArabe(),
+        new PoneyShetland(),
+    };
+    for(Cheval cheval : chevaux){
+        cheval.hennir();
+    }
+}
+</pre>
+On nous fournit une classe <code>Ane</code>
+<pre>
+class Ane{
+    public void braire(){
+        System.out.println("hi han");
+    }
+}
+</pre>
+
+Comment faire pour utiliser un âne de la même manière qu'on utilise un cheval ?
+<br>Pouvoir écrire du code du genre :
+<pre>
+Cheval[] chevaux = {
+    new ChevalDeCamargue(),
+    new ChevalArabe(),
+    new PoneyShetland(),
+    <b>new Ane()</b>,
+};
+</pre>
+Le pattern <i>Adapter</i> permet de répondre à cette question.
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-utilisation-de-l-heritage">Utilisation de l'héritage</a></h2>
+(code dans <a href="../../exemples/patterns/adapter/chevaux2/Chevaux2.java">Chevaux2.java</a>).
+<br>
+<br>La classe <code>AneAdapter</code> dérive de <code>Ane</code> et implémente en plus <code>Cheval</code>
+<pre>
+class AneAdapter extends Ane implements Cheval{
+    public void hennir(){
+        braire();
+    }
+}
+</pre>
+La classe <code>AneAdapter</code> absorbe la différence entre <code>Ane</code> et <code>Cheval</code> grâce à l'héritage.
+<br>
+<br>A l'utilisation :
+<pre>
+Cheval[] chevaux = {
+    new ChevalDeCamargue(),
+    new ChevalArabe(),
+    new PoneyShetland(),
+    <b>new AneAdapter()</b>,
+};
+</pre>
+
+Note : Ce type d'adapter est parfois appellé <i>class adapter</i>.
+
+<!-- ************************************* -->
+<h3><a name="2-1-structure">Structure</a></h3>
+
+<img class="margin padding05 border" src="img/adapter-cheval-heritage.svg" alt="Adapter cheval héritage" />
+La présentation classique (gof) utilise l'héritage : 
+
+<img class="margin border" src="img/adapter.jpg" alt="Adapter" />
+
+<div class="exo">
+    <b>Exercice</b> : Identifiez <code>Cheval</code>, <code>Ane</code> et <code>AneAdapter</code> dans le schéma gof.
+</div>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-utilisation-de-la-composition">Utilisation de la composition</a></h2>
+(code dans <a href="../../exemples/patterns/adapter/chevaux3/Chevaux3.java">Chevaux3.java</a>).
+<br>
+<br>On crée une classe <code>AneAdapter</code> qui implémente l'interface <code>Cheval</code> et qui contient un <code>Ane</code>.
+<br>(noter que le constructeur de <code>AneAdapter</code> prend un <code>Ane</code> en paramètre).
+<pre>
+class AneAdapter <b>implements Cheval</b>{
+
+    private Ane ane;
+    
+    public <b>AneAdapter(Ane ane)</b>{
+        this.ane = ane;
+    }
+    
+    public void <b>hennir()</b>{
+        <b>ane.braire()</b>;
+    }
+}
+</pre>
+
+La classe <code>AneAdapter</code> absorbe la différence entre <code>Ane</code> et <code>Cheval</code> grâce à la composition.
+
+<br>
+<br>Cela permet d'utiliser un <code>AneAdapter</code> chaque fois qu'on veut faire passer un âne pour un cheval :
+<pre>
+Cheval[] chevaux = {
+    new ChevalDeCamargue(),
+    new ChevalArabe(),
+    new PoneyShetland(),
+    <b>new AneAdapter(new Ane())</b>,
+};
+</pre>
+
+<img class="margin padding05 border" src="img/adapter-cheval-composition.svg" alt="Adapter cheval composition" />
+
+Note : Ce type d'adapter est parfois appellé <i>object adapter</i>.
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-remarques">Remarques</a></h2>
+
+Certains adapteurs peuvent être plus complexes, cela va de la simple traduction de vocabulaire à l'implémentation de fonctionnalités.
+<br>Dépend du degré de similitude entre <code>Target</code> et <code>Adaptee</code>.
+<br>
+<br>Le classe <code>Adaptee</code> contient l'implémentation, c'est elle qui fait le travail.
+
+<!-- ************************************* -->
+<div class="exo">
+    <b>Exercice</b> : <a href="../../exos/patterns/adapter/pilestack/PileStack.html">Adapter Pile / Stack</a>
+</div>
+
+<!-- ************************************* -->
+<!-- 
+<h3><a name="4-1-exemples-swing-awt">Exemples swing / awt</a></h3>
+
+<br>L'API <code>javax.swing</code> appelle adapters des classes qui sont fournies par commodité.
+<br>
+<br>Par exemple, la méthode <code>java.awt.Window.addWindowListener(WindowListener l)</code> attend en paramètre un objet d'une classe implémentant l'interface <code>java.awt.event.WindowListener</code>.
+<br>Cette interface définit plusieurs méthodes : <code>windowActivated(WindowEvent e)</code>, <code>windowClosed(WindowEvent e)</code> etc.
+<br>
+<br>Pour éviter aux clients (nous) d'avoir à implémenter toutes les méthodes chaque fois qu'on a besoin d'un <code>WindowListener</code>, swing définit une classe <code>WindowAdapter</code>.
+<br><code>WindowAdapter</code> fournit une implémentation VIDE de toutes les méthodes de <code>WindowListener</code>.
+<br>Ça permet d'utiliser un <code>WindowAdapter</code> en ne redéfinissant que les méthode que notre appli va vraiment utiliser :
+<pre>
+w.addWindowListener(new WindowAdapter(){
+    public void windowClosing(WindowEvent e) {
+        System.exit(0);
+    }
+});
+</pre>
+Par exemple dans le TP4, question 2, on aurait pu utiliser un <code>MouseAdapter</code> pour la classe <code>JMouseObserver</code> :
+<br>Au lieu de faire :
+<pre>public class JMouseObserver implements MouseListener{ ... }</pre>
+On aurait fait :
+<pre>public class JMouseObserver extends MouseAdapter{ ... }</pre>
+On aurait évité d'avoir à écrire ce code dans le corps de la classe :
+<pre>
+	public void mouseClicked(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
+	public void mousePressed(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {}
+</pre>
+-->
+
+<!-- ************************************* -->
+<!-- 
+<h3><a name="3-2-exemple-android">Exemple Android</a></h3>
+Voir <a href="https://www.tutlane.com/tutorial/android/android-gridview-with-examples">https://www.tutlane.com/tutorial/android/android-gridview-with-examples</a>
+-->
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

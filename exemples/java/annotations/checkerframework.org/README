@@ -1,0 +1,4 @@
+Permet de tester https://checkerframework.org/
+
+javac -classpath ../../../bin/checkerframework.org/checker.jar:. -processor org.checkerframework.checker.nullness.NullnessChecker -Xbootclasspath/p:../../../bin/checkerframework.org/jdk8.jar  GetStarted.java 
+

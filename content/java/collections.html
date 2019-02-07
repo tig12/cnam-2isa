@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Collections | NFP121 Millau</title>
+    <meta name="description" content="Introduction aux collections en java, en particulier à l'utilisation des lambda expressions depuis java 8.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="io.html">&larr;</a>
+    <a class="next" title="Next" href="threads.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Collections</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-l-interface-collection">L'interface collection</a>
+        </li>
+        <li>
+            <a href="#2-iteration">Itération</a>
+            <ul>
+                <li><a href="#2-1-iteration-classique">Itération classique</a></li>
+                <li><a href="#2-2-iterator">Iterator</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#3-maps">Maps</a>
+        </li>
+        <li>
+            <a href="#4-collections-streams-et-lambda-expressions">Collections, streams et lambda expressions</a>
+            <ul>
+                <li><a href="#4-1-collection-stream-api">Collection stream API</a></li>
+                <li><a href="#4-2-filter">filter()</a></li>
+                <li><a href="#4-3-map">map()</a></li>
+                <li><a href="#4-4-foreach">forEach()</a></li>
+                <li><a href="#4-5-reduce">reduce()</a></li>
+                <li><a href="#4-6-generators-lazy-evaluation-infinite-streams">Generators, lazy evaluation, infinite streams</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+Pour une référence complète, voir <i>Java 8 Lambdas, par Richard Warburton (O’Reilly)</i> ou <a href="https://docs.oracle.com/javase/tutorial/collections/index.html">le tutorial Oracle</a>.
+<br>
+<br>Collection = plusieurs choses regroupées, dont le regroupement peut être manipulé.
+<br>
+<br>
+Les collections définissent 2 structures de base :
+<br>- Une <code>Collection</code> est un regroupement d'objets.
+<br>- Une <code>Map</code> est un groupement d'associations (= dictionnaire, tableau associatif).
+
+<img class="margin margin-left2" src="img/collections.jpg" alt="Collections" />
+
+<ul>
+    <li><b>Set</b> : traduit la notion mathématique d'ensemble ; ne peut pas contenir de doublons (notamment un seul élément <code>null</code>) ; les éléments ne sont pas ordonnés (mais le sont dans un <code>OrderedSet</code>).</li>
+    <li><b>List</b> : collection ordonnée.</li>
+    <li><b>Queue</b> : collection ordonnée fournissant des méthodes supplémentaires pour extraire les éléments par ordre d'arrivée (souvent FIFO, parfois LIFO).</li>
+    <li><b>Deque</b> : "double ended queue" ; les éléments peuvent être récupérés aux deux extrémités de la queue.</li>
+    <li><b>Map</b> : dictionnaire, ou tableau associatif permettant de gérer des associations clé - valeur.</li>
+</ul>
+
+<img class="margin margin-left3 border" src="img/collections-nutshell.jpg" alt="Collections" />
+
+Lorsqu'on choisit une implémentation de <code>Collection</code> pour travailler, prendre en compte les performances, suivant les cas d'utilisation.
+<br>Par ex, <code>LinkedList</code> a de très bonnes preformances pour l'ajout / suppression d'éléments, mais pas pour du random access.
+<br>Voir la marker interface <code>java.util.RandomAccess</code> :
+<pre>
+List&lt;?> l = ...;
+if(!(l instanceof RandomAccess)) l = new ArrayList&lt;?>(l);
+</pre>
+<code>ArrayList</code> est une implémentation très souvent utilsée.
+<br>
+<br><code>Vector</code> n'est là que pour des raisons de compatibilité ascendante, utiliser <code>ArrayList</code> à la place.
+<br><code>Stack</code> n'est là que pour des raisons de compatibilité ascendante, utiliser <code>Deque</code> à la place.
+<br>
+<br>Deux classes contenant des utilitaires (méthodes statiques) souvent utilisés :
+<br>- <b><code>java.util.Collections</code></b>
+<br>- <b><code>java.util.Arrays</code></b>
+<br>Voir aussi <code>java.lang.System.arraycopy()</code>, <code>java.lang.Class.isArray()</code>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-l-interface-collection">L'interface collection</a></h2>
+
+Définit les méthodes communes à toutes les implémentations, voir <a href="https://docs.oracle.com/javase/10/docs/api/java/util/Collection.html">l'apidoc de <code>java.util.Collection</code></a>.
+<br><code>Collection&lt;E></code>, paramétrée par le type d'éléments qu'elle contient.
+<br>
+<br>Quelques exemples d'utilisation :
+<pre>
+// création "normale"
+Collection&lt;String> c1 = new ArrayList&lt;>();
+
+// création à partir de méthodes utilitaires
+Collection&lt;String> c2 = Arrays.asList("toto", "titi");
+
+// La plupart des implémentations ont un constructeur par recopie
+Collection&lt;String> c3 = new ArrayList&lt;String>(c2);
+
+// Ajout
+c2.add("tata"); // Ajout d'un élément
+c3.addAll(c2); // Ajout de tous les éléments d'une autre collection
+
+// Suppression
+c2.remove("toto"); // Supprime un seul élément
+c2.removeAll(c3); // Supprime une collection d'élément
+c2.retainAll(c3); // Supprime tous les éléments qui ne sont pas dans c3
+c.clear(); // RAZ, supprime tous les éléments d'une collection
+
+// Taille d'une collection
+boolean b = c1.isEmpty(); // c is now empty, so true
+int s = c1.size();
+
+// La plupart des implementations de Collection ont redéfini toString()
+System.out.println(c1);
+
+// Conversion vers un tableau.
+Object[] elements = c.toArray();
+String[] strings = c.toArray(new String[c.size()]);
+</pre>
+(code dans <a href="../../exemples/java/collections/Demo1.java">Demo1.java</a>)
+
+Toutes ces opérations sont utilisables avec n'importe quelle implémentation des sous-interfaces de <code>Collection</code> (<code>Set</code>, <code>List</code> ou <code>Queue</code>).
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-iteration">Itération</a></h2>
+
+<!-- ************************************* -->
+<h3><a name="2-1-iteration-classique">Itération classique</a></h3>
+
+Boucle <i>for</i> ou <i>foreach</i> :
+<pre>
+List&lt;String> c = new ArrayList&lt;String>();
+for(String word : c) {
+    System.out.println(word);
+}
+</pre>
+
+<pre>
+for( declaration : expression )
+    statement
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="2-2-iterator">Iterator</a></h3>
+
+<code>expression</code> doit être un tableau, ou une classe implémentant <code>java.lang.Iterable</code>.
+<pre>
+<b>public interface Iterable&lt;E> {
+    java.util.Iterator&lt;E> iterator();
+}</b>
+</pre>
+
+Dans une boucle classique, l'itérateur sous-jacent est invisible.
+<br>
+<br>on peut explicitement utiliser l'itérateur d'une collection car <code>java.util.Collection</code> définit une méthode :
+<pre>public <b>Iterator&lt;E> iterator()</b></pre>
+
+Une boucle classique équivaut à :
+<pre>
+List&lt;String> c = new ArrayList&lt;String>();
+<b>for(Iterator&lt;String> i = c.iterator(); i.hasNext();)</b> {
+    System.out.println(<b>i.next()</b>);
+}
+</pre>
+
+Utilisable aussi avec <code>while</code> :
+<pre>
+Iterator&lt;String> iterator() = c.iterator();
+while (iterator.hasNext()) {
+    System.out.println(iterator.next());
+}
+</pre>
+
+Interface <code>java.util.Iterator</code> :
+<pre>
+<b>public interface Iterator&lt;E> {
+    boolean hasNext();
+    E next();</b>
+    <b>void remove(); <!-- default void forEachRemaining(Consumer&lt;? super E> action); -->
+}</b>
+</pre>
+
+Attention, <code>next()</code> fait 2 choses : renvoie l'élément courant de l'itération ET avance dans la collection.
+
+<br><br><code>Iterator</code> est paramétré par le type de la collection qu'elle traverse :
+<br>Il faut un <code>Iterator&lt;String></code> pour parcourir une <code>Collection&lt;String></code>.
+<br>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-maps">Maps</a></h2>
+
+Une map est une collection contenant des associations clé, valeur ; parfois appelé dictionnaire ou tableau associatif.
+<br>
+<br>Exemples d'utilisation :
+<pre>
+import java.util.*;
+
+class Personne{
+    private String nom;
+    public Personne(String nom) { this.nom = nom; }
+    @Override public String toString() { return nom; }
+}
+
+public class MapTest{
+    
+    public static void main(String[] args) {
+        
+        // création de la map
+        
+        Map&lt;String, Personne> map = new HashMap&lt;>();
+        map.<b>put</b>("p1", new Personne("Personne 1"));
+        map.<b>put</b>("p2", new Personne("Personne 2"));
+        map.<b>put</b>("p3", new Personne("Personne 3"));
+        
+        // Affichage
+        
+        System.out.println("=== Utilisation de values() ===");
+        for(Personne p : map.<b>values()</b>) {
+            System.out.println(p); // n'affiche que les valeurs
+        }
+        
+        System.out.println("=== Utilisation de keySet() ===");
+        for(String key : map.<b>keySet()</b>) {
+            System.out.println(key + " : " + map.<b>get(key)</b>);
+        }
+        
+        System.out.println("=== Utilisation de entrySet() ===");
+        for(Map.Entry&lt;String, Personne> entry : map.<b>entrySet()</b>) {
+            System.out.println(<b>entry.getKey()</b> + " : " + <b>entry.getValue()</b>);
+        }
+        
+        System.out.println("=== Utilisation de iterator() ===");
+        Iterator&lt;Map.Entry&lt;String, Personne>> entries = <b>map.entrySet().iterator()</b>;
+        while(entries.hasNext()) {
+            Map.Entry&lt;String, Personne> entry = entries.next();
+            System.out.println(<b>entry.getKey()</b> + " : " + <b>entry.getValue()</b>);
+        }
+        
+        System.out.println("=== Utilisation de stream() ===");
+        map.<b>forEach</b>((k,v)->System.out.println(k + "  :  " + v));
+    }
+}
+</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-collections-streams-et-lambda-expressions">Collections, streams et lambda expressions</a></h2>
+Une des motivations de l'introduction des lambdas expressions est de permettre d'utiliser des collections comme des touts, sans avoir à itérer.
+<br>Dans cette approche, on se concentre sur <i>quoi</i> faire plutôt que <i>comment</i> le faire.
+<br>Cette nouvelle API permet d'appliquer à des collections entières des méthodes comme <code>filter()</code>, <code>map()</code>, <code>reduce()</code> etc.
+
+
+<!-- ************************************* -->
+<h3><a name="4-1-collection-stream-api">Collection stream API</a></h3>
+Pour arriver à ça, les designers de java ont dû résoudre un problème : de nombreuses libs implémentant les interfaces définies par l'API collections ont été développées hors de leur contrôle, notamment des libs permettant de simuler cette nouvelle manière de travailler.
+<br>Le risque de collision de nom était fort donc une nouvelle classe a été introduite :
+<br><code><b>java.util.stream.Stream&lt;T></b></code>
+<br>
+<br>D'après <code>Stream</code> javadoc : <cite>A sequence of elements supporting sequential and parallel aggregate operations.</cite>
+<br>
+<br>L'idée est d'appliquer une suite d'opérations (un <b>pipeline</b>), appliquées au <code>Stream</code>.
+<br>Chaque opération est habituellement exprimée par une lambda expression.
+<br>A la fin du pipeline, les résultats doivent être rassemblés dans un nouveau stream.
+<br>Cela est effectué soit en utilisant un <code><b>Collector</b></code>, soit en terminant le pipeline par une "opération terminale" (comme <code>reduce()</code>), qui renvoie une valeur plutôt qu'un stream.
+
+<pre class="normal">
+        stream()  filter()    map()   collect()
+Collection -> Stream -> Stream -> Stream -> Collection
+</pre>
+
+On distingue deux types d'opérations :
+<br><i>Intermédiaires</i>, comme <code>filter()</code> ou <code>map()</code>, qui renvoient un nouveau stream.
+<br><i>Terminales</i>, comme <code>sum()</code>.
+<br>Un pipeline est constitué d'une <code>source</code>, de 0 ou plus opérations intermédiaires, et d'une opération terminale
+
+<h4>Caractéristiques d'un <code>Stream</code></h4>
+
+<ul>
+    <li>
+        <b>Pas de stockage</b>. Contrairement à une <code>List</code>, un <code>Stream</code> ne stocke pas ses éléments, mais prend une source de données et applique des transformations à ses éléments.
+        <br>Les sources de données peuvent être une collection, un tableau, une fonction génératrice, un channel I/O.
+    </li>
+    <li>
+        <b>Nature fonctionnelle</b> : ne modifie pas sa source. Par exemple, filtrer un <code>Stream</code> obtenu à partir d'une collection produit un nouveau <code>Stream</code> sans modifier la collection.
+    </li>
+    <li>
+        <b>Lazy</b> Les opérations intermédiaires ne sont pas effectuées tant que l'opération terminale n'a pas été déclenchée.
+    </li>
+    <li>
+        <b>Possiblement infini</b> : certaines opérations (par ex <code>findFirst()</code>) peuvent être effectuées sur des sources de tailles infinies.
+    </li>
+    <li>
+        <b>Jetables</b> : Les éléments d'un <code>Stream</code> ne sont visités qu'une fois. Pour les revister, il faut créer un autre <code>stream</code>.
+    </li>
+</ul>
+
+
+<h4>Création d'un <code>Stream</code></h4>
+
+On peut créer un stream à partir de différentes sources, entre autre :
+<ul>
+    <li>
+        <code>Collection.stream()</code>
+    </li>
+    <li>
+        <code>Arrays.stream(Object[])</code>
+    </li>
+    <li>
+        Static factory methods dans la classe <code>Stream</code> :  <code>Stream.of(Object[])</code> <code>IntStream.range(int, int)</code> ; <code>Stream.iterate(Object, UnaryOperator)</code>.
+    </li>
+    <li>
+        <code>BufferedReader.lines()</code>
+    </li>
+    <li>
+        Plusieurs méthodes dans <code>java.nio.file.Files</code>
+    </li>
+</ul>
+
+
+
+<!-- ************************************* -->
+<h3><a name="4-2-filter">filter()</a></h3>
+Idiome appliquant du code (qui renvoie un booléen) à chaque élément de la collection, et fabrique une nouvelle collection à partir des éléments passant le test.
+
+<pre>
+String[] input = {"tiger", "cat", "TIGER", "Tiger", "leopard"};
+String search = "tiger";
+        String tigers = <b>Arrays.stream(input)
+            .filter(s -> s.equalsIgnoreCase(search))
+            .collect(Collectors.joining(", "))</b>;
+System.out.println(tigers);
+</pre>
+(code dans <a href="../../exemples/java/streams/Filter1.java">Filter1.java</a>)
+<br>Remarquer que dans cet exemple, on a créé le stream à partir d'un tableau.
+<br>
+<br><code>filter()</code> prend en paramètre une instance de l'interface <code>java.util.function.Predicate</code>, interface fonctionnelle dont la méthode fonctionnelle est : <pre>boolean test(T t)</pre>
+
+<code>Predicate</code> contient d'autres méthodes permettant de combiner des prédicats.
+<br>Exemple : si on veut aussi accepter des léopards :
+
+<pre>
+String[] input = {"tiger", "cat", "TIGER", "Tiger", "leopard"};
+List<String> cats = Arrays.asList(input);
+String search = "tiger";
+Predicate&lt;String> p = s -> s.equalsIgnoreCase(search);
+Predicate&lt;String> combined = <b>p.or</b>(s -> s.equals("leopard"));
+String pride = cats
+    .stream()
+    .filter(combined)
+    .collect(Collectors.joining(", "));
+System.out.println(pride);
+</pre>
+(code dans <a href="../../exemples/java/streams/Filter2.java">Filter2.java</a>)
+<br>Remarquer que dans cet exemple, on a converti le tableau en <code>List</code>, puis a créé le stream à partir de la <code>List</code>.
+
+<!-- ************************************* -->
+<h3><a name="4-3-map">map()</a></h3>
+Idiome permettant de transformer une collection en une collection d'un type potentiellement différent.
+<br><code>map()</code> prend en paramètre une <code>java.util.function.Function&lt;T, R></code>, interface fonctionnelle qui représente une fonction, dont la méthode fonctionnelle est :
+<pre>R apply(T t)</pre>
+
+<code>T</code> représente le type en entrée, <code>R</code> représente le type renvoyé.
+<br>
+<br>Exemple :
+<pre>
+String[] input = {"tiger", "cat", "TIGER", "Tiger", "leopard"};
+List<String> cats = Arrays.asList(input);        
+List<Integer> namesLength = cats
+    .stream()
+    .map(<b>String::length</b>)
+    .collect(Collectors.toList());
+System.out.println(namesLength);        
+</pre>
+(code dans <a href="../../exemples/java/streams/Map1.java">Map1.java</a>)
+<br>
+<br>Rappel : <code>String::length</code> est équivalent à <code>s -> s.length();</code> ("bound method reference").
+
+<!-- ************************************* -->
+<h3><a name="4-4-foreach">forEach()</a></h3>
+Idiome permettant de modifier une collection.
+<br><code>forEach()</code> prend en paramètre un <code>java.util.function.Consumer&lt;T></code>, interface fonctionnelle dont la méthode fonctionnelle est :
+<pre>void accept(T t)</pre>
+
+<pre>
+String[] input = {"tiger", "cat", "TIGER", "Tiger", "leopard"};
+List<String> cats = Arrays.asList(input);        
+cats.forEach(<b>System.out::println</b>);
+</pre>
+<!-- (code dans <a href="../../exemples/java/streams/ForEach2.java">ForEach2.java</a>) -->
+
+<code>forEach()</code> permet de modifier la collection sous-jacente (action par effet de bord, ce qui est considéré comme "mal" dans les langages purement fonctionnels).
+
+<div class="exo">
+    <b>Exercice</b> : <a href="../../exos/java/streams/map/MapTest.html">MapTest</a>
+</div>
+
+
+<!-- ************************************* -->
+<h3><a name="4-5-reduce">reduce()</a></h3>
+Permet d'effectuer des opérations d'aggrégations.
+<pre>
+T reduce(T identity,
+         BinaryOperator&lt;T> accumulator)
+</pre>
+- <code>identity</code> est la valeur initiale du stream
+<br>- <code>accumulator</code> est une lambda à 2 paramètres = interface fonctionnelle dont la méthode fonctionnelle est :
+<pre>R apply(T t, U u)</pre>
+<code>aggregator</code> fabrique un total en parcourant le stream :
+<br>Il part de la valeur initiale (<code>identity</code>), la combine avec la première valeur du stream, fabrique un résultat, combine ce résultat avec la 2e valeur du stream etc.
+
+<pre>
+T result = identity;
+for (T element : this stream)
+    result = accumulator.apply(result, element)
+return result;
+</pre>
+
+
+Exemple :
+<pre>
+int sommePremiers = Stream.of(2, 3, 5, 7, 11, 13, 17, 19, 23)
+    .reduce(0, (x, y) -> {return x + y;});
+System.out.println("Somme : " + sommePremiers);
+</pre>
+(code dans <a href="../../exemples/java/streams/Reduce1.java">Reduce1.java</a>)
+
+
+<!-- ************************************* -->
+<h3><a name="4-6-generators-lazy-evaluation-infinite-streams">Generators, lazy evaluation, infinite streams</a></h3>
+cf "Java in a nutshell", 6th edition, chap 7, p 222.
+<br>
+<br>D'autres langages fournissent aussi ces possibilités : <a href="http://php.net/manual/en/language.generators.syntax.php">PHP</a>, <a href="https://wiki.python.org/moin/Generators">Python</a>.
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

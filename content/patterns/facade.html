@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Premiers patterns | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Facade et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="intro-poo.html">&larr;</a>
+    <a class="next" title="Next" href="singleton.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Façade</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1"></a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+<div class="intro">
+But : Fournir une interface simple à un sous-système complexe.
+</div>
+<br>Fournir une interface unifiée à un ensemble d'interfaces.
+<br>Permet de contrôler l'ordre des opérations et de cacher les détails techniques des sous-systèmes.
+
+<img class="border margin margin-left2" src="img/facade.jpg" alt="Façade" />
+
+Ce pattern permet par exemple de faire un sas entre une application et les libs qu'elle utilise :
+<br>On définit un proxy, exprimé dans le vocabulaire de l'application.
+<br>Le code de l'appli utilise uniquement ce proxy pour utiliser la lib.
+<br>Ça laisse la possibilité de changer de lib en n'ayant qu'un autre proxy à écrire, sans rien changer d'autre dans le code.
+<br>
+<br>On recontre aussi ce pattern lorsqu'on utilise une lib écrite dans un autre langage.
+<br>Par exemple, utilisation d'une lib C depuis du code java.
+<br>On écrit une classe qui va appeler l'exécutable C, s'occuper d'analyser les résultats et les mettre dans des objets java.
+<br>Le code client n'utilise que ce proxy, sans même savoir que du C est appelé.
+<br>
+<br>Exemple :
+<br>Logiciel d'astronomie avec deux fonctionnalités : carte du ciel et éphémérides (liste des positions des planètes).
+<br>Chacune de ces fonctionnalités a besoin du calcul d'éphéméride (calcul de la position des planètes), effectué par le package <code>ephemeris</code>.
+<br>Ce package est complexe, car différents calculs sont possibles, en fonction de la précision voulue, des planètes demandées, des dates demandées...
+<br>
+<br>Une façade (<code>Ephemeris</code>) permet au code client d'utiliser le package sans avoir besoin d'en connaître les détails.
+<table>
+    <tr>
+        <td class="vertical-align-top">
+            <pre>
+ephemeris
+    ├── ELP82.java
+    ├── <b>EphemerisException.java</b>
+    ├── <b>Ephemeris.java</b>
+    ├── LowPrecision.java
+    ├── Meeus1.java
+    ├── package.html
+    ├── PlanetaryTheory.java
+    ├── Pluto99.java
+    ├── SolarSystem.java
+    ├── SwissEphemeris.java
+    └── vsop87
+        ├── DataVSOP87A_Earth.java
+        ├── DataVSOP87A_Jupiter.java
+        ├── DataVSOP87A_Mars.java
+        ├── DataVSOP87A_Mercury.java
+        ├── DataVSOP87A_Neptune.java
+        ├── DataVSOP87A_Saturn.java
+        ├── DataVSOP87A_Uranus.java
+        ├── DataVSOP87A_Venus.java
+        ├── package.html
+        └── VSOP87.java
+            </pre>
+        </td>
+        <td class="vertical-align-top">
+            <pre>
+class Ephemeris{
+    public static double[] compute(
+        double[] jds,
+        int[] bodies,
+        int referenceFrame,
+        double precision,
+        boolean velocities
+        ) throws EphemerisException{ ... }
+}            </pre>
+        </td>
+    </tr>
+</table>
+
+Le pattern façade permet de smplifier l'utilisation du sous-système pour la plupart du code client, <i>sans cacher les détails au code qui en a besoin</i> (on peut laisser les classes publiques dans le sous-système).
+<br>En rendant inutile l'utilisation des détails par le code client, ce pattern permet de réduire le couplage entre le sous-système et le reste.
+<br>Dans un système complexe, si on veut organiser les sous-systèmes en couche, on peut simplifier les dépendances en ne permettant la communication entre couches qu'avec des façades.
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>

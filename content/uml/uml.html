@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>UML | NFP121 Millau</title>
+    <meta name="description" content="Les principaux éléments d'UML dont on aura besoin dans ce cours.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+
+<!-- 
+http://www.linux-france.org/prj/edu/archinet/DA/fiche-uml-relations/fiche-uml-relations.html
+https://laurent-audibert.developpez.com/Cours-UML/?page=introduction-modelisation-objet
+-->
+
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="NFP121" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="../oop/critiques-poo.html">&larr;</a>
+</nav>
+
+<header>
+<h1>Rappels UML</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-elements">Elements</a>
+            <ul>
+                <li><a href="#1-1-classe">Classe</a></li>
+                <li><a href="#1-2-classe">Classe</a></li>
+                <li><a href="#1-3-interface">Interface</a></li>
+                <li><a href="#1-4-note-uml">Note UML</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-diagrammes">Diagrammes</a>
+            <ul>
+                <li><a href="#2-1-diagrammes-de-classe">Diagrammes de classe</a></li>
+                <li><a href="#2-2-diagrammes-de-sequence">Diagrammes de séquence</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-elements">Elements</a></h2>
+
+<h3><a name="1-2-classe">Classe</a></h3>
+<img class="margin-left2 margin-bottom" src="../uml/img/class.svg" alt="Représentation UML d'une classe" />
+
+Pour exprimer la visibilité des champs : 
+<ul class="naked">
+    <li><code>+</code> : public</li>
+    <li><code>#</code> : protected</li>
+    <li><code>-</code> : private</li>
+</ul>
+
+<h3><a name="1-2-classe">Classe</a></h3>
+On marque le nom de l'élément abstrait en italique ; valable pour une classe abstraite ainsi que pour les champs d'une classe.
+<img class="margin-left2 margin-top" src="../uml/img/abstract-class.svg" alt="Représentation UML d'une classe abstraite" />
+
+<h3><a name="1-3-interface">Interface</a></h3>
+
+<div class="flex-wrap">
+<div class="margin-left">
+    Notation détaillée
+    <img class="padding05 margin-top border" src="../uml/img/interface1.jpg" alt="UML interface détails" />
+</div>
+<div class="margin-left">
+    Notation simplifiée
+    <img class="padding05 margin-top border" src="../uml/img/interface2.svg" alt="UML interface simplifiée" />
+</div>
+</div><!-- end class="flex-wrap" -->
+
+<h3><a name="1-4-note-uml">Note UML</a></h3>
+Ne correspond pas à un élément du code, mais à une remarque permettant d'expliquer un aspect d'un diagramme.
+<img class="margin-top margin-left" src="../uml/img/note.svg" alt="UML note" />
+
+
+<!-- ********************************************************************************* -->
+<!-- <h2>Relations</h2> -->
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-diagrammes">Diagrammes</a></h2>
+
+<!-- ************************************* -->
+<h3><a name="2-1-diagrammes-de-classe">Diagrammes de classe</a></h3>
+<img class="padding margin-left2" src="../uml/img/class-diagram.png" alt="Les diagrammes UML" />
+
+
+<!-- ************************************* -->
+<h3><a name="2-2-diagrammes-de-sequence">Diagrammes de séquence</a></h3>
+<img class="padding margin-left2" src="../uml/img/sequence-diagram.jpg" alt="Diagramme de séquence" />
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

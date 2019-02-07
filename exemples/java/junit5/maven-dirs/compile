@@ -1,0 +1,2 @@
+javac -d bin src/main/java/project1/Project1.java
+

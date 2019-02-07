@@ -1,0 +1,5 @@
+Exemple de composition1 modifié
+
+Illustre le fait qu'un changement dans la super-classe X1 va casser le code de la sous-classe
+Exemple2 résout le cas par la composition
+

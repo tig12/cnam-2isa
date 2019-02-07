@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Calcul approché de Pi | NFP121</title>
+    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Calcul approché de Pi</h1>
+</header>
+
+<article>
+
+<div class="big2">But : traduire des formules en java, écrire des boucles.</div>
+
+On va utiliser diférentes formules permettant de calculer une valeur approchée de pi, que l'on pourra comparer par exemple à la valeur de la constante <code>java.lang.Math.PI</code> : 3.141592653589793.
+
+<!-- ***************************** -->
+<h2>Formule d'Euler</h2>
+Leonhard Euler a démontré en 1735 (cf <a href="https://fr.wikipedia.org/wiki/Probl%C3%A8me_de_B%C3%A2le">wikipedia</a>) la formule :
+
+<img style="margin:1em; padding:.5em;" class="border" src="pi-euler-1735.jpg" alt="pi - formule d'Euler 1735" />
+
+Autrement dit, si on appelle <code>somme</code> la somme <code>(1 / 1 <sup>2</sup>) + (1 / 2 <sup>2</sup>) + (1 / 3 <sup>2</sup>) + ...</code>
+<br>on a : pi = racine carrée de (6 * somme)
+<br>ou en java : <b><code>pi = Math.sqrt(6.0 * somme)</code></b>
+<br>
+<br>Ecrire une classe <code>Pi1</code> qui contient :
+<ul>
+    <li>
+        Une fonction <code>public static double calculePi(int N)</code>, où <code>N</code> est le nombre de termes utilisés dans la somme.
+        <br><code>calculePi()</code> contient l'implémentation de la formule (effectue le calcul de la somme et renvoie la valeur).
+    </li>
+    <li>
+        Une fonction <code>public static void main(String[] args)</code> qui prend en paramètre le nombre de termes à additionner.
+        <br><code>main()</code> appelle <code>calculePi()</code> et affiche le résultat.
+    </li>
+</ul>
+Pour obtenir un <code>int</code> à partir de l'argument passé en paramètre (de type <code>String</code>), vous pouvez utiliser <code>Integer.parseInt(args[0])</code>.
+
+
+<!-- ***************************** -->
+<h2>Formule de Madhava, Gregory et Leibniz</h2>
+
+De la même manière, écrire une classe <code>Pi2</code> implémentant cette formule :
+
+<img style="margin:1em; padding:.5em;" class="border" src="pi-madhava-gregory-leibnitz.jpg" alt="pi - Formule de Madhava, Gregory et Leibniz" />
+
+Vous aurez éventuellement besoin de la fonction <code>java.lang.Math.pow​(double a, double b)</code>.
+
+
+<!-- ***************************** -->
+<h2>Formule de Nilakantha</h2>
+
+De la même manière, écrire une classe <code>Pi3</code> implémentant cette formule :
+
+<img style="margin:1em; padding:.5em;" class="border" src="pi-nilakantha.jpg" alt="pi - Formule de Nilakantha" />
+
+
+<!-- ***************************** -->
+<h2>Comparaison</h2>
+
+Quelle est la formule qui converge le plus vite ?
+<br>Pour le savoir, écrivez une classe <code>Comparaison</code>, avec une fonction <code>main()</code> qui prend toujours en paramètre le nombre d'itérations à effectuer, puis appelez successivement les fonctions <code>calculePi()</code> des 3 classes précédentes.
+<br>Comparez chaque résultat avec la valeur de <code>Math.PI</code>.
+<br>
+<br>Exemple d'affichage :
+<pre>java Comparaison 10000</pre>
+<pre>
+Nombre d'itérations : 10000
+Math.PI = 	3.141592653589793
+pi1 = 		3.1414971543976273	 - différence = 9.549919216578218E-5
+pi2 = 		3.1414926535900345	 - différence = 9.99999997586265E-5
+pi3 = 		3.141592653590042	 - différence = 2.4868995751603507E-13
+
+</pre>
+</article>
+
+</body>
+</html>
+

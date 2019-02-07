@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Chain of Responsability | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Chain of Responsability et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="mediator.html">&larr;</a>
+    <a class="next" title="Next" href="flyweight.html">&rarr;</a>
+</nav>
+
+<!-- 
+cf p 649 de headfirst
+-->
+
+<header>
+<h1>Chain of Responsability
+<div class="subtitle">(Chaîne de responsabilité)</div>
+</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-structure">Structure</a>
+        </li>
+        <li>
+            <a href="#2-exemples">Exemples</a>
+            <ul>
+                <li><a href="#2-1-exemple-gof">Exemple GOF</a></li>
+                <li><a href="#2-2-exemple-wikipedia">Exemple wikipedia</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#3-remarques">Remarques</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+<div class="intro">
+But : Découpler l'émetteur d'une requête du receveur en permettant à plus d'un objet de gérer la requête.
+<br>Faire un chaîne de receveurs, et passer la requête à la chaîne jusqu'à ce qu'un receveur gère la requête.
+</div>
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-structure">Structure</a></h2>
+
+Ce pattern fournit un mécanisme assez simple qui permet de fabriquer la "chaîne".
+<br>Le mécanisme est basé sur une abstraction (<code>Handler</code>) contenant une méthode (<code>handleRequest()</code>), ainsi qu'un champ <code>successor</code>
+
+<img class="border margin padding05" src="img/chain-of-responsability-gof-structure.jpg" alt="Chain of responsability - structure" />
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-exemples">Exemples</a></h2>
+
+<!-- ************************************* -->
+<h3><a name="2-1-exemple-gof">Exemple GOF</a></h3>
+Cas de la gestion du clic droit de la souris pour gérer un menu contextuel d'aide.
+<br>Le pattern peut être utilisé pour transmettre la requête, en allant toujours du particulier au général.
+<br>Par exemple, si on fait un clic droit sur un bouton : si le bouton a une aide spécifique, elle va être affichée, sinon il passe la requête à son conteneur, qui refait la même chose.
+
+<img class="border margin padding05" src="img/chain-of-responsability-gof-example1.jpg" alt="Chain of responsability - exemple" />
+
+La requête est passée d'un maillon à l'autre de la chaîne jusqu'à ce qu'elle soit gérée (ou pas).
+
+<img class="border margin padding05" src="img/chain-of-responsability-gof-example2.jpg" alt="Chain of responsability - séquence" />
+
+<!-- ************************************* -->
+<h3><a name="2-2-exemple-wikipedia">Exemple wikipedia</a></h3>
+Code dans <a href="../../exemples/patterns/chain-of-responsability/WikipediaDemo.java">WikipediaDemo.java</a>
+<br>
+<br>Système de validation de dépenses au sein d'une entreprise où différentes personnes sont habilitées à valider certaines sommes maximales.
+<br>
+<br>L'abstraction <code>PurchasePower</code> représente une telle personne :
+<pre>
+// ======= Abstract handler =======
+abstract class PurchasePower {
+    protected static final double BASE = 100;
+    <b>protected PurchasePower successor;</b>
+
+    abstract protected double getAllowable();
+    abstract protected String getRole();
+
+    <b>public void setSuccessor(PurchasePower successor) {
+        this.successor = successor;
+    }</b>
+
+    <b>public void handleRequest(PurchaseRequest request)</b> {
+        if (request.getAmount() &lt; this.getAllowable()) {
+            System.out.println(request.getAmount() + " $ approved by " + this.getRole());
+        } else if (successor != null) {
+            <b>successor.handleRequest(request);</b>
+        }
+    }
+}
+</pre>
+
+Chaque handler concret représente un acteur particulier :
+<pre>
+// ======= Concrete handlers =======
+class Manager extends PurchasePower {
+    protected double getAllowable() { return BASE * 10; }
+    protected String getRole() { return "Manager"; }
+}
+
+class Director extends PurchasePower {
+    protected double getAllowable() { return BASE * 20; }
+    protected String getRole() { return "Director"; }
+}
+
+// ...
+</pre>
+
+Le client instancie les différents acteurs et créé la chaîne :
+
+<pre>
+public class WikipediaDemo {
+
+    // ======= Client =======
+    public static void main(String[] args) {
+        
+        // create chain of responsability
+        Manager manager = new Manager();
+        Director director = new Director();
+        VicePresident vp = new VicePresident();
+        President president = new President();
+        Nobody nobody = new Nobody();
+        
+        <b>manager.setSuccessor(director);
+        director.setSuccessor(vp);
+        vp.setSuccessor(president);
+        president.setSuccessor(nobody);</b>
+
+        // ...
+        
+        try {
+            while (true) {
+                System.out.println("\nEnter the amount to check who should approve your expenditure.");
+                System.out.print("> ");
+                double d = Double.parseDouble(new BufferedReader(new InputStreamReader(System.in)).readLine());
+                <b>manager.handleRequest(new PurchaseRequest(d))</b>;
+            }
+        }
+        catch (Exception e) {
+            System.exit(1);
+        }
+    }
+}
+</pre>
+
+Bien remarquer que la chaîne est organisée du "plus petit au plus grand", et que lorsqu'on appelle <code>handleRequest()</code>, on l'appelle sur le "plus petit".
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-remarques">Remarques</a></h2>
+<ul>
+    <li>Permet d'éviter d'avoir du code du type <code>if ... else if ... else if ....... else ... endif</code></li>
+    <li>Le client ne sait pas quel objet va gérer sa requête.</li>
+    <li>L'exemple du HelpHandler montre que ce pattern se couple souvent naturellement avec un <a href="composite.html">Composite</a>, le successeur d'un élément étant son parent.</li>
+</ul>
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

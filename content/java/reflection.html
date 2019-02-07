@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Reflection | NFP121 Millau</title>
+    <meta name="description" content="Introdution à le reflection, permettant de manipuler dans du code java les classes chargées en mémoire à un instant donné.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+</nav>
+
+<header>
+<h1>Reflection</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-analyser-une-classe">Analyser une classe</a>
+            <ul>
+                <li><a href="#1-1-creation">Création</a></li>
+                <li><a href="#1-2-nom-de-la-classe">Nom de la classe</a></li>
+                <li><a href="#1-3-autres-infos">Autres infos</a></li>
+                <li><a href="#1-4-details-sur-les-membres-d-une-classe">Détails sur les membres d'une classe</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-divers">Divers</a>
+            <ul>
+                <li><a href="#2-1-inspecter-un-objet">Inspecter un objet</a></li>
+                <li><a href="#2-2-invoquer-une-methode">Invoquer une méthode</a></li>
+                <li><a href="#2-3-construire-un-objet">Construire un objet</a></li>
+                <li><a href="#2-4-infos-sur-le-fichier-java-courant">Infos sur le fichier .java courant</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+
+
+<div class="intro">Capacité du langage à se décrire et se manipuler</div>
+
+NB : Il s'agit de reflection comme "refléter", et non pas de réfexion comme "réfléchir".
+<br>Java permet de manipuler toute classe que la JVM peut charger en mémoire : nos classes, les classes de l'api java, les classes des libs chargées ...
+
+<!-- ************************************* -->
+<h3>ReflectiveOperationException</h3>
+
+Exception à utiliser lorsqu'on travaille avec la reflection.
+
+<pre class="normal">public class <b>java.lang.ReflectiveOperationException</b> extends Exception implements Serializable</pre>
+
+Direct Known Subclasses:
+<div class=" margin pre">                                                 
+ClassNotFoundException
+IllegalAccessException
+InstantiationException
+InvocationTargetException
+NoSuchFieldException
+NoSuchMethodException 
+</div>
+
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-analyser-une-classe">Analyser une classe</a></h2>
+Les classes étant le type le plus utilisé en java, <code>java.lang.Class</code> (qui représente une classe) est une classe centrale de la reflection.
+<br>
+<br>On peut connaître la <code>Class</code> de tout objet via <code>getClass()</code>, définie dans <code>java.lang.Object</code>.
+
+<!-- ************************************* -->
+<h3><a name="1-1-creation">Création</a></h3>
+
+<h4>Class.forName()</h4>
+Manière habituelle de créer un objet de type <code>Class</code>.
+<pre>
+Class&lt;?> c = Class.forName("java.util.Scanner");
+</pre>
+
+<h4>Suffixe .class</h4>
+
+Raccourci syntaxique : un type java suivi de <code>.class</code> représente une instance de <code>java.lang.Class</code>.
+
+<pre class="normal">
+Class&lt;?> c = String[].class; // Describes the array type String[]                                                                    
+Class&lt;?> c = Runnable.class; // Describes the Runnable interface
+Class&lt;?> c = int.class;      // Describes the int type
+Class&lt;?> c = void.class;     // Describes the void type
+</pre>
+
+
+<!-- ************************************* -->
+<h3><a name="1-2-nom-de-la-classe">Nom de la classe</a></h3>
+<pre class="normal">
+String getName()             // [Ljava.lang.String;  => nom bizarre
+String <b>getCanonicalName</b>()    // java.lang.String[]   => nom lisible
+String <b>getSimpleName</b>()       // String[]
+String getTypeName()         // java.lang.String[]
+String toString()            // class [Ljava.lang.String;
+String toGenericString()     // public abstract final class [Ljava.lang.String;
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="1-3-autres-infos">Autres infos</a></h3>
+<pre class="normal">
+Class&lt;? super T>    <b>getSuperclass</b>()
+Class&lt;?>[]          <b>getInterfaces</b>()
+Package             <b>getPackage</b>()
+int                 <b>getModifiers</b>()
+</pre>
+
+<pre class="normal">
+boolean isPrimitive()
+boolean isArray()
+boolean isEnum()
+boolean isAnnotation()
+boolean isMemberClass()
+boolean isLocalClass()
+boolean isAnonymousClass()
+</pre>
+
+<pre class="normal">
+Class&lt;?>        getDeclaringClass()
+Class&lt;?>        getEnclosingClass()
+Constructor     getEnclosingConstructor()
+Method          getEnclosingMethod()
+</pre>
+
+Tableau des champs, méthodes et constructeurs <i>publics</i> de la classe
+<br><i>Incluent ceux hérités des superclasses</i>.
+<pre class="normal">
+Constructor&lt;?>[]    getConstructors()
+Field[]             getFields()
+Method[]            getMethods()
+</pre>
+
+Tableau des champs, méthodes et constructeurs <i><b>déclarés dans la classe</b></i> ;
+<br>renvoie les membres private, package, protected.
+<br>Ne renvoie pas les membres des super-classes.
+<pre class="normal">
+Constructor&lt;?>[]    getDeclaredConstructors()
+Field[]             getDeclaredFields()
+Method[]            getDeclaredMethods()
+</pre>
+
+
+<!-- ************************************* -->
+<h4>Exemple : lister les méthodes d'une classe</h4>
+
+<pre>
+Class&lt;?> c = Class.forName("java.lang.reflect.Method");
+System.out.println("===== Methods of : " + c.getCanonicalName() + " =====");
+for(Method m : c.getDeclaredMethods()){
+    System.out.println();
+    String modifiers = Modifier.toString(m.getModifiers());
+    System.out.print(modifiers == "" ? "void" : modifiers);
+    System.out.print(" " + m.getReturnType().getSimpleName());
+    System.out.print(" " + m.getName());
+    // params
+    System.out.print("(");
+    List&lt;String> params = new ArrayList&lt;>();
+    for(Parameter param : m.getParameters()){
+        params.add(param.getType().getSimpleName());
+    }
+    System.out.print(String.join(", ", params));
+    System.out.print(")");
+}
+System.out.println();
+</pre>
+(code dans <a href="../../exemples/java/reflection/ClassMethods.java">ClassMethods.java</a>)
+<pre>
+java ClassMethods 
+</pre>
+<pre>
+===== Methods of : java.lang.reflect.Method =====
+
+public transient Object invoke(Object, Object[])
+public boolean equals(Object)
+public String toString()
+etc.
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="1-4-details-sur-les-membres-d-une-classe">Détails sur les membres d'une classe</a></h3>
+                                                                                        
+Les classes <code>Field</code>, <code>Method</code>, and <code>Constructor</code> de <code>java.lang.reflect</code> décrivent les champs, méthodes et constructeurs d'une classe.
+<br>Ces 3 classes ont une méthode <code>getName()</code> qui retourne le nom du membre.
+
+<h4><code>java.lang.reflect.Method</code></h4>
+Pour obtenir toutes sortes d'informations sur les méthodes, par exemple :
+<pre class="normal">
+Class&lt;?>     getDeclaringClass()
+int          getModifiers()
+int 	     getParameterCount()
+Class&lt;?>[]   getParameterTypes()
+Class&lt;?>     getReturnType()
+</pre>
+
+<code>getModifiers()</code> renvoie un entier exprimant les modifiers de la méthode (public, abstract final etc.).
+<br>Utilisable avec les méthodes statiques de la classe <code>java.lang.reflect.Modifiers</code> : 
+<pre class="normal">
+isAbstract(int mod)     isPublic(int mod)
+isFinal(int mod)        isStatic(int mod)
+isInterface(int mod)    isStrict(int mod)
+isNative(int mod)       isSynchronized(int mod)
+isPrivate(int mod)      isTransient(int mod)
+isProtected(int mod)    isVolatile(int mod)
+</pre>
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-divers">Divers</a></h2>
+
+<!-- ************************************* -->
+<h3><a name="2-1-inspecter-un-objet">Inspecter un objet</a></h3>
+La méthode <code>get()</code> de <code>Field</code> permet de connaître la <i>valeur</i> d'un champ.
+
+<pre>
+Object obj = new String("toto");
+try{
+    for (Field f : obj.getClass().getDeclaredFields()) {
+        f.setAccessible(true);
+        Object value = <b>f.get(obj)</b>;
+        System.out.println(f.getName() + ":" + value);
+    }
+}
+catch(ReflectiveOperationException e){
+    e.printStackTrace();
+}
+</pre>
+(code dans <a href="../../exemples/java/reflection/InspectObject.java">InspectObject.java</a>)
+
+
+<!-- ************************************* -->
+<h3><a name="2-2-invoquer-une-methode">Invoquer une méthode</a></h3>
+
+Dans la classe <code>Method</code>, on utilise la méthode <code>public Object invoke(Object obj, Object... args)</code>.
+<br>Invoque la méthode représentée par cet objet (mettre <code>null</code> pour des variables statiques).
+
+<pre>
+import java.lang.reflect.*;
+
+class Person{
+    private String name;
+    public Person(String name){ this.name = name; }
+    public String getName(){ return name; }
+    public void setName(String name){ this.name = name; }
+}
+
+public class InvokeMethod {
+    
+	public static void main(String[] args) {
+	    try{
+            Person p = new Person("toto");
+            
+            Method m;
+            
+            m = p.getClass().getMethod("getName");
+            Object name = <b>m.invoke(p)</b>;
+            System.out.println(name);
+            
+            m = p.getClass().getMethod("setName", String.class);
+            <b>m.invoke(p, "titi")</b>;
+            System.out.println(p.getName());
+	    }
+        catch(ReflectiveOperationException e){
+            e.printStackTrace();
+        }
+    }
+}
+
+</pre>
+(code dans <a href="../../exemples/java/reflection/InvokeMethod.java">InvokeMethod.java</a>)
+
+
+<!-- ************************************* -->
+<h3><a name="2-3-construire-un-objet">Construire un objet</a></h3>
+
+Exemple : invoquer le constructeur de <code>Person</code> qui prend une <code>String</code> en paramètre.
+<pre>
+Class<?> c = Person.class;
+Constructor constr = c.<b>getConstructor</b>(String.class); // varargs
+Object obj = constr.<b>newInstance</b>("tutu");
+System.out.println(((Person)obj).getName());
+</pre>
+(code aussi ans <a href="../../exemples/java/reflection/InvokeMethod.java">InvokeMethod.java</a>)
+<br>
+<br>Attention, bien utiliser <code>Constructor.newInstance()</code> et non pas <code>Class.newInstance()</code> (a été déprécié en java 9).
+
+<!-- ************************************* -->
+<h3><a name="2-4-infos-sur-le-fichier-java-courant">Infos sur le fichier .java courant</a></h3>
+Equivalent java de php pour :
+<pre class="normal">
+                                          PHP               Java
+                                        -------------------------
+Current line number of the file         __LINE__ 	    System.out.println(Thread.currentThread().getStackTrace()[1].getLineNumber());
+Full path and filename of current file  __FILE__ 	    ????
+Directory of current file               __DIR__ 	    this.getClass().getProtectionDomain().getCodeSource().getLocation().toExternalForm()
+Current class name                      __CLASS__ 	    this.getClass().getCanonicalName()
+Current method name                     __METHOD__ 	    ????
+Current namespace                       __NAMESPACE__       this.getClass().getPackage().getName()
+
+</pre>
+
+
+<!-- ********************************************************************************* -->
+<!-- ************************************* -->
+</article>
+
+</body>
+</html>

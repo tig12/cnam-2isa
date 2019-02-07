@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Compte en banque 1 | NFP121</title>
+    <meta name="description" content="But : créer une classe, l'instancier.">
+    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<!-- 
+Inspiré de http://deptinfo.cnam.fr/Enseignement/CycleA/APA/nfa032/docs/corriges-classes-1.pdf
+-->
+
+<header>
+<h1>Exercice : Compte en banque 1</h1>
+</header>
+
+<article>
+
+<ol class="spaced">
+    
+    <li>
+        Ecrire une classe <code>Compte</code> qui modélise un compte en banque et les opérations qu'on peut effectuer dessus.
+        <br>Un compte est caractérisé par :
+        <br>- son <code>nom</code> : <code>String</code>
+        <br>- son <code>solde</code> : <code>double</code>
+        <br>Ces deux variables doivent être privées.
+        <br>On peut effectuer les opérations suivantes sur un compte :
+        <br>- <code class="color">void deposer(double montant)</code>, qui incrémente le solde du montant passé en paramètre.
+        <br>- <code class="color">void retirer(double montant)</code>, qui décrémente le solde du montant passé en paramètre.
+        <br>- <code class="color">afficher()</code>, qui affiche à l'écran le nom du compte et son solde (par exemple <code class="color">Compte 2 - Solde: 160.0</code>).
+        <br>De plus, <code>Compte</code> a un constructeur qui prend en paramètre le nom du compte.
+    </li>
+
+    <li>
+        Ecrire une méthode <code class="color">void virerVers(double montant, Compte destination)</code>, qui va retirer le montant de ce compte et le déposer sur le compte passé en paramètre.
+        <br>Combien de comptes fait intervenir cette méthode ?
+    </li>
+    
+    <li>
+        Ecrivez une classe <code>TestCompte1</code> avec une fonction <code>main()</code> dans laquelle il faut :
+        <ul>
+            <li>Créer 2 comptes nommés "compte1" et "compte2".</li>
+            <li>Faire un dépôt de 500 euros sur compte1.</li>
+            <li>Faire un dépôt de 1000 euros sur compte2.</li>
+            <li>Faire un retrait de 10 euros sur compte2.</li>
+            <li>Faire un virement de 75 euros de compte1 vers compte2.</li>
+            <li>Afficher les soldes des deux comptes.</li>
+        </ul>
+        Résultat :
+<pre>java TestCompte1</pre>
+<pre>
+Compte 1 - Solde: 425.0
+Compte 2 - Solde: 1065.0
+</pre>
+    </li>
+    
+    <li>
+        Ecrivez une classe <code>TestCompte2</code> contenant une fonction <code>main()</code> dans laquelle il faut :
+        <ul>
+            <li>Créer un tableau de dix comptes nommés "compte 1" ... "compte 10".</li>
+            <li>Dans chaque compte, faire un dépot de 200 euros plus une somme égale à 100 fois l’indice du compte dans le tableau.</li>
+            <li>Puis faire un virement de 20 euros de chaque compte vers chacun des comptes qui le suivent dans le tableau (par exemple, du compte d’indice 5, il faut faire des virements vers les comptes d’indice 6, 7, 8 et 9).</li>
+            <li>Enfin, afficher les soldes de tous les comptes.</li>
+        </ul>
+        Résultat :
+<pre>java TestCompte2</pre>
+<pre>
+Compte 1 - Solde: 20.0
+Compte 2 - Solde: 160.0
+Compte 3 - Solde: 300.0
+Compte 4 - Solde: 440.0
+Compte 5 - Solde: 580.0
+Compte 6 - Solde: 720.0
+Compte 7 - Solde: 860.0
+Compte 8 - Solde: 1000.0
+Compte 9 - Solde: 1140.0
+Compte 10 - Solde: 1280.0
+</pre>
+    </li>
+</ol>
+
+</article>
+
+</body>
+</html>
+

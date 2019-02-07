@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Strategy | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Strtegy et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="observer.html">&larr;</a>
+    <a class="next" title="Next" href="composite.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>
+Strategy
+<div class="subtitle">(Stratégie)</div>
+</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-exemple">Exemple</a>
+        </li>
+        <li>
+            <a href="#2-structure">Structure</a>
+            <ul>
+                <li><a href="#2-1-exemple-avec-contexte">Exemple avec contexte</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#3-remarques">Remarques</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+<div class="intro">
+But : Définir une famille d'algorithmes, encapsuler chacun d'entre eux et les rendre interchangeables par le biais d'une interface.
+</div>
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-exemple">Exemple</a></h2>
+<pre>
+// 1 - interface de l'algo
+interface Strategy {
+    void solve();
+}
+
+// 2 - implémentations de l'algo
+class Solution1 implements Strategy {
+    void solve(){ ... }
+}
+
+class Solution2 implements Strategy {
+    void solve(){ ... }
+}
+
+// 3 - Client
+public class Client {
+    public static void main( String[] args ) {
+        Strategy[] strategies = {<b>new Solution1(), new Solution2()</b>};
+        for (Strategy strategy : strategies) {
+            <b>strategy.solve()</b>;
+        }
+    }
+}
+</pre>
+(voir le code dans <a href="../../exemples/patterns/strategy/StrategyDemo.java">StrategyDemo.java</a>).
+<br>
+<br>Dans StrategyDemo1.java, le choix des stratégies implémentées est statique (connu à la compilation).
+<br>Dans StrategyDemo2.java, ce choix est dynamique.
+<br>
+<br>Voir sur <a href="https://en.wikipedia.org/wiki/Strategy_pattern#Strategy_and_open/closed_principle">wikipedia</a> un autre exemple illustrant la modification dynamique de la stratégie :
+<pre>
+Car suvCar = new SUV();  // Constrctor sets strategy "BrakeWithABS"
+suvCar.applyBrake();     // This will invoke class "BrakeWithABS"
+
+suvCar.setBrakeBehavior( new Brake() ); // set brake behavior dynamically
+suvCar.applyBrake();    // This will invoke class "Brake"
+</pre>
+(copie locale dans <a href="../../exemples/patterns/strategy/CarExample.java">CarExample.java</a>)
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-structure">Structure</a></h2>
+
+Le diagramme classique (gof) :
+<img class="border margin" src="img/strategy-gof-diagram.jpg" alt="Strategy GOF" />
+
+<code>Context</code> sert d'intermédiaire entre le code client et les statégies. Pas toujours utile, forwarde les requêtes des clients à la stratégie utilisée.
+<br>Le code client choisit la stratégie à utiliser et la transmet au contexte.
+
+<!-- ************************************* -->
+<h3><a name="2-1-exemple-avec-contexte">Exemple avec contexte</a></h3>
+
+On souhaite réutiliser les différentes implémentations de l'exercice <a href="../../exos/java/pi/Pi.html">"Calcul approché de pi"</a> pour permettre à du code client de choisir l'implémentation.
+<br>Contrainte : on ne peut pas toucher aux implémentations originales.
+<br>On a vu qu'on peut facilement comparer le calcul des 3 implémentations sans aucun pattern, comme dans la classe <code>Comparaison</code> :
+<pre>
+int N = 1000;
+double pi1 = Pi1.calculePi(N);
+double pi2 = Pi2.calculePi(N);
+double pi3 = Pi3.calculePi(N);
+</pre>
+L'inconvénient de cette solution est que le code client est lié aux implémentations.
+<br>On peut utiliser le pattern Strategy pour décoreller les deux.
+<br>Voir le <a href="../../exemples/patterns/strategy/pi">code source</a>.
+<br>A noter :
+<ul>
+    <li>
+        Comme on ne peut pas toucher aux implémentations existantes, on utilise un Adapter pour permettre aux classes <code>Pi1</code>, <code>Pi2</code>, <code>Pi3</code> d'implémenter une interface. L'adapter permet de passer d'une situation <code>static</code> à une situation d'instance.
+    </li>
+    <li>
+        Plusieurs implémentations sont possibles. On aurait pu se passer de la classe <code>PiContext</code>, de la classe <code>Client</code> ; <code>PiInterface</code> aurait pu imposer une méthode <code>static</code> etc. 
+    </li>
+</ul>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-remarques">Remarques</a></h2>
+
+<ul class="spaced">
+    <li>
+        La présence de l'interface <code>Strategy</code> est cruciale, car c'est grace à elle qu'on peut changer de stratégie. 
+    </li>
+    
+    <li>
+        Les implémentations peuvent changer, être remplacées sans avoir à toucher aux clients.
+    </li>
+    
+    <li>
+        Pattern entraînant la création de classes (attention à une prolifération excessive). 
+    </li>
+    
+    <li>
+        Le code client doit choisir la stratégie à utiliser, il doit donc être au courant des stratégies possibles.
+    </li>
+    
+    <li>
+        Les échanges d'information entre le contexte et les stratégies sont importants.
+        <br>Parfois les infos nécessaires aux stratégies sont passées en paramètre (mais risque de passer de l'info inutile, car les stratégies n'ont pas forcément toutes les mêmes besoins).
+        <br>Ou le contexte peut passer une référence à lui-même à la stratégie, qui prendra l'info dont elle a besoin.
+    </li>
+    
+    <li>
+        Il n'y a aucun lien direct entre les clients des algos et leurs implémentations.
+        <img class="border margin padding05" src="img/strategy-sourcemaking1.svg" alt="Strategy loose coupling" />
+    </li>
+    
+    <li>
+        Similarité avec <a href="template-method.html">Template Method</a> car permet aussi de choisr l'algo utilisé.
+        <br>Template Method utilise l'héritage pour faire varier des partie de l'algo ;
+        <br>Strategy utilise la composition pour faire varier l'algo entier.
+    </li>
+    
+    <li>
+        "Strategy permet de changer les tripes d'un objet alors que <a href="decorator.html">Decorator</a> permet d'en changer la peau".
+    </li>
+
+    <!-- 
+    <li>
+        TODO
+<pre class="normal">
+
+State is like Strategy except in its intent.
+
+State, Strategy, Bridge (and to some degree Adapter) have similar solution structures.
+They all share elements of the 'handle/body' idiom. They differ in intent - that is, they solve different problems.
+
+Strategy has 2 different implementations, the first is similar to State.
+The difference is in binding times (Strategy is a bind-once pattern, whereas State is more dynamic).
+
+Strategy objects often make good Flyweights.
+
+Dans schéma GOF des liens entre patterns : 
+Template Method -- defining algorithm's steps -- > Strategy 
+</pre>
+    </li>
+    -->
+</ul>
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>

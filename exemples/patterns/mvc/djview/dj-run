@@ -1,0 +1,9 @@
+
+command="java -classpath ../../../../bin/exemples/mvc/djview DJTestDrive"
+echo $command
+$command
+
+echo
+exit
+
+

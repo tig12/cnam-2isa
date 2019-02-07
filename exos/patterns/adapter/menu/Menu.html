@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Menu | NFP121</title>
+    <link href="../../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Menu</h1>
+</header>
+
+<article>
+
+On vous fournit le code contenu dans <a href="enonce">enonce/</a>, avec la demande suivante :
+<br>pouvoir manipuler les différents aliments de manière uniforme dans le code client.
+<br>
+<br>Le code fourni contient une classe <code>Main</code> ainsi que quatre classes représentant des aliments.
+<br>Chaque aliment contient une méthode implémentant sa préparation.
+
+<br>Plus spécifiquement, on souhaite pouvoir implémenter la méthode <code>Main.preparerRepas()</code> de la manière suivante :
+<pre>
+    public static void preparerRepas(){
+        Aliment s = /* à compléter */;
+        Aliment o = /* à compléter */;
+        Aliment r = /* à compléter */;
+        Aliment k = /* à compléter */;
+        
+        s.cuisiner();
+        o.cuisiner();
+        r.cuisiner();
+        k.cuisiner();
+    }
+</pre>
+
+Pour répondre à cette demande :
+<ol class="liste-aeree">
+    <li>
+        Ecrire une interface <code>Aliment</code> contenant une seule méthode :
+        <pre>public void cuisiner();</pre>
+    </li>
+    <li>
+        Pour chacun des quatre aliments fournis, écrire un <i>adapter</i> qui implémente <code>Aliment</code>.
+    </li>
+    <li>
+        Utiliser ces adapters dans la fonction <code>Main.preparerRepas()</code> afin d'implémenter cette fonction de la manière décrite ci-dessus.
+    </li>
+</ol>
+
+</article>
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Iterator | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Iteraor (itérateur), ses variantes, et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="composite.html">&larr;</a>
+    <a class="next" title="Next" href="visitor.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>
+Iterator
+<div class="subtitle">(Itérateur)</div>
+</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-exemple">Exemple</a>
+        </li>
+        <li>
+            <a href="#2-structure">Structure</a>
+        </li>
+        <li>
+            <a href="#3-remarques">Remarques</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+<div class="intro">
+But : fournit un moyen d'accéder séquentiellement aux éléments d'un aggrégat sans exposer sa représentation interne.
+</div>
+
+Un aggrégat (par exemple une liste) doit fournir une manière de le parcourir sans devoir connaître sa représentation interne.
+<br>On peut aussi avoir besoin de parcourir l'aggrégat de différentes manières ; mais il est préférable de ne pas alourdir l'API de l'aggrégat avec des méthodes liées à chaque manière de le parcourir.
+<br>On peut aussi avoir besoin d'avoir plusieurs itérations en cours sur un même aggrégat.
+<br>
+<br>Le pattern <i>Iterator</i> permet cela. L'idée principale de ce pattern est d'<b>externaliser le parcours de l'aggrégat</b> dans un objet, l'itérateur.
+<br>L'itérateur définit une interface pour accéder aux éléments de l'aggrégat, garde la trace de l'élément courant.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-exemple">Exemple</a></h2>
+On souhaite itérer une liste.
+<br>
+<br>Pour itérer sans surcharger l'API de <code>List</code>, on crée un objet extérieur (un itérateur) qui va contenir les opérations d'itération.
+
+<img class="border margin padding05" src="img/iterator-gof-detail1.jpg" alt="Iterator exemple liste" />
+
+<b>Note</b> : l'API java (<code>java.util.Iterator)</code> utilise <code>hasNext()</code> et <code>next()</code>.
+<br>
+<br>Pour l'utiliser (pseudo-code):
+
+<pre>
+List list = new List();
+ListIterator itr1 = new ListIterator(list);
+ListIterator itr2 = new FilteringListIterator(list);
+</pre>
+
+Cette solution permet déjà :
+<br>- d'externaliser les méthodes d'itération dans un itérateur
+<br>- d'effectuer plusieurs itérations simultanées
+<br>
+<br>Voir un exemple dans <a href="../../exemples/patterns/iterator/simple/DemoSimple.java">DemoSimple.java</a>.
+<br>On définit une classe <code>ArrayAggregate</code> qui encapsule un tableau d'objets, et on définit deux itérateurs pour cette classe.
+<br>Le code de test montre qu'on peut itérer cet aggrégat de différentes manières, et itérer de plusieurs manières en même temps.
+<br>
+<br>Mais il reste un problème :
+<br>L'itérateur et l'aggrégat sont couplés : le client doit savoir que l'itérateur parcourt tel type d'aggrégat.
+<br>Il serait préférable de pouvoir changer la classe de l'aggrégat sans changer le code client.
+<br>
+<br>On fait ça en généralisant le concept d'itérateur pour supporter le concept d'<b>itérateur polymorphe</b>.
+<br>Pour ça, on introduit 2 interfaces, <code>AbstractList</code> et <code>AbstractIterator</code>, ce qui rend le mécanisme d'itération indépendant de l'implémentation de l'aggrégat.
+
+<img class="border margin padding05" src="img/iterator-gof-detail2.jpg" alt="Iterator exemple liste" />
+
+Si on veut toujours pouvoir écrire du code indépendant de l'implémentation de la liste utilisée, on donne à la liste la responsabilité de crééer ses itérateurs,
+<br>ce qui se fait par un méthode du type <code>createIterator()</code>, une <i>Factory method</i>.
+<br>On se retouve dans une situation de factory method, avec deux hiérarchies, une pour les aggrégats et une pour les itérateurs ; les deux hiérarchies sont connectées par <code>createIterator()</code>.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-structure">Structure</a></h2>
+Schéma GOF :
+
+<img class=" margin padding05 border" src="img/iterator-gof-diagram.jpg" alt="Iterator GOF" />
+
+<br>Voir un exemple dans <a href="../../exemples/patterns/iterator/complet/DemoComplet.java">DemoComplet.java</a>.
+<br><code>DemoSimple.java</code> a été modifié et complété de manière à utiliser les itérateurs et aggrégats abstraits.
+<br>On voit dans le code de test que le client n'est plus obligé de préciser le type précis d'itérateur utilisé :
+<pre>ArrayAggregate.NormalIterator it1 = aa.getNormalIterator();</pre>
+est remplacé par :
+<pre>NormalIterator it1 = aa.getNormalIterator();</pre>
+
+<div class="exo">
+<b>Exercice</b> :
+<br>
+<br>- Dans <code>DemoComplet.java</code>, identifiez les acteurs du pattern <a href="factory-method.html">Factory Method</a> : où sont les créateurs, les produits ; quelles sont les factory methods ?
+<br>
+<br>- Complétez <code>DemoComplet.java</code> en introduisant une deuxième classe d'aggrégat, <code>ArrayListAggregate</code>, qui utilise un <code>ArrayList</code> au lieu d'un simple tableau d'objets.
+<br>Implémentez les deux itérateurs correspondant, et adaptez le code de test de manière à utiliser ce nouvel aggrégat.
+</div>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-remarques">Remarques</a></h2>
+Il existe de nombreuses variantes d'itérateurs.
+
+<h4>Itérateurs externes et internes</h4>
+
+Ces deux types d'itérateurs apparaissent avec la question : qui contrôle l'itération : le client ou l'itérateur ?
+<ul class="spaced">
+    
+    <li>
+        Si c'est le client, on parle d'<b>itérateur externe</b>. Dans ce cas, le code client doit piloter le parcours de la liste et demander explicitement à l'itérateur le prochain élément.
+        <br>Plus souples pour le client (par ex si on veut comparer 2 collections).
+        <br>Avant java 8, c'était (presque) le seul moyen de parcourir une collection.
+        <br>Autres noms : itérateur actif ou explicite.
+<pre>
+for(Iterator&lt;String> i = c.iterator(); i.hasNext();) {
+    System.out.println(i.next());
+}
+</pre>
+    </li>
+    <li>
+        Lorsque c'est l'itérateur qui contrôle le parcours, on parle d'<b>itérateur interne</b>.
+        <br>En java, possible depuis java 8 avec l'introduction des streams.
+        <br>Autres noms : itérateur passif ou implicite ; callback iterator.
+<pre>
+c.stream().forEach(System.out::println);
+</pre>
+    </li>
+</ul>
+
+<!-- ************************************* -->
+<h4>Curseurs</h4>
+Une autre question : qui définit l'algorithme de parcours de l'aggrégat ?
+<br>En général, est géré par l'itérateur.
+<br>Cette solution permet de réutiliser l'algo de parcours sur d'autres types d'aggrégats.
+<br>Permet aussi de changer facilement l'algo.
+<br>Mais l'algo de parcours peut avoir besoin d'accéder à des variables privées de l'aggrégat, ce qui viole l'encapsulation de l'aggrégat.
+<br>
+<br>L'algo de parcours peut être géré par l'aggrégat lui-même, dans ce cas l'itérateur ne sert qu'à stocker l'état de l'itération.
+<br>Ce type d'itérateur est nommé <b>curseur</b>.
+
+<!-- ************************************* -->
+<h4>Robustesse</h4>
+Modifier un aggrégat durant le parcours peut générer des bugs (accéder 2 fois au même élément, pointer sur un élément déjà supprimé).
+<br>Un itérateur est dit <b>robuste</b> s'il garantit que la modification de l'aggrégat durant le parcours est possible, <i>sans dupliquer la liste</i>.
+
+<div class="exo">
+<b>Exercice</b> :
+<br>Quelles sont les caractéristiques des itérateurs d'exemple (<code>DemoSimple</code> et <code>DemoComplet</code>) ?
+<br>- Interne, externe ?
+<br>- S'agit-il de curseurs ?
+<br>- Sont-ils robustes ?
+</div>
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

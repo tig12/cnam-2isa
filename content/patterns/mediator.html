@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Mediator | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Mediator et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="state.html">&larr;</a>
+    <a class="next" title="Next" href="chain-of-responsability.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>
+Mediator
+<div class="subtitle">(Médiateur)</div>
+</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-exemples">Exemples</a>
+            <ul>
+                <li><a href="#1-1-tour-de-controle">Tour de contrôle</a></li>
+                <li><a href="#1-2-exemple-gof">Exemple GOF</a></li>
+                <li><a href="#1-3-autre-exemple">Autre exemple</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-structure">Structure</a>
+        </li>
+        <li>
+            <a href="#3-remarques">Remarques</a>
+            <ul>
+                <li><a href="#3-1-liens-avec-d-autres-patterns">Liens avec d'autres patterns</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+<div class="intro">
+But : Définir un objet qui encapsule comment un ensemble d'objets interagit.
+</div>
+
+Les objets qui interagissent n'ont plus besoin d'échanger directement avec les autres objets, ce qui permet de faire varier les interaction indépendamment des objets.
+<br>
+<br>Assez proche de <a href="observer.html">Observer</a>.
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-exemples">Exemples</a></h2>
+
+<!-- ************************************* -->
+<h3><a name="1-1-tour-de-controle">Tour de contrôle</a></h3>
+<!-- image venant de https://sourcemaking.com/design_patterns/mediator -->
+<img class="border margin padding05" <img src="img/mediator-sourcemaking1.svg" alt="Mediator - tour de contrôle" />
+
+Les pilotes des avions qui vont atterrir ne communiquent pas entre eux pour savoir comment s'y prendre ;
+<br>ils communiquent tous avec la tour de contrôle, qui leur donne en retour des instructions.
+<br>L'intelligence permettant de gérer les interactions entre les avions se situent au niveau de la tour.
+<br>Les différents avions n'ont pas besoin de se connaître pour pouvoir atterrir, les instructions de la tour suffisent.
+
+
+<!-- ************************************* -->
+<h3><a name="1-2-exemple-gof">Exemple GOF</a></h3>
+Autre exemple, dans un dialogue permettant de choisir une police, une action peut avoir des effets sur plusieurs composants graphiques :
+<ul>
+    <li>Choix d'une police dans la liste => le texte du haut s'affiche dans la police choisie, certains champs de "Weight" ou "Slant" peuvent être désactivés.</li>
+    <li>Choix de la taille, de "Weight" ou "Slant" => le texte du haut est mis à jour.</li>
+</ul>
+
+Différents dialogues peuvent utiliser les mêmes composants graphiques, mais les interactions des composants entre eux seront différentes.
+<br>En sous-classant les composants pour gérer les différents types d'interaction, on supprime la possibilité de les réutiliser.
+<br>On crée aussi des dépendances fortes entre les composants.
+<br>
+<div class="flex-wrap">
+<img class="margin" src="img/mediator-gof-example1.jpg" alt="Mediator - exemple" />
+<img class="border padding margin" src="img/mediator-gof-example2.jpg" alt="Mediator - interactions" />
+</div><!-- end class="flex-wrap" -->
+
+On évite ces problèmes en encapsulant les interaction dans un objet, le mediator.
+<br>
+<br>Par exemple, on pourrait avoir un <code>FontDialogDirector</code> pour faire le mediator entre les composants du dialogue.
+<br>Le <code>FontDialogDirector</code> connaît les composants, agit comme un hub pour gérer les interactions.
+<br>
+<br>Diagramme de séquence :
+
+<img class="margin padding05 border" src="img/mediator-gof-example3.jpg" alt="Mediator - sequence" />
+
+<ol>
+    <li>La liste dit au mediator qu'elle a changé.</li>
+    <li>Le mediator lui demande sa nouvelle valeur.</li>
+    <li>Le médiator demande au texte de se rafraîchir.</li>
+    <li>Le médiator demande à "Weight", puis "Slant", puis "Size" de se rafraîchir (en utilisant les valeurs récupérées en 2).</li>
+</ol>
+
+<img class="margin padding05 border" src="img/mediator-gof-example4.jpg" alt="Mediator - exemple DialogDirector" />
+
+Bonne organistation du code, toutes les interactions sont centralisées dans le mediator :
+<pre>
+class Mediator{
+    
+    public void widgetChanged(Widget w){
+        switch(w.getClass()){
+        	case Widget1.class : handleWidget1(); break;
+        	case Widget2.class : handleWidget2(); break;
+        }
+    }
+    
+    private void handleWidget1(){
+        // ici toutes les opérations réagissant à une action de l'utilisateur
+        // sont réunies en un même endroit
+    }
+}
+</pre>
+
+Si les fonctions du type de <code>handleWidget1()</code> sont longues et complexes, on peut sous-classer <code>Mediator</code> pour mieux ranger le code.
+
+
+<!-- ************************************* -->
+<h3><a name="1-3-autre-exemple">Autre exemple</a></h3>
+Voir <a href="../../exemples/patterns/mediator/chat/ChatDemo.java">ChatDemo.java</a>
+<br>Bien identifier la séquence : lorsqu'un utilisateur envoie un message, il est à l'initiative du message, mais ne fait que transmettre au <code>ChatMediator</code>, qui a la responsabilité de transmettre le message aux participants concernés.
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-structure">Structure</a></h2>
+
+<img class="margin padding05 border" src="img/mediator-gof-structure.jpg" alt="Mediator - structure" />
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-remarques">Remarques</a></h2>
+
+
+<ul class="spaced">
+    <li>
+        Les différents collègues n'ont pas besoin de se connaître, leur seul interloculteur est le mediator.
+    </li>
+    <li>
+        Le fait que les collègues ne sont pas couplés facilite leur remplacement.
+    </li>
+    <li>
+        Ce pattern remplace des liaisons n-n par des liaisons 1-n, plus simples à comprendre.
+    </li>
+    <li>
+        Le complexité des interactions est transférée dans le mediator.
+        <br>Le danger est d'obtenir une grosse classe difficile à maintenir.
+    </li>
+    <li>
+        la classe abstraite <code>Mediator</code> peut être omise si les composants n'ont qu'un seul mediator.
+    </li>
+</ul>
+
+<h3><a name="3-1-liens-avec-d-autres-patterns">Liens avec d'autres patterns</a></h3>
+<ul class="spaced">
+    <li>
+        Une possibilité est d'implémenter un mediator en utilisant le pattern <i><a href="observer.html">Observer</a></i> :
+        <br>Les collègues sont les observables et le mediator est l'observateur.
+        <br>Lorsqu'un collègue change, il notifie le médiator, qui va alerter les autres collègues.
+        <br>
+        <br>Cette solution a un inconvénient, tous les collègues sont avertis, même ceux qui n'en ont pas besoin.
+        <table>
+            <tr>
+                <td>=></td>
+                <td class="padding-left">
+                    <b><i>Observer</i> : tous les collègues sont avertis
+                    <br><i>Mediator</i> : Seuls certains collègues sont avertis</b>
+                </td>
+            </tr>
+        </table>
+    </li>
+    <li>
+        <i>Mediator</i> fait partie des patterns permettant de découpler un émetteur d'un receveur.
+        <br>Les autres patterns permettant cela sont :
+        <br>- <i><a href="chain-of-responsability.html">Chain of Responsibility</a></i> (passe une requête à une chaîne potentielle de receveurs).
+        <br>- <i><a href="command.html">Command</a></i> (spécifie un lien eméteur - receveur avec une sous-classe).
+        <br>- <i><a href="observer.html">Observer</a></i> (fait comme Mediator, mais son application est plus générale et systématique).
+    </li>
+    <li>
+        <i>Mediator</i> est similaire à <i><a href="facade.html">Facade</a></i> dans le sens où il abstrait des fonctionnalités de classes existantes.
+        <br>Mais Mediator ajoute des fonctionnalités en gérant les interactions.
+        <br>Facade n'ajoute pas de fonctionnalités et n'est pas connu par les classes du sous-système.
+    </li>
+</ul>
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>html>

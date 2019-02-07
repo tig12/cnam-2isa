@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Bibliothèque | NFP121</title>
+    <link href="../../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Bibliothèque</h1>
+</header>
+
+<article>
+
+Le but est de modéliser une bibliothèque en utilisant le pattern <i>Composite</i>.
+<br>Une bibliothèque est composée de pièces.
+<br>Une pièce est composée d'étagères.
+<br>Chaque étagère contient des livres.
+<br>
+<br>Les noeuds composés sont donc : bibliothèque, pièce, étagère.
+<br>La structure a un noeud terminal (sans enfant) : livre.
+<br>
+<br>Chaque élément (noeud) de la structure a un champ <code>name</code>, ainsi que 3 "méthodes composites" (fonctionnant comme la méthode <code>operation()</code> dans la terminologie GOF) :
+
+<style>
+    .livres{
+        border-collapse:collapse;
+        border:1px solid grey;
+        margin:1em;
+    }
+    .livres td,th{
+        border:1px solid grey;
+        padding:2px;
+    }
+    .livres td ul{
+        margin:0;
+    }
+    .livres td:nth-child(1), td:nth-child(2){
+        font-family:"Courier New", Courier, monospace;
+    }
+</style>
+<table class="livres">
+    <tr><th>Type de retour</th><th>Nom de la méthode</th><th>Action</th></tr>
+    <tr>
+        <td>void</td>
+        <td>print()</td>
+        <td>
+            Affiche une chaîne de caractères contenant :
+            <ul>
+                <li>Une tabulation reflétant le niveau de profondeur de l'élément dans la hiérarchie.</li>
+                <li>Le nom de l'élément</li>
+                <li>Le nombre de livres contenus dans l'élément (ou ses descendants)</li>
+                <li>Le nombre de pages des livres contenus dans l'élément (ou ses descendants)</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>int</td>
+        <td>getNombreLivres()</td>
+        <td>Renvoie le nombre de livres contenus dans tous ses descendants</td>
+    </tr>
+    <tr>
+        <td>int</td>
+        <td>getNombrePages()</td>
+        <td>Renvoie le nombre de pages des livres contenus dans tous ses descendants</td>
+    </tr>
+</table>
+Un livre est caractérisé par son nom et son nombre de pages.
+<br>
+<br>Implémentez un composite répondant à ces spécifications et créez une bibliothèque de test dans une fonction <code>main()</code> de manière à ce que la fonction <code>print()</code> de votre bibliothèque produise cet affichage :
+<pre>
+Bibliothèque 1 : 10 livres, 2659 pages
+  Pièce 1 : 5 livres, 1729 pages
+    Etagère 1_1 : 3 livres, 825 pages
+      Livre 1 : 200 pages
+      Livre 2 : 375 pages
+      Livre 3 : 250 pages
+    Etagère 1_2 : 2 livres, 904 pages
+      Livre 4 : 404 pages
+      Livre 5 : 500 pages
+  Pièce 2 : 5 livres, 930 pages
+    Etagère 2_1 : 2 livres, 150 pages
+      Livre 6 : 75 pages
+      Livre 7 : 75 pages
+    Etagère 2_2 : 1 livres, 75 pages
+      Livre 8 : 75 pages
+    Etagère 2_3 : 2 livres, 705 pages
+      Livre 9 : 75 pages
+      Livre 10 : 630 pages
+</pre>
+
+
+</article>
+
+</body>
+</html>
+

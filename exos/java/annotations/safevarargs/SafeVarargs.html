@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice SafeVarargs | NFP121</title>
+    <link href="../../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : SafeVarargs</h1>
+</header>
+
+<article>
+
+<a href="enonce">Code source de l'énoncé</a>
+<br>
+<br>Soit la classe :
+<pre>
+class TestSafeVarargs{
+    
+    public static void main(String[] args){
+        System.out.println(max(12, 3, 8, 210));
+    }
+
+    // pas besoin ici de SafeVararg car pas de type générique
+    public static int max(int premier, int... lesAutres) {
+        int max = premier;
+        for(int i : lesAutres) {
+            if (i > max) max = i;
+        }
+        return max;
+    }
+}
+</pre>
+
+- Compiler cette classe et vérifier que la compilation ne génère aucun warning.
+
+<br>- Modifier cette classe de manière à ce que <code>max()</code> travaille sur une liste de sous-classe d'entiers :
+<pre>
+static &lt;T extends Integer> T max(T premier, T... lesAutres){...}
+</pre>
+- Vérifier que la compilation génère un warning ; utiliser <code>-Xlint:unchecked</code> pour avoir les détails du warning.
+<br>- Modifier la classe pour que la compilation passe sans warning.
+
+
+</article>
+
+</body>
+</html>
+

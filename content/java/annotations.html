@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Annotations | NFP121 Millau</title>
+    <meta name="description" content="Introduction aux annotations en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="lambdas.html">&larr;</a>
+    <a class="next" title="Next" href="enums.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Annotations</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-syntaxe-a-l-utilisation">Syntaxe à l'utilisation</a>
+            <ul>
+                <li><a href="#1-1-ou-les-utiliser">Où les utiliser ?</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-annotations-predefinies">Annotations prédéfinies</a>
+            <ul>
+                <li><a href="#2-1-suppresswarnings">@SuppressWarnings</a></li>
+                <li><a href="#2-2-deprecated">@Deprecated</a></li>
+                <li><a href="#2-3-override">@Override</a></li>
+                <li><a href="#2-4-safevarargs">@SafeVarargs</a></li>
+                <li><a href="#2-5-functionalinterface">@FunctionalInterface</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#3-custom-annotations">Custom annotations</a>
+        </li>
+        <li>
+            <a href="#4-meta-annotations-ou-annotations-d-annotations">Meta-annotations (ou annotations d'annotations)</a>
+            <ul>
+                <li><a href="#4-1-target">@Target</a></li>
+                <li><a href="#4-2-retention">@Retention</a></li>
+                <li><a href="#4-3-inherited">@Inherited</a></li>
+                <li><a href="#4-4-documented">@Documented</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#5-autres-annotations">Autres annotations</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+
+
+Le type Annotation est un des 5 types référence de java ; introduites en java 5.
+<br>N'affectent pas l'exécution du programme (en général), ajoutent de l'information au code ("meta data"). Servent au compilateur ou à différents outils (IDEs, déploiement).
+<br>Certaines annotations peuvent être examinées à l'exécution.
+<br>Java fournit 5 types prédéfinis (built-in) d'annotations.
+<br>
+<br>Elles sont un type spécial d'interface, qui sont toutes (implicitement) des sous-interfaces de <code>java.lang.annotation.Annotation</code>.
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-syntaxe-a-l-utilisation">Syntaxe à l'utilisation</a></h2>
+Forme simple :
+<pre>
+// fait partie des annotations prédéfinies
+@Override
+void mySuperMethod() { ... }
+</pre>
+<pre>
+// une annotation custom
+@Entity
+</pre>
+Le nom de l'annotation est la chaîne de caractère qui suit le <code>@</code>.
+<br>
+<br>Certaines peuvent contenir des <i>éléments</i>, nommés ou pas :
+<pre>@Author(
+   name = "Benjamin Franklin",
+   date = "3/27/2003"
+)
+class MyClass() { ... }
+</pre>
+
+Si une annotation ne possède qu'un seul élément nommé <code>value</code>, il peut être omis :
+<pre>
+<b>@SuppressWarnings(value = "unchecked")</b>
+void myMethod() { ... }
+
+// équivalent à :
+
+<b>@SuppressWarnings("unchecked")</b>
+void myMethod() { ... }
+</pre>
+Une déclaration peut utiliser plusieurs annotations :
+<pre>
+@Author(name = "Jane Doe")
+@EBook
+class MyClass { ... }
+</pre>
+Plusieurs annotations du même type peuvent être utilisées dans la même déclaration :
+<pre>
+@Author(name = "Jane Doe")
+@Author(name = "John Smith")
+class MyClass { ... }
+</pre>
+
+
+<!-- ************************************* -->
+<h3><a name="1-1-ou-les-utiliser">Où les utiliser ?</a></h3>
+Les annotations peuvent être appliquées aux déclarations de classe, champs et méthodes de classe et aux autres éléments d'un programme.
+<br>Depuis java8, les annotations peuvent être utilisées lorsqu'on utilise un type, par exemple :
+<br>
+<br>Création d'un objet
+<pre>new @Interned MyObject();</pre>
+Type casting
+<pre>myString = (@NonNull String) str;</pre>
+Clause <code>implements</code>
+<pre>class UnmodifiableList<T> implements @Readonly List<@Readonly T> { ... }</pre>
+Clause <code>throws</code>
+<pre>void monitorTemperature() throws @Critical TemperatureException { ... }</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-annotations-predefinies">Annotations prédéfinies</a></h2>
+Les 3 annotations de base dans <code>java.lang</code> sont <code>@Deprecated</code>, <code>@Override</code>, and <code>@SuppressWarnings</code>.
+<br><code>@SafeVarargs</code> a été introduit dans java7 et <code>@FunctionalInterface</code> dans java8.
+
+<!-- ************************************* -->
+<h3><a name="2-1-suppresswarnings">@SuppressWarnings</a></h3>
+Permet d'éviter des warnings à la compilation ; 2 types de warning : <code>deprecation</code> et <code>unchecked</code>.
+<pre>
+@SuppressWarnings("deprecation")
+void useDeprecatedMethod() {
+    objectOne.deprecatedMethod();
+}
+</pre>
+Pour utiliser les 2, notation tableau :
+<pre>@SuppressWarnings({"unchecked", "deprecation"})</pre>
+
+Une annotation non définie, par ex <code>@SuppressWarnings(“toto”)</code>, sera ignorée par le compilateur.
+
+<!-- ************************************* -->
+<h3><a name="2-2-deprecated">@Deprecated</a></h3>
+(= déprécié, ne doit plus être utilisé).
+<br>Doit être utilisé en lien avec javadoc (remarquer la différence de casse).
+<pre>
+/**
+ * @deprecated
+ * Justification de la dépréciation
+ */
+@Deprecated
+static void deprecatedMethod() { }
+}
+</pre>
+
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/annotations/deprecated/Deprecated.html">Deprecated</a>
+</div>
+
+<!-- ************************************* -->
+<h3><a name="2-3-override">@Override</a></h3>
+Pour signaler qu'un élément doit en surcharger un autre. Utilisé par exemple par un IDE pour signaler une typo, une erreur de type.
+<br>Utile aussi pour être certain d'avoir bien la bonne signature dans notre code.
+<br>Note : <code>@Override</code> est à comprendre comme "overrides ou implements" (même sémantique que <code>extends</code> pour les types génériques).
+<pre>
+@Override 
+int overriddenMethod() { }
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="2-4-safevarargs">@SafeVarargs</a></h3>
+Utilisé lorsqu'on définit une méthode ou un constructeur avec des arguments variables de type générique.
+<br>Permet de désactiver à la compilation des warnings relatifs à des vérifications de type sur les arguments variables de type générique.
+
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/annotations/safevarargs/SafeVarargs.html">SafeVarargs</a>
+</div>
+
+<!-- ************************************* -->
+<h3><a name="2-5-functionalinterface">@FunctionalInterface</a></h3>
+Permet de signaler une interface dont l'implémentation peut être exprimée sous forme de <a href="lambdas.html">lambda expression</a>.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-custom-annotations">Custom annotations</a></h2>
+
+Pour utiliser des annotations personnalisées, il faut les définir.
+<br>Les annotations sont un type spécial d'interface, qui sont toutes (implicitement) des sous-interfaces de <code>java.lang.annotation.Annotation</code>.
+<br>On utilise <code>@interface</code> pour définir une annotation, et on définit les éléments de l'annotation avec des méthodes, comme dans une interface normale.
+
+<pre>
+@interface MyAnnotation {
+    String   value();
+    String   name();
+    int      age();
+    String[] newNames();
+
+}
+</pre>
+
+Par rapport à une interface normale :
+<ul>
+    <li>Elle ne peuvent pas être génériques.</li>
+    <li>Elles ne peuvent pas dériver d'une autre interface que <code>Annotation</code>.</li>
+    <li>Leurs méthodes ne peuvent pas avoir de paramètres.</li>
+    <li>Elles ne peuvent pas définir de méthodes qui lancent des exceptions.</li>
+    <li>Les types de retour de leurs méthodes peuvent être des types primitifs, des tableaux mais pas des objets complexes.</li>
+    <li>Les méthodes peuvent avoir des types de retour.</li>
+</ul>
+
+Par exemple, pour normaliser la documentation d'une classe, on peut définir :
+<pre>
+<b>@interface</b> ClassHeader {
+   String author();
+   String date();
+   int currentRevision() default 1;
+   String lastModified() default "N/A";
+   String lastModifiedBy() default "N/A";
+   <b>String[] reviewers()</b>; // tableau
+}
+</pre>
+Et à l'utilisation :
+<pre>
+@ClassHeader (
+   author = "John Doe",
+   date = "3/17/2002",
+   currentRevision = 6,
+   lastModified = "4/12/2004",
+   lastModifiedBy = "Jane Doe",
+   <b>reviewers = {"Alice", "Bob", "Cindy"}</b> // notation tableau
+)
+public class MyClass { ... }
+</pre>
+
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/annotations/enhancement/EnhancementRequest.html">EnhancementRequest</a>
+</div>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-meta-annotations-ou-annotations-d-annotations">Meta-annotations (ou annotations d'annotations)</a></h2>
+
+Permettent d'annoter la définition des annotations, pour spécifier où le nouveau type d'annotation peut être utilisé et comment il sera utilisé à la compilation et à l'exécution.
+<br>
+<br>Par exemple, si on veut que les annotations soient utilisées par javadoc, il faut annoter la déclaration de l'annotation ("meta-annotation") avec <code>@Documented</code>:
+<pre>
+<b>import java.lang.annotation.*</b>; // pour utiliser @Documented
+<b>@Documented</b> 
+@interface ClassHeader { ... }
+</pre>
+
+Les meta-annotations possibles sont :
+<pre class="normal">
+    @Target
+    @Retention
+    @Documented
+    @Inherited
+    @Repeatable
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="4-1-target">@Target</a></h3>
+Permet de spécifier où la nouvelle annotation peut être utilisée.
+<br>Peut prendre les valeurs de l'enum <code>java.lang.annotation.ElementType</code> :
+<pre class="normal">
+    TYPE
+    FIELD
+    METHOD
+    PARAMETER
+    CONSTRUCTOR
+    LOCAL_VARIABLE
+    ANNOTATION_TYPE
+    PACKAGE
+    TYPE_PARAMETER
+    TYPE_USE
+</pre>
+<br>
+<br>Par exemple pour indiquer qu'une annotation ne peut s'appliquer qu'aux méthodes :
+<pre>
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
+
+<b>@Target({ElementType.METHOD})</b>
+public @interface MyAnnotation {
+    String   value();
+}
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="4-2-retention">@Retention</a></h3>
+Permet d'indiquer au compilateur et à l'interpréteur à quel endroit les annotations doivent être disponibles.
+<br>Peuvent prendre les valeurs de l'enum <code>java.lang.annotation.RetentionPolicy</code> :
+<ul>
+    <li>
+        <code>SOURCE</code> : tout simplement ignorées par le compilateur (sert à documenter le code, donc utile aux gens qui lisent le code).
+    </li>
+    <li>
+        <code>CLASS</code> : rarement utilisé ; présent dans le .class mais pas accessible à l'exécution
+    </li>
+    <li>
+        <code>RUNTIME</code> : accessible à l'exécution (par reflection).
+    </li>
+</ul>
+
+Exemple :
+<pre>
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Nickname {
+    String[] value() default {};
+}
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="4-3-inherited">@Inherited</a></h3>
+Indique si les sous-classes d'une classe annotée héritent de l'annotation
+<pre>
+import java.lang.annotation.Inherited
+
+@Inherited
+public @interface MyAnnotation {
+
+}
+
+@MyAnnotation
+public class MySuperClass { ... }
+
+public class MySubClass extends MySuperClass { ... }
+</pre>
+
+<code>MySubClass</code> hérite de l'annotation.
+
+<!-- ************************************* -->
+<h3><a name="4-4-documented">@Documented</a></h3>
+Indique si l'annotation sera visible dans le javadoc.
+<br>Par exemple, le code source de <code>java.lang.FunctionalInterface</code> :
+<pre>
+<b>@Documented</b>
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface FunctionalInterface {}
+</pre>
+
+<!-- ************************************* -->
+<!-- 
+<h3>@Repeateble</h3>
+https://docs.oracle.com/javase/tutorial/java/annotations/repeating.html
+-->
+
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="5-autres-annotations">Autres annotations</a></h2>
+Java fournit un nombre réduit d'annotations dans <code>java.lang</code> et <code>java.lang.annotation</code>, mais les annotations personnalisées permettent d'en ajouter selon les besoin, ce qui est fait dans certains packages de l'API (liste complète dans la doc de <code>java.lang.annotation.Annotation</code>).
+<br>
+<br>Il est possible aussi d'inclure dans son code des annotations définies dans des libs ("pluggable annotation type system").
+<br>Par exemple, on peut vouloir sécuriser son code contre des <code>NullPointerException</code>, définir une annotation <code>@NonNull</code>, et obtenir un warning à la compilation sur une instruction du type
+<pre>@NonNull String str;</pre>
+
+
+<div class="exo">
+    <b>Exercice</b>
+    Installer et faire marcher <a href="https://checkerframework.org/">checkerframework.org</a>
+    <br>Vous pouvez vous aider du code de test qui se trouve dans <a href="../../exemples/java/annotations/checkerframework.org/">l'exemple checkerframework.org</a>.
+    <br>Le fichier README contient l'instruction <code>javac</code> pour compiler.
+    <br>Les jars nécessaires sont dans le répertoire <a href="../../bin/checkerframework.org/">bin/checkerframework.org/</a>
+    <br>
+    <br>Par curiosité, vous pouvez aller voir <a href="https://github.com/typetools/checker-framework">le code implémentant le null checker sur github</a>.
+</div>
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>

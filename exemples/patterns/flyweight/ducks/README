@@ -1,0 +1,7 @@
+
+Exemple de flyweight pour représenter des canards
+Inspiré du simulateur de canards de DP Headfirst, p 499 de la version papier
+
+Le but est de représenter les canards sur une carte.
+On a un objet réel par type de canard.
+

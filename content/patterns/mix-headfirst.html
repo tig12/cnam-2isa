@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>HeadFirst Mix patterns | NFP121 Millau</title>
+    <meta name="description" content="Exemples d'utilisation simultanée de plusieurs design patterns dans le livre &quot;Design patterns Head first&quot;.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="mix-patterns.html">&larr;</a>
+    <a class="next" title="Next" href="mix-cnam.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>HeadFirst Mix patterns</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-qui-fait-quoi">Qui fait quoi ?</a>
+        </li>
+        <li>
+            <a href="#2-chapter-9-the-iterator-and-composite-patterns-well-managed-collections">Chapter 9 - The Iterator and Composite Patterns: Well-Managed Collections</a>
+        </li>
+        <li>
+            <a href="#3-simulateur-de-canards">Simulateur de canards</a>
+            <ul>
+                <li><a href="#3-1-1-au-depart">1 - Au départ</a></li>
+                <li><a href="#3-2-2-et-les-oies">2 - Et les oies</a></li>
+                <li><a href="#3-3-3-comptage">3 - Comptage</a></li>
+                <li><a href="#3-4-4-avec-ou-sans-comptage">4 - Avec ou sans comptage ?</a></li>
+                <li><a href="#3-5-5-flock">5 - Flock</a></li>
+                <li><a href="#3-6-6-tracking-individual-ducks">6 - Tracking individual ducks</a></li>
+                <li><a href="#3-7-7-representer-les-canards">7 - Représenter les canards</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#4-mvc">MVC</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+<div class="intro">
+Cette page liste les exemples impliquant plusieurs patterns dans le livre "Head First Design Patterns".
+</div>
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-qui-fait-quoi">Qui fait quoi ?</a></h2>
+<center><img class="border margin" src="img/mix-who-does-what.jpg" alt="Qui fait quoi ?" /></center>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-chapter-9-the-iterator-and-composite-patterns-well-managed-collections">Chapter 9 - The Iterator and Composite Patterns: Well-Managed Collections</a></h2>
+p 315 de la version papier
+<br>
+<br>Exemple non traité ; table des matières :
+<pre class="normal">
+Breaking News: Objectville Diner and Objectville Pancake House Merge
+Check out the Menu Items
+Lou and Mel’s Menu implementations
+What’s the problem with having two different menu representations?
+What now?
+Can we encapsulate the iteration?
+Meet the Iterator Pattern
+Adding an Iterator to DinerMenu
+Reworking the Diner Menu with Iterator
+Fixing up the Waitress code
+Testing our code
+What have we done so far?
+What we have so far...
+Making some improvements...
+Cleaning things up with java.util.Iterator
+We are almost there...
+What does this get us?
+Iterator Pattern defined
+Single Responsibility
+Taking a look at the Café Menu
+Reworking the Café Menu code
+Adding the Café Menu to the Waitress
+Breakfast, lunch AND dinner
+What did we do?
+We decoupled the Waitress....
+... and we made the Waitress more extensible
+But there’s more!
+Iterators and Collections
+Is the Waitress ready for prime time?
+Just when we thought it was safe...
+What do we need?
+The Composite Pattern defined
+Designing Menus with Composite
+Implementing the Menu Component
+Implementing the Menu Item
+Implementing the Composite Menu
+Getting ready for a test drive...
+Now for the test drive...
+Getting ready for a test drive...
+Flashback to Iterator
+The Composite Iterator
+The Null Iterator
+Give me the vegetarian menu
+The magic of Iterator & Composite together...
+Tools for your Design Toolbox
+</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-simulateur-de-canards">Simulateur de canards</a></h2>
+p 499 de la version papier (chapitre 12)
+<br>
+<br>On réalise un simulateur de canards pour un parc naturel.
+<br>Le client est un quackologue, qui voudrait pouvoir simuler et suivre des populations de canards.
+<br>
+<br>On va répondre aux différentes demandes en utilisant des patterns, <i>mais il ne s'agit pas de patterns composés</i>, au sens MVC par exemple.
+<br>Ici, il s'agit plutôt de patterns qui fonctionnent ensemble.
+
+
+<!-- ************************************* -->
+<h3><a name="3-1-1-au-depart">1 - Au départ</a></h3>
+On démarre l'application avec :
+<ul>
+    <li>
+        Les classes représentant différentes sortes de canards : <code>DuckCall   MallardDuck   RedheadDuck   RubberDuck</code>
+        <br>Les canards ont tous une méthode <code>quack()</code> (= coincoin)
+    </li>
+    <li>
+        Une interface <code>Quackable</code> ("qui fait coin coin") que tous les canards implémentent.
+    </li>
+    <li>
+      Un début de simulateur, <code>DuckSimulator</code> qui contient la fonction <code>main()</code>.
+    </li>
+</ul>
+
+<div class="exo">
+    Récupérer, lire, compiler et exécuter le code de départ dans <a href="../../exemples/patterns/mix/ducks/1-depart">ce répertoire</a>.
+    <br>Dans la classe <code>DuckSimulator</code>, à quel endroit le polymorphisme est-il utilisé ? De quel type de polymorphisme s'agit-il ?
+</div>
+
+<!-- ************************************* -->
+<h3><a name="3-2-2-et-les-oies">2 - Et les oies</a></h3>
+On veut pouvoir gérer les oies (= goose en anglais) dans notre simulateur ; on nous fournit une classe :
+<pre>
+public class Goose {
+	public void honk() {
+		System.out.println("Honk");
+	}
+}
+</pre>
+La demande est de pouvoir utiliser des oies partout où on utilise des canards.
+<div class="exo">
+    Y a-t-il un pattern adapté à cette demande ?
+    <br>Ecrivez le code permettant de rajouter les oies dans notre simulateur.
+</div>
+
+<!-- ************************************* -->
+<h3><a name="3-3-3-comptage">3 - Comptage</a></h3>
+Le client souhaite pouvoir compter le nombre de quacks effectués par l'ensemble des canards observés.
+<br>Mais il ne veut pas compter les quacks des oies.
+<br>L'output souhaité est le suivant :
+<pre>
+Duck Simulator
+Quack
+Quack
+Kwak
+Squeak
+Honk
+
+Number of quacks : 4
+</pre>
+
+<div class="exo">
+    Comment rajouter ce comportement sans avoir à modifier toutes les classes de canards ?
+    <br>Modifier le code pour obtenir l'output souhaité.
+</div>
+
+<!-- ************************************* -->
+<h3><a name="3-4-4-avec-ou-sans-comptage">4 - Avec ou sans comptage ?</a></h3>
+Cette solution fonctionne, mais les risques d'erreurs sont importants, car il faut décorer chaque canard créé.
+<br>De plus, le client veut parfois utiliser le simulateur avec comptage, et parfois sans le comptage.
+
+<div class="exo">
+    Ecrire une solution permettant facilement soit de créer des canards avec comptage, soit sans comptage.
+    <br>Tous les canards créés doivent avoir le même comportement : avec comptage ou sans comptage.
+    <br>Les quacks des oies ne sont toujours pas comptés.
+    <br>
+    <br>Modifier la fonction <code>main()</code> de manière à pouvoir lui passer un paramètre qui peut prendre les valeurs "count" ou "normal".
+    <pre>
+java Main normal
+
+Duck Simulator
+Quack
+Quack
+Kwak
+Squeak
+Honk
+    </pre>
+    <pre>
+java Main count
+
+Duck Simulator
+Quack
+Quack
+Kwak
+Squeak
+Honk
+
+Number of quacks : 4
+    </pre>
+</div>
+
+<!-- ************************************* -->
+<h3><a name="3-5-5-flock">5 - Flock</a></h3>
+<b>flock = troupe, foule</b>
+<br>Maintenant qu'on sait observer les canards, on aimerait bien gérer les différents groupes de canards qui peuplent le parc.
+<br>Ce qu'il nous faudrait, c'est la possibilité de gérer des collections et sous-collections de canards ; pouvoir appliquer des opérations sur des groupes entiers.
+<br>
+<br>On créé une classe <code>Flock</code>, représentant un groupe de canards.
+<br>On va faire un choix d'implémentation : les méthodes concernant la gestion des enfants ne seront présentes que dans <code>Flock</code>.
+
+<br>Dans <code>DuckSimulator::simulate()</code>, on crée 3 groupes :
+<br>- un groupe contenant les 5 canards et oies déjà créés.
+<br>- un groupe contenant 4 nouveaux canards mallards.
+<br>- Un groupe contenant tous les canards (contenant donc les deux groupes précédemment créés).
+<pre>
+        Flock f1 = new Flock();
+        f1.addChild(mallardDuck);
+        f1.addChild(redheadDuck);
+        f1.addChild(duckCall);
+        f1.addChild(rubberDuck);
+        f1.addChild(goose);
+
+        Quackable m1 = factory.createMallardDuck();
+        Quackable m2 = factory.createMallardDuck();
+        Quackable m3 = factory.createMallardDuck();
+        Quackable m4 = factory.createMallardDuck();
+        
+        Flock f2 = new Flock();
+        f2.addChild(m1);
+        f2.addChild(m2);
+        f2.addChild(m3);
+        f2.addChild(m4);
+        
+        Flock f3 = new Flock();
+        f3.addChild(f1);
+        f3.addChild(f2);
+</pre>
+
+<div class="exo">
+<br>Complétez le code pour obtenir cet output :
+<pre>
+java Main count
+
+Duck Simulator
+
+Duck Simulator: Whole flock simulation
+Quack
+Quack
+Kwak
+Squeak
+Honk
+Quack
+Quack
+Quack
+Quack
+
+Duck Simulator: Mallard flock simulation
+Quack
+Quack
+Quack
+Quack
+
+The ducks quacked : 12 times
+</pre>
+</div>
+
+<!-- ************************************* -->
+<h3><a name="3-6-6-tracking-individual-ducks">6 - Tracking individual ducks</a></h3>
+Maintenant, le quackologiste veut pouvoir suivre certains individus en particulier (afficher leurs quacks).
+<br>En d'autres termes, il veut pouvoir observer certains canards, ce qui mène au pattern <a href="observer.html">Observer</a>.
+<br>On va ici implémenter ce pattern à la main, sans utiliser le mécanisme fourni par java.
+<br>
+<br>Les canards sont les <b>observables</b>. Pour que le pattern <i>Observer</i> fonctionne, ils doivent tous dériver d'une abstraction qui a besoin de 2 méthodes : <code>registerObserver()</code> et <code>notifyObservers()</code>.
+<br>
+<br>Les <b>default methods</b> permettent de mettre ces 2 méthodes directement dans <code>Quackable</code>.
+
+<br>Pour que chaque canard implémente cette interface, il faut que chaque classe implémente la gestion d'une liste d'observateurs et de notification, ce qui entraîne des répétitions de code.
+<br>Pour limiter ces répétitions, on va utiliser une classe <code>ObservableHelper</code> implémentant ce mécanisme, et utiliser la composition dans les classes de canards :
+<pre>
+import java.util.Iterator;
+import java.util.ArrayList;
+
+public class ObservableHelper implements Quackable {
+	ArrayList&lt;Observer> observers = new ArrayList&lt;Observer>();
+	Quackable duck;
+ 
+	public ObservableHelper(Quackable duck) {
+		this.duck = duck;
+	}
+  
+	public void registerObserver(Observer observer) {
+		observers.add(observer);
+	}
+  
+	public void notifyObservers() {
+		Iterator&lt;Observer> iterator = observers.iterator();
+		while (iterator.hasNext()) {
+			Observer observer = iterator.next();
+			observer.update(duck);
+		}
+	}
+ 
+	public Iterator&lt;Observer> getObservers() {
+		return observers.iterator();
+	}
+}
+</pre>
+
+On est toujours obligés de modifier chaque classe de canard :
+<pre>
+public class RubberDuck implements Quackable {
+	ObservableHelper observable;
+
+	public RubberDuck() {
+		observable = new ObservableHelper(this);
+	}
+ 
+	public void quack() {
+		System.out.println("Squeak");
+		notifyObservers();
+	}
+
+	public void registerObserver(Observer observer) {
+		observable.registerObserver(observer);
+	}
+
+	public void notifyObservers() {
+		observable.notifyObservers();
+	}
+  
+	public String toString() {
+		return "Rubber Duck";
+	}
+}
+</pre>
+
+Attention à l'implémentation de l'oie et de <code>Flock</code>.
+<br>
+<br>On crée aussi une classe d'<b>observateurs</b> que l'on appelle <code>Quackologist</code>, qui n'a besoin que d'une méthode <code>update()</code>.
+<br>
+<br>Dans <code>main()</code>, on a juste à ajouter :
+<pre>
+Quackologist quackologist = new Quackologist();
+f3.registerObserver(quackologist);
+</pre>
+
+<div class="exo">
+
+Implémenter de manière à avoir l'output suivant :
+<pre>
+java Main 
+
+Duck Simulator
+Quack
+Quackologist: Mallard Duck just quacked.
+Quack
+Quackologist: Redhead Duck just quacked.
+Kwak
+Quackologist: Duck Call just quacked.
+Squeak
+Quackologist: Rubber Duck just quacked.
+Honk
+Quackologist: Goose pretending to be a Duck just quacked.
+Quack
+Quackologist: Mallard Duck just quacked.
+Quack
+Quackologist: Mallard Duck just quacked.
+Quack
+Quackologist: Mallard Duck just quacked.
+Quack
+Quackologist: Mallard Duck just quacked.
+
+The ducks quacked : 8 times
+</pre>
+</div>
+
+<!-- ************************************* -->
+<h3><a name="3-7-7-representer-les-canards">7 - Représenter les canards</a></h3>
+
+(pas présent dans le livre Head First)
+<br>
+<br>Voir <a href="flyweight.html">la page sur Flyweight</a>.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-mvc">MVC</a></h2>
+
+Voir <a href="mvc.html">la page sur le MVC</a>.
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

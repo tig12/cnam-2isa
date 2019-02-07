@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Multiples1 | NFP121</title>
+    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Multiples1</h1>
+</header>
+
+<article>
+
+- 1) Ecrire un programme (dans une classe qui s'appelle <code>Multiples1</code>)&nbsp;qui affiche les multiples de 5 et de 7 pour les nombres allant de 1 à 100 par ordre croissant.
+<br>Résultat :
+<pre>
+java Multiples1 
+</pre>
+<pre>
+5 7 10 14 15 20 21 25 28 30 35 40 42 45 49 50 55 56 60 63 65 70 75 77 80 84 85 90 91 95 98 100 
+</pre>
+Notez qu'entre chaque nombre un espace est affiché, puis un retour à la ligne est affiché après le dernier nombre.
+<br>
+<br>
+<br>- 2) Modifier le programme pour pouvoir passer la limite (par exemple 100) en paramètre.
+<br>
+<br>Indications :
+<ul>
+    <li>
+        Pour passer la limite en paramètre en ligne de commande :
+        <pre>java Multiples1 100</pre>
+        Avec Eclipse (photon) :
+        <br>-clic droit sur le .java à exécuter
+        <br>- Run as / Run configuration
+        <br>- Onglet "Arguments", "Program arguments"
+    </li>
+    <li>
+        Les arguments passés au programme sont récupérés dans la fonction <code>main()</code> via la variable <code>args</code>.
+        <br>Le premier argument sera donc dans <code>args[0]</code>
+    </li>
+    <li>
+        Pour convertir le type <code>String</code> en <code>int</code>, on peut utiliser la fonction <code>public static Integer parseInt(String nm)</code> de la classe <code>java.lang.Integer</code>.
+        <br>Donc on peut par exemple faire :
+        <pre>int limit = Integer.parseInt(args[0])</pre>
+    </li>
+</ul>
+
+</article>
+
+</body>
+</html>
+

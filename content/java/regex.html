@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Regex | NFP121 Millau</title>
+    <meta name="description" content="Utilisation des expressions régulières en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="xml.html">&larr;</a>
+    <a class="next" title="Next" href="swing.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Regex - Expressions régulières</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-introduction">Introduction</a>
+        </li>
+        <li>
+            <a href="#2-en-java">En java</a>
+            <ul>
+                <li><a href="#2-1-tester-une-chaine">Tester une chaîne</a></li>
+                <li><a href="#2-2-capturer-les-chaines-qui-matchent">Capturer les chaînes qui matchent</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-introduction">Introduction</a></h2>
+
+Une expression régulière permet de décrire un ensemble de chaînes de caractères partageant des caractéristiques communes.
+<br>Utilisées dans la plupart des langages, l'implémentation de référence vient de Perl (on parle de <b>PCRE</b> - Perl-compatible regular expression).
+<br>
+<br>Mettent en relation 2 choses :
+<br>- un <b>texte</b> en entrée
+<br>- un <b>pattern</b>, par ex :
+<pre class="normal">
+.               n'importe quel carctère
+a*              a répété de 0 à n fois
+a+              a répété de 1 à n fois
+a+b             a répété de 1 à n fois suivi de b
+b{4}            4 b
+b{2,4}          2, 3 ou 4 b
+b{4,}           4 b ou +
+[ab]            a ou b
+[a-e]           a, b, c, d ou e
+\d              [1-9]
+ex-(a?e|æ|é)quo
+^.*?[bB][a-z]+\s+12\d{3}$
+</pre>
+
+Le gros de l'apprentissage consiste à connaître la syntaxe permettant d'écrire les patterns.
+<br>Attention : certains détails de la syntaxe varient d'un langage à l'autre.
+<br>
+<br>La syntaxe utilisée par java se trouve dans <a href="https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html">la doc de <code>java.util.Pattern</code></a>.
+<br>
+<br>Le <b>matching</b> entre le texte et le pattern permet de tester si des parties du texte en entrée correspondent au pattern.
+<br>
+<br>Il existe une version simplifiée des expressions régulières, appelée <b>glob</b>.
+Par exemple <code>a[ab]*.txt</code> est la version glob de <code>a[ab]*\.txt</code>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-en-java">En java</a></h2>
+
+En java, les classes utiles se trouvent dans le package <code>java.util.regex</code>.
+<br>Les classes principales sont <code>Pattern</code> et <code>Matcher</code>, ainsi que <code>PatternSyntaxException</code>
+<br>
+<br><code>Pattern</code> est une représentation compilée d'une expression régulière.
+<br>Pas de constructeur public, on utilise une des méthodes statiques <code>compile()</code> pour en obtenir un.
+<br>
+<br>Un <code>Matcher</code> interpète le pattern et effectue le matching entre un pattern et une chaîne.
+<br>Pas de constructeur public, on utilise en invoquant <code>matcher()</code> sur un objet <code>Pattern</code>.
+
+<!-- ************************************* -->
+<h3><a name="2-1-tester-une-chaine">Tester une chaîne</a></h3>
+<pre>
+    Pattern p = Pattern.compile("a*b");
+    Matcher m = p.matcher("aaaaab");
+    boolean b = m.matches();
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="2-2-capturer-les-chaines-qui-matchent">Capturer les chaînes qui matchent</a></h3>
+On utilise les parenthèses pour indiquer quelles parties du texte on va récupérer :
+
+
+<br>
+<br>TODO : 
+<ul>
+    <li>caractères spéciaux</li>
+    <li>modifiers</li>
+    <li>greedy / ungreedy</li>
+    <li>parenthèses</li>
+    <li>named patterns</li>
+</ul>
+
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

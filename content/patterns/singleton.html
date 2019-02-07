@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Singleton | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Singleton et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="facade.html">&larr;</a>
+    <a class="next" title="Next" href="adapter.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Singleton</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-solution-courante">Solution courante</a>
+        </li>
+        <li>
+            <a href="#2-critiques">Critiques</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+<div class="intro">
+But : écrire une classe dont on ne peut instancier qu'un seul objet, et permettre d'y accéder globalement.
+</div>
+
+Exemples : un pilote d'imprimante, un registration manager, un DB connection manager.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-solution-courante">Solution courante</a></h2>
+
+- Déclarer tous les constructeurs de la classe private (empêche la création d'instance).
+<br>- Fournir une méthode static renvoyant une référence vers l'instance (souvent appelée par convention <code>getInstance()</code>).
+<br>L'instance est en général stockée dans une variable privée.
+
+<br><img class="border-none margin margin-left3" src="img/singleton.jpg" alt="Singleton" />
+
+<pre>
+class RegistrationManager {
+
+    private RegistrationManager _instance = <b>new RegistrationManager()</b>;
+    
+    private RegistrationManager() {} // interdit l'instantiation
+    
+    public RegistrationManager getInstance() {
+        return _instance;
+    }
+    
+    public void registerUser (...) { ... }
+}
+</pre>
+
+Cette version a un premier défaut : la classe est instanciée même si elle n'est pas utilisée dans le code ; pour économiser les ressources, on préfère utiliser le <b>lazy loading</b> : n'instancier un objet que lorsque l'application l'utilise vraiment.
+<pre>
+class RegistrationManager {
+
+    private RegistrationManager _instance = <b>null</b>;
+    
+    private RegistrationManager() {} // interdit l'instantiation
+    
+    public RegistrationManager getInstance() {
+        <b>if(_instance == null)</b>{
+            _instance = new RegistrationManager();
+        }
+        return _instance;
+    }
+    
+    public void registerUser (...) { ... }
+}
+</pre>
+La classe ne sera instanciée que lorsque <code>getInstance()</code> est appelée.
+<br>
+<br>Autre défaut : l'utilisation est un peu lourde :
+<pre>
+RegistrationManager m = RegistrationManager.getInstance();
+m.registerUser(...);
+</pre>
+Pour éviter ça, on peut créer une méthode public static, qui va appeler une méthode d'instance private :
+<pre>
+class RegistrationManager {
+
+    private RegistrationManager _instance = null;
+    
+    private RegistrationManager() {} // interdit l'instantiation
+    
+    public RegistrationManager getInstance() {
+        if(_instance == null){
+            _instance = new RegistrationManager();
+        }
+        return _instance;
+    }
+    
+    // méthode static qui délègue à une méthode d'instance
+    public static void registerUser (...) {
+        return <b>getInstance().doRegisterUser(...);</b> // ICI on utilise getInstance() et pas _instance
+    }
+    
+    // méthode d'instance, en cohérence avec le pattern Singleton
+    private void <b>doRegisterUser</b> (...) { ... }
+}
+</pre>
+L'utilisation est plus légère :
+<pre>
+RegistrationManager.registerUser(...);
+</pre>
+Mais alors, pourquoi ne pas écrire une classe ne contenant que des membres static ?
+<br>(et éviter le <i>boilerplate code</i>).
+<pre>
+class RegistrationManager {
+    public static void registerUser (...) { ... }
+}
+</pre>
+Cela n'est pas toujours possible (cf contre-exemple dans le pattern Service locator).
+<br>
+<br>La présence d'un singleton permet d'accéder à un service depuis n'importe où sans avoir à transmettre la référence vers ce service.
+<br>
+<br><b>Extension</b> : le "<b>multiton</b>" (ne fait pas partie des patterns officiels) : cas où on a besoin de 2 (ou 3 ou plus) instances. Dans ce cas, on peut utiliser le même principe en utilisant une map (ou dictionnaire, ou tableau asociatif).
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-critiques">Critiques</a></h2>
+
+<ul class="spaced">
+    <li>
+        Pose le même problème qu'une variable globale, en introduisant des dépendances cachées dans le code :
+        <pre>
+class MySingleton{
+    public static void doSomething1(){ ... }
+    public static void doSomething2(){ ... }
+}
+
+class MyClass1{
+    public static void method1(){
+        MySingleton.doSomething1();
+    }
+}
+
+class MyClass2{
+    public static void method2(){
+        MySingleton.doSomething2();
+    }
+}
+
+class ClientCode{
+    public static void method3(){
+        // MySingleton est dans un état 0
+        MyClass1.method1();
+        // MySingleton est dans un état 1
+        MyClass1.method2();
+        // MySingleton est dans un état 2
+    }
+}
+        </pre>
+        La classe <code>ClientCode</code> peut modifier l'état du singleton sans l'utiliser directement ; le seul moyen de repérer ces dépendances est d'inspecter le code, alors qu'on devrait pouvoir connaître ces dépendances uniquement en regardant l'API au niveau classe.
+        <br>Problème accentué si plusieurs devs travaillent sur le même projet.
+    </li>
+    
+    <li>
+        Viole le <i> Single Responsibility Principle</i> : le singleton est à la fois responsable de sa logique métier et de la logique de sa création.
+    </li>
+    
+    <li>
+        L'introduction d'un état global promeut un couplage fort entre classes, ce qui complique (parfois rend impossible) l'écriture de tests unitaires, qui ont besoin de classes faiblement couplées.
+    </li>
+    <li>
+        Le singleton n'est pas thread-safe :
+        <br>- Un premier thread exécute la fonction <code>getInstance()</code> constate que l’attribut <code>_instance</code> est nul.
+        <br>- Un deuxième thread s’exécute et lui aussi constate (via <code>getInstance()</code>) que l’attribut <code>_instance</code> est nul.
+        <br>- Il va donc créer une instance et retourner celle-ci.
+        <br>- Lorsque le premier thread va reprendre son exécution il va à son tour créer une nouvelle instance (étant donné qu’il a déjà effectué le test sur l’attribut) et retourner celle-ci.
+        <br>On se retrouve alors avec deux instances pour une classe Singleton.
+    </li>
+</ul>
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+
+</article>
+
+</body>
+</html>

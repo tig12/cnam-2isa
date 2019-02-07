@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>MVC | NFP121 Millau</title>
+    <meta name="description" content="Le MVC (Model View Controller), vu comme une combinaison de patterns ou comme une manière de structurer son code.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="composite.html">&larr;</a>
+    <a class="next" title="Next" href="creational.html">&rarr;</a>
+</nav>
+
+<!-- 
+todo
+- MVVM https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel
+-->
+
+<header>
+<h1>
+MVC : Model View Controller
+<div class="subtitle">(Modèle Vue Contrôleur)</div>
+</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-mvc-sans-patterns">MVC sans patterns</a>
+            <ul>
+                <li><a href="#1-1-interets">Intérêts</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-mvc-assemblage-de-patterns">MVC = assemblage de patterns</a>
+        </li>
+        <li>
+            <a href="#3-exemple-de-head-first">Exemple de Head First</a>
+            <ul>
+                <li><a href="#3-1-un-premier-regard">Un premier regard</a></li>
+                <li><a href="#3-2-le-mvc-sous-l-angle-des-patterns">Le MVC sous l'angle des patterns</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#4-examen-du-code">Examen du code</a>
+            <ul>
+                <li><a href="#4-1-model">Model</a></li>
+                <li><a href="#4-2-view">View</a></li>
+                <li><a href="#4-3-controller">Controller</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#5-utilisation-de-strategy">Utilisation de Strategy</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+
+
+
+
+<br>Vient de Smalltalk, d'après les travaux menés à Xerox dans les années 1970 au Palo Alto Research Center (PARC).
+<br>
+<br>MVC est est défini comme un <b>assemblage de patterns</b>, au minimum Observer et Strategy, souvent Composite, parfois Adapter.
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-mvc-sans-patterns">MVC sans patterns</a></h2>
+
+MVC désigne aussi une <b>manière de structurer le code</b> dans une application client-serveur.
+<br>Dans beaucoup d'applications web, le MVC est utilisé sans pattern observateur,
+<br>en utilisant un pattern supplémentaire : le <b>front controller</b>.
+
+<img class="margin" src="img/mvc-front.jpg" alt="MVC web" />
+
+Exemple d'une application web en php : 
+<pre>
+appli/
+    ├── control/
+    ├── init/
+    ├── model/
+    ├── view/
+    └── www/
+        └── index.php
+</pre>
+<ul class="naked spaced">
+    <li>
+        index.php est le <b>front controller</b> : toutes les requêtes y sont redirigées.
+        <br>index.php supervise les initialisations (dossier <code>init/</code> dans l'exemple).
+        <ul>
+            <li>Restauration de l'état de l'application (par ex à partir de la session).</li>
+            <li>Contrôles de sécurité</li>
+            <li>Routing : analyse l'url demandée et détermine le contrôleur à exécuter.</li>
+        </ul>
+        index.php appelle ensuite le contrôleur déterminé par le routing, en lui transmettant le contexte calculé dans l'initialisation.
+    </li>
+    <li>
+        Le contrôleur a pour rôle de faire le lien entre les différentes parties.
+        <br>En fonction du contexte calculé par le front controller, le contrôleur appelle le modèle pour récupérer l'information nécessaire.
+        <br>Le contrôleur prépare ensuite les structures de données qu'il va transmettre à la vue.
+        <br>Enfin, le contrôleur appelle la vue.</li>
+    <li>
+        La vue fabrique la réponse à partir des données transmises par le contrôleur.
+        <br>Elle ne contient qu'une logique d'affichage, aucune intelligence applicative.
+    </li>
+</ul>
+
+<!-- ************************************* -->
+<h3><a name="1-1-interets">Intérêts</a></h3>
+
+<h4>Séparation des tâches</h4>
+Permet de répartir le travail de manière cohérente. Par exemple, les vues peuvent être écrites par des designers, le modèle et les contrôleurs par des développeurs backend. 
+
+<h4>API distante</h3>
+La séparation complète entre le modèle et les parties vue / contrôleur permet d'isoler le modèle derrière une <b>API distante</b>.
+<br>
+<br>Exemple de <a href="https://mastodon.social/about">Mastodon</a> (réseau social décentralisé) :
+<br>le modèle est écrit en ruby,
+<br>accessible par une API http qui renvoie des objets en json.
+<br>Vues et contrôleurs sont gérés en javascript avec React.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-mvc-assemblage-de-patterns">MVC = assemblage de patterns</a></h2>
+
+GOF p 14 :
+<blockquote>
+MVC consists of three kinds of objects.
+<br>The Model is the application object,
+<br>the View is its screen presentation,
+<br>and the Controller defines the way the user interface reacts to user input.
+<br>Before MVC, user interface designs tended to lump these objects together.
+<br>MVC decouples them to increase flexibility and reuse.
+<br>
+<br>MVC decouples views and models by establishing a subscribe/notify protocol between
+them. A view must ensure that its appearance reflects the state of the model.
+Whenever the model's data changes, the model notifies views that depend on it.
+In response, each view gets an opportunity to update itself. This approach lets
+you attach multiple views to a model to provide different presentations. You can
+also create new views for a model without rewriting it.
+</blockquote>
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-exemple-de-head-first">Exemple de Head First</a></h2>
+Cette partie est largement inspirée du chapitre 12 de "Design Patterns Head First" (p 526 de la version papier).
+<br>L'exemple utilisé est celui d'un logiciel pour écouter de la musique, un <i>player</i>.
+<br>L'interface permet d'ajouter des nouvelles chansons, de gérer des playlists et de renommer des morceaux.
+<br>Le player gère une petite base de données avec les morceaux et leurs données associées.
+<br>Il s'occupe aussi de jouer la musique, l'interface est constamment mise à jour avec le titre de la chanson courante, le temps écoulé etc. 
+
+<img class="margin border" src="img/mvc-headfirst-player.jpg" alt="mvc-headfirst-player.jpg" />
+
+<!-- ************************************* -->
+<h3><a name="3-1-un-premier-regard">Un premier regard</a></h3>
+
+Plus généralement, les interactions suivent ce schéma :
+
+<div class="flex-wrap">
+<div class="margin-top">
+    <center>Schéma Head First</center>
+    <img class="margin border" src="img/mvc-headfirst-schema1.jpg" alt="mvc-headfirst-schema1.jpg" />
+</div>
+</div><!-- end class="flex-wrap" -->
+
+<ol class="spaced">
+    <li>
+        <b>Nous, utilisateurs, interagissons avec la vue</b>.
+        <br>La vue est notre fenêtre vers le modèle.
+        <br>La vue dit au contrôleur ce qu'on a fait, c'est au contrôleur de se débrouiller avec ça.
+    </li>
+    <li>
+        <b>Le contrôleur demande au modèle de changer son état</b>.
+        <br>Le travail du contrôleur est d'interpréter nos actions et de déduire comment manipuler le modèle suite à cette action.
+    </li>
+    <li>
+        <b>Le contrôleur peut aussi demander à la vue de changer</b>.
+        <br>Lorsque le contrôleur reçoit une action de la vue, il peut demander en retour à la vue de se mettre à jour.
+        <br>Par exemple activer ou désactiver des boutons ou des menus.
+    </li>
+    <li>
+        <b>Le modèle notifie la vue lorsque son état a changé.</b>
+        <br>Lorsque quelque chose change dans le modèle,
+        <br>- soit suite à une de nos actions (comme cliquer sur un bouton)
+        <br>- soit suite à un changement interne (une nouvelle chanson commence),
+        <br>le modèle informe la vue que son état a changé.
+    </li>
+    <li>
+        <b>La vue demande au modèle son état</b>.
+        <br>La vue récupère l'état qu'elle affiche directement depuis le modèle.
+        <br>Par exemple, lorsque le modèle notifie la vue qu'une nouvelle chanson a commencé, la vue demande le nom de la chanson et l'affiche.
+        <br>La vue peut aussi demander des infos au modèle lorsque le contrôleur lui demande de se mettre à jour.
+    </li>
+</ol>
+
+<b>Le controleur est-il observateur du modèle ?</b>
+<br>Oui, dans certains designs, le contrôleur s'enregistre auprès du modèle et est informé de ses changements.
+<br>Par exemple, si certains changements d'état du modèle entraînent des modifications dans l'interface,
+<br>c'est vraiment le travail du contrôleur de demander à la vue de se mettre à jour.
+<br>
+<br><b>Tout ce que le contrôleur fait, c'est de récupérer depuis la vue les actions de l'utilisateur et de les transmettre au modèle.
+<br>Alors pourquoi s'embêter et ne pas directement piloter le modèle depuis la vue ?</b>
+<br>Déjà, le contrôleur en fait pas que "récupérer les actions de l'utilisateur et de les transmettre au modèle", il <b>interprête</b> les actions de l'utilisateur et les transmet au modèle. Pour cela, il doit connaître la <b>logique du modèle</b>
+<br>On pourrait effectivement mettre ce code dans la vue, mais on a deux bonnes raisons de ne pas le faire :
+<br>- Déjà, on compliquerait le code de la vue en lui donnant 2 responsabilités : gérer l'interface et gérer la logique du modèle pour le piloter.
+<br>- On couplerait la vue au modèle ; impossible par exemple de réutiliser la même vue avec un autre modèle.
+<br>Le contrôleur sépare la logique du modèle de la vue, permet de découpler la vue du modèle.
+<br>=> plus souple, plus extensible, plus facile de d'adapter à des évolutions.
+<br>
+<br>
+Schéma d'Oracle :
+
+<img class="margin border" src="img/mvc-oracle.jpg" alt="MVC" />
+
+<!-- ************************************* -->
+<h3><a name="3-2-le-mvc-sous-l-angle-des-patterns">Le MVC sous l'angle des patterns</a></h3>
+MVC met en général en jeu <i>Observer</i>, <i>Strategy</i> et <i>Composite</i>.
+<br><i>Adapter</i> peut aussi être utilisé (voir plus loin).
+
+<img class="margin border" src="img/mvc-headfirst-patterns.jpg" alt="mvc-headfirst-patterns.jpg" />
+
+<ul class="spaced">
+    <li>
+        Le modèle utilise le pattern <i><b>Observer</b></i> pour tenir informés vues et contrôleurs de ses changements.
+        <br>Ça permet de laisser le modèle complètement indépendant des vues et contrôleurs.
+        <br>Permet par exemple d'avoir plusieurs vues à la fois.
+        <img class="margin border" src="img/mvc-headfirst-observer.jpg" alt="mvc-headfirst-observer.jpg" />
+    </li>
+    <li>
+        Vue et contrôleur utilisent le pattern <i><b>Strategy</b></i>.
+        <br>La vue est un objet qui est configuré avec une stratégie, le contrôleur fournit cette stratégie.
+        <br>La vue est uniquement concernée par l'affichage graphique, elle délègue au contrôleur toute décision concernant le comportement de l'interface.
+        <br>L'utilisation d'une stratégie découple la vue du modèle car c'est le contrôleur qui est chargé d'interagir avec le modèle pour gérer les actions utilisateur. La vue n'a aucune idée de comment cela est fait.
+        <img class="margin border" src="img/mvc-headfirst-strategy.jpg" alt="mvc-headfirst-strategy.jpg" />
+    </li>
+    <li>
+        L'affichage est un emboîtement de composants graphiques (textes, labels, boutons panels...).
+        <br>Chaque composant graphique est soit composite (une fenêtre) soit terminal (un bouton).
+        <br>Lorsque le contrôleur dit à la vue de se mettre à jour, elle le dit au composant racine, et le pattern <b><i>Composite</i></b> fait le reste.
+        <img class="margin border" src="img/mvc-headfirst-composite.jpg" alt="mvc-headfirst-composite.jpg" />
+    </li>
+</ul>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-examen-du-code">Examen du code</a></h2>
+
+Code situé dans <a href="../../exemples/patterns/mvc/djview">exemples/patterns/mvc/djview/</a>
+<br>
+<br>L'exemple contient deux points d'entrée : <code>MainDJ</code> et <code>MainHeart</code>.
+<pre>
+public class MainDJ {
+    public static void main (String[] args) {
+        BeatModelInterface model = new BeatModel();
+        ControllerInterface controller = new BeatController(model);
+    }
+}
+</pre>
+
+<pre>
+public class MainHeart {
+    public static void main (String[] args) {
+        HeartModel model = new HeartModel();
+        ControllerInterface controller = new HeartController(model);
+    }
+}
+</pre>
+
+Dans les deux cas, la séquence est la même :
+<br>
+<br>- Création d'un modèle
+<br>- Création d'un contrôleur en lui passant le modèle.
+<br>- Le contrôleur crée la vue en lui passant le modèle et le contrôleur.
+
+<!-- ************************************* -->
+<h3><a name="4-1-model">Model</a></h3>
+Le modèle expose ses fonctionnalités à travers une interface.
+<br>On voit qu'il y a 2 types d'observateurs sur le modèle.
+<pre>
+public interface BeatModelInterface {
+    void initialize();
+    
+    // model manipulation
+    void on();
+    void off();
+    void setBPM(int bpm);
+    int getBPM();
+    
+    // observer methods
+    void registerObserver(BeatObserver o);
+    void removeObserver(BeatObserver o);
+    
+    void registerObserver(BPMObserver o);
+    void removeObserver(BPMObserver o);
+}
+</pre>
+
+Points intéressants de l'implémentation :
+<pre>
+public class BeatModel implements BeatModelInterface, MetaEventListener {
+    // ...
+    ArrayList&lt;BeatObserver> <b>beatObservers</b> = new ArrayList&lt;BeatObserver>();
+    ArrayList&lt;BPMObserver> <b>bpmObservers</b> = new ArrayList&lt;BPMObserver>();
+    // ...
+    public void setBPM(int bpm) {
+        this.bpm = bpm;
+        sequencer.setTempoInBPM(getBPM());
+        <b>notifyBPMObservers();</b>
+    }
+    // ...
+    void beatEvent() {
+        <b>notifyBeatObservers();</b>
+    }
+    // ...
+}
+</pre>
+
+Le modèle est complètement décorrélé de la vue grâce à l'utilisation de <i>Observer</i>.
+<br>On implémente une vue qui permet de voir  les BPM, mais on pourrait implémenter d'autres vues utilisant exactement le même modèle, par ex :
+<br>- Un light-show basé sur les battements du modèle.
+<br>- Une vue textuelle qui affiche le genre de musique suivant la valeur du BPM.
+<br>
+<br>Remarquer qu'ici, le véritable travail est effectué par le <code>javax.sound.midi.Sequencer</code> ; le model est lui-même observateur du séquencer (voir méthodes <code>setUpMidi()</code> et <code>meta()</code>). Il ne fait qu'intégrer ces capacités à l'application, mais cela ne change rien pour les vues et les contrôleurs, qui s'appuient sur le modèle pour obtenir l'inteligence métier.
+
+
+<!-- ************************************* -->
+<h3><a name="4-2-view">View</a></h3>
+La classe <code>DJView</code> contient le code pour créer la vue, répartie sur 2 fenêtres.
+<br>La vue est observatrice du modèle.
+<pre>
+public class DJView implements ActionListener, BeatObserver, BPMObserver {
+    // ...
+    BeatModelInterface model;
+    ControllerInterface controller;
+    // ...
+    public DJView(ControllerInterface controller, BeatModelInterface model) {    
+        <b>this.controller = controller;
+        this.model = model;
+        model.registerObserver((BeatObserver)this);
+        model.registerObserver((BPMObserver)this);</b>
+    }    
+    // ...
+    public void createView() { ... }        // swing pour la fenêtre 1
+    public void createControls() { ... }    // swing pour la fenêtre 2
+    // ...
+    
+    // Toutes les actions sont transmises au contrôleur
+    public void actionPerformed(ActionEvent event) {
+        if (event.getSource() == setBPMButton) {
+            int bpm = Integer.parseInt(bpmTextField.getText());
+            <b>controller.setBPM(bpm)</b>;
+        } else if (event.getSource() == increaseBPMButton) {
+            <b>controller.increaseBPM()</b>;
+        } else if (event.getSource() == decreaseBPMButton) {
+            <b>controller.decreaseBPM()</b>;
+        }
+    }
+    
+    // Implémentation de BPMObserver
+    public void updateBPM() {
+        if (model != null) {
+            int bpm = <b>model.getBPM()</b>; // demande directement au modèle
+            if (bpm == 0) {
+                if (bpmOutputLabel != null) {
+                    bpmOutputLabel.setText("offline");
+                }
+            } else {
+                if (bpmOutputLabel != null) {
+                    bpmOutputLabel.setText("Current BPM: " + <b>model.getBPM()</b>);
+                }
+            }
+        }
+    }
+  
+    // Implémentation de BeatObserver
+    public void updateBeat() {
+        if (beatBar != null) {
+             beatBar.setValue(100);
+        }
+    }
+}
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="4-3-controller">Controller</a></h3>
+Expose ses fonctionnalités via une interface :
+<pre>
+public interface ControllerInterface {
+    void start();
+    void stop();
+    void increaseBPM();
+    void decreaseBPM();
+    void setBPM(int bpm);
+}
+</pre>
+
+Dans l'implémentation, remarquer que la vue est créée et initialisée dans le constructeur du contrôleur.
+<br>Voir aussi les méthodes utilisées par la vue, comme <code>increaseBPM()</code>, qui se traduisent en appel au modèle.
+
+<pre>
+public class BeatController implements ControllerInterface {
+    BeatModelInterface model;
+    DJView view;
+   
+    public BeatController(BeatModelInterface model) {
+        this.model = model;
+        <b>view = new DJView(this, model);</b>
+        view.createView();
+        view.createControls();
+        view.disableStopMenuItem();
+        view.enableStartMenuItem();
+        model.initialize();
+    }
+  
+    public void start() {
+        model.on();
+        view.disableStartMenuItem();
+        view.enableStopMenuItem();
+    }
+
+    public void stop() {
+        model.off();
+        view.disableStopMenuItem();
+        view.enableStartMenuItem();
+    }
+    
+    public void increaseBPM() {
+        int bpm = <b>model.getBPM(</b>);
+        <b>model.setBPM</b>(bpm + 1);
+    }
+    
+    public void decreaseBPM() {
+        int bpm = model.getBPM();
+        model.setBPM(bpm - 1);
+      }
+  
+     public void setBPM(int bpm) {
+        model.setBPM(bpm);
+    }
+}
+</pre>
+
+<!-- ********************************************************************************* -->
+<h2><a name="5-utilisation-de-strategy">Utilisation de Strategy</a></h2>
+
+Le fait de définir <code>ControllerInterface</code> permet d'appliquer le pattern <i>Strategy</i>.
+<br>
+<br>Rappel : 
+<img class="margin border" src="img/strategy-gof-diagram.jpg" alt="strategy-gof-diagram.jpg" />
+
+Ici, la vue délègue ses interactions avec le modèle à une <code>ControllerInterface</code>, qui peut être implémentée de différentes façons.
+<br>
+<br><u>Illustration</u> : On nous fournit un autre modèle, <code>HeartBeat</code>, qui génère des battements de coeur, et on souhaite réutiliser notre vue pour le visualiser.
+<br>Ce modèle expose ses fonctionnalités par le biais d'une interface.
+<pre>
+public interface HeartModelInterface {
+    int getHeartRate();
+    void registerObserver(BeatObserver o);
+    void removeObserver(BeatObserver o);
+    void registerObserver(BPMObserver o);
+    void removeObserver(BPMObserver o);
+}
+</pre>
+
+Par rapport à <code>BeatModelInterface</code>, <code>getBPM()</code> a été remplacée par <code>getHeartRate()</code>, et certaines fonctionnalités manquent : 
+<code>off()</code>, <code>on()</code>, <code>setBPM()</code>.
+<br>
+<br>Pour intégrer ce nouveau modèle au code existant, on peut écrire un <i>Adapter</i>.
+<pre>
+public class HeartAdapter implements BeatModelInterface {
+    HeartModelInterface heart;
+    public HeartAdapter(HeartModelInterface heart) {
+        this.heart = heart;
+    }
+    public void initialize() {}
+    public void on() {}
+    public void off() {}
+    public int getBPM() { return heart.getHeartRate(); }
+    public void setBPM(int bpm) {}
+    public void registerObserver(BeatObserver o) { heart.registerObserver(o); }
+    public void removeObserver(BeatObserver o) { heart.removeObserver(o); }
+    public void registerObserver(BPMObserver o) { heart.registerObserver(o); }
+    public void removeObserver(BPMObserver o) { heart.removeObserver(o); }
+}
+</pre>
+
+On peut maintenant écrire un contrôleur adapté au nouveau modèle :
+<pre>
+public class HeartController <b>implements ControllerInterface</b> {
+    HeartModelInterface model;
+    DJView view;
+    public HeartController(HeartModelInterface model) {
+        this.model = model;
+        <b>view = new DJView(this, new HeartAdapter(model))</b>;
+        view.createView();
+        view.createControls();
+        view.disableStopMenuItem();
+        view.disableStartMenuItem();
+    }
+    public void start() {}
+    public void stop() {}
+    public void increaseBPM() {}
+    public void decreaseBPM() {}
+    public void setBPM(int bpm) {}
+}
+</pre>
+
+Avec exactement la même vue, on utilise un autre modèle.
+<br>La vue réagit différemment (on ne peut plus régler les battements ni les augmenter / diminuer, on ne peut plus faire start / stop) parceque c'est le contrôleur qui décide du comportement en utilisant sa connaissance du modèle.
+<br>
+<br>La fonction <code>main()</code> est dans <code>MainHeart</code>.
+<br>C'est à cet endroit qu'on utilise la possibilité de paramétrer la vue par une stratégie.
+<pre>
+public class MainHeart {
+    public static void main (String[] args) {
+        HeartModel model = new HeartModel();
+        ControllerInterface controller = new <b>HeartController</b>(model);
+    }
+}
+</pre>
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>

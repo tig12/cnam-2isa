@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Proxy | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Proxy et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="adapter.html">&larr;</a>
+    <a class="next" title="Next" href="observer.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Proxy</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1"></a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+Autres noms : Surrogate (= substitution), Placeholder (= objet de substitution)
+
+<div class="intro">
+But : cacher un objet en fournissant un objet de substitution.
+</div>
+
+Le code client n'accède à l'objet caché que par le biais du proxy.
+<br>
+<br>Plusieurs raisons peuvent amener à écrire un proxy :
+<ul class="spaced naked">
+    <li>
+        <b>Virtual proxy</b> : pour éviter la création d'objets "chers" (lourds) tant qu'ils ne sont pas vraiment utilisés (lazy loading).
+        <br>L'objet lourd est caché derrière le proxy ; le code client pourra créer le proxy à n'importe quel moment (à l'initialisation par exemple).
+        <br>Le proxy créera l'objet caché que lorsqu'il sera vraiment utilisé.
+    </li>
+    <li>
+        <b>Remote proxy</b> (remote = distant) : fournit un représentant local d'un objet distant (dans un autre processus ou situé sur une autre machine)
+        <br>Utilisé par Corba ou RPC ("stub").
+        <br>Ce type de proxy est parfois appelé <i>Ambassador</i>.
+    </li>
+    <li>
+        <b>Protection proxy</b> : pour contrôler l'accès à l'objet caché.
+        Lorsque des droits d'accès différents permettent d'accéder à certaines fonctionnalités de l'objet caché.
+    </li>
+    <li>
+        <b>Smart proxy</b> : le proxy effectue des actions supplémentaires chaque fois qu'un objet est utilisé, par exemple :
+        <br>- Compter le nombre de fois que l'objet caché est utilisé (par exemple pour du garbage collection).
+        <br>- Mettre un verrou sur l'objet caché pour interdire à d'autre code de le modifier.
+        <br>- Stocker l'objet sur disque la première fois qu'il est utilisé.
+    </li>
+</ul>
+
+Présentation classique (gof) : 
+<img class="margin border" src="img/proxy-classes.jpg" alt="Proxy" />
+A l'exécution :
+<img class="margin border" src="img/proxy-sequence.jpg" alt="Proxy" />
+
+Pattern assez proche de <b>Adapter</b> et <b>Decorator</b>, mais :
+<br>- Adapter fournit une interface différente de l'objet qu'il adapte, ce n'est pas toujours le cas pour proxy.
+<br>- Decorator et Proxy ne répondent pas au même but : Decorator ajoute des fonctionnalités, Proxy contrôle un accès.
+
+<div class="exo">
+    <b>Exercice</b> : <a href="../../exos/patterns/proxy/protection/ProtectionProxy.html">Protection proxy</a>
+</div>
+
+<div class="exo">
+    <b>Exercice</b> : <a href="../../exos/patterns/proxy/abstract/AbstractProxy.html">Abstract proxy</a>
+</div>
+
+Exemple courant d'abstract proxy : 
+<br>Dans un ORM, on a les classes <code>Livre</code> et <code>Auteur</code> qui représentent des données stockées dans les tables <code>livres</code> et <code>auteurs</code>.
+<br>Lorsqu'on fait dans le code :
+<pre>
+Livre livre = new Livre(123);
+</pre>
+L'ORM ne renvoie pas un objet Livre, mais un proxy vers Livre.
+<br>Le livre n'est effectivement lu en base de données que lorsqu'on utilise vraiment ses données, par ex avec :
+<pre>String titre = livre.getTitre();</pre>
+
+De la même manière si on fait :
+<pre>
+Auteur auteur = livre.getAuteur();
+Livre[] livres = auteur.getLivres();
+</pre>
+les requêtes SQL ne seront faites que lorsqu'on en a besoin.
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+
+</article>
+
+</body>
+</html>

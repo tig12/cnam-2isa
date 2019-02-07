@@ -1,0 +1,7 @@
+
+Implémentation de l'exemple GOF sans pattern observateur :
+
+- Le sujet (DataHolder) ne contient aucun mécanisme pour avertir les classes qui ont besoin de l'utiliser (Bar Grid et Pie, les futurs observateurs).
+
+- Chaque fois qu'un observateur fait une chose utilisant l'état du sujet, il doit aller récupérer cet état.
+C'est l'observateur qui est à l'origine de la maj des données ; risque de récupérer inutilement des données, si elles n'ont pas changé dans le sujet.

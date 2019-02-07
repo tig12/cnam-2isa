@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Décorateur HTML | NFP121</title>
+    <link href="../../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Décorateur HTML</h1>
+</header>
+
+<article>
+
+<a href="enonce">Code source de l'énoncé</a>
+<br>
+<br>But : pouvoir décorer un texte par des tags HTML (balises i, u, b) : 
+<br>
+<br>Complétez le code suivant :
+<pre>
+/** Interface implémentée par le composant et les décorateurs **/
+interface TexteI{
+    public String toHTML();
+}
+
+// ICI, classes du pattern décorateur à implémenter
+
+/** Code client **/
+public class HTML{
+    public static void main(String[] args){
+        
+        String theString = "Un texte dans une page HTML";
+        
+        TexteI t1 = new Texte(theString);
+        
+        System.out.println("=== pas de décoration ===");
+        System.out.println(t1.toHTML());
+        
+        TexteI t2 = new I(new Texte(theString));
+        System.out.println("\n=== décoration avec I ===");
+        System.out.println(t2.toHTML());
+        
+        TexteI t3 = new B(new I(new Texte(theString)));
+        System.out.println("\n=== décoration avec I et B ===");
+        System.out.println(t3.toHTML());
+        
+        TexteI t4 = new U(new I(new Texte(theString)));
+        System.out.println("\n=== décoration avec I et U ===");
+        System.out.println(t4.toHTML());
+    }
+}
+</pre>
+de manière à obtenir l'exécution suivante : 
+<pre>java HTML</pre>
+<pre>
+=== pas de décoration ===
+Un texte dans une page HTML
+
+=== décoration avec I ===
+&lt;i>Un texte dans une page HTML&lt;/i>
+
+=== décoration avec I et B ===
+&lt;b>&lt;i>Un texte dans une page HTML&lt;/i>&lt;/b>
+
+=== décoration avec I et U ===
+&lt;u>&lt;i>Un texte dans une page HTML&lt;/i>&lt;/u>
+</pre>
+
+</article>
+
+</body>
+</html>
+

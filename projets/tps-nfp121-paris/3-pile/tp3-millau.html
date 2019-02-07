@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>TP3 Millau | NFP121</title>
+    <meta name="description" content="">
+    <meta name="robots" content="index,follow">
+    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="copyright" href="http://www.gnu.org/copyleft/gpl.html"/>
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="NFP121" href="../../../index.html">&uarr;</a>
+</nav>
+
+<header>
+<h1>TP3 pile - infos supplémentaires</h1>
+</header>
+
+<article>
+
+
+<h2>Introduction</h2>
+
+La version originale du TP se trouve sur <a href="http://lmi92.cnam.fr/progAvancee/">http://lmi92.cnam.fr/progAvancee/</a> et contient des instructions pour BlueJ.
+<br>Pour tester, vous pouvez suivre les instructions de Paris et importer le TP dans BlueJ, ça vous permettra par exemple d'avoir un diagramme de classe.
+<br>
+<br>Cette page contient des instructions pour faire le TP sur Eclipse.
+<br>
+<br>Une copie de l'énoncé original se trouve sur <a href="cnam-paris/tp3.html">cnam-paris/tp3.html</a>
+<br>
+<br>Chaque question du TP correspond à un package.
+<br>Le code source des énoncés est dans le répertoire <a href="enonce">enonce/</a>
+<br>
+<br>Les tests unitaires donnés dans l'énoncé sont en junit3 et doivent être adaptés pour utiliser junit5.
+<br>
+<br>Dans Eclipse, créez un nouveau projet java "tp3-pile"
+
+
+<!-- ************************************* -->
+<h2>Question 1</h2>
+
+- Click droit sur le projet / Nouveau / Package ; nommez-le "question1"
+<br>- Click droit sur le package question1 / Import / File system ; choisissez le répertoire <a href="enonce/question1/">enonce/question1/</a>
+<br>(cela implique que vous ayez une version du cours sur votre machine - si vous avez déjà cloné le dépôt, mettez à jour avec <code>git pull -u</code>)
+<br>
+<br/>L'ennoncé du TP contient une version de la classe <code>Pile</code> qui marche avec des <code>int</code>.
+<br/>Sans modifier le code, vous pouvez tester l'IHM : click droit sur <code>IHMPile.java</code> / Run as / Java application.
+<br>Les boutons ne répondent pas, c'est normal.
+
+<h3>Question 1.1</h3>
+
+<ol class=" spaced">
+
+    <li>
+        Complétez <code>IHMPile.java</code> pour faire fonctionner les boutons "Empiler" et "Dépiler".
+        <br>Pour voir le comportement attendu, vous pouvez tester avec la commande
+        <pre>appletviewer http://jfod.cnam.fr/progAvancee/tp3/tp3.html</pre>
+        (cette commande fonctionne avec openjdk 10 sous linux, il vous faut trouver comment la faire marcher sous windows...).
+    </li>
+    <li>
+        L'énoncé fournit une pile qui fonctionne avec des <code>int</code>.
+        <br>Modifiez <code>Pile.java</code> pour que la pile fonctionne avec des <code>Object</code>, voir <a href="cnam-paris/tp3.html">l'énoncé de Paris</a> pour vous aider.
+    </li>
+    <li>
+        Vérifiez que <code>IHMPile</code> fonctionne toujours, et que vous pouvez saisir autre chose que des <code>int</code>.
+    </li>
+    <li>
+        Ecrivez des classes de test pour les classes <code>Pile</code> et <code>PolygoneRegulierTest</code> (en JUnit 5).
+    </li>
+</ol>
+
+Dans la classe <code>Pile</code>, vous verrez que la méthode <code>toString()</code> utilise la classe <code>StringBuffer</code>, pas vue en cours.
+<br/>On pourrait très bien écrire cette méthode en n'utilisant que <code>String</code>.
+<br/>Pour comprendre la différence, voir par exemple <a href="http://www.commentcamarche.net/forum/affich-52738-string-et-string-buffer-en-java">http://www.commentcamarche.net/forum/affich-52738-string-et-string-buffer-en-java</a>
+
+
+<h3>Question 1.2</h3>
+
+Pour la suite du TP, suivez <a href="cnam-paris/tp3.html">l'énoncé de Paris</a>.
+
+
+<!-- ************************************* -->
+<h2>Question 2</h2>
+
+Dans le code fourni, tous les constructeurs ont une signature de type : <code>public Pile(int taille)</code> ; ça fonctionne, mais le nom du paramètre porte à confusion.
+<br/>Vous pouvez remplacer par <code>public Pile(int capacite)</code>.
+<br>
+<br>Créez un nouveau package "question2" en important les fichiers comme à la question1.
+
+<h3>Question 2.1</h3>
+Dans l'ennoncé, le lien "How to avoid traps and correctly override methods from java.lang.Object" est cassé, l'url correcte est 
+<a href="https://www.javaworld.com/article/2076332/java-se/how-to-avoid-traps-and-correctly-override-methods-from-java-lang-object.html">https://www.javaworld.com/article/2076332/java-se/how-to-avoid-traps-and-correctly-override-methods-from-java-lang-object.html</a>
+<br/>Vous n'êtes pas obligés de comprendre tous les détails de l'article pour répondre à la question (utile pour la question 2.5).
+
+<h3>Question 2.2</h3>
+A lire avant : <a href="../../../../content/oop/critiques-poo.html#4-delegation">Délégation</a>
+<br>
+<br>Les Piles 2 et 3 utilisent une syntaxe qu'on n'a pas encore vu : <code>private Stack&lt;Object> stk;</code>
+<br/>En fait, cela veut seulement dire que <code>stk</code> est une <code>Stack</code> qui contient des <code>Object</code>.
+<br/>Pour comprendre de quoi il s'agit, lisez le début du <a href="../../../../content/java/generics.html">cours sur les génériques</a> (lire l'intro et le paragraphe "Generic types").
+<br/>Dans le constructeur de <code>Pile2</code>, pour initialiser <code>stk</code>, vous aurez besoin de la syntaxe : <code>this.stk = new Stack&lt;Object>();</code>
+<br/>
+<br><code>Pile4</code> utilise la notion de classe interne, voir <a href="../../../../content/java/nested.html"> le cours sur les types imbriqués</a>.
+<br/>Dans mon implémentation de <code>Pile4</code>, pour que ce soit plus clair j'ai remplacé <code>suivant()</code> et <code>element()</code> par <code>getSuivant()</code> et <code>getElement()</code>.
+
+<!-- 
+<br/>Pour développer cette version de <code>Pile</code>, je me suis aidé d'un fichier auxiliaire (<code>Dev1.java</code>), que j'ai mis en fichier joint sur la page du TP dans amio-fit. Ça permet de tester au fur et à mesure de l'écriture que le code se comporte est cohérent, sans toucher à la classe de test unitaire. J'ai fait la meme chose pour implémenter <code>Pile4</code>.
+-->
+
+<h3>Question 2.3</h3>
+Assez rapide à écrire, car <code>PileTest</code> est déjà écrite, pour écrire les autres classes de test, il suffit de copier-coller <code>PileTest</code> et de replacer "Pile" par "Pile2", "Pile3", "Pile4".
+
+<!-- ************************************* -->
+<h2>Question 3</h2>
+On utilisera ces questions pour servir d'exemples aux cours sur les generics et les annotations.
+
+</article>
+
+</body>
+</html>

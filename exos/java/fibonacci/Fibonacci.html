@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Fibonacci | NFP121</title>
+    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Fibonacci</h1>
+</header>
+
+<article>
+
+Ecrire une fonction qui calcule les valeurs de la série de Fibonacci, définie par :
+<pre class="normal">
+– U<sub>0</sub> = 0
+– U<sub>1</sub> = 1
+– U<sub>n</sub> = U<sub>n−1</sub> + U<sub>n−2</sub>
+</pre>
+Par exemple U<sub>2</sub> = U<sub>1</sub> + U<sub>0</sub>
+<br>
+<br>Ecrivez deux versions de cette fonction :
+<br>- une sous forme itérative
+<br>- et sous forme récursive.
+
+<br>Laquelle des deux variantes est préférable ?
+<br>
+<br>Vous pouvez utiliser le code suivant :
+<pre>
+public class Fibonacci{
+
+    public static void main(String[] args){
+        System.out.println("fibo1 : " + fibo1(Integer.valueOf(args[0])));
+        System.out.println("fibo2 : " + fibo2(Integer.valueOf(args[0])));
+    }
+    
+    /** 
+        Implémentation avec itérations
+    **/
+    static int fibo1(int n){
+        // à compléter
+    }
+    
+    /** 
+        Implémentation récursive
+    **/
+    static int fibo2(int n){
+        // à compléter
+    }
+}
+
+</pre>
+
+Par exemple <code>fibo1(10) = fibo2(10) = 55</code>.
+
+</article>
+
+</body>
+</html>
+

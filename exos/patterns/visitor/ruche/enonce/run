@@ -1,0 +1,9 @@
+
+dirbin="../../../../bin/exam/2018-02-14/visitor/enonce"
+
+command="java -classpath $dirbin apiculture.Main"
+
+echo $command
+
+$command
+

@@ -1,0 +1,23 @@
+<?xml version = "1.0"?>
+<étudiants>
+   <étudiant id = "393">
+      <prénom>Pierre</prénom>
+      <nom>Martin</nom>
+      <surnom>toto</surnom>
+      <moyenne>15</moyenne>
+   </étudiant>
+   
+   <étudiant id = "493">
+      <prénom>Jean</prénom>
+      <nom>Dupont</nom>
+      <surnom>titi</surnom>
+      <moyenne>13</moyenne>
+   </étudiant>
+   
+   <étudiant id = "593">
+      <prénom>Jeanne</prénom>
+      <nom>Durand</nom>
+      <surnom>tata</surnom>
+      <moyenne>14</moyenne>
+   </étudiant>
+</étudiants>

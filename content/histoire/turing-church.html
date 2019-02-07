@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Historique | NFP121 Millau</title>
+    <meta name="description" content="Le problème de la décision et la manière dont il a été résolu, par Alan Turing et Alonzo Church.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="NFP121" href="../../index.html">&uarr;</a>
+</nav>
+
+<header>
+<h1>Historique</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-le-probleme-de-la-decision">Le problème de la décision</a>
+            <ul>
+                <li><a href="#1-1-logique-du-premier-ordre">Logique du premier ordre</a></li>
+                <li><a href="#1-2-operation">Opération</a></li>
+                <li><a href="#1-3-processus">Processus</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-la-machine-de-turing">La machine de Turing</a>
+        </li>
+        <li>
+            <a href="#3-le-lambda-calcul">Le lambda-calcul</a>
+        </li>
+        <li>
+            <a href="#4-langages-imperatifs-et-fonctionnels">Langages impératifs et fonctionnels</a>
+            <ul>
+                <li><a href="#4-1-exemple-factorielle">Exemple : factorielle</a></li>
+                <li><a href="#4-2-functions-as-first-class-citizens">functions as first class citizens</a></li>
+                <li><a href="#4-3-un-concensus">Un concensus</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+
+</header>
+
+<article>
+
+
+<div class="warning"><center>Page très incomplète</center></div>
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-le-probleme-de-la-decision">Le problème de la décision</a></h2>
+
+Les deux grandes familles de langages informatiques (<b>langages impératifs</b> et <b>langages fonctionnels</b>) sont nés en cherchant à répondre à une question formulée plusieurs fois par David Hilbert (mathéméticien allemand) à partir de 1900 et publiée en 1928 :
+
+<br>
+<div class="border margin05 padding05 inline-block">
+    Existe-t-il un processus permettant de déterminer en un nombre fini d'opérations
+    <br>si une assertion de la logique du premier ordre est vraie ?
+</div>
+
+<br>Autrement dit : si on a une assertion logique quelconque, existe-t-il toujours un moyen de savoir si elle est vraie ? Ou existe-t-il des assertions indécidables ?
+<br>
+<br>(La complétude fait partie des caractéristiques qu'un système de déduction devrait satisfaire, avec la <i>correction</i> et la <i>cohérence</i>, voir <a href="https://fr.wikipedia.org/wiki/Logique_math%C3%A9matique#Syst%C3%A8mes_de_d%C3%A9duction">wikipedia</a>).
+
+<!-- 
+<br>Pour plus de détails, voir par exemple <a href="https://fr.wikipedia.org/wiki/Probl%C3%A8me_de_la_d%C3%A9cision">Problème de la décision</a> et <a href="https://fr.wikipedia.org/wiki/Calcul_des_pr%C3%A9dicats">Calcul des prédicats</a>.
+-->
+<br>
+<br><b>La réponse est "non"</b> : il peut exister des assertions qu'on ne peut pas démontrer.
+<br>
+<br>Cette réponse a été trouvée de deux manières différentes presque simultanément en 1936.
+
+<ul class="spaced naked">
+    <li>
+        <b>Alan Turing</b> a répondu en inventant pour l'occasion la <b>machine de Turing</b>.
+        <br>Cette approche a fourni une base théorique aux langages impératifs.
+    </li>
+    <li>
+        <b>Alonzo Church</b> a répondu en inventant le <b>lambda-calcul</b> (lambda = lettre grecque &lambda;).
+        <br>Cette approche a fourni une base théorique aux langages fonctionnels.
+    </li>
+</ul>
+
+Church et Turing ont ensuite travaillé ensemble.
+<br>L'équivalence entre les machines de Turing et le lambda-calcul a été démontré par Turing en 1937 :
+<br>Une fonction est calculable par une machine de Turing si et seulement si elle est calculable en utilisant le lambda-calcul.
+<br>Autrement dit, tout problème pouvant être résolu en programmation impérative peut l'être en programmation fonctionnelle, et vice-versa.
+<br>
+<br>Pour répondre à cette question, il faut définir précisément ses termes :
+<br>- Qu'est-ce qu'une opération ?
+<br>- Qu'est-ce qu'un processus ?
+<br>- Qu'est-ce que la logique du remier ordre ?
+
+<!-- ************************************* -->
+<h3><a name="1-1-logique-du-premier-ordre">Logique du premier ordre</a></h3>
+
+
+<!-- ************************************* -->
+<h3><a name="1-2-operation">Opération</a></h3>
+
+<!-- ************************************* -->
+<h3><a name="1-3-processus">Processus</a></h3>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-la-machine-de-turing">La machine de Turing</a></h2>
+
+Une machine de Turing est un automate avec une tête de lecture et une bande de papier faite de cases ; qui ne peut exécuter qu'un nombre très limité d'opérations (lire une case, écrire, effacer, aller à la case de droite, aller à la case de gauche) ; qui peut mémoriser son <b>état</b> ; qui peut prendre une décision en fonction de la valeur de la case courante et de l'état courant de la machine.
+
+<div class="margin"><img class="border" src="img/turing-machine.jpg" alt="Machine de Turing" /></div>
+
+Un programme est une suite d'<b>instructions</b> qui disent quoi faire à la machine.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-le-lambda-calcul">Le lambda-calcul</a></h2>
+
+Voir <a href="https://mathdevelopment.tumblr.com/post/182509661410/lambda-calculus-for-programmers">cette page</a>
+<br>
+<br>Le lambda-calcul est un système dans lequel tout est fonction et doté d'une seule opération : l'application d'une fonction à une autre. Tout est <i>lambda-expression</i> ; toute expression est remplacée par une fonction.
+<br>Par exemple <code>3x + 1</code> est remplacé par la fonction qui à <code>x</code> associe <code>3x + 1</code> ; on note : <code>&lambda;x.3*x+1</code>
+<br>Le lambda calcul n'utilise que deux notations :
+<ul>
+    <li>
+        <i>Abstraction</i>
+        <br><code><b>&lambda;x.M</b></code> désigne une fonction anonyme dont le paramètre est noté <code>x</code> et dont le corps est noté <code>M</code>.
+        <br>Si M est une &lambda;-expression, λx.M est aussi une λ-expression et représente la fonction qui à x associe M.
+        <br>(noter le point qui sépare le nom du paramètre et le corps de la fonction)
+    </li>
+    <li>
+        <i>Application</i>
+        <br><code><b>MN</b></code> : désigne l'application de la fonction <code>M</code> avec comme paramètre <code>N</code> ; on est habitués à noter plutôt <code>M(N)</code>.
+    </li>
+</ul>
+La seule règle pour passer d'une expression à une autre est la <i>réduction &beta;</i> : <code><b>(&lambda;x.M)N &rarr; <sub>&beta;</sub> M[x:=N]</b></code>
+<br>Appliquer la &lambda; expression <code>&lambda;x.M</code> au paramètre <code>N</code> revient au même que de remplacer <code>x</code> par <code>N</code> dans le corps de la fonction <code>M</code>.
+
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-langages-imperatifs-et-fonctionnels">Langages impératifs et fonctionnels</a></h2>
+<!-- 
+Why the name? Many years ago, before there were any computers, the logician
+Alonzo Church wanted to formalize what it means for a mathematical function to be
+effectively computable. (Curiously, there are functions that are known to exist, but
+nobody knows how to compute their values.) He used the Greek letter lambda (λ) to
+mark parameters, somewhat like
+λfirst. λsecond. first.length() - second.length()
+Why the letter λ? Did Church run out of letters of the alphabet? Actually, the
+venerable Principia Mathematica (see
+http://plato.stanford.edu/entries/principia-mathematica) used the ^ accent to
+denote function parameters, which inspired Church to use an uppercase
+lambda Λ. But in the end, he switched to the lowercase version. Ever since,
+an expression with parameter variables has been called a lambda expression.
+-->
+
+On se retrouve donc avec deux manières de programmer équivalentes mais différentes.
+
+<h3><a name="4-1-exemple-factorielle">Exemple : factorielle</a></h3>
+
+<!-- ************************************* -->
+En java :
+<pre>
+public class Factorial{
+    public static int compute(int n){
+        int res = 1;
+        for (int c = 1; c <= n; c++)
+            res = res * c;
+        return res;
+    }
+}
+</pre>
+
+En ~ lambda-calcul :
+<pre>&lambda; n.if n=0 then 1 else n*(fact (n-1))</pre>
+
+En Ocaml :
+<pre>
+let rec fact =
+    function n -> if n=0 then 1 else n*(fact (n-1))
+</pre>
+
+En Haskell :
+<br>
+
+<div class="flex-wrap">
+
+<pre>
+factorial n = if n < 2
+              then 1
+              else n * factorial (n - 1)
+</pre>
+
+<div>ou</div>
+
+<pre>
+factorial 0 = 1
+factorial n = n * factorial (n - 1)
+</pre>
+
+</div>
+
+
+En Lisp :
+<pre>
+(defun factorial (n)
+  (if (= n 1)              
+      1                           
+      (* n (factorial (- n 1))))) 
+</pre>
+
+Dans un langage purement fonctionnel, une fonction ne fait qu'une seule chose : elle prend un paramètre en entrée et renvoie un paramètre en sortie.
+<br>Le corps de la fonction est comme un gros return, on se concentre sur ce qu'on renvoie, pas ce qu'on fait entre temps.
+<br>La syntaxe facilite cette orientation.
+<br>Par exemple en java, <code>if then else</code> est une <i>instruction composée</i>, qui <i>fait</i> des choses. En Ocaml, c'est une <i>expression</i>, qui <i>calcule</i> la valeur d'un type.
+<br>
+<br>Vocabulaire :
+<br>Une <b>fonction pure</b> une fonction qui n'a aucun effet de bord.
+<br>Une <b>fonction d'ordre supérieur</b> est une fonction qui prend en paramètre une fonction ou qui renvoie une fonction.
+
+
+<!-- ************************************* -->
+<h3><a name="4-2-functions-as-first-class-citizens">functions as first class citizens</a></h3>
+Dans un langage fonctionnel, les fonctions sont des <i>first class citizens</i> ; elles peuvent être
+<br>- nommées
+<br>- évaluées
+<br>- passées comme argument
+<br>- renvoyées comme résultat
+<br>- utilisées partout où une expression peut l'être.
+
+<h3><a name="4-3-un-concensus">Un concensus</a></h3>
+L'introduction des lambda expressions en java correspond à un mouvement de fond dans de nombreux langages impératifs.
+<br>Un consensus a peu à peu émergé : les langages fonctionnels sont plus faciles à tester, débugger et paralléliser que les langages impératifs.
+<br>
+<br>Depuis java 8, java est décrit comme "légèrement fonctionnel" : fournit par convenance les idiomes fonctionnels les plus souvent utilisés.
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>

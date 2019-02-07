@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Adapter Pile Stack | NFP121</title>
+    <link href="../../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Adapter Pile Stack</h1>
+</header>
+
+<article>
+
+<a href="enonce">Code source de l'énoncé</a>
+<br>
+<br>Soit l'interface <code>PileI</code> :
+<pre>
+public interface PileI&lt;E>{
+    public void empiler(E e);
+    public E depiler();
+    public boolean estVide();
+}
+</pre>
+On ne dispose pas d'implémentation de <code>PileI</code>,
+<br>mais on a une implémentation d'une autre interface, <code>StackI</code> :
+<pre>
+public interface StackI&lt;E>{
+    public void push(E e);
+    public E pop();
+    public boolean isEmpty();
+}
+</pre>
+Une équipe de programmeurs francophones souhaite continuer à utiliser dans leur code
+<br>l'interface <code>PileI</code> mais voudrait utiliser l'implémentation de <code>StackI</code>.
+<br>
+<br>La classe <code>Stack1</code> fournit une implémentation de <code>StackI</code>.
+<br>
+<br>
+<br>Ecrivez deux implémentations de la classe <code>PileAdapteur</code> : une implémentation utilisant l'héritage et une implémentation utilisant la composition.
+<br>
+<br>Dans les deux cas, à l'exécution on doit bien utiliser l'implémentation de <code>Stack1</code> avec le vocabulaire de <code>PileI</code> :
+<pre>
+java Main
+</pre>
+<pre>
+Stack1.push()
+Stack1.pop()
+Stack1.isEmpty()
+</pre>
+
+</article>
+
+</body>
+</html>

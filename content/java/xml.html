@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Java XML | Millau</title>
+    <meta name="description" content="Introduction à XML et à JAXP, l'API java permettant de le manipuler de deux manières : DOM et SAX">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+
+<!-- 
+https://fr.wikipedia.org/wiki/Extensible_Markup_Language
+https://www.tutorialspoint.com/java_xml/index.htm
+https://docs.oracle.com/javase/tutorial/jaxp/index.html
+
+-->
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="reflection.html">&larr;</a>
+    <a class="next" title="Next" href="regex.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Java XML</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-xml">XML</a>
+            <ul>
+                <li><a href="#1-1-balises-tags">Balises (tags)</a></li>
+                <li><a href="#1-2-processing-instructions">Processing instructions</a></li>
+                <li><a href="#1-3-document-xml">Document XML</a></li>
+                <li><a href="#1-4-xpath">XPath</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-jaxp">JAXP</a>
+        </li>
+        <li>
+            <a href="#3-dom">DOM</a>
+            <ul>
+                <li><a href="#3-1-lecture-d-un-document-xml">Lecture d'un document xml</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#4-sax">SAX</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Cours en cours de fabrication
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-xml">XML</a></h2>
+
+XML (Extensible Markup Language) est un langage à balise (tag) permettant de stocker et transporter de l'information structurée dans un format texte.
+<br>Un document XML a vocation à être à la fois lisible et exploitables par des humains (contenu des balises) et des machines (instructions de traitement, attributs des balises).
+<br>XML est beaucoup utilisé dans l'écosystème java ; d'autres milieux ont adoptés d'autres syntaxes en partie équivalentes, comme json ou yaml.
+<br>
+<br>XML 1.0 date de 1998 (recommendation du W3C) ; version 1.1 en 2004 ; la version 1.0 reste la plus répandue.
+<br>L'encodage par défaut d'un document XML est UTF8.
+<br>
+<br>Exemple de document XML :
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;?xml-stylesheet href="transformation.xsl" type="text/xsl"?>
+&lt;?mode ecran?>
+&lt;?instruction pour le traitement?>
+&lt;!-- Commentaire -->
+&lt;ex:collection
+    xml:lang="fr" 
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ex="http://exemple.org"
+>
+    &lt;élément>Texte&lt;/élément>
+    &lt;dc:title>Astérix le Gaulois&lt;/dc:title>
+    &lt;ex:livre attribut="valeur" type="BD">
+        &lt;dc:title>Astérix chez les Belges&lt;/dc:title>
+        &lt;!-- élément répété -->
+        &lt;dc:creator>René Goscinny&lt;/dc:creator>
+        &lt;dc:creator>Albert Uderzo&lt;/dc:creator>
+        &lt;dc:description>
+            &lt;b>Astérix chez les Belges&lt;/b> est un album de 
+&lt;a href="http://fr.wikipedia.org/wiki/Bande_dessinée">bande dessinée&lt;/a> de la
+série Astérix le Gaulois créée par René Goscinny et Albert Uderzo.
+&lt;br />&lt;!-- élément vide -->
+            Cet album publié en 1979 est le dernier de la série écrite par René 
+Goscinny.
+        &lt;/dc:description>
+    &lt;/ex:livre>
+&lt;/ex:collection>
+</pre>
+
+Un document XML est une chaîne de caractères pouvant contenir :
+<ul>
+    <li>
+        Un prologue, en général <code>&lt;?xml version="1.0" encoding="UTF-8"?></code>.
+    </li>
+    <li>
+        Des commentaires, par ex <code>&lt;!-- un commentaire --></code> ; même syntaxe qu'en HTML.
+    </li>
+    <li>
+        Des instructions de traitement (processing instructions ou PIs), par ex <code>&lt;?instruction pour le traitement?></code>
+        <br>Ce sont des balises particulières, encadrées par <code>&lt;?</code> et <code>?></code>.
+    </li>
+    <li>
+        Et surtout des balises, organisées en une structure arborescente.
+        
+    </li>
+</ul>
+
+Seul le prologue est obligatoire.
+<br>Un document XML peut contenir, en plus du prologue, des PIs, des commentaires <b>mais contient au maximum une seule balise</b>, que l'on appelle le noeud document ou la racine.
+<br>Le corps du document se trouve à l'intérieur du noeud racine. 
+<br>Les balises sont organisées de manière hiérarchique.
+
+
+<!-- ************************************* -->
+<h3><a name="1-1-balises-tags">Balises (tags)</a></h3>
+
+Une balise encadre du contenu, situé entre la balise ouvrante et la balise fermante.
+<pre>&lt;balise> ... &lt;/balise></pre>
+Une balise vide est signalée avec cette syntaxe :
+<pre>&lt;balise /></pre>
+Une balise peut contenir des attributs : 
+<pre>
+&lt;balise
+    attribut1="valeur de l'attribut1"
+    attribut2="valeur de l'attribut2"
+>
+...
+&lt;/balise></pre>
+
+Contrairement au HTML, la liste des balises n'est pas prédéfinie.
+
+<h4>Elements textes</h4>
+
+<!-- ************************************* -->
+<h3><a name="1-2-processing-instructions">Processing instructions</a></h3>
+
+Type particulier de balise à destination des applications qui exploitent le document XML.
+<pre>&lt;?clé valeur qui peut contenir des espaces?></pre>
+La syntaxe peut être choisie librement
+<br>La norme XML n'a standardisé que la syntaxe pour associer une feuille de style à un document.
+
+
+<!-- ************************************* -->
+<h3><a name="1-3-document-xml">Document XML</a></h3>
+
+Pour être exploitable, un document XML doit être <b>bien formé</b> et <b>valide</b>.
+
+<h4>Bien formé</h4>
+Bien formé = syntaxiquement correct.
+<br>Chaque balise doit avoir une balise de fin, les caractères problématiques doivent être échappés correctement :
+
+<pre>
+&lt;      &amp;lt;        lesser than         inférieur
+&amp;      &amp;amp;       ampersand           esperluette
+&gt;      &amp;gt;        greater than        supérieur
+&quot;      &amp;quot;      quote               guillemet
+&apos;      &amp;apos;      apostrophe          apostrophe
+</pre>
+
+L'échappement caractère par caractère peut être fastidieux dans certains cas, d'où la possibliité de section d'échappement :
+<pre>&lt;![CDATA[ … ]]></pre>
+Par exemple
+<pre>
+&lt;script>&lt;![CDATA[
+if (chars > 140 &amp;&amp; mode == tweet) {
+    div.innerHTML = '&lt;b>Attention !&lt;/b>, le {{140e}} caractère est dépassé !';
+}
+]]>&lt;/script>
+</pre>
+
+<h4>Valide</h4>
+Valide = sémantiquement correct.
+<br>Un document XML peut être accompagné par une (ou plusieurs) <b>DTD</b> (Document Type Definition), qui pemet de spécifier quelles sont les balises possibles et où on peut les trouver dans la hiérarchie, quels sont les attributs possibles pour chaque balise, quelles valeurs peuvent prendre ces attributs.
+
+<h4>Espace de nommage</h4>
+
+
+<!-- ************************************* -->
+<h3><a name="1-4-xpath">XPath</a></h3>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-jaxp">JAXP</a></h2>
+
+Il existe plusieurs manières de traiter un document XML, définies par le W3C : 
+<ul>
+    <li>
+        <b>DOM</b> (Document Object Model) : le document est chargé en mémoire.
+        <br>Un programme utilisant DOM parcourt l'arbre.
+        <br>L'intérêt est que le code à écrire est facile, puisque l'on a à disposition l'intégralité du document. Mais impose d'avoir chargé l'intégralité du document en mémoire.
+    </li>
+    <li>
+        <b>SAX</b> (Simple API for XML) : le document est traité séquentielement, et le parser envoie un événement lorsqu'un tag est rencontré.
+        <br>Un programme utilisant SAX est donc constitué de event handlers.
+        <br>Implique du code plus difficile à écrire, car on n'a de l'information que sur le tag courant. Mais le document na pas besoin d'être chargé en mémoire. Le programme peut réagir au fur et à meesure que les tags sont envoyés par le parser.
+    </li>
+    <li>
+        <b>StAX</b> (Streaming API for XML) : alors que SAX est une "push api" (c'est le parser qui push l'information), StAX est une pull API, on peut demander de l'info au parser, donc plus facile à gérer.
+    </li>
+</ul>
+<b>JAXP</b> (Java API for XML Processing) fournit une API permettant de travailler sur du XML incluant ces différentes manières de travailler.
+<br>Permet aussi de gérer la validation par DTD ainsi que la transformation du document par XSL.
+<br>Donne la possibilité de choisir les imémentations des parsers utilisés.
+<br>
+<br>Les packages java impliqués sont :
+<ul>
+    <li>
+        <p><tt>javax.xml.parsers</tt>: Les APIs JAXP, contient les interfaces communes aux différents parsers SAX et DOM.</p>
+    </li>
+    <li>
+        <p><tt>org.w3c.dom</tt>: Définit la classe <tt>Document</tt> ainsi que toutes les classes pour les éléments d'un DOM.</p>
+    </li>
+    <li>
+        <p><tt>org.xml.sax</tt>: Définit les APIS pour SAX.</p>
+    </li>
+    <li>
+        <p><tt>javax.xml.transform</tt>: Pour utiliser XSLT.</p>
+    </li>
+    <li>
+        <p><tt>javax.xml.stream</tt>: Pour utiliser StAX.</p>
+    </li>
+</ul>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-dom">DOM</a></h2>
+
+<!-- ************************************* -->
+<h3><a name="3-1-lecture-d-un-document-xml">Lecture d'un document xml</a></h3>
+Code de l'exemple dans <a href="../../exemples/java/xml/dom">DomExample1.java</a>.
+<br>
+<br>Pour lire un document xml, on crée un <code>org.w3c.dom.Document</code> en utilisant un <code>javax.xml.parsers.DocumentBuilder</code>.
+<pre>
+         File inputFile = new File("etudiants.xml");
+         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+</pre>
+La méthode <code>parse()</code> permet d'obtenir le <code>Document</code>, qui contient toutes les méthodes permettant de naviguer dans les éléments.
+<pre>
+         Document doc = dBuilder.parse(inputFile);
+</pre>
+<!-- ********************************************************************************* -->
+<h2><a name="4-sax">SAX</a></h2>
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

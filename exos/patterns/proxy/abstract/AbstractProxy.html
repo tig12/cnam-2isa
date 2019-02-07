@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Abstract Proxy | NFP121</title>
+    <link href="../../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Abstract Proxy</h1>
+</header>
+
+<article>
+
+<a href="enonce">Code source de l'énoncé</a>
+
+<h2>1 - Première implémentation</h2>
+
+- Compilez le code de l'énoncé.
+<br>
+<br>- Exécutez le et vérifiez qu'un <b>GrosObjet</b> est créé dès qu'il est instancié (c'est la moindre des choses...).
+<br>
+<br>- Dans <code>main()</code>, remplacez
+<pre>
+        System.out.println("dans main() : avant instanciation de GrosObjet");
+        GrosObjet go = new GrosObjet();
+        System.out.println("dans main() : après instanciation de GrosObjet");
+</pre>
+par :
+<pre>
+        System.out.println("dans main() : avant instanciation de GrosObjetProxy");
+        GrosObjetProxy go = new GrosObjetProxy();
+        System.out.println("dans main() : après instanciation de GrosObjetProxy");
+</pre>
+
+et écrivez la classe <code>GrosObjetProxy</code> de manière à avoir les affichages suivants à l'exécution :
+<pre>
+java TestAbstractProxy 
+</pre>
+<pre>
+dans main() : avant instanciation de GrosObjet
+dans main() : après instanciation de GrosObjet
+dans main() : appel à go.premièreMéthodeAyantVraimentBesoinDeGrosObjet()
+    constructeur GrosObjet === Création très chère ===
+    premièreMéthodeAyantVraimentBesoinDeGrosObjet()
+dans main() : appel à go.secondeMéthodeAyantVraimentBesoinDeGrosObjet()
+    secondeMéthodeAyantVraimentBesoinDeGrosObjet()
+</pre>
+
+<h2>2 - Implémentation avec interface et factory</h2>
+"Camoufler" l'utilisation du proxy de manière à pouvoir remplacer dans main()
+<pre>GrosObjetProxy go = new GrosObjetProxy();</pre>
+par :
+<pre>GrosObjetI go = GrosObjetFactory.createGrosObjet();</pre>
+en utilisant une interface <code>GrosObjetI</code> et une factory <code>GrosObjetFactory</code>.
+<br>
+<br>Vérifiez qu'à l'exécution, vous avez toujours le même affichage.
+</article>
+
+</body>
+</html>
+

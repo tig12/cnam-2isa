@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>diff et patch | Millau CNAM 2ISA</title>
+    <meta name="description" content="TD permettant de créer et d'appliquer un patch">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <meta name="robots" content="index,follow">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2019">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="NFP121" href="git.html">&uarr;</a>
+<!-- 
+    <a class="prev" title="Previous" href=".html">&larr;</a>
+    <a class="next" title="Next" href=".html">&rarr;</a>
+-->
+</nav>
+
+<header>
+<h1>diff et patch</h1>
+<div class="intro">
+L'utilisation de diff et patch a servi (et sert encore) à développer des logiciels à plusieurs sans utiliser de SCM comme git.
+</div>
+
+</header>
+
+<article>
+
+On va tester dans un répertoire <code>diff-patch-test</code> :
+<pre>
+mkdir diff-patch-test
+cd diff-patch-test
+</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2>diff</h2>
+
+<a href="https://www.computerhope.com/unix/udiff.htm">https://www.computerhope.com/unix/udiff.htm</a>
+<br><a href="https://unix.stackexchange.com/questions/81998/understanding-of-diff-output">https://unix.stackexchange.com/questions/81998/understanding-of-diff-output</a>
+<br>
+<br>Créer un fichier <code>file1-v1.txt</code> contenant ce contenu :
+<pre>
+1
+2
+4
+</pre>
+On voudrait rajouter une ligne 3.
+<br>
+<br>Créer un fichier <code>file1-v2.txt</code> contenant ce contenu :
+<pre>
+1
+2
+3
+4
+</pre>
+
+On peut voir les différences enutilisant <code>diff</code> :
+<pre>diff file1-v1.txt file1-v2.txt</pre>
+<pre>
+2a3
+> 3
+</pre>
+Signifie 
+
+
+</article>
+
+<!-- ********************************************************************************* -->
+<!-- ************************************* -->
+</body>
+</html>

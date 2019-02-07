@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Threads | NFP121 Millau</title>
+    <meta name="description" content="Introduction aux threads : comment exécuter plusieurs programmes en parallèle en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="collections.html">&larr;</a>
+    <a class="next" title="Next" href="reflection.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Les threads</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-threads-et-processes">Threads et processes</a>
+        </li>
+        <li>
+            <a href="#2-premiers-exemples">Premiers exemples</a>
+            <ul>
+                <li><a href="#2-1-lambdas">Lambdas</a></li>
+                <li><a href="#2-2-sleep">sleep()</a></li>
+                <li><a href="#2-3-interruptions">Interruptions</a></li>
+                <li><a href="#2-4-join">join()</a></li>
+                <li><a href="#2-5-exceptions">Exceptions</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#3-synchronisation">Synchronisation</a>
+            <ul>
+                <li><a href="#3-1-interferences">Interférences</a></li>
+                <li><a href="#3-2-inconsistance-de-la-memoire">Inconsistance de la mémoire</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-threads-et-processes">Threads et processes</a></h2>
+<!-- 
+Process
+Each process provides the resources needed to execute a program. A process has a virtual address space, executable code, open handles to system objects, a security context, a unique process identifier, environment variables, a priority class, minimum and maximum working set sizes, and at least one thread of execution. Each process is started with a single thread, often called the primary thread, but can create additional threads from any of its threads.
+
+Thread
+A thread is an entity within a process that can be scheduled for execution. All threads of a process share its virtual address space and system resources. In addition, each thread maintains exception handlers, a scheduling priority, thread local storage, a unique thread identifier, and a set of structures the system will use to save the thread context until it is scheduled. The thread context includes the thread's set of machine registers, the kernel stack, a thread environment block, and a user stack in the address space of the thread's process. Threads can also have their own security context, which can be used for impersonating clients.
+-->
+<b>Threads</b> et <b>processes</b> sont des séquences indépendantes d'exécution.
+<br>
+<br>Un process dispose d'un environnement complet d'exécution, en particulier d'un espace de mémoire séparé.
+<br>Une JVM s'exécute en général dans un seul process.
+<br>Java permet de créer plusieurs process (cf <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ProcessBuilder.html">ProcessBuilder</a>).
+<br>
+<br>Les threads existent au sein d'un même process (chaque process en a au moins un), partagent les resources du process, en particulier la mémoire et les fichiers ouverts.
+<br>C'est beaucoup plus léger qu'un process, permet d'échanger des ressources entre les threads, mais demande de prendre des précautions.
+<br>
+<br>Chaque application java a au moins un thread, le <b>main thread</b>, qui peut créer de nouveaux threads.
+<br>
+<br>Travailler avec les threads permet d'exécuter en parallèle plusieurs programmes tout en partageant des objets. 
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-premiers-exemples">Premiers exemples</a></h2>
+
+Chaque thread est associé à une instance de la classe <code><b>java.lang.Thread</b></code>.
+<br>Lorsqu'on crée un thread, il faut fournir le code qui va s'exécuter dans ce thread, ce qui peut se faire de 2 manières différentes :
+<ul class="spaced">
+
+    <li>
+        Ecrire une classe qui implémente l'interface <code>java.lang.Runnable</code>
+<pre>
+@FunctionalInterface
+public interface Runnable {
+    public abstract void run();
+}
+</pre>
+<pre>
+public class ThreadExample1{
+    public static void main(String args[]) {
+        Thread t = new Thread(new HelloRunnable());
+        <b>t.start()</b>;
+    }
+}
+
+class HelloRunnable <b>implements Runnable</b> {
+    @Override public void <b>run</b>() {
+        System.out.println("Hello from a thread!");
+    }
+}
+</pre>
+        (code dans <a href="../../exemples/java/threads/ThreadExample1.java">ThreadExample1.java</a>)
+    </li>
+
+    <li>
+        Ecrire une sous-classe de <code>Thread</code>.
+        <br><code>Thread</code> implémente <code>Runnable</code>, sa méthode <code>run()</code> ne fait rien par défaut.
+<pre>
+public class ThreadExample2{
+    public static void main(String args[]) {
+        Thread t = new HelloThread();
+        <b>t.start()</b>;
+    }
+}
+
+class HelloThread <b>extends Thread</b> {
+    @Override public void <b>run</b>() {
+        System.out.println("Hello from a thread!");
+    }
+}
+</pre>
+        (code dans <a href="../../exemples/java/threads/ThreadExample2.java">ThreadExample2.java</a>)
+    </li>
+
+</ul>
+Dans les deux cas, on se retrouve avec un objet <code>Thread</code> et on démarre son exécution en invoquant <code>start()</code>.
+<br>On préfèrera la première approche, compatible avec la gestion "haut niveau" des threads introduite en java 5 (<code>Executor</code>, package <code>java.util.concurrent</code>).
+<br>
+<br>La classe <code>Thread</code> fournit plusieurs méthodes statiques utiles.
+
+<!-- ************************************* -->
+<h3><a name="2-1-lambdas">Lambdas</a></h3>
+Comme <code>Runnable</code> est une interface fonctionnelle dont la méthode fonctionnelle est <code>run()</code>, on peut utiliser une lambda expression :
+<pre>
+public class LambdaExample{
+    public static void main(String[] args) {
+        Thread t = new Thread(() -> { System.out.println("Hello Thread"); });
+        t.start();
+    }
+}
+</pre>
+(code dans <a href="../../exemples/java/threads/LambdaExample.java">LambdaExample.java</a>)
+
+
+<!-- ************************************* -->
+<h3><a name="2-2-sleep">sleep()</a></h3>
+<pre>
+public class SleepExample{
+    public static void main(String args[]) <b>throws InterruptedException</b> {
+        String messages[] = {
+            "Message 1",
+            "Message 2",
+            "Message 3"
+        };
+        for (int i = 0; i &lt; messages.length; i++) {
+            System.out.println(messages[i]);
+            <b>Thread.sleep(1000)</b>; // milliseconds
+        }
+    }
+}
+</pre>
+<code>InterruptedException</code> est lancée par <code>sleep()</code> si un autre thread arrête l'exécution du thread pendant un <code>sleep()</code>.
+<br>Ici, <code>Thread.sleep()</code> concerne l'exécution du main thread.
+
+<!-- ************************************* -->
+<h3><a name="2-3-interruptions">Interruptions</a></h3>
+Il est possible d'interrompre un thread : lui dire qu'il doit arrêter sa tâche courante et faire autre chose. En général, ça sert à lui demander de se terminer.
+<br>Pour ça, on utilise la méthode <code><b>interrupt()</b></code> : lorsqu'on invoque cette méthode sur un thread, une <code>InterruptedException</code> est lancée dans l'exécution de sa méthode <code>run()</code>.
+
+<br>Le thread qui reçoit l'interruption doit gérer la possibilité d'être interrompu.
+<br>S'il utilise souvent des méthodes lançant des <code>InterruptedException</code> (comme <code>sleep()</code>), on peut simplement gérer l'interruption dans le <code>catch</code> de cette exception.
+<br>Sinon, le code du thread doit régulièrement appeler <code>interrupted()</code> qui renvoie true si un <code>interrupt()</code> a été demandé à son égard.
+
+<pre>
+public class InterruptExample{
+    public static void main(String args[]) <b>throws InterruptedException</b>{
+        <b>Thread t = new Thread(new HelloThread());</b>
+        System.out.println("main thread avant start");
+        <b>t.start()</b>;
+        System.out.println("main thread après start");
+        <b>Thread.sleep(1000)</b>;
+        System.out.println("main thread après sleep()");
+        <b>t.interrupt()</b>;
+        System.out.println("main thread après interrupt()");
+    }
+}
+
+class HelloThread <b>implements Runnable</b> {
+    @Override public void run() {
+        try{
+            String messages[] = {
+                "Message 1",
+                "Message 2",
+                "Message 3"
+            };
+    
+            for (int i = 0; i < messages.length; i++) {
+                System.out.println("    HelloThread " + messages[i]);
+                <b>Thread.sleep(1000)</b>;
+            }
+            System.out.println("    HelloThread - après la boucle d'affichage de messages");
+            
+            for (int i = 0; i < 10000; i++) {
+                System.out.print(i + " ");
+                <b>if (Thread.interrupted())</b> {
+                    System.out.println("    HelloThread - Thread.interrupted() a renvoyé true");
+                    return; // stop thread execution
+                }
+            }
+        }
+        catch(InterruptedException e){
+            return; // stop thread execution
+        }
+    }
+}
+</pre>
+(code dans <a href="../../exemples/java/threads/InterruptExample.java">InterruptExample.java</a>)
+
+<div class="exo">
+<b>Exercice</b> : dans <code>InterruptExample.main()</code>, remplacer <code>sleep(1000)</code> par <code>sleep(1200)</code>, puis  par <code>sleep(3005)</code>
+<br>Dans chaque cas, exécuter et comprendre ce qu'il se passe.
+</div>
+
+<br>Attention : <b>Interrupt Status Flag</b>
+<br>Les interruptions sont gérées en utilisant un flag appelé <i>interrupt status</i>.
+<br>Donc <code>Thread.interrupt()</code> utilise ce flag.
+<br>Un appel à la méthode statique <code>Thread.interrupted()</code> remet ce flag à sa valeur par défaut.
+<br>Un appel à la méthoe d'instance <code>isInterrupted()</code> (utilisée pour connaître le status d'un autre thread) ne change pas ce flag.
+
+<!-- ************************************* -->
+<h3><a name="2-4-join">join()</a></h3>
+<pre>
+public class JoinExample{
+    public static void main(String args[]) throws InterruptedException{
+       Thread t1 = new Thread(() -> {
+           try{
+               System.out.println("    thread 1 avant sleep");
+               Thread.sleep(1000);
+               System.out.println("    thread 1 après sleep");
+           }
+           catch(InterruptedException e){ e.printStackTrace(); }
+       });
+       Thread t2 = new Thread(() -> {
+           try{
+               System.out.println("    thread 2 avant sleep");
+               Thread.sleep(1000);
+               System.out.println("    thread 2 après sleep");
+           }
+           catch(InterruptedException e){ e.printStackTrace(); }
+       });
+       Thread t3 = new Thread(() -> {
+           try{
+               System.out.println("    thread 3 avant sleep");
+               Thread.sleep(1000);
+               System.out.println("    thread 3 après sleep");
+           }
+           catch(InterruptedException e){ e.printStackTrace(); }
+       });
+       t1.start();
+       t2.start();
+       //<b>t2.join()</b>;
+       t3.start();
+     }
+}
+</pre>
+(code dans <a href="../../exemples/java/threads/JoinExample.java">JoinExample.java</a>)
+
+<div class="exo">
+<b>Exercice</b> : exécuter plusieurs fois <code>JoinExample</code> sans <code>join()</code> et constater que l'exécution ne donne pas toujours les mêmes résultats.
+</div>
+
+<div class="exo">
+<b>Exercice</b> : exécuter <code>JoinExample</code> sans, puis avec <code>join()</code> et comprendre ce qu'il se passe.
+</div>
+
+<!-- ************************************* -->
+<h3><a name="2-5-exceptions">Exceptions</a></h3>
+Attention, les exceptions sont liées au thread dans lequel elles sont déclarées
+<br>
+<br>Le code suivant ne passe pas à la compilation :
+<pre>
+public class ExceptionsExample{
+    public static void main(String args[]){
+        try{ 
+            Thread t1 = new Thread(() -> { Thread.sleep(1000); });
+            Thread t2 = new Thread(() -> { Thread.sleep(1000); });
+            t1.start();
+            t2.start();
+        }
+        catch(InterruptedException e){
+        }
+    }
+}
+</pre>
+
+Il faut écrire :
+<pre>
+public class ExceptionsExample{
+    public static void main(String args[]){
+       Thread t1 = new Thread(() -> {
+           try{ Thread.sleep(1000); }
+           catch(InterruptedException e){}
+       });
+       Thread t2 = new Thread(() -> {
+           try{ Thread.sleep(1000); }
+           catch(InterruptedException e){}
+       });
+       t1.start();
+       t2.start();
+     }
+}
+</pre>
+
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-synchronisation">Synchronisation</a></h2>
+
+Les threads peuvent communiquer en partageant des objets ; très pratique, efficace mais peut entraîner des problèmes : interférences entre threads, inconsistance de la mémoire.
+
+<!-- ************************************* -->
+<h3><a name="3-1-interferences">Interférences</a></h3>
+Si chaque thread accède à ses propres objets, pas de problème.
+<br>Les interférences peuvent se produire lorsque plusieurs threads accèdent à la même ressource.
+
+<pre>
+
+public class InterferenceExample{
+    public static void main(String args[]) throws InterruptedException{
+        
+        Counter c = new Counter();
+        
+        Thread t1 = new Thread(() -> {
+            c.increment();
+            System.out.println("    thread 1 - c = " + c.value());
+        });
+        
+        Thread t2 = new Thread(() -> {
+            c.decrement();
+            System.out.println("    thread 2 - c = " + c.value());
+        });
+        
+        t1.start();
+        t2.start();
+    }
+}
+
+class Counter {
+    private int c = 0;
+    public void increment() {
+        for (int i = 0; i < 10000; i++) {
+            c++;
+        }
+    }
+    public void decrement() {
+        for (int i = 0; i < 10000; i++) {
+            c--;
+        }
+    }
+    public int value() { return c; }
+}
+</pre>
+(code dans <a href="../../exemples/java/threads/InterferenceExample.java">InterferenceExample.java</a>)
+
+<!-- ************************************* -->
+<h3><a name="3-2-inconsistance-de-la-memoire">Inconsistance de la mémoire</a></h3>
+
+
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

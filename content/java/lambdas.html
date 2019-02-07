@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Lambdas | NFP121 Millau</title>
+    <meta name="description" content="Introduction aux lambda expressions, permettant en java de manipuler des méthodes comme des variables.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+
+<!-- 
+https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html
+https://www.tutorialspoint.com/java8/java8_lambda_expressions.htm
+
+
+
+Using lambda expression, you can refer to any final variable or effectively final variable (which is assigned only once). Lambda expression throws a compilation error, if a variable is assigned a value the second time.
+-->
+
+
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="nested.html">&larr;</a>
+    <a class="next" title="Next" href="annotations.html">&rarr;</a>
+</nav>
+
+
+<header>
+<h1>Lambdas</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-lambdas-et-functional-interfaces">Lambdas et functional interfaces</a>
+            <ul>
+                <li><a href="#1-1-regles-syntaxiques-des-lambdas">Règles syntaxiques des lambdas</a></li>
+                <li><a href="#1-2-exemple">Exemple</a></li>
+                <li><a href="#1-3-retour-sur-filenamefilter">Retour sur FilenameFilter</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-method-reference">Method reference</a>
+        </li>
+        <li>
+            <a href="#3-generalites">Généralités</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-lambdas-et-functional-interfaces">Lambdas et functional interfaces</a></h2>
+Introduites en java 8, les lambdas expressions sont des fonctions (des méthodes) anonymes qui sont traitées comme des <i>valeurs</i> par le langage.
+<br>La syntaxe est :
+
+<pre>(paramètres) -> { instructions }</pre>
+
+Par exemple
+
+<pre>Runnable r = () -> System.out.println("Hello World");</pre>
+
+Une lambda expression est forcémément associée à une interface qui ne contient qu'une seule méthode dont la signature (paramètres + types de retour) correspond à la lambda. La lambda expression permet de fournir à la volée l'implémentation de cette méthode.
+<br>Dans l'exemple précédent, correspond à l'interface <code>java.lang.Runnable</code>.
+<pre>
+@FunctionalInterface
+public interface Runnable {
+    public abstract void run();
+}
+</pre>
+
+L'équivalence peut être trouvée sans ambiguité grâce aux règles suivantes :
+<ul>
+    <li>La lambda doit apparaître lorsqu'une instance de classe implémentant une interface est attendue.</li>
+    <li>Cette interface doit avoir exactement une méthode obligatoire (sans implémentation par défaut).</li>
+    <li>Cette méthode doit avoir exactement la même signature que celle de la lambda expression.</li>
+</ul>
+
+Dans ce cas, une instance d'une classe implémentant l'interface attendue est créée, et le corps de la lambda est utilisé pour créer la méthode obligatoire.
+<br>La lambda expression est convertie.
+On utilise parfois le terme de <b>single abstract method (or SAM)</b> type pour se référer à cette interface.
+<br>
+<br>Ces interfaces peuvent être signalées par l'annotation <code><b>@FunctionalInterface</b></code>.
+<br>
+<br>Les lambdas peuvent donc être vues comme un raccourci syntaxique.
+<pre>Runnable r = () -> System.out.println("Hello World");</pre>
+est remplacé par le compilateur par :
+<pre>
+Runnable r = new Runnable() {
+    public void run() {
+        System.out.println("Hello World");
+    }
+};
+</pre>
+
+Pour faire afficher <code>Hello World</code>, on fait donc :
+<pre>
+Runnable r = () -> System.out.println("Hello World");
+r.run();
+</pre>
+(code dans <a href="../../exemples/java/lambdas/Run.java">Run.java</a>)
+
+<!-- ************************************* -->
+<h3><a name="1-1-regles-syntaxiques-des-lambdas">Règles syntaxiques des lambdas</a></h3>
+<ul>
+    <li>Inutile de déclarer les types des paramètres car le compilateur peut les inférer.</li>
+    <li>Si la lambda ne contient qu'un seul paramètre, les parenthèses peuvent être omises.</li>
+    <li>Si le corps de la lambda ne contient qu'une seule expression, les accolades peuvent être omises.</li>
+    <li>Si le corps de la lambda ne contient qu'une seule expression renvoyant une valeur, le mot-clé <code>return</code> peut être omis.</li>
+</ul>
+
+<!-- ************************************* -->
+<h3><a name="1-2-exemple">Exemple</a></h3>
+<pre>
+public class LambdaDemo1{
+
+    public static void main(String args[]) {
+    
+        MathOperation addition = (a, b) -> a + b; // syntaxe la plus concise
+        MathOperation soustraction = (int a, int b) -> a - b;
+        MathOperation multiplication = (int a, int b) -> { return a * b; };
+        MathOperation division = (int a, int b) -> a / b;
+        
+        // la ligne suivante ne passe pas à la compilation
+        // int test = addition(3, 4);
+        
+        System.out.println("3 + 4 = " + addition.operation(3, 4));
+        System.out.println("3 - 4 = " + soustraction.operation(3, 4));
+        System.out.println("3 * 4 = " + multiplication.operation(3, 4));
+        System.out.println("3 / 4 = " + division.operation(3, 4)); // attention, division entière
+    }
+
+    // on définit l'interface fonctionnelle comme une classe interne,
+    // mais on aurait pu la définir à l'extérieur
+    @FunctionalInterface
+    private interface MathOperation {
+        int operation(int a, int b);
+    }
+}
+</pre>
+(code dans <a href="../../exemples/java/lambdas/LambdaDemo1.java">LambdaDemo1.java</a>)
+
+<div class="exo">
+    <b>Exercice</b> : <a href="../../exos/java/lambdas/PrintLambda.html">Print Lambda</a>
+</div>
+
+
+<!-- ************************************* -->
+<h3><a name="1-3-retour-sur-filenamefilter">Retour sur FilenameFilter</a></h3>
+On reprend l'exemple des classes anonymes en allant voir l'interface <code>FilenameFilter</code> :
+<pre>
+package java.io;
+
+<b>@FunctionalInterface</b>
+
+public interface FilenameFilter{
+
+    boolean accept(File dir, String name);
+
+}
+</pre>
+
+
+Avec les lambda expressions, cela peut s'exprimer par :
+<pre>
+import java.io.File;
+class Lambda3{
+    public static void main(String[] args){
+        File dir = new File(args[0]);
+        String[] files = dir.list(<b>(f,s) -> { return s.endsWith(".java"); });</b>
+        for(String file : files){
+            System.out.println(file);
+        }
+    }
+}
+</pre>
+
+Ces 2 codes sont équivalents :
+<table>
+    <tr>
+        <td class="vertical-align-top">
+<pre>
+String[] files =
+    dir.list(new FilenameFilter() {
+        public boolean accept(File f, String s) {
+            return s.endsWith(".java");
+        }
+    });
+</pre>
+        </td>
+        <td class="vertical-align-top">
+<pre>
+String[] files =
+    dir.list(
+        (f,s) -> {
+            return s.endsWith(".java");
+        }
+    );
+</pre>
+         </td>
+    </tr>
+</table>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-method-reference">Method reference</a></h2>
+
+Raccourci syntaxique lorsqu'il n'y a qu'un seul paramètre et que le corps de la lambda ne contient qu'une instruction contenant une seule méthode.
+<br>
+<br>Permet d'écrire :
+
+<pre>MyClass::toString</pre>
+au lieu de :
+<pre>(MyClass myObj) -> myObj.toString()</pre>
+<!-- 
+(avec le type inférence, on écrirait plutôt : <code class="color">myObj -> myObj.toString()</code>).
+-->
+
+<br>ou :
+<pre>s -> System.out.println(s);</pre>
+peut être exprimé par :
+<pre>System.out::println</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-generalites">Généralités</a></h2>
+
+Une motivation importante ayant conduit à l'introduction des lambdas en java est leur utilité dans les <a href="collections.html">collections</a>.
+<br>
+<br>Java reste un langage objet mais est décrit par Oracle comme "légèrement fonctionnel" depuis l'introduction des lambdas.
+<br>Il n'existe pas de définition précise de ce qu'est un langage fonctionnel, mais doit au moins permettre de représenter une fonction comme une valeur qu'on peut mettre dans une variable.
+<br>Bien réaliser que ce n'est pas anodin et correspond à un mouvement qui touche un grand nombre de langages procéduraux (par ex php 5.3, C++ 11, go, javascript).
+<br>Voir <a href="../histoire/turing-church.html">Historique</a>.
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>

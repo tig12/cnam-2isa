@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Memento | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Memento et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="visitor.html">&larr;</a>
+    <a class="next" title="Next" href="command.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>
+Memento
+<div class="subtitle">(Mémento)</div>
+</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-structure">Structure</a>
+        </li>
+        <li>
+            <a href="#2-exemples">Exemples</a>
+            <ul>
+                <li><a href="#2-1-implementation-du-schema-gof">Implémentation du schéma GOF</a></li>
+                <li><a href="#2-2-vaisseau">Vaisseau</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#3-remarques">Remarques</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+<!-- 
+p 658 de headfirst
+-->
+
+<div class="intro">
+But : Sans violer l'encapsulation, isoler et externaliser une partie de l'état interne d'un objet, afin de pouvoir restaurer ultérieurement l'objet dans cet état.
+<br>Permet de fournir un "undo" ou un "rollback".
+</div>
+
+<!-- 
+Briefly, the Originator (the object to be saved) creates a snap-shot of itself as a Memento object, and passes that reference to the Caretaker object. The Caretaker object keeps the Memento until such a time as the Originator may want to revert to a previous state as recorded in the Memento object.
+-->
+
+Ce pattern définit 3 rôles :
+<ul>
+    <li>
+        <b>Originator</b> : l'objet source, dont l'état interne doit être sauvegardé.
+    </li>
+    <li>
+        <b>Caretaker</b> : sait pourquoi et quand l'originator a besoin d'être sauvegardé ou restauré.
+    </li>
+    <li>
+        <b>Memento</b> : Stocke l'état interne de l'originator.
+        <br>Ecrit et lu par l'originator, piloté par le caretaker.
+        <br>Seul l'originator peut stocker et lire de l'information dans le mémento ; le mémento est opaque aux autres objets
+    </li>
+</ul>
+
+Le code client manipule l'originator (création, modification de son état).
+<br>Le code client ne s'adresse pas directement au mémento, mais passe par le caretaker.
+
+<img class="border margin padding05" src="img/memento-gof-sequence.jpg" alt="Memento - séquence" />
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-structure">Structure</a></h2>
+
+<img class="border margin padding05" src="img/memento-gof-structure.jpg" alt="Memento - structure" />
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-exemples">Exemples</a></h2>
+(code dans <a href="../../exemples/patterns/memento/wikibooks">exemples/patterns/memento/wikibooks</a>)
+
+<!-- ************************************* -->
+<h3><a name="2-1-implementation-du-schema-gof">Implémentation du schéma GOF</a></h3>
+<pre>
+public class Originator {
+    private String state;
+    // The class could also contain additional data that is not part of the
+    // state saved in the memento.
+ 
+    public void setState(String state) {
+        System.out.println("Originator: Setting state to " + state);
+        this.state = state;
+    }
+ 
+    public Memento saveToMemento() {
+        System.out.println("Originator: Saving to Memento.");
+        return new Memento(state);
+    }
+ 
+    public void restoreFromMemento(Memento memento) {
+        state = memento.getSavedState();
+        System.out.println("Originator: State after restoring from Memento: " + state);
+    }
+ 
+    public static class Memento {
+        private final String state;
+ 
+        private Memento(String stateToSave) {
+            state = stateToSave;
+        }
+ 
+        private String getSavedState() {
+            return state;
+        }
+    }
+}
+</pre>
+
+<pre>
+class Caretaker {
+    public static void main(String[] args) {
+        List&lt;Originator.Memento> savedStates = new ArrayList&lt;Originator.Memento>();
+ 
+        Originator originator = new Originator();
+        originator.setState("State1");
+        originator.setState("State2");
+        savedStates.add(originator.saveToMemento());
+        originator.setState("State3");
+        // We can request multiple mementos, and choose which one to roll back to.
+        savedStates.add(originator.saveToMemento());
+        originator.setState("State4");
+ 
+        originator.restoreFromMemento(savedStates.get(1));  
+    }
+}
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="2-2-vaisseau">Vaisseau</a></h3>
+(code dans <a href="../../exemples/patterns/memento/vaisseau">exemples/patterns/memento/vaisseau</a>)
+<br>
+<br>Exemple similaire à l'exemple précédent avec quelques différences :
+<ul>
+    <li>Une partie de l'état du vaisseau n'est pas sauvegardé (<code>pourcentFuel</code>).</li>
+    <li>Le caretaker est séparé du code client.</li>
+</ul>
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-remarques">Remarques</a></h2>
+
+<ul class="spaced">
+    <li>
+        <i>Memento</i> permet de stocker une partie de l'état interne de l'originator sans enfreindre l'encapsulation ; isole les autres objets de la mécanique interne de l'originator.
+    </li>
+    <li>
+        Ce pattern permet de garder le code pour gérer le stockage et la restauration hors de l'originator, évitant de l'alourdir (<a href="../oop/solid.html">Single Responsability Principle</a>).
+    </li>
+    <li>
+        Attention, <i>Memento</i> peut coûter cher, si de grosses quantités d'information doivent être stockées dans le memento.
+        <br>Dans ce cas, il peut être possible de stocker dans le mémento non pas l'état de l'originator mais les <i>transformations qui permettent d'arriver à cet état</i>.
+    </li>
+    <li>
+        Le mémento doit fournir 2 types d'interfaces :
+        <br>- Une interface réduite pour le caretaker (typiquement un constructeur et <code>getSavedState()</code>).
+        <br>- Une interface plus large pour l'originator.
+        <br>Peut être difficile à réaliser pour certains langages ; se fait avec les classes internes en java ; avec la notion de <code>friend</code> en C++.
+    </li>
+    <li>
+        <a href="iterator.html">Iterator</a> peut utiliser un <i>Memento</i> pour capturer l'état d'une itération, en stockant le mémento en interne. 
+    </li>
+</ul>
+
+<!-- 
+Command and Memento act as magic tokens to be passed around and invoked at a later time.
+In Command, the token represents a request;
+in Memento, it represents the internal state of an object at a particular time.
+Polymorphism is important to Command, but not to Memento because its interface is so narrow that a memento can only be passed as a value.
+Command can use Memento to maintain the state required for an undo operation.
+-->
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

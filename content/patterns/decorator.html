@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Decorator | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Decorator et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="creational.html">&larr;</a>
+    <a class="next" title="Next" href="template-method.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>
+Decorator
+<div class="subtitle">(Décorateur)</div>
+</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-exemple">Exemple</a>
+        </li>
+        <li>
+            <a href="#2-structure">Structure</a>
+            <ul>
+                <li><a href="#2-1-illustration-possible">Illustration possible</a></li>
+                <li><a href="#2-2-diagramme-original-gof">Diagramme original (gof)</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#3-remarques">Remarques</a>
+            <ul>
+                <li><a href="#3-1-decorateurs-dans-java-io">Décorateurs dans java.io</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+<div class="intro">
+But : Pouvoir ajouter dynamiquement des fonctionnalités à un objet.
+<br>Fournit une alternative flexible au sous-classage.
+</div>
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-exemple">Exemple</a></h2>
+On a parfois besoin d'ajouter des fonctionnalités à des objets individuels, mais pas à une classe entière.
+<br>Par exemple, un framework pour faire des applications graphiques peut avoir besoin de rajouter des bordures ou du scrolling aux composants graphiques.
+<br>Hériter d'une bordure par héritage manque de souplesse car l'ajout d'une bordure se fait statiquement, et toutes les instances de la sous-classe auront une bordure ; le client ne peut pas choisir quel composant décorer.
+<br>
+<br>Une approche plus flexible consiste à inclure le composant dans un autre objet qui ajoute la bordure.
+<br>Cet autre objet s'appelle un <b>décorateur</b>.
+<br>Le décorateur se conforme à l'interface du composant qu'il décore, sa présence est donc transparente pour le client.
+<br>Le décorateur fait suivre sa requête au composant, en faisant des choses supplémentaires (avant ou après avoir fait suivre), comme dessiner une bordure.
+<br>Comme le processus est transparent, on peut imbriquer des appels à plusieurs décorateurs, ajoutant ainsi autant de fonctionnalités que l'on veut.
+
+<img class="border margin" src="img/decorator-text-example.jpg" alt="Exemple GOF de décorateur" />
+
+Diagramme objet qui montre comment composer un composant texte avec deux décorateurs :
+<img class="border margin" src="img/decorator-text-sequence.jpg" alt="Decorateur gof" />
+
+Diagramme de classe correspondant :
+<img class="border margin" src="img/decorator-text-diagram.jpg" alt="Decorateur gof" />
+
+Le plus important :
+<br>
+<div class="border inline-block bold padding05 margin-top">
+    <ul>
+        <li><code>TextView</code> et <code>Decorator</code> implémentent la même interface.</li>
+        <li>
+            <code>Decorator</code> contient une instance du composant à décorer (<code>TextView</code>),
+            <br>ainsi qu'un constructeur prenant cette instance en paramètre.
+        </li>
+    </ul>
+</div>
+
+<br>
+<br>Voir le code source de cet exemple dans <a href="../../exemples/patterns/decorator/ExempleGOF.java">ExempleGOF.java</a>.
+<br>
+<br>A l'exécution :
+<pre>java ExempleGOF</pre>
+<pre>
+=== c1 (pas de décoration) ===
+  TextView.draw()
+
+=== c2 (décoration par ScrollDecorator) ===
+  ScrollDecorator.addedBehaviour()
+  TextView.draw()
+
+=== c3 (décoration par BorderDecorator) ===
+  BorderDecorator.addedBehaviour()
+  TextView.draw()
+
+=== c4 (décoration par ScrollDecorator et BorderDecorator) ===
+  ScrollDecorator.addedBehaviour()
+  BorderDecorator.addedBehaviour()
+  TextView.draw()
+</pre>
+
+Noter qu'on fait :
+<pre>
+VisualComponent c = new BorderDecorator(new ScrollDecorator(new Textview()));
+</pre>
+Si on faisait le contraire :
+<pre>VisualComponent c = new ScrollDecorator(new BorderDecorator(new Textview()));</pre>
+on aurait le scrolling à l'extérieur de la bordure !
+
+<br>
+<br>Imaginez cet exemple implémenté avec des sous-classes ; pour permettre toutes les combinaisons, on aurait :
+<br>- une superclasse : <code>TextView</code>
+<br>- des sous-classes : <code>TextWithBorder</code>, <code>TexteWithScroll</code>, <code>TexteWithBorder</code>, <code>TexteWithScrollAndBorder</code>, <code>TextWithBorderAndScroll</code> ... 
+<br>Le patttern decorator évite cette multiplication de classes.
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-structure">Structure</a></h2>
+
+<h3><a name="2-1-illustration-possible">Illustration possible</a></h3>
+<table>
+    <tr>
+        <td class="vertical-align-top">
+            Un composant simple :
+<pre>
+Component a = new ConcreteComponent();
+a.operation();
+</pre>
+        </td>
+        <td>
+            <svg width="100" height="100" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+                <rect x="20" y="20" width="60" height="60" fill="gold" />
+            </svg>
+        </td>
+    </tr>
+    <tr>
+        <td class="vertical-align-top">
+            Un composant décoré :
+<pre>
+Component a = new ConcreteDecoratorA(
+                new ConcreteComponent());
+a.operation();
+</pre>
+        </td>
+        <td>
+            <svg width="100" height="100" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+                <rect x="10" y="10" width="80" height="80" fill="burlywood" />
+                <rect x="20" y="20" width="60" height="60" fill="gold" />
+            </svg>
+        </td>
+    </tr>
+    <tr>
+        <td class="vertical-align-top">
+            Un composant doublement décoré :
+<pre>
+Component a = new ConcreteDecoratorB(
+                new ConcreteDecoratorA(
+                    new ConcreteComponent()));
+a.operation();
+</pre>
+        </td>
+        <td>
+            <svg width="100" height="100" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+                <rect x="0" y="0" width="100" height="100" fill="darkgoldenrod" />
+                <rect x="10" y="10" width="80" height="80" fill="burlywood" />
+                <rect x="20" y="20" width="60" height="60" fill="gold" />
+            </svg>
+        </td>
+    </tr>
+</table>
+
+
+<h3><a name="2-2-diagramme-original-gof">Diagramme original (gof)</a></h3>
+
+<img class="border margin" src="img/decorator-structure.jpg" alt="Decorateur gof" />
+
+<ul>
+    <li><code>Component</code> : interface ou classe abstraite.</li>
+    <li><code>ConcreteComponent</code> implements ou extends <code>Component</code>.</li>
+    <li>
+        <code>Decorator</code> implements ou extends <code>Component</code> et contient une instance de <code>Component</code>.
+        <br>Cette instance est décorée.
+    </li>
+    <li><code>ConcreteDecoratorA</code>, <code>ConcreteDecoratorB</code> héritent de <code>Decorator</code>.</li>
+</ul>
+
+Traduction en java du diagramme gof dans <a href="../../exemples/patterns/decorator/DiagrammeGOF.java">DiagrammeGOF.java</a>.
+
+
+<div class="exo">
+<b>Exercice</b> : <a href="../../exos/patterns/decorator/html/HTML.html">Décorateur HTML</a>
+</div>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-remarques">Remarques</a></h2>
+
+<ul>
+    <li>
+        Permet aussi d'appliquer plusieurs fois la même décoration (par ex document avec 2 bordures).
+    </li>
+    <li>Le composant décoré ne sait même pas qu'il peut être décoré (transparence du pattern).</li>
+    <li>
+        Attention : Un composant non décoré et un composant décoré ne sont pas identiques (au sens <code>equals()</code>).
+        <br>Lorsqu'on utilise ce pattern, <b>on ne peut pas utiliser l'identité des composants</b>.
+    </li>
+</ul>
+
+
+<!-- ************************************* -->
+<h3><a name="3-1-decorateurs-dans-java-io">Décorateurs dans java.io</a></h3>
+L'API originale utilise largement Decorator (voir page <a href="../java/io.html">I / O</a>).
+<br>
+<br>Par exemple :
+<pre>
+try{
+    <b>LineNumberReader lnr = new LineNumberReader(new BufferedReader(new FileReader("test.txt")))</b>;
+    String curLine = "";
+    int lNum = 0;
+    while((curLine = lnr.readLine()) != null){
+         lNum =  lnr.getLineNumber();                 
+         System.out.println(lNum +"\t     "+ curLine);
+     }
+}
+catch (IOException e) {
+    e.printStackTrace();
+}
+</pre>
+(code dans <a href="../../exemples/java/io/LineNumberReaderExample.java">LineNumberReaderExample.java</a>)
+<br>
+<br>On a bien des décorateurs :
+<br>
+<svg width="400" height="140" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+    <rect x="0" y="0" width="300" height="140" fill="darkgoldenrod" />
+    <rect x="10" y="10" width="280" height="100" fill="burlywood" />
+    <rect x="20" y="20" width="260" height="60" fill="gold" />
+    <text x="40" y="55">FileReader</text> 
+    <text x="40" y="100">BufferedReader</text> 
+    <text x="40" y="130">LineNumberReader</text> 
+</svg>
+<br>
+<ul>
+    <li>
+        <code>FileReader</code> est le composant de base.
+        <br>Fournit une méthode <code>read()</code> pour lire des caractères.
+    </li>
+    <li>
+        <code>BufferedReader</code> décore un <code>Reader</code> :
+        <br>- en mettant les caractères dans un buffer pour pouvoir travailler dessus (gain de performance).
+        <br>- en fournissant notamment une méthode <code>readLine()</code>.
+    </li>
+    <li>
+        <code>LineNumberReader</code> décore un <code>Reader</code> en ajoutant notamment une méthode <code> getLineNumber()</code>.
+    </li>
+</ul>
+
+On a le diagramme de classe :
+
+<img class="border margin" src="img/decorator-io-example.jpg" alt="Decorateur exemple IO" />
+
+Comme <code>LineNumberReader</code> est déjà un <code>BufferedReader</code>, à la place de :
+<pre> LineNumberReader lnr = new LineNumberReader(new BufferedReader(new FileReader("test.txt")));</pre>
+on aurait pu faire :
+<pre> LineNumberReader lnr = new LineNumberReader(new FileReader("test.txt"));</pre>
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

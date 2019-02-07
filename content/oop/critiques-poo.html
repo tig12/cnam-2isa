@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Critiques POO | NFP121 Millau</title>
+    <meta name="description" content="Principes de la programmation orientée objet, principaux dangers de l'héritage.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+
+<body>
+
+
+<nav class="prevnext">
+    <a class="top" title="NFP121" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="solid.html">&larr;</a>
+    <a class="next" title="Next" href="../uml/uml.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Critiques de la POO</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-vocabulaire">Vocabulaire</a>
+        </li>
+        <li>
+            <a href="#2-critiques-de-la-poo">Critiques de la POO</a>
+        </li>
+        <li>
+            <a href="#3-composition-versus-inheritance">Composition Versus Inheritance</a>
+            <ul>
+                <li><a href="#3-1-interets-de-l-heritage">Intérets de l'héritage</a></li>
+                <li><a href="#3-2-problemes-de-l-heritage">Problèmes de l'héritage</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#4-delegation">Delegation</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-vocabulaire">Vocabulaire</a></h2>
+<ul>
+    <li><b>Tigh coupling</b> : couplage (dépendance) fort entre 2 parties différentes du code - considéré comme un écueil à éviter.</li>
+    <li><b>Loose coupling</b> : le contraire ; but souvent recherché.</li>
+</ul>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-critiques-de-la-poo">Critiques de la POO</a></h2>
+<cite class="margin margin-top0">
+Object-oriented approach poses problem when we want to write concurrent code. Concurrency does not mix well with object-oriented programming, because objects hide implementation, and hide exactly the wrong thing which make them not very composable. They hide mutation, changing their internal state without saying they do so. And they share data between them.
+<br>Mixing sharing and mutation has a name : data race.
+<br>We can use locks, but locks don't combine either.
+</cite>
+(<a href="https://www.youtube.com/playlist?list=PLbgaMIhjbmEnaH_LTkxLI7FMa2HsnawM_">Bartosz Milewski, Category Theory for programmers</a>)
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-composition-versus-inheritance">Composition Versus Inheritance</a></h2>
+
+<table class="wikitable margin">
+    <tr><th>Héritage</th><th>Composition</th></tr>
+    <tr>
+        <td>Relation "est un"</td>
+        <td>Relation "a un".<br>Utilise ce que font les objets, leur comportement.</td>
+    </tr>
+    <tr>
+        <td>
+            Permet de créer des classes à partir de classes existantes.
+            <br>Les sous-classes peuvent réutiliser les fonctionnalité des super-classes.
+        </td>
+        <td>
+            Permet de combiner des types pour former des types plus complexes.
+            <br>Une classe contient des références à des objets d'autres classes ;
+            <br>la classe peut utiliser ces objets pour proposer des fonctionnalités. 
+        </td>
+    </tr>
+    <tr>
+        <td>"White-box reuse" : les détails de la super-classe sont souvent visibles dans la sous-classe.</td>
+        <td>"Black-box reuse" : les détails internes des objets restent cachés.</td>
+    </tr>
+    <tr>
+        <td>Les types impliqués sont déterminés à la compilation</td>
+        <td>Les types impliqués sont déterminés à l'exécution</td>
+    </tr>
+</table>
+
+<br>Si l'héritage permet de réutiliser facilement du code, ses inconvénients sont suffisamment nombreux pour que la composition soit unanimement recommmandée.
+
+<!-- ************************************* -->
+<h3><a name="3-1-interets-de-l-heritage">Intérets de l'héritage</a></h3>
+L'héritage permet une réutilisation facile du code car une sous-classe bénéficie des méthodes de la super-classe qu'elle ne redéfinit pas.
+<br>Permet aussi une utilisation facile du polymorphisme d'inclusion.
+<br>Rappel :
+<pre>
+abstract class Animal {
+    abstract void parler();
+}
+
+class Chien extends Animal {
+    void parler() { System.out.println("Ouah"); }
+}
+
+class Chat extends Animal {
+    void parler() { System.out.println("Miaou"); }
+}
+</pre>
+On bénéficie de la liaison dynamique (dynamic binding), une variable du type de la super-classe peut contenir une référence à un objet de n'importe quelle sous-classe.
+<pre>Animal animal = new Chien();</pre>
+On peut même écrire du code générique s'appliquant à toutes les sous-classes :
+<pre>
+class Interrogateur {
+    static void faireParler(Animal a) {
+        a.talk();
+    }
+}
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="3-2-problemes-de-l-heritage">Problèmes de l'héritage</a></h3>
+
+<h4>Une fausse bonne idée ?</h4>
+L'héritage exprime des liens de manière rigide, ne s'adapte pas forcément aux évolutions du modèle :
+<br>Par exemple si on rajoute <code>class Crevette extends Animal</code>, la méthode <code>parler()</code> a-t-elle encore un sens ?
+
+<pre>
+class Crevette extends Animal {
+    void parler() { /* ??? */ }
+}
+</pre>
+
+Pouvait correspondre à l'époque des cycles de développement en cascade, en V ou en Y, mais pose plus de problèmes à l'heure des méthodes agiles.
+
+<h4>Encapsulation faible</h4>
+Une super-classe fournit souvent l'implémentation de certaines méthodes ; les sous-classes ont accès à certains détails de leur super-classe.
+<br>Des modifications dans la super-classe entraînent souvent des changements dans les sous-classes.
+<br>Exemple :
+<br>On utilise une API qui fournit une classe <code>X1</code> :
+<pre>
+class X1{    
+    public void doSomething(){ }    
+}
+</pre>
+
+On sous-classe <code>X1</code> en rajoutant une méthode <code>public void work()</code> :
+<pre>
+class Y1 extends X1{
+    public <b>void</b> work(){
+        doSomething();
+    }
+}
+</pre>
+
+<code>X1</code> évolue avec l'ajout de la méthode <code>int work()</code>, la sous-classe ne passe plus à la compilation :
+<pre>class X1{    
+    public void doSomething(){ }
+    public <b>int</b> work(){ return 2; }
+}
+</pre>
+<pre>error: work() in Y1 cannot override work() in X1
+return type void is not compatible with int
+</pre>
+
+La composition ne pose pas ce problème :
+<pre>
+class X2{
+    public void doSomething(){}
+    public int work(){ return 2; }
+}
+
+class Y2{
+    X2 x = new X2();
+    public void work(){
+        x.doSomething();
+    }
+}
+</pre>
+L'intrication entre le code des sous-classes et des super-classes mène à parler de <i>code fragile</i>.
+
+<h4>Bugs indirects</h4>
+<table>
+    <tr><th>Héritage</th><th>Composition</th></tr>
+    <tr>
+        <td class="vertical-align-top">
+Code de départ :
+<pre>
+class X1{
+    public <b>int</b> doSomething(){
+        return 3;
+    }    
+}
+
+class Y1 extends X1{}
+
+class Exemple1{
+    public static void main(String[] args){
+        Y1 y1 = new Y1();
+        int test = y1.doSomething();
+    }
+}
+</pre>
+        </td>
+        <td class="vertical-align-top">
+Code de départ :
+<pre>
+class X1{
+    public int doSomething(){
+        return 3;
+    }    
+}
+
+class Y1{
+    private X1 x1 = new X1();
+    public int doSomething(){
+        return x1.doSomething();
+    }
+}
+
+class Exemple3{
+    public static void main(String[] args){
+        Y1 y1 = new Y1();
+        int test = y1.doSomething();
+    }
+}
+</pre>
+    </tr>
+    <tr>
+        </td>
+        <td class="vertical-align-top">
+Code modifié :
+<pre>
+class X1{    
+    public <b>String</b> doSomething(){
+        return "doSomething";
+    }    
+}
+
+class Y1 extends X1{}
+
+class Exemple2{
+    public static void main(String[] args){
+        Y1 y1 = new Y1();
+        <b>int test = y1.doSomething();</b> // erreur de compilation
+    }
+}
+</pre>
+        </td>
+        <td class="vertical-align-top">
+Code modifié :
+<pre>
+class X1{
+    public String doSomething(){
+        return "doSomething";
+    }    
+}
+
+class Y1{
+    private X1 x1 = new X1();
+    public int doSomething(){
+        <b>return x1.doSomething();</b> // erreur de compilation
+    }
+}
+
+class Exemple4{
+    public static void main(String[] args){
+        Y1 y1 = new Y1();
+        int test = y1.doSomething();
+    }
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="vertical-align-top">
+            On modifie <code>X1</code>
+            <br>et le code de <code>Exemple2</code> ne compile plus 
+            <br>alors que <code>Exemple2</code> n'utilise pas <code>X1</code>
+        </td>
+        <td class="vertical-align-top">
+            On modifie <code>X1</code>
+            <br>et c'est le code de <code>Y1</code> qui ne compile plus.
+        </td>
+    </tr>
+</table>
+
+<br>(code de ces exemples dans <a href="../../exemples/java/composition">exemples/composition</a>, lire les fichiers README).
+
+<h4>Conclusion ?</h4>
+D'autres arguments plaident en faveur de la composition :
+<ul>
+    <li>
+        La composition implique d'écrire des classes plus petites, plus enclines à se concentrer sur une seule tâche. La programmation par héritage aboutit souvent à des grosses classes dont la maintenance peut devenir difficile.
+    </li>
+    <li>
+        Une hiérarchie d'héritage aboutit souvent à des structures rigides pouvant être remises en cause par des demandes d'évolution.
+        <br>Exemple sur <a href="https://www.youtube.com/watch?v=wfMtDGfHWpA">https://www.youtube.com/watch?v=wfMtDGfHWpA0</a>
+    </li>
+    <li>
+        La composition facilite l'écriture de tests unitaires.
+    </li>
+</ul>
+Cela mène à un conseil en POO :
+<div class="margin-top margin-left2 margin-bottom big20">Préférez la composition à l'héritage</div>
+Certains vont jusqu'à considérer que l'héritage est une erreur de design et qu'il ne faut jamais l'utiliser.
+<br>Au minimum, avant de décider d'utiliser l'héritage, il faut s'assurer qu'on a une relation "est-un", <i>et que cette relation sera valable durant toute la durée de vie de l'application</i>.
+
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-delegation">Delegation</a></h2>
+La délégation est une technique illustrant comment la composition peut remplacer l'héritage.
+<br>Lorsqu'un objet d'un certain type contient une référence à un objet secondaire, qui fait effectivement le travail.
+<br>Toutes les opérations dans l'objet principal sont forwardées à l'objet secondaire.
+<br>Utilisé par plusieurs patterns.
+<img class="margin margin-left2 padding05 border" src="img/delegation.jpg" alt="Exemple de délégation" />
+<br>
+<br>Exemple :
+<br>La classe <code>Pile&lt;T></code> présente <code>empiler()</code>, <code>depiler()</code> etc. comme interface publique.
+<br>En interne, utilise <code>java.util.Stack</code>
+<table>
+    <tr>
+        <td class="vertical-align-top">
+<pre>
+import java.util.Stack;
+public class Pile&lt;T>{
+    private Stack&lt;T> stk;
+    public Pile(){
+        stk = new Stack&lt;T>();
+    }
+    public void empiler(T t){
+        stk.push(t);
+    }
+    // ...
+}
+</pre>
+        </td>
+        <td class="vertical-align-top">
+<pre>
+public class Client{
+    public void main(String[] arg){
+        Pile&lt;Integer> p = new Pile&lt;Integer>();
+        p.empiler(4);
+    }
+}
+</pre>
+        </td>
+    </tr>
+</table>
+
+<code>Pile</code> délègue son travail à <code>Stack</code>.
+<br>Souple car on peut changer l'implémentation de <code>Pile</code> sans toucher au code client :
+
+<br><pre class="inline-block">
+import java.util.List;
+import java.util.LinkedList;
+public class Pile&lt;T>{
+    private List&lt;T> stk;
+    public Pile(){
+        stk = new LinkedList&lt;T>();
+    }
+    public void empiler(T t){
+        stk.addLast(t);
+    }
+}
+</pre>
+
+<br><code>Pile&lt;T></code> présente toujours la même interface publique.
+<br>En interne, utilise <code>java.util.LinkedList</code> ; <i>le code client reste inchangé.</i>
+<br>
+<br><i>Mais le client n'a pas le choix de l'implémentation de la liste</i>.
+<br>Pour remédier à ça, on peut par exemple conjuguer la délégation avec de l'injection par constructeur :
+<br><pre class="inline-block">
+import java.util.List;
+public class Pile&lt;T>{
+    private List&lt;T> stk;
+    <b>public Pile(List&lt;T> li)</b>{
+        stk = li;
+    }
+    public void empiler(T t){
+        stk.addLast(t);
+    }
+}
+</pre>
+
+
+<!-- ********************************************************************************* -->
+<!-- 
+<h2>Programmation par interface</h2>
+-->
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

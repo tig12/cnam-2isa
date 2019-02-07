@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Compte en banque 2 | NFP121</title>
+    <meta name="description" content="But : Utiliser l'héritage">
+    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+
+<header>
+<h1>Exercice : Compte en banque 2</h1>
+</header>
+
+<article>
+
+On dispose d'un programme gérant les comptes en banques décrits dans l'exercice <a href="CompteEnBanque2.html">Compte en banque 1</a> et on souhaite ajouter la notion de découvert maximum autorisé.
+<br>On veut que les opérations risquant de générer un découvert supérieur au découvert maximum génèrent une exception de type <code>DecouvertException</code>, et que le programme s'arrête, affichant un message du type :
+
+<pre>DecouvertException: Retrait de 500,00 impossible</pre>
+
+Essayez d'implémenter cela de deux manières :
+<ol class="spaced">
+    
+    <li>
+        En utilisant l'héritage : écrire une sous-classe de <code>Compte</code> : <code>CompteAvecDecouvert</code>, qui contient un champ supplémentaire : <code>decouvertMax</code>.
+        <br>Une fois un compte créé, ce champ ne doit pas pouvoir être modifié.
+        <br>Afin d'implémenter <code>CompteAvecDecouvert</code>, il est possible de modifier <code>Compte</code>.
+    </li>
+    
+    <li>
+        En utilisant la composition : <code>CompteAvecDecouvert</code> n'hérite pas de compte mais contient un compte.
+        <br>Si besoin, il est aussi possible de modifier la classe <code>Compte</code>.
+    </li>
+</ol>
+
+Pour les deux implémentations, utilisez la classe <code>TestCompteAvecDecouvert</code> fournie dans <a href="enonce/TestCompteAvecDecouvert.java">TestCompteAvecDecouvert.java</a>.
+<br>Son exécution donne :
+
+<pre>java TestCompteAvecDecouvert</pre>
+<pre>
+===== Etat initial =====
+Compte 1 - Découvert max 1000.0 - Solde: 0.0
+Compte 2 - Découvert max 4000.0 - Solde: 0.0
+===== c1.retirer(800.0) =====
+Compte 1 - Découvert max 1000.0 - Solde: -800.0
+===== c1.virerVers(500.0, c2) =====
+Retrait de 500,00 impossible sur Compte 1
+DecouvertException: Retrait de 500,00 impossible sur Compte 1
+	at CompteAvecDecouvert.retirer(CompteAvecDecouvert.java:15)
+	at CompteAvecDecouvert.virerVers(CompteAvecDecouvert.java:22)
+	at TestCompteAvecDecouvert.main(TestCompteAvecDecouvert.java:19)
+</pre>
+
+
+</article>
+
+</body>
+</html>
+

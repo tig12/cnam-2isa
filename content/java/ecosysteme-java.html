@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>L'écosystème de java | NFP121 Millau</title>
+    <meta name="description" content="Bref historique de l'évolution de java, caractéristiques du langages et principales pages internet.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="next" title="Next" href="hello-world.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>L'écosystème de java</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-acronymes-utiles">Acronymes utiles</a>
+        </li>
+        <li>
+            <a href="#2-design-goals-of-the-java-programming-language">Design Goals of the Java Programming Language</a>
+        </li>
+        <li>
+            <a href="#3-liens-incontournables">Liens incontournables</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+Développé par Sun Microsystem, équipe dirigée par James Gosling (qui a quitté Oracle en 2010).
+<br>Java 1.0 a été publié en 1996.
+<br>En 2007, Sun publie le JDK en logiciel libre (open JDK) ; autres implémentations 100% libre. 
+<br>Sun Microsystem (et donc java) devient la propriété d'Oracle en 2009.
+<br>
+<br>Java a beaucoup évolué depuis 1996.
+<pre class="normal">
+JDK Beta	1994
+JDK 1.0	        1996    212 classes
+JDK 1.1	        1997    504 classes
+J2SE 1.2	1998   1500 classes
+J2SE 1.3	2000   1850 classes
+J2SE 1.4	2002   2723 classes
+J2SE 5.0	2004   3279 classes
+Java SE 6	2006   3793 classes
+Java SE 7	2011   4024 classes
+Java SE 8	2014   4240 classes
+Java SE 9       2017   6005 classes
+Java SE 10      2018   6002 classes
+</pre>
+<!--
+grep '<li><a href' All\ Classes\ \(Java\ SE\ 11\ \&\ JDK\ 11\ \).html | wc -l
+Java SE 11     2018    4410 classes
+-->
+
+Les étapes importantes de cette évolution ont été java 2, java 5 et java 8.
+<br>
+<br>Après la publication de java 9, Sun a annoncé une version majeure tous les 6 mois ; java 10 est la première version respectant ce cycle.
+<br>Les versions LTS (long term support) actuelles sont java 8 (support jusqu'en mars 2022) et java 11 (support jusqu'en septembre 2013).
+<br>Plus de précisions <a href="https://www.oracle.com/technetwork/java/eol-135779.html">sur le site d'Oracle</a>.
+
+<!-- ************************************* -->
+<h2><a name="1-acronymes-utiles">Acronymes utiles</a></h2>
+<ul class="naked">
+    <li><b>JVM - Java Virtual Machine</b> :  appareil informatique fictif qui exécute des programmes compilés sous forme de bytecode Java</li>
+    <li><b>JDK - Java Development Kit</b> : ensemble de bibliothèques logicielles de base ainsi que les outils avec lesquels le code Java peut être compilé, transformé en bytecode destiné à la machine virtuelle Java (JVM)</li>
+    <li><b>JRE - Java Runtime Environment</b> : ensembles d'outils déployés sur les postes clients, nécessaires pour éxecuter des programmes java.</li>
+    <li><b>JSE (anciennement J2SE) - Java Standard Edition</b> : version standard du JDK</li>
+    <li><b>JEE (anciennement J2RE) - Java Entreprise Edition</b> : version entreprise du JDK (= JSE + fonctionnalités)</li>
+    <li><b>JME - Java Micro Edition</b> : JDK pour mobiles</li>
+    <li><b>JCP - Java Community Process</b></li>
+    <li><b>JLS - Java Language Specification</b></li>
+    <li><b>jar</b> - java archive : format pour distribuer des exécutables java.</li>
+</ul>
+
+<!-- ************************************* -->
+<h2><a name="2-design-goals-of-the-java-programming-language">Design Goals of the Java Programming Language</a></h2>
+(voir <a href="http://www.oracle.com/technetwork/java/intro-141325.html">http://www.oracle.com/technetwork/java/intro-141325.html</a>)
+
+<h4>It must be "simple, object-oriented, and familiar"</h4>
+Syntaxe inspirée de C et C++, pas de pointeurs, facile à apprendre, langage purement objet (enfin presque...).
+
+<h4>It must be "robust and secure"</h4>
+Langage compilé, ramasse miettes (garbage collector), fortement typé, gestion des exceptions, vérifications à la compilation et à l'exécution.
+
+<h4>It must be "architecture-neutral and portable"</h4>
+<img class="border" src="img/java-portabilite.jpg" alt="architecture-neutral and portable" />
+
+<h4>It must execute with "high performance"</h4>
+
+<h4>It must be "interpreted, threaded, and dynamic"</h4>
+
+
+<!-- ************************************* -->
+<h2><a name="3-liens-incontournables">Liens incontournables</a></h2>
+
+Java developer homepage : <a href="http://www.oracle.com/technetwork/java/index.html">http://www.oracle.com/technetwork/java/index.html</a>
+<br>Java tutorials : 
+<br><a href="https://docs.oracle.com/javase/tutorial/tutorialLearningPaths.html">https://docs.oracle.com/javase/tutorial/tutorialLearningPaths.html</a>
+<br><a href="http://docs.oracle.com/javase">http://docs.oracle.com/javase</a>
+<br>
+<br>Et surtout la documentation de référence (API doc) :
+<div class="big2 margin">
+<a href="https://docs.oracle.com/en/java/javase/11/docs/api/index.html">https://docs.oracle.com/en/java/javase/11/docs/api/index.html</a>
+</div>
+
+Depuis java 9, le JDK a été découpé en <i>modules</i> ; on utilisera surtout le module <code>java.base</code> :
+<div class="big2 margin">
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/module-summary.html">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/module-summary.html</a>.
+</div>
+
+Deux autres sources importantes d'information : Java Language Specification (<b>JLS</b>) et Java Virtual Machine Specification, documents de référence lorsqu'on a besoin de documentation détaillée :
+<br><a href="https://docs.oracle.com/javase/specs/">https://docs.oracle.com/javase/specs/</a>.
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>

@@ -1,0 +1,401 @@
+<html>
+<body>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <div id="container">
+        <div id="header">
+            <div id="header_toprow">
+                Conservatoire national des arts et m�tiers
+            </div>
+            <div id="header_title">
+                NFP121 : Programmation avanc�e<br />
+                TP n� 4 - pattern Observer / �v�nements / mod�le MVC
+            </div>
+        </div>
+        <div id="content">
+
+            <div class="paragraphe">
+                <br />
+                Lecture pr�alable :
+                <ul>
+                    <li>Pattern <a href="http://www.eli.sdsu.edu/courses/spring01/cs635/notes/observer/observer.html" target="_blank">Observateur</a></li>
+                    <li>Mod�le <a href="http://csis.pace.edu/~bergin/mvc/mvcgui.html" target="_blank">MVC</a></li>
+                </ul>
+                <br />
+            </div>
+            <hr />
+            <div class="question">
+                <img src="images/question1.png" width="101" height="80" />
+                <span>Pattern Observateur/Observ�</span>
+            </div>
+            <div class="paragraphe">
+                Soit le Pattern Observateur en notation UML selon LA r�f�rence en pattern : <i>"Design Patterns Elements of Reusable Object-Oriented Software" , Erich Gamma, Richard Helm, Ralph Johnson and John Vlissides (GOF) , ed. Addison-Wesley, 1995. (existe en fran�ais)</i>
+            </div>
+            <p align="center">
+                <img class="win_screenshot" src="images/observer1.png" width="647" height="275" />
+            </p>
+            <div class="paragraphe">
+                En Java, le paquetage <b>java.util</b> impl�mente ce Pattern.<br />
+                <br />
+                Il propose la classe <a href="http://docs.oracle.com/javase/7/docs/api/index.html?java/util/Observable.html" target="_blank">Observable</a> pour "Subject" du diagramme ci dessus et l'interface <a href="http://docs.oracle.com/javase/7/docs/api/index.html?java/util/Observer.html" target="_blank">Observer</a> (m�me nom dans le diagramme ci dessus) (lire leur javadoc dans la documentation JAVA).<br />
+                <br />
+                <b>Les participants</b><br />
+                <ul>
+                    <li>L'observ� : la classe <b>Subject</b> ou  <b>java.util.Observable</b></li>
+                    <li>L'observateur  : ici l'interface <b>Observer</b> ou  <b>java.util.Observer</b></li>
+                    <li>L'observ� concret : la classe <b>ConcreteSubject</b> qui h�rite de <b>Observable</b></li>
+                    <li>L'observateur concret :la classe <b>ConcreteObserver</b> , qui impl�mente l'interface <b>Observer</b>, et qui utilise une r�f�rence du sujet <b>ConcreteSubject</b> qu'il observe et r�agit � chaque mise � jour</li>
+                </ul>
+                <br />
+                <b>Premier exemple d'implantation de ce pattern en Java.</b><br />
+                <br />
+                <b>Classes retenues et propos�e dans le paquetage "question1" :</b><br />
+
+                <ul>
+                    <li>La classe <b>ConcreteSubject</b> h�rite de <b>java.util.Observable</b> (l'observ�) et g�re une liste de chaines (String), chaque modification de cette liste - introduction d'une nouvelle cha�ne - (cf. m�thode insert) engendre une notification aux observateurs en  passant la nouvelle cha�ne en param�tre...</li>
+                    <li>La classe <b>ConcreteObserver</b> (observateur) � chaque notification, affiche cette nouvelle cha�ne et m�morise l'origine des notifications (attribut "senders") et les param�tres transmis (attribut "parameters").</li>
+                    <li>La m�morisation du notifiant et du param�tre transmis utilise deux piles (java.util.Stack<t>), <b>senders</b> et <b>arguments</b>, accessibles de l'"ext�rieur" par les m�thodes <b>"public Stack<Observable> senders(){...}"</b> et <b>"public Stack<Observable> parameters(){...}"</b></li>
+                </ul>
+                <br />
+                Pour cette premi�re question, nous souhaitons d�velopper une classe de tests afin de "v�rifier" le fonctionnement de l'implantation de ce Pattern,<br />
+                <br />
+                Quelques exemples de "validation", d'assertions<br />
+                <ul>
+                    <li>V�rifier que lors d'une notification, <b>TOUS</b> les observateurs ont bien �t� inform�s,</li>
+                    <li>V�rifier que les arguments ont bien �t� <b>transmis</b></li>
+                    <li>V�rifier que le <b>notifiant est le bon</b> ...etc ...</li>
+                </ul>
+                <br />
+                Extrait du code de v�rification : classe <b>"PatternObservateur"</b><br />
+            </div>
+
+            <div class="codesource">
+                <code>
+                    <font color="#7f0055"><b>public&nbsp;class&nbsp;</b></font><font color="#000000">PatternObservateur&nbsp;</font><font color="#7f0055"><b>extends&nbsp;</b></font><font color="#000000">junit.framework.TestCase&nbsp;</font><font color="#000000">{</font>
+                    <br />
+                    <font color="#ffffff"></font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">testNotify</font><font color="#000000">()&nbsp;{</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ConcreteSubject&nbsp;list;</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ConcreteObserver&nbsp;observer;</font>
+                    <br />
+                    <font color="#ffffff"></font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">list&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">ConcreteSubject</font><font color="#000000">()</font><font color="#000000">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;cr&eacute;ation&nbsp;d'un&nbsp;&#34;observ&eacute;&#34;&nbsp;constitu&eacute;&nbsp;d'une&nbsp;liste</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">observer&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">ConcreteObserver</font><font color="#000000">()</font><font color="#000000">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;cr&eacute;ation&nbsp;d'un&nbsp;observateur</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">list.addObserver</font><font color="#000000">(</font><font color="#000000">observer</font><font color="#000000">)</font><font color="#000000">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;ajouter&nbsp;cet&nbsp;observateur&nbsp;&agrave;&nbsp;la&nbsp;liste</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">list.insert</font><font color="#000000">(</font><font color="#2a00ff">&#34;il&nbsp;fait&nbsp;beau,&nbsp;ce&nbsp;matin&#34;</font><font color="#000000">)</font><font color="#000000">;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;modification&nbsp;de&nbsp;cette&nbsp;liste,&nbsp;l'observateur&nbsp;doit</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;(dervrait)&nbsp;&ecirc;tre&nbsp;notifi&eacute;</font>
+                    <br />
+                    <font color="#ffffff"></font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;&#34;v&eacute;rification&#34;&nbsp;:</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">assertFalse</font><font color="#000000">(</font><font color="#000000">observer.senders</font><font color="#000000">()</font><font color="#000000">.empty</font><font color="#000000">())</font><font color="#000000">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;elle&nbsp;ne&nbsp;doit&nbsp;pas&nbsp;&ecirc;tre&nbsp;vide,</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">assertEquals</font><font color="#000000">(</font><font color="#000000">list,&nbsp;observer.senders</font><font color="#000000">()</font><font color="#000000">.pop</font><font color="#000000">())</font><font color="#000000">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;est-ce&nbsp;le&nbsp;bon&nbsp;&eacute;metteur&nbsp;?</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">assertEquals</font><font color="#000000">(</font><font color="#2a00ff">&#34;il&nbsp;fait&nbsp;beau,&nbsp;ce&nbsp;matin&#34;</font><font color="#000000">,&nbsp;observer.arguments</font><font color="#000000">()</font><font color="#000000">.pop</font><font color="#000000">())</font><font color="#000000">;&nbsp;</font><font color="#3f7f5f">//&nbsp;le&nbsp;param&egrave;tre&nbsp;re&ccedil;u&nbsp;est-il&nbsp;correct&nbsp;?</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//...</font>
+                </code>
+            </div>
+            <br />
+            <div class="paragraphe">
+                Un exemple de test avec BlueJ: v�rification qu'un observateur est bien notifi� avec le param�tre bien re�u.<br />
+                <br />
+                <b>Compl�tez les 3 m�thodes de test de la classe "PatternObservateur".</b>
+            </div>
+            <p align="center">
+                <img class="win_screenshot" src="images/bluej1.png" width="680" height="587" />
+            </p>
+            <hr />
+
+            <div class="question">
+                <img src="images/question2_1.png" width="111" height="80" />
+                <span>Introduction aux �v�nements de l'AWT</span>
+            </div>
+            <div class="paragraphe">
+                <b>(paquetage java.awt.event, �v�nements engendr�s par une instance de la classe javax.swing.JButton)</b><br />
+                <br />
+                <i>En java, les api AWT ou SWING utilise le pattern Observateur pour la gestion des �v�nements, seuls les noms des m�thodes diff�rent. Les notifications sont ici engendr�es par un changement d'�tat de l'interface graphique : un clic sur un bouton, un d�placement de souris, etc...</i><br />
+                <br />
+                Exemple :
+                <ul>
+                    <li>La classe <b>Observable</b> "<i>est remplac�e par</i>" la classe <b>javax.swing.JButton</b></li>
+                    <li>La m�thode <b>addObserver(Observer o)</b>  "<i>correspond �</i>" <b>addActionListener(ActionListener l)</b></li>
+                    <li>La m�thode <b>notifyObservers(Object arg)</b>   "<i>est remplac�e par</i>" <b>actionPerformed(ActionEvent ae)</b></li>
+                    <li>L'interface <b>Observer</b> "<i>est remplac�e par</i>" l'interface <b>java.awt.event.ActionListener</b></li>
+                </ul>
+                <b>A chaque clic, un ou plusieurs observateurs sont r�veill�s :</b>
+                    <ul>
+                        <li>Le bouton A a 3 observateurs (jbo1, jbo2 et jbo3)</li>
+                        <li>
+                        <img border="0" src="images/tp4.ht1.jpg" width="578" height="240"></li>
+                    </ul>
+                <p>&nbsp;</p>
+                    <ul>
+                        <li>Le bouton B a 2 observateurs (jbo1 et jbo2)</li>
+                        <li>
+                        <img border="0" src="images/tp4.ht2.jpg" width="586" height="239"></li>
+                    </ul>
+                <p>&nbsp;</p>
+                    <ul>
+                        <li>Le bouton C a 1 observateur (jbo1)</li>
+                        <li>
+                        <img border="0" src="images/tp4.ht14.jpg" width="586" height="239"></li>
+                    </ul>
+                <br />
+                <b>Compl�ter les classes IHMQuestion2_1 et JButtonObserver afin d'obtenir les 
+                m�mes copies �cran</b><p align="center">
+                    &nbsp;</p>
+            </div>
+            <hr />
+            <div class="question">
+                <img src="images/question2_2.png" width="111" height="80" />
+                <span>La classe JMouseObserver</span>
+            </div>
+            &nbsp;<div class="paragraphe">
+                Cette fois :
+                <br />
+                <ul>
+                    <li>La m�thode <b>addObserver</b> est remplac�e par <b>java.awt.event.addMouseListener</b>.</li>
+                    <li>La m�thode  <b>notifyObservers()</b> est remplac�e par <b>mouseXXXXX(MouseEvent ae)</b>.</li>
+                    <li>L'interface <b>Observer</b> est remplac�e par l'interface <b>java.awt.event.MouseListener</b>.</li>
+                </ul>
+                <p>
+                <b>A chaque d�placement de la souris vers&nbsp; l'un des boutons, un observateur 
+                est r�veill� :</b> </p>
+                <p>&nbsp;</p>
+                    <ul>
+                        <li>Le bouton A a 4 observateurs (jmo1) et (jbo1, jbo2 
+                        et jbo3), ici la souris est entr�e sur le bouton A</li>
+                        <li>
+                        <img border="0" src="images/tp4.ht15.jpg" width="559" height="204"></li>
+                        <li>la souris est entr�e et un clic a eu lieu sur le 
+                        bouton A(cf. question2_1)</li>
+                        <li>
+                        <img border="0" src="images/tp4.ht16.jpg" width="559" height="204"></li>
+                    </ul>
+                <p>&nbsp;</p>
+                    <ul>
+                        <li>D�placement vers le&nbsp; bouton B avec un clic</li>
+                        <li>
+                        <img border="0" src="images/tp4.ht17.jpg" width="537" height="224"></li>
+                    </ul>
+                <p>&nbsp;</p>
+                    <ul>
+                        <li>d�placement vers le bouton C avec un clic</li>
+                        <li>
+                        <img border="0" src="images/tp4.ht18.jpg" width="537" height="224"></li>
+                    </ul>
+                <p>&nbsp;</p>
+                <p>
+                <b>Compl�ter les classes IHMQuestion2_2 et JMouseObserver afin d'obtenir les 
+                m�mes copies �cran</b></p>
+                <br />
+                <br />
+                <br />
+            </div>
+            <p align="center">
+                &nbsp;</p>
+            <hr />
+
+            <div class="question">
+                <img src="images/question3_1.png" width="111" height="80" />
+                <span>Le mod�le MVC</span>
+            </div>
+            <p align="center">
+                <img class="win_screenshot" src="images/mvc.png" width="582" height="417" /><br />
+                source : <a href="http://www.oracle.com/technetwork/java/mvc-detailed-136062.html" target="_blank">Java BluePrints Model-View-Controller</a><br />
+
+            </p>
+            <div class="paragraphe">
+                <br />
+                Selon le "pattern MVC" (Mod�le-Vue-Contr�leur)
+                <ul>
+                    <li>Le Mod�le contient la logique et l'�tat de l'application, il pr�vient ses observateurs lors d'un changement d'�tat.</li>
+                    <li>La Vue repr�sente l'interface utilisateur.</li>
+                    <li>Le Contr�leur assure la synchronisation entre la vue et le mod�le.</li>
+                </ul>
+                <b>D�veloppez une application de type calculette � pile, selon le paradigme MVC</b><br />
+                <br />
+                L'�valuation d'une expression arithm�tique peut �tre r�alis�e par l'usage d'une pile d'entiers<br />
+                <br />
+                Par exemple l'expression 3 + 2 engendre la s�quence :<br />
+            </div>
+
+            <div class="codesource">
+                <code>
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">empiler</font><font color="#000000">(</font><font color="#990000">3</font><font color="#000000">)</font><font color="#000000">;</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">empiler</font><font color="#000000">(</font><font color="#990000">2</font><font color="#000000">)</font><font color="#000000">;</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">empiler</font><font color="#000000">(</font><font color="#000000">depiler</font><font color="#000000">()&nbsp;</font><font color="#000000">+&nbsp;depiler</font><font color="#000000">())</font><font color="#000000">;</font>
+                </code>
+            </div>
+            <div class="paragraphe">
+                de m�me que l'expression 3 + 2 * 5 correspond � la s�quence :
+            </div>
+            <div class="codesource">
+                <code>
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">empiler</font><font color="#000000">(</font><font color="#990000">3</font><font color="#000000">)</font><font color="#000000">;</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">empiler</font><font color="#000000">(</font><font color="#990000">2</font><font color="#000000">)</font><font color="#000000">;</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">empiler</font><font color="#000000">(</font><font color="#990000">5</font><font color="#000000">)</font><font color="#000000">;</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">empiler</font><font color="#000000">(</font><font color="#000000">depiler</font><font color="#000000">()</font><font color="#000000"> * depiler</font><font color="#000000">())</font><font color="#000000">;</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">empiler</font><font color="#000000">(</font><font color="#000000">depiler</font><font color="#000000">()</font><font color="#000000"> + depiler</font><font color="#000000">())</font><font color="#000000">;</font>
+                </code>
+            </div>
+
+            <div class="paragraphe">
+                L'architecture logicielle induite par l'usage du paradigme MVC nous donne<br />
+                <br />
+
+                <ul>
+                    <li>Le Mod�le est une pile (classe <b>PileModele&lt;T&gt;</b>).<br />
+                        <i>&nbsp;&nbsp;&nbsp;Le Mod�le lors d'un changement d'�tat pr�vient ses observateurs.</i>
+                    </li>
+                    <br />
+                    <li>La Vue correspond � l'affichage de l'�tat de la pile (classe <b>Vue</b>).<br />
+                        <i>&nbsp;&nbsp;&nbsp;La vue s'inscrit aupr�s du Mod�le lors de l'appel du constructeur d'une Vue, � chaque notification, la vue s'enquiert de l'�tat du mod�le et l'affiche.</i>
+                    </li>
+                    <br />
+                    <li>Le Contr�leur g�re les �v�nements issus des boutons +, -, *, /,[] (classe <b>Controleur</b>).<br />
+                        <i>&nbsp;&nbsp;&nbsp;Le contr�leur g�re localement les �couteur(Listener) des boutons de l'IHM, notons que la gestion des boutons utilise une architecture MVC.</i>
+                    </li>
+                    <br />
+                    <li>L'IHM cr�e, assemble le mod�le, la vue et le contr�le (classe
+                    <b>IHMCalculette</b>).</li>
+                </ul>
+            </div>
+            <p align="center">
+                <img border="0" src="images/tp4.ht19.jpg" width="547" height="342">
+            </p>
+            <div class="paragraphe">
+                Une des impl�mentations des piles issue du tp3, est install�e dans le package tp3, proposer l'impl�mentation des classes PileModele<t> et Contr�leur.<br />
+                <br />
+                Selon "MVC" la classe <b>PileModele&lt;T&gt;</b> h�rite de la classe Observable et impl�mente PileI<T>, � chaque changement d'�tat, modification de la pile les observateurs inscrits seront notifi�s.<br />
+                <br />
+                La pile du tp3, sans modification, est utilis�e, seules certaines m�thodes seront red�finies, enrichies, d�cor�es...<br />
+                <br />
+                La classe <b>Controleur</b> impl�mente les actions, �v�nements engendr�s par l'utilisateur, � chaque op�ration souhait�e le contr�leur alt�re les donn�es du mod�le de la pile, celle-ci � chaque occurrence d'un changement d'�tat pr�vient ses observateurs, la vue en est un.<br />
+                <br />
+                <br />
+                Une AppletteCalculette au comportement souhait� devrait �tre 
+                ci-dessous :<p><br />
+                <br />
+            </div>
+                <p align="left">
+            <applet code="question3/AppletteVue.class" codebase="./" align="baseline" width="300" height="90" archive="applettes.jar"></applet>
+                </p>
+                <p align="left"><b><font size="4">Aucune interface ? ex�cutez 
+                cette commande &gt;appletviewer http://jfod.cnam.fr/progAvancee/tp4/tp4.html</font></b></p>
+            <div class="paragraphe">
+                Notez qu'un mauvais format de nombre ou une division par z�ro n'ont aucune incidence.<br />
+                <h2>Soumettez cette question � JNEWS avant de poursuivre.</h2>
+            </div>
+            <hr />
+
+            <div class="question">
+                <img src="images/question3_2.png" width="112" height="80" />
+                <span>Critiquez cette proposition d'architecture</span>
+            </div>
+
+            <div class="paragraphe">
+                Par exemple<br />
+                <ul>
+                    <li>Le mod�le pourrait �tre la calculette constitu�e pour ses calculs internes d'une pile,</li>
+                    <li>Pourquoi les "listeners" des boutons sont-ils locaux au contr�leur ?</li>
+                    <li>Ce choix de d�coupage MVC vous parait-il r�aliste ?</li>
+                    <li>...</li>
+                </ul>
+                <br />
+                Proposer votre architecture MVC , un sch�ma de type diagramme UML, les interfaces java et votre proposition en quelques lignes sur votre rapport suffiront.
+            </div>
+            <br />
+            <hr />
+            <div class="question">
+                <img src="images/question3_3.png" width="112" height="80" />
+                <span>Postliminaire ou modification de l'application respectant le principe "MVC"</span>
+            </div>
+
+            <div class="paragraphe">
+                Ajouter cette nouvelle Vue au mod�le, v�rifiez que seule la classe 
+                IHMCalculette est concern�e par cet ajout, et que les modifications du source sont mineures.
+            </div>
+
+            <div class="codesource">
+                <code>
+                    <font color="#7f0055"><b>public&nbsp;class&nbsp;</b></font><font color="#000000">Vue2&nbsp;</font><font color="#7f0055"><b>extends&nbsp;</b></font><font color="#000000">JPanel&nbsp;</font><font color="#7f0055"><b>implements&nbsp;</b></font><font color="#000000">Observer&nbsp;</font><font color="#000000">{</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">JSlider&nbsp;jauge;</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">PileModele&lt;Integer&gt;&nbsp;pile;</font>
+                    <br />
+                    <font color="#ffffff"></font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">Vue2</font><font color="#000000">(</font><font color="#000000">PileModele&lt;Integer&gt;&nbsp;pile</font><font color="#000000">)&nbsp;{</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>super</b></font><font color="#000000">()</font><font color="#000000">;</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>this</b></font><font color="#000000">.pile&nbsp;=&nbsp;pile;</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>this</b></font><font color="#000000">.jauge&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">JSlider</font><font color="#000000">(</font><font color="#000000">JSlider.HORIZONTAL,&nbsp;</font><font color="#990000">0</font><font color="#000000">,&nbsp;pile.capacite</font><font color="#000000">()</font><font color="#000000">,&nbsp;</font><font color="#990000">0</font><font color="#000000">)</font><font color="#000000">;</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>this</b></font><font color="#000000">.jauge.setValue</font><font color="#000000">(</font><font color="#990000">0</font><font color="#000000">)</font><font color="#000000">;</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">setLayout</font><font color="#000000">(</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">FlowLayout</font><font color="#000000">(</font><font color="#000000">FlowLayout.CENTER</font><font color="#000000">))</font><font color="#000000">;</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>this</b></font><font color="#000000">.jauge.setEnabled</font><font color="#000000">(</font><font color="#7f0055"><b>false</b></font><font color="#000000">)</font><font color="#000000">;</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">add</font><font color="#000000">(</font><font color="#7f0055"><b>this</b></font><font color="#000000">.jauge</font><font color="#000000">)</font><font color="#000000">;</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">setBackground</font><font color="#000000">(</font><font color="#000000">Color.magenta</font><font color="#000000">)</font><font color="#000000">;</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">pile.addObserver</font><font color="#000000">(</font><font color="#7f0055"><b>this</b></font><font color="#000000">)</font><font color="#000000">;</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font>
+                    <br />
+                    <font color="#ffffff"></font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">update</font><font color="#000000">(</font><font color="#000000">Observable&nbsp;obs,&nbsp;Object&nbsp;arg</font><font color="#000000">)&nbsp;{</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">jauge.setValue</font><font color="#000000">(</font><font color="#000000">pile.taille</font><font color="#000000">())</font><font color="#000000">;</font>
+                    <br />
+                    <font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font>
+                    <br />
+                    <font color="#ffffff"></font>
+                    <br />
+                    <font color="#000000">}</font>
+                </code>
+            </div>
+            <div class="paragraphe">
+                <h2>Cette modification n'est pas � soumettre � JNEWS. <br>
+                <span style="font-weight: 400"><font size="3">(Ce n'est pas l'IHM 
+                attendu, et cela engendrerait des erreurs...)</font></span><br />
+                    Une copie d'�cran sur votre rapport suffira.</h2>
+            </div>
+        </div>
+
+    </div>
+    <div id="footer">
+        <a class="lien" href="http://jfod.cnam.fr/" target="_blank">JFOD</a> | <a class="lien" href="http://deptmedia.cnam.fr/phpBB2/viewforum.php?f=40" target="_blank">FORUM</a> | <a class="lien" href="http://www.cnam.fr/" target="_blank">CNAM</a>
+    </div>
+    </div>
+</article>
+
+</body>
+</html>

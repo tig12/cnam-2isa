@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Java en ligne de commande | NFP121 Millau</title>
+    <meta name="description" content="Utilisation de bash en mode console sous Windows (depuis Windows 10).">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <meta name="description" content="Sous Windows, comment faire du java sous bash">
+    <meta name="keywords" content="CNAM Millau, 2ISA">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="TPs NFP121" href="../index.html">&nbsp;</a>
+</nav>
+
+<!-- 
+Ressources
+
+Récupérer une images w10 pour virtual box : 
+https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/
+Mot de passe : Passw0rd!
+(attention en qwerty au début)
+
+Installer Linux sous Windows
+https://blogs.msdn.microsoft.com/commandline/2017/06/08/developer-mode-no-longer-required-for-windows-subsystem-for-linux/
+
+pipe example : AT&T Archives: The UNIX Operating System
+https://www.youtube.com/watch?v=tc4ROCJYbm0  7'40"
+makewords sentence | lowercase | sort | unique | mismatch
+-->
+
+<header>
+<h1>Java sous Bash dans Windows 10</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-utilisation">Utilisation</a>
+            <ul>
+                <li><a href="#1-1-preparatifs-supplementaires">Préparatifs supplémentaires</a></li>
+                <li><a href="#1-2-tp3">TP3</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+</header>
+
+<article>
+
+Windows10 intègre la possibilité d'installer ubuntu en ligne de commande, ce qui permet de compiler et exécuter du java sous bash (interpréteur, équivalent de dos).
+<br>Restriction : les programmes utilisant le serveur graphique (comme appletviewer) ne peuvent pas s'exécuter de cette manière.
+
+<!-- ************************************* -->
+<h3>Installer Linux sous Windows</h3>
+<ul>
+    <li>
+        Dans l'application "Information système", partie "Résumé système", regardez la valeur de "Version".
+        <br>La version doit être supérieure à 14393.
+        <br>Si cette version est inférieure à 16215, il faut aller dans "Paramètres système", "Pour les développeurs" et cocher "Mode développeur"
+        <br>(étape inutile pour les versions supérieures).
+    </li>
+    <li>
+        <b>Activer Linux sous Windows 10</b> : dans le panneau de configuration, allez sur "activer ou désactiver des fonctionnalités Windows",
+        <br>et cochez "Sous-système Windows pour Linux".
+    </li>
+    <li>
+        <b>Installer Ubuntu</b> : sous dos (cmd), faire : <code>lxrun /install</code>.
+        <br>A la fin, un nom d'utilisateur et un mot de passe vous seront demandés.
+        <br>ce sera votre login / mot de passe pour linux.
+    </li>
+    <li>Quittez cmd</li>
+    <li>
+        Ouvrez l'application "Bash on Ubuntu on Windows"
+    </li>
+</ul>
+Vous êtes maintenant dans un terminal Linux, vous pouvez taper des commandes <b>bash</b>.
+<br>Les fichiers que vous créez sous Linux sont accessibles aussi depuis Windows.
+<br>Sur mon poste, ils se trouvent dans <code>C:\Users\IEUser\AppData\Local\lxss\home\thierry</code>
+<br>(<code>IEUser</code> est mon user windows et <code>thierry</code> mon user linux).
+<br>
+<br>Pour tester à quel endroit de votre ordinateur se trouvent les fichiers linux :
+<ul>
+    <li>Sous la console linux, créez un fichier vide : <code>touch nfp121.java</code></li>
+    <li>
+        Par l'explorateur de fichier windows, recherchez <code>nfp121.java</code> et identifiez le dossier qui le contient.
+        <br>Ce dossier sera désormais appelé votre <b>répertoire home linux</b>.
+    </li>
+    <li>Supprimez le fichier de test : <code>rm nfp121.java</code> (rm = remove)</li>
+</ul>
+
+
+<!-- ************************************* -->
+<h3>Préparer Linux et installer java</h3>
+A partir de maintenant, toutes les commandes se font dans la console Linux.
+<br>Saisissez votre mot de passe Linux lorsque le shell vous le demande.
+<ul>
+    <li>
+        <b>Mettre à jour ubuntu</b>
+        <br><code>sudo apt-get update</code>
+        <br><code>sudo apt-get dist-upgrade</code>
+    </li>
+    <li>
+        <b>Installer java</b>
+        <br><code>sudo apt-get install openjdk-8-jdk</code>
+    </li>
+</ul>
+(ces commandes prendront du temps à s'exécuter et afficheront pas mal de messages).
+
+<!-- ************************************* -->
+<h3>Tester que java fonctionne</h3>
+Dans la console bash, créez un fichier <code>Main.java</code> avec du code de test :
+<pre>
+printf "class Main{\n    public static void main(String[] args){\n        System.out.println(\"hello\");\n    }\n}\n" > Main.java
+</pre>
+Vérifiez que <code>Main.java</code> est présent
+<pre>
+ls
+</pre>
+(ls = liste les fichiers et répertoires du répertoire courant ; équivalent de dir sous dos)
+Vous devriez voir <code>Main.java</code>.
+<br>Compilez Main.java
+<pre>
+javac Main.java
+</pre>
+Si vous refaites <code>ls</code>, vous devriez voir <code>Main.class Main.java</code>
+<br>Exécutez Main
+<pre>java Main</pre>
+<code>Main</code> devrait s'exécuter et afficher <code>hello</code>/
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-utilisation">Utilisation</a></h2>
+On va exécuter le tp3 (sauf les applets) en reproduisant la hierarchie présente sur le serveur.
+
+<!-- ************************************* -->
+<h3><a name="1-1-preparatifs-supplementaires">Préparatifs supplémentaires</a></h3>
+<pre>
+sudo apt-get install tree
+</pre>
+Créer les répertoires
+<pre>
+mkdir -p nfp121/{bin,tps/tp3-pile}
+# équivalent à :
+# mkdir nfp121
+# cd nfp121
+# mkdir bin
+# mkdir -p tps/tp3-pile
+</pre>
+Vérifier le résultat
+<pre>
+tree
+</pre>
+Aller dans le tp3
+<pre>
+cd nfp121/tps/tp3-pile
+</pre>
+Récupérer les fichiers du tp3
+<pre>
+wget \
+    --mirror \
+    --cut-dirs=4 \
+    --accept "*.java" \
+    --accept ApplettePile.html \
+    --no-parent \
+    --no-host-directories \
+http://larzac.info/cnam/nfp121/tps/tp3-pile/current/
+</pre>
+Vérifier le résultat
+<pre>
+tree
+</pre>
+Aller dans bin/ et récupérer le jar pour JUnit
+<pre>
+cd ../../bin/
+wget http://larzac.info/cnam/nfp121/bin/junit-3.8.2.jar
+</pre>
+Aller dans tps/ ; récupérer les scripts de compilation et de run java ; vérifier le résultat :
+<pre>
+cd ../tps/
+wget http://larzac.info/cnam/nfp121/tps/compile http://larzac.info/cnam/nfp121/tps/run http://larzac.info/cnam/nfp121/tps/test-run
+ll
+</pre>
+Rendre ces scripts exécutables ; vérifier le résultat
+<pre>
+chmod +x compile run test-run 
+ll
+</pre>
+On peut regarder le script de compilation :
+<pre>
+vi compile
+# Pour sortir de vi, taper :q
+</pre>
+
+
+<!-- ************************************* -->
+<h3><a name="1-2-tp3">TP3</a></h3>
+Compiler la question 1 :
+<pre>
+./compile tp3-pile/current/question1/PilePleineException.java 
+./compile tp3-pile/current/question1/PileVideException.java 
+./compile tp3-pile/current/question1/Pile.java 
+./compile tp3-pile/current/question1/PolygoneRegulier.java 
+./compile tp3-pile/current/question1/PolygoneRegulierTest.java 
+./compile tp3-pile/current/question1/PileTest.java 
+./compile tp3-pile/current/question1/ApplettePile.java 
+./compile tp3-pile/current/question1/UneUtilisation.java
+</pre>
+Vérifier que les .class sont au bon endroit :
+<pre>
+tree ../bin/
+</pre>
+Exécuter <code>question1.UneUtilisation</code> et vérifier qu'on a bien l'erreur prédite dans l'ennoncé :
+<pre>
+./run tp3-pile/current/question1/UneUtilisation.java 
+</pre>
+Exécuter <code>question1.ApplettePile</code> et constater l'erreur
+<pre>
+appletviewer tp3-pile/current/question1/ApplettePile.java 
+</pre>
+
+De la même manière, compiler et exécuter les questions 2 et 3.
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Millau Mix patterns | NFP121 Millau</title>
+    <meta name="description" content="Exemples de design patterns utiliss simultanément.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="mix-patterns.html">&larr;</a>
+    <!-- <a class="next" title="Next" href=".html">&rarr;</a> -->
+</nav>
+
+<header>
+<h1>Millau Mix patterns</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-composite-visitor">Composite / Visitor</a>
+        </li>
+        <li>
+            <a href="#2-arbre-genealogique">Arbre généalogique</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+<div class="intro">Mélange de patterns made in Millau</div>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-composite-visitor">Composite / Visitor</a></h2>
+
+<div class="exo">
+<b>Exercice :</b>
+<br>On modélise un vilage de la manière suivante :
+<br>- Un village est composé de quartiers.
+<br>- Un quartier est composé de pâtés de maisons et / ou de maisons.
+<br>- Un pâté de maisons est composé de maisons.
+
+<ol class="spaced">
+    <li>
+        Utiliser le pattern <i>Composite</i> pour implémenter cette modélisation.
+        <br>Munissez chaque noeud du composite (village, quartier, pâté de maisons, maison) d'un champ <code>nom</code> et d'une méthode <code>print()</code> qui affiche son nom.
+    </li>
+    
+    <li>
+        Créez un village de test correspondant à cette structure :
+<pre>
+Village 1
+    Quartier 1
+        Pâté 1.1
+            Maison 1
+            Maison 2
+        Pâté 1.2
+            Maison 3
+            Maison 4
+    Quartier 2
+        Pâté 2.1
+            Maison 5
+            Maison 6
+        Maison 7
+        Maison 8
+    Quartier 3
+        Maison 9
+        Maison 10
+</pre>
+    </li>
+    <li>
+        Ecrivez une fonction de test qui affiche le village "Village 1"
+    </li>
+    
+    <li>
+        Différents acteurs sillonnent le village :
+        <br>Le facteur, qui visite toutes les maisons.
+        <br>L'épicerie ambulante ne visite pas chaque maison mais chaque quartier et pâté de maison.
+        <br>
+        <br>En utilisant le pattern <i>Visitor</i>, implémentez un facteur et une épicerie.
+        <br>En faisant visiter le village de test à un facteur et une épicerie, vous devriez avoir un affichage ressemblant à :
+<pre>
+=== Facteur ===
+Facteur visiting Maison : Maison 1
+Facteur visiting Maison : Maison 2
+Facteur visiting Maison : Maison 3
+Facteur visiting Maison : Maison 4
+Facteur visiting Maison : Maison 5
+Facteur visiting Maison : Maison 6
+Facteur visiting Maison : Maison 7
+Facteur visiting Maison : Maison 8
+Facteur visiting Maison : Maison 9
+Facteur visiting Maison : Maison 10
+
+=== Epicerie ===
+Epicerie visiting Village : Village 1
+Epicerie visiting Quartier : Quartier 1
+Epicerie visiting PateDeMaisons : Pâté 1.1
+Epicerie visiting PateDeMaisons : Pâté 1.2
+Epicerie visiting Quartier : Quartier 2
+Epicerie visiting PateDeMaisons : Pâté 2.1
+Epicerie visiting Quartier : Quartier 3
+</pre>
+    </li>
+</ol>
+
+</div>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-arbre-genealogique">Arbre généalogique</a></h2>
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

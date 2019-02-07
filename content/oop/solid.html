@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>S.O.L.I.D | NFP121 Millau</title>
+    <meta name="description" content="Illustration par des exemples des principes SOLID de la programmation orientée objet.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<!-- 
+Exemple des formes inspiré par
+https://scotch.io/bar-talk/s-o-l-i-d-the-first-five-principles-of-object-oriented-design
+-->
+
+<nav class="prevnext">
+    <a class="top" title="NFP121" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="intro-poo.html">&larr;</a>
+    <a class="next" title="Next" href="critiques-poo.html">&rarr;</a>
+</nav>
+
+
+<header>
+<h1>S.O.L.I.D</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-s-the-single-responsibility-principle">S - The Single Responsibility Principle</a>
+        </li>
+        <li>
+            <a href="#2-o-the-open-closed-principle">O - The Open Closed Principle</a>
+        </li>
+        <li>
+            <a href="#3-l-the-liskov-substitution-principle-lsp">L - The Liskov Substitution Principle (LSP)</a>
+        </li>
+        <li>
+            <a href="#4-i-the-interface-segregation-principle">I - The Interface Segregation Principle</a>
+        </li>
+        <li>
+            <a href="#5-d-the-dependency-inversion-principle">D - The Dependency Inversion Principle</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-s-the-single-responsibility-principle">S - The Single Responsibility Principle</a></h2>
+
+<div class="big3 margin">Une classe ne doit avoir qu'une seule responsabilité.</div>
+Ou encore :
+<div class="big3 margin">Une classe doit avoir une, et seulement une, raison de changer.</div>
+Une fonction - une fonctionnalité ; une classe - une responsabilité.
+<br>
+<br>Par exemple, on a des formes :
+
+<pre>
+interface Shape{}
+
+class Circle implements Shape{
+    private double radius;
+    public Circle(double radius) { this.radius = radius; }
+    public double getRadius() { return radius; }
+}
+
+class Square implements Shape {
+    private double length;
+    public Square(double length) { this.length = length; }
+    public double getLength() { return length; }
+}
+</pre>
+
+On veut afficher la somme des aires de ces formes ; on pourrait faire :
+
+<pre>
+class AreaCalculator {
+
+    protected Shape[] shapes;
+
+    public AreaCalculator(Shape[] shapes) {
+        this.shapes = shapes;
+    }
+
+    public double sum() {
+        double sum = 0.0;
+        for(Shape shape : shapes){
+            if(shape instanceof Circle){
+                sum += Math.PI * ((Circle)shape).getRadius() * ((Circle)shape).getRadius();
+            }
+            else if(shape instanceof Square){
+                sum += ((Square)shape).getLength() * ((Square)shape).getLength();
+            }
+        }
+        return sum;
+    }
+
+    public String output() {
+        return "Somme des aires : " + Double.toString(sum());
+    }
+}
+</pre>
+<pre>
+public class Solid1{
+    public static void main(String[] args){
+        Shape[] shapes = new Shape[]{
+            new Circle(3.0),
+            new Square(2.0)
+        };
+        AreaCalculator calculator = new AreaCalculator(shapes);
+        System.out.println(calculator.output());
+    }
+}
+</pre>
+(code dans <a href="../../exemples/oop/solid/Solid1.java">Solid1.java</a>)
+<br>
+<br>Un premier problème vient du fait que la classe <code>AreaCalculator</code> mélange deux responsabilités : calculer la somme et afficher le résultat.
+<br>La classe peut donc avoir plusieurs raisons de changer, par ex :
+<br>1 - si on rajoute une forme
+<br>2 - si on veut différents formats de sortie (JSON, HTML ...)
+<br>
+<br>Pour y remédier, on peut scinder la classe en deux et mettre la méthode <code>output()</code> dans une classe dédiée à l'affichage :
+<pre>
+class AreaOuputter {
+    private AreaCalculator calculator;
+    
+    public AreaOuputter(AreaCalculator calculator) {
+        this.calculator = calculator;
+    }
+    
+    public String outputText() {
+        return "Somme des aires : " + Double.toString(calculator.sum());
+    }
+    
+    public String outputJSON() { return "not implemented"; }
+}
+</pre>
+<pre>
+public class Solid2{
+    public static void main(String[] args){
+        Shape[] shapes = new Shape[]{
+            new Circle(3.0),
+            new Square(2.0)
+        };
+        AreaCalculator calculator = new AreaCalculator(shapes);
+        AreaOuputter outputter = new AreaOuputter(calculator);
+        System.out.println(outputter.outputText());
+    }
+}</pre>
+(code dans <a href="../../exemples/oop/solid/Solid2.java">Solid2.java</a>)
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-o-the-open-closed-principle">O - The Open Closed Principle</a></h2>
+
+<div class="big3 margin">
+Une classe doit etre ouverte à l'extension, mais fermée à la modification.
+</div>
+
+En d'autres termes (dans un monde idéal...) on ne devrait jamais avoir besoin de modifier du code ou une classe existante : toute nouvelle fonctionnalité devrait pouvoir être ajoutée en ajoutant de nouvelles sous-classes ou méthodes, ou en réutilsant du code existant par délégation.
+<br>
+<br>Cela empêche d'introduire des nouveaux bugs dans du code existant (si on ne change rien, rien ne sera cassé).
+<br>Appliqué de manière extrême, ce principe empêche de fixer des bugs dans du code existant.
+<br>
+<br>Ce qui pose problème dans l'exemple, c'est la méthode <code>sum()</code> : si on rajoute d'autres formes dans l'API, on doit rajouter un <code>if else</code>, donc changer l'intérieur de la classe.
+<br>La solution évidente est de mettre les calculs des aires dans les classes des formes.
+
+<pre>
+interface Shape{
+    public double area();
+}
+
+class Circle implements Shape{
+    public double radius;
+    public Circle(double radius) { this.radius = radius; }
+    public double area() { return Math.PI * radius * radius; }
+}
+
+class Square implements Shape {
+    public double length;
+    public Square(double length) { this.length = length; }
+    public double area() { return length * length; }
+}
+
+class AreaCalculator {
+    
+    // ...
+    
+    public double sum() {
+        double sum = 0.0;
+        for(Shape shape : shapes){
+            sum += shape.area();
+        }
+        return sum;
+    }
+
+}
+</pre>
+(code dans <a href="../../exemples/oop/solid/Solid3.java">Solid3.java</a>)
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-l-the-liskov-substitution-principle-lsp">L - The Liskov Substitution Principle (LSP)</a></h2>
+
+<div class="flex-wrap">
+
+<img class="padding05" src="img/liskov.jpg" alt="Liskov"/>
+
+<div class="margin-left">
+    <div class="big3 margin">
+        Si q ( x ) est une propriété démontrable pour tout objet x de type T,
+        <br>alors q ( y ) est vraie pour tout objet y de type S tel que S est un sous-type de T.
+    </div>
+    Autre formulation :
+    <div class="big3 margin">
+        Si S est un sous-type de T, alors tout objet de type T peut être remplacé
+        <br>par un objet de type S sans altérer les propriétés du programme concerné.
+    </div>
+</div>
+
+</div>
+
+<pre>
+class Voiture{ /* ... */ }
+class Ambulance extends Voiture{ /* ... */ }
+</pre>
+Tout code du type :
+<pre>Voiture v = new Voiture();</pre>
+doit fonctionner <i>exactement</i> de la même manière que si on faisait :
+<pre>Ambulance v = new Ambulance();</pre>
+
+Une <code>Ambulance</code> est une <code>Voiture</code> qui sait faire des choses supplémentaires (c'est une sous-classe).
+<br>Le principe de Liskov dit que l'aspect <code>Voiture</code> de l'<code>Ambulance</code> doit tester inchangé.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-i-the-interface-segregation-principle">I - The Interface Segregation Principle</a></h2>
+
+<div class="big3 margin">
+La dépendance d'une classe envers une autre doit dépendre de l'interface la plus petite possible.
+</div>
+(interface ici au sens littéral).
+<br>Ou encore : 
+<div class="big3 margin">
+Du code ne devrait jamais être forcé d'implémenter une interface qu'il n'utilise pas,
+<br>ou être forcé à dépendre de méthodes qu'il n'utilise pas.
+</div>
+
+Dans l'exemple des formes, si on veut rajouter la gestion des volumes, on pourrait modifier l'interface <code>Shape</code> :
+
+<pre>
+interface Shape{
+    public double area();
+    public double volume();
+}
+</pre>
+
+Mais cela obligerait par exemple <code>Square</code> à implémenter <code>volume()</code>.
+<br>
+<br>On peut faire :
+<pre>
+interface Shape {
+    public double area();
+}
+
+interface Volume extends Shape {
+    public double volume();
+}
+</pre>
+dans la mesure où cela a un sens pour notre API (si on veut vraiment implémenter <code>area()</code> aussi pour les volumes).
+<br>
+<br>ATTENTION : respecter ce principe peut amener à faire des restructurations dans le code.
+<br>Si on voulait calculer les surfaces pour les objets 2D et uniquement les volumes pour les objets 3D, on pourrait faire :
+
+<pre>
+interface Shape {
+    public double area();
+}
+
+interface Volume {
+    public double volume();
+}
+</pre>
+
+Mais si on veut conserver la possibilité de manipuler surfaces et volumes comme des objets du même type, il faudrait alors une 3ème interface, par exemple :
+
+<pre>
+interface Objetct2D {
+    public double area();
+}
+
+interface Objetct3D {
+    public double volume();
+}
+
+interface Calculable {
+    public double calculate();
+}
+
+class Circle implements Objetct2D, Calculable {
+    public double radius;
+    public Circle(double radius) { this.radius = radius; }
+    public double area() { return Math.PI * radius * radius; }                                                                                   
+    public double calculate() { return area(); }
+}
+
+class Sphere implements Objetct3D, Calculable {
+    public double radius;
+    public Sphere(double radius) { this.radius = radius; }
+    public double volume() { return Math.PI * radius * radius * radius * 4.0 / 3.0; }
+    public double calculate() { return volume(); }
+}
+
+class Square implements Objetct2D, Calculable {
+    public double length;
+    public Square(double length) { this.length = length; }
+    public double area() { return length * length; }
+    public double calculate() { return area(); }
+}
+
+class Cube implements Objetct3D, Calculable {
+    public double length;
+    public Cube(double length) { this.length = length; }
+    public double volume() { return length * length * length; }
+    public double calculate() { return volume(); }
+}
+</pre>
+
+<pre>
+class Calculator {
+
+    protected Calculable[] calculables;
+
+    public Calculator(Calculable[] calculables) {
+        this.calculables = calculables;
+    }
+
+    public double sum() {
+        double sum = 0.0;
+        for(Calculable calculable : calculables){
+            sum += calculable.calculate();
+        }
+        return sum;
+    }
+}
+</pre>
+
+A l'utilisation :
+<pre>
+public class Solid4{
+    public static void main(String[] args){
+        Calculable[] calculables = new Calculable[]{
+            new Circle(3.0),
+            new Sphere(2.0),
+            new Square(4.0),
+            new Cube(2.0)
+        };
+        Calculator calculator = new Calculator(calculables);
+        Ouputter outputter = new Ouputter(calculator);
+        System.out.println(outputter.outputText());
+    }
+
+}
+</pre>
+
+(code dans <a href="../../exemples/oop/solid/Solid4.java">Solid4.java</a>)
+
+<!-- ********************************************************************************* -->
+<h2><a name="5-d-the-dependency-inversion-principle">D - The Dependency Inversion Principle</a></h2>
+
+<div class="big3 margin">
+Le code de haut niveau ne doit pas dépendre des implémentations concètes, mais doit dépendre d'abstractions.
+<br>Code de haut niveau et de bas niveau doivent tous les deux dépendre d'abstractions.
+</div>
+Exemple :
+<pre>
+class PasswordReminder {
+    private MySQLConnection dbConnection;
+
+    public PasswordReminder(MySQLConnection dbConnection) {
+        this.dbConnection = dbConnection;
+    }
+}                              
+</pre>
+
+<code>MySQLConnection</code> est le code de bas niveau ; <code>PasswordReminder</code> est le code de haut niveau.
+<br>Ici, le code de haut niveau dépend du code de bas niveau.
+<br>Si on décide de changer de DBMS, il faudra modifier <code>PasswordReminder</code>, ce qui est contraire au <b>O</b> (open-closed principle).
+<br>
+<br>Pour remédier à cela, on peut faire :
+<pre>
+interface DBConnectionInterface {
+    public DBConnection connect();
+}
+
+class MySQLConnection implements DBConnectionInterface {
+    public DBConnection connect() { /* ... */ }
+}
+</pre>
+
+<pre>
+class PasswordReminder {
+    private DBConnection dbConnection;
+
+    public PasswordReminder(DBConnectionInterface dbConnection) {
+        this.dbConnection = dbConnection;
+    }
+}
+</pre>
+
+Le code de haut niveau et de bas niveau dépendent maintenant tous les deux d'une abstraction.
+<br>
+<br>Voir aussi <a href="../patterns/dependency-injection.html">Injection de dépendance</a>
+
+
+<!-- ********************************************************************************* -->
+<!-- ************************************* -->
+</article>
+
+</body>
+</html>

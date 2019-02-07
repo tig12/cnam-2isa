@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Outils java | NFP121 Millau</title>
+    <meta name="description" content="Les principaux outils pour travailler en java : javac, java, javadoc, jshell">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="classes-interfaces.html">&larr;</a>
+    <a class="next" title="Next" href="nested.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Outils java</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-programmer-en-java">Programmer en java</a>
+            <ul>
+                <li><a href="#1-1-les-outils-du-jdk">Les outils du JDK</a></li>
+                <li><a href="#1-2-classpath">Classpath</a></li>
+                <li><a href="#1-3-variables">Variables</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-compilation-javac">Compilation - javac</a>
+        </li>
+        <li>
+            <a href="#3-execution-java">Exécution - java</a>
+        </li>
+        <li>
+            <a href="#4-documentation-javadoc">Documentation - javadoc</a>
+            <ul>
+                <li><a href="#4-1-documenter-une-classe-une-interface">Documenter une classe, une interface</a></li>
+                <li><a href="#4-2-documenter-une-methode">Documenter une méthode</a></li>
+                <li><a href="#4-3-liens-entre-les-pages-inline-doc-comment-tags">Liens entre les pages, inline doc-comment tags</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#5-tests-jshell">Tests - jshell</a>
+            <ul>
+                <li><a href="#5-1-imports-par-defaut">Imports par défaut</a></li>
+                <li><a href="#5-2-expressions">Expressions</a></li>
+                <li><a href="#5-3-variables">Variables</a></li>
+                <li><a href="#5-4-methodes">Méthodes</a></li>
+                <li><a href="#5-5-commandes">Commandes</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+
+
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-programmer-en-java">Programmer en java</a></h2>
+
+On a besoin d'avoir un JDK installé sur la machine de développement ; voir <a href="https://www.java.com/en/download/help/index_installing.xml">https://www.java.com/en/download/help/index_installing.xml</a>.
+<br>Les utilisateurs de programmes écrits en java n'ont pas besoin du JDK sur leur machine, mais uniquement d'un JRE.
+<br>
+<br>Il existe de nombreux éditeurs intégrés pour java, comme Netbeans, Eclipse, IntelliJ IDEA... Ces outils utilisent en interne les outils fournis par le JDK.
+<br>Dans ce cours, on utilisera Eclipse mais dans un premier temps, on va utiliser <code>javac</code> et <code>java</code> en ligne de commande.
+
+<!-- ************************************* -->
+<h3><a name="1-1-les-outils-du-jdk">Les outils du JDK</a></h3>
+
+Le JDK fournit des outils pour développer et déployer des applications java
+<br>Dans ce cours, on va surtout utiliser les deux principaux outils :
+<br>- <b>javac</b>, le compilateur.
+<br>- <b>java</b>, l'interpréteur.
+<br>On verra aussi rapidement d'autres outils :
+<br>- <b>javadoc</b>, pour générer de la documentation.
+<br>- <b>jshell</b>, pour tester des aspects du langages ou écrire du code jetable (depuis java 9).
+<br>
+<br>La documentation est accessible en ligne : <a href="https://docs.oracle.com/javase/10/tools/tools-and-command-reference.htm">https://docs.oracle.com/javase/10/tools/tools-and-command-reference.htm</a>.
+<br>La doc est aussi accesible par la comande <code>man</code>, par ex :
+<pre>man javac</pre>
+
+Ces outils ont un grand nombre d'options, on ne verra que celles qui sont nécessaires au début, on complètera suivant les besoins, par ex pour les types génériques.
+
+<div class="margin padding05 border">
+Note valable aussi pour tous les outils : lorsqu'on spécifie le nom d'un répertoire, on peut indiquer un chemin absolu ou un chemin relatif au répertoire courant (l'endroit d'où est lancé la commande).
+<br>En l'absence de l'option, l'outil considère qu'il s'agit du répertoire courant.
+</div>
+
+<!-- ************************************* -->
+<h3><a name="1-2-classpath">Classpath</a></h3>
+Pour fonctionner, la plupart des outils du JDK ont besoin de savoir où aller chercher les classes dont ils ont besoin.
+<br>Ces classes se trouvent soit dans des fichiers <code>.class</code> ou dans des <code>.jar</code> (java archives).
+<br>L'ensemble des chemins (répertoires) à utiliser s'appelle le <b>classpath</b>.
+<br>Il faut donc indiquer le classpath pour :
+<br>- Les classes du JDK ou du JRE.
+<br>- Les classes des libs utilisées par le programme.
+<br>- Les classes constituant le programme sur lequel on travaille.
+
+<!-- ************************************* -->
+<h3><a name="5-3-variables">Variables</a></h3>
+
+Permettent d'intégrer java au système d'exploitation.
+<br>La variable <code>CLASSPATH</code> contient le chemin vers les classes du JRE, donc on n'a pas besoin de les répéter lorsqu'on spécifie le classpath.
+<br>(mais cela permet d'utiliser différentes versions de java sur une même machine).
+
+<table>
+    <tr><th>Windows</th><th>Linux</th></tr>
+    <tr>
+        <td>
+<pre>
+JAVA_HOME : C:\Program Files\Java\jdk1.8.0_112
+JDK_HOME  : %JAVA_HOME%
+JRE_HOME  : %JAVA_HOME%\jre
+CLASSPATH : .;%JAVA_HOME%\lib;%JAVA_HOME%\jre\lib
+PATH      : your-unique-entries;%JAVA_HOME%\bin
+</pre>
+        </td>
+        <td>
+<pre>
+JAVA_HOME : /usr/lib/jvm/java-11-openjdk-amd64
+JDK_HOME  : $JAVA_HOME
+JRE_HOME  : $JAVA_HOME/jre
+CLASSPATH : .:$JAVA_HOME/lib:$JAVA_HOME/jre/lib
+PATH      : your-unique-entries:$JAVA_HOME/bin
+</pre>
+        </td>
+    </tr>
+</table>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-compilation-javac">Compilation - javac</a></h2>
+
+Les deux principales options sont :
+<br>- où aller chercher les fichiers source .java (<code>-sourcepath</code>).
+<br>- le classpath (<code>-classpath</code> ou <code>-cp</code>).
+<br>- le répertoire de destination, où les fichiers .class générés doivent être stockés (<code>-d</code>).
+<br>
+<br>Avec cette structure :
+<pre>
+projet
+    ├── bin
+    └── src
+        └── projet
+            ├── package1
+            │   └── Class1.java
+            ├── package2
+            │   └── Class2.java
+            └── Projet.java
+
+</pre>
+
+Si on se trouve dans le répertoire <code>projet/</code>
+
+<pre>javac -sourcepath src/ -d bin/ src/projet/Projet.java</pre>
+
+Note : <code>javac</code> va chercher à compiler les .java qu'on lui spécifie et compile automatiquement les autres fichiers nécessaires (à partir des instructions <code>import</code>, du sourcepath et du classpath).
+<br>
+<br>Si le code utilisait des libs situés dans un répertoire contenant des fichiers .class <code>/path/to/lib1/bin</code> et dans un jar <code>/path/to/lib2.jar</code> :
+
+<pre>javac -sourcepath src/ -classpath /path/to/lib1/bin:/path/to/lib2.jar -d bin/ src/projet/Projet.java</pre>
+(pour spécifier plusieurs répertoires, on utilise les séparateurs <code>:</code> sous linux et <code>;</code> sous windows).
+<br>
+<br>Autres options utilisées : 
+<br><code>-Xlint:deprecation</code>
+<br><code>-Xlint:unchecked</code> (voir types génériques)
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-execution-java">Exécution - java</a></h2>
+
+On utilise surtout l'option <code>-classpath</code> (ou <code>-cp</code>).
+<br>
+<br>2 formes possibles :
+<ul>
+    <li>
+        Exécution d'un fichier <code>.class</code>
+        <pre>java [options] classname [args]</pre>
+        Noter qu'on spécifie le nom de la classe, pas le nom du fichier.
+        <br>Pour exécuter l'exemple pécédent :
+        <pre>java -cp bin/ projet.Projet</pre>
+    </li>
+    
+    <li>
+        Exécution d'un fichier <code>.jar</code>
+        <pre>java [options] -jar filename [args]</pre>
+    </li>
+</ul>
+
+Les argument suivant le nom de la classe ou le nom du fichier jar sont transmis au programme par le biais du paramètre <code>args</code> de la méthode <code>main()</code>.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-documentation-javadoc">Documentation - javadoc</a></h2>
+
+<a href="http://www.oracle.com/technetwork/java/javase/documentation/index-jsp-135444.html">Page d'accueil officielle</a> ; voir notamment <a href="http://www.oracle.com/technetwork/java/javase/documentation/index-137868.html">How to Write Doc Comments for Javadoc</a> et <a href="http://www.oracle.com/technetwork/java/javase/documentation/index-142372.html">Requirements for Writing API Specifications</a>.
+<br>
+<br>La documentation des classes, interfaces et membres des classes (variables et méthodes) se font dans les <b>commentaires javadoc</b> <code>/**  */</code>.
+<br>L'outil <i>javadoc</i> reconnait un certain nombre de <b>tags javadoc</b>, identifiés par <code>@</code> (arobase).
+<br><i>javadoc</i> convertit la documentation en html, il est donc possible d'utiliser des tags html dans la documentation (&lt;i>, &lt;code>, &lt;pre>, &lt;ul>, &lt;li>, &lt;p> ...).
+<br>Penser que la doc que vous écrivez va faire partie d'un html généré, donc éviter les tags html de structure (&lt;h2>, &lt;h3> ...) ; utiliser par exemple <code>&amp;lt;</code> au lieu de <code>&lt;</code> (voir plus loin le tag javadoc <code>{@literal</code>).
+<br>
+<br>Il est aussi possible d'écrire une présentation de l'application dans un fichier <b>overview.html</b> situé dans le top-level package, ainsi qu'une doc pour chaque package, située dans le répertoire du package, dans un fichier <b>package.html</b>.
+<br>
+<br>Un bon endroit pour trouver des exemples de documentation est le code source de open JDK.
+
+<!-- ************************************* -->
+<h3><a name="4-1-documenter-une-classe-une-interface">Documenter une classe, une interface</a></h3>
+La documentation d'une classe ou interface se trouve dans le commentaire javadoc précédant la déclaration de la classe.
+<pre>
+/** 
+    Une phrase d'introduction, qui apparaitra dans les pages de résumé.
+    Une description plus précise de la classe, qui peut s'étaler sur plusieurs lignes.
+    @author Auteur 1
+    @author Auteur 2
+    @version 2017-01-02
+*/
+public class MyClass{
+    ...
+}
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="4-2-documenter-une-methode">Documenter une méthode</a></h3>
+
+<pre>
+public class MyClass{
+    
+    /**
+        Une phrase de résumé.
+        Une description plus précise de la méthode, qui peut s'étaler sur plusieurs lignes.
+        
+        @param  param1  Description du premier paramètre
+        @param  param2  Description du second paramètre
+        
+        @return Description du retour de la méthode
+        
+        @throws IllegalArgumentException    Description de l'exception
+        @throws IOException                 Description de l'exception
+        
+        @see    java.util.List
+    */
+    public static int method1(int param1, String param2) throws IllegalArgumentException, IOException{
+        
+    }
+}
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="4-3-liens-entre-les-pages-inline-doc-comment-tags">Liens entre les pages, inline doc-comment tags</a></h3>
+
+On appelle <b>inline doc-comment tags</b> des tags javadoc utilisés à l'intérieur des descriptions ; ils sont repérés par des accolades <code>{ ... }</code>.
+<br>
+<br>On n'utilise très peu la balise html <code>&lt;a></code> pour faire des liens internes à la doc, mais des tags javadoc spéciaux.
+<br><code>{@link <i>reference</i> }</code> ou <code>{@linkplain <i>reference</i> }</code>
+<pre>
+    @param regexp   The regular expression to search for. This string
+                    argument must follow the syntax rules described for
+                    {@link java.util.regex.Pattern}.
+</pre>
+La syntaxe de <code><i>reference</i></code> s'applique à <code>@see</code> et aux inline tags <code>{@link}</code> <code>{@linkplain}</code> et <code>{@value}</code> et peut prendre plusieurs formes :
+<ul>
+    <li>
+        package name : 
+        <br><code>@see java.lang.reflect</code>
+    </li>
+    <li>
+        pkgname.typename :
+        <br><code>@see java.util.List</code>
+        <br><code>@see List</code> (nom résolu par javadoc de la même manière que javac).
+    </li>
+    <li>
+        typename#methodname
+        <br><code>@see java.io.InputStream#reset</code>
+        <br><code>@see InputStream#close</code>
+    </li>
+    <li>
+        typename
+        <br><code>@see List</code>
+    </li>
+    <li>
+        typename#methodname ( paramtypes )
+        <br><code>@see InputStream#read(byte[], int, int)</code>
+        <br><code> .... {@link InputStream#read(byte[], int, int)} ...</code>
+    </li>
+    <li>
+        #methodname
+        <br><code>@see #setBackgroundColor</code> A utiliser pour des liens internes à la classe (mais permet aussi de référencer vers les super classes ou interfaces, ou les classes contenantes).
+    </li>
+        #methodname(paramtypes)
+        <br><code>@see #setPosition(int, int)</code>
+    <li>
+        typename#fieldname
+        <br><code>@see java.io.BufferedInputStream#buf</code>
+    </li>
+    <li>
+        #fieldname
+        <br><code>@see #x</code>
+    </li>
+</ul>
+
+Pour inclure des images ou des liens vers des fichiers, la convention est de les mettre dans un dossier nommé <b>doc-files</b> (un tel dossier dans chaque package).
+<br>Par exemple :
+<pre>
+appli
+    ├── overview.html
+    ├── package1
+    │   ├── doc-files
+    │   │   └── image1.jpg
+    │   └── package.html
+    └── package2
+        └── package.html
+</pre>
+Dans ce cas, la doc de package1 contient des images, donc on crée un dossier doc-files, mais on ne le crée pas dans package2 si on n'en a pas besoin.
+<br>Dans <i>package1/package.html</i> ou dans la doc des classes contenues dans <i>package1</i>, on peut inclure des images avec un lien relatif :
+<br><code>&lt;img src="doc-files/image1.jpg" alt="Description texte"></code>
+<br>
+<br>Le tag <code>{@docRoot}</code> peut être utile : <code>&lt;img src="{@docroot}/images/logo.gif"></code> (lien vers la racine de la doc générée).
+<br>
+<br><code>{@literal text }</code> ou <code>{@code text }</code> servent à inclure du html ou des tags javadoc dans une doc.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="5-tests-jshell">Tests - jshell</a></h2>
+
+<!-- source : http://jakubdziworski.github.io/java/2016/07/31/jshell-getting-started-examples.html -->
+
+Depuis java 9, le JDK fournit un outil REPL (Read Eval Print Loop), qui permet de tester du code java sans avoir besoin d'écrire un programme de test.
+<br>En ligne de commande, il suffit de taper :
+<pre>
+jshell -v
+</pre>
+On se retrouve dans un environnement de programmation :
+<pre>
+|  Welcome to JShell -- Version 10.0.2
+|  For an introduction type: /help intro
+
+jshell> 
+</pre>
+
+L'option <code>-v</code> fait fonctionner <code>jshell</code> en mode verbeux ; pratique pour connaître le type des variables manipulées.
+<br>On peut en sortir en tapant 
+<pre>/set feedback normal</pre>
+
+Comme dans toute application en ligne de commande :
+<br>la flèche du haut permet de retrouver les saisies précédentes
+<br><code>Ctrl R</code> permet de recherche dans l'historique des commandes
+<br><code>Ctrl C</code> permet d'annuler une saisie en cours
+<br><code>Ctrl D</code> permet de sortir de jshell (identique à <code>/exit</code>)
+
+<!-- ************************************* -->
+<h3><a name="5-1-imports-par-defaut">Imports par défaut</a></h3>
+Certains packages sont inclus par défaut, qu'on peut connaître en tapant <code>/import</code> :
+<pre>
+jshell> /import
+|    import java.io.*
+|    import java.math.*
+|    import java.net.*
+|    import java.nio.file.*
+|    import java.util.*
+|    import java.util.concurrent.*
+|    import java.util.function.*
+|    import java.util.prefs.*
+|    import java.util.regex.*
+|    import java.util.stream.*
+</pre>
+Pour importer d'autres packages, on tape la commande java usuelle
+<pre>jshell> import java.lang.reflect.*</pre>
+
+<!-- ************************************* -->
+<h3><a name="5-2-expressions">Expressions</a></h3>
+
+jshell permet d'évaluer des expressions.
+<br>Pratique par exemple pour savoir comment java se comporte dans les conversions automatiques de type :
+
+<pre>
+jshell> 1+1
+$1 ==> 2
+|  created scratch variable $1 : int
+
+jshell> 1+1.0
+$2 ==> 2.0
+|  created scratch variable $2 : double
+</pre>
+
+<pre>
+jshell> 1/2
+$4 ==> 0
+|  created scratch variable $4 : int
+
+jshell> 1/2.0
+$5 ==> 0.5
+|  created scratch variable $5 : double
+
+jshell> 1.0/2
+$6 ==> 0.5
+|  created scratch variable $6 : double
+
+jshell> 1.0f/2
+$7 ==> 0.5
+|  created scratch variable $7 : float
+</pre>
+
+Peut être aussi utile pour connaître la valeur de constantes.
+<pre>
+jshell> Math.PI
+$3 ==> 3.141592653589793
+|  created scratch variable $3 : double
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="5-3-variables">Variables</a></h3>
+On peut créer des variables et les réutiliser
+<pre>jshell> int x = 5
+x ==> 5
+|  created variable x : int
+
+jshell> x
+x ==> 5
+|  value of x : int
+</pre>
+
+
+<!-- ************************************* -->
+<h3><a name="5-4-methodes">Méthodes</a></h3>
+On peut créer des méthodes et les appeler
+<pre>
+jshell> void hello(){System.out.println("hello");}
+|  created method hello()
+
+jshell> hello()
+hello
+</pre>
+
+On peut aller à la ligne en définissant la méthode :
+<pre>
+jshell> int add4(int nb){
+   ...> return nb + 4;
+   ...> }
+|  created method add4(int)
+
+jshell> add4(5)
+$17 ==> 9
+|  created scratch variable $17 : int
+</pre>
+
+
+<!-- ************************************* -->
+<h3><a name="5-5-commandes">Commandes</a></h3>
+Une ligne commençant par <code>/</code> est considérée comme une commande jshell (ex : <code>/imports</code>).
+<br>Pour la liste des commandes disponibles :
+<pre>
+jshell> /help
+</pre>
+
+Commandes utiles
+<br><code>/vars</code> liste les variables définies.
+<br><code>/methods</code> liste les méthodes définies.
+
+</article>
+
+</body>
+</html>
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+************* -->
+<!-- ********************************************************************************* -->

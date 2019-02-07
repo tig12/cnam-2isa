@@ -1,0 +1,14 @@
+
+- Exemple1 et Exemple2 : utilisation de l'héritage
+
+Exemple1 est un exemple de code qui marche
+
+Dans Exemple2, on change du code dans X1, et c'est la classe Exemple2
+qui ne passe pas à la compilation alors que X1 n'est jamais utilisé
+
+
+- Exemple3 et Exemple4 : utilisation de la composition
+
+reprend Exemple 1 et 2
+On voit que c'est le code de Y1 qui ne passe plus à la compilation dans Exemple4,
+ce qui est plus sain, car c'est dans Y1 qu'est directement utilisé X1

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice MapTest | NFP121</title>
+    <link href="../../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : MapTest</h1>
+</header>
+
+<article>
+
+<a href="enonce">Code source de l'énoncé</a>
+<br>
+<br>Compléter la fonction <code>main()</code> de <code>MapTest.java</code> de manière à effectuer les choses suivantes :
+
+<style>
+    ul.enonce li{padding-bottom:1em;}
+</style>
+
+<ul class="enonce">
+    <li>Lire le fichier <code>persons.csv</code>.</li>
+    <li>Créer des objets de la classe <code>Personne</code> à partir des données de ce fichier (sauf la 1ère ligne).</li>
+    <li>
+        Mettre ces objets dans une <code>HashMap</code> telle que :
+        <br>- les clés sont le slug de la personne
+        <br>- les valeurs sont des objets <code>Person</code>
+    </li>
+    <li>Afficher la map en utilisant l'idiome <code>foreach</code>, de manière à avoir l'affichage suivant : </li>
+</ul>
+
+<pre>
+java MapTest 
+</pre>
+<pre>
+robert-pikes  =>  [ Robert, Pikes, 1956 ]
+robert-griesemer  =>  [ Robert, Griesemer, ? ]
+kenneth-thompson  =>  [ Kenneth, Thompson, 1943-02-04 ]
+james-gossling  =>  [ James, Gossling, 1955-05-19 ]
+dennis-ritchie  =>  [ Dennis, Ritchie, 1941-09-09 ]
+</pre>
+
+- Utiliser l'api classique java.io
+<br>- Utiliser la syntaxe TWR (try with resources)
+
+<h2>Détails</h2>
+Il n'y a que la fonction main() à implémenter.
+<ul>
+    <li>Initialisez une <code>Map</code> dont les clés sont des <code>String</code> et les valeurs sont des <code>Person</code>.</li>
+    <li>Lire le fichier avec un <code>Reader</code> qui permet de lire ligne à ligne.</li>
+    <li>Boucler sur les lignes du fichier.</li>
+    <li>Passer la première ligne.</li>
+    <li>
+        Pour toutes les autres lignes :
+        <ul>
+            <li>Fabriquez un tableau de <code>String</code> en utilisant ";" comme séparateur.</li>
+            <li>Utilisez les éléments de ce tableau pour fabriquer un objet de la classe <code>Person</code>.</li>
+            <li>Stockez l'objet résultant dans votre <code>Map</code>.</li>
+        </ul>
+    </li>
+    <li>A la sortie de la boucle, trouvez la syntaxe <code>foreach</code> qui permet de faire l'affichage en une ligne.</li>
+</ul>
+
+
+</article>
+
+</body>
+</html>
+

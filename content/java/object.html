@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Object | NFP121 Millau</title>
+    <meta name="description" content="Principales méthodes de java.lang.Object">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="NFP121" href="../../index.html">&uarr;</a>
+</nav>
+
+<header>
+<h1>java.lang.Object</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-constructeur">Constructeur</a>
+        </li>
+        <li>
+            <a href="#2-tostring">toString()</a>
+            <ul>
+                <li><a href="#2-1-comportement-par-defaut">Comportement par défaut</a></li>
+                <li><a href="#2-2-overriding">Overriding</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#3-getclass">getClass()</a>
+        </li>
+        <li>
+            <a href="#4-clone">clone()</a>
+            <ul>
+                <li><a href="#4-1-implementer-clone">Implémenter clone()</a></li>
+                <li><a href="#4-2-shallow-vs-deep-copy">Shallow vs deep copy</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#5-equals-hashcode">equals(), hashCode()</a>
+            <ul>
+                <li><a href="#5-1-liens-entre-hashcode-et-equals">Liens entre hashCode() et equals()</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+
+
+C'est la seule classe java qui n'a pas de superclasse ; ancêtre commun à toutes les autres classes, qui héritent donc des méthodes de <code>Object</code>.
+<br>
+<br>La documentation de référence se trouve sur <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html">le javadoc de la classe <code>Object</code></a>.
+<pre>
+public  class Object {
+
+     public Object()
+      
+     public String toString()   
+      
+     public final native Class getClass()   
+      
+     protected native Object clone() throws CloneNotSupportedException   
+      
+     public equals(java.lang.Object)  
+     public  native  int hashCode()   
+      
+     // méthodes liées à la gestion des threads  
+     public  final  native  void notify()   
+     public  final  native  void notifyAll()  
+     public  final  void wait(long)  throws InterruptedException   
+     public  final  void wait(long,  int)  throws InterruptedException   
+}
+</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-constructeur">Constructeur</a></h2>
+Ce constructeur est appelé à chaque création d'objet, voir la page <a href="classes-interfaces.html">"Classes, interfaces"</a>, paragraphe "Chaînage d'appel".
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-tostring">toString()</a></h2>
+
+Permet d'obtenir une représentation textuelle de l'objet.
+
+<!-- ************************************* -->
+<h3><a name="2-1-comportement-par-defaut">Comportement par défaut</a></h3>
+
+Par défaut, cette chaîne est constituée du type de l'objet, suivi de "@", suivi du hashcode (en hexadécimal) de l'objet ; égale à :
+
+<pre>getClass().getName() + '@' + Integer.toHexString(hashCode())</pre>
+
+Par exemple <code>Personne@7bfcd12c</code>.
+<br>
+<br>A noter :
+<ul>
+    <li>Cette chaîne identifie un objet de manière unique.</li>
+    <li>Le type affiché correspond au type constaté, pas au type déclaré (voir <a href="../oop/intro-poo.html">Introduction POO</a>, paragraphe "Liaison dynamique").</li>
+    <li><code>System.out.println</code> utilise <code>toString()</code> pour afficher les objets, avec une petite différence de comportement si l'objet vaut <code>null</code>.</li>
+</ul>
+
+<pre>
+class Personne{
+    private String nom, prenom;
+    private int anneeNaissance;
+    public Personne(String nom, String prenom, int anneeNaissance){
+        this.nom = nom;
+        this.prenom = prenom;
+        this.anneeNaissance = anneeNaissance;
+    }
+}
+
+class Mathematicien extends Personne {
+    public Mathematicien(String nom, String prenom, int anneeNaissance){
+        super(nom, prenom, anneeNaissance);
+    }
+}
+
+public class ToString1 {
+    public static void main(String[] args) {
+        Personne p1 = new Personne("Curry", "Haskell", 1900);
+        System.out.println("p1 = " + p1);
+        
+        Personne p2 = new Mathematicien("Curry", "Haskell", 1900);
+        System.out.println("p2 = " + p2);
+        
+        Personne p3 = (Personne)p2;
+        System.out.println("p3 = " + p3);
+        
+        Personne p4 = null;
+        System.out.println("p4 = " + p4);
+        System.out.println("p4.toString() = " + p4.toString()); // java.lang.NullPointerException
+    }
+}
+</pre>
+(code dans <a href="../../exemples/java/object-methods/ToString1.java">ToString1.java</a>)
+<pre>java ToString1</pre>
+<pre>
+p1 = Personne@7bfcd12c
+p2 = Mathematicien@24273305
+p3 = Mathematicien@24273305
+p4 = null
+Exception in thread "main" java.lang.NullPointerException
+	at ToString1.main(ToString1.java:17)
+</pre>
+
+
+<!-- ************************************* -->
+<h3><a name="2-2-overriding">Overriding</a></h3>
+
+L'implémentation par défaut n'étant pas très parlante, elle est en général réimplémenté dans les sous-classes, comme conseillé par la documentation :
+<blockquote>It is recommended that all subclasses override this method.</blockquote>
+
+Suivant les besoins, on est régulèrement amené à overrider cette méthode.
+<br>
+<br>Par exemple, pour la classe <code>Personne</code> :
+
+<pre>
+    @Override
+    public String toString(){
+        return prenom + " " + nom + " (" + String.valueOf(anneeNaissance) + ")";
+    }
+</pre>
+(code dans <a href="../../exemples/java/object-methods/ToString2.java">ToString2.java</a>)
+<pre>java ToString2</pre>
+<pre>
+p1 = Haskell Curry (1900)
+</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-getclass">getClass()</a></h2>
+<!-- 
+https://howtodoinjava.com/java/cloning/a-guide-to-object-cloning-in-java/
+https://howtodoinjava.com/java/serialization/how-to-do-deep-cloning-using-in-memory-serialization-in-java/
+https://ydisanto.developpez.com/tutoriels/java/cloneable/
+
+-->
+Renvoie un objet de la classe <code>java.lang.Class</code>, qui représente la "runtime class" de l'objet (son type constaté, pas son type déclaré).
+
+<pre>
+        Personne p1 = new Personne("Curry", "Haskell", 1900);
+        System.out.println("p1.getClass() = " + p1.getClass());
+        
+        Personne p2 = new Mathematicien("Curry", "Haskell", 1900);
+        System.out.println("p2.getClass() = " + p2.getClass());
+        
+        Personne p3 = (Personne)p2;
+        System.out.println("p3.getClass() = " + p3.getClass());
+</pre>
+(code dans <a href="../../exemples/java/object-methods/GetClass.java">GetClass.java</a>)
+<pre>java GetClass</pre>
+<pre>
+p1.getClass() = class Personne
+p2.getClass() = class Mathematicien
+p3.getClass() = class Mathematicien
+</pre>
+
+Voir la page <a href="reflection.html">Reflection</a> pour plus de détails
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-clone">clone()</a></h2>
+<!-- 
+https://en.wikipedia.org/wiki/Clone_%28Java_method%29
+https://howtodoinjava.com/java/cloning/a-guide-to-object-cloning-in-java/
+https://stackoverflow.com/questions/9164107/clone-in-java
+https://ydisanto.developpez.com/tutoriels/java/cloneable/
+https://gfx.developpez.com/tutoriel/java/immuables/
+-->
+
+Le but est d'obtenir une copie exacte de l'objet, donc de même classe, ayant le même état (les mêmes valeurs des membres) et indépendant de l'objet original.
+<br>En java, cela est fait en général en overridant <code>Object.clone()</code>, mais il existe d'autres manières de faire :
+<ul>
+    <li>
+        Ecrire un constructeur par recopie, comme par exemple le constructeur de <code>java.lang.String</code>
+        <pre>public String​(String original)</pre>
+    </li>
+    <li>
+        Utilisation de la sérialization (ce qui peut être "cher").
+        <!-- https://howtodoinjava.com/java/serialization/how-to-do-deep-cloning-using-in-memory-serialization-in-java/ -->
+    </li>
+</ul>
+
+<!-- ************************************* -->
+<h3><a name="4-1-implementer-clone">Implémenter clone()</a></h3>
+La signature de <code>Object.clone()</code> est
+<pre>protected native Object clone() throws CloneNotSupportedException</pre>
+
+Pour pouvoir être clonée, une classe doit implémenter l'interface <code>Cloneable</code>. <code>Cloneable</code> est une <i>marker interface</i>, c'est à dire une interface vide, qui n'est là que pour signaler que la classe peut être clonée.
+<br>
+<br>Le plus pratique pour du code utilisateur est de changer la signature de la méthode. Par exemple, pour la classe <code>Personne</code> :
+<pre>
+class Personne implements Cloneable{
+    // ...
+    @Override
+    public Personne clone() {
+        Personne p = null;
+        try{
+            p = (Personne)super.clone();
+        }
+        finally {
+            return p;
+        }
+    }
+}
+</pre>
+On a à la fois rendu la méthode <code>public</code>, modifié son type de retour et absorbé l'exception.
+
+
+<!-- ************************************* -->
+<h3><a name="4-2-shallow-vs-deep-copy">Shallow vs deep copy</a></h3>
+L'implémentation de <code>Object.clone()</code> effectue une <b>shallow copy</b> de l'objet : elle recopie les membres de l'objet. Pour les types primitifs, cela implique une copie de la valeur du membre. Mais pour les types références, cela implique une copie de la référence vers le membre. Donc l'objet original et son clone vont paratger les mêmes membres. Les deux objets ne sont donc pas indépendants, ce qui pose un problème pour les membres mutables.
+<br>
+<br>On peut voir cette différence dans le code suivant :
+<pre>
+public class Clone1 {
+    public static void main(String[] args) {
+        try{
+            Personne p1 = new Personne("Curry", "Haskell", 1900, new Pays("Etats-Unis"));
+            <b>Personne p2 = p1.clone();</b>
+            System.out.println("======== p1 et p2 = p1.clone() ========");
+            System.out.println("p1 = " + p1);
+            System.out.println("p2 = " + p2);
+            System.out.println("p1.getClass() = " + p1.getClass());
+            System.out.println("p2.getClass() = " + p2.getClass());
+            System.out.println("\n======== Modification de p1.nom et p1.annee ========");
+            <b>p1.setNom("Curry modifié");
+            p1.setAnnee(2000);</b>
+            System.out.println("p1 = " + p1);
+            System.out.println("p2 = " + p2);
+            System.out.println("\n======== Modification de p1.pays ========");
+            <b>p1.getPays().setNom("Etats-Unis modifié");</b>
+            System.out.println("p1 = " + p1);
+            System.out.println("p2 = " + p2);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+}
+
+class Pays{
+    private String nom;
+    public Pays(String nom){
+        this.nom = nom;
+    }
+    public void setNom(String nom) { this.nom = nom; }
+    public String getNom() { return nom; }
+}
+    
+class Personne implements Cloneable{
+    private String nom, prenom;
+    private int annee;
+    private Pays pays;
+    public Personne(String nom, String prenom, int annee, Pays pays){
+        this.nom = nom;
+        this.prenom = prenom;
+        this.annee = annee;
+        this.pays = pays;
+    }
+    public void setNom(String nom) { this.nom = nom; }
+    public void setPrenom(String prenom) { this.prenom = prenom; }
+    public void setAnnee(int annee) { this.annee = annee; }
+    public void setPays(Pays pays) { this.pays = pays; }
+    public Pays getPays() { return pays; }
+    @Override
+    public String toString(){
+        return prenom + " " + nom + " (" + String.valueOf(annee) + ") " + pays.getNom();
+    }
+    @Override
+    public Personne clone() {
+        Personne p = null;
+        try{
+            p = (Personne)super.clone();
+        }
+        finally {
+            return p;
+        }
+    }
+    
+}
+</pre>
+(code dans <a href="../../exemples/java/object-methods/Clone1.java">Clone1.java</a>)
+<pre>java Clone1</pre>
+<pre>
+======== p1 et p2 = p1.clone() ========
+p1 = Haskell Curry (1900) Etats-Unis
+p2 = Haskell Curry (1900) Etats-Unis
+p1.getClass() = class Personne
+p2.getClass() = class Personne
+
+======== Modification de p1.nom et p1.annee ========
+p1 = Haskell Curry modifié (2000) Etats-Unis
+p2 = Haskell Curry (1900) Etats-Unis
+
+======== Modification de p1.pays ========
+p1 = Haskell Curry modifié (2000) <b>Etats-Unis modifié</b>
+p2 = Haskell Curry (1900) <b>Etats-Unis modifié</b>
+</pre>
+
+Lorsqu'on fait <code>clone()</code> :
+<br>- <code>p1.nom</code> et <code>p2.nom</code> pointent vers la même zone mémoire.
+<br>- <code>p1.prenom</code> et <code>p2.prenom</code> pointent vers la même zone mémoire.
+<br>- <code>p1.annee</code> et <code>p2.annee</code> contiennent deux valeurs identiques dans deux zones mémoires différentes (type primitif).
+<br>
+<br>Lorsqu'on modifie <code>p1.annee</code>, la valeur est modifiée sur <code>p1</code> mais pas sur <code>p2</code> car les deux sont indépendantes.
+<br>Lorsqu'on modifie <code>p1.nom</code>, une nouvelle chaîne est créée (parceque <code>nom</code> est de type <code>String</code>, qui est immuable), et <code>p1.nom</code> va pointer vers cette nouvelle chaîne, laissant <code>p2.nom</code> inchangé.
+<br>
+<br>Mais lorsqu'on modifie <code>p1.pays</code>, comme <code>Pays</code> est mutable et que <code>p1.pays</code> et <code>p2.pays</code> pointent vers le même objet, la modification apparaît à la fois dans <code>p1</code> et <code>p2</code>.
+<br><b>On voit donc que les deux objets ne sont pas indépendants.</b>
+Pour rendre vraiment indépendants ces deux objets, il faut faire une <b>deep copy</b>, c'est à dire créer un nouveau pays dans la méthode <code>clone()</code>
+<br>
+<br>Par exemple :
+<pre>
+class Personne implements Cloneable{
+    // ...
+    @Override
+    public Personne clone() {
+        Personne p = null;
+        try{
+            p = (Personne)super.clone();
+            <b>p.pays = new Pays(pays.getNom());</b>
+        }
+        finally {
+            return p;
+        }
+    }
+}
+</pre>
+</pre>
+(code dans <a href="../../exemples/java/object-methods/Clone2.java">Clone2.java</a>)
+<pre>java Clone2</pre>
+<pre>
+# ... Même affichage que dans Clone1
+
+======== Modification de p1.pays ========
+p1 = Haskell Curry modifié (2000) <b>Etats-Unis modifié</b>
+p2 = Haskell Curry (1900) <b>Etats-Unis</b>
+</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="5-equals-hashcode">equals(), hashCode()</a></h2>
+
+Pour les types références, l'opérateur <code>==</code> teste l'égalité des références, renvoie donc <code>true</code> si deux objets pointent vers le même zone mémoire.
+<br>L'implémentation de <code>Object.equals()</code> ne fait rien de plus, comme on peut le voir dans cet extrait du code source de <code>java.lang.Object</code> (open JDK). 
+<pre>
+    public boolean equals(Object obj) {
+        return (this == obj);
+    }
+</pre>
+
+Donc dans un cas général, ni <code>equals()</code> ni l'opérateur <code>==</code> ne donnent un résultat intuitif.
+
+<pre>
+public class Equals1 {
+    public static void main(String[] args) {
+        <b>Classe o1 = new Classe("o1");</b>
+        Classe o2 = o1;
+        System.out.println("o1 == o2 ? " + (o1 == o2));
+        System.out.println("o1.equals(o2) ? " + (o1.equals(o2)));
+        
+        <b>Classe o3 = new Classe("o1");</b>
+        System.out.println("\no1 == o3 ? " + (o1 == o3));
+        System.out.println("o1.equals(o3) ? " + (o1.equals(o3)));
+    }
+}
+
+class Classe{
+    private String nom;
+    public Classe(String nom){ this.nom = nom; }
+}
+</pre>
+
+(code dans <a href="../../exemples/java/object-methods/Equals1.java">Equals1.java</a>)
+
+<pre>java Equals1</pre>
+<pre>
+o1 == o2 ? true
+o1.equals(o2) ? true
+
+o1 == o3 ? <b>false</b>
+o1.equals(o3) ? <b>false</b>
+</pre>
+
+On s'attend à ce que <code>o1</code> et <code>o3</code> soient égaux ; ce n'est pas le cas car ces deux symboles pointent vers deux adresses mémoire différentes.
+<br>
+<br>Pour obtenir un comportement "correct", il faut donc overrider <code>equal()</code>.
+
+<pre>
+public class Equals2 {
+    public static void main(String[] args) {
+        Classe o1 = new Classe("o1");
+        Classe o2 = o1;
+        System.out.println("o1 == o2 ? " + (o1 == o2));
+        System.out.println("o1.equals(o2) ? " + (o1.equals(o2)));
+        
+        Classe o3 = new Classe("o1");
+        System.out.println("\no1 == o3 ? " + (o1 == o3));
+        System.out.println("o1.equals(o3) ? " + (o1.equals(o3)));
+    }
+}
+
+class Classe{
+    private String nom;
+    public Classe(String nom){
+        this.nom = nom;
+    }
+    public String getNom() { return nom; }
+    
+    <b>@Override
+    public boolean equals(Object obj){
+        if(obj.getClass() != this.getClass()){
+            return false;
+        }
+        return ((Classe)obj).getNom() == nom;
+    }</b>
+}
+</pre>
+(code dans <a href="../../exemples/java/object-methods/Equals2.java">Equals2.java</a>)
+<pre>java Equals2</pre>
+<pre>
+o1 == o2 ? true
+o1.equals(o2) ? true
+o1 == o3 ? <b>false</b>
+o1.equals(o3) ? <b>true</b>
+</pre>
+
+<h4>Cas particulier de String</h4>
+
+Attention, <code>String</code> a parfois un comportement différent, voire la page <a href="strings.html">Strings</a>, paragraphe "Comparaison de chaînes".
+
+<h4>Importance dans les collections</h4>
+
+<code>equals()</code> est utilisé par certaines fonctions de l'API <code>Collection</code>, en particulier <code>contains()</code> et <code>remove()</code>.
+
+
+<!-- ************************************* -->
+<h3><a name="5-1-liens-entre-hashcode-et-equals">Liens entre hashCode() et equals()</a></h3>
+
+La documentation de <code>equals()</code> indique :
+<blockquote>
+Note that it is generally necessary to override the hashCode method whenever this method is overridden, so as to maintain the general contract for the hashCode method, which states that equal objects must have equal hash codes.
+</blockquote>
+
+En effet, la documentation de <code>hashCode()</code> indique :
+<ol>
+    <li>Si deux objets sont égaux au sens de <code>equals()</code>, alors ils doivent renvoyer le même hash code.</li>
+    <li>Mais deux objets différents au sens de <code>equals()</code> ne doivent pas obligatoirement renvoyer deux hash codes différents (bien que ce soit conseillé).</li>
+</ol>
+
+Exemples : 
+
+<pre>
+public class HashCode1 {
+    public static void main(String[] args) {
+        Personne p1 = new Personne("Curry", "Haskell", 1900);
+        System.out.println("p1.hashCode() = " + p1.hashCode());
+        
+        Personne p2 = new Personne("Curry", "Haskell", 1900);
+        System.out.println("p2.hashCode() = " + p2.hashCode());
+        
+        Personne p3 = new Personne("Hilbert", "David", 1862);
+        System.out.println("p3.hashCode() = " + p3.hashCode());
+    }
+}
+
+class Personne{
+    private String nom, prenom;
+    private int anneeNaissance;
+    public Personne(String nom, String prenom, int anneeNaissance){
+        this.nom = nom;
+        this.prenom = prenom;
+        this.anneeNaissance = anneeNaissance;
+    }
+    
+    <b>@Override
+    public  int hashCode() {
+        return nom.hashCode() * prenom.hashCode() * anneeNaissance;
+    }</b>
+}
+</pre>
+(code dans <a href="../../exemples/java/object-methods/HashCode1.java">HashCode1.java</a>)
+<pre>java Hashcode1</pre>
+<pre>
+p1.hashCode() = 869721104
+p2.hashCode() = 869721104
+p3.hashCode() = 1761653376
+</pre>
+Les règles 1 et 2 sont respectées ; on voit bien qu'il peut exister deux personnes différentes ayant même hashCode.
+<br>
+<br>Si on a une classe ayant un id unique (cas fréquent de classes représentant des objets stockés en base dont l'id est le clé primaire), l'implémentation est plus simple :
+
+<pre>
+public class HashCode2 {
+    public static void main(String[] args) {
+        Personne p1 = new Personne(1, "Curry", "Haskell", 1900);
+        System.out.println("p1.hashCode() = " + p1.hashCode());
+        
+        Personne p2 = new Personne(1, "Curry", "Haskell", 1900);
+        System.out.println("p2.hashCode() = " + p2.hashCode());
+        
+        Personne p3 = new Personne(2, "Hilbert", "David", 1862);
+        System.out.println("p3.hashCode() = " + p3.hashCode());
+    }
+}
+
+class Personne{
+    private int id; // unique id
+    private String nom, prenom;
+    private int anneeNaissance;
+    public Personne(int id, String nom, String prenom, int anneeNaissance){
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.anneeNaissance = anneeNaissance;
+    }
+    
+    <b>@Override
+    public  int hashCode() {
+        return id;
+    }</b>
+}
+</pre>
+
+Les deux règles sont respectées, et on a en plus : si deux personnes ont un hash code différent, alors elles sont différentes.
+<br>
+<br>Dans le cas de <code>HashCode2</code>, l'implémentation de <code>equals()</code> pourrait utiliser <code>hashCode()</code> :
+<pre>
+    @Override
+    public  boolean equals(Object o) {
+        if(!o.getClass().getName().equals(this.getClass().getName())){
+            return false;
+        }
+        <b>return o.hashCode() == hashCode();</b>
+        // ou encore :
+        // return ((Personne)o).id == id;
+    }
+</pre>
+
+<b>Mais ce n'est pas un cas général</b>, voir par exemple <code>HashCode1</code>.
+
+<h4>Importance de hashCode()</h4>
+
+<code>hashCode()</code> est utilisée dans les maps (voir <a href="collections.html">page Collections</a>), lorsque l'objet sert de clé. <code>equals()</code> et <code>hashCode()</code> sont utilisés pour stocker / retrouver les objets d'une map.
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

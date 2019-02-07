@@ -1,0 +1,15 @@
+
+dirbin="../../../../bin/exam/2018-02-14/visitor/enonce"
+
+if [ ! -d $dirbin ]; then
+    echo "creating $dirbin"
+    mkdir -p $dirbin
+fi
+
+
+command="javac -classpath . -d $dirbin apiculture/Main.java"
+
+echo $command
+
+$command
+

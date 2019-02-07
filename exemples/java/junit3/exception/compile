@@ -1,0 +1,23 @@
+# /******************************************************************************
+# 
+# compile - execute from current directory
+# 
+# @license    GPL
+# @author    Thierry Graff
+# @history    2018-01-11 09:01:30+01:00 : Creation
+# ********************************************************************************/
+
+dirbin='../../../../bin'
+dirdest="$dirbin/exemples/junit3/exception"
+
+mkdir -p $dirdest
+
+command="javac -classpath $dirbin/junit-3.8.2.jar -d $dirdest -sourcepath . *.java"
+
+echo $command
+
+$command
+
+echo
+exit
+

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Suppression | NFP121</title>
+    <link href="../../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Suppression d'une partie de l'arbrorescence</h1>
+</header>
+
+<article>
+
+<a href="enonce">Code source de l'énoncé</a>
+<br>
+<br>
+En partant de <code>Suppression.java</code> (qui est une variante de <code>DiagrammeGOF2.java</code>),
+<br>conserver la méthode <code>print()</code> et rajouter une une opération <code>delete()</code>
+<br><code>delete()</code> doit supprimer dans la liste des enfants de son parent TOUTES les occurences de lui-même.
+<br>
+<br>Par exemple, si on a :
+<pre>
+parent
+    enfant1
+    enfant2
+    enfant3
+    enfant1
+</pre>
+Et qu'on fait <code>enfant1.delete()</code>, on obtient :
+<pre>
+parent
+    enfant2
+    enfant3
+</pre>
+
+Donc si dans <code>Suppression.java</code>, vous remplacez dans <code>main()</code>
+<pre>
+        root.print();
+</pre>
+par
+<pre>
+        System.out.println("=== Avant suppression ===");
+        root.print();
+        System.out.println("=== Après suppression de node1_2 ===");
+        node1_2.delete();
+        root.print();
+</pre>
+
+vous obtiendrez :
+
+<pre>
+=== Avant suppression ===
+root
+  composite 1.1
+    leaf 1.1.1
+    leaf 1.1.2
+  composite 1.2
+    leaf 1.2.1
+    composite 1.2.2
+      leaf 1.2.2.1
+      leaf 1.2.2.2
+    leaf 1.2.1
+  composite 1.2
+    leaf 1.2.1
+    composite 1.2.2
+      leaf 1.2.2.1
+      leaf 1.2.2.2
+    leaf 1.2.1
+=== Après suppression de node1_2 ===
+root
+  composite 1.1
+    leaf 1.1.1
+    leaf 1.1.2
+</pre>
+
+</article>
+
+</body>
+</html>
+

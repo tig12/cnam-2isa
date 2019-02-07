@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Protection Proxy | NFP121</title>
+    <link href="../../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Protection Proxy</h1>
+</header>
+
+<article>
+
+<a href="enonce">Code source de l'énoncé</a>
+<br>
+<br>
+
+- 1) Compilez le code de l'énoncé.
+<br>
+<br>- Exécutez le avec les différentes valeurs possibles d'argument (ROOT, ADMIN, USER).
+<br>
+<br>- 2) Dans <code>main()</code>, remplacez les 3 appels
+<pre>
+Sensible.rootMethod(role);
+Sensible.adminMethod(role);
+Sensible.userMethod(role);
+</pre>
+par :
+<pre>
+Proxy.rootMethod(role);
+Proxy.adminMethod(role);
+Proxy.userMethod(role);
+</pre>
+et écrivez la classe <code>Proxy</code> de manière à avoir les affichages suivants à l'exécution :
+<pre>
+java TestProtectionProxy ROOT
+
+rootMethod called with role ROOT
+adminMethod called with role ROOT
+userMethod called with role ROOT
+</pre>
+
+<pre>
+java TestProtectionProxy ADMIN
+
+rootMethod : Acces denied
+adminMethod called with role ADMIN
+userMethod called with role ADMIN
+</pre>
+
+<pre>
+java TestProtectionProxy USER
+
+rootMethod : Acces denied
+adminMethod : Acces denied
+userMethod called with role USER
+</pre>
+
+<br>
+<hr/>
+<b>Pour ceux qui ont fini</b>
+<hr/>
+<br>
+
+- Comment modifier le code pour fournir une implémentation du pattern fidèle au schéma gof : <code>Sensible</code> et <code>Proxy</code> implémentent tous les deux une interface.
+<br>
+<br>
+- Cette implémentation ne bloque pas l'utilisation de la classe sensible.
+<br>Comment faire pour interdire à tout code extérieur de l'utiliser, et de forcer l'utilisation du proxy ?
+
+
+</article>
+
+</body>
+</html>
+

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Composite | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Composite et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="strategy.html">&larr;</a>
+    <a class="next" title="Next" href="mvc.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Composite</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-structure">Structure</a>
+        </li>
+        <li>
+            <a href="#2-exemples">Exemples</a>
+            <ul>
+                <li><a href="#2-1-swing">Swing</a></li>
+                <li><a href="#2-2-gof-diagram">GOF diagram</a></li>
+                <li><a href="#2-3-reference-au-parent">Référence au parent</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#3-remarques">Remarques</a>
+            <ul>
+                <li><a href="#3-1-liens-avec-d-autres-patterns">Liens avec d'autres patterns</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+<div class="intro">
+But : composer des objets dans une arborescence pour représenter une hiérarchie.
+</div>
+
+Composite permet au client de traiter les objets terminaux (feuilles) <b>de la même manière que les objets composés</b> (branches).
+<br>
+<br>Diagramme objet d'une structure typique de Composite :
+
+<img class="border margin" src="img/composite-object-structure.jpg" alt="Composite - Diagramme d'objets" />
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-structure">Structure</a></h2>
+Diagramme original (gof) :
+
+<img class="border margin" src="img/composite-class-diagram.jpg" alt="Composite - Diagramme de classes" />
+
+
+Points importants pour ce pattern :
+<ul class="spaced">
+    <li>
+        Les objets individuels (<code>Leaf</code>) et les objets composés (<code>Composite</code>) <b>dérivent tous les deux de la même classe</b> (<code>Component</code>).
+        <br>Cela permet au client de n'avoir à traiter qu'avec des <code>Component</code>, sans avoir besoin de se soucier de savoir s'ils sont terminaux ou pas.
+    </li>
+    <li>
+        Les objets composés ont un membre, <code><b>children</b></code>, qui est une collection de <code>Component</code>.
+    </li>
+    <li>
+        La seule méthode que doivent implémenter objets terminaux ET objets composés est <code><b>operation()</b></code>.
+        <br>Dans le cas d'un objet composé, cette méthode ne fait rien de plus qu'appeler la méthode <code>operation()</code> de chacun de ses <code>children</code>
+<pre>
+for(Component child : children){
+    child.operation();
+}
+</pre>
+        (elle peut aussi faire d'autres choses si besoin).
+        <br>
+        <br><b>Cet appel récursif est au coeur du mécanisme du pattern <i>Composite</i></b>.
+    </li>
+</ul>
+
+Ici, le plus pratique est que <code>Component</code> soit une classe abstraite, ce qui permet à <code>Leaf</code> de ne pas avoir à se soucier des méthodes spécifiques aux objets composés
+<br>(parce que <code>Component</code> fournit des implémentations vides des méthodes).
+<pre>
+    abstract class Component{
+        public abstract void operation();
+        public addChild(){}
+        public removeChild{}
+        <b>public getChildren(){ return new ArrayList(); }</b>
+    }
+</pre>
+
+<br>La structure formée par la hiérarchie des <code>Component</code> est un <b>arbre</b>.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-exemples">Exemples</a></h2>
+
+<!-- ************************************* -->
+<h3><a name="2-1-swing">Swing</a></h3>
+
+Les toolkits graphiques utilisent très fréquemment ce pattern.
+<br>
+<br>Exemple avec swing :
+
+<div class="flex-wrap">
+
+<div>
+<pre>
+import java.awt.*;
+import javax.swing.*;
+
+class Swing{
+    
+    public static void main(String[] args){
+        JFrame frame = new JFrame("Exemple composite");
+        JPanel contentPane = new JPanel();
+        
+        JTextArea text1 = new JTextArea("Leaf1");
+        contentPane.<b>add</b>(text1);
+        
+        JPanel panel1 = new JPanel();
+        panel1.<b>add</b>(new JButton("A"));
+        panel1.<b>add</b>(new JButton("B"));
+        
+        JPanel panel2 = new JPanel();
+        panel2.<b>add</b>(new JButton("C"));
+        panel2.<b>add</b>(new JButton("D"));
+        panel1.<b>add</b>(panel2);
+        
+        contentPane.<b>add</b>(panel1);
+        
+        frame.setContentPane(contentPane);
+        frame.setSize(300,100);
+        frame.pack();
+        frame.setVisible(true);
+    }
+}
+</pre>
+(code dans <a href="../../exemples/patterns/composite/Swing.java">Swing.java</a>)
+</div>
+
+<div class="margin-right2">
+    <img class="border margin-bottom" src="img/composite-swing-exemple.jpg" alt="Exemple swing" />
+    <img class="border padding05" src="img/composite-swing-objects.jpg" alt="Exemple swing, objets" />
+</div>
+
+</div><!-- end class="flex-wrap" -->
+
+La méthode <code>operation()</code> est ici <code>add()</code>.
+<br>On utilise <code>add()</code> de la même manière pour un objet simple que pour un objet composé.
+
+
+<!-- ************************************* -->
+<h3><a name="2-2-gof-diagram">GOF diagram</a></h3>
+Exemple simple utilisant le vocabulaire du diagramme GOF :
+<pre>
+import java.util.List;
+import java.util.ArrayList;
+
+public class GOFDiagram1 {
+
+    public static void main(String[] args) {
+    
+        Component root = new Composite("root");
+        Component node1_1 = new Composite("  composite 1.1");
+        Component node1_1_1 = new Leaf("    leaf 1.1.1");
+        Component node1_1_2 = new Leaf("    leaf 1.1.2");
+        Component node1_2 = new Composite("  composite 1.2");
+        Component node1_2_1 = new Leaf("    leaf 1.2.1");
+        Component node1_2_2 = new Composite("    composite 1.2.2");
+        Component node1_2_2_1 = new Leaf("      leaf 1.2.2.1");
+        Component node1_2_2_2 = new Leaf("      leaf 1.2.2.2");
+        
+        root.addChild(node1_1);
+        node1_1.addChild(node1_1_1);
+        node1_1.addChild(node1_1_2);
+        root.addChild(node1_2);
+        node1_2.addChild(node1_2_1);
+        node1_2.addChild(node1_2_2);
+        node1_2_2.addChild(node1_2_2_1);
+        node1_2_2.addChild(node1_2_2_2);
+        
+        root.operation();
+    }
+}
+
+abstract class Component {
+    protected String name;
+    public Component(String name){ this.name = name; }
+    public abstract void operation();
+    public abstract void addChild(Component c);
+}
+
+class Leaf extends Component{
+    public Leaf(String name){ super(name); }
+    public void operation(){ System.out.println(name); }
+}
+
+class Composite extends Component{
+    private List&lt;Component> children = new ArrayList&lt;>();
+    public Composite(String name){ super(name); }
+    
+    public void operation(){
+        System.out.println(name);
+        for(Component child : children){
+            child.operation();
+        }
+    }
+    
+    public void addChild(Component child){ children.add(child); }
+}
+</pre>
+(code dans <a href="../../exemples/patterns/composite/GOFDiagram1.java">GOFDiagram1.java</a>)
+
+<pre>
+java GOFDiagram1 
+</pre>
+<pre>
+root
+  composite 1.1
+    leaf 1.1.1
+    leaf 1.1.2
+  composite 1.2
+    leaf 1.2.1
+    composite 1.2.2
+      leaf 1.2.2.1
+      leaf 1.2.2.2
+</pre>
+
+Remarquer que l'affichage de l'arborescence dans le code client se fait en une seule instruction : <code>root.operation();</code>
+<br>
+<br>Note : dans ce cas précis, on pourrait simplifier et avoir une seule classe pour <code>Composite</code> et <code>Leaf</code>, car <code>operation()</code> fait exactement la même chose dans les deux cas. Voir une implémentation simplifiée dans <a href="../../exemples/patterns/composite/GOFDiagram3.java">GOFDiagram3.java</a>.
+<br>
+<br>Mais ce n'est pas possible en général ; voir par ex exercice Sommateur.
+
+<div class="exo">
+<b>N.B. Pour les exercices, vous pouvez démarrer avec un copier - coller</b>
+<br>Partir des exemples <code>GOFDiagram1</code> (composites "de base") ou <code>GOFDiagram2</code> (composite avec lien au parent).
+</div>
+
+<div class="exo">
+    <b>Exercice</b> : <a href="../../exos/patterns/composite/sommateur/Sommateur.html">Sommateur</a>
+</div>
+
+
+<!-- ************************************* -->
+<h3><a name="2-3-reference-au-parent">Référence au parent</a></h3>
+A de nombreuses applications.
+<br>
+<br>L'exemple <a href="../../exemples/patterns/composite/GOFDiagram2.java">GOFDiagram2.java</a> affiche exactement la même chose que <code>GOFDiagram1</code> avec une implémentation différente :
+<br>Dans <code>main()</code>, les noms des composants ne débutent plus par des espaces :
+<pre>Component node1_1 = new Composite("  composite 1.1");</pre>
+devient 
+<pre>Component node1_1 = new Composite("composite 1.1");</pre>
+
+Pour afficher les espaces, on utilise une <b>référence au noeud parent</b> ; voir les commentaires dans le code pour plus de détails.
+<br>Cette référence permet de calculer la profondeur de l'élément dans la hiérarchie :
+
+<pre>
+abstract class Component {
+    protected String name;
+    <b>protected Component parent = null;</b>
+    
+    public Component(String name){ this.name = name; }
+    
+    public void operation(){
+        <b>System.out.println(String.join("", Collections.nCopies(getLevel(), "  ")) + name);</b>
+    }
+    
+    public void add(Component c){}
+    public Component getParent(){ return parent; }
+    public void setParent(Component parent){ this.parent = parent; }
+    
+    <b>public int getLevel(){ return parent == null ? 0 : parent.getLevel() + 1; }</b>
+}
+</pre>
+
+<code>Leaf</code> ne change pas, mais <code>Composite.add()</code> oui :
+<pre>
+class Composite extends Component{
+    // ...    
+    public void add(Component child){
+        children.add(child);
+        <b>child.setParent(this)</b>;
+    }
+}
+</pre>
+
+<div class="exo">
+    <b>Exercice</b> : <a href="../../exos/patterns/composite/suppression/Suppression.html">Suppression d'une partie de l'arbrorescence</a>
+</div>
+
+<div class="exo">
+    <b>Exercice</b> : <a href="../../exos/patterns/composite/bibliotheque/Bibliotheque.html">Bibliothèque</a>
+</div>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-remarques">Remarques</a></h2>
+
+<ul class="spaced">
+    
+    <li>
+        Récursif.
+    </li>
+
+    <li>
+        On peut facilement ajouter de nouveaux types de composants. L'ajout d'une sous-classe de <code>Component</code> fonctionnera sans aucune modification du <code>Component</code> ou des autres classes du composite.
+    </li>
+    
+    <li>
+        Inconvénient possible : être trop général. Pas évident de fabriquer des "sous-composites" à partir de composites existant, si on veut appliquer <code>operation()</code> à un sous-ensemble des composants.
+    </li>
+
+    <li>
+        Certaines variantes de Composite ajoutent à l'interface <code>Component</code> une méthode <code>getParent()</code>.
+        <br>Cette référence explicite au parent peut être utile pour remonter dans la structure, effacer un composant.
+        <br>Facilite l'utilisation de <i>Composite</i> dans une <i>Chain of Responsability</i>.
+    </li>
+    
+    <li>
+        Le but est de faciliter la vie au client, qui utilisera les mêmes méthodes pour les objets terminaux ou composés.
+        <br>Donc <code>Component</code> doit fournir une interface aussi complète que possible.
+        <br>Mais conflit avec le principe disant que les super-classes ne doivent définir que des opérations qui ont du sens pour les sous-classes.
+        <br>Penser à :
+<pre>
+abstract class Animal{
+    public abstract void parler();
+}
+class VersDeTerre extends Animal{
+    public void parler() { /* ??? */ }
+}
+</pre>
+        Dans un composite, des méthodes comme <code>getChild()</code>, <code>addComponent()</code>, <code>removeComponent()</code> n'ont pas de sens pour un objet terminal.
+        <br>Problème métaphysique, on peut s'en sortir en voyant un objet terminal comme un objet composé sans enfants...
+    </li>
+    
+    <li>
+        Précautions particulières à prendre si l'ordre de parcours des enfants est important
+    </li>
+    
+    <li>
+        Dans certains cas, des mécanismes de cache sont utilisés : cacher des infos des composants pour éviter de parcourir plusieurs fois, ou chacher des infos permettant d'accéder rapidement aux composants sans avoir à parcourir.
+    </li>
+    
+</ul>
+
+
+<!-- ************************************* -->
+<h3><a name="3-1-liens-avec-d-autres-patterns">Liens avec d'autres patterns</a></h3>
+
+<ul class="spaced">
+
+    <li>
+        <i><a href="decorator.html">Decorator</a></i> est souvent utilisé avec <i>Composite</i>.
+        <br>Lorsque décorateurs et composites sont utilisés ensemble, ils ont en général une classe parente commune.
+        <br>Donc les décorateurs devront se conformer à l'interface <code>Component</code> avec des opérations comme <code>add()</code>, <code>remove()</code>, <code>getChild()</code>.
+    </li>
+    
+    <li>
+        <i><a href="iterator.html">Iterator</a></i> peut être utilisé pour parcourir des composites.
+    </li>
+    
+    <li>
+        <i><a href="visitor.html">Visitor</a></i> isole des opérations et comportements qui seraient sinon pris en charge par les sous-classes de <code>Component</code>.
+    </li>
+    
+    <li>
+        <i><a href="flyweight.html">Flyweight</a></i> permet de partager des composants, mais ils ne peuvent plus référencer leurs parents.
+    </li>
+    
+    <li>
+        Une référence explicite des composants vers leur parent est utilisée dans un <i><a href="chain-of-responsability.html">Chain of Responsibility</a></i>.
+    </li>
+    <li>
+        <i><a href="interpreter.html">Interpreter</a></i> peut utiliser <i>Composite</i>.
+    </li>
+</ul>
+
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

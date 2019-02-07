@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Syntaxe java | NFP121 Millau</title>
+    <meta name="description" content="La syntaxe java non-objet : unités syntaxiques, types primitifs, tableaux, exceptions.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="hello-world.html">&larr;</a>
+    <a class="next" title="Next" href="syntaxe-java2.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Syntaxe java</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-types-primitifs-et-types-references">Types primitifs et types références</a>
+        </li>
+        <li>
+            <a href="#2-unites-syntaxiques">Unités syntaxiques</a>
+        </li>
+        <li>
+            <a href="#3-unicode">Unicode</a>
+        </li>
+        <li>
+            <a href="#4-espaces-casse-et-commentaires">Espaces, casse et commentaires</a>
+        </li>
+        <li>
+            <a href="#5-identifiants-mots-reserves-valeurs-litterales">Identifiants, mots réservés, valeurs littérales</a>
+        </li>
+        <li>
+            <a href="#6-les-types-primitifs">Les types primitifs</a>
+            <ul>
+                <li><a href="#6-1-boolean">boolean</a></li>
+                <li><a href="#6-2-char">char</a></li>
+                <li><a href="#6-3-les-types-entiers">Les types entiers</a></li>
+                <li><a href="#6-4-les-types-de-nombres-reels">Les types de nombres réels</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#7-les-chaines-de-caracteres-strings">Les chaînes de caractères (strings)</a>
+        </li>
+        <li>
+            <a href="#8-conversion-entre-les-types">Conversion entre les types</a>
+        </li>
+        <li>
+            <a href="#9-expressions-et-operateurs">Expressions et opérateurs</a>
+            <ul>
+                <li><a href="#9-1-concatenation-de-chaines">Concaténation de chaînes</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#10-instructions-statements">Instructions (statements)</a>
+            <ul>
+                <li><a href="#10-1-les-instructions-expression-expression-statements">Les instructions expression (expression statements)</a></li>
+                <li><a href="#10-2-les-instructions-composees-compound-statements">Les instructions composées (compound statements)</a></li>
+                <li><a href="#10-3-l-instruction-vide-empty-statement">L'instruction vide (empty statement)</a></li>
+                <li><a href="#10-4-les-instructions-labelisees-labeled-statements">Les instructions labelisées (labeled statements)</a></li>
+                <li><a href="#10-5-les-instructions-de-declaration-de-variable-locale-local-variable-declaration-statements">Les instructions de déclaration de variable locale (local variable declaration statements)</a></li>
+                <li><a href="#10-6-if-else">if / else </a></li>
+                <li><a href="#10-7-switch">switch</a></li>
+                <li><a href="#10-8-while">while</a></li>
+                <li><a href="#10-9-do">do</a></li>
+                <li><a href="#10-10-for">for</a></li>
+                <li><a href="#10-11-break">break</a></li>
+                <li><a href="#10-12-continue">continue</a></li>
+                <li><a href="#10-13-for">for</a></li>
+                <li><a href="#10-14-return">return</a></li>
+                <li><a href="#10-15-autres-instructions">Autres instructions</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#11-les-tableaux">Les tableaux</a>
+            <ul>
+                <li><a href="#11-1-array-initializers">Array initializers</a></li>
+                <li><a href="#11-2-utilisation-des-tableaux">Utilisation des tableaux</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#12-les-exceptions">Les exceptions</a>
+            <ul>
+                <li><a href="#12-1-les-classes-d-exception">Les classes d'exception</a></li>
+                <li><a href="#12-2-creer-ses-propres-exceptions">Créer ses propres exceptions</a></li>
+                <li><a href="#12-3-lancer-des-exceptions">Lancer des exceptions</a></li>
+                <li><a href="#12-4-propagation-des-exceptions">Propagation des exceptions</a></li>
+                <li><a href="#12-5-try-with-resources-twr">try with resources (TWR)</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-types-primitifs-et-types-references">Types primitifs et types références</a></h2>
+
+En java, il existe deux sortes de variables qui ont des comportements très différents :
+<ul class="spaced">
+    <li>
+        Les variables de <b>type primitif</b> ; il y en a 8 : 
+        <ul>
+            <li><code>void</code></li>
+            <li><code>bool</code></li>
+            <li>5 types représentant des entiers (<code>byte</code>, <code>char</code>, <code>short</code>, <code>int</code>, <code>long</code>)</li>
+            <li>2 types représentant des nombres réels (<code>float</code>, <code>double</code>)</li>
+        </ul>
+        - Les types primitifs sont définis par le langage, et on ne peut pas en définir de nouveaux.
+        <br>- Les types primitifs représentent des valeurs simples.
+        <br>- Les types primitifs utilisent entre 1 et 8 octets ; lorsqu'un type primitif est stocké, dupliqué dans une autre variable ou passé en paramètre, <b><i>ses octets sont recopiés</i></b>.
+    </li>
+    
+    <li>
+        Les variables de <b>type référence</b> ; il y en a 5 : classes, interfaces, tableaux, énumérations et annotations.
+        <br>Ils diffèrent des types primitifs de plusieurs manières :
+        <br>- On peut définir de nombreux nouveaux types référence ; c'est ce qu'on fait chaque fois qu'on crée une classe.
+        <br>- Les types références sont des types composés, qui comportent chacun 0 ou plusieurs valeurs primitives ou objets.
+        <br>- Les objets (les instances de n'importe quel type référence, y compris les tableaux) peuvent occuper beaucoup plus de mémoire. Lorsqu'un objet est stocké, dupliqué dans une autre variable ou passé en paramètre, ses octets ne sont pas recopiés, seule sa <b>référence</b> est transmise.
+    </li>
+</ul>
+
+<img class="border margin" src="img/type-primitif-reference.jpg" alt="Types primimtif et référence" />
+
+Java est un langage fortement typé ; toute variable doit avoir un type.
+<br>Le typage est <b>statique</b> : toute variable doit être déclarée avant d'être utilisée, et cette déclaration comporte la déclaration de son type.
+<br>Le typage est vérifié à la compilation, donc pas d’erreur à l’exécution due à une erreur de type, mais un changement de type hasardeux est toujours possible...
+<br>
+<br>Les variables sont déclarées par des instructions du type :
+<br><code>int i;</code>
+<br>ou 
+<br><code>int i = 0;</code> : déclaration d'une variable et affectation d'une valeur initiale.
+<br>
+<br>On peut déclarer plusieurs variables du même type en même temps :
+<br><code>int i = 1, j = 2;</code>
+<br>
+<br>Une variable qui a été déclarée mais à laquelle on n'a pas affecté de valeur a la valeur <code>null</code>.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-unites-syntaxiques">Unités syntaxiques</a></h2>
+
+Un fichier java contient la définition d'un ou plusieurs <i>type référence</i>.
+<br>
+<br>A l'intérieur de la définition d'un type référence, on trouve des membres tels que des champs, des constructeurs, des méthodes.
+<br>Les méthodes (qui contiennent la majorité du code) sont des blocs de code java composés d'<b>instructions</b> (<b>statements</b>).
+<br>Ces instructions sont elles-mêmes composées d'<b>identifiants</b> (noms des variables, classes etc.), d'<b>opérateurs</b> (addition, concaténation etc.), d'<b>expressions</b>.
+<br>On appelle <b>unités sytaxiques</b> ou jetons (<b>tokens</b>) les briques élémentaires d'un programme.
+<br>Ces jetons sont eux-mêmes composés de <b>caractères</b> (unicode).
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-unicode">Unicode</a></h2>
+Les programmes java utilisent le codage unicode ; il est donc possible d'utiliser des caractères accentués, des lettres grecques ou de tout autre alphabet dans le code (noms des variables, méthodes, classes).
+<br>Chaque caractère d'un programme java est représenté par 16 bits.
+<pre class="normal">
+\u0020 à \u007E         code ASCII, Latin-1
+\u00AE                  ©
+\u00BD                  / la barre de fraction ...
+\u0000 à \u1FFF         zone alphabets
+\u0370 à \u03FFF alphabet grec
+...
+</pre>
+Voir <a href="http://www.unicode.org">http://www.unicode.org</a>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-espaces-casse-et-commentaires">Espaces, casse et commentaires</a></h2>
+Java est sensible à la casse (case sensitive), donc les variables <code>toto</code> et <code>Toto</code> sont différentes.
+<br>Par exemple le mot-clé <code>for</code> est différent de <code>For</code> ou <code>FOR</code> (en pratique, on évite de compter sur la casse pour différencier des identifiants car source de bug).
+<br>
+<br>Les conventions suivantes sont utilisées :
+<br>- Les noms des classes et interfaces commencent par une majuscule et sont camelCased - ex : <code>UneClasse</code>.
+<br>- Les noms des méthodes commencent par une minuscule et sont aussi camelCased - ex : <code>uneMéthode()</code>
+<br>- Les noms de package sont en minuscule - ex : <code>package1</code>.
+<br>- Les noms des constantes sont en majuscule, avec des underscore si besoin - ex : <code>UNE_CONSTANTE</code>
+<br>
+<br>Java ignore les espaces, tabulations, retours à la ligne, sauf s'ils sont entre simples ou doubles quotes, dans des valeurs littérales de chaînes ou de caractères.
+<br>
+Les commentaires utilisent la syntaxe de C :
+<pre>
+    //          simple ligne
+    /*  */      multilignes
+</pre>
+Les commentaires multilignes commençant par <code>/**</code> sont utilisés pour générer automatiquement de la documentation.
+<pre>
+    /**  */     javadoc, voir <a href="http://www.oracle.com/technetwork/java/javase/documentation/index-jsp-135444.html">la page officielle</a>.
+</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="5-identifiants-mots-reserves-valeurs-litterales">Identifiants, mots réservés, valeurs littérales</a></h2>
+Un identifiant (<i>identifier</i>) est une suite de caractères qui représente quelque chose dans un programme java (classe, méthode, paramètre, variable).
+<br>Un identifiant commence par une lettre, un underscore (_) ou un symbole unicode représentant une monnaie (<i>currency symbol</i>) tel que $, €, £...
+<br>Un identifiant ne peut pas commencer par un chiffre.
+<br>Les caractères suivants d'un identifiant peuvent être des chiffres, lettres, underscore ou caractères représentant une monnaie.
+<br>Exemples d'identifiants valides :
+<pre class="normal">
+    i
+    theCurrentTime
+    the_current_time
+    &theta;
+    $18
+</pre>
+Par convention, on évite d'utiliser les symboles unicode représentant une monnaie car ils sont utilisés par des outils tels que les compilateurs, préprocesseurs etc.
+<br>
+<br>Un identifiant ne peut pas prendre la valeur des mots qui font partie du langage lui-même, les <b>mots réservés</b>.
+<br>On a déjà vu quelques mots réservés (reserved words) : <code>class</code>, <code>interface</code>, <code>void</code>, <code>static</code>...
+<br>Liste complète pour java 8 :
+<pre class="normal">
+abstract    const       final       int         public          throw
+assert      continue    finally     interface   return          throws
+boolean     default     float       long        short           transient
+break       do          for         native      static          true
+byte        double      goto        new         strictfp        try
+case        else        if          null        super           void
+catch       enum        implements  package     switch          volatile
+char        extends     import      private     synchronized    while
+class       false       instanceof  protected   this
+</pre>
+
+Certains mots réservés peuvent prendre des significations différentes suivant le contexte, par exemple <code>default</code> et <code>final</code>.
+<br>
+<br>Les <b>valeurs littérales</b> sont des valeurs qui apparaissent directement en dur dans le code java.
+<br>La syntaxe diffère suivant le type, on va les voir en détail pour chaque type
+<br>Exemples :
+<pre>
+1           // int
+1.0         // double
+1.0f        // float
+'1'         // character
+"one"       // String
+true        // boolean
+null        
+</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="6-les-types-primitifs">Les types primitifs</a></h2>
+
+Les types primitifs sont au nombre de 8 :
+<br>
+<br>
+<table class="wikitable">
+<tr>
+<th>Category</th>
+<th>Types</th>
+<th>Size (bits)</th>
+<th>Min Value</th>
+<th>Max Value</th>
+<th>Precision</th>
+<th>Example</th>
+</tr>
+<tr>
+<th rowspan="5">Integer</th>
+<td><code><b>byte</b></code></td>
+<td>8</td>
+<td>-128</td>
+<td>127</td>
+<td>From +127 to -128</td>
+<td><code>byte b = 65;</code></td>
+</tr>
+<tr>
+<td><code><b>char</b></code></td>
+<td>16</td>
+<td>0</td>
+<td>2<sup>16</sup>-1</td>
+<td>All Unicode characters</td>
+<td><code>char c = 'A';<br />
+char c = 65;</code></td>
+</tr>
+<tr>
+<td><code><b>short</b></code></td>
+<td>16</td>
+<td>-2<sup>15</sup></td>
+<td>2<sup>15</sup>-1</td>
+<td>From +32 767 to -32 768</td>
+<td><code>short s = 65;</code></td>
+</tr>
+<tr>
+<td><code><b>int</b></code></td>
+<td>32</td>
+<td>-2<sup>31</sup></td>
+<td>2<sup>31</sup>-1</td>
+<td>From +2 147 483 647 to -2 147 483 648</td>
+<td><code>int i = 65;</code></td>
+</tr>
+<tr>
+<td><code><b>long</b></code></td>
+<td>64</td>
+<td>-2<sup>63</sup></td>
+<td>2<sup>63</sup>-1</td>
+<td>From +9 223 372 036 854 775 807 to -9 223 372 036 854 775 808</td>
+<td><code>long l = 65L;</code></td>
+</tr>
+<tr>
+<th rowspan="2">Floating-point</th>
+<td><code><b>float</b></code></td>
+<td>32</td>
+<td>2<sup>-149</sup></td>
+<td>(2-2<sup>-23</sup>)·2<sup>127</sup></td>
+<td>From 3.402 823 5&#160;E+38 to 1.4&#160;E-45</td>
+<td><code>float f = 65f;</code></td>
+</tr>
+<tr>
+<td><code><b>double</b></code></td>
+<td>64</td>
+<td>2<sup>-1074</sup></td>
+<td>(2-2<sup>-52</sup>)·2<sup>1023</sup></td>
+<td>From 1.797 693 134 862 315 7&#160;E+308 to 4.9&#160;E-324</td>
+<td><code>double d = 65.55;</code></td>
+</tr>
+<tr>
+<th rowspan="2">Other</th>
+<td><code><b>boolean</b></code></td>
+<td>1</td>
+<td>--</td>
+<td>--</td>
+<td>false, true</td>
+<td><code>boolean b = true;</code></td>
+</tr>
+<tr>
+<td><code><b>void</b></code></td>
+<td>--</td>
+<td>--</td>
+<td>--</td>
+<td>--</td>
+<td>--</td>
+</tr>
+</table>
+<br>
+(source : <a href="https://en.wikibooks.org/wiki/Java_Programming/Primitive_Types">https://en.wikibooks.org/wiki/Java_Programming/Primitive_Types</a>)
+<br>
+<br>Java n'est donc pas purement objet puisqu'on manipule des variables qui ne sont pas des objets.
+<br>
+<br><b>A chaque type primitif correspond une classe de <code>java.lang</code> permettant d'encapsuler une variable d'un type primitif donné dans un objet</b>.
+
+<!-- ************************************* -->
+<h3><a name="6-1-boolean">boolean</a></h3>
+Peuvent prendre deux valeurs : <code>true</code> ou <code>false</code>.
+<br>ATTENTION : contrairement à d'autres langages, les booléens ne peuvent pas être convertis dans d'autres types.
+<br>Le code suivant n'est pas valide :
+<pre>
+if(!myVar){ ... }
+</pre>
+Il faut explicitement faire :
+<pre>
+if(myVar != null){ ... }
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="6-2-char">char</a></h3>
+Un char représente un caractère unicode. On lui affecte une valeur en utilisant des <b>simples quotes</b> :
+<pre>char c = 'r';</pre>
+Un char peut contenir tout caractère unicode, en utilsant <code>\u</code> :
+<pre>char aleph = '\u0500';</pre>
+
+Certains caractères spéciaux sont exprimés en utilisant un antislash (<code>\</code>) suivi d'un code. On parle d'<b>escape sequence</b>.
+<br>Ces escape sequences sont aussi valables dans les chaînes de caractères (strings)
+<table><tbody>
+<tr>
+<th width="30%">Escape Sequence</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>\t</code></td>
+<td>Insert a tab in the text at this point.</td>
+</tr>
+<tr>
+<td><code>\b</code></td>
+<td>Insert a backspace in the text at this point.</td>
+</tr>
+<tr>
+<td><code>\n</code></td>
+<td>Insert a newline in the text at this point.</td>
+</tr>
+<tr>
+<td><code>\r</code></td>
+<td>Insert a carriage return in the text at this point.</td>
+</tr>
+<tr>
+<td><code>\f</code></td>
+<td>Insert a formfeed in the text at this point.</td>
+</tr>
+<tr>
+<td><code>\'</code></td>
+<td>Insert a single quote character in the text at this point.</td>
+</tr>
+<tr>
+<td><code>\"</code></td>
+<td>Insert a double quote character in the text at this point.</td>
+</tr>
+<tr>
+<td><code>\\</code></td>
+<td>Insert a backslash character in the text at this point.</td>
+</tr>
+<tr>
+<td><code>\xxxx</code></td>
+<td>Insert a Latin-1 character with the encoding xxx, where xxx is an octal (base 8) number between 000 and 377.</td>
+</tr>
+<tr>
+<td><code>\uxxxx</code></td>
+<td>The Unicode character with encoding xxxx, where xxxx is four hexadecimal digits.</td>
+</tr>
+</tbody></table>
+(source <a href="https://docs.oracle.com/javase/tutorial/java/data/characters.html">https://docs.oracle.com/javase/tutorial/java/data/characters.html</a>)
+<br>
+<br>On peut par exemple écrire :
+<pre>char apostrophe = '\'', backslash = '\\';</pre>
+
+Pour travailler sur des chars, java fournit une classe <code>Characters</code>, qui fournit des méthodes utilitaires telles que <code>isDigit()</code>, <code>isLowerCase()</code>
+
+<!-- ************************************* -->
+<h3><a name="6-3-les-types-entiers">Les types entiers</a></h3>
+Concerne les types java <b>byte</b>, <b>short</b>, <b>int</b> et <b>long</b>, qui diffèrent par la taille mémoire qu'ils occupent.
+<br>Tous ces types sont signés, java ne possède pas d'équivalent des types <b>unsigned</b> en C.
+<br>En général, on utilise le type <b>int</b>, dont la valeur littérale s'écrit "normalement" :
+<pre>int i = 9874;</pre>
+
+Pour affecter une valeur littérale à un <code>long</code>, elle doit finir par <code>l</code> ou <code>L</code>.
+<pre>long myLong = 123L;</pre>
+
+Si on utilise en général la base 10, on peut aussi exprimer les types entiers en base 8 (octal) ou 16 (hexadécimal) en faisant précéder la valeur littérale par <code>0</code> ou <code>0x</code>:
+<pre>
+int h2 = 0xff;
+long h2 = 0xffL;
+System.out.println("h2 = " + h2);
+System.out.println("h2 = " + h2);
+</pre>
+Résultat :
+<pre>
+h2 = 255
+h2 = 255
+</pre>
+
+ATTENTION : si la valeur maximale est dépassée, java ne le signale pas (comportement circulaire), c'est à nous à faire attention que le type utilisé corresponde aux calculs
+<br>Par exemple, 
+<pre>
+byte b1 = 127, b2 = 1; // La valeur max pour un byte est 127
+byte sum = b1 + b2; // sum = -128, qui est la plus petite valeur pour un byte
+</pre>
+
+Pour travailler sur les types entiers, on dispose des classes <code>Byte</code>, <code>Short</code>, <code>Integer</code> et <code>Long</code>, qui fournissent des méthodes utilitaires.
+<br>Chacune de ces classes fournit aussi 2 constantes, <code>MIN_VALUE</code> et <code>MAX_VALUE</code>, qui indiquent les valeurs extrèmes que peut prendre le type correspondant.
+
+<!-- ************************************* -->
+<h3><a name="6-4-les-types-de-nombres-reels">Les types de nombres réels</a></h3>
+java définit les types <b>float</b> (32 bits) et <b>double</b> (64 bits).
+<br>Quelques exemples de valeurs littérales pour des doubles :
+<pre>
+1.2314
+1.0     // attention 1 représente un entier et 1.0 un réel
+.01
+1.2345e2    // = 123.45 (notation scientifique, le e peut aussi être en majuscule)
+1.2345e-2    // = 0.012345
+</pre>
+Par défaut, on travaille avec des doubles. Pour définir un <b>float</b>, il faut faire suivre de f ou F la valeur littérale, par ex <code>float a = 10.2f;</code>.
+<br>Ces types peuvent aussi prendre 4 valeurs spéciales : infinité négative, positive, zéro et Nan (not a number).
+<br>Les classes <code>Double</code> et <code>Float</code> fournissent des méthodes (notamment pour convertir dans d'autres types) et des constantes aidant à les manipuler.
+
+<!-- ************************************* -->
+<h2><a name="7-les-chaines-de-caracteres-strings">Les chaînes de caractères (strings)</a></h2>
+Les strings sont représentées par la classe <code>java.lang.String</code>, ce n'est donc pas un type primitif.
+<br>Mais l'usage des strings est tellement courant que java permet une syntaxe spéciale pour l'affectation :
+<br>On peut écrire <code>String s = "abcd"</code> à la place de <code>String s = new String("abcd")</code>.
+<br>Les valeurs littérales pour les strings utilisent des <b>doubles quotes</b>.
+<br>Les strings utilisent les mêmes escape sequences que les chars.
+<br>Les strings sont traitées <a href="strings.html">dans une page à part</a>.
+
+
+<!-- ************************************* -->
+<h2><a name="8-conversion-entre-les-types">Conversion entre les types</a></h2>
+
+Les conversions entre les types sont parfois possible ; certaines conversions implicites (sans type cast) sont possibles, obéissent à des règles précises, voir <a href="https://docs.oracle.com/javase/specs/jls/se10/html/jls-5.html">la doc d'Oracle</a>. On distingue les conversions vers un type plus grand (<b>widening conversion</b>) - par ex de <code>int</code> vers <code>long</code> et les conversions vers des types plus petits (<b>narrowing conversion</b>).
+<br>
+<br>Pour forcer une conversion, il faut utiliser le <b>type casting</b> avec des parenthèses :
+<br><code>int i = 13; byte b = (byte) i;</code>
+<br>
+<br>Tableau résumé
+<br><b>N</b> : la conversion n'est pas possible
+<br><b>Y</b> : widening conversion, faite automatiquement par java
+<br><b>C</b> : narrowing conversion, demande un type casting explicite
+<br><b>Y*</b> : widening conversion, mais perte d'information possible
+
+<table class="margin border">
+    <tr>
+        <td class="vertical-align-top">
+<pre class="normal">
+            VERS
+DEPUIS      boolean byte    short   char    int     long    float   double
+boolean     -       N       N       N       N       N       N       N
+byte        N       -       Y       C       Y       Y       Y       Y
+short       N       C       -       C       Y       Y       Y       Y
+char        N       C       C       -       Y       Y       Y       Y
+int         N       C       C       C       -       Y       Y*      Y
+long        N       C       C       C       C       -       Y*      Y*
+float       N       C       C       C       C       C       -       Y
+double      N       C       C       C       C       C       C       -
+</pre>
+        </td>
+    </tr>
+</table>
+
+<div class="exo">
+En utilisant jshell, expériementer la conversion de types, en faisant par exemple 
+<pre>
+1 / 2
+1.0 / 2
+1 / 2.0
+</pre>
+(pour jshell, voir <a href="outils-java.html">la page "Outils java"</a>)
+</div>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="9-expressions-et-operateurs">Expressions et opérateurs</a></h2>
+
+Jusqu'à présent on a vu les types primitifs qu'un programme peut manipuler et comment leur affecter des <b>valeurs littérales</b>.
+<br>On a aussi utilisé des <b>variables</b> (noms symboliques qui représentent ces valeurs).
+<br>
+<br>Le niveau suivant dans la strcture d'un programme java est constitué par les <b>expressions</b>.
+<br>Une expression est une combinaison de symbole dont l'interpréteur java peut calculer la valeur.
+<br>Les expressions les plus simples sont les <i>expressions primaires</i>, qui sont soit une variable soit une valeur litérale.
+<br>Exemples :
+<pre>
+1.3     // valeur littérale d'un float ou d'un double
+false   // valeur littérale d'un booléen
+somme   // une variable
+</pre>
+<br>Elles peuvent être ensuite combinées avec des <b>opérateurs</b> pour former des expressions composées.
+<br>Par exemple
+<pre>somme = 1.3</pre>
+combine 2 expressions primaires pour fabriquer une expression d'assignement (dont la valeur est celle de l'opérande gauche).
+<br>Voir plus loin les instructions expression.
+<br>
+<br>Les opérateurs peuvent être utilisés avec des expressions aussi complexes que l'on veut :
+<pre>somme = 1 + 2 + 3 * 1.2 + (4 + 8)/3.0</pre>
+
+<table class="border margin-top">
+    <tr>
+        <td class="vertical-align-top">
+<pre class="normal">
+Prio    A   Opérateur   Types opérandes         Description
+-------------------------------------------------------------------------------------
+16      L   .           object, member          Object member access
+            [ ]         array, int              Array element access
+            ( args )    method, arglist         Method invocation
+            ++, --      variable                Post-increment, post-decrement
+15      R   ++, --      variable                Pre-increment, pre-decrement
+            +, -        number                  Unary plus, unary minus
+            ~           integer                 Bitwise complement
+            !           boolean                 Boolean NOT
+14      R   new         class, arglist          Object creation
+            ( type )    type, any               Cast (type conversion)
+13      L   *, /, %     number, number          Multiplication, division, remainder
+12      L   +, -        number, number          Addition, subtraction
+            +           string, any             String concatenation
+11      L   <<          integer, integer        Left shift
+            >>          integer, integer        Right shift with sign extension
+            >>>         integer, integer        Right shift with zero extension
+10      L   <, <=       number, number          Less than, less than or equal
+            >, >=       number, number          Greater than, greater than or equal
+            instanceof  reference, type         Type comparison
+9       L   ==          primitive, primitive    Equal (have identical values)
+            !=          primitive, primitive    Not equal (have different values)
+            ==          reference, reference    Equal (refer to same object)
+            !=          reference, reference    Not equal (refer to different objects)
+8       L   &           integer, integer        Bitwise AND
+            &           boolean, boolean        Boolean AND
+7       L   ^           integer, integer        Bitwise XOR
+            ^           boolean, boolean        Boolean XOR
+6       L   |           integer, integer        Bitwise OR
+            |           boolean, boolean        Boolean OR
+5       L   &&          boolean, boolean        Conditional AND
+4       L   ||          boolean, boolean        Conditional OR
+3       R   ? :         boolean, any            Conditional (ternary) operator
+2       R   =           variable, any           Assignment
+            *=, /=, %=, variable, any           Assignment with operation
+            +=, -=, <<=,
+            >>=, >>>=,
+            &=, ^=, |=
+1       R   →           arglist, method body    lambda expression
+</pre>
+</td>
+    </tr>
+</table>
+
+<br><b>Prio</b> = Priorité (ou Précédence) : lorsque plusieurs opérateurs sont combinés dans une expression sans utiliser de parenthèses.
+<br>Ex : On voit que <code>*</code> a une priorité supérieure à <code>+</code>
+<br>Donc <code>12+4*3</code> est interprété comme : <code>12 + (4 * 3)</code>
+<br>
+<br><b>A</b> = Associativité - peut être gauche à droite (L) ou de droite à gauche (R)
+<br>Ex : <code>72 / 2 / 3</code> est traité comme <code>(72 / 2) / 3</code> car l'opérateur <code>/</code> est associatif de gauche à droite.
+<br>Mais <code>x = y = z = 17</code> est traité comme <code>x = (y = (z = 17))</code> car l'opérateur <code>=</code> est associatif de droite à gauche (et dans l'affectation, le membre de gauche reçoit la valeur du membre de droite).
+<br>Certains opérateurs ne sont pas associatifs. Par exemple, les expressions <code>(x <= y <= z)</code> et <code>x++--</code> sont invalides.
+<br>
+<br><b>Types opérandes</b> = A quel type(s) de variables s'appliquent les opérateurs
+<br>
+<br>Voir <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/opsummary.html">https://docs.oracle.com/javase/tutorial/java/nutsandbolts/opsummary.html</a> et <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/operators.html">https://docs.oracle.com/javase/tutorial/java/nutsandbolts/operators.html</a>
+<br>
+<br>Quelques exemples :
+<pre>
+int a = 2;
+a++;       // a = a + 1
+a+=2;      // a = a + 2
+
+double b = 10;
+b/=3;       // b = b / 3
+b = (a > 4 ? 10 : 11);      // if a > 4 then b = 10 else b = 11
+
+// pre-increment and post-increment
+int i = 1;
+int j = ++i; // i = 2 et j = 2
+int i = 1;
+int j = i++; // i = 2 et j = 1
+
+// modulo
+int c = 14 % 12;    // c = 2
+// 2h de l'après-midi est la même chose que 14h
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="9-1-concatenation-de-chaines">Concaténation de chaînes</a></h3>
+Cas particulier, l'opérateur <code>+</code> s'applique aussi aux chaînes (instances de la classe String).
+<pre>
+System.out.println("Quotient : " + 7/3.0f);   // Quotient : 2.3333333
+System.out.println("Somme : " + 7 + 3);       // Somme : 73
+System.out.println("Somme : " + (7 + 3));     // Somme : 10
+</pre>
+Remarquer les conversions automatiques de types ainsi que les parenthèses nécessaires pour l'addition
+<br>Utilise la méthode <code>toString()</code> des objets.
+<br>Plus de détails dans la <a href="strings.html">page sur les <code>String</code></a>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="10-instructions-statements">Instructions (statements)</a></h2>
+
+L'instruction est l'unité d'exécution de base. Contrairement aux expressions, les instructions n'ont pas de valeur. 
+<br>Java exécute par défaut séquentiellement les instructions mais définit plusieurs instructions pour contrôler le flot d'exécution, modifiant de manière précisément définie le flot séquentiel.
+<br>Les instructions sont séparées par des <code>;</code> (point-virgule) ou regroupées entre des accolades <code>{ ... }</code>
+
+<!-- ************************************* -->
+<h3><a name="10-1-les-instructions-expression-expression-statements">Les instructions expression (expression statements)</a></h3>
+Certaines expressions (celles qui, en plus de renvoyer une valeur, modifient l'état du programme) peuvent constituer des instructions.
+<br>Les expressions pouvant constituer des instructions sont :
+<ul>
+    <li>les assignations</li>
+    <li>les incréments et décréments</li>
+    <li>les appels de méthode</li>
+    <li>la création d'objets</li>
+</ul>
+
+Par exemple :
+<pre>
+a = 3;          // assignation
+x *= 2;         // assignation avec opération
+i++; ++i;       // pré et post-incrément
+System.out.println("Statement"); // appel d'une méthode
+</pre>
+(voir <a href="../../exemples/java/expressions/Expressions.java">Expressions.java</a>)
+
+<br>Le fait que des choses comme l'affectation soient des expressions peut surprendre mais est très utile :
+<pre>while((line = in.readLine()) != null) { ... }</pre>
+Ici, <code>(line = in.readLine())</code> est une expression, dont la valeur est ensuite utilisée pour faire une comparaison.
+
+
+<!-- ************************************* -->
+<h3><a name="10-2-les-instructions-composees-compound-statements">Les instructions composées (compound statements)</a></h3>
+Sont composées d'un nombre quelconque d'instructions regroupées par des accolades.
+<br>Elles peuvent être utilisées partout où la syntaxe java attend une instruction simple.
+<pre>
+for(int i=0; i < 10; i++){
+    a[i]++;     // le corps de cette boucle est une instruction composée
+    b[i]++;     // constituée de 2 instructions
+}
+</pre>
+A noter : on peut isoler une partie du code entre des accolades (réduit la visibilité des variables à une portion de code).
+
+<pre>
+    // dans une méthode
+    {
+        int a = 4;
+    }
+    // ici, a n'est pas défini
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="10-3-l-instruction-vide-empty-statement">L'instruction vide (empty statement)</a></h3>
+Ne fait rien, mais parfois pratique :
+<pre>
+for(int i=0; i < 10; i++)
+    /* empty */;
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="10-4-les-instructions-labelisees-labeled-statements">Les instructions labelisées (labeled statements)</a></h3>
+Ce sont des instructions commençant par un label et suivi de <code>:</code> (deux points)
+<br>Utilisés par <code>break</code> et <code>continue</code> (très utiles dans certains cas).
+<pre>
+iloop: for(int i=0; i < 10; i++){
+    jloop: for(int j=0; j < 10; j++){
+        break iloop;
+    }
+}
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="10-5-les-instructions-de-declaration-de-variable-locale-local-variable-declaration-statements">Les instructions de déclaration de variable locale (local variable declaration statements)</a></h3>
+<pre>
+int i;
+String s;
+</pre>
+java ne permet pas d'utiliser une variable qui n'a pas été initialisée, on fait souvent l'initialisation en même temps que la déclaration :
+<pre>
+int i = 0;
+String s = "string";
+int[] a = {i+1, i+2, i+3} // on verra plus loin les tableaux
+</pre>
+La partie de droite d'une initialisation peut être tout type d'expression, aussi complexe soit elle.
+<br>
+<br>Il est aussi possible de déclarer (et initialiser) plusieurs variables <i>du même type</i> dans la même expression :
+<pre>
+int i, j, k;
+float x = 1.0, y = 3.5;
+</pre>
+A noter que les variables peuvent être déclarées n'importe où dans le code (plus souple que C qui impose que ce soit au début d'un bloc ou d'une fonction).
+<br>
+<br>La portée des variables (scope) est limitée à la méthode ou bloc où elles sont définies.
+<pre>
+void méthode(){
+    int i = 0;
+    while(i < 10){
+        int j = 0;
+        i++;
+    }
+    System.out.println(i); // 10
+    System.out.println(j); // erreur, car j n'est plus définie hors de son bloc de définition
+}
+</pre>
+
+<h4>Déclaration de variable avec <code>var</code></h4>
+Depuis java 10, il est possible d'utiliser <code>var</code> pour déclarer une variable locale lorsque le compilateur est capable d'inférer le type
+<br>Par exemple, remplacer :
+<pre>String message = "Hello World";</pre>
+par :
+<pre>var message = "Hello World";</pre>
+
+
+<!-- ************************************* -->
+<h3><a name="10-6-if-else">if / else </a></h3>
+<pre>
+if(a == null){
+    a = 10;
+}
+else{
+    b = 10;
+}
+</pre>
+Attention aux accolades :
+<pre>
+int i = 2, j = 2, k = 3;
+if(i == j)
+    if(i == k)
+        System.out.println("i égal k");
+else
+    System.out.println("i différent de j"); // PAS BON
+</pre>
+(voir <a href="../../exemples/java/if/If.java">If.java</a>)
+<br>
+<br>En général, on conseille de toujours mettre des accolades et de respecter l'indentation.
+
+<table>
+    <tr>
+        <td class="vertical-align-top">
+            <pre>
+if(n == 1){
+    ...
+}
+else if(n == 2){
+    ...
+}
+else if(n == 3){
+    ...
+}
+else{
+    ...
+}
+            </pre>
+        </td>
+        <td class="vertical-align-top">
+            <pre>
+if(n == 1){
+    ...
+}
+else{
+    if(n == 2){
+        ...
+    }
+    else{
+        if(n == 3){
+        ...
+        }
+        else{
+            ...
+        }
+    }
+}
+            </pre>
+        </td>
+    </tr>
+</table>
+
+<!-- ************************************* -->
+<h3><a name="10-7-switch">switch</a></h3>
+<pre>
+switch(n){
+    case 1:
+        ...
+    break;
+    case 2:
+        ...
+    break;
+    case 3:
+        ...
+    break;
+    default:
+        ...
+    break;
+}
+</pre>
+<code>return</code> ou <code>throw</code> permet aussi de sortir du switch
+<br><code>n</code> peut être de type <code>byte</code>, <code>short</code>, <code>char</code>, <code>int</code>, <code>enumerated type</code>, <code>String</code>, <code>Character</code>, <code>Byte</code>, <code>Short</code> et <code>Integer</code>
+
+<!-- ************************************* -->
+<h3><a name="10-8-while">while</a></h3>
+<table>
+    <tr>
+        <td class="vertical-align-top">
+        <pre>
+while(expression)
+    statement
+        </pre>
+        </td>
+        <td class="vertical-align-top">
+        <pre>
+int count = 0;
+while(count < 10){
+    System.out.println("count = " + count);
+    count++;
+}
+        </pre>
+        </td>
+    </tr>
+</table>
+
+<!-- ************************************* -->
+<h3><a name="10-9-do">do</a></h3>
+Peu utilisé (on doit être dans une situation où on est sûrs de vouloir au moins une fois exécuter l'intérieur de la boucle).
+<table>
+    <tr>
+        <td class="vertical-align-top">
+        <pre>
+do
+    statement
+while (expression)
+        </pre>
+        </td>
+        <td class="vertical-align-top">
+        <pre>
+int count = 0;
+do {
+    System.out.println("count = " + count);
+    count++;
+} while(count < 10)
+        </pre>
+        </td>
+    </tr>
+</table>
+
+<!-- ************************************* -->
+<h3><a name="10-13-for">for</a></h3>
+
+Par exemple :
+<pre>
+for(int i=0; i < 10; i++){
+    System.out.println("i = " + i);
+}
+</pre>
+
+<table>
+    <tr>
+        <td class="vertical-align-top">
+        Syntaxe générale :
+        <pre>
+for(initialize; test; update)
+    statement;
+        </pre>
+        </td>
+        <td class="vertical-align-top">
+        Equivalent à :
+        <pre class="margin-left0">
+initialize;
+while(test) {
+    statement;
+    update;
+}
+        </pre>
+        </td>
+    </tr>
+</table>
+
+Possible de faire plusieurs initialisations ou update en les séparant par des virgules :
+<pre>
+for(int i=0, j=10; i < 10; i++, j--){
+    System.out.println("i = " + i + ", j = " + j);
+}
+</pre>
+les parties <i>initialize</i>, <i>test</i>, <i>update</i> sont optionnelles (mais les points-virgules sont obligatoire).
+<br><code>for(;;;)</code> fait donc une boucle infinie.
+
+<!-- ************************************* -->
+<h3><a name="10-11-break">break</a></h3>
+<code>break</code> permet de sortir de l'instruction qui la contient.
+<pre>
+for(int i = 0; i < data.length; i++) {
+    if (data[i] == target) {
+        index = i;
+        break;
+    }
+} // l'interpreteur arrive ici après le break
+</pre>
+
+<code>break</code> peut être suivi par le label d'un labeled statement
+<pre>
+iloop: for(int i=0; i < 10; i++){
+    jloop: for(int j=0; j < 10; j++){
+        break iloop;
+    }
+}// java arrive ici après le break
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="10-12-continue">continue</a></h3>
+Passe à l'itération suivante de la boucle
+<pre>
+for(int i = 0; i < data.length; i++) {
+    if(data[i] == false){
+        continue;
+    }
+    process(data[i]);
+}
+</pre>
+Utilisé sans label, <code>continue</code> passe à l'itération suivante de la boucle la plus intérieure.
+<br>Utilisé avec un label (ex : <code>continue iloop;</code>), passe à l'itération suivante de la boucle labelisée.
+
+<!-- ************************************* -->
+<h3><a name="10-13-for">for</a></h3>
+Permet d'itérer sur une collection sans la lourdeur des indexes :
+<pre>
+for( declaration : expression )
+    statement
+</pre>
+
+Par exemple, on peut écrire :
+<pre>
+int[] primes = new int[] { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 };
+for(int n : primes)
+    System.out.println(n);
+</pre>
+
+au lieu de :
+
+<pre>
+for(int i = 0; i < primes.length; i++) {
+    System.out.print(primes[i]);
+}
+</pre>
+
+La syntaxe <code>for(int n : primes)</code> signifie "for each n in primes".
+<br>
+<br>Pratique mais ne peut pas remplacer complètement les boucles lorsqu'on veut parcourir de la fin vers le début, ou lorsque l'index est nécessaire :
+<pre>
+for(int i = 0; i < words.length; i++) {
+    if (i > 0) System.out.print(", ");
+    System.out.print(words[i]);
+}
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="10-14-return">return</a></h3>
+Indique à java de stopper l'exécution de la méthode courante.
+<br>Si la méthode a été déclarée avec un type de retour, <code>return</code> doit être suivi par une expression (dont la valeur est du même type que celui déclaré dans la méthode).
+<pre>
+double square(double x) {
+    return x * x;
+}
+</pre>
+Si la méthode est déclarée <code>void</code>, <code>return</code> ne doit pas être suivi d'une expression.
+<pre>
+void printSquareRoot(double x) {
+    if (x &lt; 0) return;
+    System.out.println(Math.sqrt(x));
+}
+</pre>
+
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/multiples/Multiples1.html">Multiples1</a>
+</div>
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/multiplication/TableMultiplication.html">TableMultiplication</a>
+</div>
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/fibonacci/Fibonacci.html">Fibonacci</a>
+</div>
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/pi/Pi.html">Calcul de pi</a>
+</div>
+
+<!-- ************************************* -->
+<h3><a name="10-15-autres-instructions">Autres instructions</a></h3>
+java fournit d'autres instructions qu'on ne verra pas dans ce cours : <code>synchronized</code>, <code>assert</code>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="11-les-tableaux">Les tableaux</a></h2>
+Un tableau (array) est un type particulier d'objet, qui contient 0 ou plusieurs instances de type référence ou primitif, que l'on appelle <b>éléments</b> du tableau.
+<br>Le type d'un tableau est caractérisé par le type de ses éléments (tous les éléments d'un tableau doivent être du même type).
+<br>Les éléments d'un tableau n'ont pas de nom, ils sont repérés par leur <b>index</b>, qui commence à 0.
+<br>Le nombre d'élément d'un tableau est stocké dans une propriété <code>length</code> ; la taille du tableau doit être spécifiée à la création et ne peut pas changer.
+<br>Un tableau peut contenir tout type d'objet, notamment des tableaux, ce qui permet de gérer des tableaux à plusieurs dimensions.
+<br>
+<br>Comme les classes, les tableaux sont un type référence. Les instances d'un tableau sont donc des objets, qui héritent des méthodes de <code>java.lang.Object</code>.
+<br>
+<br>Pour définir un tableau on utilise les crochets (brackets) <code>[ ]</code> :
+<pre>
+byte b;                         // declaration of a variable
+byte[] arrayOfBytes;            // byte[] is an array of byte values
+byte[][] arrayOfArrayOfBytes;   // byte[][] is an array of byte[]
+String[] points;                // String[] is an array of strings
+</pre>
+Ici, la variable <code>points</code> est de type <code>String[]</code>. Mais la longueur du tableau ne fait pas partie de son type, on ne peut pas créer de type "un tableau contenant 4 strings".
+<br>
+<br>Lorsqu'on passe en paramètre un tableau, le type de tableau fait donc partie de la signature de la méthode.
+<br>Par exemple <code>public static int max(int[] x)</code> n'acceptera pas un tableau de <code>float</code>.
+<br>
+<br>Pour créer un tableau, on utilise le mot-clé <code>new</code>, comme pour un objet :
+<pre>String[] lines = new String[50];</pre>
+Lorsqu'on crée un tableau, chaque élément est automatiquement initialisé avec les mêmes valeurs utilisées pour les variables d'une classe (<code>false</code> pour un booléen, <code>\u0000</code> pour un char, <code>0</code> un entier, <code>0.0</code> pour un nombre réel, et <code>null</code> pour un type référence).
+
+<!-- ************************************* -->
+<h3><a name="11-1-array-initializers">Array initializers</a></h3>
+
+De la même manière qu'on peut initialiser une chaîne avec une syntaxe spéciale sans utiliser <code>new</code>, on peut initialiser un tableau :
+<pre>
+String[] greetings = new String[] { "Hello", "Hi", "Howdy" };
+int[] smallPrimes = new int[] { 2, 3, 5, 7, 11, 13, 17, 19, };
+</pre>
+
+On parle d'<b>array litterals</b>
+<br>Cette syntaxe permet de créer un tableau sans utiliser <code>new</code>
+<br>
+<br>Elle permet aussi d'utiliser des tableaux sans les assigner à des variables (en quelque sorte des "tableaux anonymes") :
+<pre>
+double d = computeAreaOfTriangle(new Point[] { new Point(1,2), new Point(3,4), new Point(3,2) });
+</pre>
+
+Les array litterals sont créés et initialisés à l'exécution, et pas à la compilation.
+<pre>
+int[] perfectNumbers = {6, 28};
+</pre>
+A la compilation, cela est traduit en :
+<pre>
+int[] perfectNumbers = new int[2];
+perfectNumbers[0] = 6;
+perfectNumbers[1] = 28;
+</pre>
+Une conséquence importante est qu'on peut mettre dans un array litterals des choses qui ne sont pas fixes, par exemple
+<pre>Point[] points = { circle1.getCenterPoint(), circle2.getCenterPoint() };</pre>
+
+<!-- ************************************* -->
+<h3><a name="11-2-utilisation-des-tableaux">Utilisation des tableaux</a></h3>
+
+On utilise les brackets <code>[ ]</code> pour accéder aux éléments d'un tableau :
+<pre>
+String[] responses = new String[2];
+responses[0] = "Yes";
+responses[1] = "No";
+System.out.println(question + " (" + responses[0] + " / " + responses[1] + " ) : ");
+</pre>
+
+Si <code>t</code> est un tableau, <code>t[0]</code> est son premier élément, <code>t[1]</code> le second ... et <code>t[t.length-1]</code> est le dernier.
+<br>
+<br>Pour parcourir un tableau, on peut utilise typiquement une boucle for ou foreach:
+<pre>
+int[] primes = { 2, 3, 5, 7, 11, 13, 17, 19, 23 };
+int sumOfPrimes = 0;
+
+for(int i = 0; i < primes.length; i++){
+    sumOfPrimes += primes[i];
+}
+// ou bien
+for(int p : primes){
+    sumOfPrimes += p;
+}
+</pre>
+
+La classe <code>java.util.Arrays</code> contient de nombreuses méthodes pour manipuler les tableaux.
+
+<h4>Tableau à plusieurs dimensions</h4>
+S'utilisent comme les tableaux à une dimension.
+<br>Il n'est pas nécessaire de spécifier toutes les length à la création, seule la première est nécessaire, et il faut les spécifier par la gauche :
+<pre>
+float[][][] tableau3D = new float[360][180][100];
+float[][][] tableau3D = new float[360][180][];
+float[][][] tableau3D = new float[360][][];
+</pre>
+Mais à l'utilisation, il faudra spécifier les tailles avant de les utiliser :
+<pre>
+int[][] t = new int[10][];
+for(int i = 0; i < t.length; i++){
+    t[i] = new int[i];      // ici, on a pu déclarer un tableau qui n'est pas "carré"
+    for(int j = 0; j < t[i].length; j++){
+        System.out.println("i = " + i + " - j = " + j);
+    }
+    System.out.println();
+}
+</pre>
+Les array initializers peuvent être aussi utilisés pour des tableaux à plusieurs dimensions :
+<pre>
+int[][] products = {
+    {0, 0, 0, 0, 0},
+    {0, 1, 2, 3, 4},
+    {0, 4, 8, 12, 16}, // remarquer la dernière virgule (facultative)
+};
+</pre>
+De la même manière, on peut avoir des "tableaux anonymes".
+
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/max/Max.html">Max et moyenne</a>
+</div>
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/voitures/Voitures.html">Voitures</a>
+</div>
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/premiers/Premiers.html">Nombres premiers</a>
+</div>
+
+<!-- ********************************************************************************* -->
+<h2><a name="12-les-exceptions">Les exceptions</a></h2>
+Les exceptions sont un mécanisme de propagation des erreurs.
+<br>Très pratique car permet d'écrire du code plus lisible, non pollué par la gestion des cas d'erreur.
+<br>
+<br>Le mécanisme des exceptions utilise 5 mots-clés du langage : <code><b>try</b></code>, <code><b>catch</b></code>, <code><b>finally</b></code>, <code><b>throw</b></code> et <code><b>throws</b></code>.
+<br>
+<br>Sans les exceptions :
+<pre>
+fonction ContenuDuFichier(String filename){
+
+    ouvrirFichier(filename)
+    
+    si erreur d'ouverture
+        return null
+    
+    String contentu = lireFichier
+    
+    Si erreur de lecture
+        return null
+    
+    return contenu
+}
+</pre>
+Avec les exceptions :
+<pre>
+fonction ContenuDuFichier(String filename){
+    <b>try</b>{
+        ouvrirFichier(filename)
+        String contentu = lireFichier
+        return contenu
+    }
+    <b>catch</b>(ErreurOuverture e){
+        return null
+    }
+    <b>catch</b>(ErreurLecture e){
+        return null
+    }
+}
+</pre>
+
+En plus de <code>try</code> et <code>catch</code>, on peut définir un bloc <code>finally</code>, qui va s'exécuter dans tous les cas, qu'une exception ait été lancée ou pas.
+<br>Le bloc <code>finally</code> est exécuté même si une exception est propagée ; utile par exemple pour fermer une connexion réseau ou à une base de données.
+<br><code>catch</code> et <code>finally</code> sont optionnels, mais au moins un des deux est nécessaire.
+<br>Les accolades sont obligatoires dans ces blocs, même s'ils ne contiennent qu'une ligne.
+<br>
+
+<pre>
+try {
+
+    // instructions
+    
+} catch(ExceptionType1 e){
+    // traitement de ce cas anormal de type ExceptionType1
+    // e est de type ExceptionType1
+}
+
+catch(ExceptionType2){
+    // traitement de ce cas anormal de type ExceptionType2
+    // e est de type ExceptionType2
+}
+
+<b>finally</b> {
+    traitement de fin de bloc try
+}
+</pre>
+
+Une même clause <code>catch</code> peut gérer plusieurs types d'exception, en les séparant par <code>|</code>.
+<pre>
+try{
+    ...
+}
+catch(<b>ExceptionType1 | ExceptionType2 e</b>){
+    // la variable e est un objet de type ExceptionType1 ou ExceptionType2
+}
+</pre>
+
+
+<!-- ************************************* -->
+<h3><a name="12-1-les-classes-d-exception">Les classes d'exception</a></h3>
+
+Les exceptions que l'on peut lancer ou attrapper sont des objets de type <code>java.lang.Exception</code> ou de ses sous-classes.
+<br>L'API java fournit un grand nombre de classes :
+
+<img class="margin padding05 border" src="img/throwable.jpg" alt="Hiérarchie Throwable" />
+
+
+<br>On distingue 2 types principaux d'exceptions : 
+<br>- les exceptions vérifiées (<b>checked exceptions</b>), qui peuvent être anticipées et doivent être gérées par l'application.
+<br>- les exceptions non vérifiées (<b>unchecked exceptions</b>), qui ne peuvent pas être anticipées (par ex <code>OutOfMemoryError</code>).
+<br>Les unchecked exceptions descendent de <code>Error</code> ou de <code>RuntimeException</code> .
+<br>
+<br>Une exception contient un message, accessible via <code>getMessage()</code>.
+<br><code>printStackTrace()</code> est aussi courrament utilisée.
+
+
+<!-- ************************************* -->
+<h3><a name="12-2-creer-ses-propres-exceptions">Créer ses propres exceptions</a></h3>
+On peut créer des exceptions personnalisées en sous-classant <code>Exception</code> :
+
+<pre>public MyException extends Exception {}</pre>
+
+Dans le code qu'on écrit on a le choix entre utiliser <code>Exception</code> et ses sous-classes lorsque c'est pertinent, ou les classes d'exceptions spécifiques à l'application.
+
+<!-- ************************************* -->
+<h3><a name="12-3-lancer-des-exceptions">Lancer des exceptions</a></h3>
+Une exception est "lancée" avec l'instruction <code>throw</code> lorsqu'une condition anormale d'exécution est rencontrée :
+<pre>
+public static double factorial(int x) throws IllegalArgumentException{
+    if (x < 0)
+        <b>throw new IllegalArgumentException("x must be >= 0")</b>;
+    double fact;
+    for(fact=1.0; x > 1; fact *= x, x--)
+        ; // instruction vide
+    return fact;
+}
+</pre>
+
+(code dans <a href="../../exemples/java/factorial/Factorial.java">Factorial.java</a>)
+
+<!-- ************************************* -->
+<h3><a name="12-4-propagation-des-exceptions">Propagation des exceptions</a></h3>
+
+Si l'interpréteur java rencontre une exception, il arrête l'exécution du code et cherche un gestionnaire d'exception (un bloc <code>catch</code>).
+<br>
+L'interpréteur java va remonter la pile d'appel des méthodes jusqu'à ce qu'il trouve un bloc <code>catch</code> correspondant au type de l'exception en cours ou à une superclasse.
+<br>Par exemple, si on se place dans une méthode qui utilise <code>factorial()</code> :
+<pre>
+void maMéthode(){
+    ...
+    double f = factorial(-5);
+    ...
+}
+</pre>
+
+- Soit <code>maMéthode()</code> contient un bloc try catch gérant <code>IllegalArgumentException</code>
+<pre>
+void maMéthode(){
+    try{
+        ...
+        double f = factorial(-5);
+        ...
+    }
+    catch(IllegalArgumentException e){
+        // gestion de e
+    }
+}
+</pre>
+Dans ce cas le code présent dans ce bloc catch sera exécuté.
+<br>
+<br>- Soit <code>maMéthode()</code> ne gère pas <code>IllegalArgumentException</code> et doit alors obligatoirement déclarer qu'elle est susceptible de lancer une exception avec le mot-clé <code>throws</code> :
+
+<pre>
+void maMéthode <b>throws IllegalArgumentException</b>(){
+    ...
+    double f = factorial(-5);
+    ...
+}
+</pre>
+
+Dans ce cas, l'exception sera propagée à la méthode qui a appelé <code>maMéthode()</code>, ainsi de suite jusqu'à la fonction <code>main()</code>.
+<br>Donc en général, le code d'une fonction <code>main()</code> contient un try catch :
+<pre>
+public static void main(String[] args) {
+    try{
+    }
+    catch(Exception e){
+    }
+</pre>
+Dans ce cas, on a intérêt à utiliser la classe <code>Exception</code>, qui est la superclasse de toutes les autres exceptions, çe qui permet de rattrapper toute erreur imprévue dans le programme, quelque soit son type.
+<br>
+<br>A noter : les blocs <code>catch</code> sont évalués les uns après les autres. Le compilateur impose donc que les cas particuliers soient traités d'abord.
+
+<pre>
+void maMéthodeQuiNePassePasALaCompil(){
+    try{
+        ...
+        double f = factorial(-5);
+        ...
+    }
+    catch(Exception e){
+    }
+    catch(IllegalArgumentException e){
+    }
+}
+</pre>
+Si ce code passait à la compilation, le <code>catch</code> de <code>IllegalArgumentException</code> ne serait jamais appelé puisque c'est une sous-classe de <code>Exception</code>.
+
+<!-- ************************************* -->
+<h3><a name="12-5-try-with-resources-twr">try with resources (TWR)</a></h3>
+Voir <a href="io.html#1-3-try-with-resources-twr">le cours sur java.io</a>
+
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/multiples/Multiples2.html">Multiples2</a>
+</div>
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>
+/html>

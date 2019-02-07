@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Command | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Command et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="memento.html">&larr;</a>
+    <a class="next" title="Next" href="interpreter.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>
+Command
+<div class="subtitle">(Commande)</div>
+</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-structure">Structure</a>
+        </li>
+        <li>
+            <a href="#2-exemples">Exemples</a>
+            <ul>
+                <li><a href="#2-1-sourcemaking">sourcemaking</a></li>
+                <li><a href="#2-2-menus">Menus</a></li>
+                <li><a href="#2-3-swing-awt">Swing, awt</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+Autres noms : Action, Transaction
+
+<div class="intro">
+But : encapsuler une requête dans un objet.
+<br>Lorsqu'on a besoin d'envoyer des requêtes à des objets sans rien savoir
+<br>de l'opération demandée ni de l'objet qui exécutera la requête.
+</div>
+
+Permet de paramétrer les clients avec différentes requêtes, faire des queues de requêtes, logger les requêtes, gérer l'annulation (undo).
+<br>
+<br><i>Command</i> découple l'objet qui invoque une opération (<code><b>Invoker</b></code>) de l'objet qui l'exécute (<code><b>Reciever</b></code>).
+<br>
+<br>Pour réaliser cette séparation, on crée une classe abstraite (<code><b>Command</b></code>) avec une méthode, par exemple <code><b>execute()</b></code>.
+<br>Les sous-classes de <code>Command</code> implémentent <code>execute()</code> en exécutant une méthode d'un receveur de la commande.
+<br>
+<br>Dans ce pattern, la présence de la classe abstraite est nécessaire, car c'est elle qui permet de découpler <code>Invoker</code> de <code>Reciever</code> :
+<br><code>Invoker</code> sait juste qu'il invoque une commande, mais il ne sait pas de quelle commande concrète il s'agit.
+
+<!-- 
+Command decouples the object that invokes the operation from the one that knows how to perform it.
+To achieve this separation, the designer creates an abstract base class
+that maps a receiver (an object) with an action (a pointer to a member function). 
+The base class contains an execute() method that simply calls the action on the receiver.
+
+All clients of Command objects treat each object as a "black box" by simply invoking
+the object's virtual execute() method whenever the client requires the object's "service".
+
+A Command class holds some subset of the following: an object, a method to be applied to the object,
+and the arguments to be passed when the method is applied.
+The Command's "execute" method then causes the pieces to come together.
+
+Sequences of Command objects can be assembled into composite (or macro) commands.
+-->
+<br>
+<br><i>Command</i> est l'équivalent objet d'un <b>callback</b> en langage procédural.
+<br>Un callback est une fonction qu'on peut mettre dans une variable et transmettre à du code qui pourra l'exécuter.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-structure">Structure</a></h2>
+
+<img class="border margin padding05" src="img/command-gof-diagram.jpg" alt="Command - structure" />
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-exemples">Exemples</a></h2>
+
+<!-- ************************************* -->
+<h3><a name="2-1-sourcemaking">sourcemaking</a></h3>
+
+<pre>
+import java.util.List;
+import java.util.ArrayList;
+
+// Client
+public class DemoCommand2 {
+    public static void main( String[] args ) {
+        
+        // Invoker - produce requests
+        List&lt;Command> queue = new ArrayList<>();
+        queue.add(new DomesticEngineer());
+        queue.add(new Politician());
+        queue.add(new Programmer());
+        
+        // Reciever - execute requests
+        for (Command command : queue) {
+            command.execute();
+        }
+    }
+}
+
+// ===== Abstract command =====
+abstract class Command {
+    public void execute() {
+        System.out.println(this.getClass().getSimpleName() + ".execute()");
+    }
+}
+
+// ===== Concrete commands =====
+class DomesticEngineer extends Command {}
+class Politician extends Command {}
+class Programmer extends Command {}
+</pre>
+
+(code dans <a href="../../exemples/patterns/command/sourcemaking/DemoCommand2.java">DemoCommand2.java</a>)
+
+<pre>java DemoCommand1</pre>
+
+<pre>
+DomesticEngineer.execute()
+Politician.execute()
+Programmer.execute()
+</pre>
+
+<a href="../../exemples/patterns/command/sourcemaking/DemoCommand1.java">DemoCommand1.java</a> contient le même code mais <code>Command</code> est une interface.
+
+<!-- ************************************* -->
+<h3><a name="2-2-menus">Menus</a></h3>
+
+<a href="../../exemples/patterns/command/menus/MenuCommands.java">MenuCommands.java</a> contient l'utilisation de commandes au sein d'un composite.
+<br>Illustre l'indépendance entre la création de commandes et leur utilisation.
+
+
+<!-- ************************************* -->
+<h3><a name="2-3-swing-awt">Swing, awt</a></h3>
+
+<!-- 
+
+Le pattern <i>Command</i> est très présent dans swing par le biais de la marker interface <code>java.util.EventListener</code>.
+<br>Par exemple <code>java.awt.event.ActionListener</code> contient une méthode, <code>actionPerformed(ActionEvent e)​</code>.
+<br>Pour pouvoir réagir à une action de l'utilisateur, on associe un <code>ActionListener</code> à un composant graphique ; lorsqu'une action de l'utilisateur arrive sur ce composant, la méthode <code>actionPerformed()</code> est appelée.
+<br>On a typiquement ce genre de code :
+<pre>
+unComposantGraphique.addActionListener(new MonListener());
+
+// ...
+
+class MonListener implements ActionListener{
+    public void actionPerformed(ActionEvent e){
+        // actions
+    }
+}
+</pre>
+
+On a cette correspondance :
+<table class="wikitable margin">
+    <tr><th>Pattern Command</th><th>Swing</th></tr>
+    <tr>
+        <td><code>Invoker</code></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><code>Reciever</code></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><code>Command</code></td>
+        <td><code>ActionListener</code></td>
+    </tr>
+    <tr>
+        <td><code>ConcreteCommand</code></td>
+        <td><code>MonListener</code></td>
+    </tr>
+    <tr>
+        <td><code>Execute()</code></td>
+        <td><code>actionPerformed()</code></td>
+    </tr>
+</table>
+-->
+
+<div class="exo">
+<b>Exercice</b> : <a href="../../exos/patterns/command/swing/SwingCommands.html">Swing commands</a>
+</div>
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

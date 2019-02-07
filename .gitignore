@@ -1,0 +1,7 @@
+
+*.class
+z.*
+*~
+
+solutions
+bin

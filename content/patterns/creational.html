@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Patterns de création | NFP121 Millau</title>
+    <meta name="description" content="Introduction aux design patterns servant à construire des objets en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="intro-patterns.html">&larr;</a>
+    <a class="next" title="Next" href="factory-method.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Patterns de création</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-le-labyrinthe">Le labyrinthe</a>
+            <ul>
+                <li><a href="#1-1-implementation-java">Implémentation java</a></li>
+                <li><a href="#1-2-creation-basique">Création basique</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+<style>
+ul.list-creational li{
+    display:inline-block;
+    list-style:none;
+    font-weight:bold;
+    font-size:2em;
+    padding-right:1em;
+}
+</style>
+<ul class="list-creational">
+    <li><a href="singleton.html">Singleton</a></li>
+    <li><a href="factory-method.html">Factory Method</a></li>
+    <li><a href="abstract-factory.html">Abstract Factory</a></li>
+    <li><a href="prototype.html">Prototype</a></li>
+    <li><a href="builder.html">Builder</a></li>
+</ul>
+
+
+Les patterns de création sont importants lorsque les systèmes deviennent complexes et reposent plus sur la composition que sur l'héritage.
+<br>
+<br>Plutôt que d'avoir un nombre fixe de comportements complexes, on cherche à avoir des comportements plus simples que l'on peut assembler pour fabriquer des comportements complexes.
+<br>La simple instanciation d'objets ne suffit plus.
+<br>
+<br>Ils ont deux caractéristiques :
+<br>- Ils encapsulent la connaissance des classes concrètes utilisées par le système.
+<br>- Ils cachent la manière de créer et d'assembler les objets.
+<br>
+<br>Donc le système ne connaît que les interfaces des objets.
+<br>Cela donne de la souplesse sur le <i>quoi</i> (qu'est-ce qui est créé), sur <i>qui</i> crée les objets, <i>comment</i> et <i>quand</i> ils sont crées.
+<br>Cela permet de configurer le système pour fabriquer des objets dont la structure et les fonctionnalités varie. Cette configuration peut être statique (à la compilation) ou dynamique (à l'exécution).
+<br>
+<br>Patterns de création :
+<ul>
+    <li><b>Singleton</b> (Singleton) : une seule instance.</li>
+    <li><b>Factory method</b> (Fabrique) : déléguer la création aux sous-classes.</li>
+    <li><b>Abstract factory</b> (Fabrique abstraite) : création de familles d'objets.</li>
+    <li><b>Builder</b> (Monteur) : création d'objets partageant le même processus de fabrication.</li>
+    <li><b>Prototype</b> (Prototype) : création d'objets par clonage.</li>
+</ul
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-le-labyrinthe">Le labyrinthe</a></h2>
+( = <i>Maze</i> en anglais)
+<br>
+<br>Suivant les cas, les patterns de création peuvent être complémentaires ou en concurrence.
+<br>Comme ils sont reliés, on va les étudier en utilisant un exemple commun.
+<br>Cet exemple est une adaptation java du livre du GOF, et utilise la terminologie originale en anglais.
+<br>Le code correspondant se trouve dans <a href="../../exemples/patterns/creation/src/maze">exemples/patterns/creation/src/maze</a>.
+<br>
+<br>Dans le cadre du développement d'un jeu, on a besoin de créer un labyrinthe.
+<br>Suivant le pattern étudié, les spécifications varieront un peu.
+<br>On va se concentrer sur la manière de créer le labyrinthe.
+<br>
+<br>Le labyrinthe est constitué d'un ensemble de pièces (<i>rooms</i>).
+<br>Une pièce connaît ses voisins.
+<br>Les voisins possibles sont : une autre pièce, un mur (<i>wall</i>) ou une porte (<i>door</i>).
+
+<img class="border margin" src="img/creation-diagram.jpg" alt="Classes formant le labyrinthe" />
+
+Chaque pièce peut avoir 4 directions (N S E W) contenues dans une enum.
+<br>
+<br><code>MapSite</code> est la classe abstraite commune pour tous les composants du labyrinthe.
+<br>Elle définit une seule opération : <code>enter()</code> ; sa signification dépend du contexte :
+<ul class="margin-top0">
+    <li>Si on entre dans une pièce, la position du joueur change.</li>
+    <li>Si on entre dans un mur, la position du joueur ne change pas.</li>
+    <li>
+        Si on entre dans une porte,
+        <ul>
+            <li>Si la porte est ouverte, la position du joueur change.</li>
+            <li>Si la porte est fermée, la position du joueur ne change pas.</li>
+        </ul>
+    </li>
+</ul>
+
+<code>Room</code> est la sous-classe concrète de <code>MapSite</code> qui définit les relations entre les différents composants du labyrinthe.
+<br>Elle contient
+<br>- les références aux autres <code>MapSite</code>.
+<br>- un <i>room number</i> (chaque room est identifiée par son room number).
+<br>
+<br>On définit une dernière classe, <code>MazeGame</code>, chargée de créer le maze.
+<br>
+<br>Dans l'exemple utilisé, on va créer un labyrinthe contenant 2 pièces avec une porte entre les deux.
+
+
+<!-- ************************************* -->
+<h3><a name="1-1-implementation-java">Implémentation java</a></h3>
+
+<a href="../../exemples/patterns/creation/src/maze">exemples/patterns/creation/src/maze</a>
+<pre>
+maze/
+├── Main.java
+├── model
+│   ├── bomb
+│   │   ├── BombedWall.java
+│   │   └── RoomWithBomb.java
+│   ├── Direction.java
+│   ├── Door.java
+│   ├── enchanted
+│   │   ├── DoorNeedingSpell.java
+│   │   └── EnchantedRoom.java
+│   ├── MapSite.java
+│   ├── Maze.java
+│   ├── Room.java
+│   └── Wall.java
+└── patterns
+    ├── abstractfactory
+    │   ├── BombedMazeFactory.java
+    │   ├── EnchantedMazeFactory.java
+    │   ├── MazeFactory.java
+    │   └── MazeGame.java
+    ├── basic
+    │   └── MazeGame.java
+    ├── builder
+    │   ├── CountingMazeBuilder.java
+    │   ├── MazeBuilder.java
+    │   ├── MazeGame.java
+    │   └── StandardMazeBuilder.java
+    ├── factorymethod
+    │   ├── BombedMazeGame.java
+    │   ├── EnchantedMazeGame.java
+    │   ├── MazeGame.java
+    │   └── parametrized
+    │       └── ParametrizedMazeGame.java
+    └── prototype
+        ├── MazeGame.java
+        └── MazePrototypeFactory.java
+</pre>
+
+
+<!-- ************************************* -->
+<h3><a name="1-2-creation-basique">Création basique</a></h3>
+
+Dans <code>src/maze/Main.java</code> :
+<pre>
+MazeGame game = new MazeGame();
+Maze maze = game.createMaze();
+</pre>
+
+La manière la plus simple de créer le labyrinthe est de faire une fonction qui crée ses composants et leurs connections :
+
+<pre>
+package maze.patterns.basic;
+
+import maze.model.*;
+import static maze.model.Direction.*;
+
+public class MazeGame{
+
+    public static Maze createMaze(){
+    
+        Maze aMaze = new Maze();
+        Room r1 = <b>new Room</b>(1);
+        Room r2 = <b>new Room</b>(2);
+        Door theDoor = <b>new Door</b>(r1, r2);
+        
+        aMaze.addRoom(r1);
+        aMaze.addRoom(r2);
+        
+        r1.setSide(NORTH, new Wall());
+        r1.setSide(EAST, theDoor);
+        r1.setSide(SOUTH, new Wall());
+        r1.setSide(WEST, new Wall());
+        
+        r2.setSide(NORTH, new Wall());
+        r2.setSide(EAST, new Wall());
+        r2.setSide(SOUTH, new Wall());
+        r2.setSide(WEST, theDoor);
+        
+        return aMaze;
+    }
+
+}
+</pre>
+
+La fonction <code>createMaze()</code> est rigide, car elle code en dur à la fois les composants utilisés et leur layout.
+<br>
+<br>Par exemple, si on veut réutiliser ce layout avec des composants différents : des <code>DoorNeedingSpell</code>, une porte qui a besoin d'un mot de passe pour être ouverte et des <code>EnchantedRoom</code>s, pièces qui possèdent des mots de passe pour ouvrir les <code>DoorNeedingSpell</code> ?
+<br>
+<br>Il faudrait remplacer
+<pre>
+        Room r1 = <b>new Room</b>(1);
+        Room r2 = <b>new Room</b>(2);
+        Door theDoor = <b>new Door</b>(r1, r2);
+</pre>
+par
+<pre>
+        Room r1 = <b>new EnchantedRoom</b>(1);
+        Room r2 = <b>new EnchantedRoom</b>(2);
+        Door theDoor = <b>new DoorNeedingSpell</b>(r1, r2);
+</pre>
+On pourrait réimplémenter <code>createMaze()</code> avec des if, mais on aura une fonction compilquée ; ou alors sous-classer <code>MazeGame</code>, mais une grosse partie du code est commune.
+<br>
+<br>La difficulté vient du fait que le code qui <b>utilise</b> les classes <code>Room</code> et <code>Door</code> <b>instancie</b> lui-même ces classes.
+
+<div class="big4 center margin">Les patterns de création permettent de séparer le code utilisateur de l'instanciation.</div>
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>

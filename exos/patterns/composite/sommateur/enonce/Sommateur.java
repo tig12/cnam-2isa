@@ -1,0 +1,69 @@
+/**
+    Simple example of Composite pattern using vocabulary of GOF structure diagram
+    Methods remove() and getChild() omitted because useless for this example.
+    
+    @author Thierry Graff
+    @version 2017-12-19
+**/
+
+import java.util.List;
+import java.util.ArrayList;
+
+public class Sommateur {
+
+    public static void main(String[] args) {
+    
+        Component root = new Composite();
+        Component node1_1 = new Composite();
+        Component node1_1_1 = new Nombre(12);
+        Component node1_1_2 = new Nombre(14);
+        Component node1_2 = new Composite();
+        Component node1_2_1 = new Nombre(5);
+        Component node1_2_2 = new Composite();
+        Component node1_2_2_1 = new Nombre(3);
+        Component node1_2_2_2 = new Nombre(6);
+        
+        root.addChild(node1_1);
+        node1_1.addChild(node1_1_1);
+        node1_1.addChild(node1_1_2);
+        root.addChild(node1_2);
+        node1_2.addChild(node1_2_1);
+        node1_2.addChild(node1_2_2);
+        node1_2_2.addChild(node1_2_2_1);
+        node1_2_2.addChild(node1_2_2_2);
+
+        // à compléter
+        System.out.println("Somme totale = ");
+        
+        // à compléter
+        System.out.println("Somme des enfants : ");
+        
+    }
+}
+
+abstract class Component {
+    public abstract int somme();
+    public abstract void addChild(Component c);
+}
+
+class Nombre extends Component{
+    // A compléter
+}
+
+class Composite extends Component{
+    
+    private List<Component> children = new ArrayList<>();
+    
+    public int somme(){
+        // à compléter
+    }
+    
+    // composite stuff
+    public List<Component> getChildren(){
+        return children;
+    }
+    public void addChild(Component child){
+        children.add(child);
+    }
+}
+

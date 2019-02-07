@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Observer | NFP121 Millau</title>
+    <meta name="description" content="Le design pattern Observer et exemples d'implémentation en java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="proxy.html">&larr;</a>
+    <a class="next" title="Next" href="strategy.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>
+Observer
+<div class="subtitle">(Observateur)</div>
+</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-exemple">Exemple</a>
+        </li>
+        <li>
+            <a href="#2-structure">Structure</a>
+            <ul>
+                <li><a href="#2-1-participants">Participants</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#3-remarques">Remarques</a>
+            <ul>
+                <li><a href="#3-1-communication-observateur-observable">Communication observateur / observable</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#4-en-java-jusque-java-8">En java (jusque java 8)</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+Aussi connu sous le nom de <b>publish / subscribe</b>
+
+<div class="intro">
+But : Besoin de maintenir une consistence entre des objets en relation.
+</div>
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-exemple">Exemple</a></h2>
+
+<img class="margin" src="img/observer-example.jpg" alt="Pattern Observer example" />
+
+La question est d'y arriver <i>sans les coupler fortement</i>.
+<br>Le <b>sujet</b> (qui contient ici les données) doit pouvoir être utilisé indépendamment des représentations graphiques.
+<br>Et chaque représentation graphique doit pouvoir être utilisée indépendamment des données représentées ; elles ne doivent pas non plus dépendre les unes des autres.
+<br>Mais elles doivent se <i>comporter</i> comme si elles étaient liées.
+<br>
+<br>Le pattern observer répond à cette problématique en proposant deux concepts principaux : le <b>sujet</b> et l'<b>observateur</b>.
+<br>Le sujet peut avoir un nombre quelconque d'observateurs qui dépendent de lui.
+<br>Tous les observateurs sont avertis lorsque le sujet change d'état.
+<br>En retour, chaque observateur demande au sujet de lui communiquer son nouvel état.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-structure">Structure</a></h2>
+
+<img class="border margin" src="img/observer.jpg" alt="Pattern Observer" />
+A noter: terme "Subject" est ambigü car signifie le contraire en philosophie ou en physique !
+<br>On peut remplacer "Sujet" par "Observable".
+
+
+<!-- ************************************* -->
+<h3><a name="2-1-participants">Participants</a></h3>
+
+<h4>Subject (= Observable)</h4>
+<ul>
+    <li>Connaît ses observateurs.</li>
+    <li>Fournit une interface pour ajouter / supprimer des observateurs.</li>
+</ul>
+
+<h4>ConcreteSubject</h4>
+<ul>
+    <li>Stocke son état interne (dont une partie intéresse ses observateurs).</li>
+    <li>Envoie une notification à ses observateurs lorsque son état change.</li>
+</ul>
+
+<h4>Observer</h4>
+<ul>
+    <li>Fournit une interface permettant de le mettre à jour, utilisée par les objets qui doivent lui notifier un changement d'état.</li>
+</ul>
+
+<h4>ConcreteObserver</h4>
+<ul>
+    <li>Stocke une référence vers un objet <code>ConcreteSubject</code>.</li>
+    <li>Conserve la partie de l'état du <code>ConcreteSubject</code> qui l'intéresse (et qui doit rester synchronisée) avec le <code>ConcreteSubject</code>).</li>
+    <li>Implémente l'interface permettant de le mettre à jour.</li>
+</ul>
+
+<div class="exo"><b>Exercice</b>
+<br>Faire fonctionner <a href="../../exemples/patterns/observer/gof">ces implémentations de l'exemple gof</a>, étudier le code.
+<ul>
+    <li>
+        Implémentation "before" :
+        <ul>
+            <li>Bien comprendre les inconvénients de cette implémentation.</li>
+        </ul>
+    </li>
+    <li>
+        Implémentation "after" :
+        <ul>
+            <li>Repérer les classes qui jouent le rôle de <code>Subject</code>, <code>Observer</code>, <code>ConcreteSubject</code>, <code>ConcreteObserver</code>.</li>
+            <li>
+                Comprendre pourquoi la partie "1" de <code>main()</code> n'affiche rien. Comment pourrait-on remédier à ça ?
+                <!--
+                en faisant dans le constructeur des observateurs :
+                state = o.getState();
+                -->
+            </li>
+            <li>Faire le diagramme de séquence dans la partie "2" de <code>main()</code></li>
+        </ul>
+    </li>
+</ul>
+</div>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-remarques">Remarques</a></h2>
+
+<code>Observer</code> est souvent implémenté avec une interface et <code>Observable</code> avec une classe abstraite qui fournit l'implémentation de la liste de ses observateurs et des méthodes <code>notifyObservers()</code>, <code>addObserver()</code> etc.
+
+
+<!-- ************************************* -->
+<h3><a name="3-1-communication-observateur-observable">Communication observateur / observable</a></h3>
+
+Lorsque l'observable est modifié, il exécute sa méthode <code>notifyObservers()</code>, et cette méthode va appeler la méthode <code>update()</code> de chacun de ses observateurs.
+<br>Il faut donc un "protocole" de communication entre les deux, par exemple :
+<pre>
+public interface Observer{
+    public void update(Observable o, Object arg);
+}
+</pre>
+<pre>
+import java.util.List;
+import java.util.ArrayList;
+
+public abstract class Observable{
+    
+    protected List&lt;Observer> observers = new ArrayList&lt;Observer>();
+    
+    public void addObserver(Observer o){
+        observers.add(o);
+    }
+    
+    public void notifyObservers(){
+        for(Observer o : observers){
+            o.update(this, getArgument());
+        }
+    }
+    
+    public abstract Object getArgument();
+    
+}
+</pre>
+
+<div class="exo"><b>Exercice</b> : <a href="../../exos/patterns/observer/brebis/Brebis.html">Brebis</a></div>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-en-java-jusque-java-8">En java (jusque java 8)</a></h2>
+ATTENTION :  ce mécanisme a été déprécié en java 9.
+<br><br><cite>
+This class and the <code>Observer</code> interface have been deprecated. The event model supported by <code>Observer</code> and <code>Observable</code> is quite limited, the order of notifications delivered by <code>Observable</code> is unspecified, and state changes are not in one-for-one correspondence with notifications. For a richer event model, consider using the <code>java.beans</code> package. For reliable and ordered messaging among threads, consider using one of the concurrent data structures in the <code>java.util.concurrent</code> package. For reactive streams style programming, see the Flow API.
+</cite>
+<br>
+<br>Fournit une classe <code>java.util.Observable</code> et une interface <code>java.util.Observer</code>
+
+<h4>Observer</h4>
+Une seule méthode : <code>void update(Observable o, Object arg)</code>
+
+<h4>Observable</h4>
+C'est une classe concrète que les sujets concrets doivent sous-classer.
+<br>Implémente les mécanismes permettant de gérer ses observateurs et son état interne.
+
+<table class="wikitable margin">
+    <tr><th>java</th><th>gof</th></tr>
+    <tr><th colspan="2">Gestion des observateurs</th></tr>
+    <tr><td>void addObserver(Observer o)</td><td>attach(Observer)</td></tr>
+    <tr><td>int countObservers()</td><td></td></tr>
+    <tr><td>void deleteObserver(Observer o)</td><td>detach(Observer)</td></tr>
+    <tr><td>void deleteObservers()</td><td></td></tr>
+    <tr><th colspan="2">Gestion de son état</th></tr>
+    <tr><td>protected void clearChanged()</td><td></td></tr>
+    <tr><td>boolean hasChanged()</td><td></td></tr>
+    <tr><td>protected void setChanged()</td><td></td></tr>
+    <tr><th colspan="2">Notification des observateurs</th></tr>
+    <tr><td>void notifyObservers()</td><td>notify()</td></tr>
+    <tr><td>void notifyObservers(Object arg)</td><td></td></tr>
+</table>
+
+Une implémentation de l'exemple gof utilisant ces classes se trouve dans <a href="../../exemples/patterns/observer/gof-pre-java9/">gof-pre-java9</a>
+
+<div class="exo"><b>Exercice</b> : <a href="../../cours/nfp121/tps/4-mvc/tp-millau.html">TP4 question 1</a> utilise aussi ces classes.</div>
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>
