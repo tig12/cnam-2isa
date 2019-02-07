@@ -1,0 +1,296 @@
+
+
+Déoôt supprimé pour alléger le dépôt en enlevant bin/
+
+* 5663a84 - (2019-02-07 11:08:32 +0100) Préparation cours 6, exemple vaisseau pour memento - Thierry (HEAD -> master, origin/master, origin/HEAD)
+* b18844e - (2019-02-04 01:02:00 +0100) Fix diverses typos + exercice Poste radio pour pattern State - Thierry
+* cd368fa - (2019-01-22 09:23:51 +0100) Nettoyage CSS, fin remplacements des styles par des classes dans le texte - Thierry
+* ffb0a63 - (2019-01-22 00:02:33 +0100) Nettoyage css - Thierry
+* baa9981 - (2019-01-20 21:35:47 +0100) Génère tables des matières sur pages git - Thierry
+* febfb63 - (2019-01-20 12:52:11 +0100) Suite pages git premiers pas, branches - Thierry
+*   0d77fc4 - (2019-01-19 23:59:55 +0100) Merge branch 'master' of gitea.tig12.net/cnam-millau - Thierry
+|\  
+| | 
+| * 10ca1e2 - (2019-01-19 23:55:39 +0100) Crée plusieur pages pour git - Thierry
+| | 
+* | 1e4de69 - (2019-01-19 23:55:39 +0100) Crée plusieurs pages pour git - Thierry
+|/  
+| 
+* 0c84666 - (2019-01-19 17:49:06 +0100) Ajouts page git - Thierry
+| 
+* c9d0094 - (2019-01-17 07:01:12 +0100) Corrections sur page git - Thierry
+|   
+*   aa8e4f3 - (2019-01-16 06:00:47 +0100) Résolution de conflit avec branche distante suite à mauvaise manip - Thierry
+|\  
+| | 
+| * fd1c42c - (2019-01-16 03:51:49 +0100) Suite page git - Thierry
+| |   
+* |   35c919c - (2019-01-16 05:52:02 +0100) Merge branch 'content-git' - Thierry
+|\ \  
+| | | 
+| * | 49d3581 - (2019-01-16 05:50:25 +0100) Page git : suite premiers pas, génère index - Thierry (origin/content-git)
+| | | 
+| * | 3892428 - (2019-01-16 05:00:36 +0100) Page git ; ajout git init, git clone - Thierry
+| | | 
+| * | bd503df - (2019-01-16 03:56:40 +0100) Suite page git - Thierry
+| |/  
+| | 
+| * 74d668d - (2019-01-16 03:26:22 +0100) Commence pages git - Thierry
+| | 
+* | 58bd0db - (2019-01-16 05:50:25 +0100) Page git : suite premiers pas, génère index - Thierry
+| | 
+* | 71a5047 - (2019-01-16 05:00:36 +0100) Page git ; ajout git init, git clone - Thierry
+| | 
+* | 0c60997 - (2019-01-16 03:56:40 +0100) Suite page git - Thierry
+| | 
+* | d359215 - (2019-01-16 03:26:22 +0100) Commence pages git - Thierry
+|/  
+* cf71e75 - (2019-01-15 00:11:34 +0100) Début nettoyage CSS - Thierry
+* ce1a6d1 - (2019-01-14 18:09:00 +0100) Nettoyage structure html des pages - Thierry
+* 599079d - (2019-01-14 12:41:40 +0100) Corrige erreur de séquence dans exo chat de Mediator - Thierry
+* 1285189 - (2019-01-14 11:28:18 +0100) Modifie output des canards dans exemple java/mix/ducks - Thierry
+* 1f3791a - (2019-01-14 10:58:17 +0100) Sors les exemples et exos sur les streams des dossiers collections/ - Thierry
+* 5a035d6 - (2019-01-14 10:34:16 +0100) Ajout exemple Vaisseau dans pattern memento - Thierry
+* 6a3b769 - (2019-01-14 06:30:16 +0100) Change les droits sur certains fichiers java (755 -> 644) - Thierry
+* 5987fae - (2019-01-07 11:26:01 +0100) Nouvelle génération des tables des matières - Thierry
+* e7c0d2f - (2019-01-07 11:23:36 +0100) Prépare cours 5 (exercice DuckSimulator) - Thierry
+* 79cf06e - (2019-01-05 14:41:32 +0100) Prépare cours 5 (State, Bridge) - Thierry
+* 071a2c7 - (2019-01-04 17:57:27 +0100) Prépare cours 5 (Iterator) - Thierry
+* 8d3fb2e - (2019-01-04 12:37:08 +0100) Prépare cours 5 (Interpreter) - Thierry
+* ba0417f - (2019-01-03 19:26:07 +0100) Prépare cours 5 (Flyweight, Command) - Thierry
+* 73623b2 - (2018-12-21 11:21:16 +0100) Commit pour rien (test git 8) - Thierry
+* 5bb86c7 - (2018-12-21 11:13:37 +0100) Commit pour rien (test git 7) - Thierry
+* 113d187 - (2018-12-21 11:10:34 +0100) Commit pour rien (test git 6) - Thierry
+* 11c6bf8 - (2018-12-21 11:08:27 +0100) Commit pour rien (test git 5) - Thierry
+* f9cdda1 - (2018-12-21 11:01:44 +0100) Commit pour rien (test git 4) - Thierry
+* 53623f3 - (2018-12-21 10:23:28 +0100) Commit pour rien (test git) - Thierry
+* 2133ed1 - (2018-12-21 10:20:22 +0100) Commit pour rien (test git) - Thierry
+* 541e15f - (2018-12-21 10:18:45 +0100) Commit pour rien (test git) - Thierry
+* 778091d - (2018-12-21 10:10:40 +0100) Change url vers dépôt git du cours - Thierry
+* c92ddff - (2018-12-20 15:57:22 +0100) Fix mineurs sur pages accueil - Thierry
+* 0f8f018 - (2018-12-17 17:00:54 +0100) FIX liens cassés vers images uml - Thierry
+* 6997855 - (2018-12-17 16:53:00 +0100) Modifs mineures sur mix-patterns - Thierry
+* 0d54e53 - (2018-12-17 02:24:38 +0100) Grosse réorganisation - Thierry
+* a8bc1a7 - (2018-12-16 22:27:35 +0100) Backup avant clonage pour nouvelle version - Thierry
+* cb7bc0e - (2018-12-14 14:22:18 +0100) Ajout indications dans exo Maptest - Thierry
+* 30d46ee - (2018-12-14 08:07:39 +0100) Ajout paragraphe sur les maps, page collections - Thierry
+* b11e21e - (2018-12-13 07:59:11 +0100) Petites modifs sur partie java - Thierry
+* c0a5701 - (2018-12-11 16:12:31 +0100) Tweaks sur cours et exos, partie java - Thierry
+* 3d46be5 - (2018-12-10 22:12:23 +0100) Petits ajouts sur pages intro java - Thierry
+* e174e65 - (2018-12-09 11:55:54 +0100) Modifs mineures - Thierry
+* 3af4f41 - (2018-12-09 07:38:47 +0100) Ajout paragraphe hashCode() dans page sur java.lang.Object - Thierry
+* ce20d69 - (2018-12-07 16:01:32 +0100) Ajouts dans page sur les types génériques ; exercice java/generics/personnes/ - Thierry
+* 44980a5 - (2018-12-06 23:24:15 +0100) Ajout exercice visitor ruche - Thierry
+* 0a3458a - (2018-12-05 21:48:59 +0100) Modifications sur page streams - Thierry
+* 2f859f7 - (2018-12-05 15:13:17 +0100) Préparation cours 4, diverses modifications sur pages patterns - Thierry
+* 5c54a6c - (2018-12-04 13:20:55 +0100) Modifs sur lambdas - Thierry
+* a98a9f8 - (2018-12-04 06:34:45 +0100) Ajouts sur page MVC - Thierry
+* 7d24923 - (2018-11-30 19:58:08 +0100) Début page java.lang.Object et exemples - Thierry
+* 63b43f4 - (2018-11-29 16:50:04 +0100) Ajouts dans pages syntaxe java, classes et interfaces - Thierry
+* a15562f - (2018-11-29 06:37:40 +0100) Première implémentation de prototype - Thierry
+* 20766f3 - (2018-11-27 19:09:39 +0100) Modifs pour cours 4 : MVC, Factory Method, Abstract Factory, Prototype - Thierry
+* aa1eb28 - (2018-11-24 00:03:20 +0100) Diverses corrections mineures - Thierry
+* 4a6c513 - (2018-11-23 10:50:09 +0100) Début cours JDBC - Thierry
+* 9c726eb - (2018-11-22 15:09:00 +0100) Corrections sur page reflection - Thierry
+* 729cf0f - (2018-11-22 13:45:58 +0100) Ajout de l'exemple strategy/pi ; typos - Thierry
+* 3fd0488 - (2018-11-21 15:53:44 +0100) Continue page strings, exos ToString et Palindrome - Thierry
+* 8b0d102 - (2018-11-19 12:41:38 +0100) Début page java/strings.html - Thierry
+* 749ce2d - (2018-11-15 05:51:59 +0100) Clean CSS - Thierry
+* 0af96ca - (2018-11-14 17:11:06 +0100) Refactor partie OOP, ajoute exercice SOLID ; ajoute Swing dans HelloWorld - Thierry
+* 608755e - (2018-11-09 11:41:44 +0100) Fix broken links - Thierry
+* f9ddbed - (2018-11-09 09:53:43 +0100) Ajout exercices Bibliothèque et Menu pour cours 4 - Thierry
+* 2c19334 - (2018-11-09 09:01:55 +0100) Ajouts sur page Observer - Thierry
+* 6223827 - (2018-11-09 05:59:54 +0100) Corrections sur page Composite suite au cours 3 - Thierry
+* 6458915 - (2018-11-08 17:42:32 +0100) Fais une page à part pour SOLID avec exemple des formes. - Thierry
+* dde6c9e - (2018-11-06 10:41:48 +0100) Modifs pour cours 3 ; ajoute détails dans suite POO, SOLID - Thierry
+* 24d6b67 - (2018-11-05 22:37:19 +0100) Modifs pour cours 3 ; prépare TP5 - Thierry
+* 495a11f - (2018-11-04 23:22:46 +0100) Petites modifs poru cours 3 - Thierry
+* 4baef45 - (2018-11-04 04:57:39 +0100) Modifs sur plusieurs patterns - Thierry
+* f4bdfcc - (2018-11-03 18:32:55 +0100) Implémentation de l'exemple gof pour pattern observateur ; prépare TP4 - Thierry
+* 3428684 - (2018-11-03 11:42:07 +0100) Ajout htaccess pour pouvoir lister exemples, exos et tps - Thierry
+* b69570a - (2018-11-03 11:14:01 +0100) Préparation cours 3, modifications dans style.css - Thierry
+* 1462c0f - (2018-11-01 11:38:35 +0100) Ajout des tags meta description dans les pages de contenu. - Thierry
+* 18905c5 - (2018-11-01 07:25:36 +0100) Refactorise h1, h2 etc - Thierry
+* 42d5b2b - (2018-10-28 05:45:26 +0100) Page UML - Thierry
+* 4b8973b - (2018-10-26 15:21:00 +0200) Refactorise les noms des fichiers de content/ ; Début cours xml - Thierry
+* be1320d - (2018-10-24 18:43:36 +0200) Modifs sur observer - Thierry
+* f28f104 - (2018-10-19 09:12:59 +0200) Modifs cours et exos Observer - Thierry
+* 6a93eb8 - (2018-10-16 18:26:51 +0200) Ajouts sur cours Proxy, Adapter, Nested, Enums, Collections + exercices nouveaux sur java - Thierry
+* 1fc3774 - (2018-10-15 18:36:00 +0200) Ajout exercice voitures - Thierry
+* 204a0b0 - (2018-10-15 12:09:48 +0200) Nouveau dépôt suite à refactorisation et suppression des solutions aux exos et tps - Thierry
+
+Dépôt supprimé pour enlever les solutions de l'historique de git
+
+* 2ba8180 - (2018-10-14 00:58:38 +0200) Supprime bin ajouté par erreur - Thierry (HEAD -> master, origin/master)
+* 07e38ef - (2018-10-14 00:52:46 +0200) Modif .hgignore - Thierry
+* ecc7c5b - (2018-10-14 00:29:34 +0200) Fix xhtml / html5 in <head> - Thierry
+* 615ace0 - (2018-10-12 12:47:35 +0200) Modifs sur cours enums et génériques - Thierry
+* d57af7e - (2018-10-12 11:07:30 +0200) Split Enums et Annotation ; index pour formation initiation java - Thierry
+* 6ff0d38 - (2018-10-09 16:34:22 +0200) Ajout rappel historique sur les lambdas expressions - Thierry
+* df4caac - (2018-10-09 11:59:17 +0200) TP3 et exercices pour cours 3 - Thierry
+* f7de767 - (2018-10-08 02:18:57 +0200) Suite TP3, corrections diverses - Thierry
+* 4b0087c - (2018-10-03 18:19:42 +0200) Prépare TP3, modifs sur page swing - Thierry
+* a5399ee - (2018-10-03 09:32:14 +0200) Tweaks divers - Thierry
+* f44b4fa - (2018-10-03 00:02:18 +0200) Cours interfaces, classe abstraites - Thierry
+* 37a6f17 - (2018-10-02 16:56:53 +0200) Nouvelle version de hiding et overriding - Thierry
+* 47f191e - (2018-10-02 11:49:49 +0200) Réorganise le dossier exemples/patterns et adapte le cours - Thierry
+* e8ea9b9 - (2018-10-02 09:53:29 +0200) Diverses moifs - Thierry
+* 0c78747 - (2018-09-30 22:05:54 +0200) Suite junit5, adapte tp conversion à junit5 - Thierry
+* 7ddd15a - (2018-09-30 07:26:02 +0200) Range exercices java - Thierry
+* a9ed34c - (2018-09-29 02:30:45 +0200) Modifs sur 220-classes-interfaces et exemples et exos - Thierry
+* d2442bb - (2018-09-28 11:25:47 +0200) Modifs sur différentes pages, début Junit5 - Thierry
+* c5c22ef - (2018-09-27 16:37:27 +0200) Ajout page 225-outils-java - Thierry
+* f827023 - (2018-09-26 13:43:27 +0200) Suite remaniement cours java ; ajoute solutions aux exercices - Thierry
+* 1c15457 - (2018-09-21 10:40:19 +0200) Génère les tables des matières - Thierry
+* 2b365b8 - (2018-09-21 09:44:37 +0200) 215-suite-java - Thierry
+* ee43c6f - (2018-09-19 16:33:21 +0200) Split 210-syntaxe-java pour faire 215-suite-java - Thierry
+* 4727b72 - (2018-09-17 10:40:03 +0200) Début reformulation 210-syntaxe-java - Thierry
+* 9b494d3 - (2018-09-16 07:38:51 +0200) 205-hello-world - Thierry
+* c0e2ba2 - (2018-09-13 23:40:31 +0200) Suite reformulation de intro POO et java - Thierry
+* 72a2306 - (2018-09-12 19:03:54 +0200) Nouvelle version de 100-intro-poo - Thierry
+* 8447f67 - (2018-09-11 19:29:48 +0200) Split exos en java/ et patterns/ - Thierry
+* f2fc82a - (2018-09-11 19:08:21 +0200) Réorganise nommage et ordre des pages - Thierry
+* 1411825 - (2018-09-11 09:44:47 +0200) Tweaks sur énoncés exos - Thierry
+* 7c67f0c - (2018-09-11 01:55:54 +0200) Ajout exos premiers, pi, max, hello - Thierry
+* 948d2e0 - (2018-09-05 11:31:15 +0200) Tweaks et exemples dans 020-bases-java et 030-classes-interfaces - Thierry
+* 8b15607 - (2018-09-05 07:50:52 +0200) Ajout tmp dans .gitignore - Thierry
+* 15e0129 - (2018-09-04 10:52:10 +0200) Modifs 030-classes-interfaces - Thierry
+* fe872b2 - (2018-09-03 10:37:22 +0200) Modifie navigation ; modifs 020-bases-java - Thierry
+* 038837d - (2018-09-01 07:57:06 +0200) Modifs 010-intro - Thierry
+* c91a374 - (2018-08-30 11:29:28 +0200) Refactor cours/img/ et doc/ ; modifs dans 010-intro - Thierry
+* 6d8429b - (2018-08-29 17:20:05 +0200) Ajouts 010-intro - Thierry
+* cb04488 - (2018-08-02 23:27:06 +0200) wip - Thierry
+* 5c7f8ec - (2018-03-22 21:21:20 +0100) Structure pour plusieurs cours, dossier static/ avec css et img - Thierry
+* 4399ebb - (2018-03-22 14:34:17 +0100) Re-initialise dépôt suite à la suppression des solutions exos et tps - Thierry
+
+Manque historique du 2017-11-24 au 2018-03-22
+
+Premier dépôt, supprimé pour séparer les solutions du reste
+
+* 980e7cd - (2017-11-24 15:38:06 +0100) fin refactor exos - Thierry (HEAD, master)
+* db267a8 - (2017-11-24 13:37:04 +0100) début refactor exos - Thierry (dd/master)
+* 3ac8280 - (2017-11-24 11:43:55 +0100) bck - Thierry
+* 91f1ad6 - (2017-11-24 09:35:31 +0100) suite prepare split public / prive - Thierry
+* f0ce25d - (2017-11-24 08:41:44 +0100) clean tps, prepare split public / private - Thierry
+* f17b66f - (2017-11-24 07:39:58 +0100) prepare split, remove doc - Thierry
+* e25eb1a - (2017-11-23 11:29:33 +0100) bck - Thierry
+* 113facf - (2017-11-23 03:07:38 +0100) decorator - Thierry
+* e9d50f8 - (2017-11-22 11:00:48 +0100) isole exercices pour adapter - Thierry
+* 8aa7c52 - (2017-11-22 10:19:37 +0100) isole exemples et exercices pour generics et nested - Thierry
+* ca8b71b - (2017-11-22 01:05:43 +0100) début cours I/O - Thierry
+* 7e2febd - (2017-11-21 23:23:48 +0100) refactor cours - Thierry
+* 1a38940 - (2017-11-21 22:21:23 +0100) bck avant refactoring - Thierry
+* fd3e1c4 - (2017-11-21 15:32:28 +0100) exo proxy - Thierry
+* 7eaae42 - (2017-11-21 13:31:21 +0100) cours proxy - Thierry
+* aab4c7e - (2017-11-21 10:50:21 +0100) ajout de checkerframework.org dans cours annotations - Thierry
+* 575c8b6 - (2017-11-21 08:39:52 +0100) TP4, corrections - Thierry
+* 6a43f71 - (2017-11-20 17:25:47 +0100) suite tp4 - Thierry
+* 9183d93 - (2017-11-17 16:27:24 +0100) suite creational patterns - Thierry
+* 830a219 - (2017-11-17 13:12:46 +0100) suite creationl, maze example - Thierry
+* d2d87b5 - (2017-11-16 12:30:49 +0100) Début creational patterns et exemple Maze, nettoyage - Thierry
+* 888c1c8 - (2017-11-15 13:50:08 +0100) remove tp4.zip - Thierry
+* b123694 - (2017-11-15 13:47:52 +0100) tp4-initial.zip - Thierry
+* 8d93778 - (2017-11-14 22:58:26 +0100) typos - Thierry
+* 84f24ce - (2017-11-14 22:14:27 +0100) remove fichiers inutiles de tp4/initial - Thierry
+* 18cb6e8 - (2017-11-14 12:09:45 +0100) bck - Thierry
+* e122800 - (2017-11-14 02:34:39 +0100) typo - Thierry
+* 8433011 - (2017-11-14 01:50:01 +0100) fin cours adapter - Thierry
+* 459b2f9 - (2017-11-14 01:11:20 +0100) exemples nested, adapter, cours - Thierry
+* 2b28294 - (2017-11-13 11:34:28 +0100) Corrige cours annotation, exercices - Thierry
+* 1571011 - (2017-11-13 09:56:06 +0100) cours : generics, ajout exercices - Thierry
+* e37bc9a - (2017-11-12 22:26:17 +0100) bck, cours generics - Thierry
+* 25b645d - (2017-11-12 02:09:38 +0100) bck - Thierry
+* d870136 - (2017-11-11 03:52:07 +0100) bck - Thierry
+* a9b9ca3 - (2017-11-10 15:05:54 +0100) suite cours swing - Thierry
+* 311bcfd - (2017-11-10 13:22:35 +0100) bck, tp4, cours swing - Thierry
+* 2c1886b - (2017-11-09 22:11:57 +0100) cours, mvc - Thierry
+* d2f6a83 - (2017-11-09 16:29:37 +0100) tp4, question 2 - Thierry
+* 8be59c9 - (2017-11-09 14:33:17 +0100) tp4, question 1 - Thierry
+* d8628b9 - (2017-11-09 10:07:54 +0100) cours composition vs inheritance - Thierry
+* 4462c7f - (2017-11-08 12:19:05 +0100) exemple pour composition - Thierry
+* 6b4b715 - (2017-11-08 09:37:17 +0100) modifs exemple observer 1 - Thierry
+* a20db28 - (2017-11-08 00:55:20 +0100) fix encoding - Thierry
+* 22eccbf - (2017-11-07 19:18:37 +0100) TP3, question 2.5 : debug, implémentations alternatives de equals() - Thierry
+* fadec08 - (2017-11-07 10:00:57 +0100) Instructions dans windows-bash.html pour executer tp3 - Thierry
+* 22cd6ca - (2017-11-07 08:48:20 +0100) htaccess dans bin/ pour permettre de lister les fichier - Thierry
+* eeb4fe1 - (2017-11-06 16:00:14 +0100) Supprime htaccess pour donner accès aux questions 2 et 3, TP3 - Thierry
+* a0aa020 - (2017-11-06 15:35:36 +0100) Remove les redirect dans les ennoncés des tps - Thierry
+* 71eaaa5 - (2017-11-06 15:34:25 +0100) Mets un lien en dur dans les ennoncés des tps - Thierry
+* 04ebf83 - (2017-11-06 15:21:01 +0100) remplace liens symboliques des ennoncés des tps par des html contenant un redirect - Thierry
+* 8684d15 - (2017-11-06 15:15:38 +0100) redirection autres tps avec htaccess - Thierry
+* 690ebc7 - (2017-11-06 15:11:00 +0100) test redirection tp3.html avec htaccess - Thierry
+* 539cc4f - (2017-11-06 15:07:59 +0100) test redirection tp3.html - Thierry
+* ee6e57b - (2017-11-06 14:57:59 +0100) suite cours - Thierry
+* 1172740 - (2017-11-04 03:49:54 +0100) ajout pdf livre original gof 1994 - Thierry
+* 0cb73d4 - (2017-11-04 02:55:40 +0100) ajout pdf dans doc - Thierry
+* 9f388fe - (2017-10-30 16:41:45 +0100) bck - Thierry
+* 0841727 - (2017-10-27 18:25:22 +0200) bck - Thierry
+* da6871e - (2017-10-27 00:41:33 +0200) suite lambdas - Thierry
+* 914c3be - (2017-10-26 15:55:33 +0200) Début nested types - Thierry
+* f7e2903 - (2017-10-26 07:07:30 +0200) exemples pattern observer - Thierry
+* b8a311a - (2017-10-23 01:04:14 +0200) supprime htacces de tp3 question 1 - Thierry
+* 727ab8e - (2017-10-23 00:58:50 +0200) pattern observer - Thierry
+* bb6260c - (2017-10-22 09:27:22 +0200) fix utf8 for tp 4, 5, 6 - Thierry
+* 7deba80 - (2017-10-21 23:20:17 +0200) prepare tps 4, 5, 6 - Thierry
+* 2b03bb2 - (2017-10-21 21:30:36 +0200) lien vers bin/ sur page d'accueil - Thierry
+* d75e71f - (2017-10-21 21:15:46 +0200) modifs index tps et htaccess - Thierry
+* 907209f - (2017-10-21 20:44:40 +0200) add htindex to cours/exemples - Thierry
+* 69ba5ad - (2017-10-21 19:42:13 +0200) Ajoute page JUnit3 ; mets junit.jar dans bin/ et modifie classpath dans scripts - Thierry
+* 6c8ab0e - (2017-10-20 11:31:45 +0200) réorganise tps ; page linux sous windows - Thierry
+* 4e0d3da - (2017-10-18 10:32:54 +0200) tp3, question 3 - Thierry
+* 4ceb69b - (2017-10-18 00:19:03 +0200) dernières sous-questions de tp3, question 2 - Thierry
+* 9f2381f - (2017-10-17 17:07:34 +0200) tests unitaires sur les 4 piles, tp3, question 2 - Thierry
+* e79d531 - (2017-10-17 12:46:36 +0200) tests sur tp3 question2 Pile.java - Thierry
+* 084be20 - (2017-10-17 06:45:08 +0200) tp3, question 2 - Thierry
+* 411025d - (2017-10-16 16:09:14 +0200) misc - Thierry
+* 7237164 - (2017-10-16 12:41:49 +0200) instructions tp3 question 1 - Thierry
+* 9a084f0 - (2017-10-16 11:00:46 +0200) supprime index.html dans tp3/initial - Thierry
+* 9af6248 - (2017-10-16 10:59:00 +0200) ajout htaccess pour tp3 - Thierry
+* c179217 - (2017-10-16 10:52:47 +0200) tp3 initial fonctionne - Thierry
+* 3cc9e5a - (2017-10-15 02:59:23 +0200) suite generics, prepare tp3 initial, current, final - Thierry
+* 951d090 - (2017-10-14 06:17:09 +0200) change navigation images to png - Thierry
+* a858014 - (2017-10-13 04:55:36 +0200) recafactor, améliorations - Thierry
+* fafd624 - (2017-10-11 16:59:40 +0200) typo - Thierry
+* c06c4fb - (2017-10-11 16:56:08 +0200) ajout tp3.zip - Thierry
+* 4816e3a - (2017-10-11 15:00:58 +0200) typos - Thierry
+* 165acf5 - (2017-10-11 12:48:32 +0200) Ajout index pour les TPs - Thierry
+* bb63f08 - (2017-10-11 12:38:40 +0200) ajout htaccess pour tp1 - Thierry
+* 838b827 - (2017-10-11 12:36:01 +0200) bck - Thierry
+* fdbdd36 - (2017-10-11 04:19:14 +0200) typos - Thierry
+* 733e1fa - (2017-10-11 04:05:46 +0200) ajoute tests dans tp3 question1 - Thierry
+* 93b30f9 - (2017-10-10 11:37:39 +0200) typo sur index - Thierry
+* 2d7ea7c - (2017-10-10 01:36:33 +0200) index, cleaning - Thierry
+* 68d7def - (2017-10-09 23:42:13 +0200) navigation - Thierry
+* f179d8a - (2017-10-09 19:47:36 +0200) typos, TP3 - Thierry
+* 9dcdb88 - (2017-10-09 12:55:24 +0200) fin premier jet java objet - Thierry
+* ff403ba - (2017-10-08 23:02:03 +0200) suite java objet - Thierry
+* e02a40a - (2017-10-08 18:41:48 +0200) data hiding - Thierry
+* 81a7fa2 - (2017-10-08 11:49:31 +0200) suite java objet - Thierry
+* c9e3d7b - (2017-10-07 15:27:20 +0200) bck - Thierry
+* 5e063ba - (2017-10-07 11:23:53 +0200) refactor, java suite - Thierry
+* a6c2237 - (2017-10-06 18:06:25 +0200) suite annotations - Thierry
+* ed36dd9 - (2017-10-05 17:47:37 +0200) generics, annotations - Thierry
+* 02393d4 - (2017-10-04 10:52:02 +0200) rename exemples to cours-exemples - Thierry
+* 6012b30 - (2017-10-04 03:30:21 +0200) add tp3 - Thierry
+* 78e2a06 - (2017-10-03 17:09:56 +0200) facade - Thierry
+* 65f5002 - (2017-10-03 13:02:03 +0200) suite - Thierry
+* d519ced - (2017-10-03 11:38:59 +0200) bck - Thierry
+* 9f0c4e6 - (2017-10-02 10:54:04 +0200) bck - Thierry
+* adfa94b - (2017-09-19 11:06:04 +0200) bck - Thierry
+* 2a4dda8 - (2017-09-13 11:33:46 +0200) ajout javadoc pour exo conversion - Thierry
+* 6e6cb0a - (2017-09-13 10:42:17 +0200) suite exo conversions - Thierry
+* 3b9ca10 - (2017-09-13 02:07:03 +0200) fin cours 2, début exo conversion - Thierry
+* cebc97a - (2017-09-12 11:21:47 +0200) add index - Thierry
+* 48161fa - (2017-09-12 10:47:54 +0200) tweaks - Thierry
+* 96f1597 - (2017-09-12 10:31:50 +0200) typos - Thierry
+* 12e5947 - (2017-09-11 19:49:46 +0200) bck - Thierry
+* 6c939be - (2017-09-11 18:35:51 +0200) bck - Thierry
+* 42fe66f - (2017-09-11 16:51:20 +0200) bck - Thierry
+* 329fa7f - (2017-09-11 13:26:41 +0200) ajout premiers exos - Thierry
+* 4e0951d - (2017-09-11 10:57:49 +0200) split le cours 1 en deux parties - Thierry
+* 0fa3735 - (2017-09-10 22:39:22 +0200) bck - Thierry
+* 0eda1d7 - (2017-09-10 19:55:45 +0200) bck - Thierry
+* a5b2695 - (2017-09-10 09:11:45 +0200) bck - Thierry
+* 451b351 - (2017-09-09 21:35:27 +0200) suite cours 1 - Thierry
+* becce4d - (2017-09-09 15:31:40 +0200) suite cours1, ajout img et exemples - Thierry
+* e147e6f - (2017-09-09 00:58:12 +0200) bck - Thierry
