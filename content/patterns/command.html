@@ -143,16 +143,13 @@ Programmer.execute()
 <h3><a name="2-2-menus">Menus</a></h3>
 
 <a href="../../exemples/patterns/command/menus/MenuCommands.java">MenuCommands.java</a> contient l'utilisation de commandes au sein d'un composite.
-<br>Illustre l'indépendance entre la création de commandes et leur utilisation.
-
+<br>Pour illustrer l'indépendance entre la création de commandes et leur utilisation, on crée des commandes qu'on associe à des menus, puis on change ces associations.
 
 <!-- ************************************* -->
 <h3><a name="2-3-swing-awt">Swing, awt</a></h3>
 
-<!-- 
-
-Le pattern <i>Command</i> est très présent dans swing par le biais de la marker interface <code>java.util.EventListener</code>.
-<br>Par exemple <code>java.awt.event.ActionListener</code> contient une méthode, <code>actionPerformed(ActionEvent e)​</code>.
+Le pattern <i>Command</i> est très présent dans <a href="../java/swing.html">Swing</a> par le biais de la marker interface <code>java.util.EventListener</code>.
+<br>Par exemple <code>java.awt.event.ActionListener</code> contient une méthode, <code>actionPerformed(ActionEvent e)​</code>, qui correspond à la méthode <code>execute()</code> dans le vocabulaire du GOF.
 <br>Pour pouvoir réagir à une action de l'utilisateur, on associe un <code>ActionListener</code> à un composant graphique ; lorsqu'une action de l'utilisateur arrive sur ce composant, la méthode <code>actionPerformed()</code> est appelée.
 <br>On a typiquement ce genre de code :
 <pre>
@@ -167,6 +164,7 @@ class MonListener implements ActionListener{
 }
 </pre>
 
+<!-- 
 On a cette correspondance :
 <table class="wikitable margin">
     <tr><th>Pattern Command</th><th>Swing</th></tr>

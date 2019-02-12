@@ -96,9 +96,6 @@ Les composants ne sont pas placés directement dans un top-level container mais 
 
 <img class="margin" src="img/swing-content-panel.jpg" alt="Content panel swing" />
 
-<div class="exo"><b>Exercice</b> : Hello world en swing.
-<br>Recopiez et exécutez le code de <a href="../../exemples/java/swing/HelloSwing.java">HelloSwing.java</a>.
-</div>
 
 <!-- ************************************* -->
 <h3><a name="1-1-layout">Layout</a></h3>
@@ -131,12 +128,106 @@ CardLayout
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-swing-et-le-mvc">Swing et le MVC</a></h2>
+<h2><a name="2-hello-swing">Hello Swing</a></h2>
 
-Swing fait un grand usage du MVC, l'API fournit de nombreux mécanismes permettant de l'implémenter.
+Différentes manières d'avoir le même résultat :
 
 <!-- ************************************* -->
-<h3><a name="2-1-vue-controleur">Vue / Contrôleur</a></h3>
+<h3><a name="2-1-hello-swing-1">Hello Swing 1</a></h3>
+
+(voir <a href="../../exemples/java/hello/HelloSwing1.java">HelloSwing1.java</a>)
+<pre>
+import javax.swing.*;
+
+public class HelloSwing1 {
+
+    public static void main(String argv[]) {
+        JFrame frame = new JFrame("Hello Swing");
+        
+        JPanel contentPane = new JPanel();
+        
+        JTextArea text = new JTextArea("Hello swing");
+        contentPane.add(text);
+        
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setContentPane(contentPane);
+        frame.setSize(300,100);
+        frame.setVisible(true);
+    }
+    
+}
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="2-2-hello-swing-2">Hello Swing 2</a></h3>
+
+Autre manière possible :
+<br>
+<br>(voir <a href="../../exemples/java/hello/HelloSwing2.java">HelloSwing2.java</a>)
+
+<pre>
+import javax.swing.*;
+
+public class HelloSwing2 <b>extends JFrame</b> {
+
+    public static void main(String argv[]) {
+        HelloSwing2 helloSwing = new HelloSwing2();
+    }
+    
+    public HelloSwing2(){
+        setTitle("Hello Swing");
+        
+        JPanel contentPane = new JPanel();
+        
+        JTextArea text = new JTextArea("Hello swing 2");
+        contentPane.add(text);
+        
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setContentPane(contentPane);
+        setSize(300,100);
+        setVisible(true);
+    }
+}
+</pre>
+
+<!-- ************************************* -->
+<h3><a name="2-3-hello-swing-3">Hello Swing 3</a></h3>
+
+On peut faire aussi plus court :
+<br>
+<br>(voir <a href="../../exemples/java/hello/HelloSwing3.java">HelloSwing3.java</a>)
+
+<pre>
+import javax.swing.JOptionPane;
+
+public class HelloSwing3 {
+   public static void main(String args[]){
+      JOptionPane.showMessageDialog(null, "Hello Swing 3");
+      // JOptionPane.showMessageDialog(null, "Hello Swing 3", "Hello Swing", JOptionPane.PLAIN_MESSAGE);
+   }
+}
+</pre>
+
+<div class="exo">
+    - Allez voir dans l'API javadoc pour comprendre ce code (que signifie ce <code>null</code> dans la première ligne ?).
+    <br>- Décommentez la seconde ligne et regardez ce que ça donne.
+    <br>- Quelles autres constantes aurait-on pu utiliser à la place de <code>JOptionPane.PLAIN_MESSAGE</code> ?
+</div>
+
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-swing-et-le-mvc">Swing et les patterns</a></h2>
+
+Swing fait un grand usage des patterns.
+
+<!-- ************************************* -->
+<h3>Composite</h3>
+
+Les composants graphiques sont emboîtés dans une structure arborescente, voir l'exemple sur la page <a href="../patterns/composite.html">Composite</a>.
+
+<!-- ************************************* -->
+<h3><a name="2-1-vue-controleur">Observer</a></h3>
 
 Les <b>observables</b> sont les éléments de la vue, composants graphiques descendant de <code>JComponent</code>.
 <br>On peut leur associer des observateurs, appelés <b>listeners</b>.
@@ -163,6 +254,33 @@ Les <b>observables</b> sont les éléments de la vue, composants graphiques desc
 
 <div class="exo"><b>TP4 question 2</b></div>
 <div class="exo"><b>TP4 question 3.1</b></div>                                                                                                              
+
+<!-- 
+
+The view registers as a listener on the model. Any changes to the underlying data of the model immediately result in a broadcast change notification, which the view receives. This is an example of the push model described earlier. Note that the model is not aware of the view or the controller -- it simply broadcasts change notifications to all interested listeners.
+The controller is bound to the view. This typically means that any user actions that are performed on the view will invoke a registered listener method in the controller class.
+The controller is given a reference to the underlying model.
+
+Once a user interacts with the view, the following actions occur:
+
+The view recognizes that a GUI action -- for example, pushing a button or dragging a scroll bar -- has occurred, using a listener method that is registered to be called when such an action occurs.
+The view calls the appropriate method on the controller.
+The controller accesses the model, possibly updating it in a way appropriate to the user's action.
+If the model has been altered, it notifies interested listeners, such as the view, of the change. In some architectures, the controller may also be responsible for updating the view. This is common in Java technology-based enterprise applications.
+
+-->
+
+
+<!-- ************************************* -->
+<h3>Command</h3>
+
+Très utilisé en swing, voir <a href="../patterns/command.html">la page sur le pattern Command</a>.
+
+
+
+<!-- ************************************* -->
+<!-- 
+<h3>MVC</h3>
 
 <div class="flex-wrap">
 <div class="margin">
@@ -193,20 +311,6 @@ Pour récapituler :
 
 </div><!-- end class="flex-wrap" -->
 
-<!-- 
-
-The view registers as a listener on the model. Any changes to the underlying data of the model immediately result in a broadcast change notification, which the view receives. This is an example of the push model described earlier. Note that the model is not aware of the view or the controller -- it simply broadcasts change notifications to all interested listeners.
-The controller is bound to the view. This typically means that any user actions that are performed on the view will invoke a registered listener method in the controller class.
-The controller is given a reference to the underlying model.
-
-Once a user interacts with the view, the following actions occur:
-
-The view recognizes that a GUI action -- for example, pushing a button or dragging a scroll bar -- has occurred, using a listener method that is registered to be called when such an action occurs.
-The view calls the appropriate method on the controller.
-The controller accesses the model, possibly updating it in a way appropriate to the user's action.
-If the model has been altered, it notifies interested listeners, such as the view, of the change. In some architectures, the controller may also be responsible for updating the view. This is common in Java technology-based enterprise applications.
-
--->
 
 
 <!-- ************************************* -->

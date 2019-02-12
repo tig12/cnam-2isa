@@ -21,54 +21,14 @@
 
 <header>
 <h1>Hello world</h1>
-<nav class="toc">
-    <ul>
-        <li>
-            <a href="#1-hello-world">Hello World</a>
-            <ul>
-                <li><a href="#1-1-hello-world-1">Hello World 1</a></li>
-                <li><a href="#1-2-la-fonction-main">La fonction main()</a></li>
-                <li><a href="#1-3-hello-world-2">Hello World 2</a></li>
-                <li><a href="#1-4-hello-world-3">Hello World 3</a></li>
-                <li><a href="#1-5-hello-world-4">Hello World 4</a></li>
-                <li><a href="#1-6-hello-world-5">Hello World 5</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="#2-hello-swing">Hello Swing</a>
-            <ul>
-                <li><a href="#2-1-hello-swing-1">Hello Swing 1</a></li>
-                <li><a href="#2-2-hello-swing-2">Hello Swing 2</a></li>
-                <li><a href="#2-3-hello-swing-3">Hello Swing 3</a></li>
-            </ul>
-        </li>
-    </ul>
-</nav>
 
 </header>
 
 <article>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- ********************************************************************************* -->
-<h2><a name="1-hello-world">Hello World</a></h2>
-
-<!-- ************************************* -->
-<h3><a name="1-1-hello-world-1">Hello World 1</a></h3>
+<h2><a name="1-1-hello-world-1">Hello World 1</a></h2>
 
 (voir <a href="../../exemples/java/hello/HelloWorld1.java">HelloWorld1.java</a>)
 <br>
@@ -128,8 +88,8 @@ Notes :
 
 </ul>
 
-<!-- ************************************* -->
-<h3><a name="1-2-la-fonction-main">La fonction main()</a></h3>
+<!-- ********************************************************************************* -->
+<h2><a name="1-2-la-fonction-main">La fonction main()</a></h2>
 
 la méthode <code>main()</code> est particulière car elle fournit un point d'entrée à l'interpréteur <code>java</code>.
 <br>Lorsqu'on exécute du code java, l'interpéteur va chercher un méthode dont la <b>signature</b> est <i>exactement</i> :
@@ -142,8 +102,8 @@ Une classe donnée ne peut avoir qu'une seule fonction <code>main()</code> avec 
 <br>On accède aux éléments de ce tableau par <code>args[0]</code>, <code>args[1]</code> etc.
 
 
-<!-- ************************************* -->
-<h3><a name="1-3-hello-world-2">Hello World 2</a></h3>
+<!-- ********************************************************************************* -->
+<h2><a name="1-3-hello-world-2">Hello World 2</a></h2>
 (voir <a href="../../exemples/java/hello/HelloWorld2.java">HelloWorld2.java</a>)
 <br>
 <br>On déporte l'affichage dans une méthode statique :
@@ -175,8 +135,8 @@ Notes :
 
 
 
-<!-- ************************************* -->
-<h3><a name="1-4-hello-world-3">Hello World 3</a></h3>
+<!-- ********************************************************************************* -->
+<h2><a name="1-4-hello-world-3">Hello World 3</a></h2>
 (voir <a href="../../exemples/java/hello/HelloWorld3.java">HelloWorld3.java</a>)
 <br>
 <br>On passe le message à afficher en paramètre au programme :
@@ -213,8 +173,8 @@ Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: 0
 </ul>
 
 
-<!-- ************************************* -->
-<h3><a name="1-5-hello-world-4">Hello World 4</a></h3>
+<!-- ********************************************************************************* -->
+<h2><a name="1-5-hello-world-4">Hello World 4</a></h2>
 
 (voir <a href="../../exemples/java/hello/HelloWorld4.java">HelloWorld4.java</a>)
 <br>
@@ -252,8 +212,8 @@ Pour compiler la classe <code>HelloWorld4</code>, le compilateur voit qu'il doit
     </li>
 </ul>
 
-<!-- ************************************* -->
-<h3><a name="1-6-hello-world-5">Hello World 5</a></h3>
+<!-- ********************************************************************************* -->
+<h2><a name="1-6-hello-world-5">Hello World 5</a></h2>
 
 (voir <a href="../../exemples/java/hello/hello5">hello5</a>)
 <br>
@@ -314,91 +274,6 @@ public Afficheur(String message){
     </li>
 </ul>
 
-
-<!-- ********************************************************************************* -->
-<h2><a name="2-hello-swing">Hello Swing</a></h2>
-
-<!-- ************************************* -->
-<h3><a name="2-1-hello-swing-1">Hello Swing 1</a></h3>
-
-(voir <a href="../../exemples/java/hello/HelloSwing1.java">HelloSwing1.java</a>)
-<pre>
-import javax.swing.*;
-
-public class HelloSwing1 {
-
-    public static void main(String argv[]) {
-        JFrame frame = new JFrame("Hello Swing");
-        
-        JPanel contentPane = new JPanel();
-        
-        JTextArea text = new JTextArea("Hello swing");
-        contentPane.add(text);
-        
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(contentPane);
-        frame.setSize(300,100);
-        frame.setVisible(true);
-    }
-    
-}
-</pre>
-
-<!-- ************************************* -->
-<h3><a name="2-2-hello-swing-2">Hello Swing 2</a></h3>
-
-Autre manière possible :
-<br>
-<br>(voir <a href="../../exemples/java/hello/HelloSwing2.java">HelloSwing2.java</a>)
-
-<pre>
-import javax.swing.*;
-
-public class HelloSwing2 <b>extends JFrame</b> {
-
-    public static void main(String argv[]) {
-        HelloSwing2 helloSwing = new HelloSwing2();
-    }
-    
-    public HelloSwing2(){
-        setTitle("Hello Swing");
-        
-        JPanel contentPane = new JPanel();
-        
-        JTextArea text = new JTextArea("Hello swing 2");
-        contentPane.add(text);
-        
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setContentPane(contentPane);
-        setSize(300,100);
-        setVisible(true);
-    }
-}
-</pre>
-
-<!-- ************************************* -->
-<h3><a name="2-3-hello-swing-3">Hello Swing 3</a></h3>
-
-On peut faire aussi plus court :
-<br>
-<br>(voir <a href="../../exemples/java/hello/HelloSwing3.java">HelloSwing3.java</a>)
-
-<pre>
-import javax.swing.JOptionPane;
-
-public class HelloSwing3 {
-   public static void main(String args[]){
-      JOptionPane.showMessageDialog(null, "Hello Swing 3");
-      // JOptionPane.showMessageDialog(null, "Hello Swing 3", "Hello Swing", JOptionPane.PLAIN_MESSAGE);
-   }
-}
-</pre>
-
-<div class="exo">
-    - Allez voir dans l'API javadoc pour comprendre ce code (que signifie ce <code>null</code> dans la première ligne ?).
-    <br>- Décommentez la seconde ligne et regardez ce que ça donne.
-    <br>- Quelles autres constantes aurait-on pu utiliser à la place de <code>JOptionPane.PLAIN_MESSAGE</code> ?
-</div>
 
 <!-- ************************************* -->
 <!-- ********************************************************************************* -->
