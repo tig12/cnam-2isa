@@ -2,8 +2,8 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Syntaxe java, suite | NFP121 Millau</title>
-    <meta name="description" content="Suite de la syntaxe java : les types référence, les méthodes et les packages.">
+    <title>Tableaux, exceptions | NFP121 Millau</title>
+    <meta name="description" content="Suite de la syntaxe java non-objet : tableaux, exceptions.">
     <meta name="robots" content="index,follow">
     <link href="../../static/style.css" rel="stylesheet" type="text/css">
     <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
@@ -16,30 +16,28 @@
 <nav class="prevnext">
     <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
     <a class="prev" title="Previous" href="syntaxe-java1.html">&larr;</a>
-    <a class="next" title="Next" href="classes-interfaces.html">&rarr;</a>
+    <a class="next" title="Next" href="syntaxe-java3.html">&rarr;</a>
 </nav>
 
 <header>
-<h1>Syntaxe java, suite</h1>
+<h1>Tableaux, exceptions</h1>
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-les-types-reference">Les types référence</a>
+            <a href="#1-les-tableaux">Les tableaux</a>
             <ul>
-                <li><a href="#1-1-copie">Copie</a></li>
-                <li><a href="#1-2-comparaison">Comparaison</a></li>
-                <li><a href="#1-3-passage-en-parametre">Passage en paramètre</a></li>
-                <li><a href="#1-4-autoboxing">Autoboxing</a></li>
+                <li><a href="#1-1-array-initializers">Array initializers</a></li>
+                <li><a href="#1-2-utilisation-des-tableaux">Utilisation des tableaux</a></li>
             </ul>
         </li>
         <li>
-            <a href="#2-les-methodes">Les méthodes</a>
+            <a href="#2-les-exceptions">Les exceptions</a>
             <ul>
-                <li><a href="#2-1-definir-une-methode">Définir une méthode</a></li>
-                <li><a href="#2-2-polymorphisme-ad-hoc">Polymorphisme ad'hoc</a></li>
-                <li><a href="#2-3-les-modifiers">Les modifiers</a></li>
-                <li><a href="#2-4-les-arguments">Les arguments</a></li>
-                <li><a href="#2-5-retour-d-une-methode">Retour d'une méthode</a></li>
+                <li><a href="#2-1-les-classes-d-exception">Les classes d'exception</a></li>
+                <li><a href="#2-2-creer-ses-propres-exceptions">Créer ses propres exceptions</a></li>
+                <li><a href="#2-3-lancer-des-exceptions">Lancer des exceptions</a></li>
+                <li><a href="#2-4-propagation-des-exceptions">Propagation des exceptions</a></li>
+                <li><a href="#2-5-try-with-resources-twr">try with resources (TWR)</a></li>
             </ul>
         </li>
     </ul>
@@ -49,269 +47,331 @@
 
 <article>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- ********************************************************************************* -->
-<h2><a name="1-les-types-reference">Les types référence</a></h2>
-
-<!-- ************************************* -->
-<h3><a name="1-1-copie">Copie</a></h3>
-<!-- todo : rajouter schéma -->
-En java, les références sont complètement opaques, on ne peut pas comme en C les manipuler (en C, opérateurs <code>&</code>, <code>*</code> et <code>-></code>)
-<br>Cela a une importance lorsqu'on duplique des variables :
-<pre>
-int a = 42;
-int b = a;
-</pre>
-Pour les types primitifs, la JVM stocke 2 fois la valeur 42 dans 2 endroits différents de sa mémoire.
-<pre>
-int a = 42;
-int b = a;
-a = 43;
-System.out.println(a);      // affiche 43
-System.out.println(b);      // affiche 42
-</pre>
-
-Mais si on fait la même chose avec une classe :
-<pre>
-class Point {
-    public int x, y;
-    public Point(int x, int y) { this.x = x; this.y = y; }
-    public String toString(){ return "(" + this.x + "," + this.y + ")"; } // noter au passage la redéfinition d'une méthode de Object
-}
-Point a = new Point(1, 1);
-Point b = a;
-a.x = 2;
-System.out.println(a); // affiche (2,1)
-System.out.println(b); // affiche (2,1)
-</pre>
-<br>Comme <code>a</code> et <code>b</code> pointent vers la même chose, toute modification de l'un sera répercutée sur l'autre.
-
-
-<h4>Clone</h4>
-
-La classe <code>Object</code> fournit une méthode <code>clone()</code> dont toutes les classes héritent, mais elle ne fait que copier les références (shallow copy).
-<br>L'API java fournit des méthodes de recopie pour certaines classes.
-<br>Par exemple, pour dupliquer 2 tableaux, on dispose de <code>System.arraycopy()</code>.
-<br>Mais si on a besoin de recopier des objets de nos propres classes, on doit l'implémenter.
-
-
-<!-- ************************************* -->
-<h3><a name="1-2-comparaison">Comparaison</a></h3>
-Lorsqu'on utilise l'opérateur de comparaison <code>==</code> pour les types primitifs, java compare leurs valeurs (est évalué à <code>true</code> s'ils ont exactement les mêmes bits), donc on a le résultat attendu.
-<br>Mais si on compare 2 types référence, java compare leurs références, pas leurs valeurs.
-<pre>
-String s = "hello";
-String letter = "o";
-
-String t = "hell" + letter;
-
-System.out.println("avec == \t" + (s == t ? "equal" : "not equal"));
-
-System.out.println("avec equals \t" + (s.equals(t) ? "equal" : "not equal"));
-</pre>
-à l'exécution :
-<pre>
-avec ==         not equal
-avec equals     equal
-</pre>
-Comme on pouvait s'y attendre, le test avec <code>==</code> indique que <code>s</code> et <code>t</code> ne sont pas égales.
-<br>Pour faire le test correctement, on a utilisé la méthode <code>equals()</code>.
-Cette méthode fait partie de la classe <code>java.lang.Object</code>, donc toutes les classes en héritent, mais dans le cas général, elle n'est pas plus utile, car l'implémentation par défaut utilise simplement <code>==</code> pour faire la comparaison.
-<br>Le test a marché uniquement parceque la classe <code>String</code> réimplémente <b>equals()</b>.
+<h2><a name="1-les-tableaux">Les tableaux</a></h2>
+Un tableau (array) est un type particulier d'objet, qui contient 0 ou plusieurs instances de type référence ou primitif, que l'on appelle <b>éléments</b> du tableau.
+<br>Le type d'un tableau est caractérisé par le type de ses éléments (tous les éléments d'un tableau doivent être du même type).
+<br>Les éléments d'un tableau n'ont pas de nom, ils sont repérés par leur <b>index</b>, qui commence à 0.
+<br>Le nombre d'élément d'un tableau est stocké dans une propriété <code>length</code> ; la taille du tableau doit être spécifiée à la création et ne peut pas changer.
+<br>Un tableau peut contenir tout type d'objet, notamment des tableaux, ce qui permet de gérer des tableaux à plusieurs dimensions.
 <br>
-<br>Pour comparer les valeurs des tableaux, il faut par exemple utiliser <code>java.util.Arrays.equals()</code> ou <code>java.util.Arrays.deepEquals()</code> pour les tableaux à plusieurs dimensions.
-<!-- 
+<br>Comme les classes, les tableaux sont un type référence. Les instances d'un tableau sont donc des objets, qui héritent des méthodes de <code>java.lang.Object</code>.
 <br>
-<br>On pourrait être tenté d'utiliser <code>java.lang.Object.hashCode()</code> pour tester l'égalité, mais ce n'est pas possible sans redéfinir <code>hashCode()</code>, car la règle est :
-<br>- Si 2 objets sont égaux, ils doivent avoir le même hash code.
-<br>- Si 2 objets sont différents, il <i>peuvent</i> avoir le même hash code.
--->
-
-
-<!-- ************************************* -->
-<h3><a name="1-3-passage-en-parametre">Passage en paramètre</a></h3>
-<!-- important -->
-Le même phénomène se produit lorsqu'on passe une variable en paramètre : 
+<br>Pour définir un tableau on utilise les crochets (brackets) <code>[ ]</code> :
 <pre>
-void changePrimitive(int x){
-    x--;
-}
-int a = 42;
-System.out.println(a);      // affiche 42
-changePrimitive(a);
-System.out.println(a);      // affiche 42
+byte b;                         // declaration of a variable
+byte[] arrayOfBytes;            // byte[] is an array of byte values
+byte[][] arrayOfArrayOfBytes;   // byte[][] is an array of byte[]
+String[] points;                // String[] is an array of strings
 </pre>
-Mais avec un type référence :
-<pre>
-void changeReference(Point p) {
-    p.x--;
-}
-Point a = new Point(1, 1);
-System.out.println(a); // affiche (1,1)
-changeReference(a);
-System.out.println(a); // affiche (0,1)
-</pre>
-
-<!-- ************************************* -->
-<h3><a name="1-4-autoboxing">Autoboxing</a></h3>
-Il peut être utile de traduire des types primitifs en objet.
-<br>Pour ça, java fournit des <i>wrapper classes</i> pour chaque type primitif : <code>Boolean</code>, <code>Byte</code>, <code>Short</code>, <code>Character</code>, <code>Integer</code>, <code>Long</code>, <code>Float</code>, et <code>Double</code>.
-<br>Passer du type primitif à sa représentation objet s'appelle le <b>boxing</b>, l'inverse <b>unboxing</b>.
-<br>On peut le faire "à la main" :
-<pre>
-myInt = new Integer(-1);            // deprecated, faire à la place : Integer.valueOf(-1)
-int i = myInt.intValue();
-</pre>
-Mais pas très pratique, java le fait automatiquement (<b>autoboxing</b>) :
-<pre>
-Integer i = 0;      // int literal 0 boxed to an Integer object
-Number n = 0.0f;    // float literal boxed to Float and widened to Number
-Integer i = 1;      // this is a boxing conversion
-int j = i;          // i is unboxed here
-i++;                // i is unboxed, incremented, and then boxed up again
-Integer k = i+2;    // i is unboxed and the sum is boxed up again
-i = null;
-j = i; 
-</pre>
-
-<!-- ********************************************************************************* -->
-<h2><a name="2-les-methodes">Les méthodes</a></h2>
-
-<!-- ************************************* -->
-<h3><a name="2-1-definir-une-methode">Définir une méthode</a></h3>
-Une méthode est définie par sa <b>signature</b>, qui doit être unique au sein d'une classe.
-<br>La signature d'une méthode est composée de :
-<ul>
-    <li>ses <i>modifiers</i></li>
-    <li>son nom</li>
-    <li>le nombre, l'ordre, les types et les noms de ses paramètres</li>
-    <li>le type de la valeur qu'elle renvoie</li>
-    <li>les checked exceptions qu'elle est susceptible de lancer</li>
-</ul>
-<code>modifiers type name ( paramlist ) [ throws exceptions ]</code>
-
-<pre>
-public static void myMethod(int param1, float param2) throws FileNotFoundException, FileSystemException{ ... }
-<span class="red">modifiers     type name    ( paramlist )            [ throws exceptions ]</span>
-</pre>
-La signature est suivie par le corps de la méthode (une suite d'instructions entourée par des accolades).
-<br>Si la méthode est abstraite (si le mot-clé <code>abstract</code> fait partie de sa signature), le corps est remplacé par un point-virgule.
-
-<!-- ************************************* -->
-<h3><a name="2-2-polymorphisme-ad-hoc">Polymorphisme ad'hoc</a></h3>
-Une méthode doit avoir une signature unique au sein d'une classe, mais il peut exister plusieurs méthodes du même nom, ce qu'on appelle le <b>polymorphisme ad'hoc</b> ou <b>overloading</b>.
-<br>C'est très fréquemment utilisé en java, par exemple la classe <code>java.lang.System</code> a une variable static nommée <code>out</code>, qui est un objet de la classe <code>java.io.PrintStream</code>. Cette classe possède plusieurs méthodes <code>println()</code>, dont les signatures diffèrent par le type de l'argument à afficher.
-<br>Cela permet d'utiliser <code>System.out.println(maVariable)</code> sans se soucier du type de <code>maVariable</code>.
-
-<!-- ************************************* -->
-<h3><a name="2-3-les-modifiers">Les modifiers</a></h3>
-Liste de zéro ou plusieurs mots-clés.
+Ici, la variable <code>points</code> est de type <code>String[]</code>. Mais la longueur du tableau ne fait pas partie de son type, on ne peut pas créer de type "un tableau contenant 4 strings".
 <br>
-<br>Modifiers traités dans ce cours :
-<ul>
-    <li>
-        <code>abstract</code> : méthode abstraite, sans implémentation.
-    </li>
-    <li>
-        <code>final</code> : Ne peut pas être overridé dans les sous classes ; permet au compilateur de faire des optimisations ; les méthodes privées sont implicitement toutes final.
-    </li>
-    <li>
-        <code>public, protected, private</code> : indiquent la visibilité de la méthode ; l'absence de modifier désignant la visibilité désigne aussi une visibilité (cf plus loin).
-    </li>
-    <li>
-        <code>static</code> : Indique s'il s'agit d'une méthode de classe (static) ou d'instance (pas déclarée static).
-    </li>
-</ul>
-Autres modifiers, non traités :
-<ul>
-    <li>
-        <code>native</code> : indiquent une méthode implémenté dans un autre langage (comme le C). Pas d'implémentation, les accolades sont remplacées par un <code>;</code>
-    </li>
-    <li>
-        <code>strictfp</code> : lié à la manière dont java gère l'armitmétique en floating point.
-    </li>
-    <li>
-        <code>synchronized</code> : lié au multithread.
-    </li>
-</ul>
+<br>Lorsqu'on passe en paramètre un tableau, le type de tableau fait donc partie de la signature de la méthode.
+<br>Par exemple <code>public static int max(int[] x)</code> n'acceptera pas un tableau de <code>float</code>.
+<br>
+<br>Pour créer un tableau, on utilise le mot-clé <code>new</code>, comme pour un objet :
+<pre>String[] lines = new String[50];</pre>
+Lorsqu'on crée un tableau, chaque élément est automatiquement initialisé avec les mêmes valeurs utilisées pour les variables d'une classe (<code>false</code> pour un booléen, <code>\u0000</code> pour un char, <code>0</code> un entier, <code>0.0</code> pour un nombre réel, et <code>null</code> pour un type référence).
 
 <!-- ************************************* -->
-<h3><a name="2-4-les-arguments">Les arguments</a></h3>
-Comme déjà vu, les arguments sont une liste séparée par des virgules contenant le type et le nom des arguments.
-<br>Le type des arguments n'est donc pas limité aux types primitifs, par ex <code>public void myMethod(int arg1, String arg2)</code>
+<h3><a name="1-1-array-initializers">Array initializers</a></h3>
 
-<h4>Liste d'arguments variables</h4>
-java permet à une fonction d'avoir un nombre variable d'arguments, <i>qui doivent être tous du même type</i>.
-<br>Les arguments variables doivent être placés en dernier ; on utilise <code>...</code> pour les définir.
-<br>Cette possibilité s'appelle <b>varargs</b>.
-<br>Exemple d'une fonction qui calcule le plus grand entier :
-<pre>public static int max(int premier, int... lesAutres) { /* implementation */ }</pre>
-Java transforme à la compilation les arguments variables en tableau et voit la méthode comme :
-<pre>public static int max(int premier, int[] lesAutres) { /* implementation */ }</pre>
-Dans la méthode, on peut donc utiliser l'argument variable comme un tableau :
+De la même manière qu'on peut initialiser une chaîne avec une syntaxe spéciale sans utiliser <code>new</code>, on peut initialiser un tableau :
 <pre>
-public static int max(int premier, int... lesAutres) {
-    int max = premier;
-    for(int i : lesAutres) {
-        if (i > max) max = i;
+String[] greetings = new String[] { "Hello", "Hi", "Howdy" };
+int[] smallPrimes = new int[] { 2, 3, 5, 7, 11, 13, 17, 19, };
+</pre>
+
+On parle d'<b>array litterals</b>
+<br>Cette syntaxe permet de créer un tableau sans utiliser <code>new</code>
+<br>
+<br>Elle permet aussi d'utiliser des tableaux sans les assigner à des variables (en quelque sorte des "tableaux anonymes") :
+<pre>
+double d = computeAreaOfTriangle(new Point[] { new Point(1,2), new Point(3,4), new Point(3,2) });
+</pre>
+
+Les array litterals sont créés et initialisés à l'exécution, et pas à la compilation.
+<pre>
+int[] perfectNumbers = {6, 28};
+</pre>
+A la compilation, cela est traduit en :
+<pre>
+int[] perfectNumbers = new int[2];
+perfectNumbers[0] = 6;
+perfectNumbers[1] = 28;
+</pre>
+Une conséquence importante est qu'on peut mettre dans un array litterals des choses qui ne sont pas fixes, par exemple
+<pre>Point[] points = { circle1.getCenterPoint(), circle2.getCenterPoint() };</pre>
+
+<!-- ************************************* -->
+<h3><a name="1-2-utilisation-des-tableaux">Utilisation des tableaux</a></h3>
+
+On utilise les brackets <code>[ ]</code> pour accéder aux éléments d'un tableau :
+<pre>
+String[] responses = new String[2];
+responses[0] = "Yes";
+responses[1] = "No";
+System.out.println(question + " (" + responses[0] + " / " + responses[1] + " ) : ");
+</pre>
+
+Si <code>t</code> est un tableau, <code>t[0]</code> est son premier élément, <code>t[1]</code> le second ... et <code>t[t.length-1]</code> est le dernier.
+<br>
+<br>Pour parcourir un tableau, on peut utilise typiquement une boucle for ou foreach:
+<pre>
+int[] primes = { 2, 3, 5, 7, 11, 13, 17, 19, 23 };
+int sumOfPrimes = 0;
+
+for(int i = 0; i < primes.length; i++){
+    sumOfPrimes += primes[i];
+}
+// ou bien
+for(int p : primes){
+    sumOfPrimes += p;
+}
+</pre>
+
+La classe <code>java.util.Arrays</code> contient de nombreuses méthodes pour manipuler les tableaux.
+
+<h4>Tableau à plusieurs dimensions</h4>
+S'utilisent comme les tableaux à une dimension.
+<br>Il n'est pas nécessaire de spécifier toutes les length à la création, seule la première est nécessaire, et il faut les spécifier par la gauche :
+<pre>
+float[][][] tableau3D = new float[360][180][100];
+float[][][] tableau3D = new float[360][180][];
+float[][][] tableau3D = new float[360][][];
+</pre>
+Mais à l'utilisation, il faudra spécifier les tailles avant de les utiliser :
+<pre>
+int[][] t = new int[10][];
+for(int i = 0; i < t.length; i++){
+    t[i] = new int[i];      // ici, on a pu déclarer un tableau qui n'est pas "carré"
+    for(int j = 0; j < t[i].length; j++){
+        System.out.println("i = " + i + " - j = " + j);
     }
-    return max;
+    System.out.println();
 }
 </pre>
-On peut utiliser la fonction avec autant d'arguments que l'on veut :
+Les array initializers peuvent être aussi utilisés pour des tableaux à plusieurs dimensions :
 <pre>
-max(0)
-max(1, 2)
-max(16, 8, 4, 2, 1)
+int[][] products = {
+    {0, 0, 0, 0, 0},
+    {0, 1, 2, 3, 4},
+    {0, 4, 8, 12, 16}, // remarquer la dernière virgule (facultative)
+};
 </pre>
-(code dans <a href="../../exemples/java/varargs/Varargs.java">Varargs.java</a>)
+De la même manière, on peut avoir des "tableaux anonymes".
+
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/max/Max.html">Max et moyenne</a>
+</div>
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/voitures/Voitures.html">Voitures</a>
+</div>
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/premiers/Premiers.html">Nombres premiers</a>
+</div>
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-les-exceptions">Les exceptions</a></h2>
+Les exceptions sont un mécanisme de propagation des erreurs.
+<br>Très pratique car permet d'écrire du code plus lisible, non pollué par la gestion des cas d'erreur.
 <br>
-<br>A noter la fonction <code>public static main(String[] args)</code> peut être écrite <code>public static void main(String... args)</code>
-<br>(voir <a href="../../exemples/java/varargs/SignatureVarargs.java">SignatureVarargs.java</a>)
+<br>Le mécanisme des exceptions utilise 5 mots-clés du langage : <code><b>try</b></code>, <code><b>catch</b></code>, <code><b>finally</b></code>, <code><b>throw</b></code> et <code><b>throws</b></code>.
+<br>
+<br>Sans les exceptions :
+<pre>
+fonction ContenuDuFichier(String filename){
+
+    ouvrirFichier(filename)
+    
+    si erreur d'ouverture
+        return null
+    
+    String contentu = lireFichier
+    
+    Si erreur de lecture
+        return null
+    
+    return contenu
+}
+</pre>
+Avec les exceptions :
+<pre>
+fonction ContenuDuFichier(String filename){
+    <b>try</b>{
+        ouvrirFichier(filename)
+        String contentu = lireFichier
+        return contenu
+    }
+    <b>catch</b>(ErreurOuverture e){
+        return null
+    }
+    <b>catch</b>(ErreurLecture e){
+        return null
+    }
+}
+</pre>
+
+En plus de <code>try</code> et <code>catch</code>, on peut définir un bloc <code>finally</code>, qui va s'exécuter dans tous les cas, qu'une exception ait été lancée ou pas.
+<br>Le bloc <code>finally</code> est exécuté même si une exception est propagée ; utile par exemple pour fermer une connexion réseau ou à une base de données.
+<br><code>catch</code> et <code>finally</code> sont optionnels, mais au moins un des deux est nécessaire.
+<br>Les accolades sont obligatoires dans ces blocs, même s'ils ne contiennent qu'une ligne.
+<br>
+
+<pre>
+try {
+
+    // instructions
+    
+} catch(ExceptionType1 e){
+    // traitement de ce cas anormal de type ExceptionType1
+    // e est de type ExceptionType1
+}
+
+catch(ExceptionType2){
+    // traitement de ce cas anormal de type ExceptionType2
+    // e est de type ExceptionType2
+}
+
+<b>finally</b> {
+    traitement de fin de bloc try
+}
+</pre>
+
+Une même clause <code>catch</code> peut gérer plusieurs types d'exception, en les séparant par <code>|</code>.
+<pre>
+try{
+    ...
+}
+catch(<b>ExceptionType1 | ExceptionType2 e</b>){
+    // la variable e est un objet de type ExceptionType1 ou ExceptionType2
+}
+</pre>
 
 
 <!-- ************************************* -->
-<h3><a name="2-5-retour-d-une-methode">Retour d'une méthode</a></h3>
-Si elle n'est pas déclarée <code>void</code>, une méthode peut renvoyer un objet du type spécifié dans sa signature.
-<br>L'instruction <code>return</code> peut se trouver à n'importe quel endroit du corps de la méthode.
-<br>Si la méthode est déclarée <code>void</code> et qu'elle ne contient aucun return, elle s'exécute jusqu'au bout et retourne après avoir exécuté la dernière instruction.
-<br>L'exécution de la fonction peut aussi être interrompue par des instructions <code>throw</code>, ou si une exception survient.
+<h3><a name="2-1-les-classes-d-exception">Les classes d'exception</a></h3>
 
+Les exceptions que l'on peut lancer ou attrapper sont des objets de type <code>java.lang.Exception</code> ou de ses sous-classes.
+<br>L'API java fournit un grand nombre de classes :
+
+<img class="margin padding05 border" src="img/throwable.jpg" alt="Hiérarchie Throwable" />
+
+
+<br>On distingue 2 types principaux d'exceptions : 
+<br>- les exceptions vérifiées (<b>checked exceptions</b>), qui peuvent être anticipées et doivent être gérées par l'application.
+<br>- les exceptions non vérifiées (<b>unchecked exceptions</b>), qui ne peuvent pas être anticipées (par ex <code>OutOfMemoryError</code>).
+<br>Les unchecked exceptions descendent de <code>Error</code> ou de <code>RuntimeException</code> .
+<br>
+<br>Une exception contient un message, accessible via <code>getMessage()</code>.
+<br><code>printStackTrace()</code> est aussi courrament utilisée.
+
+
+<!-- ************************************* -->
+<h3><a name="2-2-creer-ses-propres-exceptions">Créer ses propres exceptions</a></h3>
+On peut créer des exceptions personnalisées en sous-classant <code>Exception</code> :
+
+<pre>public MyException extends Exception {}</pre>
+
+Dans le code qu'on écrit on a le choix entre utiliser <code>Exception</code> et ses sous-classes lorsque c'est pertinent, ou les classes d'exceptions spécifiques à l'application.
+
+<!-- ************************************* -->
+<h3><a name="2-3-lancer-des-exceptions">Lancer des exceptions</a></h3>
+Une exception est "lancée" avec l'instruction <code>throw</code> lorsqu'une condition anormale d'exécution est rencontrée :
+<pre>
+public static double factorial(int x) throws IllegalArgumentException{
+    if (x < 0)
+        <b>throw new IllegalArgumentException("x must be >= 0")</b>;
+    double fact;
+    for(fact=1.0; x > 1; fact *= x, x--)
+        ; // instruction vide
+    return fact;
+}
+</pre>
+
+(code dans <a href="../../exemples/java/factorial/Factorial.java">Factorial.java</a>)
+
+<!-- ************************************* -->
+<h3><a name="2-4-propagation-des-exceptions">Propagation des exceptions</a></h3>
+
+Si l'interpréteur java rencontre une exception, il arrête l'exécution du code et cherche un gestionnaire d'exception (un bloc <code>catch</code>).
+<br>
+L'interpréteur java va remonter la pile d'appel des méthodes jusqu'à ce qu'il trouve un bloc <code>catch</code> correspondant au type de l'exception en cours ou à une superclasse.
+<br>Par exemple, si on se place dans une méthode qui utilise <code>factorial()</code> :
+<pre>
+void maMéthode(){
+    ...
+    double f = factorial(-5);
+    ...
+}
+</pre>
+
+- Soit <code>maMéthode()</code> contient un bloc try catch gérant <code>IllegalArgumentException</code>
+<pre>
+void maMéthode(){
+    try{
+        ...
+        double f = factorial(-5);
+        ...
+    }
+    catch(IllegalArgumentException e){
+        // gestion de e
+    }
+}
+</pre>
+Dans ce cas le code présent dans ce bloc catch sera exécuté.
+<br>
+<br>- Soit <code>maMéthode()</code> ne gère pas <code>IllegalArgumentException</code> et doit alors obligatoirement déclarer qu'elle est susceptible de lancer une exception avec le mot-clé <code>throws</code> :
+
+<pre>
+void maMéthode <b>throws IllegalArgumentException</b>(){
+    ...
+    double f = factorial(-5);
+    ...
+}
+</pre>
+
+Dans ce cas, l'exception sera propagée à la méthode qui a appelé <code>maMéthode()</code>, ainsi de suite jusqu'à la fonction <code>main()</code>.
+<br>Donc en général, le code d'une fonction <code>main()</code> contient un try catch :
+<pre>
+public static void main(String[] args) {
+    try{
+    }
+    catch(Exception e){
+    }
+</pre>
+Dans ce cas, on a intérêt à utiliser la classe <code>Exception</code>, qui est la superclasse de toutes les autres exceptions, çe qui permet de rattrapper toute erreur imprévue dans le programme, quelque soit son type.
+<br>
+<br>A noter : les blocs <code>catch</code> sont évalués les uns après les autres. Le compilateur impose donc que les cas particuliers soient traités d'abord.
+
+<pre>
+void maMéthodeQuiNePassePasALaCompil(){
+    try{
+        ...
+        double f = factorial(-5);
+        ...
+    }
+    catch(Exception e){
+    }
+    catch(IllegalArgumentException e){
+    }
+}
+</pre>
+Si ce code passait à la compilation, le <code>catch</code> de <code>IllegalArgumentException</code> ne serait jamais appelé puisque c'est une sous-classe de <code>Exception</code>.
+
+<!-- ************************************* -->
+<h3><a name="2-5-try-with-resources-twr">try with resources (TWR)</a></h3>
+Voir <a href="io.html#1-3-try-with-resources-twr">le cours sur java.io</a>
+
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/multiples/Multiples2.html">Multiples2</a>
+</div>
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
 
 </article>
 
 </body>
 </html>
-
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->
-
-ode est déclarée <code>void</code> et qu'elle ne contient aucun return, elle s'exécute jusqu'au bout et retourne après avoir exécuté la dernière instruction.
-<br>L'exécution de la fonction peut aussi être interrompue par des instructions <code>throw</code>, ou si une exception survient.
-
-
-</article>
-
-</body>
-</html>
-
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->
-

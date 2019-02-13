@@ -30,13 +30,24 @@
             </ul>
         </li>
         <li>
-            <a href="#2-swing-et-le-mvc">Swing et le MVC</a>
+            <a href="#2-hello-swing">Hello Swing</a>
             <ul>
-                <li><a href="#2-1-vue-controleur">Vue / Contrôleur</a></li>
+                <li><a href="#2-1-hello-swing-1">Hello Swing 1</a></li>
+                <li><a href="#2-2-hello-swing-2">Hello Swing 2</a></li>
+                <li><a href="#2-3-hello-swing-3">Hello Swing 3</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#3-swing-et-les-patterns">Swing et les patterns</a>
+            <ul>
+                <li><a href="#3-1-composite">Composite</a></li>
+                <li><a href="#3-2-observer">Observer</a></li>
+                <li><a href="#3-3-command">Command</a></li>
             </ul>
         </li>
     </ul>
 </nav>
+
 
 </header>
 
@@ -217,17 +228,17 @@ public class HelloSwing3 {
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-swing-et-le-mvc">Swing et les patterns</a></h2>
+<h2><a name="3-swing-et-les-patterns">Swing et les patterns</a></h2>
 
 Swing fait un grand usage des patterns.
 
 <!-- ************************************* -->
-<h3>Composite</h3>
+<h3><a name="3-1-composite">Composite</a></h3>
 
 Les composants graphiques sont emboîtés dans une structure arborescente, voir l'exemple sur la page <a href="../patterns/composite.html">Composite</a>.
 
 <!-- ************************************* -->
-<h3><a name="2-1-vue-controleur">Observer</a></h3>
+<h3><a name="3-2-observer">Observer</a></h3>
 
 Les <b>observables</b> sont les éléments de la vue, composants graphiques descendant de <code>JComponent</code>.
 <br>On peut leur associer des observateurs, appelés <b>listeners</b>.
@@ -272,7 +283,7 @@ If the model has been altered, it notifies interested listeners, such as the vie
 
 
 <!-- ************************************* -->
-<h3>Command</h3>
+<h3><a name="3-3-command">Command</a></h3>
 
 Très utilisé en swing, voir <a href="../patterns/command.html">la page sur le pattern Command</a>.
 
