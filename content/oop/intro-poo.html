@@ -42,8 +42,9 @@
             <a href="#6-heritage">Héritage</a>
             <ul>
                 <li><a href="#6-1-illustration">Illustration</a></li>
-                <li><a href="#6-2-polymorphisme-par-heritage">Polymorphisme par héritage</a></li>
-                <li><a href="#6-3-limites-et-problemes-de-l-heritage">Limites et problèmes de l'héritage</a></li>
+                <li><a href="#6-2-liaison-dynamique">Liaison dynamique</a></li>
+                <li><a href="#6-3-polymorphisme-par-heritage">Polymorphisme par héritage</a></li>
+                <li><a href="#6-4-limites-et-problemes-de-l-heritage">Limites et problèmes de l'héritage</a></li>
             </ul>
         </li>
         <li>
@@ -60,6 +61,7 @@
         </li>
     </ul>
 </nav>
+
 
 </header>
 
@@ -399,7 +401,7 @@ c.surface() = surface() dans Carré
 La méthode redéfinie a bien été utilisée
 
 <!-- ************************************* -->
-<h4>Liaison dynamique</h4>
+<h3><a name="6-2-liaison-dynamique">Liaison dynamique</a></h3>
 Exemple <a href="../exemples/java/polygone/Polygone3/Polygone3.java">Polygone3</a> : les classes <code>Carré</code> et <code>PolygoneRégulier</code> restent identiques.
 <pre>
 class Polygone3{
@@ -465,14 +467,14 @@ APRES, p1.surface() = surface() dans Hexagone
 
 
 <!-- ************************************* -->
-<h3><a name="6-2-polymorphisme-par-heritage">Polymorphisme par héritage</a></h3>
+<h3><a name="6-3-polymorphisme-par-heritage">Polymorphisme par héritage</a></h3>
 Le polymorphisme est le concept consistant à fournir une interface unique à des entités pouvant avoir différents types.
 <br>
 <br>Il existe plusieurs types de polymorphisme en POO ; la possibilité de redéfinir une fonctionnalité dans une sous-classe s'appelle <b>polymorphisme par héritage</b>, ou <b>polymorphisme par inclusion</b>.
 
 
 <!-- ************************************* -->
-<h3><a name="6-3-limites-et-problemes-de-l-heritage">Limites et problèmes de l'héritage</a></h3>
+<h3><a name="6-4-limites-et-problemes-de-l-heritage">Limites et problèmes de l'héritage</a></h3>
 <img class="margin padding05 border" src="img/heritage-multiple.jpg" alt="Exemple d'héritage multiple">
 On rencontre souvent des situations où on aurait besoin qu'une classe hérite de plusieurs classes.
 <br>On parle alors d'<b>héritage multiple</b>.

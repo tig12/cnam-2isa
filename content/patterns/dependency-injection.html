@@ -23,7 +23,6 @@
 <h1>Injection de dépendance
 <div class="subtitle">(Dependency injection)</div>
 </h1>
-
 <nav class="toc">
     <ul>
         <li>
@@ -34,9 +33,20 @@
         </li>
         <li>
             <a href="#2-injection-de-dependance">Injection de dépendance</a>
+            <ul>
+                <li><a href="#2-1-injection-par-constructeur-type-3">Injection par constructeur (type 3)</a></li>
+                <li><a href="#2-2-injection-par-setter-type-2">Injection par setter (type 2)</a></li>
+                <li><a href="#2-3-injection-par-interface-type-1">Injection par interface (type 1)</a></li>
+                <li><a href="#2-4-remarques">Remarques</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#3-service-locator">Service locator</a>
         </li>
     </ul>
 </nav>
+
+
 
 </header>
 
@@ -124,7 +134,7 @@ Dans tous les cas, c'est du code extérieur au client qui décide de l'implémen
 Le client est déconnecté de l'implémentation.
 
 <!-- ************************************* -->
-<h3>Injection par constructeur (type 3)</h3>
+<h3><a name="2-1-injection-par-constructeur-type-3">Injection par constructeur (type 3)</a></h3>
 Le service à utiliser est "injecté" dans le client par le biais d'un constructeur. 
 
 <pre>
@@ -191,7 +201,7 @@ Client client2 = new ServiceDeTest(service2);
 </ul>
 
 <!-- ************************************* -->
-<h3>Injection par setter (type 2)</h3>
+<h3><a name="2-2-injection-par-setter-type-2">Injection par setter (type 2)</a></h3>
 
 Le client peut être créé sans service, et le service lui est injecté par le biais d'un setter.
 
@@ -232,7 +242,7 @@ public class Test3{
 </pre>
 
 <!-- ************************************* -->
-<h3>Injection par interface (type 1)</h3>
+<h3><a name="2-3-injection-par-interface-type-1">Injection par interface (type 1)</a></h3>
 Même chose que l'injection par setter, mais on demande en plus au client d'implémenter une interface.
 
 <pre>
@@ -276,7 +286,7 @@ public class Test4{
 </pre>
 
 <!-- ************************************* -->
-<h3>Remarques</h3>
+<h3><a name="2-4-remarques">Remarques</a></h3>
 
 <ul>
     <li>
@@ -295,7 +305,7 @@ public class Test4{
 
 
 <!-- ********************************************************************************* -->
-<h2>Service locator</h2>
+<h2><a name="3-service-locator">Service locator</a></h2>
 
 L'idée est d'avoir un objet (le service locator) qui sait comment créer tous les services dont une application (un client) peut avoir besoin.
 <br>Le diagramme exprimant les dépendances devient le suivant :
