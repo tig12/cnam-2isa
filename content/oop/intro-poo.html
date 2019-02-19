@@ -524,27 +524,27 @@ Le problème de l'héritage multiple est partiellement contourné en java avec l
 <br>
 <br>Pour le problème du cheval, on pourrait faire :
 <pre>
-interface ChoseQuiAvance{
+interface Vehicule{
     public void avancer();
 }
 
-interface ChoseQuiMange{
+interface Animal{
     public void manger();
 }
 
-class Voiture implements ChoseQuiAvance{
+class Voiture implements Vehicule{
     public void avancer(){ ... }
 }
-class Vélo implements ChoseQuiAvance{
+class Vélo implements Vehicule{
     public void avancer(){ ... }
 }
 
-<b>class Cheval implements ChoseQuiAvance, ChoseQuiMange{
+<b>class Cheval implements Vehicule, Animal{
     public void avancer(){ ... }
     public void manger(){ ... }
 }</b>
 
-class Chien implements ChoseQuiMange{
+class Chien implements Animal{
     public void manger(){ ... }
 }
 </pre>
@@ -594,7 +594,7 @@ class Circle extends Shape{
         this.radius = radius;
     }
     
-    public double area{
+    public double area(){
         return 2 * 3.14 * this.radius;
     }
 }

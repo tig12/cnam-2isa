@@ -87,6 +87,7 @@ h3{font-size:1.5rem;}
 .toc ul{list-style-type:none;}
 .toc{padding:0;}
 .toc>ul>li>a{font-weight:bold;}
+.toc>ul>li>ul{padding-left:1.3rem;}
 
 
 /* ================ Particular elements ================ */

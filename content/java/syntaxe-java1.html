@@ -902,7 +902,7 @@ int count = 0;
 do {
     System.out.println("count = " + count);
     count++;
-} while(count < 10)
+} while(count < 10);
         </pre>
         </td>
     </tr>
@@ -947,7 +947,44 @@ for(int i=0, j=10; i < 10; i++, j--){
 }
 </pre>
 les parties <i>initialize</i>, <i>test</i>, <i>update</i> sont optionnelles (mais les points-virgules sont obligatoire).
-<br><code>for(;;;)</code> fait donc une boucle infinie.
+<br><code>for(;;)</code> fait donc une boucle infinie.
+
+<div class="exo">
+<b>Exercice</b> : <a href="../../exos/java/boucles/Boucles.html">Boucles</a>
+</div>
+
+<!-- ************************************* -->
+<h3><a name="9-6-for">foreach</a></h3>
+Permet d'itérer sur une collection sans la lourdeur des indexes :
+<pre>
+for( declaration : expression )
+    statement
+</pre>
+
+Par exemple, on peut écrire :
+<pre>
+int[] primes = new int[] { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 };
+for(int n : primes)
+    System.out.println(n);
+</pre>
+
+au lieu de :
+
+<pre>
+for(int i = 0; i < primes.length; i++) {
+    System.out.print(primes[i]);
+}
+</pre>
+
+La syntaxe <code>for(int n : primes)</code> signifie "for each n in primes".
+<br>
+<br>Pratique mais ne peut pas remplacer complètement les boucles lorsqu'on veut parcourir de la fin vers le début, ou lorsque l'index est nécessaire :
+<pre>
+for(int i = 0; i < words.length; i++) {
+    if (i > 0) System.out.print(", ");
+    System.out.print(words[i]);
+}
+</pre>
 
 <!-- ************************************* -->
 <h3><a name="9-4-break">break</a></h3>
@@ -983,39 +1020,6 @@ for(int i = 0; i < data.length; i++) {
 </pre>
 Utilisé sans label, <code>continue</code> passe à l'itération suivante de la boucle la plus intérieure.
 <br>Utilisé avec un label (ex : <code>continue iloop;</code>), passe à l'itération suivante de la boucle labelisée.
-
-<!-- ************************************* -->
-<h3><a name="9-6-for">for</a></h3>
-Permet d'itérer sur une collection sans la lourdeur des indexes :
-<pre>
-for( declaration : expression )
-    statement
-</pre>
-
-Par exemple, on peut écrire :
-<pre>
-int[] primes = new int[] { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 };
-for(int n : primes)
-    System.out.println(n);
-</pre>
-
-au lieu de :
-
-<pre>
-for(int i = 0; i < primes.length; i++) {
-    System.out.print(primes[i]);
-}
-</pre>
-
-La syntaxe <code>for(int n : primes)</code> signifie "for each n in primes".
-<br>
-<br>Pratique mais ne peut pas remplacer complètement les boucles lorsqu'on veut parcourir de la fin vers le début, ou lorsque l'index est nécessaire :
-<pre>
-for(int i = 0; i < words.length; i++) {
-    if (i > 0) System.out.print(", ");
-    System.out.print(words[i]);
-}
-</pre>
 
 <!-- ************************************* -->
 <h2><a name="10-return">return</a></h2>

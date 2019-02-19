@@ -15,8 +15,8 @@
 
 <nav class="prevnext">
     <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
-    <a class="prev" title="Previous" href="classes-interfaces.html">&larr;</a>
-    <a class="next" title="Next" href="nested.html">&rarr;</a>
+    <a class="prev" title="Previous" href="hello-world.html">&larr;</a>
+    <a class="next" title="Next" href="syntaxe-java1.html">&rarr;</a>
 </nav>
 
 <header>
@@ -64,12 +64,6 @@
 
 <article>
 
-
-
-
-
-
-
 <!-- ********************************************************************************* -->
 <h2><a name="1-programmer-en-java">Programmer en java</a></h2>
 
@@ -112,16 +106,16 @@ Pour fonctionner, la plupart des outils du JDK ont besoin de savoir où aller ch
 <br>- Les classes constituant le programme sur lequel on travaille.
 
 <!-- ************************************* -->
-<h3><a name="5-3-variables">Variables</a></h3>
+<h3><a name="1-3-variables">Variables</a></h3>
 
 Permettent d'intégrer java au système d'exploitation.
 <br>La variable <code>CLASSPATH</code> contient le chemin vers les classes du JRE, donc on n'a pas besoin de les répéter lorsqu'on spécifie le classpath.
 <br>(mais cela permet d'utiliser différentes versions de java sur une même machine).
+<br><br>
+<div class="flex-wrap">
 
-<table>
-    <tr><th>Windows</th><th>Linux</th></tr>
-    <tr>
-        <td>
+<div>
+<div class="bold center">Windows</div>
 <pre>
 JAVA_HOME : C:\Program Files\Java\jdk1.8.0_112
 JDK_HOME  : %JAVA_HOME%
@@ -129,8 +123,10 @@ JRE_HOME  : %JAVA_HOME%\jre
 CLASSPATH : .;%JAVA_HOME%\lib;%JAVA_HOME%\jre\lib
 PATH      : your-unique-entries;%JAVA_HOME%\bin
 </pre>
-        </td>
-        <td>
+</div>
+
+<div>
+<div class="bold center">Linux</div>
 <pre>
 JAVA_HOME : /usr/lib/jvm/java-11-openjdk-amd64
 JDK_HOME  : $JAVA_HOME
@@ -138,10 +134,9 @@ JRE_HOME  : $JAVA_HOME/jre
 CLASSPATH : .:$JAVA_HOME/lib:$JAVA_HOME/jre/lib
 PATH      : your-unique-entries:$JAVA_HOME/bin
 </pre>
-        </td>
-    </tr>
-</table>
+</div>
 
+</div><!-- end class="flex-wrap" -->
 
 <!-- ********************************************************************************* -->
 <h2><a name="2-compilation-javac">Compilation - javac</a></h2>

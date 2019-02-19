@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Packages, appli java | NFP121 Millau</title>
+    <meta name="description" content="Packages et structure d'une application java.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+
+<body>
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="classes-interfaces.html">&larr;</a>
+    <a class="next" title="Next" href="outils-java.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Packages, application java</h1>
+</header>
+
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-packages-java-namespace">Packages, java namespace</a>
+            <ul>
+                <li><a href="#1-1-conflits">Conflits</a></li>
+                <li><a href="#1-2-import-static">import static</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-structure-d-une-application-java">Structure d'une application java</a>
+        </li>
+        <li>
+            <a href="#3-modules">Modules</a>
+        </li>
+    </ul>
+</nav>
+
+<article>
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-packages-java-namespace">Packages, java namespace</a></h2>
+Package = ensemble de classes (ou d'interfaces) ; sert à regrouper du code et à fournir un espace de nommage (namespace) aux classes qu'ils contiennent.
+<br>
+<br>Par convention, les noms de packages sont en lettres minuscules.
+<br>
+<br>Utilités :
+<br>- Eviter les collisions de nom.
+<br>- Organiser son code en sous-ensembles cohérents.
+<br>- Permet aux classes et méthode d'avoir une visibilité <code>package</code>, importante dans des gros programmes.
+<br>
+<br>NOTE : concevoir ses packages en n'utilisant qu'un nombre mimimum de classes publiques est conseillé, afin de renforcer l'encapsulation au niveau package.
+<br>Si une classe n'a pas vocation a être utilisée par d'autres package, donnez-lui une visibilité <i>package</i> : simplifie l'API publique et vous permet de faire évoluer le package sans perturber le code client.
+<br>Exemple : Comparer <a href="https://docs.oracle.com/javase/8/docs/api/javax/swing/colorchooser/package-summary.html">la doc du package javax.swing.colorchooser</a> et <a href="http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/javax/swing/colorchooser">le code source</a>.
+<br>
+<br>Les classes centrales de l'API sont dans un package qui commence par <code>java</code>.
+En particulier <code>java.lang</code> et <code>java.util</code>, aussi <code>java.io</code>, <code>java.net</code>.
+<br><code>javax*</code> = eXtensions qui ont été intégrées à la plateforme.
+<br>Oracle contrôle les packages commençant par <code>java</code>, <code>javax</code>, <code>sun</code>.
+<br>
+<br>Une classe a donc à la fois un nom simple et un <b>fully qualified name</b>.
+<div class="pre">Nom simple :              <code>System</code>
+Fully qualified name : <code>java.lang.System</code>
+</div>
+<br>2 classes de même nom simple ne peuvent être différenciées que par leur fully qualified name, par exemple <code>java.util.List</code> et <code>java.awt.List</code>.
+<br>Par défaut, pour référencer une classe dans le code, il faut utilser son fully qualified name, à 3 exceptions :
+<br>- les classes de <code>java.lang</code>
+<br>- les classes du package courant
+<br>- les classes qui ont été importées dans la package courant avec la déclaration <code>import</code>.
+<br>
+<br>Une toute petite application peut être écrite dans un répertoire sans spécifier le package, elle se trouve dans le <b>package par défaut</b>.
+<br>Mais dès qu'une application grossit, elle est packagée ; le nom du package courant est spécifié en utilisant l'instruction <code>package</code>.
+<br>
+<br>Les clauses <code>import</code> doivent apparaître en début de fichier, juste après la clause <code>package</code>.
+<pre>
+package myapp.mypackage;
+
+import java.io.File;    // <b>single</b> type import
+import java.io.*;       // <b>on-demand</b> type import - ne s'applique pas aux sub-packages
+</pre>
+
+On-demand import équivalent à simple type import <i>uniquement pour les classes que l'on utilse</i>.
+
+<!-- ************************************* -->
+<h3><a name="1-1-conflits">Conflits</a></h3>
+<pre>
+import java.util.List;
+import java.awt.List;
+</pre>
+Génère une erreur de compilation.
+<pre>
+import java.util.*;
+import java.awt.*;
+</pre>
+est légal, mais l'utilisation de <code>List</code> dans le code génère une erreur de compilation.
+<br>Dans ce cas, on peut faire : 
+<pre>
+import java.util.*;
+import java.awt.*;
+import java.util.List; // pour lever l'ambiguité
+</pre>
+Dans le code, l'identifiant "<code>List</code>" désignera une <code>java.util.List</code> et pour utiliser <code>java.awt.List</code>, on doit faire :
+<pre>java.awt.List = new java.awt.List(...)</pre>
+
+<!-- ************************************* -->
+<h3><a name="1-2-import-static">import static</a></h3>
+Introduit en java 5.
+<br>Possible d'importer les membres statiques (variables et méthodes) d'une classe en faisant : 
+<pre>import static java.lang.System.out;</pre>
+Permet par exemple d'utiliser dans le code <code>out.println()</code> au lieu de <code>System.out.println()</code>.
+<br>Utilisation courante :
+<pre>
+import static java.lang.Math.*;
+// permet de remplacer :
+Math.sqrt(Math.abs(Math.sin(x)))
+// par 
+sqrt(abs(sin(x)))
+</pre>
+
+Aussi utile pour les constantes (utiliser <code>PI</code> au lieu de <code>Math.PI</code>).
+<br>
+<br>Mais <b>ATTENTION</b>, à utiliser avec parcimonie car diminue la lisibilité du code : il faut faire des efforts pour savoir si une variable est locale ou vient d'un <code>import static</code> (pire en cas de multiples <code>import static *</code>). Favoriser l'import des variables une par une plutôt que la syntaxe avec <code>*</code>.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-structure-d-une-application-java">Structure d'une application java</a></h2>
+
+En java, le code est écrit dans des fichiers <b>.java</b>.
+<br>Les fichiers .java doivent être compilés (transformés en bytecode lisible par la JVM) en utilisant <b>javac</b>. Le bytecode est stocké dans des fichiers <b>.class</b>.
+<br>La (quasi ?) totalité des projets java stocke les .java et les .class dans deux dossiers séparés.
+<br>La structure typique d'un projet java est :
+<pre>
+projet/
+    ├── bin             // contient les .class
+    └── src             // contient les .java
+</pre>
+
+Il y a <i>obligatoirement</i> une correspondance entre la hiérarchie des packages et la hiérarchie des fichiers.
+<br>
+<br>Si on a :
+<pre>
+src/
+    └── projet
+        ├── package1
+        │   └── Class1.java
+        ├── package2
+        │   └── Class2.java
+        └── Projet.java
+</pre>
+
+alors l'application doit être packagée de cette manière :
+<br>
+<br>
+
+<div class="flex-wrap">
+<div class="margin-left padding05 border">
+Projet.java
+<pre>
+package projet;
+...
+</pre>
+</div>
+<div class="margin-left padding05 border">
+package1/Class1.java
+<pre>
+package projet.package1;
+...
+</pre>
+</div>
+<div class="margin-left padding05 border">
+package2/Class2.java
+<pre>
+package projet.package2;
+...
+</pre>
+</div>
+
+</div><!-- end class="flex-wrap" -->
+
+<br>La même hiérarchie se trouve dans <code>bin/</code> :
+<pre>
+bin/
+    └── projet
+        ├── package1
+        │   └── Class1.class
+        ├── package2
+        │   └── Class2.class
+        └── Projet.class
+</pre>
+
+Une manière assez répandue de nommer les packages utilise l'url de(s) auteur(s) pour former le nom du package principal.
+<br>Par exemple <code>http://commons.apache.org</code> met ses projets dans les packages
+<br><code>org.apache.commons.projet1</code>
+<br><code>org.apache.commons.projet2</code>
+<br>Ce qui correspond à une hiérarchie de fichiers <code>org/apache/commons/projet1</code> et <code>org/apache/commons/projet2</code>
+
+
+<div class="exo">
+<b>Exercice</b> : <a href="../../cours/nfp121/tps/2-conversion/tp2-millau.html">TP Conversion Celcius Fahrenheit</a>
+</div>
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-modules">Modules</a></h2>
+La notion de module a été introduite en java 9. Un module regroupe un ou plusieurs packages.
+<br>Java SE a été découpé en modules, ce qui permet de déployer une application en n'incluant que les modules utiles.
+<br>Voir <a href="https://www.oracle.com/corporate/features/understanding-java-9-modules.html">https://www.oracle.com/corporate/features/understanding-java-9-modules.html</a>
+
+</article>
+
+</body>
+</html>
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
