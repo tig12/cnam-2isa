@@ -5,12 +5,12 @@
     <title>Conversion Celcius Fahrenheit | NFP121</title>
     <meta name="description" content="Compléments pour effectuer le TP2 (conversion degrés), pour NFP121 du CNAM Millau.">
     <meta name="robots" content="index,follow">
-    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+    <link href="../../../../static/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
 <nav class="prevnext">
-    <a class="top" title="NFP121" href="../../../index.html">&uarr;</a>
+    <a class="top" title="NFP121" href="../../../../index.html">&uarr;</a>
 </nav>
 
 <header>
@@ -18,15 +18,18 @@
 </header>
 
 <article>
+<ol class="spaced">
+    
+<li>
+<b>Convertir des degrés Fahrenheit en degrés Celcius</b>
+<br>
+<br>Formule de conversion :
+<pre>°C = 5/9 * (°F - 32)</pre>
+<br>La valeur en degrés Fahrenheit à convertir doit être donnée en paramètre au programme :
+<pre>java Conversion 80</pre>
+<pre>80°F -> 26.6°C</pre>
 
-<br>
-<br>1 - Convertir des degrés Fahrenheit en degrés Celcius :
-<br>La formule de conversion : °C = 5/9 * (°F - 32)
-<br>Les valeurs en degrés Fahrenheit à convertir sont données sur la ligne de commande.
-<br>Ce sont des valeurs entières.
-<br>
-<br>Le résultat est attendu avec un seul chiffre derrière la virgule, obtenu uniquement par le calcul. ( par exemple r = ((int)resultat*10)/10.0 )
-<br>Format de sortie demandé : 80°F -> 26.6°C
+Le résultat est attendu avec un seul chiffre derrière la virgule. Vous pouvez utiliser différentes manières : <code>String.format()</code>; par le calcul ( par exemple <code>r = ((int)resultat*10)/10.0</code> ) ; <code>Math.round()</code> ...
 <br>
 <br>Le code doit gérer les erreurs d'entrée : 
 <br>- le programme a besoin d'un seul paramètre ;
@@ -55,12 +58,10 @@ tp2-conversion
     └── tests
 </pre>
 
-Les instructions utilisées en console (à adapter à vos IDEs) depuis le répertoire <code>conversion</code>
-<br>compilation :
-<code class="color">javac -d bin -sourcepath src src/conversion/Conversion.java</code>
-<br>exécution :
-<code class="color">java -classpath bin conversion.Conversion 70</code>
-<br>javadoc :
+Les instructions utilisées en console (à adapter à vos IDEs) depuis le répertoire <code>conversion/</code>
+<pre>javac -d bin -sourcepath src src/conversion/Conversion.java</pre>
+<pre>java -classpath bin conversion.Conversion 70</pre>
+javadoc :
 <pre>
 javadoc \
     -sourcepath src \
@@ -77,11 +78,24 @@ javadoc \
 Note : les <code>\</code> indiquent sous linux que la même instruction se poursuit sur la ligne suivante.
 <br>Sur une seule ligne, l'instruction est : <code>javadoc -sourcepath src -classpath bin ...</code>
 <br>
-<br>optionnel :
-<br>
-<br>2 - Au papier ou par logiciel, faire le diagramme de séquence représentant les classes, et les appels des méthodes dans l'exécution normale (pas d'erreur en entrée).
-<br>
-<br>3 - Faire la documentation en utilisant la syntaxe javadoc et générer la doc avec l'outil javadoc.
-<br>
-<br>4 - Ecrire des tests unitaires pour les classes <code>Degres</code> et <code>Format</code>.
-</div>
+</li>
+
+<li>
+    Au papier ou par logiciel, faire le diagramme de séquence représentant les classes, et les appels des méthodes dans l'exécution normale (pas d'erreur en entrée).
+</li>
+
+<li>
+    Faire la documentation en utilisant la syntaxe javadoc et générer la doc avec l'outil javadoc.
+</li>
+
+<li>
+    Ecrire des tests unitaires pour les classes <code>Degres</code> et <code>Format</code>.
+</li>
+
+</ol>
+
+
+</article>
+
+</body>
+</html>
