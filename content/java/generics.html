@@ -491,7 +491,7 @@ Mais ATTENTION, si on a la méthode :
 Est-ce qu'on peut passer à cette méthode des <code>Box&lt;Integer></code> ou des <code>Box&lt;Double></code> ?
 <br>
 <br>NON car
-<img class="border margin margin-left3 padding05" src="img/generics-subtypeRelationship.gif" alt="Generics supbtype relationship" />
+<img class="border margin margin-left3 padding05" src="img/generics-subtypeRelationship.gif" alt="Generics supbtype relationship">
 
 
 <!-- ********************************************************************************* -->
@@ -504,7 +504,7 @@ ArrayList&lt;E> implements List&lt;E>
 </pre>
 Donc <code>ArrayList&lt;String></code> est un sous-type de <code>List&lt;String></code>, qui est un sous-type de <code>Collection&lt;String></code>
 
-<img class="border margin margin-left3 padding05" src="img/generics-sampleHierarchy.gif" alt="Generics ArrayList hierarchy" />
+<img class="border margin margin-left3 padding05" src="img/generics-sampleHierarchy.gif" alt="Generics ArrayList hierarchy">
 
 Si on définit notre propre interface pour gérer des listes :
 <br>(une liste où chaque élément est associé à un élément de type <code>P</code>)
@@ -522,7 +522,7 @@ interface PayloadList&lt;E,P> extends List&lt;E> {
     PayloadList&lt;String,Exception>
 </pre>
 
-<img class="border margin margin-left3 padding05" src="img/generics-payloadListHierarchy.gif" alt="Generics PayloadList hierarchy" />
+<img class="border margin margin-left3 padding05" src="img/generics-payloadListHierarchy.gif" alt="Generics PayloadList hierarchy">
 
 
 <!-- ********************************************************************************* -->
@@ -640,12 +640,12 @@ En effet, on a vu que <code>List&lt;B></code> n'est pas un sous-type de <code>Li
 <br>Les wildcards permettent de créer des relations d'héritage.
 <br>Déjà, on a la relation suivante :
 
-<img class="border margin margin-left2 padding05" src="img/generics-list-parent.gif" alt="Generics - héritage avec wildcard" />
+<img class="border margin margin-left2 padding05" src="img/generics-list-parent.gif" alt="Generics - héritage avec wildcard">
 
 Plus généralement, si <code>B</code> est un sous-type de <code>A</code>, <code>&lt; ? extends B></code> est un sous-type de <code>&lt; ? extends A></code>.
 <br>Par exemple :
 
-<img class="border margin margin-left3 padding05" src="img/generics-wildcardSubtyping.gif" alt="Generics - exemple d'héritage avec wildcard" />
+<img class="border margin margin-left3 padding05" src="img/generics-wildcardSubtyping.gif" alt="Generics - exemple d'héritage avec wildcard">
 
 Donc dans l'exemple précédent, si on ne peut pas faire :
 <pre>

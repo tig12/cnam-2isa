@@ -82,7 +82,7 @@ MVC désigne aussi une <b>manière de structurer le code</b> dans une applicatio
 <br>Dans beaucoup d'applications web, le MVC est utilisé sans pattern observateur,
 <br>en utilisant un pattern supplémentaire : le <b>front controller</b>.
 
-<img class="margin" src="img/mvc-front.jpg" alt="MVC web" />
+<img class="margin" src="img/mvc-front.jpg" alt="MVC web">
 
 Exemple d'une application web en php : 
 <pre>
@@ -159,7 +159,7 @@ Cette partie est largement inspirée du chapitre 12 de "Design Patterns Head Fir
 <br>Le player gère une petite base de données avec les morceaux et leurs données associées.
 <br>Il s'occupe aussi de jouer la musique, l'interface est constamment mise à jour avec le titre de la chanson courante, le temps écoulé etc. 
 
-<img class="margin border" src="img/mvc-headfirst-player.jpg" alt="mvc-headfirst-player.jpg" />
+<img class="margin border" src="img/mvc-headfirst-player.jpg" alt="mvc-headfirst-player.jpg">
 
 <!-- ************************************* -->
 <h3><a name="3-1-un-premier-regard">Un premier regard</a></h3>
@@ -169,7 +169,7 @@ Plus généralement, les interactions suivent ce schéma :
 <div class="flex-wrap">
 <div class="margin-top">
     <center>Schéma Head First</center>
-    <img class="margin border" src="img/mvc-headfirst-schema1.jpg" alt="mvc-headfirst-schema1.jpg" />
+    <img class="margin border" src="img/mvc-headfirst-schema1.jpg" alt="mvc-headfirst-schema1.jpg">
 </div>
 </div><!-- end class="flex-wrap" -->
 
@@ -220,34 +220,34 @@ Plus généralement, les interactions suivent ce schéma :
 <br>
 Schéma d'Oracle :
 
-<img class="margin border" src="img/mvc-oracle.jpg" alt="MVC" />
+<img class="margin border" src="img/mvc-oracle.jpg" alt="MVC">
 
 <!-- ************************************* -->
 <h3><a name="3-2-le-mvc-sous-l-angle-des-patterns">Le MVC sous l'angle des patterns</a></h3>
 MVC met en général en jeu <i>Observer</i>, <i>Strategy</i> et <i>Composite</i>.
 <br><i>Adapter</i> peut aussi être utilisé (voir plus loin).
 
-<img class="margin border" src="img/mvc-headfirst-patterns.jpg" alt="mvc-headfirst-patterns.jpg" />
+<img class="margin border" src="img/mvc-headfirst-patterns.jpg" alt="mvc-headfirst-patterns.jpg">
 
 <ul class="spaced">
     <li>
         Le modèle utilise le pattern <i><b>Observer</b></i> pour tenir informés vues et contrôleurs de ses changements.
         <br>Ça permet de laisser le modèle complètement indépendant des vues et contrôleurs.
         <br>Permet par exemple d'avoir plusieurs vues à la fois.
-        <img class="margin border" src="img/mvc-headfirst-observer.jpg" alt="mvc-headfirst-observer.jpg" />
+        <img class="margin border" src="img/mvc-headfirst-observer.jpg" alt="mvc-headfirst-observer.jpg">
     </li>
     <li>
         Vue et contrôleur utilisent le pattern <i><b>Strategy</b></i>.
         <br>La vue est un objet qui est configuré avec une stratégie, le contrôleur fournit cette stratégie.
         <br>La vue est uniquement concernée par l'affichage graphique, elle délègue au contrôleur toute décision concernant le comportement de l'interface.
         <br>L'utilisation d'une stratégie découple la vue du modèle car c'est le contrôleur qui est chargé d'interagir avec le modèle pour gérer les actions utilisateur. La vue n'a aucune idée de comment cela est fait.
-        <img class="margin border" src="img/mvc-headfirst-strategy.jpg" alt="mvc-headfirst-strategy.jpg" />
+        <img class="margin border" src="img/mvc-headfirst-strategy.jpg" alt="mvc-headfirst-strategy.jpg">
     </li>
     <li>
         L'affichage est un emboîtement de composants graphiques (textes, labels, boutons panels...).
         <br>Chaque composant graphique est soit composite (une fenêtre) soit terminal (un bouton).
         <br>Lorsque le contrôleur dit à la vue de se mettre à jour, elle le dit au composant racine, et le pattern <b><i>Composite</i></b> fait le reste.
-        <img class="margin border" src="img/mvc-headfirst-composite.jpg" alt="mvc-headfirst-composite.jpg" />
+        <img class="margin border" src="img/mvc-headfirst-composite.jpg" alt="mvc-headfirst-composite.jpg">
     </li>
 </ul>
 
@@ -456,7 +456,7 @@ public class BeatController implements ControllerInterface {
 Le fait de définir <code>ControllerInterface</code> permet d'appliquer le pattern <i>Strategy</i>.
 <br>
 <br>Rappel : 
-<img class="margin border" src="img/strategy-gof-diagram.jpg" alt="strategy-gof-diagram.jpg" />
+<img class="margin border" src="img/strategy-gof-diagram.jpg" alt="strategy-gof-diagram.jpg">
 
 Ici, la vue délègue ses interactions avec le modèle à une <code>ControllerInterface</code>, qui peut être implémentée de différentes façons.
 <br>

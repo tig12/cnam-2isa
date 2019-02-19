@@ -197,7 +197,7 @@ On dit qu'on a <b>instancié</b> la classe <code>Carré</code>.
 <br><u>Très important</u> : <b>en créant une classe, on crée un nouveau type de données</b>. En plus de pouvoir manipuler des variables de type prédéfini, comme <code>int</code> (nombre entier) ou <code>String</code> (chaîne de caractère), on peut manipuler des variables de type <code>Carré</code>.
 <br>
 <br>Notation UML :
-<img class="margin" src="../uml/img/object.jpg" alt="Instance d'un type, notation UML" />
+<img class="margin" src="../uml/img/object.jpg" alt="Instance d'un type, notation UML">
 
 
 <!-- ********************************************************************************* -->
@@ -222,7 +222,7 @@ Carré c1 = new Carré(10, vert);
 Carré c2 = new Carré(15, rouge);
 Carré c3 = new Carré(20, noir);
 </pre>
-<img class="border border-radius10 padding05" src="img/poo-instances.jpg" alt="Variables d'instance" />
+<img class="border border-radius10 padding05" src="img/poo-instances.jpg" alt="Variables d'instance">
 
 <!-- ********************************************************************************* -->
 <h2><a name="4-variables-et-methodes-de-classe">Variables et méthodes de classe</a></h2>
@@ -232,7 +232,7 @@ Les variables que l'on vient de voir (<code>côté</code>, <code>couleur</code>)
 <br>On utilise le mot-clé <b>static</b> en java.
 <br>En utilisant que du static, possible d'utiliser l'objet comme simple moyen de ranger des fonctions.
 
-<img class="margin" src="img/poo-static.jpg" alt="Variable statique" />
+<img class="margin" src="img/poo-static.jpg" alt="Variable statique">
 
 <pre>
 class Carré{
@@ -305,7 +305,7 @@ class A{ ... }
 class B extends class A{ ...}
 </pre>
 Représentation UML :
-<img class="margin padding05 border" src="../uml/img/extends.svg" alt="UML extends" />
+<img class="margin padding05 border" src="../uml/img/extends.svg" alt="UML extends">
 
 En déclarant une nouvelle classe B par héritage de la classe A, on peut alors dire que :
 <div class="margin-left2">
@@ -332,7 +332,7 @@ Lorsqu'une classe fille hérite d'une classe mère, elle peut alors utiliser les
 
 <!-- ************************************* -->
 <h3><a name="6-1-illustration">Illustration</a></h2>
-<img class="margin border" src="img/heritage-polygone.jpg" alt="Polygones, illustration de l'héritage" />
+<img class="margin border" src="img/heritage-polygone.jpg" alt="Polygones, illustration de l'héritage">
 Les carrés sont des polygones réguliers
 
 <h4>Les carrés héritent des propriétés des polygones réguliers</h4>
@@ -473,7 +473,7 @@ Le polymorphisme est le concept consistant à fournir une interface unique à de
 
 <!-- ************************************* -->
 <h3><a name="6-3-limites-et-problemes-de-l-heritage">Limites et problèmes de l'héritage</a></h3>
-<img class="margin padding05 border" src="img/heritage-multiple.jpg" alt="Exemple d'héritage multiple" />
+<img class="margin padding05 border" src="img/heritage-multiple.jpg" alt="Exemple d'héritage multiple">
 On rencontre souvent des situations où on aurait besoin qu'une classe hérite de plusieurs classes.
 <br>On parle alors d'<b>héritage multiple</b>.
 <br>C++ le permet mais JAVA NE LE PERMET PAS, le modèle objet de java ne permet que l'héritage simple.
@@ -482,7 +482,7 @@ On rencontre souvent des situations où on aurait besoin qu'une classe hérite d
 
 <div class="flex-wrap">
 <div>
-    <img class="margin padding05 border" src="img/diamond-inheritance.svg" alt="Problème du diamant" />
+    <img class="margin padding05 border" src="img/diamond-inheritance.svg" alt="Problème du diamant">
 </div>
 <div>
     Que se passe-t-il si :
@@ -551,7 +551,7 @@ L'utilisation d'interfaces permet ici de classifier correctement les classes.
 <br>Les interfaces sont utiles (et largement utilisées en java) pour spécifier des <b>contrats</b>.
 <br>
 <br>Représentation UML :
-<img class="margin padding05 border" src="../uml/img/implements.jpg" alt="Implements - UML" />
+<img class="margin padding05 border" src="../uml/img/implements.jpg" alt="Implements - UML">
 
 Les interfaces supportent l'héritage simple, comme les classes :
 <pre>

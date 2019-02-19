@@ -50,7 +50,7 @@ But : Utiliser le partage pour gérer un grand nombre d'objets.
 Par exemple un éditeur de texte utilise des objets pour représenter les éléments inclus dans un texte, comme les tables et les figures.
 <br>Mais gérer chaque caractère comme un objet coûte trop cher en mémoire et temps d'exécution.
 
-<img class="border margin padding05" src="img/flyweight-gof-example1.jpg" alt="Flyweight - Exemple 1" />
+<img class="border margin padding05" src="img/flyweight-gof-example1.jpg" alt="Flyweight - Exemple 1">
 
 Le pattern <i>Flyweight</i> décrit comment partager les objets.
 <br>
@@ -70,14 +70,14 @@ Le pattern <i>Flyweight</i> décrit comment partager les objets.
 <br>Mais physiquement, chaque occurence d'un même caractère pointe vers le même objet flyweight :
 
 <div class="margin">
-    <img class="vertical-align-top margin-right inline-block border" src="img/flyweight-gof-example2.jpg" alt="Flyweight - Exemple 2" />
-    <img class="inline-block border" src="img/flyweight-gof-example3.jpg" alt="Flyweight - Exemple 3" />
+    <img class="vertical-align-top margin-right inline-block border" src="img/flyweight-gof-example2.jpg" alt="Flyweight - Exemple 2">
+    <img class="inline-block border" src="img/flyweight-gof-example3.jpg" alt="Flyweight - Exemple 3">
 </div>
 
 Certains objets sont flyweight, d'autres non.
 <br>Le client ne sait pas s'il a à faire à un objet concret ou un flyweight :
 
-<img class="margin padding05 border" src="img/flyweight-gof-example4.jpg" alt="Flyweight - Exemple 4" />
+<img class="margin padding05 border" src="img/flyweight-gof-example4.jpg" alt="Flyweight - Exemple 4">
 
 <br>Lorsqu'une opération sur un flyweight est effectuée, l'application passe en paramètre les informations nécessaires (état externe, non stockable par les objets fictifs).
 
@@ -87,7 +87,7 @@ En pratique, le client utilise une <b>factory</b> pour construire les flyweights
 <br>La factory gère un <b>pool</b> d'objets.
 
 <!--
-<img class="margin padding05 border" src="img/z.flyweight-sourcemaking1.svg" alt="Flyweight factory" />
+<img class="margin padding05 border" src="img/z.flyweight-sourcemaking1.svg" alt="Flyweight factory">
 -->
 
 <br>Le client passe par la factory pour créer et utiliser les flyweights.
@@ -95,7 +95,7 @@ En pratique, le client utilise une <b>factory</b> pour construire les flyweights
 <!-- ********************************************************************************* -->
 <h2><a name="1-structure">Structure</a></h2>
 
-<img class="margin padding05 border" src="img/flyweight-gof-structure.jpg" alt="Flyweight - structure" />
+<img class="margin padding05 border" src="img/flyweight-gof-structure.jpg" alt="Flyweight - structure">
 
 Deux point importants : 
 <ul>
@@ -113,7 +113,7 @@ Deux point importants :
 Noter que la factory n'est indispensable que pour les objets partagés : le client pourrait utiliser la factory pour les objets partégés et instancier directement les objets non-partagés. Mais implémenter une factory pour tous les objets simplifie le code client.
 <br>
 <br>Diagramme objet montrant comment les flyweights sont partagés :
-<img class="margin padding05 border" src="img/flyweight-gof-example5.jpg" alt="Flyweight - Exemple 5" />
+<img class="margin padding05 border" src="img/flyweight-gof-example5.jpg" alt="Flyweight - Exemple 5">
 
 
 <!-- ********************************************************************************* -->
@@ -126,7 +126,7 @@ Scénario : Le quackologist de <a href="mix-headfirst.html">l'exemple Head First
 <br>
 <div class="flex-wrap">
 <div>
-<img class="margin border" src="img/flyweight-duck.jpg" alt="Flyweight - Exemple 5" />
+<img class="margin border" src="img/flyweight-duck.jpg" alt="Flyweight - Exemple 5">
 </div>
 <div>
 <pre>
@@ -252,7 +252,7 @@ p 618 du livre
 <br>Scénario : vous voulez ajouter des arbres à votre application de dessin de paysages.
 <br>Les arbres ne font pas grand chose : ils ont des coordonnées x, y et peuvent se dessiner dynamiquement, leur grosseur varie en fonction de leur âge.
 
-<img class="margin" src="img/flyweight-headfirst.jpg" alt="flyweight-headfirst.jpg" />
+<img class="margin" src="img/flyweight-headfirst.jpg" alt="flyweight-headfirst.jpg">
 -->
 
 <!-- ************************************* -->

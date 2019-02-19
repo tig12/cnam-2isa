@@ -1,21 +1,21 @@
 <html>
 <body>
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <div id="container">
         <div id="header">
             <div id="header_toprow">
                 Conservatoire national des arts et m�tiers
             </div>
             <div id="header_title">
-                NFP121 : Programmation avanc�e<br />
+                NFP121 : Programmation avanc�e<br>
                 TP n� 5 - Classes abstraites / interface / h�ritage
             </div>
         </div>
         <div id="content">
 
             <div class="paragraphe">
-                Th�mes du TP :<br />
-                <br />
+                Th�mes du TP :<br>
+                <br>
                 Classes abstraites, interface, h�ritage
                 <ul>
                     <li>Le package java.util
@@ -35,7 +35,7 @@
                         </ul>
                     </li>
                 </ul>
-                <br />
+                <br>
                 Lecture pr�alable :
                 <ul>
                     <li>Les notes de cours</li>
@@ -50,11 +50,11 @@
                 <p align="center">(L'�nonc� de la question 1 est inspir� du tutorial d'Oracle sur les <a href="http://docs.oracle.com/javase/tutorial/collections/index.html" target="_blank">
                 collections</a>.)</p>
             </div>
-            <br />
-            <hr />
+            <br>
+            <hr>
 
             <div class="question">
-                <img src="images/question1_1.png" width="111" height="80" />
+                <img src="images/question1_1.png" width="111" height="80">
                 <span>Une classe Ensemble</span>
             </div>
 
@@ -69,20 +69,20 @@
                     Que d�clenche la m�thode addAll de la super-classe ? </li>
                 </ul>
             </div>
-            <br />
-            <hr />
+            <br>
+            <hr>
 
             <div class="question">
-                <img src="images/question1_2.png" width="111" height="80" />
+                <img src="images/question1_2.png" width="111" height="80">
                 <span>Les tests unitaires</span>
             </div>
             <div class="paragraphe">
                 Proposez une classe de tests unitaires de la classe "Ensemble&lt;T&gt;" (pour la m�thode add())
             </div>
-            <br />
-            <hr />
+            <br>
+            <hr>
             <div class="question">
-                <img src="images/question1_3.png" width="111" height="80" />
+                <img src="images/question1_3.png" width="111" height="80">
                 <span>La classe Ensemble&lt;T&gt; (suite)</span>
             </div>
             <div class="paragraphe">
@@ -90,17 +90,17 @@
                 avec ces 4 op�rations : 
             </div>
             <p align="center">
-                <img class="win_screenshot" src="images/operations.png" width="717" height="177" />
+                <img class="win_screenshot" src="images/operations.png" width="717" height="177">
             </p>
             <div class="paragraphe">
-                <b>Aide : </b><br />
-                <br />
+                <b>Aide : </b><br>
+                <br>
                 � <b>voir les m�thodes xxxAll</b> sp�cifi�es dans l'interface java.util.Collection (<b>aucune boucle n'est n�cessaire ! 
-                pour la r�alisation de ces 4 m�thodes</b>). Dans la javadoc, "... adds each object ..." signifie "... calls add() for each object ..."<br />
+                pour la r�alisation de ces 4 m�thodes</b>). Dans la javadoc, "... adds each object ..." signifie "... calls add() for each object ..."<br>
                 �� ((e union e1) - (e inter e1))
             </div>
             &nbsp;<p><font size="4">Aide au comportement attendu</font>, une 
-                interface graphique est disponible � cette adresse<br />
+                interface graphique est disponible � cette adresse<br>
                 </p>
             <div class="paragraphe">
                 <b><font size="3">&gt;appletviewer 
@@ -125,7 +125,7 @@
             <div class="codesource">
                 <code>
                     <font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#000000">Ensemble&nbsp;e&nbsp;=&nbsp;...</font>
-                    <br />
+                    <br>
                     <font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#000000">System.out.println</font><font color="#000000">(</font><font color="#2a00ff">&#34;&nbsp;union&nbsp;de&nbsp;e&nbsp;et&nbsp;de&nbsp;e1&nbsp;:&nbsp;&#34;&nbsp;</font><font color="#000000">+&nbsp;e.union</font><font color="#000000">(</font><font color="#000000">e1</font><font color="#000000">))</font><font color="#000000">;&nbsp;</font>
                 </code>
                 <p>
@@ -146,10 +146,10 @@
   &nbsp;&nbsp;<i>On peut coder, (ce sera test� par jnews) cette m&eacute;thode avec une seule instruction !</i> 
                 return <b>(<i>(e union e1) - (e inter e1)</i>)</b> ;</font></div>
 
-            <hr />
+            <hr>
 
             <div class="question">
-                <img src="images/question1_4.png" width="111" height="80" />
+                <img src="images/question1_4.png" width="111" height="80">
                 <span>Les tests unitaires (suite)</span>
             </div>
             <div class="paragraphe">
@@ -157,16 +157,16 @@
                 L'interface graphique est compl�te, son comportement avec votre 
                 classe Ensemble doit �tre analogue � l'applette en ligne
             </div>
-            <br />
-            <br />
-            <hr />
+            <br>
+            <br>
+            <hr>
             <div class="question">
-                <img src="images/question2_1.png" width="111" height="80" />
+                <img src="images/question2_1.png" width="111" height="80">
                 <span>Les listes et dictionnaires</span>
             </div>
             <div class="paragraphe">
-                Le texte de la fen�tre de l'interface ci-dessous est une liste constitu�e de mots extraits du <a href="http://jfod.cnam.fr/NFP121/corejavachap2.pdf" target="_blank">chapitre 2 de CoreJava2</a> consacr� au "<b>LinkedList</b>" (les mots sont rassembl�s dans une constante de type "String", <b>nomm�e CHAPITRE2</b> de la classe <b>Chapitre2CoreJava2</b>).<br />
-                <br />
+                Le texte de la fen�tre de l'interface ci-dessous est une liste constitu�e de mots extraits du <a href="http://jfod.cnam.fr/NFP121/corejavachap2.pdf" target="_blank">chapitre 2 de CoreJava2</a> consacr� au "<b>LinkedList</b>" (les mots sont rassembl�s dans une constante de type "String", <b>nomm�e CHAPITRE2</b> de la classe <b>Chapitre2CoreJava2</b>).<br>
+                <br>
                 <b>L'objectif est de pouvoir faire diff�rents traitements sur cette liste de mots.</b>
             </div>
 
@@ -174,7 +174,7 @@
                 <img border="0" src="images/tp5.ht2.jpg" width="716" height="341"></p>
 
             <p align="center">
-                &nbsp;<br />
+                &nbsp;<br>
             </p>
 
             <div class="paragraphe">
@@ -183,13 +183,13 @@
                 la bonne applette</font></b></div>
 
             <div class="paragraphe">
-                &nbsp;<p>Compl�tez la classe <b>Chapitre2CoreJava2</b> en d�veloppant ces deux m�thodes de classe<br />
-                <br />
+                &nbsp;<p>Compl�tez la classe <b>Chapitre2CoreJava2</b> en d�veloppant ces deux m�thodes de classe<br>
+                <br>
 
                 </p>
 
                 <ul>
-                    <li>Obtention d'une liste de mots � partir de la constante CHAPITRE2.<br />
+                    <li>Obtention d'une liste de mots � partir de la constante CHAPITRE2.<br>
 
                         <div class="codesource">
                             <code>
@@ -197,7 +197,7 @@
                             </code>
                         </div>
                     </li>
-                    <li>Obtention d'une liste de couples &lt;String,Integer&gt;, � partir la liste des mots ci-dessus.<br />
+                    <li>Obtention d'une liste de couples &lt;String,Integer&gt;, � partir la liste des mots ci-dessus.<br>
                         <div class="codesource">
                             <code>
                                 <font color="#7f0055"><b>public&nbsp;static&nbsp;</b></font><font color="#000000">Map&lt;String,Integer&gt;&nbsp;occurrencesDesMots</font><font color="#000000">(</font><font color="#000000">List&lt;String&gt;&nbsp;listeDesMots</font><font color="#000000">)</font><i>(utilisez une HashMap)</i>
@@ -208,15 +208,15 @@
             </div>
             <p align="center">
                 &nbsp;</p>
-            <hr />
+            <hr>
             <div class="question">
-                <img src="images/question2_2.png" width="111" height="80" />
+                <img src="images/question2_2.png" width="111" height="80">
                 <span>la classe JPanelListe</span>
             </div>
 
             <div class="paragraphe">
-                Compl�tez la classe <b>JPanelListe</b> afin d'implanter, toutes les actions associ�es aux noms des boutons<br />
-                <br />
+                Compl�tez la classe <b>JPanelListe</b> afin d'implanter, toutes les actions associ�es aux noms des boutons<br>
+                <br>
                 <ul>
                     <li><b>rechercher</b> : recherche du mot tap� dans la zone de saisie; le bool�en, le r�sultat de la recherche est affich�. la touche Entr�e du clavier a le m�me effet qu'une action effectu�e sur ce bouton.</li>
                     <li><b>retirer</b> : retrait de tous les mots commen�ant par le pr�fixe de la zone de saisie; le bool�en, r�sultat du retrait est affich�.</li>
@@ -251,25 +251,25 @@
                 �l�ment qui n'a jamais �t� pr�sent dans la liste initiale doit retourner
                 <b>??? </b></font></p>
 
-            <hr />
+            <hr>
             <div class="question">
-                <img src="images/question2_3.png" width="111" height="80" />
+                <img src="images/question2_3.png" width="111" height="80">
                 <span>la classe JPanelListe2</span>
             </div>
             <div class="paragraphe">
                 Compl�tez maintenant, la classe JPanelListe2 afin d'implanter la possibilit� d<b>'<font size="4">annuler</font>
-                </b>les actions de modification du texte comme le retrait ou le tri sur la liste.<br />
-                <br />
-                L'id�e est de stocker l'�tat de la 'liste de String' � chaque action ('retirer' , 'croissant' , 'decroisssant') dans une Pile (java.util.Stack<e>). Le dernier �tat de la 'liste de String' empil� est restitu� � chaque action 'annuler'. Quand la pile est vide le bouton 'annuler' est sans effet.<br />
-                    <br />
+                </b>les actions de modification du texte comme le retrait ou le tri sur la liste.<br>
+                <br>
+                L'id�e est de stocker l'�tat de la 'liste de String' � chaque action ('retirer' , 'croissant' , 'decroisssant') dans une Pile (java.util.Stack<e>). Le dernier �tat de la 'liste de String' empil� est restitu� � chaque action 'annuler'. Quand la pile est vide le bouton 'annuler' est sans effet.<br>
+                    <br>
                     <b>ATTENTION de mettre � jour la table des occurrences</b>. 
                     Pour la fonctionnalit� annuler, Il est fortement encourag� 
                     d'utiliser le patron
                     <a href="http://en.wikipedia.org/wiki/Memento_pattern">
                     Memento</a>, cette 
                     <a href="https://www.youtube.com/watch?v=jOnxYT8Iaoo">vid�o</a> peut 
-                    vous �tre utile.<br />
-                    <br />
+                    vous �tre utile.<br>
+                    <br>
             </div>
                     <p><b><font size="4">&gt;appletviewer 
                     http://jfod.cnam.fr/progAvancee/tp5/tp5.html puis 
@@ -290,28 +290,28 @@
 
                 <b>Soumettez en fin de question votre r�ponse</b>
             </div>
-            <br />
-            <hr />
+            <br>
+            <hr>
             <div class="question">
-                <img src="images/question3_1.png" width="111" height="80" />
+                <img src="images/question3_1.png" width="111" height="80">
                 <span>Le pattern  fabrique</span>
             </div>
             <div class="paragraphe">
-                Selon la bibliographie habituelle (GoF95), l'objectif du Pattern Factory est de d�finir une interface pour la cr�ation d'un objet, en laissant aux classes impl�mentant cette interface le choix de la classe � instancier pour cet objet.<br />
-                <br />
+                Selon la bibliographie habituelle (GoF95), l'objectif du Pattern Factory est de d�finir une interface pour la cr�ation d'un objet, en laissant aux classes impl�mentant cette interface le choix de la classe � instancier pour cet objet.<br>
+                <br>
                 Interface <i>Factory&lt;T&gt;</i>, l'impl�mentation de la m�thode create est laiss�e aux "clients"
             </div>
 
             <div class="codesource">
                 <code>
                     <font color="#7f0055"><b>package&nbsp;</b></font><font color="#000000">question3;</font>
-                    <br />
+                    <br>
                     <font color="#ffffff"></font>
-                    <br />
+                    <br>
                     <font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;interface&nbsp;</b></font><font color="#000000">Factory&lt;T&gt;&nbsp;</font><font color="#000000">{</font>
-                    <br />
+                    <br>
                     <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">T&nbsp;create</font><font color="#000000">()</font><font color="#000000">;</font>
-                    <br />
+                    <br>
                     <font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font>
                 </code>
             </div>
@@ -322,23 +322,23 @@
             <div class="codesource">
                 <code>
                     <font color="#7f0055"><b>public&nbsp;class&nbsp;</b></font><font color="#000000">TextFactory1&nbsp;</font><font color="#7f0055"><b>implements&nbsp;</b></font><font color="#000000">Factory&lt;TextComponent&gt;&nbsp;</font><font color="#000000">{</font>
-                    <br />
+                    <br>
                     <font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">TextComponent&nbsp;create</font><font color="#000000">()&nbsp;{</font>
-                    <br />
+                    <br>
                     <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;new&nbsp;</b></font><font color="#000000">TextArea</font><font color="#000000">(</font><font color="#990000">100</font><font color="#000000">,</font><font color="#990000">50</font><font color="#000000">)</font><font color="#000000">;</font>
-                    <br />
+                    <br>
                     <font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font>
-                    <br />
+                    <br>
                     <font color="#000000">}</font>
-                    <br />
+                    <br>
                     <font color="#7f0055"><b>public&nbsp;class&nbsp;</b></font><font color="#000000">TextFactory2&nbsp;</font><font color="#7f0055"><b>implements&nbsp;</b></font><font color="#000000">Factory&lt;TextComponent&gt;&nbsp;</font><font color="#000000">{</font>
-                    <br />
+                    <br>
                     <font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">TextComponent&nbsp;create</font><font color="#000000">(){</font>
-                    <br />
+                    <br>
                     <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;new&nbsp;</b></font><font color="#000000">TextField</font><font color="#000000">(</font><font color="#990000">40</font><font color="#000000">)</font><font color="#000000">;</font>
-                    <br />
+                    <br>
                     <font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font>
-                    <br />
+                    <br>
                     <font color="#000000">}</font>
                 </code>
             </div>
@@ -349,29 +349,29 @@
             <div class="codesource">
                 <code>
                     <font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">utilisation</font><font color="#000000">(</font><font color="#000000">Factory&nbsp;fabrique</font><font color="#000000">){</font>
-                    <br />
+                    <br>
                     <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">TextComponent&nbsp;tc&nbsp;=&nbsp;fabrique.create</font><font color="#000000">()</font><font color="#000000">;</font>
-                    <br />
+                    <br>
                     <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">tc.setText</font><font color="#000000">(&nbsp;</font><font color="#2a00ff">&#34;essai&#34;&nbsp;</font><font color="#000000">)</font><font color="#000000">;</font>
-                    <br />
+                    <br>
                     <font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font>
-                    <br />
+                    <br>
                     <font color="#ffffff"></font>
-                    <br />
+                    <br>
                     <font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">utilisation</font><font color="#000000">(</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">TextFactory1</font><font color="#000000">())</font><font color="#000000">;</font>
-                    <br />
+                    <br>
                     <font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">utilisation</font><font color="#000000">(</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">TextFactory2</font><font color="#000000">())</font><font color="#000000">;&nbsp;&nbsp;</font>
                 </code>
             </div>
 
             <div class="paragraphe">
                 Proposez les fabriques d'ensembles <b>HashSetFactory</b>, (en utilisant la classe concr�te java.util.HashSet) et <b>TreeSetFactory</b>, (en utilisant la classe concr�te java.util.TreeSet, 
-                attention dans ce cas les �l�ments doivent �tre comparables...).<br />
+                attention dans ce cas les �l�ments doivent �tre comparables...).<br>
             </div>
-            <br />
-            <hr />
+            <br>
+            <hr>
             <div class="question">
-                <img src="images/question3_2.png" width="112" height="80" />
+                <img src="images/question3_2.png" width="112" height="80">
                 <span>Les tests unitaires</span>
             </div>
             <div class="paragraphe">

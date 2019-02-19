@@ -60,7 +60,7 @@ But : Découpler l'émetteur d'une requête du receveur en permettant à plus d'
 Ce pattern fournit un mécanisme assez simple qui permet de fabriquer la "chaîne".
 <br>Le mécanisme est basé sur une abstraction (<code>Handler</code>) contenant une méthode (<code>handleRequest()</code>), ainsi qu'un champ <code>successor</code>
 
-<img class="border margin padding05" src="img/chain-of-responsability-gof-structure.jpg" alt="Chain of responsability - structure" />
+<img class="border margin padding05" src="img/chain-of-responsability-gof-structure.jpg" alt="Chain of responsability - structure">
 
 
 <!-- ********************************************************************************* -->
@@ -72,11 +72,11 @@ Cas de la gestion du clic droit de la souris pour gérer un menu contextuel d'ai
 <br>Le pattern peut être utilisé pour transmettre la requête, en allant toujours du particulier au général.
 <br>Par exemple, si on fait un clic droit sur un bouton : si le bouton a une aide spécifique, elle va être affichée, sinon il passe la requête à son conteneur, qui refait la même chose.
 
-<img class="border margin padding05" src="img/chain-of-responsability-gof-example1.jpg" alt="Chain of responsability - exemple" />
+<img class="border margin padding05" src="img/chain-of-responsability-gof-example1.jpg" alt="Chain of responsability - exemple">
 
 La requête est passée d'un maillon à l'autre de la chaîne jusqu'à ce qu'elle soit gérée (ou pas).
 
-<img class="border margin padding05" src="img/chain-of-responsability-gof-example2.jpg" alt="Chain of responsability - séquence" />
+<img class="border margin padding05" src="img/chain-of-responsability-gof-example2.jpg" alt="Chain of responsability - séquence">
 
 <!-- ************************************* -->
 <h3><a name="2-2-exemple-wikipedia">Exemple wikipedia</a></h3>

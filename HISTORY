@@ -1,6 +1,7 @@
 
 
 Déoôt supprimé pour alléger le dépôt en enlevant bin/
+----------------------------------------------
 
 * 5663a84 - (2019-02-07 11:08:32 +0100) Préparation cours 6, exemple vaisseau pour memento - Thierry (HEAD -> master, origin/master, origin/HEAD)
 * b18844e - (2019-02-04 01:02:00 +0100) Fix diverses typos + exercice Poste radio pour pattern State - Thierry
@@ -120,6 +121,7 @@ Déoôt supprimé pour alléger le dépôt en enlevant bin/
 * 204a0b0 - (2018-10-15 12:09:48 +0200) Nouveau dépôt suite à refactorisation et suppression des solutions aux exos et tps - Thierry
 
 Dépôt supprimé pour enlever les solutions de l'historique de git
+----------------------------------------------
 
 * 2ba8180 - (2018-10-14 00:58:38 +0200) Supprime bin ajouté par erreur - Thierry (HEAD -> master, origin/master)
 * 07e38ef - (2018-10-14 00:52:46 +0200) Modif .hgignore - Thierry
@@ -163,9 +165,137 @@ Dépôt supprimé pour enlever les solutions de l'historique de git
 * 5c7f8ec - (2018-03-22 21:21:20 +0100) Structure pour plusieurs cours, dossier static/ avec css et img - Thierry
 * 4399ebb - (2018-03-22 14:34:17 +0100) Re-initialise dépôt suite à la suppression des solutions exos et tps - Thierry
 
-Manque historique du 2017-11-24 au 2018-03-22
+* 7ce54ce - (2018-03-22 10:44:20 +0100) Dernier commit avant restructuration - Thierry (HEAD -> master, dd/master)
+* e6a15b5 - (2018-03-14 11:52:25 +0100) Corrections sur Abstract Factory, nouvelle génération TOC - Thierry
+* f044130 - (2018-03-14 11:31:18 +0100) MAJ urls dans pages références et programme - Thierry
+* 4cff478 - (2018-03-12 15:54:55 +0100) Corrections, adaptations pour toc homogènes - Thierry
+* ba9e9d7 - (2018-03-12 14:23:01 +0100) Génération des toc (table of contents) pour toutes les pages - Thierry
+* 4b24ba8 - (2018-03-12 12:32:20 +0100) Corrige titres pour génération correcte de toc - Thierry
+* d94dc11 - (2018-03-12 12:27:19 +0100) Autres tweaks - Thierry
+* 2dd56d8 - (2018-03-12 11:48:29 +0100) Modifs sur pages pour génération page toc - Thierry
+* 5b21e97 - (2018-03-12 11:07:21 +0100) Typos - Thierry
+* 1879b12 - (2018-03-08 03:48:17 +0100) Tweaks avant génération tables des matières - Thierry
+* 0f28505 - (2018-02-28 16:39:41 +0100) Ajout cours conseils - Thierry
+* bb4bc0a - (2018-02-14 15:01:38 +0100) Crée page à part pour Adapter ; exemple des chevaux - Thierry
+* cdb8cae - (2018-02-13 23:46:21 +0100) Ajout exercice observer brebis - Thierry
+* 8265b5a - (2018-02-13 16:48:57 +0100) Solutions exo village - Thierry
+* db2f023 - (2018-02-13 10:12:28 +0100) Tweak sur cours hors sujet - Thierry
+* a36038e - (2018-02-12 17:23:21 +0100) Tweaks sur cours de quelques patterns - Thierry
+* 9b62e21 - (2018-02-12 11:39:33 +0100) Ajout page hors-sujet - Thierry
+* 0724e8e - (2018-02-08 10:01:27 +0100) Typo sur exo village de mix-millau - Thierry
+* cb96c93 - (2018-02-08 07:37:47 +0100) Exercice village dans mix-millau - Thierry
+* e20979d - (2018-02-07 14:29:32 +0100) Divers cours - Thierry
+* 25c5ea3 - (2018-02-07 02:32:23 +0100) Fin cours Bridge - Thierry
+* 967f34f - (2018-02-07 01:01:02 +0100) Remplace <br /> par <br> dans exos/*.html - Thierry
+* af0ea03 - (2018-02-07 00:59:38 +0100) Remplace <br /> par <br> dans cours/*.html - Thierry
+* 7bfec53 - (2018-02-07 00:45:39 +0100) Suite cours Bridge - Thierry
+* b5a5b1a - (2018-02-06 11:31:25 +0100) Début cours Bridge - Thierry
+* 773a8bd - (2018-02-05 21:23:22 +0100) Fin cours Chain of responsability - Thierry
+* 8b2d2b6 - (2018-02-05 18:16:10 +0100) Début cours Bridge, Chain of responsability - Thierry
+* f791188 - (2018-02-05 15:48:28 +0100) Fin cours State - Thierry
+* 14e85a5 - (2018-02-05 11:13:10 +0100) Ajout exemples pour State + tweaks sur autres pages - Thierry
+* 11f3529 - (2018-02-01 15:03:23 +0100) Cours State, début - Thierry
+* b3f8d5a - (2018-02-01 10:47:12 +0100) Memento : exemple undoredo inachevé - Thierry
+* 4a53cea - (2018-02-01 06:33:01 +0100) Ajouts page flyweight - Thierry
+* 67239c3 - (2018-01-31 21:34:46 +0100) Fin implémentation duck flyweight - Thierry
+* 807cedf - (2018-01-31 19:18:38 +0100) Début exemple flyweight ducks - Thierry
+* 2dd2d49 - (2018-01-31 11:45:17 +0100) Misc, typos - Thierry
+* 6dd5553 - (2018-01-21 23:24:05 +0100) regex, exo - Thierry
+* 209aa07 - (2018-01-17 16:36:42 +0100) Solution exercice MapTest - Thierry
+* 77076c2 - (2018-01-16 23:55:48 +0100) Ajout de exemples/interfaces/DefaultMethods.java - Thierry
+* 85725a3 - (2018-01-16 23:26:20 +0100) Fix lien cassé cheatsheet cnam + divers cours - Thierry
+* ef2178d - (2018-01-16 11:20:27 +0100) Divers cours - Thierry
+* 4f0359b - (2018-01-15 23:38:47 +0100) Tweaks sur page pattern Command - Thierry
+* d783b47 - (2018-01-15 21:39:09 +0100) Composite : ajout des exercices Sommateur et Suppression - Thierry
+* 3d2863a - (2018-01-15 17:45:55 +0100) tweak cours + exemple visitor - Thierry
+* 0cdeae0 - (2018-01-15 11:57:05 +0100) ajout zip pour exo duck - Thierry
+* 34f6636 - (2018-01-15 11:45:39 +0100) arrache - Thierry
+* 16cfca3 - (2018-01-13 19:39:06 +0100) Cours divers - Thierry
+* 8695fe5 - (2018-01-13 00:00:11 +0100) cours/exemples/mix/ducks/6-tracking : utilise default methods - Thierry
+* 4de98d7 - (2018-01-12 23:43:36 +0100) Split page observer mvc swing en 3 pages - Thierry
+* 1451c06 - (2018-01-12 18:35:09 +0100) Suite MVC Head First - Thierry
+* 4237f8d - (2018-01-12 04:58:48 +0100) Début MVC Head First - Thierry
+* 4c7acd1 - (2018-01-11 17:41:26 +0100) Mix HeadFirst : 6 - observateur - Thierry
+* 4902776 - (2018-01-11 15:03:29 +0100) Tweaks dans mix headfirst - Thierry
+* a37d1d4 - (2018-01-11 09:43:56 +0100) Ajout test des exceptions dans JUnit3 - Thierry
+* 1d96e36 - (2018-01-09 23:52:41 +0100) divers - Thierry
+* 75fc964 - (2018-01-05 04:24:12 +0100) début regex ; todo - Thierry
+* 2da5347 - (2018-01-05 02:24:07 +0100) page conseils, interpreter - Thierry
+* 8f2496f - (2017-12-30 22:58:35 +0100) ajout exos dans composite - Thierry (dd/ducks)
+* 7ca9465 - (2017-12-27 13:03:14 +0100) Exemple interpreter unplusun - Thierry
+* 3c70714 - (2017-12-22 19:51:18 +0100) move directory duck-simulator to mix/ducks - Thierry
+* 8080f1f - (2017-12-22 19:43:58 +0100) Merge branch 'quack-tracking' - Thierry
+* c969cb7 - (2017-12-17 01:18:13 +0100) duck simulator : initialize 6-tracking/ with a copy of 5-flock/ - Thierry
+* b2695f0 - (2017-12-22 09:51:06 +0100) bck - Thierry
+* 2421386 - (2017-12-21 13:47:31 +0100) suite cours io - Thierry
+* c1b4940 - (2017-12-20 23:50:04 +0100) suite cours io - Thierry
+* c7cc808 - (2017-12-20 00:19:29 +0100) fin cours reflection - Thierry
+* ebcc502 - (2017-12-19 14:07:54 +0100) Nouveaux exemples pour Composite - Thierry
+* f95058a - (2017-12-18 12:47:00 +0100) cours memento, mediator - Thierry
+* 16da254 - (2017-12-18 10:21:23 +0100) restrcture index - Thierry
+* e508bba - (2017-12-18 09:55:09 +0100) suite ClassMethods.java ; schéma structure pour patterns manquants ; début flyghweight - Thierry
+* e50d896 - (2017-12-17 17:35:08 +0100) bck, ClassMethods.java en cours - Thierry
+* a195eb4 - (2017-12-17 16:56:42 +0100) début cours reflection - Thierry
+* 06e6bfc - (2017-12-17 01:03:48 +0100) suite ducks - Thierry
+* 0c1b718 - (2017-12-17 01:02:34 +0100) duck siulator : flock - Thierry
+* 54e7971 - (2017-12-16 19:43:19 +0100) suite cours threads, début exemple mix patterns head first - Thierry
+* 088a5e4 - (2017-12-16 11:47:48 +0100) suite cours threads - Thierry
+* 4b0c5ae - (2017-12-15 22:41:10 +0100) suite cours threads - Thierry
+* 6c0838c - (2017-12-15 14:12:56 +0100) cours, tweaks + début threads - Thierry
+* 8d0f9d4 - (2017-12-14 15:21:46 +0100) tweaks divers - Thierry
+* add5986 - (2017-12-12 13:20:37 +0100) ajouts cours strategy - Thierry
+* 3f2ea07 - (2017-12-12 09:54:06 +0100) tweaks cours iterator, visitor - Thierry
+* f2411d7 - (2017-12-11 21:16:08 +0100) Solutions TP4 question 3 - Thierry
+* b429eba - (2017-12-11 20:54:58 +0100) Solutions des exos pour semaine 4 - Thierry
+* 3330fe2 - (2017-12-11 20:44:24 +0100) tweaks iterator, collections, visitor - Thierry
+* 9353ff1 - (2017-12-11 15:15:54 +0100) tweaks strategy composite - Thierry
+* cc4c3e8 - (2017-12-11 09:30:05 +0100) circulation dans nouvelles pages - Thierry
+* 8bff632 - (2017-12-11 05:58:17 +0100) typos - Thierry
+* aa69101 - (2017-12-11 05:17:01 +0100) ajout énoncés TP8 et TP9 - Thierry
+* bc3081f - (2017-12-11 04:52:57 +0100) Ajout énoncé TP8b Injection - Thierry
+* 11adbfa - (2017-12-11 04:32:57 +0100) pages vides pour prochains patterns - Thierry
+* c503be1 - (2017-12-11 03:10:57 +0100) Pages mix patterns - Thierry
+* c1db51e - (2017-12-10 15:56:03 +0100) ajouts cours et exos strategy, composite - Thierry
+* 2a43dbe - (2017-12-10 10:47:27 +0100) ajout énoncé tp6b - Thierry
+* f376f64 - (2017-12-07 16:39:12 +0100) solutions questions 1 et 2 du TP4 - Thierry
+* e43449a - (2017-12-07 16:29:56 +0100) Ajoute infos à énoncé tp4 question 3 - Thierry
+* 622071a - (2017-12-07 14:36:50 +0100) collections : exo MapTest - Thierry
+* 6f383d7 - (2017-12-07 12:39:21 +0100) ajouts cours, TWR dans IO - Thierry
+* 3f9eb79 - (2017-12-07 11:16:43 +0100) ajouts cours creational patterns, decorator - Thierry
+* 9ba0928 - (2017-12-06 22:25:13 +0100) ajout divers dans cours et exemples - Thierry
+* 824f4ee - (2017-12-05 11:45:39 +0100) tweaks cours POO et creational patterns - Thierry
+* 5b039a0 - (2017-12-05 10:27:02 +0100) complète exo abstract proxy - Thierry
+* c2baba7 - (2017-12-05 08:30:21 +0100) fix broken href sur index.html - Thierry
+* 625272d - (2017-12-04 11:18:32 +0100) typos + modifs cours decorator - Thierry
+* ce7fcef - (2017-12-04 00:03:02 +0100) suite cours collections lambdas expressions - Thierry
+* 33bbe1e - (2017-12-03 12:49:19 +0100) bck, cours collections lambdas expressions - Thierry
+* 32b37b8 - (2017-12-01 20:09:31 +0100) début cours iterator - Thierry
+* aee9089 - (2017-12-01 17:05:42 +0100) suite cours collections - Thierry
+* a0e2a53 - (2017-12-01 14:35:03 +0100) ajout exo decorator - Thierry
+* 4e88c88 - (2017-12-01 00:47:00 +0100) cours visitor - Thierry
+* cb105d5 - (2017-11-30 13:20:20 +0100) suite creational patterns - Thierry
+* 38272a3 - (2017-11-30 10:40:46 +0100) exemple maze pour abstract factory - Thierry
+* 8d48372 - (2017-11-29 11:30:57 +0100) bck - Thierry
+* 829192b - (2017-11-29 10:41:20 +0100) cours abstract factory, exemple, exo - Thierry
+* ed7fec6 - (2017-11-29 01:30:39 +0100) implementation maze pour builder - Thierry
+* 3422221 - (2017-11-28 22:39:03 +0100) bck, suite cours - Thierry
+* 59964ef - (2017-11-28 18:43:24 +0100) cours, factory method, template method, strategy - Thierry
+* 194630b - (2017-11-28 13:04:38 +0100) cours factory method, template methode - Thierry
+* 0432631 - (2017-11-28 00:59:08 +0100) test README.md - Thierry
+* 3521fb5 - (2017-11-27 23:43:04 +0100) WIP test gitea synchro - Thierry
+* ad1e0fd - (2017-11-27 23:33:15 +0100) fix index + typos - Thierry
+* 2390263 - (2017-11-27 02:01:28 +0100) suite builder, début prototype - Thierry
+* 616c2fa - (2017-11-27 00:24:18 +0100) une page par creational pattern ; page builder - Thierry
+* a9a4031 - (2017-11-25 21:40:11 +0100) composite en cours - Thierry
+* c5cc552 - (2017-11-25 17:45:19 +0100) bck - Thierry
+* 7721171 - (2017-11-25 11:24:06 +0100) bck, dep inj - Thierry
+* d27b24d - (2017-11-25 10:06:25 +0100) htaccess to allow directory browsing - Thierry
+* 4086a28 - (2017-11-25 10:03:59 +0100) dep inj + htaccess - Thierry
+* 6e4dabb - (2017-11-24 17:08:46 +0100) modif index - Thierry
+* 8b5701f - (2017-11-24 16:15:08 +0100) nouveau dépôt suite au split public / private - Thierry
 
 Premier dépôt, supprimé pour séparer les solutions du reste
+----------------------------------------------
 
 * 980e7cd - (2017-11-24 15:38:06 +0100) fin refactor exos - Thierry (HEAD, master)
 * db267a8 - (2017-11-24 13:37:04 +0100) début refactor exos - Thierry (dd/master)

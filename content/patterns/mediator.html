@@ -64,7 +64,7 @@ Les objets qui interagissent n'ont plus besoin d'échanger directement avec les 
 <!-- ************************************* -->
 <h3><a name="1-1-tour-de-controle">Tour de contrôle</a></h3>
 <!-- image venant de https://sourcemaking.com/design_patterns/mediator -->
-<img class="border margin padding05" <img src="img/mediator-sourcemaking1.svg" alt="Mediator - tour de contrôle" />
+<img class="border margin padding05" <img src="img/mediator-sourcemaking1.svg" alt="Mediator - tour de contrôle">
 
 Les pilotes des avions qui vont atterrir ne communiquent pas entre eux pour savoir comment s'y prendre ;
 <br>ils communiquent tous avec la tour de contrôle, qui leur donne en retour des instructions.
@@ -85,8 +85,8 @@ Différents dialogues peuvent utiliser les mêmes composants graphiques, mais le
 <br>On crée aussi des dépendances fortes entre les composants.
 <br>
 <div class="flex-wrap">
-<img class="margin" src="img/mediator-gof-example1.jpg" alt="Mediator - exemple" />
-<img class="border padding margin" src="img/mediator-gof-example2.jpg" alt="Mediator - interactions" />
+<img class="margin" src="img/mediator-gof-example1.jpg" alt="Mediator - exemple">
+<img class="border padding margin" src="img/mediator-gof-example2.jpg" alt="Mediator - interactions">
 </div><!-- end class="flex-wrap" -->
 
 On évite ces problèmes en encapsulant les interaction dans un objet, le mediator.
@@ -96,7 +96,7 @@ On évite ces problèmes en encapsulant les interaction dans un objet, le mediat
 <br>
 <br>Diagramme de séquence :
 
-<img class="margin padding05 border" src="img/mediator-gof-example3.jpg" alt="Mediator - sequence" />
+<img class="margin padding05 border" src="img/mediator-gof-example3.jpg" alt="Mediator - sequence">
 
 <ol>
     <li>La liste dit au mediator qu'elle a changé.</li>
@@ -105,7 +105,7 @@ On évite ces problèmes en encapsulant les interaction dans un objet, le mediat
     <li>Le médiator demande à "Weight", puis "Slant", puis "Size" de se rafraîchir (en utilisant les valeurs récupérées en 2).</li>
 </ol>
 
-<img class="margin padding05 border" src="img/mediator-gof-example4.jpg" alt="Mediator - exemple DialogDirector" />
+<img class="margin padding05 border" src="img/mediator-gof-example4.jpg" alt="Mediator - exemple DialogDirector">
 
 Bonne organistation du code, toutes les interactions sont centralisées dans le mediator :
 <pre>
@@ -136,7 +136,7 @@ Voir <a href="../../exemples/patterns/mediator/chat/ChatDemo.java">ChatDemo.java
 <!-- ********************************************************************************* -->
 <h2><a name="2-structure">Structure</a></h2>
 
-<img class="margin padding05 border" src="img/mediator-gof-structure.jpg" alt="Mediator - structure" />
+<img class="margin padding05 border" src="img/mediator-gof-structure.jpg" alt="Mediator - structure">
 
 
 <!-- ********************************************************************************* -->

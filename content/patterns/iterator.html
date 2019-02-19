@@ -60,7 +60,7 @@ On souhaite itérer une liste.
 <br>
 <br>Pour itérer sans surcharger l'API de <code>List</code>, on crée un objet extérieur (un itérateur) qui va contenir les opérations d'itération.
 
-<img class="border margin padding05" src="img/iterator-gof-detail1.jpg" alt="Iterator exemple liste" />
+<img class="border margin padding05" src="img/iterator-gof-detail1.jpg" alt="Iterator exemple liste">
 
 <b>Note</b> : l'API java (<code>java.util.Iterator)</code> utilise <code>hasNext()</code> et <code>next()</code>.
 <br>
@@ -87,7 +87,7 @@ Cette solution permet déjà :
 <br>On fait ça en généralisant le concept d'itérateur pour supporter le concept d'<b>itérateur polymorphe</b>.
 <br>Pour ça, on introduit 2 interfaces, <code>AbstractList</code> et <code>AbstractIterator</code>, ce qui rend le mécanisme d'itération indépendant de l'implémentation de l'aggrégat.
 
-<img class="border margin padding05" src="img/iterator-gof-detail2.jpg" alt="Iterator exemple liste" />
+<img class="border margin padding05" src="img/iterator-gof-detail2.jpg" alt="Iterator exemple liste">
 
 Si on veut toujours pouvoir écrire du code indépendant de l'implémentation de la liste utilisée, on donne à la liste la responsabilité de crééer ses itérateurs,
 <br>ce qui se fait par un méthode du type <code>createIterator()</code>, une <i>Factory method</i>.
@@ -98,7 +98,7 @@ Si on veut toujours pouvoir écrire du code indépendant de l'implémentation de
 <h2><a name="2-structure">Structure</a></h2>
 Schéma GOF :
 
-<img class=" margin padding05 border" src="img/iterator-gof-diagram.jpg" alt="Iterator GOF" />
+<img class=" margin padding05 border" src="img/iterator-gof-diagram.jpg" alt="Iterator GOF">
 
 <br>Voir un exemple dans <a href="../../exemples/patterns/iterator/complet/DemoComplet.java">DemoComplet.java</a>.
 <br><code>DemoSimple.java</code> a été modifié et complété de manière à utiliser les itérateurs et aggrégats abstraits.

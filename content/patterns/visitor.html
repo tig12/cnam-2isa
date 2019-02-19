@@ -65,7 +65,7 @@ else{
 }
 </pre>
 est traduit en 
-<img class="border margin margin-bottom2 padding05" src="img/visitor-ast.gif" alt="Abstract Syntax Tree" />
+<img class="border margin margin-bottom2 padding05" src="img/visitor-ast.gif" alt="Abstract Syntax Tree">
 
 Un compilateur peut avoir de nombreuses opérations à effectuer sur cet arbre : vérification du type, optimisation, génération de code... ;
 <br>l'AST peut aussi être utilisé pour faire du pretty printing, calculer des métriques sur le code.
@@ -75,7 +75,7 @@ Un compilateur peut avoir de nombreuses opérations à effectuer sur cet arbre :
 <br>On pourrait faire ça en ajoutant des méthodes aux classes des éléments de l'AST, que le code qui parcourt l'arbre utiliserait,
 <br>mais revient à charger les classes de nombreuses méthodes, et mélanger des fonctionnalités différentes à un même endroit :
 
-<img class="border margin padding05" src="img/visitor-detail1.jpg" alt="Visitor Node detail" />
+<img class="border margin padding05" src="img/visitor-detail1.jpg" alt="Visitor Node detail">
 
 L'idéal serait de pouvoir ajouter chaque opération indépendamment, et que les traitements ne polluent pas les classes de l'arbre.
 <br>
@@ -93,11 +93,11 @@ L'idéal serait de pouvoir ajouter chaque opération indépendamment, et que les
 
 <div class="flex-wrap">
 <div class="margin margin-right3">
-    <img class="border padding05" src="img/visitor-detail2.jpg" alt="Visitor detail" />
+    <img class="border padding05" src="img/visitor-detail2.jpg" alt="Visitor detail">
 </div>
 
 <div class="margin">
-    <img class="border padding05" src="img/visitor-detail3.jpg" alt="Visitor Node detail" />
+    <img class="border padding05" src="img/visitor-detail3.jpg" alt="Visitor Node detail">
 </div>
 
 </div><!-- end class="flex-wrap" -->
@@ -184,14 +184,14 @@ Pour ceux qui ont fini :
 <!-- ********************************************************************************* -->
 <h2><a name="3-structure">Structure</a></h2>
 Diagramme gof :
-<img class="border margin padding05" src="img/visitor-gof-diagram.jpg" alt="Visitor GOF" />
+<img class="border margin padding05" src="img/visitor-gof-diagram.jpg" alt="Visitor GOF">
 Remarques :
 <br>- Dans ce pattern, l'abstraction (interface ou classe abstraite) <code>Visitor</code> est indispensable car la méthode <code>accept()</code> en a besoin.
 <br>- Mais l'abstraction <code>Element</code> ne l'est pas (mais elle est nécesssaire si on utilise un composite).
 
 <br>
 <br>Diagramme de séquence :
-<img class="border margin padding05" src="img/visitor-gof-sequence.jpg" alt="Visitor sequence" />
+<img class="border margin padding05" src="img/visitor-gof-sequence.jpg" alt="Visitor sequence">
 
 
 <!-- ********************************************************************************* -->

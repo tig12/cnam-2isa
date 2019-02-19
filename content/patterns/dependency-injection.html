@@ -95,7 +95,7 @@ public class Test1{
 Cette solution fonctionne, mais elle est rigide car le client est lié à une implémentation donnée du service.
 <br>De plus, il n'est pas possible de tester le client indépendamment du service.
 
-<img class="border padding05 margin margin-left2" src="img/dependency-injection1.jpg" alt="Injection de dépendance" />
+<img class="border padding05 margin margin-left2" src="img/dependency-injection1.jpg" alt="Injection de dépendance">
 
 Dans un vrai système, on peut avoir des dizaines de services, avec plusieurs implémentations possibles par service, il faut que le client puisse fonctionner avec n'importe quelle implémentation du service.
 <br>On aussi a parfois besoin de pouvoir déployer des clients utilisant des implémentations différentes des services utilisés.
@@ -119,7 +119,7 @@ On définit habituellement 3 types d'injection :
 
 Dans tous les cas, c'est du code extérieur au client qui décide de l'implémentation des services utilisés par le client.
 
-<img class="border padding05 margin margin-left2" src="img/dependency-injection2.jpg" alt="Injection de dépendance" /></div>
+<img class="border padding05 margin margin-left2" src="img/dependency-injection2.jpg" alt="Injection de dépendance"></div>
 
 Le client est déconnecté de l'implémentation.
 
@@ -299,7 +299,7 @@ public class Test4{
 
 L'idée est d'avoir un objet (le service locator) qui sait comment créer tous les services dont une application (un client) peut avoir besoin.
 <br>Le diagramme exprimant les dépendances devient le suivant :
-<img class="padding05 border margin margin-left2" src="img/service-locator.jpg" alt="Service Locator" />
+<img class="padding05 border margin margin-left2" src="img/service-locator.jpg" alt="Service Locator">
 
 Exemple de JNDI en JEE.
 <!-- 
