@@ -331,13 +331,15 @@ Lorsqu'une classe fille hérite d'une classe mère, elle peut alors utiliser les
 <br>
 <br>Permet une approche de la classification en langage naturel.
 
-
 <!-- ************************************* -->
 <h3><a name="6-1-illustration">Illustration</a></h2>
 <img class="margin border" src="img/heritage-polygone.jpg" alt="Polygones, illustration de l'héritage">
-Les carrés sont des polygones réguliers
 
-<h4>Les carrés héritent des propriétés des polygones réguliers</h4>
+<div class="big bold margin">
+Les carrés sont des polygones réguliers
+<br>Les carrés héritent des propriétés des polygones réguliers
+</div>
+
 Exemple <a href="../exemples/java/polygone/Polygone1/Polygone1.java">Polygone1</a>
 <pre>
 class Polygone1{
@@ -402,12 +404,13 @@ La méthode redéfinie a bien été utilisée
 
 <!-- ************************************* -->
 <h3><a name="6-2-liaison-dynamique">Liaison dynamique</a></h3>
+
 Exemple <a href="../exemples/java/polygone/Polygone3/Polygone3.java">Polygone3</a> : les classes <code>Carré</code> et <code>PolygoneRégulier</code> restent identiques.
 <pre>
 class Polygone3{
     public static void main(String[] args) {
         Carré c = new Carré();
-        PolygoneRégulier pr = c; // **** ICI ****
+        <b>PolygoneRégulier pr = c;</b> // **** ICI ****
         System.out.println("pr.surface() = " + pr.surface());
         System.out.println("c.surface() = " + c.surface());
     }
@@ -415,10 +418,13 @@ class Polygone3{
 </pre>
 Une instruction pose question : 
 <pre>PolygoneRégulier pr = c;</pre>
-On définit la variable <code>pr</code> de type <code>PolygoneRégulier</code>.
-<br>Mais on lui affecte une variable de type <code>Carré</code>.
-<br>=> AMBIGUITE ; intuitivement on voudrait que <code>pr</code> se comporte comme un carré.
+
+On a le droit de le faire car un <code>Carré</code> est un <code>PolygoneRégulier</code>.
+<br>Mais on définit la variable <code>pr</code> de type <code>PolygoneRégulier</code> alors que sa valeur est une variable de type <code>Carré</code>.
+<br>
+<br>Intuitivement on voudrait que <code>pr</code> se comporte comme un carré.
 <br>Java permet ça par un mécanisme appelé <b>liaison dynamique</b>. On parle d'<b>affectation polymorphe</b>.
+<br>
 <br>Il peut donc y avoir une différence entre le <b>type déclaré</b> et le <b>type constaté</b> d'une variable. Le choix de la méthode est résolu dynamiquement (lors de l'exécution) en fonction du type constaté de l'objet receveur.
 <br>
 <br>On voit bien la liaison dynamique à l'exécution :
@@ -428,7 +434,20 @@ pr.surface() = surface() dans Carré
 c.surface() = surface() dans Carré
 </pre>
 
-<br>A manipuler avec précaution ; exemple <a href="../exemples/java/polygone/Polygone4/Polygone4.java">Polygone4</a>  :
+Cette possibilité est très pratique, permet par exemple d'écrire :
+<pre>
+class Animal{}
+class Chat extends Animal{}
+class Chien extends Animal{}
+class Cheval extends Animal{}
+Animal[] animaux = {
+    new Chat(),
+    new Chien(),
+    new Cheval()
+};
+</pre>
+
+A manipuler avec précaution ; exemple <a href="../exemples/java/polygone/Polygone4/Polygone4.java">Polygone4</a>  :
 <pre>
 class Polygone4{
     public static void main(String[] args) {
@@ -463,7 +482,7 @@ APRES, p1.surface() = surface() dans Hexagone
 </pre>
 
 <code>p1</code> est d'abord un carré, puis devient un hexagone.
-<br>La même variable a changé de comportement => source potentielle de bug.
+<br>La même variable a changé de comportement => Attention.
 
 
 <!-- ************************************* -->
