@@ -15,30 +15,31 @@
 
 <a href="enonce">Code source de l'énoncé</a>
 <br>
-<br>Dans <code>TestArgument.main()</code> (voir énoncé), on vérifie que l'utilisateur appelle cette classe avec un seul paramètre pouvant prendre les valeurs <code>"ROOT"</code>, <code>"ADMIN"</code> ou <code>"USER"</code>.
+<br>La classe <code>TestProtectionProxy</code> reprend une partie de l'énoncé de l'exercice <a href="../../patterns/proxy/protection/ProtectionProxy.html">Protection proxy</a>.
+<br>Dans <code>main()</code>, on vérifie que l'utilisateur appelle cette classe avec un seul paramètre pouvant prendre les valeurs <code>"ROOT"</code>, <code>"ADMIN"</code> ou <code>"USER"</code>.
 <br>
 <br>A l'utilisation, cela donne :
 
 <pre>
-java TestArguments 
-Utilisation : java TestArguments &lt;rôle>
+java TestProtectionProxy 
+Utilisation : java TestProtectionProxy &lt;rôle>
 &lt;rôle> peut prendre les valeurs : ROOT, ADMIN, USER
 il manque le paramètre rôle.
 </pre>
 
 <pre>
-java TestArguments toto
-Utilisation : java TestArguments &lt;rôle>
+java TestProtectionProxy toto
+Utilisation : java TestProtectionProxy &lt;rôle>
 &lt;rôle> peut prendre les valeurs : ROOT, ADMIN, USER
 Valeur incorrecte : toto
 </pre>
 
 <pre>
-java TestArguments ROOT
+java TestProtectionProxy ROOT
 OK, role = ROOT
 </pre>
 
-Ecrire le code de vérification en utilisant l'API enum, <i>sans coder en dur les chaînes <code>"ROOT"</code>, <code>"ADMIN"</code> et <code>"USER"</code></i>. 
+Ecrire le code de vérification des paramètres en utilisant l'API enum, <i>sans coder en dur les chaînes <code>"ROOT"</code>, <code>"ADMIN"</code> et <code>"USER"</code></i>. 
 <br>
 <br>Vérifiez que si vous rajoutez un rôle (par exemple <code>"VISITOR"</code>), la fonction <code>main()</code> intègre ce nouveau rôle sans aucune modification.
 
