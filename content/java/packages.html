@@ -142,45 +142,16 @@ projet/
 
 Il y a <i>obligatoirement</i> une correspondance entre la hiérarchie des packages et la hiérarchie des fichiers.
 <br>
-<br>Si on a :
+<br>Exemple :
 <pre>
 src/
     └── projet
         ├── package1
-        │   └── Class1.java
+        │   └── Class1.java    &lt;- package projet.package1;
         ├── package2
-        │   └── Class2.java
-        └── Projet.java
+        │   └── Class2.java    &lt;- package projet.package2
+        └── Projet.java        &lt;- package projet;
 </pre>
-
-alors l'application doit être packagée de cette manière :
-<br>
-<br>
-
-<div class="flex-wrap">
-<div class="margin-left padding05 border">
-Projet.java
-<pre>
-package projet;
-...
-</pre>
-</div>
-<div class="margin-left padding05 border">
-package1/Class1.java
-<pre>
-package projet.package1;
-...
-</pre>
-</div>
-<div class="margin-left padding05 border">
-package2/Class2.java
-<pre>
-package projet.package2;
-...
-</pre>
-</div>
-
-</div><!-- end class="flex-wrap" -->
 
 <br>La même hiérarchie se trouve dans <code>bin/</code> :
 <pre>
