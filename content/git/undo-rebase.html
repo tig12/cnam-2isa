@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Git undo, rebase | Millau CNAM 2ISA</title>
+    <meta name="description" content="">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <meta name="robots" content="index,follow">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2019">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="NFP121" href="git.html">&uarr;</a>
+<!-- 
+    <a class="prev" title="Previous" href=".html">&larr;</a>
+    <a class="next" title="Next" href=".html">&rarr;</a>
+-->
+</nav>
+
+<header>
+<h1>Git undo, rebase</h1>
+</header>
+
+<!-- 
+Voir <a href="https://www.pixelstech.net/article/1549115148-git-reset-vs-git-revert">cette page</a>
+-->
+
+NB : les exemples utilisent les alias (par exemple <code>git ci</code> à la place de <code>git commit</code>) définis dans le paragraphe "Config" de la page <a href="premiers-pas-git.html">Git, premier pas</a>.
+
+
+<!-- ********************************************************************************* -->
+<h2>Supprimer des commits</h2>
+
+Initialiser un dépôt et faire 3 commits :
+<pre>
+git init repo2
+cd repo2
+echo 'ligne 1' > fichier1.txt
+git add fichier1.txt
+git ci -m "ligne 1"
+echo 'ligne 2' >> fichier1.txt
+git ci -am "ligne 2"
+echo 'ligne 3' >> fichier1.txt
+git ci -am "ligne 3"
+</pre>
+
+Vérifiez que <code>fichier1.txt</code> contient bien les 3 lignes :
+<pre>cat fichier1.txt</pre>
+<pre>
+ligne 1
+ligne 2
+ligne 3
+</pre>
+
+Vérifiez que vous avez bien 3 commits :
+<pre>git slog</pre>
+<pre>
+* dacf608 - (2019-02-25 01:15:56 +0100) ligne 3 - Thierry (HEAD -> master)
+| 
+* 9deb1fd - (2019-02-25 01:15:56 +0100) ligne 2 - Thierry
+| 
+* b9f002e - (2019-02-25 01:02:29 +0100) ligne 1 - Thierry
+</pre>
+
+Pour supprimer complètement les deux derniers commits :
+<pre><b>git reset --hard b9f002e</b></pre>
+
+Vous pouvez vérifier avec <code>git log</code>, <code>git status</code> et en affichant <code>fichier1.txt</code> :
+<br>- les deux derniers commits ont été supprimés,
+<br>- Le répertoire de travail est revenu dans l'état du commit <code>b9f002e</code>.
+<br>
+<br><code>git reset --hard</code> efface donc <b>de manière irréversible</b> toute trace des commits effacés, à la fois dans l'historique des commits et sur le disque.
+
+<article>
+
+</article>
+
+<!-- ********************************************************************************* -->
+<!-- ************************************* -->
+</body>
+</html>
