@@ -22,7 +22,7 @@ Java 8 introduces default methods on interfaces. If A,B,C are interfaces, B,C ca
 
 <nav class="prevnext">
     <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
-    <a class="prev" title="Previous" href="syntaxe-java3.html">&larr;</a>
+    <a class="prev" title="Previous" href="methodes.html">&larr;</a>
     <a class="next" title="Next" href="packages.html">&rarr;</a>
 </nav>
 
@@ -60,19 +60,9 @@ Java 8 introduces default methods on interfaces. If A,B,C are interfaces, B,C ca
         <li>
             <a href="#4-classe-abstraite-ou-interface">Classe abstraite ou interface ?</a>
         </li>
-        <li>
-            <a href="#5-packages-java-namespace">Packages, java namespace</a>
-            <ul>
-                <li><a href="#5-1-conflits">Conflits</a></li>
-                <li><a href="#5-2-import-static">import static</a></li>
-                <li><a href="#5-3-structure-d-une-application-java">Structure d'une application java</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="#6-modules">Modules</a>
-        </li>
     </ul>
 </nav>
+
 
 
 
@@ -1187,6 +1177,13 @@ Depuis les default et static methods, on a le choix. Quelques considérations :
         Si on ajoute une méthode à une API publique, le problème est de ne pas casser la compatibilité du code existant. Dans les deux cas, l'ajout de nouvelles méthodes peut entrer en collision de nom avec des méthodes supplémentaires implémentées dans les classes concrètes.
     </li>
     <li>La "philosophie" des interfaces est de servir pour spécifier des APIs et de fournir une default method s'il n'y a qu'une implémentation possible, ou si la méthode est optionnelle, mais de laisser abstraites les méthodes qui doivent être implémentées par les classes concrètes.</li>
+</ul>
+
+</body>
+</html>
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+<li>La "philosophie" des interfaces est de servir pour spécifier des APIs et de fournir une default method s'il n'y a qu'une implémentation possible, ou si la méthode est optionnelle, mais de laisser abstraites les méthodes qui doivent être implémentées par les classes concrètes.</li>
 </ul>
 
 </body>

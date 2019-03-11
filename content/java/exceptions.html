@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Exceptions java | NFP121 Millau</title>
+    <meta name="description" content="Suite de la syntaxe java non-objet : tableaux, exceptions.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="tableaux.html">&larr;</a>
+    <a class="next" title="Next" href="types-reference.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Exceptions</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-les-classes-d-exception">Les classes d'exception</a>
+        </li>
+        <li>
+            <a href="#2-creer-ses-propres-exceptions">Créer ses propres exceptions</a>
+        </li>
+        <li>
+            <a href="#3-lancer-des-exceptions">Lancer des exceptions</a>
+        </li>
+        <li>
+            <a href="#4-propagation-des-exceptions">Propagation des exceptions</a>
+        </li>
+        <li>
+            <a href="#5-try-with-resources-twr">try with resources (TWR)</a>
+        </li>
+    </ul>
+</nav>
+</header>
+
+<article>
+
+Les exceptions sont un mécanisme de propagation des erreurs.
+<br>Très pratique car permet d'écrire du code plus lisible, non pollué par la gestion des cas d'erreur.
+<br>
+<br>Le mécanisme des exceptions utilise 5 mots-clés du langage : <code><b>try</b></code>, <code><b>catch</b></code>, <code><b>finally</b></code>, <code><b>throw</b></code> et <code><b>throws</b></code>.
+<br>
+<br>Sans les exceptions :
+<pre>
+fonction ContenuDuFichier(String filename){
+
+    ouvrirFichier(filename)
+    
+    si erreur d'ouverture
+        return null
+    
+    String contentu = lireFichier
+    
+    Si erreur de lecture
+        return null
+    
+    return contenu
+}
+</pre>
+Avec les exceptions :
+<pre>
+fonction ContenuDuFichier(String filename){
+    <b>try</b>{
+        ouvrirFichier(filename)
+        String contentu = lireFichier
+        return contenu
+    }
+    <b>catch</b>(ErreurOuverture e){
+        return null
+    }
+    <b>catch</b>(ErreurLecture e){
+        return null
+    }
+}
+</pre>
+
+En plus de <code>try</code> et <code>catch</code>, on peut définir un bloc <code>finally</code>, qui va s'exécuter dans tous les cas, qu'une exception ait été lancée ou pas.
+<br>Le bloc <code>finally</code> est exécuté même si une exception est propagée ; utile par exemple pour fermer une connexion réseau ou à une base de données.
+<br><code>catch</code> et <code>finally</code> sont optionnels, mais au moins un des deux est nécessaire.
+<br>Les accolades sont obligatoires dans ces blocs, même s'ils ne contiennent qu'une ligne.
+<br>
+
+<pre>
+try {
+
+    // instructions
+    
+} catch(ExceptionType1 e){
+    // traitement de ce cas anormal de type ExceptionType1
+    // e est de type ExceptionType1
+}
+
+catch(ExceptionType2){
+    // traitement de ce cas anormal de type ExceptionType2
+    // e est de type ExceptionType2
+}
+
+<b>finally</b> {
+    traitement de fin de bloc try
+}
+</pre>
+
+Une même clause <code>catch</code> peut gérer plusieurs types d'exception, en les séparant par <code>|</code>.
+<pre>
+try{
+    ...
+}
+catch(<b>ExceptionType1 | ExceptionType2 e</b>){
+    // la variable e est un objet de type ExceptionType1 ou ExceptionType2
+}
+</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-les-classes-d-exception">Les classes d'exception</a></h2>
+
+Les exceptions que l'on peut lancer ou attrapper sont des objets de type <code>java.lang.Exception</code> ou de ses sous-classes.
+<br>L'API java fournit un grand nombre de classes :
+
+<img class="margin padding05 border" src="img/throwable.jpg" alt="Hiérarchie Throwable">
+
+
+<br>On distingue 2 types principaux d'exceptions : 
+<br>- les exceptions vérifiées (<b>checked exceptions</b>), qui peuvent être anticipées et doivent être gérées par l'application.
+<br>- les exceptions non vérifiées (<b>unchecked exceptions</b>), qui ne peuvent pas être anticipées (par ex <code>OutOfMemoryError</code>).
+<br>Les unchecked exceptions descendent de <code>Error</code> ou de <code>RuntimeException</code> .
+<br>
+<br>Une exception contient un message, accessible via <code>getMessage()</code>.
+<br><code>printStackTrace()</code> est aussi courrament utilisée.
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-creer-ses-propres-exceptions">Créer ses propres exceptions</a></h2>
+On peut créer des exceptions personnalisées en sous-classant <code>Exception</code> :
+
+<pre>public MyException extends Exception {}</pre>
+
+Dans le code qu'on écrit on a le choix entre utiliser <code>Exception</code> et ses sous-classes lorsque c'est pertinent, ou les classes d'exceptions spécifiques à l'application.
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-lancer-des-exceptions">Lancer des exceptions</a></h2>
+Une exception est "lancée" avec l'instruction <code>throw</code> lorsqu'une condition anormale d'exécution est rencontrée :
+<pre>
+public static double factorial(int x) throws IllegalArgumentException{
+    if (x < 0)
+        <b>throw new IllegalArgumentException("x must be >= 0")</b>;
+    double fact;
+    for(fact=1.0; x > 1; fact *= x, x--)
+        ; // instruction vide
+    return fact;
+}
+</pre>
+
+(code dans <a href="../../exemples/java/factorial/Factorial.java">Factorial.java</a>)
+
+<!-- ********************************************************************************* -->
+<h2><a name="4-propagation-des-exceptions">Propagation des exceptions</a></h2>
+
+Si l'interpréteur java rencontre une exception, il arrête l'exécution du code et cherche un gestionnaire d'exception (un bloc <code>catch</code>).
+<br>
+L'interpréteur java va remonter la pile d'appel des méthodes jusqu'à ce qu'il trouve un bloc <code>catch</code> correspondant au type de l'exception en cours ou à une superclasse.
+<br>Par exemple, si on se place dans une méthode qui utilise <code>factorial()</code> :
+<pre>
+void maMéthode(){
+    ...
+    double f = factorial(-5);
+    ...
+}
+</pre>
+
+- Soit <code>maMéthode()</code> contient un bloc try catch gérant <code>IllegalArgumentException</code>
+<pre>
+void maMéthode(){
+    try{
+        ...
+        double f = factorial(-5);
+        ...
+    }
+    catch(IllegalArgumentException e){
+        // gestion de e
+    }
+}
+</pre>
+Dans ce cas le code présent dans ce bloc catch sera exécuté.
+<br>
+<br>- Soit <code>maMéthode()</code> ne gère pas <code>IllegalArgumentException</code> et doit alors obligatoirement déclarer qu'elle est susceptible de lancer une exception avec le mot-clé <code>throws</code> :
+
+<pre>
+void maMéthode <b>throws IllegalArgumentException</b>(){
+    ...
+    double f = factorial(-5);
+    ...
+}
+</pre>
+
+Dans ce cas, l'exception sera propagée à la méthode qui a appelé <code>maMéthode()</code>, ainsi de suite jusqu'à la fonction <code>main()</code>.
+<br>Donc en général, le code d'une fonction <code>main()</code> contient un try catch :
+<pre>
+public static void main(String[] args) {
+    try{
+    }
+    catch(Exception e){
+    }
+</pre>
+Dans ce cas, on a intérêt à utiliser la classe <code>Exception</code>, qui est la superclasse de toutes les autres exceptions, çe qui permet de rattrapper toute erreur imprévue dans le programme, quelque soit son type.
+<br>
+<br>A noter : les blocs <code>catch</code> sont évalués les uns après les autres. Le compilateur impose donc que les cas particuliers soient traités d'abord.
+
+<pre>
+void maMéthodeQuiNePassePasALaCompil(){
+    try{
+        ...
+        double f = factorial(-5);
+        ...
+    }
+    catch(Exception e){
+    }
+    catch(IllegalArgumentException e){
+    }
+}
+</pre>
+Si ce code passait à la compilation, le <code>catch</code> de <code>IllegalArgumentException</code> ne serait jamais appelé puisque c'est une sous-classe de <code>Exception</code>.
+
+<!-- ********************************************************************************* -->
+<h2><a name="5-try-with-resources-twr">try with resources (TWR)</a></h2>
+Voir <a href="io.html#1-3-try-with-resources-twr">le cours sur java.io</a>
+
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/multiples/Multiples2.html">Multiples2</a>
+</div>
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>

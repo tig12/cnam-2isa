@@ -15,8 +15,8 @@
 
 <nav class="prevnext">
     <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
-    <a class="prev" title="Previous" href="hello-world.html">&larr;</a>
-    <a class="next" title="Next" href="syntaxe-java2.html">&rarr;</a>
+    <a class="prev" title="Previous" href="outils-java.html">&larr;</a>
+    <a class="next" title="Next" href="tableaux.html">&rarr;</a>
 </nav>
 
 <header>
@@ -80,9 +80,9 @@
                 <li><a href="#9-1-while">while</a></li>
                 <li><a href="#9-2-do">do</a></li>
                 <li><a href="#9-3-for">for</a></li>
-                <li><a href="#9-4-break">break</a></li>
-                <li><a href="#9-5-continue">continue</a></li>
-                <li><a href="#9-6-for">for</a></li>
+                <li><a href="#9-4-foreach">foreach</a></li>
+                <li><a href="#9-5-break">break</a></li>
+                <li><a href="#9-6-continue">continue</a></li>
             </ul>
         </li>
         <li>
@@ -93,6 +93,7 @@
         </li>
     </ul>
 </nav>
+
 
 
 </header>
@@ -135,7 +136,7 @@ En java, il existe deux sortes de variables qui ont des comportements très diff
     </li>
 </ul>
 
-<img class="border margin" src="img/type-primitif-reference.jpg" alt="Types primimtif et référence">
+<img class="border margin padding05" src="img/type-primitif-reference.jpg" alt="Types primimtif et référence">
 
 Java est un langage fortement typé ; toute variable doit avoir un type.
 <br>Le typage est <b>statique</b> : toute variable doit être déclarée avant d'être utilisée, et cette déclaration comporte la déclaration de son type.
@@ -214,17 +215,18 @@ Par convention, on évite d'utiliser les symboles unicode représentant une monn
 <br>
 <br>Un identifiant ne peut pas prendre la valeur des mots qui font partie du langage lui-même, les <b>mots réservés</b>.
 <br>On a déjà vu quelques mots réservés (reserved words) : <code>class</code>, <code>interface</code>, <code>void</code>, <code>static</code>...
-<br>Liste complète pour java 8 :
+<br>Liste complète pour java 11 :
 <pre class="normal">
-abstract    const       final       int         public          throw
-assert      continue    finally     interface   return          throws
-boolean     default     float       long        short           transient
-break       do          for         native      static          true
-byte        double      goto        new         strictfp        try
-case        else        if          null        super           void
-catch       enum        implements  package     switch          volatile
-char        extends     import      private     synchronized    while
-class       false       instanceof  protected   this
+abstract   continue   for          new         switch
+assert     default    if           package     synchronized
+boolean    do         goto         private     this
+break      double     implements   protected   throw
+byte       else       import       public      throws
+case       enum       instanceof   return      transient
+catch      extends    int          short       try
+char       final      interface    static      void
+class      finally    long         strictfp    volatile
+const      float      native       super       while
 </pre>
 
 Certains mots réservés peuvent prendre des significations différentes suivant le contexte, par exemple <code>default</code> et <code>final</code>.
@@ -909,7 +911,7 @@ do {
 </table>
 
 <!-- ************************************* -->
-<h3><a name="9-6-for">for</a></h3>
+<h3><a name="9-3-for">for</a></h3>
 
 Par exemple :
 <pre>
@@ -954,7 +956,7 @@ les parties <i>initialize</i>, <i>test</i>, <i>update</i> sont optionnelles (mai
 </div>
 
 <!-- ************************************* -->
-<h3><a name="9-6-for">foreach</a></h3>
+<h3><a name="9-3-for">for</a></h3>
 Permet d'itérer sur une collection sans la lourdeur des indexes :
 <pre>
 for( declaration : expression )
@@ -987,7 +989,7 @@ for(int i = 0; i < words.length; i++) {
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="9-4-break">break</a></h3>
+<h3><a name="9-5-break">break</a></h3>
 <code>break</code> permet de sortir de l'instruction qui la contient.
 <pre>
 for(int i = 0; i < data.length; i++) {
@@ -1008,7 +1010,7 @@ iloop: for(int i=0; i < 10; i++){
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="9-5-continue">continue</a></h3>
+<h3><a name="9-6-continue">continue</a></h3>
 Passe à l'itération suivante de la boucle
 <pre>
 for(int i = 0; i < data.length; i++) {

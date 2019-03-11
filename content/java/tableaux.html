@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Tableaux java | NFP121 Millau</title>
+    <meta name="description" content="Suite de la syntaxe java non-objet : tableaux, exceptions.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="syntaxe-java1.html">&larr;</a>
+    <a class="next" title="Next" href="exceptions.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Les tableaux</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-generalites">Généralités</a>
+            <ul>
+                <li><a href="#1-1-type">Type</a></li>
+                <li><a href="#1-2-taille-d-un-tableau">Taille d'un tableau</a></li>
+                <li><a href="#1-3-declaration-initialisation">Déclaration, initialisation</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-array-initializers">Array initializers</a>
+        </li>
+        <li>
+            <a href="#3-utilisation-des-tableaux">Utilisation des tableaux</a>
+            <ul>
+                <li><a href="#3-1-tableaux-a-plusieurs-dimensions">Tableaux à plusieurs dimensions</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="1-generalites">Généralités</a></h2>
+Un tableau (array) est un type particulier d'objet, qui contient 0 ou plusieurs instances de type référence ou primitif, que l'on appelle <b>éléments</b> du tableau.
+
+<pre>
+// Déclaration
+String[] myStrings;
+
+// Initialisation
+myStrings = new String[4];
+
+// Utilisation :
+myStrings[2] = "toto";
+System.out.println(myStrings[2]);
+</pre>
+
+<br>Les éléments d'un tableau n'ont pas de nom, ils sont repérés par leur <b>index</b>, qui commence à 0 : <code>myStrings[0]</code>, <code>myStrings[1]</code> ...
+
+<!-- ************************************* -->
+<h3><a name="1-1-type">Type</a></h3>
+
+Important : Tous les éléments d'un tableau doivent être du même type.
+<br>
+<br>Comme les classes ou les interfaces, les tableaux sont un type référence.
+<br>Le type d'un tableau est caractérisé par le type de ses éléments.
+<br>Donc par exemple <code>String[]</code> constitue un type au même titre que n'importe quelle classe java. A ce titre, on peut utiliser un type de tableau pour sépcifier le type d'un paramètre ou du retour d'une méthode.
+<br>Par exemple <code>public static int max(int[] x)</code> n'acceptera pas un tableau de <code>float</code>.
+<br>
+<br>Mais la longueur du tableau ne fait pas partie de son type, on ne peut pas créer de type "un tableau contenant 4 strings".
+<br>
+<br>Les instances d'un tableau sont donc des objets, qui héritent des méthodes de <code>java.lang.Object</code>.
+
+<!-- ************************************* -->
+<h3><a name="1-2-taille-d-un-tableau">Taille d'un tableau</a></h3>
+La taille du tableau doit être spécifiée à la création <b>et ne peut pas changer</b>.
+<br>C'est une limitation importante ; pour la contourner, on utilise les <a href="collections.html">collections</a>.
+<br>
+<br>Le nombre d'élément d'un tableau est stocké dans une propriété : <code>length</code>.
+
+<pre>
+System.out.println(myStrings.length);
+</pre>
+
+Les indexes vont de <code>0</code> à <code>length - 1</code>
+
+<!-- ************************************* -->
+<h3><a name="1-3-declaration-initialisation">Déclaration, initialisation</a></h3>
+Pour définir un tableau on utilise les crochets (brackets) <code>[ ]</code> :
+<pre>
+byte b;                         // declaration of a variable
+byte[] arrayOfBytes;            // byte[] is an array of byte values
+byte[][] arrayOfArrayOfBytes;   // byte[][] is an array of byte[]
+String[] points;                // String[] is an array of strings
+</pre>
+
+Pour initialiser un tableau, on utilise le mot-clé <code>new</code>, comme pour un objet :
+<pre>String[] lines = new String[50];</pre>
+Lorsqu'on crée un tableau, chaque élément est automatiquement initialisé avec les mêmes valeurs utilisées pour les variables d'une classe (<code>false</code> pour un booléen, <code>\u0000</code> pour un char, <code>0</code> un entier, <code>0.0</code> pour un nombre réel, et <code>null</code> pour un type référence).
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-array-initializers">Array initializers</a></h2>
+
+De la même manière qu'on peut initialiser une chaîne avec une syntaxe spéciale sans utiliser <code>new</code>, on peut initialiser un tableau :
+<pre>
+String[] greetings = new String[] { "Hello", "Hi", "Howdy" };
+int[] smallPrimes = new int[] { 2, 3, 5, 7, 11, 13, 17, 19, };
+</pre>
+
+On parle d'<b>array litterals</b>
+<br>Cette syntaxe permet de créer un tableau sans utiliser <code>new</code>
+<br>
+<br>Elle permet aussi d'utiliser des tableaux sans les assigner à des variables (en quelque sorte des "tableaux anonymes") :
+<pre>
+double d = computeAreaOfTriangle(new Point[] { new Point(1,2), new Point(3,4), new Point(3,2) });
+</pre>
+
+Les array litterals sont créés et initialisés à l'exécution, et pas à la compilation.
+<pre>
+int[] perfectNumbers = {6, 28};
+</pre>
+A la compilation, cela est traduit en :
+<pre>
+int[] perfectNumbers = new int[2];
+perfectNumbers[0] = 6;
+perfectNumbers[1] = 28;
+</pre>
+Une conséquence importante est qu'on peut mettre dans un array litterals des choses qui ne sont pas fixes, par exemple
+<pre>Point[] points = { circle1.getCenterPoint(), circle2.getCenterPoint() };</pre>
+
+<!-- ********************************************************************************* -->
+<h2><a name="3-utilisation-des-tableaux">Utilisation des tableaux</a></h2>
+
+On utilise les brackets <code>[ ]</code> pour accéder aux éléments d'un tableau :
+<pre>
+String[] responses = new String[2];
+responses[0] = "Yes";
+responses[1] = "No";
+System.out.println(question + " (" + responses[0] + " / " + responses[1] + " ) : ");
+</pre>
+
+Si <code>t</code> est un tableau, <code>t[0]</code> est son premier élément, <code>t[1]</code> le second ... et <code>t[t.length-1]</code> est le dernier.
+<br>
+<br>Pour parcourir un tableau, on peut utilise typiquement une boucle for ou foreach:
+<pre>
+int[] primes = { 2, 3, 5, 7, 11, 13, 17, 19, 23 };
+int sumOfPrimes = 0;
+
+for(int i = 0; i < primes.length; i++){
+    sumOfPrimes += primes[i];
+}
+// ou bien
+for(int p : primes){
+    sumOfPrimes += p;
+}
+</pre>
+
+La classe <code>java.util.Arrays</code> contient de nombreuses méthodes pour manipuler les tableaux.
+
+
+<!-- ************************************* -->
+<h3><a name="3-1-tableaux-a-plusieurs-dimensions">Tableaux à plusieurs dimensions</a></h3>
+<br>Un tableau peut contenir tout type d'objet, notamment des tableaux, ce qui permet de gérer des tableaux à plusieurs dimensions.
+<br>S'utilisent comme les tableaux à une dimension.
+<br>Il n'est pas nécessaire de spécifier toutes les length à la création, seule la première est nécessaire, et il faut les spécifier par la gauche :
+<pre>
+float[][][] tableau3D = new float[360][180][100];
+float[][][] tableau3D = new float[360][180][];
+float[][][] tableau3D = new float[360][][];
+</pre>
+Mais à l'utilisation, il faudra spécifier les tailles avant de les utiliser :
+<pre>
+int[][] t = new int[10][];
+for(int i = 0; i < t.length; i++){
+    t[i] = new int[i];      // ici, on a pu déclarer un tableau non "carré"
+    for(int j = 0; j < t[i].length; j++){
+        System.out.println("i = " + i + " - j = " + j);
+    }
+    System.out.println();
+}
+</pre>
+Les array initializers peuvent être aussi utilisés pour des tableaux à plusieurs dimensions :
+<pre>
+int[][] products = {
+    {0, 0, 0, 0, 0},
+    {0, 1, 2, 3, 4},
+    {0, 4, 8, 12, 16}, // remarquer la dernière virgule (facultative)
+};
+</pre>
+
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/max/Max.html">Max et moyenne</a>
+</div>
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/voitures/Voitures.html">Voitures</a>
+</div>
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/premiers/Premiers.html">Nombres premiers</a>
+</div>
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+
+</article>
+
+</body>
+</html>
