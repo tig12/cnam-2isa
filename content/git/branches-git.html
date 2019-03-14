@@ -108,9 +108,7 @@ Créer une branche ne pèse donc presque rien en mémoire, et changer de branche
 
 Sous git, on est toujours sur une branche. Quand on initialise un dépôt, git crée une branche par défaut, appelée <b>master</b>.
 <br><code>git branch</code> permet de lister les branches du dépôt courant :
-<pre>
-git br
-</pre>
+<pre>git branch</pre>
 <pre>
 * master
 </pre>
@@ -125,7 +123,9 @@ On se place dans le dépôt <code>repo1/</code> créé dans la page <a href="pre
 # créer une branche nommée "branche1"
 git branch branche1
 
-git branch 
+git branch
+</pre>
+<pre>
   branche1
 * master
 </pre>
@@ -141,8 +141,8 @@ git co -b branch1
 </pre>
 
 Dans les deux cas, on peut vérifier qu'on se trouve sur <code>branch1</code>
+<pre>git branch</pre>
 <pre>
-git branch
 * branche1
   master
 </pre>
@@ -156,8 +156,8 @@ git ci -m "Création de fichier-branche1.txt"
 
 <code>git slog</code> donne des indications intéressantes :
 
+<pre>git slog</pre>
 <pre>
-git slog 
 * 052f4d7 - (2019-01-20 11:33:43 +0100) Création de fichier-branche1.txt - Thierry (HEAD -> branch1)
 | 
 * 8c0ae1e - (2019-01-20 03:14:20 +0100) Ajout d'une troisième ligne dans test1.txt - Thierry (master)

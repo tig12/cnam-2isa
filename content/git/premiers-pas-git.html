@@ -91,10 +91,8 @@ git config --global user.email "email@example.org"
 Il est maintenant possible de créer le dépôt avec <code>git init repo1</code>.
 <br>
 <br>En listant les fichiers cachés, on voit qu'un répertoire <code>repo1/.git/</code> a été créé :
-<pre>
-ls -a repo1/
-.git
-</pre>
+<pre>ls -a repo1/</pre>
+<pre>.git</pre>
 
 Cest dans ce répertoire caché que git va gérer toute l'historique du dépôt.
 
@@ -259,7 +257,6 @@ Créer un premier fichier <code>test1.txt</code> dans lequel on écrit "<code>Un
 Maintenant, <code>git status</code> indique quelque chose :
 <pre>git st</pre>
 <pre>
-git st
 Sur la branche master
 
 Aucun commit
@@ -280,8 +277,8 @@ Si on a plusieurs fichiers à versionner, on peut tous les ajouter en faisant
 <pre>git add -A</pre>
 
 Maintenant, <code>git status</code> donne un résultat différent :
+<pre>git st</pre>
 <pre>
-git st
 Sur la branche master
 
 Aucun commit
@@ -295,18 +292,24 @@ Modifications qui seront validées :
 git indique que <code>test1.txt</code> est bien pris en compte et que ses modifications seront enregistrées au prochain commit.
 <br>
 <br>On peut maintenant faire un premier commit :
+<pre>git ci -m "Création de test1.txt"</pre>
 <pre>
-git ci -m "Création de test1.txt"
 [master (commit racine) 2eb9fa0] Création de test1.txt
  1 file changed, 1 insertion(+)
  create mode 100644 test1.txt
 </pre>
 
 <code>git slog</code> montre que ce commit a bien été pris en compte :
+<pre>git slog</pre>
 <pre>
-git slog 
 * 2eb9fa0 - (2019-01-19 12:35:48 +0100) Création de test1.txt - Thierry (HEAD -> master)
 </pre>
+
+<!-- ************************************* -->
+<h3>Importance des messages de commit</h3>
+Git n'impose pas de formatter les messages des commits mais il est fortement conseillé de respecter certaines règles.
+<br>Voir par exemple <a href="https://chris.beams.io/posts/git-commit/">cette page</a>.
+
 
 <!-- ********************************************************************************* -->
 <h2><a name="4-les-3-etats-d-un-fichier">Les 3 états d'un fichier</a></h2>
@@ -319,8 +322,8 @@ Si on fait <code>git status</code>, on voit que rien n'a été modifié.
 On ajoute une seconde ligne à <code>test1.txt</code>
 <pre>echo "Une seconde ligne" >> test1.txt</pre>
 On peut voir l'état des modifications avec <code>git diff</code> et <code>git status</code>.
+<pre>git st</pre>
 <pre>
-git st
 Sur la branche master
 Modifications qui ne seront pas validées :
   (utilisez "git add &lt;fichier>..." pour mettre à jour ce qui sera validé)
@@ -335,8 +338,8 @@ Le fichier <code>test1.txt</code> est maintenant dans l'état <b>modified</b> : 
 <br>On indique à git que ces modifications seront à inclure dans le prochain commit en faisant :
 <pre>git add test1.txt</pre>
 <code>git status</code> donne maintenant :
+<pre>git st</pre>
 <pre>
-git st
 Sur la branche master
 Modifications qui seront validées :
   (utilisez "git reset HEAD &lt;fichier>..." pour désindexer)
@@ -353,8 +356,8 @@ Le fichier <code>test1.txt</code> est maintenant dans l'état <b>staged</b> : il
 <pre>echo "Une troisième ligne" >> test1.txt</pre>
 
 <code>test1.txt</code> se trouve maintenant à la fois dans l'état <b>modified</b> et <b>staged</b>, comme l'indique <code>git status</code> :
+<pre>git st</pre>
 <pre>
-git st
 Sur la branche master
 Modifications qui seront validées :
   (utilisez "git reset HEAD &lt;fichier>..." pour désindexer)

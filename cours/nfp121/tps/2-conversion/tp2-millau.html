@@ -15,6 +15,11 @@
 
 <header>
 <h1>Conversion Celcius Fahrenheit</h1>
+
+<div class="intro">
+But : Ecrire une application avec packages, isoler les différentes parties du code.
+</div>
+
 </header>
 
 <article>
@@ -40,20 +45,20 @@ Le résultat est attendu avec un seul chiffre derrière la virgule. Vous pouvez 
 <br>L'implémentation est constituée de 3 méthodes <i>static</i>, sans créer aucune instance.
 <br>
 <br>Utiliser la hiérarchie de fichiers suivante :
-<pre class="normal">
+<pre>
 tp2-conversion
     ├── apidoc                      // contient la doc html générée par javadoc
     ├── bin                         // contient les .class générés par javac
     ├── src
-    │   └── conversion
+    │   └── conversion              // package conversion
     │       ├── Conversion.java     // contient <code>public static void main(String[] args)</code>
-    │       ├── model
+    │       ├── model               // package conversion.model
     │       │   ├── Degres.java     // contient <code>public static float fahrenheitToCelsius(int f)</code>
     │       │   └── package.html
     │       ├── overview.html
     │       ├── package.html
-    │       └── utils
-    │           ├── Format.java    // contient <code>public static float uneDecimale(float x)</code>
+    │       └── utils               // package conversion.util
+    │           ├── Format.java     // contient <code>public static float uneDecimale(float x)</code>
     │           └── package.html
     └── tests
 </pre>
