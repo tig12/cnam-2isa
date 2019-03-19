@@ -51,7 +51,8 @@
 <!-- ********************************************************************************* -->
 <h2><a name="1-generalites">Généralités</a></h2>
 Un tableau (array) est un type particulier d'objet, qui contient 0 ou plusieurs instances de type référence ou primitif, que l'on appelle <b>éléments</b> du tableau.
-
+<br>
+<br>En résumé : 
 <pre>
 // Déclaration
 String[] myStrings;
@@ -113,7 +114,10 @@ Lorsqu'on crée un tableau, chaque élément est automatiquement initialisé ave
 De la même manière qu'on peut initialiser une chaîne avec une syntaxe spéciale sans utiliser <code>new</code>, on peut initialiser un tableau :
 <pre>
 String[] greetings = new String[] { "Hello", "Hi", "Howdy" };
-int[] smallPrimes = new int[] { 2, 3, 5, 7, 11, 13, 17, 19, };
+// ou plus simplement :
+String[] greetings = { "Hello", "Hi", "Howdy" };
+
+int[] smallPrimes = { 2, 3, 5, 7, 11, 13, 17, 19, };
 </pre>
 
 On parle d'<b>array litterals</b>

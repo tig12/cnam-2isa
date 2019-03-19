@@ -166,7 +166,7 @@ D'après le test dans <code>Equals1</code>, on s'attend à ce que <code>s1 == s2
 
 La classe <code>String</code> contient une méthode <code>concat()</code>, pas très pratique pour une opération si fréquente.
 <br>Java permet donc la concaténation de chaînes avec l'opérateur <code>+</code>.
-<br>Une fonctionnalité très utile est qu'<b>avec l'opérateur <code>+</code>, une <code>String</code> peut être concaténée avec un objet de n'importe quel type (référence ou primitif)</b>.
+<br>Une fonctionnalité très utile est qu'<b>avec l'opérateur <code>+</code>, une <code>String</code> peut être concaténée avec un objet de n'importe quel type (référence ou primitif)</b>, ce qui n'est pas le cas avec <code>concat()</code>.
 
 <pre>
 public class Concat{
@@ -191,6 +191,14 @@ public class Concat{
 }
 </pre>
 (code dans <a href="../../exemples/java/strings/Concat.java">Concat.java</a>)
+
+<pre>java Concat</pre>
+<pre>
+Avec concat : s3 = abcdef
+Avec + : s3 = abcdef
+s4 = abcdef4
+</pre>
+
 
 <h4>Performance</h4>
 On a vu qu'une <code>String</code> est immuable. Donc lorsqu'on fait :

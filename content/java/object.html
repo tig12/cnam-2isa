@@ -265,7 +265,7 @@ On a à la fois rendu la méthode <code>public</code>, modifié son type de reto
 
 <!-- ************************************* -->
 <h3><a name="4-2-shallow-vs-deep-copy">Shallow vs deep copy</a></h3>
-L'implémentation de <code>Object.clone()</code> effectue une <b>shallow copy</b> de l'objet : elle recopie les membres de l'objet. Pour les types primitifs, cela implique une copie de la valeur du membre. Mais pour les types références, cela implique une copie de la référence vers le membre. Donc l'objet original et son clone vont paratger les mêmes membres. Les deux objets ne sont donc pas indépendants, ce qui pose un problème pour les membres mutables.
+L'implémentation de <code>Object.clone()</code> effectue une <b>shallow copy</b> de l'objet : elle recopie les membres de l'objet. Pour les types primitifs ou les objets immuables, cela implique l'indépendance de l'objet et de son clone. Mais pour les types références mutables, l'objet original et son clone vont partager les mêmes membres. Les deux objets ne seront donc pas indépendants.
 <br>
 <br>On peut voir cette différence dans le code suivant :
 <pre>
@@ -319,12 +319,12 @@ class Personne implements Cloneable{
     public void setAnnee(int annee) { this.annee = annee; }
     public void setPays(Pays pays) { this.pays = pays; }
     public Pays getPays() { return pays; }
-    @Override
-    public String toString(){
+    @Override public String toString(){
         return prenom + " " + nom + " (" + String.valueOf(annee) + ") " + pays.getNom();
     }
-    @Override
-    public Personne clone() {
+    
+    // Implémentation non satisfaisante car le champ pays est mutable.
+    @Override public Personne clone() {
         Personne p = null;
         try{
             p = (Personne)super.clone();
@@ -364,7 +364,7 @@ Lorsqu'on fait <code>clone()</code> :
 <br>
 <br>Mais lorsqu'on modifie <code>p1.pays</code>, comme <code>Pays</code> est mutable et que <code>p1.pays</code> et <code>p2.pays</code> pointent vers le même objet, la modification apparaît à la fois dans <code>p1</code> et <code>p2</code>.
 <br><b>On voit donc que les deux objets ne sont pas indépendants.</b>
-Pour rendre vraiment indépendants ces deux objets, il faut faire une <b>deep copy</b>, c'est à dire créer un nouveau pays dans la méthode <code>clone()</code>
+<br>Pour rendre vraiment indépendants ces deux objets, il faut faire une <b>deep copy</b>, c'est à dire créer un nouveau pays dans la méthode <code>clone()</code>
 <br>
 <br>Par exemple :
 <pre>
