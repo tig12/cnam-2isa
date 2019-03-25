@@ -20,13 +20,13 @@ class Animal{
 class Chat extends Animal {
     // @Override
     public static String grogner(){
-        return "grogner() dans Chat";
+        return "Miaou";
     }
 }
 class Chien extends Animal {
     // @Override
     public static String grogner(){
-        return "grogner() dans Chien";
+        return "Ouaf";
     }
 }
 

@@ -4,8 +4,8 @@ class TestCompteAvecDecouvert{
 
     public static void main(String[] args){
         try{
-            Compte c1 = new CompteAvecDecouvert("Compte 1", 1000.0);
-            Compte c2 = new CompteAvecDecouvert("Compte 2", 4000.0);
+            CompteAvecDecouvert c1 = new CompteAvecDecouvert("Compte 1", 1000.0);
+            CompteAvecDecouvert c2 = new CompteAvecDecouvert("Compte 2", 4000.0);
             
             System.out.println("===== Etat initial =====");
             c1.afficher();

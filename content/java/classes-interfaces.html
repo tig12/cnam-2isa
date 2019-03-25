@@ -597,8 +597,11 @@ Java garantit que le constructeur d'une classe est appelé lorsqu'un objet de ce
 
 Si on déclare une classe sans définir explicitement de constructeur, java en crée un implicitement.
 <br>Donc revient au même qu'avoir ce constructeur :
-<pre>public MyClass() {
-    super();
+<pre>
+class MyClass {
+    public MyClass() {
+        super();
+    }
 }</pre>
 
 Noter au passage que <i>les constructeurs ne sont jamais hérités</i>.
@@ -670,13 +673,13 @@ class Animal{
 class Chat extends Animal {
     @Override
     public String grogner(){
-        return "grogner() dans Chat";
+        return "Miaou";
     }
 }
 class Chien extends Animal {
     @Override
     public String grogner(){
-        return "grogner() dans Chien";
+        return "Ouaf";
     }
 }                                                                      
 </pre>
@@ -685,8 +688,8 @@ class Chien extends Animal {
 java TestOverriding 
 </pre>
 <pre>
-grogner() dans Chien
-grogner() dans Chat
+Ouaf
+Miaou
 </pre>
 
 <!-- **************** -->
@@ -712,12 +715,12 @@ class Animal{
 }
 class Chat extends Animal {
     public static String grogner(){
-        return "grogner() dans Chat";
+        return "Miaou";
     }
 }
 class Chien extends Animal {
     public static String grogner(){
-        return "grogner() dans Chien";
+        return "Ouaf";
     }
 }
 </pre>
@@ -730,8 +733,8 @@ java TestMethodHiding
 
 <pre>
 grogner() dans Animal
-grogner() dans Chat
-grogner() dans Chien
+Miaou
+Ouaf
 </pre>
 
 
@@ -762,13 +765,13 @@ class Animal{
 class Chat extends Animal {
     // @Override
     public <b>static</b> String grogner(){
-        return "grogner() dans Chat";
+        return "Miaou";
     }
 }
 class Chien extends Animal {
     // @Override
     public <b>static</b> String grogner(){
-        return "grogner() dans Chien";
+        return "Ouaf";
     }
 }
 </pre>

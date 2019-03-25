@@ -15,8 +15,9 @@
 
 <div class="big2 margin">But : concevoir des petits algorithmes, organiser son code.</div>
 
-
-- 1) Ecrire un programme qui affiche les 50 premiers nombres premiers.
+<ol type="I">
+    <li>
+Ecrire un programme qui affiche les 50 premiers nombres premiers.
 <br>Un nombre premier n'est divisible que par 1 et par lui-même.
 <br>Par exemple, 7 est premier, mais 6 n'est pas premier car il peut être divisé par 2 et par 3.
 <br>
@@ -28,9 +29,26 @@
 <br>Vous pouvez utiliser l'opérateur modulo (<code>%</code>).
 <br>Par exemple, pour savoir en java si 28 est divisible par 5 :
 <pre>if(28 % 5 == 0)</pre>
-<br>
-<br>- 2) (optionnel) Vous pouvez essayer de minimiser le nombre de tests effectués.
-<br>Vous aurez peut-être besoin de la fonction racine carrée : <code>java.lang.Math.sqrt()</code>
+    </li>
+    
+    <li>
+(optionnel) Vous pouvez essayer de minimiser le nombre de tests effectués.
+    <ol>
+        <li>
+            En remarquant qu'il est inutile de tester au delà de la racine carré du nombre.
+            <br>Par exemple, si vous testez 29, inutile de tester au delà de 6 (utiliser <code>java.lang.Math.sqrt()</code>).
+        </li>
+        <li>
+            En remarquant qu'il suffit de tester si le nombre est divisible par les nombres premiers inférieurs à celui-ci.
+            <br>Par exemple, si vous testez 29, inutile de tester 14 : s'il était divisible par 14, il serait divisible par 2 et par 7, car 14 = 2 * 7.
+        </li>
+    </ol>
+
+    
+
+
+    </li>
+</ol>
 
 
 </article>

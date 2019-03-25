@@ -99,7 +99,7 @@ try {
     // e est de type ExceptionType1
 }
 
-catch(ExceptionType2){
+catch(ExceptionType2 e){
     // traitement de ce cas anormal de type ExceptionType2
     // e est de type ExceptionType2
 }
@@ -151,8 +151,9 @@ Dans le code qu'on écrit on a le choix entre utiliser <code>Exception</code> et
 Une exception est "lancée" avec l'instruction <code>throw</code> lorsqu'une condition anormale d'exécution est rencontrée :
 <pre>
 public static double factorial(int x) throws IllegalArgumentException{
-    if (x < 0)
+    if (x < 0){
         <b>throw new IllegalArgumentException("x must be >= 0")</b>;
+    }
     double fact;
     for(fact=1.0; x > 1; fact *= x, x--)
         ; // instruction vide
@@ -230,13 +231,13 @@ void maMéthodeQuiNePassePasALaCompil(){
 </pre>
 Si ce code passait à la compilation, le <code>catch</code> de <code>IllegalArgumentException</code> ne serait jamais appelé puisque c'est une sous-classe de <code>Exception</code>.
 
-<!-- ********************************************************************************* -->
-<h2><a name="5-try-with-resources-twr">try with resources (TWR)</a></h2>
-Voir <a href="io.html#1-3-try-with-resources-twr">le cours sur java.io</a>
-
 <div class="exo">
     <b>Exercice</b> <a href="../../exos/java/multiples/Multiples2.html">Multiples2</a>
 </div>
+
+<!-- ********************************************************************************* -->
+<h2><a name="5-try-with-resources-twr">try with resources (TWR)</a></h2>
+Voir <a href="io.html#1-3-try-with-resources-twr">le cours sur java.io</a>
 
 
 <!-- ************************************* -->

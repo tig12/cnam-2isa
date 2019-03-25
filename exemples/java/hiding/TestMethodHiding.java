@@ -15,12 +15,12 @@ class Animal{
 }
 class Chat extends Animal {
     public static String grogner(){
-        return "grogner() dans Chat";
+        return "Miaou";
     }
 }
 class Chien extends Animal {
     public static String grogner(){
-        return "grogner() dans Chien";
+        return "Ouaf";
     }
 }
 
