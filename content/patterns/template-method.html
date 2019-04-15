@@ -51,7 +51,7 @@ Template Method
 <div class="big2 margin">
 But : Définir le squelette d'un algorithme dans une méthode, et déléguer certaines étapes de l'algo à des sous-classes.
 </div>
-<br>Permet aux sous-classes de redéfinir certaines étapes de l'algo sans en changer la structure.
+Permet aux sous-classes de redéfinir certaines étapes de l'algo sans en changer la structure.
 <br>
 <br>Les parties invariantes de l'algo sont implémentées dans une classe abstraite, et les parties variables sont redéfinies dans les sous-classes.
 
@@ -213,10 +213,12 @@ On peut définir <code>protected</code> les <i>primitive operations</i> afin de 
 <br>Les sous-classes participent au calcul, mais c'est la super-classe qui décide quand.
 
 <br>
-<br><i>Template method</i> utilise des sous-classes pour faire varier les parties d'un algorithme, alors que <code>Strategy</code> utilise la délégation pour faire varier l'algorithme entier.
+<br><i>Template method</i> utilise des sous-classes pour faire varier les parties d'un algorithme, alors que <a href="strategy.html">Strategy</a> utilise la délégation pour faire varier l'algorithme entier.
 
-<br>
-<br><cite>"Les template methods sont si fondamentales qu'on les trouve dans presque toutes les classes abstraites"</cite> (gof)
+<blockquote>
+"Les template methods sont si fondamentales qu'on les trouve dans presque toutes les classes abstraites"
+<cite>(gof)</cite>
+</blockquote>
 
 
 <!-- ************************************* -->

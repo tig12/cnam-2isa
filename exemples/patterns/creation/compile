@@ -30,8 +30,6 @@ mkdir -p $dirdest
 
 if [ $# == 0 ]; then
     # compile all
-    command="javac -classpath $dirdest -d $dirdest $dirsrc/Main.java"
-    echo $command; $command
     command="javac -classpath $dirdest -d $dirdest $dirsrc/model/*.java"
     echo $command; $command
     command="javac -classpath $dirdest -d $dirdest $dirsrc/model/*/*.java"
@@ -39,6 +37,8 @@ if [ $# == 0 ]; then
     command="javac -classpath $dirdest -d $dirdest $dirsrc/patterns/*/*.java"
     echo $command; $command
     command="javac -classpath $dirdest -d $dirdest $dirsrc/patterns/*/*/*.java"
+    echo $command; $command
+    command="javac -classpath $dirdest -d $dirdest $dirsrc/Main.java"
     echo $command; $command
 
 else

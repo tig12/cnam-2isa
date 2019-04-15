@@ -103,7 +103,7 @@ est légal, mais l'utilisation de <code>List</code> dans le code génère une er
 <pre>
 import java.util.*;
 import java.awt.*;
-import java.util.List; // pour lever l'ambiguité
+import java.util.List; // pour lever l'ambiguïté
 </pre>
 Dans le code, l'identifiant "<code>List</code>" désignera une <code>java.util.List</code> et pour utiliser <code>java.awt.List</code>, on doit faire :
 <pre>java.awt.List = new java.awt.List(...)</pre>
@@ -111,7 +111,8 @@ Dans le code, l'identifiant "<code>List</code>" désignera une <code>java.util.L
 <!-- ************************************* -->
 <h3><a name="1-2-import-static">import static</a></h3>
 Introduit en java 5.
-<br>Possible d'importer les membres statiques (variables et méthodes) d'une classe en faisant : 
+<br>Les imports "normaux" permettent d'importer des noms de types référence (classes, interfaces...).
+<br>Les imports static permettent d'importer les membres statiques (variables et méthodes) d'une classe, en faisant : 
 <pre>import static java.lang.System.out;</pre>
 Permet par exemple d'utiliser dans le code <code>out.println()</code> au lieu de <code>System.out.println()</code>.
 <br>Utilisation courante :

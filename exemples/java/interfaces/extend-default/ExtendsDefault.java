@@ -11,6 +11,8 @@ interface Interface1 extends Interface0{ }
 class C1 implements Interface1{}
 
 // cas 2
+// Interface2.methode() "efface" Interface0.methode()
+// Donc C2 doit redéfinir methode()
 interface Interface2 extends Interface0{
     void methode();
 }

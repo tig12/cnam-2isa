@@ -1,5 +1,5 @@
 
-class TestAbstractProxy{
+class TestVirtualProxy{
     
     public static void main(String[] args) {
         

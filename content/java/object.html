@@ -52,16 +52,9 @@
     </ul>
 </nav>
 
-
-
-
 </header>
 
 <article>
-
-
-
-
 
 C'est la seule classe java qui n'a pas de superclasse ; ancêtre commun à toutes les autres classes, qui héritent donc des méthodes de <code>Object</code>.
 <br>
@@ -143,8 +136,8 @@ public class ToString1 {
         System.out.println("p3 = " + p3);
         
         Personne p4 = null;
-        System.out.println("p4 = " + p4);
-        System.out.println("p4.toString() = " + p4.toString()); // java.lang.NullPointerException
+        <b>System.out.println("p4 = " + p4);</b>
+        <b>System.out.println("p4.toString() = " + p4.toString());</b> // java.lang.NullPointerException
     }
 }
 </pre>
@@ -163,7 +156,7 @@ Exception in thread "main" java.lang.NullPointerException
 <!-- ************************************* -->
 <h3><a name="2-2-overriding">Overriding</a></h3>
 
-L'implémentation par défaut n'étant pas très parlante, elle est en général réimplémenté dans les sous-classes, comme conseillé par la documentation :
+L'implémentation par défaut n'étant pas très parlante, elle est en général réimplémentée dans les sous-classes, comme conseillé par la documentation :
 <blockquote>It is recommended that all subclasses override this method.</blockquote>
 
 Suivant les besoins, on est régulèrement amené à overrider cette méthode.
@@ -224,7 +217,7 @@ https://ydisanto.developpez.com/tutoriels/java/cloneable/
 https://gfx.developpez.com/tutoriel/java/immuables/
 -->
 
-Le but est d'obtenir une copie exacte de l'objet, donc de même classe, ayant le même état (les mêmes valeurs des membres) et indépendant de l'objet original.
+Le but est d'obtenir une copie exacte de l'objet, donc de même classe, ayant le même état (les mêmes valeurs des membres) <b>et indépendant de l'objet original</b>.
 <br>En java, cela est fait en général en overridant <code>Object.clone()</code>, mais il existe d'autres manières de faire :
 <ul>
     <li>
@@ -265,7 +258,10 @@ On a à la fois rendu la méthode <code>public</code>, modifié son type de reto
 
 <!-- ************************************* -->
 <h3><a name="4-2-shallow-vs-deep-copy">Shallow vs deep copy</a></h3>
-L'implémentation de <code>Object.clone()</code> effectue une <b>shallow copy</b> de l'objet : elle recopie les membres de l'objet. Pour les types primitifs ou les objets immuables, cela implique l'indépendance de l'objet et de son clone. Mais pour les types références mutables, l'objet original et son clone vont partager les mêmes membres. Les deux objets ne seront donc pas indépendants.
+L'implémentation de <code>Object.clone()</code> effectue une <b>shallow copy</b> de l'objet : elle recopie les membres de l'objet.
+<br>Pour les types primitifs ou les objets immuables, cela implique l'indépendance de l'objet et de son clone.
+<br>Mais pour les types références mutables, l'objet original et son clone vont partager les mêmes membres.
+<br><b>Les deux objets ne seront donc pas indépendants</b>.
 <br>
 <br>On peut voir cette différence dans le code suivant :
 <pre>
@@ -594,7 +590,7 @@ Les deux règles sont respectées, et on a en plus : si deux personnes ont un ha
     }
 </pre>
 
-<b>Mais ce n'est pas un cas général</b>, voir par exemple <code>HashCode1</code>.
+<b>Mais ce n'est pas un cas général</b>, voir l'exemple précédent <code>HashCode1</code>.
 
 <h4>Importance de hashCode()</h4>
 

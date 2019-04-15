@@ -22,7 +22,10 @@ DefaultMethods.java:23: error: class C1 inherits unrelated defaults for method1(
 */
 class C1 implements Interface1, Interface2{}
 
-/* Compilation OK */
+/*
+   Compilation OK
+   L'implémentation résout l'ambiguïté
+*/
 class C2 implements Interface1, Interface2{
     public void method1(){}
 }

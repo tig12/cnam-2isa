@@ -80,10 +80,6 @@ Pattern assez proche de <a href="adapter.html">Adapter</a> et <a href="decorator
     <b>Exercice</b> : <a href="../../exos/patterns/proxy/protection/ProtectionProxy.html">Protection proxy</a>
 </div>
 
-<div class="exo">
-    <b>Exercice</b> : <a href="../../exos/patterns/proxy/abstract/AbstractProxy.html">Abstract proxy</a>
-</div>
-
 Exemple courant d'abstract proxy : 
 <br>Dans un ORM, on a les classes <code>Livre</code> et <code>Auteur</code> qui représentent des données stockées dans les tables <code>livres</code> et <code>auteurs</code>.
 <br>Lorsqu'on fait dans le code :
@@ -101,6 +97,10 @@ Livre[] livres = auteur.getLivres();
 </pre>
 les requêtes SQL ne seront faites que lorsqu'on en a besoin.
 
+
+<div class="exo">
+    <b>Exercice</b> : <a href="../../exos/patterns/proxy/virtual/VirtualProxy.html">Virtual proxy</a>
+</div>
 
 <!-- ************************************* -->
 <!-- ********************************************************************************* -->

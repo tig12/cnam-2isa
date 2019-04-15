@@ -1014,12 +1014,27 @@ Comme pour une classe, lorsqu'on définit une nouvelle interface, on définit un
 Pour déclarer une classe qui implémente une interface, on utilise la clause <code>implements</code> dans la déclaration de la classe.
 <br>Si la déclaration de la classe contient aussi une clause <code>extends</code>, on la place avant (par convention).
 <pre>public Class1 extends class2 implements interface1, interface2{ ... }</pre>
-Les classes doivent fournir une implémentation de toutes les méthodes abstraites qu'elles implémentent.
+Les classes doivent fournir une implémentation de <b>toutes</b> les méthodes abstraites définies dans les interfaces qu'elles implémentent.
 <br>
-<br>Un objet d'une classe implémentant des interfaces est à la fois du type de la classe et du type des interfaces implémentées par la classe.
+<br><b>Note</b> : si une classe implémente plusieurs interfaces, et qu'une même méthode est déclarée dans plusieurs de ces interfaces, cela ne pose pas de problème :
+<pre>
+interface Interface1{
+    public void methode();
+}
+interface Interface2{
+    public void methode();
+}
+class RepeteMethodes implements Interface1, Interface2{
+    public void methode(){
+        System.out.println("RepeteMethodes.methode()");
+    }
+}
+</pre>
+
+(code dans <a href="../../exemples/java/interfaces/repete-methodes/RepeteMethodes.java">RepeteMethodes.java</a>)
 
 <div class="exo">
-    <b>Exercice</b> <a href="../../exos/java/interfaces1/interfaces1.html">interfaces1</a>, questions 1 et 2.
+    <b>Exercice</b> <a href="../../exemples/java/interfaces/interfaces1.html">interfaces1</a>, questions 1 et 2.
 </div>
 
 
@@ -1030,7 +1045,7 @@ Le but principal est de pouvoir faire évoluer des interfaces sans casser le cod
 <pre>
 interface DoIt {
     // ...
-   default void aNewMethod(int i){
+   <b>default</b> void aNewMethod(int i){
     // ...  implémentation fournie
    }
 }
@@ -1043,8 +1058,10 @@ Une classe implémentant une interface peut implémenter les méthodes par défa
 <br>
 <br>Une limite : overrider les méthodes de <code>Object</code> n'est pas possible.
 <pre>
+// Ne passe pas à la compilation
+// error: default method toString in interface I overrides a member of java.lang.Object
 interface I{
-    @Override default public String toString(){ ... }
+    @Override default public String toString(){ return "interface I"; }
 }
 </pre>
 
@@ -1160,7 +1177,7 @@ if (l.size() > 2 && !(l instanceof RandomAccess)){
 l.sort();
 </pre>
 
-Un autre exemple fréquemment utilisé est la marker interface <code>Cloneable</code> ; voir page <a href="object.html">java.lang.Object</a>, paragraphe Clone().
+Un autre exemple fréquemment utilisé est la marker interface <code>Cloneable</code> ; voir la page <a href="object.html">java.lang.Object</a>, paragraphe Clone().
 
 <!-- ********************************************************************************* -->
 <h2><a name="4-classe-abstraite-ou-interface">Classe abstraite ou interface ?</a></h2>
@@ -1172,7 +1189,8 @@ Avant java 8, les interfaces ne pouvaient que contenir des spécifications de m�
 <br>Par exemple
 <img class="border margin padding05" src="img/list-inheritance.jpg" alt="List et AbstractList">
 
-Depuis les default et static methods, on a le choix. Quelques considérations :
+Depuis les default et static methods, on a le choix.
+<br>Quelques considérations :
 
 <ul class="spaced naked">
     <li>Une classe ne peut hériter que d'une seule classe.</li>

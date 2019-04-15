@@ -128,11 +128,14 @@ class RegistrationManager {
     public static void registerUser (...) { ... }
 }
 </pre>
-Cela n'est pas toujours possible (cf contre-exemple dans le pattern Service locator).
+ATTENTION : cela n'est pas toujours possible (cf contre-exemple dans le pattern Service locator, où on a besoin de transmettre une instance).
 <br>
 <br>La présence d'un singleton permet d'accéder à un service depuis n'importe où sans avoir à transmettre la référence vers ce service.
-<br>
-<br><b>Extension</b> : le "<b>multiton</b>" (ne fait pas partie des patterns officiels) : cas où on a besoin de 2 (ou 3 ou plus) instances. Dans ce cas, on peut utiliser le même principe en utilisant une map (ou dictionnaire, ou tableau asociatif).
+
+<!-- ************************************* -->
+<h3>Multiton</h3>
+
+<b>Extension</b> : le "<b>multiton</b>" (ne fait pas partie des patterns officiels) : cas où on a besoin de 2 (ou 3 ou plus) instances. Dans ce cas, on peut utiliser le même principe en utilisant une map (ou dictionnaire, ou tableau asociatif).
 
 
 <!-- ********************************************************************************* -->
@@ -174,7 +177,7 @@ class ClientCode{
     </li>
     
     <li>
-        Viole le <i> Single Responsibility Principle</i> : le singleton est à la fois responsable de sa logique métier et de la logique de sa création.
+        Viole le <a href="../oop/solid.html">Single Responsibility Principle</a> : le singleton est à la fois responsable de sa logique métier et de la logique de sa création.
     </li>
     
     <li>
@@ -182,6 +185,7 @@ class ClientCode{
     </li>
     <li>
         Le singleton n'est pas thread-safe :
+        <br>On se place dans deux flots d'exécution parallèles qui vont utiliser la classe <code>Singleton</code>.
         <br>- Un premier thread exécute la fonction <code>getInstance()</code> constate que l’attribut <code>_instance</code> est nul.
         <br>- Un deuxième thread s’exécute et lui aussi constate (via <code>getInstance()</code>) que l’attribut <code>_instance</code> est nul.
         <br>- Il va donc créer une instance et retourner celle-ci.
