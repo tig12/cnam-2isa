@@ -22,9 +22,10 @@ class TestProtectionProxy{
         String role = args[0];
         
         // Appel de la classe Sensible
-        Sensible.rootMethod(role);
-        Sensible.adminMethod(role);
-        Sensible.userMethod(role);
+        Sensible sensible = new Sensible();
+        sensible.rootMethod(role);
+        sensible.adminMethod(role);
+        sensible.userMethod(role);
     }
 }
 
@@ -38,17 +39,17 @@ class Proxy{
 class Sensible{
 
     /** Méthode pouvant être exécutée par ROOT, pas par ADMIN ni USER **/
-    public static void rootMethod(String role){
+    public void rootMethod(String role){
         System.out.println("rootMethod called with role " + role);
     }
     
     /** Méthode pouvant être exécutée par ADMIN et ROOT, pas par USER **/
-    public static void adminMethod(String role){
+    public void adminMethod(String role){
         System.out.println("adminMethod called with role " + role);
     }
     
     /** Méthode pouvant être exécutée par tout le monde (USER, ADMIN, ROOT) **/
-    public static void userMethod(String role){
+    public void userMethod(String role){
         System.out.println("userMethod called with role " + role);
     }
 }
