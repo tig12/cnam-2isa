@@ -35,7 +35,7 @@
 <article>
 
 
-Autres noms : Surrogate (= substitution), Placeholder (= objet de substitution)
+Autres noms : <strong>Surrogate</strong> (= substitution), <strong>Placeholder</strong> (= objet de substitution)
 
 <div class="intro">
 But : cacher un objet en fournissant un objet de substitution.
@@ -75,16 +75,15 @@ A l'exécution :
 Pour pouvoir substituer l'objet caché par le proxy, les deux implémentrent la même interface.
 <br>Le proxy a une variable d'instance de type <code>RealSubject</code>, de manière à pouvoir forwarder <code>request()</code>.
 
-<br>
-<br>Pattern assez proche de <a href="adapter.html">Adapter</a> et <a href="decorator.html">Decorator</a>, mais :
-<br>- Adapter fournit une interface différente de l'objet qu'il adapte, ce n'est généralement pas le cas pour proxy.
-<br>- Decorator et Proxy ne répondent pas au même but : Decorator ajoute des fonctionnalités, Proxy contrôle un accès.
-
 <div class="exo">
     <b>Exercice</b> : <a href="../../exos/patterns/proxy/protection/ProtectionProxy.html">Protection proxy</a>
 </div>
 
-Exemple courant d'abstract proxy : 
+
+<!-- ********************************************************************************* -->
+<h2>Exemples</h2>
+
+Exemple courant de virtual proxy : 
 <br>Dans un ORM, on a les classes <code>Livre</code> et <code>Auteur</code> qui représentent des données stockées dans les tables <code>livres</code> et <code>auteurs</code>.
 <br>Lorsqu'on fait dans le code :
 <pre>
@@ -105,6 +104,14 @@ les requêtes SQL ne seront faites que lorsqu'on en a besoin.
 <div class="exo">
     <b>Exercice</b> : <a href="../../exos/patterns/proxy/virtual/VirtualProxy.html">Virtual proxy</a>
 </div>
+
+<!-- ********************************************************************************* -->
+<h2>Remarques</h2>
+
+Pattern assez proche de <a href="adapter.html">Adapter</a> et <a href="decorator.html">Decorator</a>, mais :
+<br>- Adapter fournit une interface différente de l'objet qu'il adapte, ce n'est généralement pas le cas pour proxy.
+<br>- Decorator et Proxy ne répondent pas au même but : Decorator ajoute des fonctionnalités, Proxy contrôle un accès.
+
 
 <!-- ************************************* -->
 <!-- ********************************************************************************* -->

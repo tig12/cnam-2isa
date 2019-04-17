@@ -67,8 +67,23 @@ La question est d'y arriver <i>sans les coupler fortement</i>.
 <br>Le <b>sujet</b> (qui contient ici les données) doit pouvoir être utilisé indépendamment des représentations graphiques.
 <br>Et chaque représentation graphique doit pouvoir être utilisée indépendamment des données représentées ; elles ne doivent pas non plus dépendre les unes des autres.
 <br>Mais elles doivent se <i>comporter</i> comme si elles étaient liées.
-<br>
-<br>Le pattern observer répond à cette problématique en proposant deux concepts principaux : le <b>sujet</b> et l'<b>observateur</b>.
+
+<!-- ************************************* -->
+<h3>Implémentation sans pattern</h3>
+
+On peut répondre à cette problématique sans pattern <i>Observer</i>.
+<div class="exo">
+Voir l'implémentation "before" de <a href="../../exemples/patterns/observer/gof">ces implémentations de l'exemple gof</a>.
+<br>Etudier et comprendre le code.
+<br>Bien comprendre les inconvénients de cette implémentation.
+</div>
+
+On voit que cette implémentation n'est pas tenable en situation réelle.
+
+<!-- ************************************* -->
+<h3>Introduction du pattern</h3>
+
+Le pattern observer répond à cette problématique en proposant deux concepts principaux : le <b>sujet</b> (ou <b>observable</b>) et l'<b>observateur</b>.
 <br>Le sujet peut avoir un nombre quelconque d'observateurs qui dépendent de lui.
 <br>Tous les observateurs sont avertis lorsque le sujet change d'état.
 <br>En retour, chaque observateur demande au sujet de lui communiquer son nouvel état.
@@ -78,12 +93,13 @@ La question est d'y arriver <i>sans les coupler fortement</i>.
 <h2><a name="2-structure">Structure</a></h2>
 
 <img class="border margin" src="img/observer.jpg" alt="Pattern Observer">
-A noter: terme "Subject" est ambigü car signifie le contraire en philosophie ou en physique !
+A noter : le terme "Subject" est ambigü car peut signifier le contraire en philosophie ou en physique !
 <br>On peut remplacer "Sujet" par "Observable".
 
 
 <!-- ************************************* -->
 <h3><a name="2-1-participants">Participants</a></h3>
+
 
 <h4>Subject (= Observable)</h4>
 <ul>
@@ -109,30 +125,16 @@ A noter: terme "Subject" est ambigü car signifie le contraire en philosophie ou
     <li>Implémente l'interface permettant de le mettre à jour.</li>
 </ul>
 
-<div class="exo"><b>Exercice</b>
-<br>Faire fonctionner <a href="../../exemples/patterns/observer/gof">ces implémentations de l'exemple gof</a>, étudier le code.
-<ul>
-    <li>
-        Implémentation "before" :
-        <ul>
-            <li>Bien comprendre les inconvénients de cette implémentation.</li>
-        </ul>
-    </li>
-    <li>
-        Implémentation "after" :
-        <ul>
-            <li>Repérer les classes qui jouent le rôle de <code>Subject</code>, <code>Observer</code>, <code>ConcreteSubject</code>, <code>ConcreteObserver</code>.</li>
-            <li>
-                Comprendre pourquoi la partie "1" de <code>main()</code> n'affiche rien. Comment pourrait-on remédier à ça ?
-                <!--
-                en faisant dans le constructeur des observateurs :
-                state = o.getState();
-                -->
-            </li>
-            <li>Faire le diagramme de séquence dans la partie "2" de <code>main()</code></li>
-        </ul>
-    </li>
-</ul>
+<div class="exo">
+Voir l'implémentation "after" <a href="../../exemples/patterns/observer/gof">des implémentations de l'exemple gof</a>.
+<br>Repérer les classes qui jouent le rôle de <code>Subject</code>, <code>Observer</code>, <code>ConcreteSubject</code>, <code>ConcreteObserver</code>.
+<br>Comprendre pourquoi la partie "1" de <code>main()</code> n'affiche rien. Comment pourrait-on remédier à ça ?
+<!--
+en faisant dans le constructeur des observateurs :
+state = o.getState();
+-->
+<br>
+<br>Faire le diagramme de séquence dans la partie "2" de <code>main()</code>
 </div>
 
 
@@ -140,7 +142,10 @@ A noter: terme "Subject" est ambigü car signifie le contraire en philosophie ou
 <h2><a name="3-remarques">Remarques</a></h2>
 
 <code>Observer</code> est souvent implémenté avec une interface et <code>Observable</code> avec une classe abstraite qui fournit l'implémentation de la liste de ses observateurs et des méthodes <code>notifyObservers()</code>, <code>addObserver()</code> etc.
-
+<br>
+<br>Dans ce pattern, la présence des interfaces (ou classes abstraites) est indispensable :
+<br>- L'observable maintient une liste d'observateurs ; il sait seulement que ces observateurs ont une méthode <code>update()</code> et ignore tout de leur type concret.
+<br>- Les observateurs ont une certaine connaissance des observables concrets (appel à <code>getState()</code> dans <code>update()</code>), mais le type abstrait <code>Observable</code> est nécessaire pour la signature de la méthode update, en particulier lorsqu'un observateur surveille plusieurs observables de types concrets différents (voir plus loin). 
 
 <!-- ************************************* -->
 <h3><a name="3-1-communication-observateur-observable">Communication observateur / observable</a></h3>
@@ -177,9 +182,14 @@ public abstract class Observable{
 
 <div class="exo"><b>Exercice</b> : <a href="../../exos/patterns/observer/brebis/Brebis.html">Brebis</a></div>
 
+<!-- ************************************* -->
+<h3>Plusieurs observables</h3>
+
+Le pattern permet aux observateurs de rester synchrosnisés avec plusieurs observables, qui peuvent être de type concret différents, dès lors qu'ils dérivent (ou implémentent) <code>Observable</code>.
+
 
 <!-- ********************************************************************************* -->
-<h2><a name="4-en-java-jusque-java-8">En java (jusque java 8)</a></h2>
+<h2><a name="4-en-java-jusque-java-8">En java (jusque java 8) -- obsolete</a></h2>
 ATTENTION :  ce mécanisme a été déprécié en java 9.
 <br><br><cite>
 This class and the <code>Observer</code> interface have been deprecated. The event model supported by <code>Observer</code> and <code>Observable</code> is quite limited, the order of notifications delivered by <code>Observable</code> is unspecified, and state changes are not in one-for-one correspondence with notifications. For a richer event model, consider using the <code>java.beans</code> package. For reliable and ordered messaging among threads, consider using one of the concurrent data structures in the <code>java.util.concurrent</code> package. For reactive streams style programming, see the Flow API.

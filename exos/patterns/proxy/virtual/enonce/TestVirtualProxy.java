@@ -7,6 +7,7 @@ class TestVirtualProxy{
         GrosObjet go = new GrosObjet();
         System.out.println("dans main() : après instanciation de GrosObjet");
         
+        System.out.println();
         System.out.println("dans main() : appel à go.méthodeAyantVraimentBesoinDeGrosObjet()");
         go.premièreMéthodeAyantVraimentBesoinDeGrosObjet();
         System.out.println("dans main() : appel à go.secondeMéthodeAyantVraimentBesoinDeGrosObjet()");
@@ -14,8 +15,18 @@ class TestVirtualProxy{
     }
 }
 
-/** Remplace GrosObjet pour implémenter le lazy loading **/
+/** 
+    Interface commune à GrosObjet et GrosObjetProxy
+**/
+interface IGrosObjet{
+    // à compléter
+}
+
+/**
+    Proxy se substituant à GrosObjet pour implémenter le lazy loading
+**/
 class GrosObjetProxy{
+    // à compléter
 }
 
 class GrosObjet{
