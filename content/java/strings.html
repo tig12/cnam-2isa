@@ -85,7 +85,7 @@ En interne, une String est représentée par un tableau de <code>char</code> (16
 <pre>String s1 = "abc";</pre>
 est équivalent à :
 <pre>
-char data[] = {'a', 'b', 'c'};
+char[] data = {'a', 'b', 'c'};
 String str = new String(data); // noter constructeur par recopie
 </pre>
 Mais on ne peut pas directement manipuler une chaîne comme un tableau : 

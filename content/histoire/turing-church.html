@@ -66,13 +66,8 @@ Les deux grandes familles de langages informatiques (<b>langages impératifs</b>
     <br>si une assertion de la logique du premier ordre est vraie ?
 </div>
 
-<br>Autrement dit : si on a une assertion logique quelconque, existe-t-il toujours un moyen de savoir si elle est vraie ? Ou existe-t-il des assertions indécidables ?
-<br>
-<br>(La complétude fait partie des caractéristiques qu'un système de déduction devrait satisfaire, avec la <i>correction</i> et la <i>cohérence</i>, voir <a href="https://fr.wikipedia.org/wiki/Logique_math%C3%A9matique#Syst%C3%A8mes_de_d%C3%A9duction">wikipedia</a>).
-
-<!-- 
-<br>Pour plus de détails, voir par exemple <a href="https://fr.wikipedia.org/wiki/Probl%C3%A8me_de_la_d%C3%A9cision">Problème de la décision</a> et <a href="https://fr.wikipedia.org/wiki/Calcul_des_pr%C3%A9dicats">Calcul des prédicats</a>.
--->
+<br>Autrement dit : si on a une assertion logique, existe-t-il toujours un moyen de savoir si elle est vraie ? Ou existe-t-il des assertions indécidables ?
+<br>Peut-on savoir si un système logique est <b>décidable</b> ou pas.
 <br>
 <br><b>La réponse est "non"</b> : il peut exister des assertions qu'on ne peut pas démontrer.
 <br>
@@ -94,14 +89,23 @@ Church et Turing ont ensuite travaillé ensemble.
 <br>Une fonction est calculable par une machine de Turing si et seulement si elle est calculable en utilisant le lambda-calcul.
 <br>Autrement dit, tout problème pouvant être résolu en programmation impérative peut l'être en programmation fonctionnelle, et vice-versa.
 <br>
-<br>Pour répondre à cette question, il faut définir précisément ses termes :
-<br>- Qu'est-ce qu'une opération ?
-<br>- Qu'est-ce qu'un processus ?
-<br>- Qu'est-ce que la logique du remier ordre ?
+<br>La décidabilité est une des caractéristiques qu'un système de déduction devrait satisfaire ; les autres caractéristiques sont :
+<ul class="margin0 simple">
+    <li>la complétude</li>
+    <li>la correction</li>
+    <li>la cohérence</li>
+</ul>
+Voir <a href="https://fr.wikipedia.org/wiki/Logique_math%C3%A9matique#Syst%C3%A8mes_de_d%C3%A9duction">wikipedia</a>.
+
+
 
 <!-- ************************************* -->
 <h3><a name="1-1-logique-du-premier-ordre">Logique du premier ordre</a></h3>
 
+Pour répondre à cette question, il faut définir précisément ses termes :
+<br>- Qu'est-ce qu'une opération ?
+<br>- Qu'est-ce qu'un processus ?
+<br>- Qu'est-ce que la logique du remier ordre ?
 
 <!-- ************************************* -->
 <h3><a name="1-2-operation">Opération</a></h3>
@@ -140,9 +144,114 @@ Voir <a href="https://mathdevelopment.tumblr.com/post/182509661410/lambda-calcul
         <br><code><b>MN</b></code> : désigne l'application de la fonction <code>M</code> avec comme paramètre <code>N</code> ; on est habitués à noter plutôt <code>M(N)</code>.
     </li>
 </ul>
+
 La seule règle pour passer d'une expression à une autre est la <i>réduction &beta;</i> : <code><b>(&lambda;x.M)N &rarr; <sub>&beta;</sub> M[x:=N]</b></code>
 <br>Appliquer la &lambda; expression <code>&lambda;x.M</code> au paramètre <code>N</code> revient au même que de remplacer <code>x</code> par <code>N</code> dans le corps de la fonction <code>M</code>.
 
+
+
+<!-- ********************************************************************************* -->
+<h2>Fonctions</h2>
+
+On part de la définition mathématique d'une fonction
+<br><code>f(x) = y</code>.
+<br>En informatique, ça fait une fonction qui prend <code>x</code> en paramètre et renvoie <code>y</code> :
+<pre>
+// isVoyelle('a') = true
+// isVoyelle('r') = false
+boolean isVoyelle(char c){ ... }
+</pre>
+Une fonction transforme un type de donnée en un autre :
+<div class="">char -- isVoyelle() --> boolean</div>
+
+<!-- ************************************* -->
+<h3>Fonctions pures</h3>
+Une fonction <b>pure</b> correspond à la notion mathématique de fonction : elle n'a pas d'effet de bord ; pour une valeur donnée d'un paramètre, la valeur du retour sera toujours la même ; elle ne fait rien d'autre que de transformer un type en un autre.
+<br>
+<br>En pratique, quand on programme, les fonctions ne sont pas pures :
+<ul class="margin0 simple">
+    <li>Elles peuvent renvoyer des erreurs ou exceptions</li>
+    <li>Elles peuvent avoir ou renvoyer plusieurs paramètres</li>
+    <li>
+        Elles peuvent être amenées à dépendre ou modifier le système global.
+        <br>Le résultat de certaines fonctions concrètes dépendent par ex. de l'heure, de la disponibilité d'une ressource extérieure.
+    </li>
+</ul>
+Toutes ces caractéristiques peuvent se greffer sur les fonctions pures (curryfication etc.) et on peut manipuler des fonctions réelles avec les maths des fonctions pures.
+
+<!-- ************************************* -->
+<h3>Ensembles</h3>
+<div class="definition">Type de donnée = l'<b>ensemble</b> des valeurs que peuvent prendre les variables de ce type.</div>
+
+<table class="wikitable margin">
+    <th>Type</th><th>Ensemble</th><th>N : cardinal de l'ensemble</th>
+    <tr>
+        <td>Boolean</td>
+        <td>true, false</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>Char</td>
+        <td>'a', 'b', ...</td>                                                    
+        <td>128</td>
+    </tr>
+    <tr>
+        <td>Integer</td>
+        <td>1, 2, 3 ...</td>
+        <td><span class="big5">&infin;</span> infini</td>
+    </tr>
+    <tr>
+        <td>Real</td>
+        <td>0.0001, 0.0002 ...</td>
+        <td><span class="big5">&infin;</span> infini</td>
+    </tr>
+    <tr>
+        <td>String</td>
+        <td>"", "a", "aa" ...</td>
+        <td><span class="big5">&infin;</span> infini</td>
+    </tr>
+</table>
+
+Cartains types ont en théorie un nombre inifni de valeurs mais en pratique un nombre fini car limité par les capacités de la machine.
+<br>
+<br>Partout où elle est définie, une fonction fait correspondre aux éléments de l'ensemble de départ à des éléments de l'ensemble d'arrivée.
+<br>Pour <code>isVoyelle :</code>
+<pre class="normal">
+('a', true),
+('b', false),
+('c', false),
+...
+</pre>
+
+<strong>Une fonction permet de définir un sous-ensemble du produit cartésien</strong>
+
+<pre class="normal">
+<b>('a', true)</b>, ('a', false),
+('b', true), <b>('b', false)</b>,
+('c', true), <b>('c', false)</b>,
+...
+</pre>
+
+Parmi toutes les valeurs possibles, une fonction en sélectionne certaines.
+
+<!-- ************************************* -->
+<h3>Mémoïsation</h3>
+Si une fonction est pure, pour un paramètre donné elle renvoie toujours la même valeur.
+<br>On peut donc fabriquer un cache : enregistrer dans un tableau toutes les valeurs possibles que peut prendre le paramètre, avec la valeur de retour de la fonction. on dit qu'on peut la <strong>mémoïser</strong>.
+<br>Que l'on renvoie la valeur calculée ou la valeur stockée dans le cache, on aura le même résultat.
+<br>On dit que la fonction est <strong>mémoïsable</strong>.
+<br>
+<br>En pratique, on ne peut pas le faire pour des types infinis (dont le cardinal de l'ensemble des valeurs du type est infini).
+
+
+<!-- ********************************************************************************* -->
+<h2>La catégories des types</h2>
+Dans cette <a href="">catégorie</a>,
+<ul>
+    <li>les objets sont des types de données.</li>
+    <li>les flèches les fonctions qui transforment un type en un autre.</li>
+</ul>
+Comme chaque type peut être représenté par un ensemble, la catégorie des types et fonctions est une variante de la catégorie des ensemble.
 
 
 <!-- ********************************************************************************* -->
@@ -164,9 +273,9 @@ an expression with parameter variables has been called a lambda expression.
 
 On se retrouve donc avec deux manières de programmer équivalentes mais différentes.
 
+<!-- ************************************* -->
 <h3><a name="4-1-exemple-factorielle">Exemple : factorielle</a></h3>
 
-<!-- ************************************* -->
 En java :
 <pre>
 public class Factorial{
@@ -236,6 +345,8 @@ Dans un langage fonctionnel, les fonctions sont des <i>first class citizens</i> 
 <br>- renvoyées comme résultat
 <br>- utilisées partout où une expression peut l'être.
 
+
+<!-- ************************************* -->
 <h3><a name="4-3-un-concensus">Un concensus</a></h3>
 L'introduction des lambda expressions en java correspond à un mouvement de fond dans de nombreux langages impératifs.
 <br>Un consensus a peu à peu émergé : les langages fonctionnels sont plus faciles à tester, débugger et paralléliser que les langages impératifs.

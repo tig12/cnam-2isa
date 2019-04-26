@@ -236,7 +236,7 @@ class Ambulance extends Voiture{ /* ... */ }
 Tout code du type :
 <pre>Voiture v = new Voiture();</pre>
 doit fonctionner <i>exactement</i> de la même manière que si on faisait :
-<pre>Ambulance v = new Ambulance();</pre>
+<pre>Voiture v = new Ambulance();</pre>
 
 Une <code>Ambulance</code> est une <code>Voiture</code> qui sait faire des choses supplémentaires (c'est une sous-classe).
 <br>Le principe de Liskov dit que l'aspect <code>Voiture</code> de l'<code>Ambulance</code> doit tester inchangé.

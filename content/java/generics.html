@@ -166,21 +166,10 @@ Dans la version de la classe paramétrée par un type, <code>T</code> peut être
 
 A l'utilisation : 
 <pre>
-Box&lt;String> b = new Box&lt;String>;
+Box&lt;String> b = new Box&lt;String>();
 b.set("hello");
 String s = b.get();
 </pre>
-
-<!-- 
-Permet parfois d'économiser beaucoup de code :
-<pre>
-public class Printer&lt;T>{
-  public void print(T t){
-    System.out.print(t);
-  }
-}
-</pre>
--->
 
 Conventions pour les noms de types (utilisées dans l'API java) :
 <pre class="normal">
@@ -202,8 +191,6 @@ java.util.stream.Stream&lt;T>
     &lt;R> R collect​(Supplier&lt;R> supplier, BiConsumer&lt;R,​? super T> accumulator, BiConsumer&lt;R,​R> combiner)
 </pre>
 
-
-                                                         
 <!-- ************************************* -->
 <h3><a name="1-1-inference-de-type">Inférence de type</a></h3>
 

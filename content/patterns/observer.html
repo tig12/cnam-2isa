@@ -12,7 +12,6 @@
     <meta name="dcterms.dateCopyrighted" content="2017">
 </head>
 <body>
-
 <nav class="prevnext">
     <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
     <a class="prev" title="Previous" href="proxy.html">&larr;</a>
@@ -24,10 +23,15 @@
 Observer
 <div class="subtitle">(Observateur)</div>
 </h1>
+
 <nav class="toc">
     <ul>
         <li>
             <a href="#1-exemple">Exemple</a>
+            <ul>
+                <li><a href="#1-1-implementation-sans-pattern">Implémentation sans pattern</a></li>
+                <li><a href="#1-2-introduction-du-pattern">Introduction du pattern</a></li>
+            </ul>
         </li>
         <li>
             <a href="#2-structure">Structure</a>
@@ -39,14 +43,14 @@ Observer
             <a href="#3-remarques">Remarques</a>
             <ul>
                 <li><a href="#3-1-communication-observateur-observable">Communication observateur / observable</a></li>
+                <li><a href="#3-2-plusieurs-observables">Plusieurs observables</a></li>
             </ul>
         </li>
         <li>
-            <a href="#4-en-java-jusque-java-8">En java (jusque java 8)</a>
+            <a href="#4-en-java-jusque-java-8-obsolete">En java (jusque java 8) -- obsolete</a>
         </li>
     </ul>
 </nav>
-
 
 </header>
 
@@ -69,7 +73,7 @@ La question est d'y arriver <i>sans les coupler fortement</i>.
 <br>Mais elles doivent se <i>comporter</i> comme si elles étaient liées.
 
 <!-- ************************************* -->
-<h3>Implémentation sans pattern</h3>
+<h3><a name="1-1-implementation-sans-pattern">Implémentation sans pattern</a></h3>
 
 On peut répondre à cette problématique sans pattern <i>Observer</i>.
 <div class="exo">
@@ -81,7 +85,7 @@ Voir l'implémentation "before" de <a href="../../exemples/patterns/observer/gof
 On voit que cette implémentation n'est pas tenable en situation réelle.
 
 <!-- ************************************* -->
-<h3>Introduction du pattern</h3>
+<h3><a name="1-2-introduction-du-pattern">Introduction du pattern</a></h3>
 
 Le pattern observer répond à cette problématique en proposant deux concepts principaux : le <b>sujet</b> (ou <b>observable</b>) et l'<b>observateur</b>.
 <br>Le sujet peut avoir un nombre quelconque d'observateurs qui dépendent de lui.
@@ -151,10 +155,12 @@ state = o.getState();
 <h3><a name="3-1-communication-observateur-observable">Communication observateur / observable</a></h3>
 
 Lorsque l'observable est modifié, il exécute sa méthode <code>notifyObservers()</code>, et cette méthode va appeler la méthode <code>update()</code> de chacun de ses observateurs.
-<br>Il faut donc un "protocole" de communication entre les deux, par exemple :
+<br>Il faut donc un "protocole" de communication entre les deux.
+<br>Dans l'exemple gof, le protocole était simplement de dire que si quelque chose se passe chez un observable, il appelle la méthode <code>update()</code> de ses observateurs.
+<br>On rencontre souvent un protocole un peu plus élaboré, où la méthode <code>update()</code> passe en plus un argument :
 <pre>
 public interface Observer{
-    public void update(Observable o, Object arg);
+    public void update(Observable o, <b>Object arg</b>);
 }
 </pre>
 <pre>
@@ -171,25 +177,26 @@ public abstract class Observable{
     
     public void notifyObservers(){
         for(Observer o : observers){
-            o.update(this, getArgument());
+            o.update(this, <b>getArgument()</b>);
         }
     }
     
     public abstract Object getArgument();
-    
 }
 </pre>
+
+Cette manière est très pratique, car elle peut permettre aux observateurs de réagir sans avoir besoin de rappeler l'observable (dans l'exemple gof, les observateurs avaient besoin d'appeler <code>getState()</code> pour réagir à l'appel de <code>update()</code>).
 
 <div class="exo"><b>Exercice</b> : <a href="../../exos/patterns/observer/brebis/Brebis.html">Brebis</a></div>
 
 <!-- ************************************* -->
-<h3>Plusieurs observables</h3>
+<h3><a name="3-2-plusieurs-observables">Plusieurs observables</a></h3>
 
-Le pattern permet aux observateurs de rester synchrosnisés avec plusieurs observables, qui peuvent être de type concret différents, dès lors qu'ils dérivent (ou implémentent) <code>Observable</code>.
+Le pattern permet aux observateurs de rester synchronisés avec plusieurs observables, qui peuvent être de type concret différents, dès lors qu'ils dérivent (ou implémentent) <code>Observable</code>.
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="4-en-java-jusque-java-8">En java (jusque java 8) -- obsolete</a></h2>
+<h2><a name="4-en-java-jusque-java-8-obsolete">En java (jusque java 8) -- obsolete</a></h2>
 ATTENTION :  ce mécanisme a été déprécié en java 9.
 <br><br><cite>
 This class and the <code>Observer</code> interface have been deprecated. The event model supported by <code>Observer</code> and <code>Observable</code> is quite limited, the order of notifications delivered by <code>Observable</code> is unspecified, and state changes are not in one-for-one correspondence with notifications. For a richer event model, consider using the <code>java.beans</code> package. For reliable and ordered messaging among threads, consider using one of the concurrent data structures in the <code>java.util.concurrent</code> package. For reactive streams style programming, see the Flow API.

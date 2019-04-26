@@ -56,11 +56,11 @@ Exemples : un pilote d'imprimante, un registration manager, un DB connection man
 <pre>
 class RegistrationManager {
 
-    private RegistrationManager _instance = <b>new RegistrationManager()</b>;
+    private static RegistrationManager _instance = <b>new RegistrationManager()</b>;
     
     private RegistrationManager() {} // interdit l'instantiation
     
-    public RegistrationManager getInstance() {
+    public static RegistrationManager getInstance() {
         return _instance;
     }
     
@@ -68,15 +68,18 @@ class RegistrationManager {
 }
 </pre>
 
+<!-- ************************************* -->
+<h3>Lazy loading</h3>
+
 Cette version a un premier défaut : la classe est instanciée même si elle n'est pas utilisée dans le code ; pour économiser les ressources, on préfère utiliser le <b>lazy loading</b> : n'instancier un objet que lorsque l'application l'utilise vraiment.
 <pre>
 class RegistrationManager {
 
-    private RegistrationManager _instance = <b>null</b>;
+    private static RegistrationManager _instance = <b>null</b>;
     
     private RegistrationManager() {} // interdit l'instantiation
     
-    public RegistrationManager getInstance() {
+    public static RegistrationManager getInstance() {
         <b>if(_instance == null)</b>{
             _instance = new RegistrationManager();
         }
@@ -87,8 +90,13 @@ class RegistrationManager {
 }
 </pre>
 La classe ne sera instanciée que lorsque <code>getInstance()</code> est appelée.
+
+<!-- ************************************* -->
+<h3>Travailler uniquement en static</h3>
+
+ATTENTION, ce paragraphe sort du pattern officiel.
 <br>
-<br>Autre défaut : l'utilisation est un peu lourde :
+<br>Défaut de l'implémentation précédente : l'utilisation est un peu lourde :
 <pre>
 RegistrationManager m = RegistrationManager.getInstance();
 m.registerUser(...);
@@ -97,11 +105,11 @@ Pour éviter ça, on peut créer une méthode public static, qui va appeler une 
 <pre>
 class RegistrationManager {
 
-    private RegistrationManager _instance = null;
+    private static RegistrationManager _instance = null;
     
     private RegistrationManager() {} // interdit l'instantiation
     
-    public RegistrationManager getInstance() {
+    public static RegistrationManager getInstance() {
         if(_instance == null){
             _instance = new RegistrationManager();
         }
@@ -146,19 +154,21 @@ ATTENTION : cela n'est pas toujours possible (cf contre-exemple dans le pattern 
         Pose le même problème qu'une variable globale, en introduisant des dépendances cachées dans le code :
         <pre>
 class MySingleton{
-    public static void doSomething1(){ ... }
-    public static void doSomething2(){ ... }
+    public void doSomething1(){ ... }
+    public void doSomething2(){ ... }
 }
 
 class MyClass1{
-    public static void method1(){
-        MySingleton.doSomething1();
+    MySingleton s = new MySingleton();
+    public void method1(){
+        s.doSomething1();
     }
 }
 
 class MyClass2{
     public static void method2(){
-        MySingleton.doSomething2();
+        MySingleton s = new MySingleton();
+        s.doSomething2();
     }
 }
 
@@ -177,12 +187,13 @@ class ClientCode{
     </li>
     
     <li>
-        Viole le <a href="../oop/solid.html">Single Responsibility Principle</a> : le singleton est à la fois responsable de sa logique métier et de la logique de sa création.
+        L'introduction d'un état global promeut un couplage fort entre classes, ce qui complique (parfois rend impossible) l'écriture de tests unitaires, qui ont besoin de classes faiblement couplées.
     </li>
     
     <li>
-        L'introduction d'un état global promeut un couplage fort entre classes, ce qui complique (parfois rend impossible) l'écriture de tests unitaires, qui ont besoin de classes faiblement couplées.
+        Viole le <a href="../oop/solid.html">Single Responsibility Principle</a> : le singleton est à la fois responsable de sa logique métier et de la logique de sa création.
     </li>
+    
     <li>
         Le singleton n'est pas thread-safe :
         <br>On se place dans deux flots d'exécution parallèles qui vont utiliser la classe <code>Singleton</code>.
