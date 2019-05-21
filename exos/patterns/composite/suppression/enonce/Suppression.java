@@ -18,19 +18,19 @@ public class Suppression {
         Component node1_2_2_1 = new Leaf("leaf 1.2.2.1");
         Component node1_2_2_2 = new Leaf("leaf 1.2.2.2");
         
-        root.add(node1_1);
-        node1_1.add(node1_1_1);
-        node1_1.add(node1_1_2);
+        root.addChild(node1_1);
+        node1_1.addChild(node1_1_1);
+        node1_1.addChild(node1_1_2);
         
-        root.add(node1_2);
-        node1_2.add(node1_2_1);
-        node1_2.add(node1_2_2);
-        node1_2_2.add(node1_2_2_1);
-        node1_2_2.add(node1_2_2_2);
+        root.addChild(node1_2);
+        node1_2.addChild(node1_2_1);
+        node1_2.addChild(node1_2_2);
+        node1_2_2.addChild(node1_2_2_1);
+        node1_2_2.addChild(node1_2_2_2);
         
         // node1_2 ajouté une seconde fois
-        root.add(node1_2);
-        node1_2.add(node1_2_1);
+        root.addChild(node1_2);
+        node1_2.addChild(node1_2_1);
         
         root.print();
     }
@@ -46,7 +46,7 @@ abstract class Component {
         System.out.println(String.join("", Collections.nCopies(getLevel(), "  ")) + name);
     }
     
-    public void add(Component c){}
+    public void addChild(Component c){}
     public Component getParent(){ return parent; }
     public void setParent(Component parent){ this.parent = parent; }
     
@@ -70,7 +70,7 @@ class Composite extends Component{
         }
     }
     
-    public void add(Component child){
+    public void addChild(Component child){
         children.add(child);
         child.setParent(this);
     }

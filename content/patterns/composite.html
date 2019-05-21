@@ -109,61 +109,6 @@ Ici, le plus pratique est que <code>Component</code> soit une classe abstraite, 
 <h2><a name="2-exemples">Exemples</a></h2>
 
 <!-- ************************************* -->
-<h3><a name="2-1-swing">Swing</a></h3>
-
-Les toolkits graphiques utilisent très fréquemment ce pattern.
-<br>
-<br>Exemple avec swing :
-
-<div class="flex-wrap">
-
-<div>
-<pre>
-import java.awt.*;
-import javax.swing.*;
-
-class Swing{
-    
-    public static void main(String[] args){
-        JFrame frame = new JFrame("Exemple composite");
-        JPanel contentPane = new JPanel();
-        
-        JTextArea text1 = new JTextArea("Leaf1");
-        contentPane.<b>add</b>(text1);
-        
-        JPanel panel1 = new JPanel();
-        panel1.<b>add</b>(new JButton("A"));
-        panel1.<b>add</b>(new JButton("B"));
-        
-        JPanel panel2 = new JPanel();
-        panel2.<b>add</b>(new JButton("C"));
-        panel2.<b>add</b>(new JButton("D"));
-        panel1.<b>add</b>(panel2);
-        
-        contentPane.<b>add</b>(panel1);
-        
-        frame.setContentPane(contentPane);
-        frame.setSize(300,100);
-        frame.pack();
-        frame.setVisible(true);
-    }
-}
-</pre>
-(code dans <a href="../../exemples/patterns/composite/Swing.java">Swing.java</a>)
-</div>
-
-<div class="margin-right2">
-    <img class="border margin-bottom" src="img/composite-swing-exemple.jpg" alt="Exemple swing">
-    <img class="border padding05" src="img/composite-swing-objects.jpg" alt="Exemple swing, objets">
-</div>
-
-</div><!-- end class="flex-wrap" -->
-
-La méthode <code>operation()</code> est ici <code>add()</code>.
-<br>On utilise <code>add()</code> de la même manière pour un objet simple que pour un objet composé.
-
-
-<!-- ************************************* -->
 <h3><a name="2-2-gof-diagram">GOF diagram</a></h3>
 Exemple simple utilisant le vocabulaire du diagramme GOF :
 <pre>
@@ -255,8 +200,63 @@ Remarquer que l'affichage de l'arborescence dans le code client se fait en une s
     <b>Exercice</b> : <a href="../../exos/patterns/composite/sommateur/Sommateur.html">Sommateur</a>
 </div>
 
-
 <!-- ************************************* -->
+<h3><a name="2-1-swing">Swing</a></h3>
+
+Les toolkits graphiques utilisent très fréquemment ce pattern.
+<br>
+<br>Exemple avec <a href="../java/swing.html">swing</a> :
+
+<div class="flex-wrap">
+
+<div>
+<pre>
+import java.awt.*;
+import javax.swing.*;
+
+class Swing{
+    
+    public static void main(String[] args){
+        JFrame frame = new JFrame("Exemple composite");
+        JPanel contentPane = new JPanel();
+        
+        JTextArea text1 = new JTextArea("Leaf1");
+        contentPane.<b>add</b>(text1);
+        
+        JPanel panel1 = new JPanel();
+        panel1.<b>add</b>(new JButton("A"));
+        panel1.<b>add</b>(new JButton("B"));
+        
+        JPanel panel2 = new JPanel();
+        panel2.<b>add</b>(new JButton("C"));
+        panel2.<b>add</b>(new JButton("D"));
+        panel1.<b>add</b>(panel2);
+        
+        contentPane.<b>add</b>(panel1);
+        
+        frame.setContentPane(contentPane);
+        frame.setSize(300,100);
+        frame.pack();
+        frame.setVisible(true);
+    }
+}
+</pre>
+(code dans <a href="../../exemples/patterns/composite/Swing.java">Swing.java</a>)
+</div>
+
+<div class="margin-right2">
+    <img class="border margin-bottom" src="img/composite-swing-exemple.jpg" alt="Exemple swing">
+    <img class="border padding05" src="img/composite-swing-objects.jpg" alt="Exemple swing, objets">
+</div>
+
+</div><!-- end class="flex-wrap" -->
+
+La méthode <code>operation()</code> est ici <code>add()</code>.
+<br>On utilise <code>add()</code> de la même manière pour un objet simple que pour un objet composé.
+
+
+
+<!-- ********************************************************************************* -->
 <h2><a name="3-reference-au-parent">Référence au parent</a></h2>
 A de nombreuses applications.
 <br>
@@ -328,7 +328,7 @@ class Composite extends Component{
     <li>
         Certaines variantes de Composite ajoutent à l'interface <code>Component</code> une méthode <code>getParent()</code>.
         <br>Cette référence explicite au parent peut être utile pour remonter dans la structure, effacer un composant.
-        <br>Facilite l'utilisation de <i>Composite</i> dans une <i>Chain of Responsability</i>.
+        <br>Facilite l'utilisation de <i>Composite</i> dans une <a href="chain-of-responsability.html">Chain of Responsability</a>.
     </li>
     
     <li>
@@ -349,7 +349,7 @@ class VersDeTerre extends Animal{
     </li>
     
     <li>
-        Précautions particulières à prendre si l'ordre de parcours des enfants est important
+        Précautions particulières à prendre si l'ordre de parcours des enfants est important.
     </li>
     
     <li>

@@ -12,7 +12,7 @@ public class EventDemo extends JFrame implements ActionListener{
     private JLabel     affichage = new JLabel("Ici un JLabel");
 
     public EventDemo(){
-        super("IHM Pile");
+        super("Event demo");
         JButton    btnAffiche = new JButton("Afficher");
         JButton    btnEfface = new JButton("Effacer");
 
@@ -40,7 +40,7 @@ public class EventDemo extends JFrame implements ActionListener{
             affichage.setText(donnee.getText());
         }
         else if(ae.getActionCommand().equals("Effacer")){
-            affichage.setText("");
+            affichage.setText(" ");
         }
     }
 

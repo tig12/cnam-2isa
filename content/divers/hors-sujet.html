@@ -55,8 +55,9 @@ Sujets rapidement abordés, liés au cours mais hors-programme.
 <!-- ********************************************************************************* -->
 <h2>Catégories</h2>
 C'est un sujet central en informatique.
-<br>On a l'habitude de travailler avec les ensembles. On fait plein de choses avec des notions très simples : union, intersection, inclusion, appartenance, cardinal (nombre d'éléments dans un ensemble). L'union et l'intersection nous donnent les opérateurs "et" et "ou", le produit de deux ensembles nous permet de définir des relations entre deux ensembles, donc de définir des fonctions, etc.
+<br>On a l'habitude de travailler avec les ensembles. On fait plein de choses avec des notions très simples : union, intersection, inclusion, appartenance, cardinal (nombre d'éléments d'un ensemble). L'union et l'intersection nous donnent les opérateurs "et" et "ou", le produit de deux ensembles nous permet de définir des relations entre deux ensembles, donc de définir des fonctions, etc.
 <br>Dans les ensembles, on travaille avec des éléments, et on décrit les propriétés de nos structures avec ça.
+<br>
 <br>Dans une catégorie, on a des <b>objets</b> et des <b>flèches</b> qui vont d'un objet à l'autre. Une flèche exprime une relation entre deux objets.
 <br>A priori, une catégorie est un graphe orienté : les objets sont les sommets et les flèches sont les arêtes.
 <br>Mais pour qu'un graphe orienté mérite le nom de catégorie, les flèches doivent vérifier certaines propriétés : 
@@ -64,7 +65,7 @@ C'est un sujet central en informatique.
 <ol class="spaced">
     <li>
         <b>Identité</b> : Tout objet doit avoir une flèche qui part de cet objet et arrive à cet objet sans rien changer.
-        <br>On note <code class="formula">id<sub>A</sub></code> l'indentité de A.
+        <br>On note <code class="formula">id<sub>A</sub></code> l'indentité de l'objet A.
     </li>
     <li>
         <b>Composition</b> : s'il existe une flèche de A vers B et une flèche de B vers C, alors il doit exister une flèche qui va directement de A à C.
@@ -92,6 +93,7 @@ Et c'est tout.
 <br>
 La catégorie la plus familière à étudier est la <b>catégorie des ensembles</b>, notée <code>Set</code> ou <code>Ens</code>. Dans cette catégorie, les objets sont des ensembles et les flèches sont des relations entre les ensembles.
 <br>Cette catégorie permet de modéliser un langage informatique.
+<br>
 <br>Un <b>type</b> de donnée est représenté par un ensemble dont les éléments sont les valeurs que peut prendre ce type.
 <br>Ce sont des ensembles finis ou infinis :
 
@@ -131,7 +133,7 @@ Certains types ont en théorie un nombre inifni de valeurs mais en pratique un n
 // char --> boolean
 boolean isVoyelle(char c){ }
 </pre>
-En pratique, les fonctions ne sont pas aussi simples : elles peuvent avoir plusieurs paramètres, générer des exceptions, avoir des effets de bord (I/O, modification de variables globales) ... mais toutes ces complexités peuvent être construites à partir de ces fonctions pures à un seul paramètre.
+En pratique, les fonctions ne sont pas aussi simples : elles peuvent avoir plusieurs paramètres, générer des exceptions, avoir des effets de bord (I/O, modification de variables globales) ... mais toutes ces complexités peuvent être construites à partir de fonctions pures à un seul paramètre.
 <br>
 <br>La catégorie des types fournit donc une représentation mathématique d'un langage fonctionnel.
 

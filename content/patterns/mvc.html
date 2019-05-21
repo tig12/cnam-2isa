@@ -162,12 +162,7 @@ Cette partie est largement inspirée du chapitre 12 de "Design Patterns Head Fir
 
 Plus généralement, les interactions suivent ce schéma :
 
-<div class="flex-wrap">
-<div class="margin-top">
-    <center>Schéma Head First</center>
-    <img class="margin border" src="img/mvc-headfirst-schema1.jpg" alt="mvc-headfirst-schema1.jpg">
-</div>
-</div><!-- end class="flex-wrap" -->
+<img class="margin border" src="img/mvc-headfirst-schema1.jpg" alt="mvc-headfirst-schema1.jpg">
 
 <ol class="spaced">
     <li>
@@ -205,8 +200,8 @@ Plus généralement, les interactions suivent ce schéma :
 <br>c'est vraiment le travail du contrôleur de demander à la vue de se mettre à jour.
 <br>
 <br><b>Tout ce que le contrôleur fait, c'est de récupérer depuis la vue les actions de l'utilisateur et de les transmettre au modèle.
-<br>Alors pourquoi s'embêter et ne pas directement piloter le modèle depuis la vue ?</b>
-<br>Déjà, le contrôleur en fait pas que "récupérer les actions de l'utilisateur et de les transmettre au modèle", il <b>interprête</b> les actions de l'utilisateur et les transmet au modèle. Pour cela, il doit connaître la <b>logique du modèle</b>
+<br>Alors pourquoi ne pas directement piloter le modèle depuis la vue ?</b>
+<br>Déjà, le contrôleur ne fait pas que "récupérer les actions de l'utilisateur et de les transmettre au modèle", il <b>interprête</b> les actions de l'utilisateur et les transmet au modèle. Pour cela, il doit connaître la <b>logique du modèle</b>
 <br>On pourrait effectivement mettre ce code dans la vue, mais on a deux bonnes raisons de ne pas le faire :
 <br>- Déjà, on compliquerait le code de la vue en lui donnant 2 responsabilités : gérer l'interface et gérer la logique du modèle pour le piloter.
 <br>- On couplerait la vue au modèle ; impossible par exemple de réutiliser la même vue avec un autre modèle.
@@ -220,20 +215,20 @@ Schéma d'Oracle :
 
 <!-- ************************************* -->
 <h3><a name="3-2-le-mvc-sous-l-angle-des-patterns">Le MVC sous l'angle des patterns</a></h3>
-MVC met en général en jeu <i>Observer</i>, <i>Strategy</i> et <i>Composite</i>.
-<br><i>Adapter</i> peut aussi être utilisé (voir plus loin).
+MVC met en général en jeu <a href="observer.html">Observer</a>, <a href="strategy.html">Strategy</a> et <a href="composite.html">Composite</a>.
+<br><a href="adapter.html">Adapter</a> peut aussi être utilisé (voir plus loin).
 
 <img class="margin border" src="img/mvc-headfirst-patterns.jpg" alt="mvc-headfirst-patterns.jpg">
 
 <ul class="spaced">
     <li>
-        Le modèle utilise le pattern <i><b>Observer</b></i> pour tenir informés vues et contrôleurs de ses changements.
+        Le modèle utilise le pattern <a href="observer.html"><b>Observer</b></a> pour tenir informés vues et contrôleurs de ses changements.
         <br>Ça permet de laisser le modèle complètement indépendant des vues et contrôleurs.
         <br>Permet par exemple d'avoir plusieurs vues à la fois.
         <img class="margin border" src="img/mvc-headfirst-observer.jpg" alt="mvc-headfirst-observer.jpg">
     </li>
     <li>
-        Vue et contrôleur utilisent le pattern <i><b>Strategy</b></i>.
+        Vue et contrôleur utilisent le pattern <a href="strategy.html"><b>Strategy</b></a>.
         <br>La vue est un objet qui est configuré avec une stratégie, le contrôleur fournit cette stratégie.
         <br>La vue est uniquement concernée par l'affichage graphique, elle délègue au contrôleur toute décision concernant le comportement de l'interface.
         <br>L'utilisation d'une stratégie découple la vue du modèle car c'est le contrôleur qui est chargé d'interagir avec le modèle pour gérer les actions utilisateur. La vue n'a aucune idée de comment cela est fait.
@@ -242,7 +237,7 @@ MVC met en général en jeu <i>Observer</i>, <i>Strategy</i> et <i>Composite</i>
     <li>
         L'affichage est un emboîtement de composants graphiques (textes, labels, boutons panels...).
         <br>Chaque composant graphique est soit composite (une fenêtre) soit terminal (un bouton).
-        <br>Lorsque le contrôleur dit à la vue de se mettre à jour, elle le dit au composant racine, et le pattern <b><i>Composite</i></b> fait le reste.
+        <br>Lorsque le contrôleur dit à la vue de se mettre à jour, elle le dit au composant racine, et le pattern <a href="composite.html"><b>Composite</b></a> fait le reste.
         <img class="margin border" src="img/mvc-headfirst-composite.jpg" alt="mvc-headfirst-composite.jpg">
     </li>
 </ul>
@@ -266,7 +261,7 @@ public class MainDJ {
 <pre>
 public class MainHeart {
     public static void main (String[] args) {
-        HeartModel model = new HeartModel();
+        HeartModelInterface model = new HeartModel();
         ControllerInterface controller = new HeartController(model);
     }
 }
@@ -322,7 +317,7 @@ public class BeatModel implements BeatModelInterface, MetaEventListener {
 </pre>
 
 Le modèle est complètement décorrélé de la vue grâce à l'utilisation de <i>Observer</i>.
-<br>On implémente une vue qui permet de voir  les BPM, mais on pourrait implémenter d'autres vues utilisant exactement le même modèle, par ex :
+<br>On implémente une vue qui permet d'afficher les BPM, mais on pourrait implémenter d'autres vues utilisant exactement le même modèle, par ex :
 <br>- Un light-show basé sur les battements du modèle.
 <br>- Une vue textuelle qui affiche le genre de musique suivant la valeur du BPM.
 <br>
@@ -372,7 +367,7 @@ public class DJView implements ActionListener, BeatObserver, BPMObserver {
                 }
             } else {
                 if (bpmOutputLabel != null) {
-                    bpmOutputLabel.setText("Current BPM: " + <b>model.getBPM()</b>);
+                    bpmOutputLabel.setText("Current BPM: " + bpm);
                 }
             }
         }

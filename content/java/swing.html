@@ -80,13 +80,13 @@ Dans les premières versions de java, les applications graphiques utilisaient AW
 
 <div class="flex-wrap">
 <img class="margin border" src="img/swing-components.png" alt="Hiérarchie composants swing">
-<img class="margin" src="img/swing-components-demo.jpg" alt="Démo omposants swing">
+<img class="margin border" src="img/swing-components-demo.jpg" alt="Démo omposants swing">
 </div><!-- end class="flex-wrap" -->
 
 Les composants ne sont pas placés directement dans un top-level container mais dans le <b>content pane</b> qui lui est associé.
 <br>(voir <code>JFrame.getContentPane()</code>)
 
-<img class="margin" src="img/swing-content-panel.jpg" alt="Content panel swing">
+<img class="margin padding border" src="img/swing-root-pane.jpg" alt="Sing root pane">
 
 
 <!-- ************************************* -->
@@ -99,8 +99,8 @@ On verra plus loin que swing utilise les patterns <b>Strategy</b> et <b>Composit
 
 FlowLayout (comme ils viennent)
 <div class="flex-wrap">
-<img class="margin" src="img/swing-flow-layout1.jpg" alt="Flow layout">
-<img class="margin" src="img/swing-flow-layout2.jpg" alt="Flow layout">
+<div><img class="margin" src="img/swing-flow-layout1.jpg" alt="Flow layout - exemple 1"></div>
+<div><img class="margin" src="img/swing-flow-layout2.jpg" alt="Flow layout - exemple 2"></div>
 </div><!-- end class="flex-wrap" -->
 
 GridLayout
@@ -220,8 +220,8 @@ Les composants graphiques sont emboîtés dans une structure arborescente, voir 
 
 <!-- ************************************* -->
 <h3><a name="3-2-observer">Observer</a></h3>
-
-Les <b>observables</b> sont les éléments de la vue, composants graphiques descendant de <code>JComponent</code>.
+Voir page <a href="../patterns/observer.html">Observateur</a>.
+<br>Les <b>observables</b> sont les éléments de la vue, composants graphiques descendant de <code>JComponent</code>.
 <br>On peut leur associer des observateurs, appelés <b>listeners</b>.
 <br>Pour savoir quel genre de listener on peut associer à un composant, il suffit de regarder ses méthodes <code>adXXXListener()</code>.
 <br>Par ex, <code>JComboBox</code> contient <code>addActionListener()</code>, <code>addItemListener()</code>,  <code>addPopupMenuListener()</code>
@@ -239,8 +239,8 @@ Les <b>observables</b> sont les éléments de la vue, composants graphiques desc
     <tr><th>Pattern observer</th><th>Swing</th></tr>
     <tr><td>classe Observable</td><td>javax.swing.JButton</td></tr>
     <tr><td>addObserver(Observer o)</td><td>addActionListener(ActionListener l)</td></tr>
-    <tr><td>notifyObservers(Object arg)</td><td>actionPerformed(ActionEvent ae)</td></tr>
-    <tr><td>interface Observer</td><td>interface java.awt.event.ActionListener</td></tr>
+    <tr style="border-top:2px solid black;"><td>interface Observer</td><td>interface java.awt.event.ActionListener</td></tr>
+    <tr><td>update(Object arg)</td><td>actionPerformed(ActionEvent ae)</td></tr>
 </table>
 
 

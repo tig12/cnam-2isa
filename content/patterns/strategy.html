@@ -84,7 +84,7 @@ public class Client {
 <br>
 <br>Voir sur <a href="https://en.wikipedia.org/wiki/Strategy_pattern#Strategy_and_open/closed_principle">wikipedia</a> un autre exemple illustrant la modification dynamique de la stratégie :
 <pre>
-Car suvCar = new SUV();  // Constrctor sets strategy "BrakeWithABS"
+Car suvCar = new SUV();  // Constructor sets strategy "BrakeWithABS"
 suvCar.applyBrake();     // This will invoke class "BrakeWithABS"
 
 suvCar.setBrakeBehavior( new Brake() ); // set brake behavior dynamically

@@ -1,1 +1,1 @@
-java -jar ~/dev/jobs/cnam/bin/junit-platform-console-standalone-1.3.1.jar -d bin/project1
+java -jar ../../../../bin/junit-platform-console-standalone-1.3.1.jar -cp bin -c project1.Project1Test
