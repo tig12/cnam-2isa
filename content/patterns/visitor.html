@@ -107,8 +107,8 @@ On voit que ce mécanisme ne rajoute que très peu de code à chaque élément d
 <pre>
 class AssignmentNode{
     // ...
-    public accept(Visitor v){
-        visitAssignment(this);
+    public accept(NodeVisitor v){
+        v.visitAssignment(this);
     }
     // ...
 }
@@ -136,7 +136,7 @@ class ConcreteElementA{
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-autre-exemple">Autre exemple</a></h2>
+<h2><a name="2-autre-exemple">Implémentation</a></h2>
 Code dans <a href="../../exemples/patterns/visitor/VisitorDemo1.java">VisitorDemo1.java</a>
 <br>
 <br>Cet exemple utilise un <i>Composite</i>.

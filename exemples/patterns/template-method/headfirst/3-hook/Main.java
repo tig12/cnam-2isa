@@ -2,13 +2,13 @@ public class Main {
     
 	public static void main(String[] args) {
   
-		TeaWithHook teaHook = new TeaWithHook();
-		CoffeeWithHook coffeeHook = new CoffeeWithHook();
+		CaffeineBeverageWithHook tea = new TeaWithHook();
+		CaffeineBeverageWithHook coffee = new CoffeeWithHook();
  
 		System.out.println("\nMaking tea...");
-		teaHook.prepareRecipe();
+		tea.prepareRecipe();
  
 		System.out.println("\nMaking coffee...");
-		coffeeHook.prepareRecipe();
+		coffee.prepareRecipe();
 	}
 }
