@@ -9,7 +9,9 @@ import java.util.ArrayList;
 public class MenuCommands {
     
     public static void main( String[] args ) {
-
+        
+        // on crée deux structures composites : mFile et mEdit
+        
         MenuI mFile = new Menu("File");
         MenuI mNew = new Menu("New");
         MenuI mOpen = new Menu("Open");
@@ -30,11 +32,12 @@ public class MenuCommands {
         mEdit.addChild(mPreferences);
         
         
-        // Normal execution
+        // Execution normale
         System.out.println("\n=== Normal execution ===");
         mFile.performMenuAction();
         mEdit.performMenuAction();
         
+        // Association menu - command modifiée
         System.out.println("\n=== Play a trick to user : invert new and open ===");
         mNew.setCommand(new OpenCommand());
         mOpen.setCommand(new NewCommand());
@@ -46,7 +49,7 @@ public class MenuCommands {
 // ===== Composite menus =====
 interface MenuI{
     public void setCommand(Command command);
-    public void performMenuAction();
+    public void performMenuAction();        // méthode operation() du pattern Composite
     public void addChild(MenuI child);
 }
 

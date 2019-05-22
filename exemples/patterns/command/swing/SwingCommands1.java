@@ -17,7 +17,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JToolBar;
 import java.awt.BorderLayout;
 
-public class SwingCommands {
+public class SwingCommands1 {
     public static void main(String[] args) {
             var frame = new CommandFrame();
             frame.setVisible(true);

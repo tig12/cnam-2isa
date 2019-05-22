@@ -165,17 +165,18 @@ class MonListener implements ActionListener{
 }
 </pre>
 
-<!-- 
+Lorsqu'on fait <code>addActionListener(new MonListener())</code>, on bénéficie bien du pattern <i>Command</i> : on sait seulement que <code>MonListener</code> est un <code>EventListener</code>, mais on ne connait rien de son implémentation.
+
 On a cette correspondance :
 <table class="wikitable margin">
     <tr><th>Pattern Command</th><th>Swing</th></tr>
     <tr>
         <td><code>Invoker</code></td>
-        <td></td>
+        <td>Une action utilisateur</td>
     </tr>
     <tr>
         <td><code>Reciever</code></td>
-        <td></td>
+        <td>Un composant graphique</td>
     </tr>
     <tr>
         <td><code>Command</code></td>
@@ -190,11 +191,14 @@ On a cette correspondance :
         <td><code>actionPerformed()</code></td>
     </tr>
 </table>
--->
 
-<div class="exo">
-<b>Exercice</b> : <a href="../../exos/patterns/command/swing/SwingCommands.html">Swing commands</a>
-</div>
+<b>Illustration</b> : <a href="../../exemples/patterns/command/swing/">Swing commands</a>.
+<br>Les deux exemples bénéficient du pattern <i>Command</i>.
+<br>Dans le premier cas, on fournit l'implémentation d'une commande concrète à chaque reciever (par le biais d'une lambda expression) ; dans le second cas, la classe <code>ExitAction</code> est une implémentation explicite d'une commande concrète, ce qui permet de factoriser le code.
+<br>
+<br>Remarquer commen les patterns <i>Command</i> et <i><a href="observer.html">Observer</a></i> sont implémentés ensemble :
+<br>La méthode <code>actionPerformed()</code> est à la fois la méthode <code>execute()</code> du pattern <i>Command</i> ET la méthode <code>update()</code> du pattern <i>Observer</i>.
+
 
 <!-- ************************************* -->
 <!-- ********************************************************************************* -->
