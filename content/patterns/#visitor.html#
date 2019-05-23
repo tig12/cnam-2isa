@@ -98,7 +98,7 @@ Parcours avec visiteur
 </div>
 </div><!-- end class="flex-wrap" -->
 
-<i>Visitor</i> a permis d'externaliser <code>print()</code>
+<i>Visitor</i> a permis d'externaliser <code>print()</code>.
 <br>
 <br>On a le diagramme de classes suivant :
 <div class="flex-wrap">

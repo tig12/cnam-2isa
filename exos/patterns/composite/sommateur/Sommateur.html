@@ -17,16 +17,22 @@
 <br>
 <br>Compléter <code>Sommateur.java</code> pour obtenir un composite dont :
 <ul>
-    <li>les feuilles ont une valeur (de type <code>double</code>).</li>
-    <li>La valeur d'un noeud composite est la somme des valeurs de ses enfants.</li>
-    <li>Chaque noeud a une méthode <code>somme()</code> qui renvoie la somme.</li>
+    <li>Chaque noeud terminal stocke une valeur de type <code>int</code>.</li>
+    <li>Les noeuds composés ne stockent pas de valeur.</li>
+    <li>
+        Chaque noeud a une méthode <code>somme()</code>.
+        <ul>
+            <li>Dans un noeud terminal, <code>somme()</code> renvoie sa valeur.</li>
+            <li>Dans un noeud composé, <code>somme()</code> renvoie la somme des valeurs de ses enfants.</li>
+        </ul>
+    </li>
 </ul>
 <br>
 Dans la fonction <code>main()</code> :
 <ul>
     <li>Remplissez le composite avec des valeurs de tests.</li>
     <li>Affichez la somme totale.</li>
-    <li>Affichez les sommes des enfants directs du noeud racine, avec une boucle "foreach"</li>
+    <li>Affichez les sommes des enfants directs du noeud racine, dans une boucle "foreach"</li>
 </ul>
 
 

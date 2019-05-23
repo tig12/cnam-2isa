@@ -8,7 +8,7 @@ class FirstJUnit5Tests {
     @Test
     @DisplayName("Test myFirstTest() réussi")
     void myFirstTest() {
-        assertEquals(2, 1 + 1);
+        assertEquals(5, 1 + 1);
     }
 
 }

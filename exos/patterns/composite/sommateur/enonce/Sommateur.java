@@ -1,6 +1,6 @@
 /**
     Simple example of Composite pattern using vocabulary of GOF structure diagram
-    Methods remove() and getChild() omitted because useless for this example.
+    Methods removeChild() and getChild() omitted because useless for this example.
     
     @author Thierry Graff
     @version 2017-12-19
@@ -35,34 +35,37 @@ public class Sommateur {
         // à compléter
         System.out.println("Somme totale = ");
         
-        // à compléter
         System.out.println("Somme des enfants : ");
+        // à compléter
         
     }
 }
 
-abstract class Component {
+abstract class Node {
     public abstract int somme();
-    public abstract void addChild(Component c);
+    public void addChild(Node c){}
+    public List<Node> getChildren(){
+        return null;
+    }
 }
 
-class Nombre extends Component{
+class Nombre extends Node{
     // A compléter
 }
 
-class Composite extends Component{
+class Composite extends Node{
     
-    private List<Component> children = new ArrayList<>();
+    private List<Node> children = new ArrayList<>();
     
     public int somme(){
         // à compléter
     }
     
     // composite stuff
-    public List<Component> getChildren(){
+    public List<Node> getChildren(){
         return children;
     }
-    public void addChild(Component child){
+    public void addChild(Node child){
         children.add(child);
     }
 }
