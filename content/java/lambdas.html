@@ -16,8 +16,6 @@
 https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html
 https://www.tutorialspoint.com/java8/java8_lambda_expressions.htm
 
-
-
 Using lambda expression, you can refer to any final variable or effectively final variable (which is assigned only once). Lambda expression throws a compilation error, if a variable is assigned a value the second time.
 -->
 
@@ -51,17 +49,9 @@ Using lambda expression, you can refer to any final variable or effectively fina
         </li>
     </ul>
 </nav>
-
-
-
-
 </header>
 
 <article>
-
-
-
-
 
 <!-- ********************************************************************************* -->
 <h2><a name="1-lambdas-et-functional-interfaces">Lambdas et functional interfaces</a></h2>
@@ -133,7 +123,11 @@ public class LambdaDemo1{
         MathOperation addition = (a, b) -> a + b; // syntaxe la plus concise
         MathOperation soustraction = (int a, int b) -> a - b;
         MathOperation multiplication = (int a, int b) -> { return a * b; };
-        MathOperation division = (int a, int b) -> a / b;
+        MathOperation division = new MathOperation(){
+            public int operation(int a, int b){
+                return a / b;
+            }
+        };
         
         // la ligne suivante ne passe pas à la compilation
         // int test = addition(3, 4);
@@ -195,11 +189,13 @@ Ces 2 codes sont équivalents :
         <td class="vertical-align-top">
 <pre>
 String[] files =
-    dir.list(new FilenameFilter() {
-        public boolean accept(File f, String s) {
-            return s.endsWith(".java");
+    dir.list(
+        new FilenameFilter() {
+            public boolean accept(File f, String s) {
+                return s.endsWith(".java");
+            }
         }
-    });
+    );
 </pre>
         </td>
         <td class="vertical-align-top">

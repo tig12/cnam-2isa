@@ -7,7 +7,11 @@ public class LambdaDemo1{
         MathOperation addition = (a, b) -> a + b; // syntaxe la plus concise
         MathOperation soustraction = (int a, int b) -> a - b;
         MathOperation multiplication = (int a, int b) -> { return a * b; };
-        MathOperation division = (int a, int b) -> a / b;
+        MathOperation division = new MathOperation(){
+            public int operation(int a, int b){
+                return a / b;
+            }
+        };
         
         // la ligne suivante ne passe pas à la compilation
         // int test = addition(3, 4);
