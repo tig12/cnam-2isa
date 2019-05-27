@@ -44,8 +44,8 @@ public class Main{
 
         switch(args[0]){
         	case "basic" :             test_basic(); break;
-        	case "factorymethod" :    test_factorymethod(); break;
-        	case "abstractfactory" :  test_abstractfactory(); break;
+        	case "factorymethod" :     test_factorymethod(); break;
+        	case "abstractfactory" :   test_abstractfactory(); break;
         	case "builder" :           test_builder(); break;
         	case "prototype" :         test_prototype(); break;
         }
