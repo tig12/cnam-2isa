@@ -123,6 +123,9 @@ c2.removeAll(c3); // Supprime une collection d'élément
 c2.retainAll(c3); // Supprime tous les éléments qui ne sont pas dans c3
 c.clear(); // RAZ, supprime tous les éléments d'une collection
 
+// Accès aux éléments
+c2.get(1);
+
 // Taille d'une collection
 boolean b = c1.isEmpty(); // c is now empty, so true
 int s = c1.size();
@@ -274,9 +277,11 @@ Pour arriver à ça, les designers de java ont dû résoudre un problème : de n
 <br>Le risque de collision de nom était fort donc une nouvelle classe a été introduite :
 <br><code><b>java.util.stream.Stream&lt;T></b></code>
 <br>
-<br>D'après <code>Stream</code> javadoc : <cite>A sequence of elements supporting sequential and parallel aggregate operations.</cite>
-<br>
-<br>L'idée est d'appliquer une suite d'opérations (un <b>pipeline</b>), appliquées au <code>Stream</code>.
+<br>D'après <code>Stream</code> javadoc :
+
+<cite>A sequence of elements supporting sequential and parallel aggregate operations.</cite>
+
+L'idée est d'appliquer une suite d'opérations (un <b>pipeline</b>), appliquées au <code>Stream</code>.
 <br>Chaque opération est habituellement exprimée par une lambda expression.
 <br>A la fin du pipeline, les résultats doivent être rassemblés dans un nouveau stream.
 <br>Cela est effectué soit en utilisant un <code><b>Collector</b></code>, soit en terminant le pipeline par une "opération terminale" (comme <code>reduce()</code>), qui renvoie une valeur plutôt qu'un stream.

@@ -182,7 +182,32 @@ On peut s'apercevoir de deux choses :
     <li><code>git slog</code> montre que le pointeur <code>HEAD</code> se trouve sur le commit correspondant à <code>master</code>.</li>
 </ul>
 
-Attention, avant de passer d'une branche à l'autre, il faut avoir son répertoire de travail propre, ne pas avoir de fichiers dans l'état <code>modified</code>. Pour changer de branche en laissant en l'état son travail courant, il existe une technique appelée <i>stashing</i>.
+<!-- ************************************* -->
+<h3>Stashing</h3>
+Pour passer d'une branche à l'autre, il faut avoir son répertoire de travail propre, ne pas avoir de fichiers dans l'état <code>modified</code>.
+Pour changer de branche en laissant en l'état son travail courant, on utilise <code>git stash</code>.
+<br>
+<br>Très bien expliqué : <a href="https://git-scm.com/book/en/v2/Git-Tools-Stashing-and-Cleaning">https://git-scm.com/book/en/v2/Git-Tools-Stashing-and-Cleaning</a>
+<pre>
+git stash list
+
+# stash
+git stash
+git stash -u                # --include-untracked
+git stash --keep-index      # include staged content and leave it in the index.
+git stash -a                # --all (include ignored files)
+git stash --patch           # interactive - ask which files to stash
+git stash branch new_branch # create a branch, checks out the commit you were on when you stashed,
+                            # reapplies your work there, and then drops the stash if apply = ok
+
+# unstash
+git stash apply
+git stash apply stash@{2}   # if several stashes - see git stash list
+git stash apply --index     # reapply also the staged changes
+
+git stash drop stash@{0}
+git stash pop               # apply the stash and then immediately drop it
+</pre>
 
 <!-- ********************************************************************************* -->
 <h2><a name="3-branch-merge">Branch merge</a></h2>

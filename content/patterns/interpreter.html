@@ -225,7 +225,9 @@ public class UnPlusUn{
         switch(parts[1]){
             case "fois" : operation = new Fois(e1, e2); break;
             case "plus" : operation = new Plus(e1, e2); break;
-            default: throw new IllegalExpressionException("Illegal expression '" + str + "' : '" + parts[1] + "' n'est pas un opérateur valable");
+            default: throw new IllegalExpressionException(
+                "Illegal expression '" + str + "' : '" + parts[1] + "' n'est pas un opérateur valable"
+            );
         }
         return operation;
     }
@@ -251,7 +253,7 @@ class IllegalExpressionException extends Exception{
         Toutes les règles implémentent ou dérivent d'une Règle Abstraite, qui contient une méthode <code>interpret()</code> (parfois appelée <code>execute()</code>).
     </li>
     <li>
-        Les expression composées contiennent leurs sous-expressions dans des variables de classe.
+        Les expression composées contiennent leurs sous-expressions dans des variables d'instance.
         <br>L'implémentation de <code>interpret()</code> d'une expression composée contient nécessairement l'appel à <code>interpret()</code> des sous-expressions.
         <br>Fonctionnement récursif.
     </li>
@@ -272,8 +274,11 @@ class IllegalExpressionException extends Exception{
         Ce pattern ne répond qu'à une partie du problème ; le client a la charge de fabriquer l'AST, donc de parser le texte.
     </li>
     <li>
-        <i>Interpreter</i> est similaire à <a href="composite.html">Composite</a> : structure arborescente, méthode récursive.
-        <br>Si on veut implémenter plusieurs manières d'interpréter (pretty printing, métrique sur le code...), on peut aussi utiliser <a href="visitor.html">Visitor</a>.
+        <i>Interpreter</i> est similaire à <a href="composite.html">Composite</a> : structure arborescente, méthode récursive ; <code>interpret()</code> dans <i>Interpreter</i> correspond à la méthode <code>operation()</code> de <i>Composite</i>.
+        <br>Mais les méthodes <code>addChild()</code> etc. ne sont pas présentes dans <i>Interpreter</i> ; elles sont remplacées par les paramètres passés aux constructeurs des noeuds (sous-classes de <code>AbstractExpression</code>). Cela est justifié par le fait qu'une <code>AbstractExpression</code> donnée ne contient qu'un nombre d'enfants bien défini, contrairement au cas général d'un composite.
+    </li>
+    <li>
+        Si on veut implémenter plusieurs manières d'interpréter (pretty printing, métrique sur le code...), on peut aussi utiliser <a href="visitor.html">Visitor</a>.
     </li>
     <li>
         Pour des langages plus compliqués, on utilise des générateurs de parser (comme Bison ou Yacc).

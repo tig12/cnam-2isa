@@ -2,7 +2,7 @@
 /** 
     Exemple d'interpréteur
     Exemple d'utilisation : java "un plus deux"
-    (ne pas oublier les guillemets afin que le programme n'ait en entrée q'un seul argument).
+    (ne pas oublier les guillemets afin que le programme n'ait en entrée qu'un seul argument).
 **/
 public class UnPlusUn{
 

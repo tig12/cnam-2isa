@@ -71,7 +71,7 @@ On modélise la fabrication d'une pizza en 3 étapes :
     <li>Faire la sauce</li>
     <li>Faire la garniture</li>
 </ul>
-Qu'on fabrique une pizza blanche, une sicilienne ou une montagnarde, on fait toujours ces 3 étapes.
+Que l'on fabrique une pizza blanche, une sicilienne ou une montagnarde, on fait toujours ces 3 étapes.
 <br>Le pattern Builder utilise cette structure :
 
 <img class="border margin margin-left2 padding05" src="img/builder-pizza-classes.jpg" alt="Builder - PizzasBuilders">
@@ -98,7 +98,7 @@ class <b>PizzaDirector</b>{
     }
 
     public Pizza getPizza() {
-        return pizzaBuilder.getPizza(); // ne fait que forwarder au builder concret
+        return pizzaBuilder.getPizza(); // ne fait que transmettre au builder concret
     }
     public void <b>constructPizza</b>() {
         pizzaBuilder.buildPate();
@@ -161,7 +161,7 @@ Utilisez ce pattern quand :
     </li>
     <li>
         <i>Permet un contrôle plus fin sur le processus de construction</i> :
-        <br>Contrairement aux autre patterns de création, qui contruisent les objets d'un seul coup,
+        <br>Contrairement aux autres patterns de création, qui contruisent les objets d'un seul coup,
         <br>Builder construit l'objet pas à pas sous le contrôle du Director.
     </li>
 </ul>

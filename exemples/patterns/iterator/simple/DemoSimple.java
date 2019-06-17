@@ -114,6 +114,7 @@ public class DemoSimple{
             System.out.println(it2.next());
         }
         
+        // 2 itérations simultanées
         System.out.println(" === Itérations simple et inverse ===");
         ArrayAggregate.NormalIterator it3 = aa.getNormalIterator();
         ArrayAggregate.ReverseIterator it4 = aa.getReverseIterator();

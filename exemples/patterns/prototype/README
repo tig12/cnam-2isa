@@ -1,0 +1,4 @@
+
+demo1/ contient une implémentation avec un défaut : au chargement de la classe Registry, toutes les instances possibles de Person sont créées, même si elles ne sont pas utilisées par le client.
+
+demo2/ corrige ce défaut : dans Registry.getPrototype(), l'instance est créée uniquement si le code client en a besoin.
