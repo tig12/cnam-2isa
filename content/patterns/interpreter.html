@@ -288,23 +288,8 @@ class IllegalExpressionException extends Exception{
 
 
 <div class="exo">
-<b>Exercice</b> :
-<br>
-<br>1 - Modifier l'exemple <code>UnPlusUn</code> pour aussi permettre des phrases composées :
-<pre class="normal">trois plus six plus sept fois dix</pre>
-que l'on traite comme
-<pre class="normal">(trois plus six) plus (sept fois dix)</pre>
-La grammaire devient :
-<pre class="normal">
-operation ::= 'plus' | 'fois'
-nombre ::= 'un'|'deux'| ... |'neuf'
-expression ::= nombre operation nombre
-<b>composed ::= expression operation expression</b></pre>
+<b>Exercice</b> : <a href="../../exos/patterns/interpreter/unplusun/Unplusun.html">Exemple UnPlusUn modifié</a>
 
-L'interpréteur doit à la fois pouvoir interpréter une chaîne exprimant une <code>expression</code> (par ex : <code>un plus un</code>)  ou une <code>composed</code> (par ex : <code>un plus deux fois cinq plus neuf</code>). 
-<br>Mais ne doit pas pouvoir interpréter une chaîne comme <code>un plus deux fois cinq</code>.
-<br>
-<br>2 - Rajouter une opération "moins" (qui effectue une soustraction).
 </div>
 
 <!-- ************************************* -->

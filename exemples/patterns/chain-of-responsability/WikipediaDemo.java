@@ -18,7 +18,7 @@ public class WikipediaDemo {
         PurchasePower president = new President();
         PurchasePower nobody = new Nobody();
         
-        manager.setSuccessor(director);
+        manager.setSuccessor(director);                                                
         director.setSuccessor(vp);
         vp.setSuccessor(president);
         president.setSuccessor(nobody);
@@ -33,16 +33,16 @@ public class WikipediaDemo {
         
         System.out.println("\nPress Ctrl+C to end.");
         
-        try {
-            while (true) {
-                System.out.println("\nEnter the amount to check who should approve your expenditure.");
-                System.out.print("> ");
+        while (true) {
+            System.out.println("\nEnter the amount to check who should approve your expenditure.");
+            System.out.print("> ");
+            try {
                 double d = Double.parseDouble(new BufferedReader(new InputStreamReader(System.in)).readLine());
                 manager.handleRequest(new PurchaseRequest(d));
             }
-        }
-        catch (Exception e) {
-            System.exit(1);
+            catch (Exception e) {
+                System.out.println("Invalid amount.");
+            }
         }
     }
 }

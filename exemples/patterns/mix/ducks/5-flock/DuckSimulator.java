@@ -34,7 +34,7 @@ public class DuckSimulator {
         
         // =====
         
-        System.out.println("\nDuck Simulator");
+		System.out.println("\n=== Duck Simulator ===");
         
         System.out.println("\nDuck Simulator: Whole flock simulation");
         simulate(f3);

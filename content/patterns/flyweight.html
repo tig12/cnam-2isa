@@ -60,15 +60,21 @@ Le pattern <i>Flyweight</i> décrit comment partager les objets.
 <br>Mais il ne connaît pas son contexte, s'il doit l'utliser dans ses opérations, le client doit le passer en paramètre.
 <br>
 <br>Le pattern repose sur la distinction entre <b>état intrinsèque</b> et <b>état extrinsèque</b> de l'objet.
-<br>L'état intrinsèque est stocké dans l'objet flyweight ; est composé d'informations indépendantes de son contexte.
-<br>L'état extrinsèque dépend du contexte et ne peut être partagé.
-<br><b>Le client a la responsabilité de passer au flyweight les informations extrinsèques lorsque le flyweight en a besoin</b>.
-<br>
-<br>Dans l'exemple du traitement de texte, l'état intrinsèque d'un caractère est son code.
-<br>Les autre informations, comme sa position dans le texte, ses décorations gras, souligné... sont extrinsèques. 
-<br>
-<br>Structure <i>logique</i> : on a un objet par caractère.
-<br>Mais physiquement, chaque occurence d'un même caractère pointe vers le même objet flyweight :
+<ul class="spaced">
+    <li>
+        L'état intrinsèque est stocké dans l'objet flyweight ; est composé d'informations indépendantes de son contexte.
+        <br>Dans l'exemple du traitement de texte, l'état intrinsèque d'un caractère est son code.
+    </li>
+    <li>
+        L'état extrinsèque dépend du contexte et ne peut pas être partagé.
+        <br><b>Le client a la responsabilité de passer au flyweight les informations extrinsèques lorsque le flyweight en a besoin</b>.
+        <br>Dans l'exemple, les autres informations, comme sa position dans le texte, ses décorations gras, souligné... sont extrinsèques. 
+    </li>
+</ul>
+
+On a donc une <b>structure logique</b> différente de la <b>structure physique</b> :
+<br>Structure logique : on a un objet par caractère.
+<br>Structure physique : chaque occurence d'un même caractère pointe vers le même objet flyweight.
 
 <div class="margin">
     <img class="vertical-align-top margin-right inline-block border" src="img/flyweight-gof-example2.jpg" alt="Flyweight - Exemple 2">

@@ -138,7 +138,10 @@ On démarre l'application avec :
         Une interface <code>Quackable</code> ("qui fait coin coin") que tous les canards implémentent.
     </li>
     <li>
-      Un début de simulateur, <code>DuckSimulator</code> qui contient la fonction <code>main()</code>.
+      Un début de simulateur, <code>DuckSimulator</code>.
+    </li>
+    <li>
+        Une fonction <code>main()</code>
     </li>
 </ul>
 
@@ -169,11 +172,11 @@ Le client souhaite pouvoir compter le nombre de quacks effectués par l'ensemble
 <br>Mais il ne veut pas compter les quacks des oies.
 <br>L'output souhaité est le suivant :
 <pre>
-Duck Simulator
-Quack
-Quack
-Kwak
-Squeak
+=== Duck Simulator ===
+Mallard Quack
+Redhead Quack
+DuckCall quack
+RubberDuck quack
 Honk
 
 Number of quacks : 4
@@ -198,21 +201,21 @@ Cette solution fonctionne, mais les risques d'erreurs sont importants, car il fa
     <pre>
 java Main normal
 
-Duck Simulator
-Quack
-Quack
-Kwak
-Squeak
+=== Duck Simulator ===
+Mallard Quack
+Redhead Quack
+DuckCall quack
+RubberDuck quack
 Honk
     </pre>
     <pre>
 java Main count
 
-Duck Simulator
-Quack
-Quack
-Kwak
-Squeak
+=== Duck Simulator ===
+Mallard Quack
+Redhead Quack
+DuckCall quack
+RubberDuck quack
 Honk
 
 Number of quacks : 4
@@ -261,24 +264,24 @@ Number of quacks : 4
 <pre>
 java Main count
 
-Duck Simulator
+=== Duck Simulator ===
 
 Duck Simulator: Whole flock simulation
-Quack
-Quack
-Kwak
-Squeak
+Mallard Quack
+Redhead Quack
+DuckCall quack
+RubberDuck quack
 Honk
-Quack
-Quack
-Quack
-Quack
+Mallard Quack
+Mallard Quack
+Mallard Quack
+Mallard Quack
 
 Duck Simulator: Mallard flock simulation
-Quack
-Quack
-Quack
-Quack
+Mallard Quack
+Mallard Quack
+Mallard Quack
+Mallard Quack
 
 The ducks quacked : 12 times
 </pre>
@@ -288,7 +291,6 @@ The ducks quacked : 12 times
 <h3><a name="3-6-6-tracking-individual-ducks">6 - Tracking individual ducks</a></h3>
 Maintenant, le quackologiste veut pouvoir suivre certains individus en particulier (afficher leurs quacks).
 <br>En d'autres termes, il veut pouvoir observer certains canards, ce qui mène au pattern <a href="observer.html">Observer</a>.
-<br>On va ici implémenter ce pattern à la main, sans utiliser le mécanisme fourni par java.
 <br>
 <br>Les canards sont les <b>observables</b>. Pour que le pattern <i>Observer</i> fonctionne, ils doivent tous dériver d'une abstraction qui a besoin de 2 méthodes : <code>registerObserver()</code> et <code>notifyObservers()</code>.
 <br>
@@ -368,26 +370,26 @@ f3.registerObserver(quackologist);
 
 Implémenter de manière à avoir l'output suivant :
 <pre>
-java Main 
+java Main count
 
-Duck Simulator
-Quack
+=== Duck Simulator ===
+Mallard Quack
 Quackologist: Mallard Duck just quacked.
-Quack
+Redhead Quack
 Quackologist: Redhead Duck just quacked.
-Kwak
+DuckCall quack
 Quackologist: Duck Call just quacked.
-Squeak
+RubberDuck quack
 Quackologist: Rubber Duck just quacked.
 Honk
 Quackologist: Goose pretending to be a Duck just quacked.
-Quack
+Mallard Quack
 Quackologist: Mallard Duck just quacked.
-Quack
+Mallard Quack
 Quackologist: Mallard Duck just quacked.
-Quack
+Mallard Quack
 Quackologist: Mallard Duck just quacked.
-Quack
+Mallard Quack
 Quackologist: Mallard Duck just quacked.
 
 The ducks quacked : 8 times
