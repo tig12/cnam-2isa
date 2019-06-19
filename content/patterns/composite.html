@@ -152,6 +152,7 @@ abstract class Component {
 class Leaf extends Component{
     public Leaf(String name){ super(name); }
     public void operation(){ System.out.println(name); }
+    public void addChild(Component c){ }
 }
 
 class Composite extends Component{
