@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Exercice Elevage de chats | NFP121</title>
+    <link href="../../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Elevage de chats</h1>
+</header>
+
+<article>
+Extrait de l'examen (3 points).
+<br>
+<br>Vous faites partie d'une équipe qui automatise la distribution de nourriture dans un élevage de chats.
+<br>Vous avez développé une classe <code>ChatNormal</code> qui contient une méthode <code>alimenter()</code>.
+<br>Afin de gérer différents types d'alimentation, il a été décidé d'utiliser du code écrit par une société extérieure, <i>Cat Feeders</i>.
+<br>
+<br>Le code existant se trouve dans le dossier <a href="enonce/">enonce/</a>, qui contient :
+<ul class="margin-top0">
+    <li>Le code développé par la société Cat Feeders, dans le package <code>com.catfeeders</code></li>
+    <li>
+        Le code développé par votre équipe, dans le package <code>elevage</code>, qui contient :
+        <ul>
+            <li>La classe <code>elevage.animaux.ChatNormal</code></li>
+            <li>Une classe de test, <code>elevage.Main</code></li>
+        </ul>
+    </li>
+</ul>
+
+Il est impossible de modifier le code de la société Cat Feeders.
+<br>Il vous est demandé d'écrire les adaptateurs permettant d'utiliser vos classes de chats et celles de Code Feeders de manière homogène, et de remplacer le code de test existant (dans <code>main()</code>) par du code illustrant cette possibilité :
+<pre>
+        Chat[] chats = {
+            /* A compléter */
+        };
+        
+        for(Chat chat : chats){
+            chat.alimenter();
+        }
+</pre>
+
+</article>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+
+dirbin="../../../../bin/exam/2019-02-07/adapters/enonce"
+
+command="java -classpath $dirbin elevage.Main"
+
+echo $command
+
+$command
+
