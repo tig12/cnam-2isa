@@ -155,9 +155,9 @@ On démarre l'application avec :
 On veut pouvoir gérer les oies (= goose en anglais) dans notre simulateur ; on nous fournit une classe :
 <pre>
 public class Goose {
-	public void honk() {
-		System.out.println("Honk");
-	}
+    public void honk() {
+        System.out.println("Honk");
+    }
 }
 </pre>
 La demande est de pouvoir utiliser des oies partout où on utilise des canards.
@@ -295,66 +295,126 @@ Maintenant, le quackologiste veut pouvoir suivre certains individus en particuli
 <br>Les canards sont les <b>observables</b>. Pour que le pattern <i>Observer</i> fonctionne, ils doivent tous dériver d'une abstraction qui a besoin de 2 méthodes : <code>registerObserver()</code> et <code>notifyObservers()</code>.
 <br>
 <br>Les <b>default methods</b> permettent de mettre ces 2 méthodes directement dans <code>Quackable</code>.
-
+<br>
 <br>Pour que chaque canard implémente cette interface, il faut que chaque classe implémente la gestion d'une liste d'observateurs et de notification, ce qui entraîne des répétitions de code.
-<br>Pour limiter ces répétitions, on va utiliser une classe <code>ObservableHelper</code> implémentant ce mécanisme, et utiliser la composition dans les classes de canards :
+<br>Pour limiter ces répétitions, on a plusieurs solutions :
+
+<ol class="spaced">
+    <li>
+        <details>
+            <summary>
+                On peut écrire une classe <code>ObservableHelper</code> implémentant ce mécanisme, et utiliser la composition dans les classes de canards :
+            </summary>
 <pre>
 import java.util.Iterator;
 import java.util.ArrayList;
 
 public class ObservableHelper implements Quackable {
-	ArrayList&lt;Observer> observers = new ArrayList&lt;Observer>();
-	Quackable duck;
+    ArrayList&lt;Observer> observers = new ArrayList&lt;Observer>();
+    Quackable duck;
  
-	public ObservableHelper(Quackable duck) {
-		this.duck = duck;
-	}
+    public ObservableHelper(Quackable duck) {
+        this.duck = duck;
+    }
   
-	public void registerObserver(Observer observer) {
-		observers.add(observer);
-	}
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
   
-	public void notifyObservers() {
-		Iterator&lt;Observer> iterator = observers.iterator();
-		while (iterator.hasNext()) {
-			Observer observer = iterator.next();
-			observer.update(duck);
-		}
-	}
+    public void notifyObservers() {
+        Iterator&lt;Observer> iterator = observers.iterator();
+        while (iterator.hasNext()) {
+            Observer observer = iterator.next();
+            observer.update(duck);
+        }
+    }
  
-	public Iterator&lt;Observer> getObservers() {
-		return observers.iterator();
-	}
+    public Iterator&lt;Observer> getObservers() {
+        return observers.iterator();
+    }
 }
 </pre>
 
 On est toujours obligés de modifier chaque classe de canard :
 <pre>
 public class RubberDuck implements Quackable {
-	ObservableHelper observable;
+    ObservableHelper observable;
 
-	public RubberDuck() {
-		observable = new ObservableHelper(this);
-	}
+    public RubberDuck() {
+        observable = new ObservableHelper(this);
+    }
  
-	public void quack() {
-		System.out.println("Squeak");
-		notifyObservers();
-	}
+    public void quack() {
+        System.out.println("Squeak");
+        notifyObservers();
+    }
 
-	public void registerObserver(Observer observer) {
-		observable.registerObserver(observer);
-	}
+    public void registerObserver(Observer observer) {
+        observable.registerObserver(observer);
+    }
 
-	public void notifyObservers() {
-		observable.notifyObservers();
-	}
+    public void notifyObservers() {
+        observable.notifyObservers();
+    }
   
-	public String toString() {
-		return "Rubber Duck";
-	}
+    public String toString() {
+        return "Rubber Duck";
+    }
 }
 </pre>
+        </details>
+    </li>
+    
+    <li>
+        <details>
+            <summary>
+                On peut utiliser l'héritage, en écrivant une classe <code>Observable</code>, qui implémente <code>Quackable</code> et qui contient le mécanisme.
+                Les classes de canards dériveront de <code>Observable</code>.
+            </summary>
+<pre>
+import java.util.Iterator;
+import java.util.List;
+import java.util.ArrayList;
+
+public abstract class Observable implements Quackable{
+    
+    ArrayList<Observer> observers = new ArrayList<Observer>();
+
+    public void quack(){
+        notifyObservers();
+    }
+    
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+  
+    public void notifyObservers() {
+        Iterator<Observer> iterator = observers.iterator();
+        while (iterator.hasNext()) {
+            Observer observer = iterator.next();
+            observer.update(this);
+        }
+    }
+ 
+    public Iterator<Observer> getObservers() {
+        return observers.iterator();
+    }
+}
+</pre>
+Et il faut adapter les classes de canards :
+<pre>
+public class RedheadDuck extends Observable {
+    public void quack() {
+        System.out.println("Redhead Quack");
+        super.quack();
+    }
+}
+</pre>
+        </details>
+    </li>
+</ol>
+
+Noter que dans les deux cas, on doit modifier les classes de canards.
 
 Attention à l'implémentation de l'oie et de <code>Flock</code>.
 <br>

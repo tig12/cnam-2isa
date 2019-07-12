@@ -18,18 +18,4 @@ public class CountDecorator implements Quackable{
     public static int getNumberOfQuacks(){
         return numberOfQuacks;
     }
-
-	public void registerObserver(Observer observer) {
-		quackable.registerObserver(observer);
-	}
- 
-	public void notifyObservers() {
-		quackable.notifyObservers();
-	}
-   
-	public String toString() {
-		return quackable.toString();
-	}
-
 }
-

@@ -1,0 +1,3 @@
+Version utilisant un helper pour factoriser le code des observables.
+Plus compliqué à comprendre que 6-tracking, qui utilise l'héritage.
+Donc solution abandonnée pour le cours.

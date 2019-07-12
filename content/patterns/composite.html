@@ -188,13 +188,13 @@ root
 
 Remarquer que l'affichage de l'arborescence dans le code client se fait en une seule instruction : <code>root.operation();</code>
 <br>
-<br>Note : dans ce cas précis, on pourrait simplifier et avoir une seule classe pour <code>Composite</code> et <code>Leaf</code>, car <code>operation()</code> fait exactement la même chose dans les deux cas. Voir une implémentation simplifiée dans <a href="../../exemples/patterns/composite/GOFDiagram3.java">GOFDiagram3.java</a>.
+<br>Note : dans ce cas précis, on pourrait simplifier et avoir une seule classe pour <code>Composite</code> et <code>Leaf</code>, car <code>operation()</code> fait exactement la même chose dans les deux cas. Voir une implémentation simplifiée dans <a href="../../exemples/patterns/composite/GOFDiagram2.java">GOFDiagram2.java</a>.
 <br>
 <br>Mais ce n'est pas possible en général ; voir par ex exercice Sommateur.
 
 <div class="exo">
 <b>N.B. Pour les exercices, vous pouvez démarrer avec un copier - coller</b>
-<br>Partir des exemples <code>GOFDiagram1</code> (composites "de base") ou <code>GOFDiagram2</code> (composite avec lien au parent).
+<br>Partir des exemples <code>GOFDiagram1</code> (composites "de base") ou <code>GOFDiagram3</code> (composite avec lien au parent).
 </div>
 
 <div class="exo">
@@ -261,7 +261,7 @@ La méthode <code>operation()</code> est ici <code>add()</code>.
 <h2><a name="3-reference-au-parent">Référence au parent</a></h2>
 A de nombreuses applications.
 <br>
-<br>L'exemple <a href="../../exemples/patterns/composite/GOFDiagram2.java">GOFDiagram2.java</a> affiche exactement la même chose que <code>GOFDiagram1</code> avec une implémentation différente :
+<br>L'exemple <a href="../../exemples/patterns/composite/GOFDiagram3.java">GOFDiagram3.java</a> affiche exactement la même chose que <code>GOFDiagram1</code> avec une implémentation différente :
 <br>Dans <code>main()</code>, les noms des composants ne débutent plus par des espaces :
 <pre>Component node1_1 = new Composite("  composite 1.1");</pre>
 devient 

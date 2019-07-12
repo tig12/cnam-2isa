@@ -8,9 +8,10 @@
 public class VehicleDemo {
     public static void main(String args[]){
         Gear gear;
+        Vehicle vehicle;
         
         gear = new ManualGear();
-        Vehicle vehicle = new Car(gear);
+        vehicle = new Car(gear);
         vehicle.displayGear();
 
         gear = new AutomaticGear();

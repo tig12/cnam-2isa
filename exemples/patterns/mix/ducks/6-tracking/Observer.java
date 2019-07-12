@@ -1,4 +1,3 @@
-
 public interface Observer {
-	public void update(Quackable duck);
+    public void update(Observable o);
 }

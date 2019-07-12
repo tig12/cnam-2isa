@@ -15,7 +15,6 @@ public abstract class Observable implements Quackable{
 	}
   
 	public void notifyObservers() {
-//System.out.println("notifyObservers " + this);
 		Iterator<Observer> iterator = observers.iterator();
 		while (iterator.hasNext()) {
 			Observer observer = iterator.next();
