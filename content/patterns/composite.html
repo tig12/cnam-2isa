@@ -281,19 +281,19 @@ abstract class Component {
         <b>System.out.println(String.join("", Collections.nCopies(getLevel(), "  ")) + name);</b>
     }
     
-    public void add(Component c){}
-    public Component getParent(){ return parent; }
-    public void setParent(Component parent){ this.parent = parent; }
+    public void addChild(Component c){}
+    <b>public Component getParent(){ return parent; }</b>
+    <b>public void setParent(Component parent){ this.parent = parent; }</b>
     
     <b>public int getLevel(){ return parent == null ? 0 : parent.getLevel() + 1; }</b>
 }
 </pre>
 
-<code>Leaf</code> ne change pas, mais <code>Composite.add()</code> oui :
+<code>Leaf</code> ne change pas, mais <code>Composite.addChild()</code> oui :
 <pre>
 class Composite extends Component{
     // ...    
-    public void add(Component child){
+    public void addChild(Component child){
         children.add(child);
         <b>child.setParent(this)</b>;
     }
@@ -368,7 +368,7 @@ class VersDeTerre extends Animal{
     <li>
         <i><a href="decorator.html">Decorator</a></i> est souvent utilisé avec <i>Composite</i>.
         <br>Lorsque décorateurs et composites sont utilisés ensemble, ils ont en général une classe parente commune.
-        <br>Donc les décorateurs devront se conformer à l'interface <code>Component</code> avec des opérations comme <code>add()</code>, <code>remove()</code>, <code>getChild()</code>.
+        <br>Donc les décorateurs devront se conformer à l'interface <code>Component</code> avec des opérations comme <code>addChild()</code>, <code>removeChild()</code>, <code>getChild()</code>.
     </li>
     
     <li>
