@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Morphismes | NFP121 Millau</title>
+    <meta name="description" content="Quelques points abordés en cours, liés à l'informatique, mais pas dans le programme officiel.">
+    <meta name="robots" content="index,follow">
+    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="NFP121" href="../../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="ens.html">&larr;</a>
+    <!-- 
+    <a class="next" title="Next" href=".html">&rarr;</a>
+    -->
+</nav>                                                       
+
+<header>
+<h1>Morphismes</h1>
+</header>
+
+<article>
+
+<div class="intro">
+Dans une catégorie, les flèches sont aussi appelées des morphismes.
+<br>Dans la catégorie des ensembles <code>Set</code>, les morphismes sont les fonctions qui nous sont familières.
+</div>
+
+<!-- ********************************************************************************* -->
+<h2>Isomorphismes</h2>
+
+Lorsqu'on a une fonction, le plus pratique et le plus simple à manipuler, c'est lorsqu'on a un mapping 1 - 1 entre les éléments de l'ensemble de départ et les éléments de l'ensemble d'arrivée.
+
+<img class="margin border padding" src="img/bijection.jpg" alt="Bijection - ex lower/upper case">
+
+<!-- ************************************* -->
+<h3>Bijection</h3>
+
+Ce type de fonction s'appelle une <b>bijection</b>, on dit que la fonction est <i>bijective</i>.
+<br>Pour chaque élément transformé par la fonction, on peut sans ambiguîté revenir à l'élément de départ ; on peut donc définir une <b>fonction inverse</b>.
+
+<img class="margin border padding" src="img/bij-inverse.jpg" alt="Bijection f f-1">
+
+Si on a une fonction <code>f</code>, la fonction inverse est notée <code>f<sup>-1</sup></code>
+<br><code>f(x) = y</code>
+<br><code>f<sup>-1</sup>(y) = x</code>
+<br>Le mapping 1 - 1 d'une bijection est exprimé par 
+
+<br><code>f<sup>-1</sup>(f(x)) = x</code>, ou encore <code>f<sup>-1</sup> o f(x) = x</code>
+<br><code>f(f<sup>-1</sup>(y)) = y</code>, ou encore <code>f o f<sup>-1</sup>(y) = y</code>
+
+<!-- ************************************* -->
+<h3>Isomorphisme</h3>
+Dans une catégorie, cette propriété s'exprime 
+
+<br>
+<br>Une fonction peut ne pas être bijective soit parce qu'elle est <i>injective</i>, soit parce qu'elle est <i>surjective</i>.
+
+<!-- ********************************************************************************* -->
+<h2>Injections, Monomorphismes</h2>
+
+Si l'image de 2 éléments distincts <code>x<sub>1</sub></code> et <code>x<sub>2</sub></code> ont la même image <code>y</code>, on ne peut pas revenir en arrière. Depuis <code>y</code>, on est incapable de choisir entre <code>x<sub>1</sub></code> et <code>x<sub>2</sub></code>.
+
+<img class="margin border padding" src="img/injection.jpg" alt="Injection">
+
+Dans ce cas, on dit que <code>f</code> n'est PAS injective.
+<br>Pour qu'une fonction soit une injection on doit avoir
+<br>Pour tout <code>x<sub>1</sub></code> et <code>x<sub>2</sub></code> appartenant à <code>E</code>, 
+<br><code>f(x<sub>1</sub>) = f(x<sub>2</sub>)</code> entraîne <code>x<sub>1</sub> = x<sub>2</sub></code>
+<br>
+<br><code></code>
+
+</article>
+
+</body>
+</html>

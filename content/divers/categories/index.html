@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Catégories | NFP121 Millau</title>
+    <meta name="description" content="Quelques points abordés en cours, liés à l'informatique, mais pas dans le programme officiel.">
+    <meta name="robots" content="index,follow">
+    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="NFP121" href="../../../index.html">&uarr;</a>          
+    <a class="next" title="Next" href="ens.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>Catégories</h1>
+</header>
+
+<article>
+
+<div class="intro">
+Les catégories ont remplacé les ensembles comme outil de base pour exprimer les structures mathématiques. Au lieu de travailler avec des éléments, on travaille avec des flèches, qui expriment une <b>relation</b> entre 2 objets. Un langage informatique avec des types de données et des fonctions pures rentre tout naturellement dans une catégorie, la catégorie des types et des fonctions.
+</div>
+
+<br>On a l'habitude de travailler avec les ensembles. On fait plein de choses avec des notions très simples : union, intersection, inclusion, appartenance, cardinal (nombre d'éléments d'un ensemble).
+<br>L'union et l'intersection nous donnent les opérateurs "et" et "ou",
+<br>le produit de deux ensembles nous permet de définir des relations entre deux ensembles, donc de définir des fonctions.
+<br>Dans les ensembles, on travaille avec des éléments, et on décrit les propriétés de nos structures avec ça.
+<br>
+<br>Dans une catégorie, on a des <b>objets</b> et des <b>flèches</b> qui vont d'un objet à l'autre. Une flèche exprime une relation entre 2 objets.
+
+<details class="margin05">
+    <summary>Définition plus précise</summary>
+    @todo domaine, codomaine
+</details>
+
+Une catégorie est donc un graphe orienté : les objets sont les sommets et les flèches sont les arêtes.
+<br>Mais pour qu'un graphe orienté mérite le nom de catégorie, les flèches doivent vérifier certaines propriétés : 
+
+<ol class="spaced">
+    <li>
+        <b>Identité</b> : Tout objet doit avoir une flèche qui part de cet objet et arrive à cet objet sans rien changer.
+        <br>On note <code class="formula">id<sub>A</sub></code> l'indentité de l'objet A.
+    </li>
+    <li>
+        <b>Composition</b> : s'il existe une flèche de A vers B et une flèche de B vers C, alors il doit exister une flèche qui va directement de A à C.
+        <br>Aller de A à B puis de B à C revient exactement au même que d'aller directement de A à C.
+        <img class="border margin" src="img/composition-categorie.jpg" alt="Composition dans une catégorie">
+        La flèche qui va directement de A à C s'appelle la <b>composée</b> de f et de g.
+        <br>On note <code class="formula bold padding-left">g ( f ) = g &#8728; f</code>
+        <br><code>g&#8728;f</code> se prononce "<i> g rond f </i>". Cette notation n'est pas intuitive car elle est à l'envers, mais elle est logique, car on applique <code>g</code> au résultat de <code>f</code>.
+        <br>On pourrait dire "<i> g après f </i>" à la place de "<i> g rond f </i>".
+    </li>
+    <li>
+        <b>Associativité</b> : le chemin parcouru ne change pas le résultat.
+        <img class="border margin" src="img/associativite-categorie.jpg" alt="Associativité dans une catégorie">
+        <code class="formula">h &#8728; (g &#8728; f) = (h &#8728; g) &#8728; f</code>
+        <br>La flèche qui va directement de A à D peut donc s'écrire <code>h &#8728; g &#8728; f</code>, sans les parenthèses.
+    </li>
+</ol>
+
+Et c'est tout.
+<br>
+<br>On peut tout de suite imaginer que le fait d'avoir des flèches en plus des objets permet de représenter tout un tas de phénomènes de manière naturelle.
+<br>Dans la théorie des ensembles, on travaille avc les éléments.
+<br>Dans la théorie des catégories, on travaille avec les flèches.
+<br>Pour une illustration de cette différence, voir <a href="morphismes.html#epimorphismes">les épimorphismes</a>
+
+<!-- ********************************************************************************* -->
+<h2>Historique</h2>
+Les catégories ont été créées dans les années 1940 par deux mathématiciens américains, Saunders Mac Lane et Samuel Eilenberg. Les catégories ont intégré l'informatique théorique en 1980. On avait déjà l'isomorphisme de Curry-Howard, qui assimile un type informatique à une proposition logique - et le passage d'un type à l'autre (une fonction pure) à une démonstration. Lambek a montré qu'un type (ou une proposition logique) peut aussi être assimilé à un objet d'une "catégorie cartésienne fermée" - et les fonctions (ou preuves) aux flèches de cette catégorie. On parle de la correspondance (ou isomorphisme) de <b>Curry-Howard-Lambek</b>.
+
+<!-- ********************************************************************************* -->
+<h2>Liens</h2>
+<ul>
+    <li><a href="https://larzac.info/maths/categories/milewski">larzac.info/maths/categories/milewski</a> : notes d'un cours sur youtube</li>
+    <li><a href="https://en.wikibooks.org/wiki/Haskell/Category_theory">en.wikibooks.org/wiki/Haskell/Category_theory</a></li>
+    <li><a href="https://wiki.haskell.org/Category_theory">wiki.haskell.org/Category_theory</a></li>
+    <li><a href="https://wiki.haskell.org/Curry-Howard-Lambek_correspondence">wiki.haskell.org/Curry-Howard-Lambek_correspondence</a></li>
+</ul>
+
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>

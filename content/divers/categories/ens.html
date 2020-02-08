@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>La catégorie des ensembles | NFP121 Millau</title>
+    <meta name="description" content="Quelques points abordés en cours, liés à l'informatique, mais pas dans le programme officiel.">
+    <meta name="robots" content="index,follow">
+    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="NFP121" href="../../../index.html">&uarr;</a>
+    <a class="prev" title="Previous" href="index.html">&larr;</a>
+    <a class="next" title="Next" href="morphismes.html">&rarr;</a>
+</nav>
+
+<header>
+<h1>
+La catégorie des ensembles
+<br><code>Ens</code> ou <code>Set</code>
+</h1>
+</header>
+
+<article>
+
+<div class="intro">
+</div>
+
+La catégorie la plus familière à étudier est la <b>catégorie des ensembles</b>, notée <code>Set</code> ou <code>Ens</code>, qui contient tous les ensembles possibles.
+<br>Dans cette catégorie,
+<br>- un objet est un ensemble,
+<br>- une flèche est une relation entre 2 ensembles.
+<br>Noter que dans cette catégorie, n'importe quel ensemble est représenté par un objet. On sait avec quels ensembles on travaille, on connaît leur structure interne, mais quand on travaille dans une catégorie, un objet est comme un point, sans structure, on n'a pas de moyen d'utiliser les propriétés internes des objets. On utilise à la place les propriétés des flèches et de leur composition.
+
+<!-- ********************************************************************************* -->
+<h2>Catégorie des types et des fonctions</h2>
+Cette catégorie permet de modéliser un langage informatique comprenant
+<br>- des types de données (objets)
+<br>- des fonctions pures (flèches)
+<br>C'est un cas particulier de <code>Set</code> car un type peut être représenté par un ensemble.
+
+<!-- ************************************* -->
+<h3>Types de données</h3>
+Un <b>type</b> de donnée est représenté par un ensemble dont les éléments sont les valeurs que peut prendre ce type.
+<br>
+<br>Ce sont des ensembles finis ou infinis :
+
+<table class="wikitable margin">
+    <th>Type</th><th>Ensemble</th><th>N : cardinal de l'ensemble</th>
+    <tr>
+        <td>Boolean</td>
+        <td>true, false</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>Char</td>
+        <td>'a', 'b', ...</td>                                                    
+        <td>128</td>
+    </tr>
+    <tr>
+        <td>Integer</td>
+        <td>1, 2, 3 ...</td>
+        <td><span class="big5">&infin;</span> infini</td>
+    </tr>
+    <tr>
+        <td>Real</td>
+        <td>0.0001, 0.0002 ...</td>
+        <td><span class="big5">&infin;</span> infini</td>
+    </tr>
+    <tr>
+        <td>String</td>
+        <td>"", "a", "aa" ...</td>
+        <td><span class="big5">&infin;</span> infini</td>
+    </tr>
+</table>
+Certains types ont en théorie un nombre inifni de valeurs mais en pratique un nombre fini car limité par les capacités de la machine.
+<br>
+<br>On définit donc une <b>catégorie des types</b>. Les objets sont les types de données, et les flèches des fonctions qui transforment un type en un autre.
+<br>Les flèches définissent des fonctions qui prennent un type en paramètre et renvoient un type.
+<pre>
+// char --> boolean
+boolean isVoyelle(char c){ }
+</pre>
+En pratique, les fonctions ne sont pas aussi simples : elles peuvent avoir plusieurs paramètres, générer des exceptions, avoir des effets de bord (I/O, modification de variables globales) ... mais toutes ces complexités peuvent être construites à partir de fonctions pures à un seul paramètre.
+<br>
+<br>La catégorie des types fournit donc une représentation mathématique d'un langage fonctionnel.
+
+
+
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->
+</article>
+
+</body>
+</html>
