@@ -6,6 +6,7 @@
     <meta name="description" content="Quelques points abordés en cours, liés à l'informatique, mais pas dans le programme officiel.">
     <meta name="robots" content="index,follow">
     <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+    <link href="math.css" rel="stylesheet" type="text/css">
     <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
     <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
     <meta name="dcterms.rightsHolder" content="Thierry Graff">
@@ -29,11 +30,16 @@
 
 <div class="intro">
 Dans une catégorie, les flèches sont aussi appelées des morphismes.
-<br>Dans la catégorie des ensembles <code>Set</code>, les morphismes sont les fonctions qui nous sont familières.
+<br>Dans la catégorie des ensembles <code class="">Set</code>, les morphismes sont les fonctions qui nous sont familières.
 </div>
 
+Page inspirée du <a href="https://larzac.info/maths/categories/milewski/younotes1/2.1-functions-epimorphisms.html">cours de Bartosz Milewski</a>
+
 <!-- ********************************************************************************* -->
-<h2>Isomorphismes</h2>
+<h2>Relations, fonctions</h2>
+
+<!-- ********************************************************************************* -->
+<h2>Bijection, Isomorphisme</h2>
 
 Lorsqu'on a une fonction, le plus pratique et le plus simple à manipuler, c'est lorsqu'on a un mapping 1 - 1 entre les éléments de l'ensemble de départ et les éléments de l'ensemble d'arrivée.
 
@@ -47,34 +53,36 @@ Ce type de fonction s'appelle une <b>bijection</b>, on dit que la fonction est <
 
 <img class="margin border padding" src="img/bij-inverse.jpg" alt="Bijection f f-1">
 
-Si on a une fonction <code>f</code>, la fonction inverse est notée <code>f<sup>-1</sup></code>
-<br><code>f(x) = y</code>
-<br><code>f<sup>-1</sup>(y) = x</code>
+Si on a une fonction <code class="enonce">f</code>, la fonction inverse est notée <code class="enonce">f<sup>-1</sup></code>
+<br><code class="">f(x) = y</code>
+<br><code class="">f<sup>-1</sup>(y) = x</code>
 <br>Le mapping 1 - 1 d'une bijection est exprimé par 
 
-<br><code>f<sup>-1</sup>(f(x)) = x</code>, ou encore <code>f<sup>-1</sup> o f(x) = x</code>
-<br><code>f(f<sup>-1</sup>(y)) = y</code>, ou encore <code>f o f<sup>-1</sup>(y) = y</code>
+<br><code class="">f<sup>-1</sup>(f(x)) = x</code>, ou encore <code class="">f<sup>-1</sup> o f(x) = x</code>
+<br><code class="">f(f<sup>-1</sup>(y)) = y</code>, ou encore <code class="">f o f<sup>-1</sup>(y) = y</code>
 
 <!-- ************************************* -->
 <h3>Isomorphisme</h3>
-Dans une catégorie, cette propriété s'exprime 
+<img class="margin border padding" src="img/isomorphism.jpg" alt="Isomorphisme">
+Cette propriété s'exprime dans une catégorie par
+<br><code class="">g o f = id<sub>A</sub></code> et <code class="">f o g = id<sub>B</sub></code>
 
 <br>
 <br>Une fonction peut ne pas être bijective soit parce qu'elle est <i>injective</i>, soit parce qu'elle est <i>surjective</i>.
 
 <!-- ********************************************************************************* -->
-<h2>Injections, Monomorphismes</h2>
+<h2>Injection, Monomorphisme</h2>
 
-Si l'image de 2 éléments distincts <code>x<sub>1</sub></code> et <code>x<sub>2</sub></code> ont la même image <code>y</code>, on ne peut pas revenir en arrière. Depuis <code>y</code>, on est incapable de choisir entre <code>x<sub>1</sub></code> et <code>x<sub>2</sub></code>.
+Si l'image de 2 éléments distincts <code class="">x<sub>1</sub></code> et <code class="">x<sub>2</sub></code> ont la même image <code class="">y</code>, on ne peut pas revenir en arrière. Depuis <code class="">y</code>, on est incapable de choisir entre <code class="">x<sub>1</sub></code> et <code class="">x<sub>2</sub></code>.
 
 <img class="margin border padding" src="img/injection.jpg" alt="Injection">
 
-Dans ce cas, on dit que <code>f</code> n'est PAS injective.
-<br>Pour qu'une fonction soit une injection on doit avoir
-<br>Pour tout <code>x<sub>1</sub></code> et <code>x<sub>2</sub></code> appartenant à <code>E</code>, 
-<br><code>f(x<sub>1</sub>) = f(x<sub>2</sub>)</code> entraîne <code>x<sub>1</sub> = x<sub>2</sub></code>
-<br>
-<br><code></code>
+Une fonction <code class="">f</code> est dite injective si cette situation ne peut pas se produire.
+<br>Avec les ensembles, ça s'exprime :
+<br>Pour tout <code class="">x<sub>1</sub></code> et <code class="">x<sub>2</sub></code> appartenant à <code class="">E</code>, 
+<br><code class="">f(x<sub>1</sub>) = f(x<sub>2</sub>)</code> entraîne <code class="">x<sub>1</sub> = x<sub>2</sub></code>
+<br>En écriture mathématique : 
+<br><code class="">&forall; x<sub>1</sub>, x<sub>2</sub> &isin; E, f(x<sub>1</sub>) = f(x<sub>2</sub>) => x<sub>1</sub> = x<sub>2</sub></code>
 
 </article>
 
