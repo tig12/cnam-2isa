@@ -1,13 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.0"
    width="2in"
    height="3in"
    viewBox="932 696 2387 3568"
-   id="svg2">
+   id="svg2"
+   sodipodi:docname="diamond-inheritance.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata22">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     id="namedview20"
+     showgrid="false"
+     inkscape:zoom="2.3177389"
+     inkscape:cx="-28.63398"
+     inkscape:cy="199.00702"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
   <defs
      id="defs39" />
   <polyline
@@ -15,9 +54,9 @@
      style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:16;stroke-linecap:butt;stroke-linejoin:miter"
      points="1653,708 2598,708 2598,1417 1653,1417 1653,708 " />
   <text
-     x="2124"
-     y="1228"
-     style="font-size:328px;font-style:normal;font-weight:normal;text-anchor:middle;fill:#000000;stroke:#000000;stroke-width:0.025in;font-family:Helvetica"
+     x="2118.636"
+     y="1040.2609"
+     style="font-style:normal;font-weight:normal;font-size:328px;font-family:Helvetica;text-anchor:middle;fill:#000000;stroke:#000000;stroke-width:0.025in"
      id="text8">A</text>
   <polyline
      id="polyline10"
@@ -33,18 +72,18 @@
      style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:16;stroke-linecap:butt;stroke-linejoin:miter"
      points="2362,2125 3307,2125 3307,2834 2362,2834 2362,2125 " />
   <text
-     x="2833"
-     y="2645"
-     style="font-size:328px;font-style:normal;font-weight:normal;text-anchor:middle;fill:#000000;stroke:#000000;stroke-width:0.025in;font-family:Helvetica"
+     x="2795.4521"
+     y="2457.261"
+     style="font-style:normal;font-weight:normal;font-size:328px;font-family:Helvetica;text-anchor:middle;fill:#000000;stroke:#000000;stroke-width:0.025in"
      id="text16">C</text>
   <polyline
      id="polyline18"
      style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:16;stroke-linecap:butt;stroke-linejoin:miter"
      points="944,2125 1889,2125 1889,2834 944,2834 944,2125 " />
   <text
-     x="1416"
-     y="2645"
-     style="font-size:328px;font-style:normal;font-weight:normal;text-anchor:middle;fill:#000000;stroke:#000000;stroke-width:0.025in;font-family:Helvetica"
+     x="1410.636"
+     y="2446.533"
+     style="font-style:normal;font-weight:normal;font-size:328px;font-family:Helvetica;text-anchor:middle;fill:#000000;stroke:#000000;stroke-width:0.025in"
      id="text20">B</text>
   <polyline
      id="polyline22"
@@ -78,4 +117,37 @@
      points="2612,1622 2376,1439 2454,1727 2612,1622 "
      style="fill:#ffffff;stroke:#000000;stroke-width:16"
      id="polygon36" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:217.1506958px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:12.43229198"
+     x="1715.1403"
+     y="1303.9723"
+     id="text3729"><tspan
+       sodipodi:role="line"
+       id="tspan3727"
+       x="1715.1403"
+       y="1303.9723"
+       style="font-size:165.7638855px;stroke-width:12.43229198">method1()</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:217.15068054px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:12.43229198"
+     x="987.40125"
+     y="2691.6458"
+     id="text3729-3"><tspan
+       sodipodi:role="line"
+       id="tspan3727-6"
+       x="987.40125"
+       y="2691.6458"
+       style="font-size:165.76387024px;stroke-width:12.43229198">method1()</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:217.15068054px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:12.43229198"
+     x="2398.1265"
+     y="2686.282"
+     id="text3729-7"><tspan
+       sodipodi:role="line"
+       id="tspan3727-5"
+       x="2398.1265"
+       y="2686.282"
+       style="font-size:165.76387024px;stroke-width:12.43229198">method1()</tspan></text>
 </svg>

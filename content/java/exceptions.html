@@ -83,6 +83,9 @@ fonction ContenuDuFichier(String filename){
 }
 </pre>
 
+Le programme s'exécute ; si une instruction déclenche une exception, l'exécution s'arrête et continue dans le bloc catch correspondant au type d'exception.
+<br>
+<br>
 En plus de <code>try</code> et <code>catch</code>, on peut définir un bloc <code>finally</code>, qui va s'exécuter dans tous les cas, qu'une exception ait été lancée ou pas.
 <br>Le bloc <code>finally</code> est exécuté même si une exception est propagée ; utile par exemple pour fermer une connexion réseau ou à une base de données.
 <br><code>catch</code> et <code>finally</code> sont optionnels, mais au moins un des deux est nécessaire.

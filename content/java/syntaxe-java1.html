@@ -434,18 +434,18 @@ Pour affecter une valeur littérale à un <code>long</code>, elle doit finir par
 
 Si on utilise en général la base 10, on peut aussi exprimer les types entiers en base 8 (octal) ou 16 (hexadécimal) en faisant précéder la valeur littérale par <code>0</code> ou <code>0x</code>:
 <pre>
-int h2 = 0xff;
-long h2 = 0xffL;
-System.out.println("h2 = " + h2);
-System.out.println("h2 = " + h2);
+int n1 = 0xff;
+long n2 = 0xffL;
+System.out.println("n1 = " + n1);
+System.out.println("n2 = " + n2);
 </pre>
 Résultat :
 <pre>
-h2 = 255
-h2 = 255
+n1 = 255
+n2 = 255
 </pre>
 
-ATTENTION : si la valeur maximale est dépassée, java ne le signale pas (comportement circulaire), c'est à nous à faire attention que le type utilisé corresponde aux calculs
+ATTENTION : si la valeur maximale est dépassée, java ne le signale pas (comportement circulaire), nous sommes responsables d'utiliser un type correspondant aux calculs
 <br>Par exemple, 
 <pre>
 byte b1 = 127, b2 = 1; // La valeur max pour un byte est 127
@@ -485,7 +485,8 @@ Les strings sont représentées par la classe <code>java.lang.String</code>, ce 
 <!-- ************************************* -->
 <h2><a name="5-conversion-entre-les-types">Conversion entre les types</a></h2>
 
-Les conversions entre les types sont parfois possible ; certaines conversions implicites (sans type cast) sont possibles, obéissent à des règles précises, voir <a href="https://docs.oracle.com/javase/specs/jls/se10/html/jls-5.html">la doc d'Oracle</a>. On distingue les conversions vers un type plus grand (<b>widening conversion</b>) - par ex de <code>int</code> vers <code>long</code> et les conversions vers des types plus petits (<b>narrowing conversion</b>).
+Les conversions entre les types sont parfois possible ; certaines conversions implicites (sans type cast) sont possibles, obéissent à des règles précises, voir <a href="https://docs.oracle.com/javase/specs/jls/se11/html/jls-5.html">la doc d'Oracle</a>.
+<br>On distingue les conversions vers un type plus grand (<b>widening conversion</b>) - par ex de <code>int</code> vers <code>long</code> et les conversions vers des types plus petits (<b>narrowing conversion</b>).
 <br>
 <br>Pour forcer une conversion, il faut utiliser le <b>type casting</b> avec des parenthèses :
 <br><code>int i = 13; byte b = (byte) i;</code>
@@ -655,7 +656,7 @@ Remarquer les conversions automatiques de types ainsi que les parenthèses néce
 <!-- ********************************************************************************* -->
 <h2><a name="7-instructions-statements">Instructions (statements)</a></h2>
 
-L'instruction est l'unité d'exécution de base. Contrairement aux expressions, les instructions n'ont pas de valeur. 
+L'instruction est l'unité d'exécution de base. <b>Contrairement aux expressions, les instructions n'ont pas de valeur</b>. 
 <br>Java exécute par défaut séquentiellement les instructions mais définit plusieurs instructions pour contrôler le flot d'exécution, modifiant de manière précisément définie le flot séquentiel.
 <br>Les instructions sont séparées par des <code>;</code> (point-virgule) ou regroupées entre des accolades <code>{ ... }</code>
 
@@ -734,7 +735,7 @@ int i;
 String s;
 </pre>
 java ne permet pas d'utiliser une variable locale qui n'a pas été initialisée.
-<br>DANGER : la règle pour les variable locales est différente de la règle pour les variables de classe ou d'instance, qui ont une valeur par défaut si elles ne sont pas initialisées.
+<br><b>DANGER</b> : la règle pour les variable locales est différente de la règle pour les variables de classe ou d'instance, qui ont une valeur par défaut si elles ne sont pas initialisées.
 <br>
 <br>On fait souvent l'initialisation en même temps que la déclaration :
 <pre>
@@ -765,7 +766,7 @@ void méthode(){
 </pre>
 
 <h4>Déclaration de variable avec <code>var</code></h4>
-Depuis java 10, il est possible d'utiliser <code>var</code> pour déclarer une variable locale lorsque le compilateur est capable d'inférer le type
+Depuis java 10, il est possible d'utiliser <code>var</code> pour déclarer une variable locale lorsque le compilateur est capable d'<b>inférer</b> (= deviner) le type
 <br>Par exemple, remplacer :
 <pre>String message = "Hello World";</pre>
 par :
@@ -797,7 +798,7 @@ else
 (voir <a href="../../exemples/java/if/If.java">If.java</a>)
 <br>
 <br>En général, on conseille de toujours mettre des accolades et de respecter l'indentation.
-
+<br>Dans certains cas, plus lisible de ne pas respecter l'indentation :
 <table>
     <tr>
         <td class="vertical-align-top">
@@ -967,7 +968,7 @@ Par exemple, on peut écrire :
 <pre>
 int[] primes = new int[] { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 };
 for(int n : primes)
-    System.out.println(n);
+    System.out.println(n); // et les accolades !!!
 </pre>
 
 au lieu de :
@@ -983,7 +984,7 @@ La syntaxe <code>for(int n : primes)</code> signifie "for each n in primes".
 <br>Pratique mais ne peut pas remplacer complètement les boucles lorsqu'on veut parcourir de la fin vers le début, ou lorsque l'index est nécessaire :
 <pre>
 for(int i = 0; i < words.length; i++) {
-    if (i > 0) System.out.print(", ");
+    if (i > 0) System.out.print(", "); // et les accolades !!!
     System.out.print(words[i]);
 }
 </pre>
