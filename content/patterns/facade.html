@@ -58,10 +58,9 @@ Ce pattern permet par exemple de faire un sas entre une application et les libs 
 <br>Ce package est complexe, car différents calculs sont possibles, en fonction de la précision voulue, des planètes demandées, des dates demandées...
 <br>
 <br>Une façade (<code>Ephemeris</code>) permet au code client d'utiliser le package sans avoir besoin d'en connaître les détails.
-<table>
-    <tr>
-        <td class="vertical-align-top">
-            <pre>
+<br>
+<div class="float-left">
+<pre>
 ephemeris
     ├── ELP82.java
     ├── <b>EphemerisException.java</b>
@@ -84,10 +83,11 @@ ephemeris
         ├── DataVSOP87A_Venus.java
         ├── package.html
         └── VSOP87.java
-            </pre>
-        </td>
-        <td class="vertical-align-top">
-            <pre>
+</pre>
+</div>
+
+<div class="float-left">
+<pre>
 class Ephemeris{
     public static double[] compute(
         double[] jds,
@@ -96,10 +96,11 @@ class Ephemeris{
         double precision,
         boolean velocities
         ) throws EphemerisException{ ... }
-}            </pre>
-        </td>
-    </tr>
-</table>
+}
+</pre>
+</div>
+
+<br class="clear-left">
 
 Le pattern façade permet de smplifier l'utilisation du sous-système pour la plupart du code client, <i>sans cacher les détails au code qui en a besoin</i> (on peut laisser les classes publiques dans le sous-système).
 <br>En rendant inutile l'utilisation des détails par le code client, ce pattern permet de réduire le couplage entre le sous-système et le reste.

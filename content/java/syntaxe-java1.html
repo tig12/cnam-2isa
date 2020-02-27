@@ -656,7 +656,18 @@ Remarquer les conversions automatiques de types ainsi que les parenthèses néce
 <!-- ********************************************************************************* -->
 <h2><a name="7-instructions-statements">Instructions (statements)</a></h2>
 
-L'instruction est l'unité d'exécution de base. <b>Contrairement aux expressions, les instructions n'ont pas de valeur</b>. 
+L'instruction est l'unité d'exécution de base. <b>Contrairement aux expressions, les instructions n'ont pas de valeur</b> (leur type est <code>void</code>).
+<br>
+<br>Illustration : 
+<pre>
+jshell> var a = System.out.println("Hello World!");
+|  Error:
+|  cannot infer type for local variable a
+|    (variable initializer is 'void')
+|  var a = System.out.println("Hello World!");
+|  ^-----------------------------------------^
+</pre>
+
 <br>Java exécute par défaut séquentiellement les instructions mais définit plusieurs instructions pour contrôler le flot d'exécution, modifiant de manière précisément définie le flot séquentiel.
 <br>Les instructions sont séparées par des <code>;</code> (point-virgule) ou regroupées entre des accolades <code>{ ... }</code>
 
