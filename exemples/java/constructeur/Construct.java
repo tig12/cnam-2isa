@@ -1,6 +1,7 @@
 /** 
-    Teste les conversions implicites effectuées lors de l'appel de this()
-    Pour tester, commenter les différents constructeurs pour voir lequel est appelé
+    Teste les conversions implicites effectuées lors de l'appel de this().
+    Pour tester, commenter les différents constructeurs et recompiler, 
+    pour voir lequel est appelé
 **/
 class Construct {
     
