@@ -28,19 +28,19 @@ Sujets rapidement abordés, liés au cours mais hors-programme.
 </div>
 
 <ul class="spaced big2">
-    
+                                       
     <li>
         Maths
-        <br>Langages fonctionnels, catégories, schémas, topos, motifs, fondations univalentes.
+        <br>Catégories, schémas, topos, motifs, fondations univalentes.
         <br>Bourbaki Grothendieck Voïevodski.
     </li>
 
+    <li>Langages fonctionnels</li>
+
+    <li>Go, rust</li>
+    
     <li>
         Graph databases, rdf, sparql, gremlins, semantic web, dbpedia, yago, aspect sémantique de html5.
-    </li>
-
-    <li>
-        Go, rust
     </li>
 
     <li>
@@ -69,6 +69,7 @@ C'est un sujet central en informatique.
 <br>La somme
 <br>Le produit 
 <br>L'union et l'intersection nous donnent les opérateurs "et" et "ou", le produit de deux ensembles nous permet de définir des relations entre deux ensembles, donc de définir des fonctions, etc.
+<br>
 <br>Dans les ensembles, on travaille avec des éléments, et on décrit les propriétés de nos structures avec ça.
 <br>
 <br>Dans une catégorie, on a des <b>objets</b> et des <b>flèches</b> qui vont d'un objet à l'autre. Une flèche exprime une relation entre deux objets.
@@ -85,9 +86,9 @@ C'est un sujet central en informatique.
         <br>Aller de A à B puis de B à C revient exactement au même que d'aller directement de A à C.
         <img class="border margin" src="../categories/img/composition-categorie.jpg" alt="Composition dans une catégorie">
         La flèche qui va directement de A à C s'appelle la <b>composée</b> de f et de g.
-        <br>On note <code class="formula bold padding-left">g ( f ) = g &#8728; f</code>
-        <br><code>g&#8728;f</code> se prononce "<i> g rond f </i>". Cette notation n'est pas intuitive car elle est à l'envers, mais elle est logique, car on applique <code>g</code> au résultat de <code>f</code>.
-        <br>On pourrait dire "<i> g après f </i>" à la place de "<i> g rond f </i>".
+        <br>On note <code class="formula big bold padding-left">g ( f ) = g &#8728; f</code>
+        <br><code class="formula big2 bold padding-left">g&#8728;f</code> signifie <span class="formula bold">" g de f "</span> ; on dit généralement "<i> g rond f </i>"
+        <br>Cette notation n'est pas intuitive car elle est à l'envers, mais elle est logique, car on applique <code>g</code> au résultat de <code>f</code>.
     </li>
     <li>
         <b>Associativité</b> : le chemin parcouru ne change pas le résultat.
@@ -99,58 +100,45 @@ C'est un sujet central en informatique.
 
 Et c'est tout.
 <br>
-<br>On peut tout de suite imaginer que le fait d'avoir des flèches en plus des objets permet de représenter tout un tas de phénomènes de manière naturelle.
 <br>Dans la théorie des ensembles, les structures qu'on étudie et leurs comportements sont exprimés en utilisant les éléments.
-<br>Dans la théorie des catégories, on travaille avec les flèches.
+<br>Dans la théorie des catégories, ce sont les flèches et leurs manières de se composer qui permettent de décrire nos structures et leurs propriétés.
 <br>
+<br>La notion de catégorie est très simple, mais la théorie des catégories est très riche et complexe, et s'avère beaucoup plus puissante que la théorie des ensemble pour décrire toutes sortes d'objets mathématiques.
 <br>
-La catégorie la plus familière à étudier est la <b>catégorie des ensembles</b>, notée <code>Set</code> ou <code>Ens</code>. Dans cette catégorie, les objets sont des ensembles et les flèches sont des relations entre les ensembles.
-<br>Cette catégorie permet de modéliser un langage informatique.
-<br>
-<br>Un <b>type</b> de donnée est représenté par un ensemble dont les éléments sont les valeurs que peut prendre ce type.
-<br>Ce sont des ensembles finis ou infinis :
+<br>Saunders Mac Lane, un des inventeurs de la théorie des catégories : 
 
-<table class="wikitable margin">
-    <th>Type</th><th>Ensemble</th><th>N : cardinal de l'ensemble</th>
-    <tr>
-        <td>Boolean</td>
-        <td>true, false</td>
-        <td>2</td>
-    </tr>
-    <tr>
-        <td>Char</td>
-        <td>'a', 'b', ...</td>                                                    
-        <td>128</td>
-    </tr>
-    <tr>
-        <td>Integer</td>
-        <td>1, 2, 3 ...</td>
-        <td><span class="big5">&infin;</span> infini</td>
-    </tr>
-    <tr>
-        <td>Real</td>
-        <td>0.0001, 0.0002 ...</td>
-        <td><span class="big5">&infin;</span> infini</td>
-    </tr>
-    <tr>
-        <td>String</td>
-        <td>"", "a", "aa" ...</td>
-        <td><span class="big5">&infin;</span> infini</td>
-    </tr>
-</table>
-Certains types ont en théorie un nombre inifni de valeurs mais en pratique un nombre fini car limité par les capacités de la machine.
+<cite>"I didn't invent categories to study functors; I invented them to study natural transformations."</cite>
+
+Un <b>foncteur</b> décrit une transformation entre 2 catégories, ce qui implique de décrire à la fois comment les objets vont être transformés mais aussi comment les flèches vont être transformées.
 <br>
-<br>On définit donc une <b>catégorie des types</b>. Les objets sont les types de données, et les flèches des fonctions qui transforment un type en un autre.
-<br>Les flèches définissent des fonctions qui prennent un type en paramètre et renvoient un type.
+<br>Une <b>transformation naturelle</b> décrit une transformation entre 2 foncteurs.
+<br>
+<br>La catégorie la plus familière à étudier est la <b>catégorie des ensembles</b>, notée <code>Set</code> ou <code>Ens</code>. Dans cette catégorie, les objets sont des ensembles et les flèches sont des relations entre les ensembles.
+
+<!-- ************************************* -->
+<h3>Application à l'informatique</h3>
+
+La catégorie des ensembles fournit une représentation mathématique d'un langage informatique composé de :
+<br>1 - des types de données (char, bool, int, string...) - les objets
+<br>2 - des fonctions <i>pures</i> (à un seul paramètre et sans effet de bord) - les flèches
+<br>Les flèches sont des fonctions qui transforment un type en un autre.
 <pre>
 // char --> boolean
 boolean isVoyelle(char c){ }
 </pre>
 En pratique, les fonctions ne sont pas aussi simples : elles peuvent avoir plusieurs paramètres, générer des exceptions, avoir des effets de bord (I/O, modification de variables globales) ... mais toutes ces complexités peuvent être construites à partir de fonctions pures à un seul paramètre.
 <br>
-<br>La catégorie des types fournit donc une représentation mathématique d'un langage fonctionnel.
 
-<div class="center margin-top">
+<!-- ************************************* -->
+<!-- 
+<h3>Bref historique</h3>
+L'informatique théorique a rejoint les catégories dans les années 1970 : on connaissait l'isomorphisme de Curry-Howard, qui faisait un pont entre l'informatique et la logique :
+<br>Un type de données est quelque chose de connu, d'établi ; est identifié une assertion qu'on tient pour vraie, un théorème
+<br>Une fonction permettant de passer d'un type à l'autre est alors identifiée à une démonstration, qui permet de passer d'une assertion vraie à une autre.
+-->
+
+
+<div class="center margin-top3 margin-bottom3">
     Pour plus de détails, voir <a href="https://larzac.info/maths/categories/milewski">larzac.info/maths/categories/milewski</a>
 </div>
 
