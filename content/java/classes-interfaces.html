@@ -533,7 +533,7 @@ Circle c = pc;
 </pre>
 Widening conversion, possible sans type cast ; <code>c</code> a perdu les facultés supplémentaires de <code>pc</code> ; qui peut le plus peut le moins, pas de problème.
 <br>
-<br>Mais une narrowing conversion doit être fait avec un type cast explicite :
+<br>Mais une narrowing conversion doit être faite avec un type cast explicite :
 <pre>PlaneCircle pc2 = (PlaneCircle) c;</pre>
 ATTENTION : ici le type cast ne va pas générer d'erreur à l'exécution <i>car c était le résultat d'une narrowing conversion</i>.
 <br>Dans le cas général, passe à la compilation mais génère une erreur à l'exécution :
@@ -580,7 +580,6 @@ L'utilisation de <code>super()</code> a les mêmes limites que l'utilisation de 
 Java garantit que le constructeur d'une classe est appelé lorsqu'un objet de cette classe est instancié.
 <br>Java garantit aussi que ce constructeur est appelé lorsqu'un objet de la sous-classe est créé.
 <br>Donc si un constructeur n'a pas pour première instruction <code>this()</code> ou <code>super()</code>, <i>javac</i> insère une instruction <code>super()</code> au début de chaque constructeur.
-<br>Si la superclasse n'a pas de constructeur visible (par ex constructeur déclaré <code>private</code>), erreur à la compilation (voir <a href="../patterns/singleton.html">pattern singleton</a>).
 <br>
 <br>Exemple : lorsque l'instruction <pre>PlaneCircle pc1 = new PlaneCircle(1.0, 0.0, 0.0);</pre> est exécutée :
 <ol>
@@ -605,9 +604,31 @@ class MyClass {
 }</pre>
 
 Noter au passage que <i>les constructeurs ne sont jamais hérités</i>.
-<br>
-<br>Certaines classes sont uniquement static et n'ont pas vocation à être instanciées (comme <code>java.lang.Math</code> ou <code>java.lang.System</code>).
-<br>Pour interdire d'en faire des sous-classes, <i>on crée explicitement un constructeur privé</i> (cf <a href="../patterns/singleton.html">pattern Singleton</a>).
+
+<!-- **************** -->
+<h4>Constructeurs privés</h4>
+Sert à deux choses :
+<ul class="sopaced">
+    <li>
+        Interdire le sous-classage : si la superclasse n'a pas de constructeur visible (par ex constructeur déclaré <code>private</code>), l'appel implicite de <code>super()</code> génère une erreur à la compilation.
+    </li>
+    <li>
+        Certaines classes sont uniquement static et n'ont pas vocation à être instanciées (comme <code>java.lang.Math</code> ou <code>java.lang.System</code>).
+        <br>Par exemple voir dans le source de openJDK :
+<pre>
+public final class Math {
+    /**
+     * Don't let anyone instantiate this class.
+     */
+    private Math() {}
+    // ...
+}
+</pre>
+    </li>
+</ul>
+
+
+Voir une application dans le <a href="../patterns/singleton.html">pattern Singleton</a>.
 
 
 <!-- ************************************* -->
@@ -1034,7 +1055,7 @@ class RepeteMethodes implements Interface1, Interface2{
 (code dans <a href="../../exemples/java/interfaces/repete-methodes/RepeteMethodes.java">RepeteMethodes.java</a>)
 
 <div class="exo">
-    <b>Exercice</b> <a href="../../exemples/java/interfaces/interfaces1.html">interfaces1</a>, questions 1 et 2.
+    <b>Exercice</b> <a href="../../exos/java/interfaces1/interfaces1.html">interfaces1</a>, questions 1 et 2.
 </div>
 
 
