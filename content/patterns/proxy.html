@@ -75,10 +75,6 @@ A l'exécution :
 Pour pouvoir substituer l'objet caché par le proxy, les deux implémentrent la même interface.
 <br>Le proxy a une variable d'instance de type <code>RealSubject</code>, de manière à pouvoir forwarder <code>request()</code>.
 
-<div class="exo">
-    <b>Exercice</b> : <a href="../../exos/patterns/proxy/protection/ProtectionProxy.html">Protection proxy</a>
-</div>
-
 
 <!-- ********************************************************************************* -->
 <h2>Exemples</h2>
@@ -100,10 +96,14 @@ Livre[] livres = auteur.getLivres();
 </pre>
 les requêtes SQL ne seront faites que lorsqu'on en a besoin.
 
+<div class="exo">
+    <b>Exercice</b> : <a href="../../exos/patterns/proxy/protection/ProtectionProxy.html">Protection proxy</a> (classe sensible)
+</div>
 
 <div class="exo">
-    <b>Exercice</b> : <a href="../../exos/patterns/proxy/virtual/VirtualProxy.html">Virtual proxy</a>
+    <b>Exercice</b> : <a href="../../exos/patterns/proxy/virtual/VirtualProxy.html">Virtual proxy</a> (création de gros objet)
 </div>
+
 
 <!-- ********************************************************************************* -->
 <h2>Remarques</h2>
@@ -111,10 +111,6 @@ les requêtes SQL ne seront faites que lorsqu'on en a besoin.
 Pattern assez proche de <a href="adapter.html">Adapter</a> et <a href="decorator.html">Decorator</a>, mais :
 <br>- Adapter fournit une interface différente de l'objet qu'il adapte, ce n'est généralement pas le cas pour proxy.
 <br>- Decorator et Proxy ne répondent pas au même but : Decorator ajoute des fonctionnalités, Proxy contrôle un accès.
-
-
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->
 
 
 </article>

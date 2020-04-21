@@ -269,6 +269,9 @@ public class Clone1 {
     public static void main(String[] args) {
         try{
             Personne p1 = new Personne("Curry", "Haskell", 1900, new Pays("Etats-Unis"));
+            // note : on utilise l'implémentation de Personne.clone() présentée ci-dessus.
+            // cette implémentation utilise en interne l'implémentation par défaut
+            // donc va reproduire les problèmes liés à l'implémentation par défaut.
             <b>Personne p2 = p1.clone();</b>
             System.out.println("======== p1 et p2 = p1.clone() ========");
             System.out.println("p1 = " + p1);
@@ -278,12 +281,16 @@ public class Clone1 {
             System.out.println("\n======== Modification de p1.nom et p1.annee ========");
             <b>p1.setNom("Curry modifié");
             p1.setAnnee(2000);</b>
-            System.out.println("p1 = " + p1);
-            System.out.println("p2 = " + p2);
+            System.out.println("p1 = " + p1); // Haskell Curry modifié (2000) Etats-Unis
+            System.out.println("p2 = " + p2); // Haskell Curry (1900) Etats-Unis
+            // On voit que pour des champs simples, l'implémentation par défaut de clone()
+            // a bien recopié, on a l'impression que p1 et p2 sont indépendants.
             System.out.println("\n======== Modification de p1.pays ========");
             <b>p1.getPays().setNom("Etats-Unis modifié");</b>
-            System.out.println("p1 = " + p1);
-            System.out.println("p2 = " + p2);
+            System.out.println("p1 = " + p1); // Haskell Curry modifié (2000) Etats-Unis modifié
+            System.out.println("p2 = " + p2); // Haskell Curry (1900) Etats-Unis modifié
+            // Pour un champ composé (le pays), l'implémentation par défaut de clone()
+            // a seulement recopié la référence ; on constate que p1 et p2 ne sont pas indépendants
         }
         catch(Exception e){
             e.printStackTrace();
