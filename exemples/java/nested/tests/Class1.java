@@ -16,6 +16,7 @@ class Class1{
             out.println("ClasseInterneStatic.printStatic(), a = " + a);
             out.println("ClasseInterneStatic.printStatic(), Class1.a = " + Class1.a);
             out.println("ClasseInterneStatic.printStatic(), b = " + b);
+            out.println("ClasseInterneStatic.printStatic(), Class1.b = " + Class1.b);
         }
     }
     
@@ -24,7 +25,8 @@ class Class1{
     private int c = 4;
     private int d = 5;
     public void printInstance(){
-        out.println("Class1.printInstance(), c = " + this.c);
+        out.println("Class1.printInstance(), c = " + c);
+        out.println("Class1.printInstance(), this.c = " + this.c);
     }
     
     public class ClasseInterne{

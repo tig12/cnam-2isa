@@ -139,7 +139,7 @@ public class ShadowTest {
         void methodInFirstLevel(int x) {
             System.out.println("x = " + x);
             System.out.println("this.x = " + this.x);
-            System.out.println("ShadowTest.this.x = " + <b>ShadowTest.this.x</b>);
+            System.out.println("ShadowTest.this.x = " + <b>ShadowTest.this.x</b>); // syntaxe spéciale
         }
     }
 
@@ -152,10 +152,8 @@ public class ShadowTest {
 </pre>
 (code dans <a href="../../exemples/java/nested/shadowing/ShadowTest.java">ShadowTest.java</a>).
 
-
-<div class="exo"><b>Exercice</b>
-<br>Récupérer les fichiers du répertoire <a href="../../exemples/java/nested/tests">exemples/java/nested/tests</a>, compiler et exécuter et bien comprendre l'output.
-</div>
+<br>
+<br>Le code suivant récapitule les ambiguités qu'on peut recontrer ; code dans <a href="../../exemples/java/nested/tests">exemples/java/nested/tests</a>.
 
 <pre>
 import static java.lang.System.out;
@@ -167,15 +165,16 @@ class Class1{
     private static int a = 1;
     private static int b = 2;
     public static void printStatic(){
-        out.println("Class1.printStatic(), a = " + a);
+        out.println("Class1.printStatic(), a = " + a); // 1
     }
     
     public static class ClasseInterneStatic{
         private static int a = 3;
         public static void printStatic(){
-            out.println("ClasseInterneStatic.printStatic(), a = " + a);
-            out.println("ClasseInterneStatic.printStatic(), Class1.a = " + Class1.a);
-            out.println("ClasseInterneStatic.printStatic(), b = " + b);
+            out.println("ClasseInterneStatic.printStatic(), a = " + a); // 3
+            out.println("ClasseInterneStatic.printStatic(), Class1.a = " + Class1.a); // 1
+            out.println("ClasseInterneStatic.printStatic(), b = " + b); // 2
+            out.println("ClasseInterneStatic.printStatic(), Class1.b = " + Class1.b); // 2
         }
     }
     
@@ -184,21 +183,22 @@ class Class1{
     private int c = 4;
     private int d = 5;                                                                                                                                         
     public void printInstance(){
-        out.println("Class1.printInstance(), c = " + this.c);
+        out.println("Class1.printInstance(), c = " + c); // 4
+        out.println("Class1.printInstance(), this.c = " + this.c); // 4
     }
     
     public class ClasseInterne{
         private int c = 6;
         public void printInstance(){
-            out.println("ClasseInterne.printInstance(), c = " + <b>c</b>);
-            out.println("ClasseInterne.printInstance(), this.c = " + <b>this.c</b>);
-            out.println("ClasseInterne.printInstance(), Class1.this.c = " + <b>Class1.this.c</b>); // syntaxe spéciale
-            out.println("ClasseInterne.printInstance(), d = " + d);
+            out.println("ClasseInterne.printInstance(), c = " + <b>c</b>); // 6
+            out.println("ClasseInterne.printInstance(), this.c = " + <b>this.c</b>); // 6
+            out.println("ClasseInterne.printInstance(), Class1.this.c = " + <b>Class1.this.c</b>); // 6
+            out.println("ClasseInterne.printInstance(), d = " + d); // 5
         }
         // Les deux lignes suivantes ne passent pas à la compilation :
         // on ne peut pas définir de membres static dans une classe qui est un membre d'instance 
-        // public static int e = 7;
-        // public static void printStaticInterne(){ }
+        // public static int e = 7;                 // IMPOSSIBLE
+        // public static void printStatic(){ }      // IMPOSSIBLE
     }
     
 }
@@ -231,6 +231,7 @@ Class1.printStatic(), a = 1
 ClasseInterneStatic.printStatic(), a = 3
 ClasseInterneStatic.printStatic(), Class1.a = 1
 ClasseInterneStatic.printStatic(), b = 2
+ClasseInterneStatic.printStatic(), Class1.b = 2
 
 ==== tests instance ====
 Class1.printInstance(), c = 4
@@ -240,21 +241,22 @@ ClasseInterne.printInstance(), Class1.this.c = 4
 ClasseInterne.printInstance(), d = 5
 </pre>
 
+<div class="exo"><b>Exercice</b>
+<br>Allez voir l'API de <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/swing/Box.html"><code>javax.swing.Box</code></a>.
+<br>- Quelle classe imbriquée statique (static nested class) est définie dans <code>Box</code> ? <!-- Box.Filler -->
+<br>- Quelle classe interne (inner class) est définie dans <code>Box</code> ? <!-- Box.AccessibleBox -->
+<br>- Quelle est la supeclasse de cette classe interne ? <!-- java.awt.Container.AccessibleAWTContainer -->
+<br>- Quelle classe interne de <code>Box</code> peut on utiliser depuis n'importe quelle classe ? <!-- Box.Filler -->
+<br>- Quel code permet de créer une instance de la classe interne <code>Filler</code> ?
+<!-- new Box.Filler(minDimension, prefDimension, maxDimension) -->
+</div>
+
+
 <!-- ********************************************************************************* -->
 <h2><a name="4-classes-locales">Classes locales</a></h2>
 On peut définir une classe interne dans n'importe quel bloc, par ex dans une méthode, un initialisateur statique ou d'instance, une boucle for, dans un if.
 <br>Une classe locale a accès aux champs de sa classe environnante et aux variables locales de son bloc.
 <br>Ne peut pas être définie <code>public</code>, <code>protected</code>, <code>private</code> ou <code>static</code>.
-
-<div class="exo"><b>Exercice</b>
-<br>Allez voir l'API de <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/swing/Box.html"><code>javax.swing.Box</code></a>.
-<br>- Quelle classe imbriquée statique (static nested class) est définie dans <code>Box</code> ?
-<br>- Quelle classe interne (inner class) est définie dans <code>Box</code> ?
-<br>- Quelle est la supeclasse de cette classe interne ?
-<br>- Quelle classe interne de <code>Box</code> peut on utiliser depuis n'importe quelle classe ?
-<br>- Quel code permet de créer une instance de la classe interne <code>Filler</code> ?
-<!-- new Box.Filler(minDimension, prefDimension, maxDimension) -->
-</div>
 
 
 <!-- ********************************************************************************* -->
@@ -327,7 +329,7 @@ public class TestFilter2{
     }
 }
 
-class JavaFilenameFilter implements FilenameFilter{
+class <b>JavaFilenameFilter</b> implements FilenameFilter{
     public boolean accept(File f, String s) {
         return s.endsWith(".java");
     }
@@ -363,7 +365,7 @@ Mais comment le compilateur sait ce que représentent <code>f</code> et <code>s<
 <br>La réponse est dans l'implémentation de <code>java.io.File.list(FilenameFilter filter)</code> (<a href="http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/java/io/File.java">voir le code source</a>) :
 <pre>
 public String[] list(FilenameFilter filter) {
-    String names[] = list();
+    <b>String names[] = list();</b>
     if ((names == null) || (filter == null)) {
         return names;
     }
@@ -376,6 +378,16 @@ public String[] list(FilenameFilter filter) {
     return v.toArray(new String[v.size()]);
 }
 </pre>
+
+L'utilisation d'une classe anonyme dans le code :
+<pre>
+String[] files = dir.list(new FilenameFilter() {
+    public boolean accept(File f, String s) {
+        return s.endsWith(".java");
+    }
+});
+</pre>
+peut être rendue plus compacte en utilisant une <a href="lambdas.html">lambda expression</a>.
 
 </article>
 
