@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Exercice Serre | NFP121</title>
+    <link href="../../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Serre (observer)</h1>
+</header>
+
+<article>
+
+<a href="enonce">Code source de l'énoncé</a>
+<br>
+<br>(Extrait examen juillet 2019 - 7 points) 
+<br>
+<br>Un maraîcher a une exploitation composée de deux serres et d'une parcelle.
+<br>Il souhaite automatiser certaines tâches :
+<ul>
+    <li>Ouverture / fermeture des portes de sa parcelle.</li>
+    <li>Ouverture / fermeture des portes et des fenêtres de ses serres.</li>
+</ul>
+
+Il achète un capteur de luminosité et deux thermomètres, qu'il place dans chacune des serres.
+<br>Il teste ces appareils en utilisant la fonction <code>main()</code> qui est fournie.
+<br>
+<br>Il veut maintenant implémenter un mécanisme permettant de déclencher l'ouverture et la fermeture des portes et des fenêtres :
+<ul>
+    <li>
+        Les portes de l'enclos et des serres doivent se fermer lorsque la luminosité devient inférieure ou égale à 100 lux, et doivent s'ouvrir lorsqu'elle devient supérieure à 100 lux.
+    </li>
+    <li>
+        Les fenêtres des serres doivent se fermer lorsque la température devient inférieure ou égale à 20°C, et s'ouvrir lorsqu'elle devient supérieure à 20°C.
+    </li>
+</ul>
+
+Les observables sont donc les thermomètres et le capteur de luminosité.
+<br>Les observateurs sont les serres et la parcelle.
+<br>Les observables notifient leurs observateurs à chaque fois qu'une mesure est effectuée : <code>getTemperature()</code> pour <code>Thermometre</code> et <code>getLuminosite()</code> pour <code>CapteurLuminosite</code>.
+<br>
+<br>Modifiez le code existant pour implémenter ce mécanisme en utilisant le pattern Observateur.
+
+<br>L'exécution de <code>main()</code> devient :
+<pre>java Main</pre>
+<pre>
+h = 0 - T1 : 16,50 - T2 16,50 - LUM 0,00
+h = 60 - T1 : 14,64 - T2 14,64 - LUM 0,00
+h = 120 - T1 : 13,21 - T2 13,21 - LUM 0,00
+h = 180 - T1 : 12,31 - T2 12,31 - LUM 0,00
+h = 240 - T1 : 12,00 - T2 12,00 - LUM 0,00
+Ouverture des portes de Parcelle 1
+Ouverture des portes de Serre 1
+Ouverture des portes de Serre 2
+h = 300 - T1 : 12,31 - T2 12,31 - LUM 1814,29
+h = 360 - T1 : 13,21 - T2 13,21 - LUM 8957,14
+h = 420 - T1 : 14,64 - T2 14,64 - LUM 16100,00
+h = 480 - T1 : 16,50 - T2 16,50 - LUM 23242,86
+h = 540 - T1 : 18,67 - T2 18,67 - LUM 30385,71
+Ouverture des fenêtres de Serre 1
+Ouverture des fenêtres de Serre 2
+h = 600 - T1 : 21,00 - T2 21,00 - LUM 37528,57
+h = 660 - T1 : 23,33 - T2 23,33 - LUM 44671,43
+h = 720 - T1 : 25,50 - T2 25,50 - LUM 51814,29
+h = 780 - T1 : 27,36 - T2 27,36 - LUM 42857,14
+h = 840 - T1 : 28,79 - T2 28,79 - LUM 35714,29
+h = 900 - T1 : 29,69 - T2 29,69 - LUM 28571,43
+h = 960 - T1 : 30,00 - T2 30,00 - LUM 21428,57
+h = 1020 - T1 : 29,69 - T2 29,69 - LUM 14285,71
+h = 1080 - T1 : 28,79 - T2 28,79 - LUM 7142,86
+Fermeture des portes de Parcelle 1
+Fermeture des portes de Serre 1
+Fermeture des portes de Serre 2
+h = 1140 - T1 : 27,36 - T2 27,36 - LUM 0,00
+h = 1200 - T1 : 25,50 - T2 25,50 - LUM 0,00
+h = 1260 - T1 : 23,33 - T2 23,33 - LUM 0,00
+h = 1320 - T1 : 21,00 - T2 21,00 - LUM 0,00
+Fermeture des fenetres de Serre 1
+Fermeture des fenetres de Serre 2
+h = 1380 - T1 : 18,67 - T2 18,67 - LUM 0,00
+</pre>
+
+
+</article>
+
+</body>
+</html>
+

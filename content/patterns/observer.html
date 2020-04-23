@@ -187,12 +187,14 @@ public abstract class Observable{
 
 Cette manière est très pratique, car elle peut permettre aux observateurs de réagir sans avoir besoin de rappeler l'observable (dans l'exemple gof, les observateurs avaient besoin d'appeler <code>getState()</code> pour réagir à l'appel de <code>update()</code>).
 
-<div class="exo"><b>Exercice</b> : <a href="../../exos/patterns/observer/brebis/Brebis.html">Brebis</a></div>
-
 <!-- ************************************* -->
 <h3><a name="3-2-plusieurs-observables">Plusieurs observables</a></h3>
 
 Le pattern permet aux observateurs de rester synchronisés avec plusieurs observables, qui peuvent être de type concret différents, dès lors qu'ils dérivent (ou implémentent) <code>Observable</code>.
+
+<div class="exo"><b>Exercice</b> : <a href="../../exos/patterns/observer/brebis/Brebis.html">Brebis</a></div>
+
+<div class="exo"><b>Exercice</b> : <a href="../../exos/patterns/observer/serre/Serre.html">Serre</a></div>
 
 
 <!-- ********************************************************************************* -->
