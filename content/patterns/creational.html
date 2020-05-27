@@ -121,7 +121,13 @@ Chaque pièce peut avoir 4 directions (N S E W) contenues dans une enum.
 <br>
 <br>On définit une dernière classe, <code>MazeGame</code>, chargée de créer le maze.
 <br>
-<br>Dans l'exemple utilisé, on va créer un labyrinthe contenant 2 pièces avec une porte entre les deux.
+<br>L'exemple GOF fonctionne donc de la manière suivante :
+<ul>
+    <li>La fonction <code>main()</code> crée un objet <code>MazeGame</code>.</li>
+    <li><code>MazeGame</code> a une fonction <code>createMaze()</code> chargée de créer les composants du labyrinthe.</li>
+</ul>
+
+Dans l'exemple utilisé, on va créer un labyrinthe contenant 2 pièces avec une porte entre les deux.
 
 
 <!-- ************************************* -->
