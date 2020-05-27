@@ -6,7 +6,7 @@ class RemoteExample{
     public static void main(String[] args){
         URL url = null;
         try{
-            url = new URL("https://larzac.info/cnam/cours/nfp121/index.html");
+            url = new URL("https://larzac.info/cnam/index.html");
         }
         catch(MalformedURLException e){
             e.printStackTrace();

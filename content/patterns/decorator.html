@@ -206,6 +206,10 @@ Traduction en java du diagramme gof dans <a href="../../exemples/patterns/decora
 <b>Exercice</b> : <a href="../../exos/patterns/decorator/carres/Carres.html">Carrés décorés</a>
 </div>
 
+<div class="exo">
+<b>Exercice</b> : <a href="../../exos/patterns/decorator/livre/Livre.html">Livre</a>
+</div>
+
 
 <!-- ********************************************************************************* -->
 <h2><a name="3-remarques">Remarques</a></h2>
@@ -277,8 +281,39 @@ Comme <code>LineNumberReader</code> est déjà un <code>BufferedReader</code>, �
 <pre> LineNumberReader lnr = new LineNumberReader(new BufferedReader(new FileReader("test.txt")));</pre>
 on aurait pu faire :
 <pre> LineNumberReader lnr = new LineNumberReader(new FileReader("test.txt"));</pre>
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->
+
+<h4>Autre exemple</h4>
+Cet exemple tiré de <a href="https://stackoverflow.com/questions/6366385/use-cases-and-examples-of-gof-decorator-pattern-for-io">stackoverflow</a> illustre d'autres utilisations de Decorator :
+<br>
+<br>On a un objet sérialisé dans un fichier gzippé, et on veut l'utiliser.
+<br>
+<br>On lit le fichier :
+<pre>FileInputStream fis = new FileInputStream("/path/to/objects.gz");</pre>
+
+Pour de meilleures performances, on stocke le résultat en mémoire (voir <a href="../../exemples/java/io/BufferedReaderCompare.java">BufferedReaderCompare.java</a>) :
+<pre>BufferedInputStream bis = new BufferedInputStream(fis);</pre>
+
+Il faut aussi "dé-gzipper" le fichier :
+<pre>GzipInputStream gis = new GzipInputStream(bis);</pre>
+
+Et désérialiser l'objet :
+<pre>ObjectInputStream ois = new ObjectInputStream(gis);</pre>
+
+On peut maintenant utiliser notre objet :
+<pre>SomeObject someObject = (SomeObject) ois.readObject();</pre>
+
+Tout ça aurait pu être écrit en une seule ligne :
+<pre>
+ObjectInputStream ois = new ObjectInputStream(
+    new GzipInputStream(
+        new BufferedInputStream(                         
+            new FileInputStream("/objects.gz")
+        )                     
+    )
+);
+SomeObject someObject = (SomeObject) ois.readObject();
+</pre>
+
 </article>
 
 </body>

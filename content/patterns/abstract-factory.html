@@ -105,9 +105,9 @@ Traduction java du diagramme :
 <br>
 <br>- Ajouter de nouveaux produits aux familles n'est pas simple, car il faut faire évoluer <code>AbstractFactory</code>, ce qui implique potentiellement de retoucher à toutes les <code>ConcreteFactory</code>.
 <br>
-<br>- En général une application n'a besoin que d'une instance de <code>ConcreteFactory</code> à la fois, donc souvent implémenté avec un <b>singleton</b>.
+<br>- En général une application n'a besoin que d'une instance de <code>ConcreteFactory</code> à la fois, donc souvent implémenté avec un <b><a href="singleton.html">singleton</a></b>.
 
-<br>- S'il y a beaucoup de familles, <code>ConcreteFactory</code> peut être implémenté en utilisant un <b>prototype</b>.
+<br>- S'il y a beaucoup de familles, <code>ConcreteFactory</code> peut être implémenté en utilisant un <b><a href="prototype.html">prototype</a></b>.
 <br>La <code>ConcreteFactory</code> est initialisée avec une instance de chaque produit de la famille et crée un nouveau produit par clonage.
 <br>Elimine le besoin d'une <code>ConcreteFactory</code> pour chaque famille.
 <!-- TODO tester, comprendre mieux cf gof p 90-91-->
@@ -125,6 +125,7 @@ On se place aussi dans le cas où on veut créer deux variantes du jeu (Enchante
 <div class="flex-wrap">
 
 <div>
+<div class="big2 bold center">Abstract factory</div>
 <pre>
 public class MazeGame{
     public Maze createMaze(MazeFactory factory){
@@ -164,6 +165,7 @@ public class MazeFactory{
 </div>
 
 <div>
+<div class="big2 bold center">Factory method</div>
 <pre>
 public class BombedMazeFactory extends MazeFactory{
     

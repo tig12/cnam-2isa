@@ -9,10 +9,10 @@ class TestEnum1{
         CouleurPrimaire cp = CouleurPrimaire.ROUGE;
         System.out.println("cp = " + cp);
         
-        if(cp == CouleurPrimaire.ROUGE) System.out.println("cp est bien rouge");
-        
         // la ligne suivante ne passe pas à la compilation
         // if(cp == ROUGE) System.out.println("cp est bien rouge");
+        if(cp == CouleurPrimaire.ROUGE) System.out.println("cp est bien rouge");
+        
         if(cp.name() == "ROUGE") System.out.println("cp.name() = ROUGE");
         
         switch(cp){

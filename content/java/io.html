@@ -42,15 +42,9 @@
     </ul>
 </nav>
 
-
-
-
 </header>
 
 <article>
-
-
-
 
 
 (I/O = Input / Output)
@@ -137,6 +131,29 @@ File[] files = dir.listFiles();
 <br>Noter qu'il n'y a pas de méthode pour lire le contenu d'un fichier.
 
 <!-- ************************************* -->
+<h3>Lecture écriture</h3>
+<!-- http://thecodersbreakfast.net/index.php?post/2012/01/15/java-io-explique-simplement -->
+L'API java pour lire ou écrire dans des fichiers est déroutante au premier abord mais pratique à l'utilisation.
+
+<br>Elle comporte 4 classes de base, permattant de travailler soit sur des octets, soit sur des caractères :
+<table class="wikitable margin05">
+    <tr><th></th><th>Lecture</th><th>Ecriture</th></tr>
+    <tr>
+        <th>Caractère<br>(texte)</th>
+        <td>Reader</td>
+        <td>Writer</td>
+    </tr>
+    <tr>
+        <th>Octet<br>(binaire)</th>
+        <td>InputStream</td>
+        <td>OutputStream</td>
+    </tr>
+</table>
+Chaque classe a des sous-classes permettant de travailler sur des sources de données variées (fichier local, fichier distant, chaîne de caractères, tableau de caractères...) et fournissant diverses fonctionnalités.
+<br>
+<br>On choisit la source de données et les fonctionnalités utilisables en emboîtant ces classes, qui implémentnent le pattern <a href="../patterns/decorator.html">Decorator</a>.
+
+<!-- ************************************* -->
 <h3><a name="1-1-streams">Streams</a></h3>
 Les I/O streams (attention : différents des streams introduits en java8 pour les collections) permettent de gérer des <b>flux d'octets</b> en provenance du disque <i>ou d'autres sources</i>.
 <br>API organisée autour de 2 classes abstraites : <code>InputStream</code> et <code>OutputStream</code> et de leurs sous-classes.
@@ -176,7 +193,7 @@ FileWriter
 PrintWriter
 BufferedWriter
 </pre>
-Permet de travailler sur des fichiers en emboîtant des readers (cf pattern <a href="../patterns/decorator.html">Decorator</a>) : 
+
 <pre>
 <b>try (BufferedReader in = new BufferedReader(new FileReader("test.txt")))</b> {
     String line;
@@ -186,32 +203,10 @@ Permet de travailler sur des fichiers en emboîtant des readers (cf pattern <a h
 } catch (IOException e) { }
 </pre>
 (code dans <a href="../../exemples/java/io/BufferedReaderExample.java">BufferedReaderExample.java</a>)
-
-
-<!-- ************************************* -->
-<h3><a name="1-3-try-with-resources-twr">try with resources (TWR)</a></h3>
-Mécanisme introduit en java 7, particulièrement utile pour java.io :
-<br>Lorsqu'on fait un <code>try</code> "normal", si on utilise des resources qui doivent être libérées, les clauses <code>catch</code> et <code>finally</code> sont souvent fastidieuses à écrire.
-<br>Cette nouvelle syntaxe permet de passer en paramètre au bloc try des objets qui ont éventuellement besoin de nettoyage.
-<br>javac s'occupe alors d'insérer le code nécessaire pour libérer les resources, qu'on n'a donc plus besoin d'écrire.
 <br>
-<br>A UTILISER CHAQUE FOIS QUE C'EST POSSIBLE, c'est à dire pour construire des objets de classes implémentant <b><code>java.lang.AutoCloseable</code></b>
+<br>Pour comprendre l'intérêt de <code>BufferedReader</code>, voir <a href="../../exemples/java/io/BufferedReaderCompare.java">BufferedReaderCompare.java</a>
 <br>
-<br>TWR permet de passer en paramètre de <code>try</code> la création de plusieurs objets :
-<pre>
-try (
-    <b>BufferedReader in = new BufferedReader(new FileReader("profile"));
-    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("profile.bak")))</b>
-) {
-    String line;
-    while((line = in.readLine()) != null) {
-        out.println(line);
-    }
-} catch (IOException e) {
-    // FileNotFoundException, etc.
-}
-</pre>
-Similaire à <code>using</code> en C#.
+<br>On peut passer d'une représentation "octet" à une représentation "caractère" en utilisant les classes <code>InputStreamReader</code> et <code>OutputStreamWriter</code>.
 
 <!-- ************************************* -->
 <h3><a name="1-4-fichiers-distants">Fichiers distants</a></h3>
@@ -225,7 +220,7 @@ class RemoteExample{
     public static void main(String[] args){
         URL url = null;
         try{
-            url = new URL("https://larzac.info/cnam/nfp121/cours/index.html");
+            url = new URL("https://larzac.info/cnam/index.html");
         }
         catch(MalformedURLException e){
             e.printStackTrace();
@@ -249,6 +244,33 @@ class RemoteExample{
 <div class="exo">
     <b>Exercice</b> <a href="../../exos/java/io/LectureEcriture.html">Lecture / Ecriture</a>
 </div>
+
+<!-- ************************************* -->
+<h2><a name="1-3-try-with-resources-twr">try with resources (TWR)</a></h2>
+A lire avant : <a href="exceptions.html">Exceptions</a>
+<br>
+<br>Mécanisme introduit en java 7, particulièrement utile pour java.io :
+<br>Lorsqu'on fait un <code>try</code> "normal", si on utilise des resources qui doivent être libérées, les clauses <code>catch</code> et <code>finally</code> sont souvent fastidieuses à écrire.
+<br>Cette nouvelle syntaxe permet de passer en paramètre au bloc try des objets qui ont éventuellement besoin de nettoyage.
+<br>javac s'occupe alors d'insérer le code nécessaire pour libérer les resources, qu'on n'a donc plus besoin d'écrire.
+<br>
+<br>A UTILISER CHAQUE FOIS QUE C'EST POSSIBLE, c'est à dire pour construire des objets de classes implémentant <b><code>java.lang.AutoCloseable</code></b>, qui déclare un seule méthode, <code>close()</code>.
+<br>
+<br>TWR permet de passer en paramètre de <code>try</code> la création de plusieurs objets :
+<pre>
+try (
+    <b>BufferedReader in = new BufferedReader(new FileReader("profile"));
+    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("profile.bak")))</b>
+) {
+    String line;
+    while((line = in.readLine()) != null) {
+        out.println(line);
+    }
+} catch (IOException e) {
+    // FileNotFoundException, etc.
+}
+</pre>
+Similaire à <code>using</code> en C#.
 
 
 <!-- ********************************************************************************* -->
