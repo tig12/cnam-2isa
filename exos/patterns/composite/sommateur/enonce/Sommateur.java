@@ -35,6 +35,7 @@ public class Sommateur {
         // à compléter
         System.out.println("Somme totale = ");
         
+        // Boucle affichant la somme de chaque enfant direct de la racine
         System.out.println("Somme des enfants : ");
         // à compléter
         

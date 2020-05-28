@@ -1,42 +1,38 @@
 /** 
-    Implémentation de l'exemple GOF
+    Implémentation de l'exemple GOF en utilisant des interfaces
     (look and feels PM et Motif remplacés par Linux et Mac)
 **/
 
 // ====== abstract factory ======
-class WidgetFactory{
-    public AbstractWindow createWindow(){ return new AbstractWindow(); }
-    public AbstractScrollBar createScrollBar(){ return new AbstractScrollBar(); }
+interface WidgetFactory{
+    public AbstractWindow createWindow();
+    public AbstractScrollBar createScrollBar();
 }
 
 // ====== concrete factories ======
-class LinuxFactory extends WidgetFactory{
+class LinuxFactory implements WidgetFactory{
     public AbstractWindow createWindow(){ return new LinuxWindow(); }
     public AbstractScrollBar createScrollBar(){ return new LinuxScrollBar(); }
 }
 
-class MacFactory extends WidgetFactory{
+class MacFactory implements WidgetFactory{
     public AbstractWindow createWindow(){ return new MacWindow(); }
     public AbstractScrollBar createScrollBar(){ return new MacScrollBar(); }
 }
 
 // ====== abstract products ======
-class AbstractWindow{
-    @Override public String toString(){ return this.getClass().getName(); }
-}
-class AbstractScrollBar{
-    @Override public String toString(){ return this.getClass().getName(); }
-}
+interface AbstractWindow{}
+interface AbstractScrollBar{}
 
 // ====== concrete products ======
-class LinuxWindow extends AbstractWindow{}
-class LinuxScrollBar extends AbstractScrollBar{}
+class LinuxWindow implements AbstractWindow{}
+class LinuxScrollBar implements AbstractScrollBar{}
 
-class MacWindow extends AbstractWindow{}
-class MacScrollBar extends AbstractScrollBar{}
+class MacWindow implements AbstractWindow{}
+class MacScrollBar implements AbstractScrollBar{}
 
 // ====== client ======
-public class ExempleGOF{
+public class ExempleGOF2{
     public static void main(String[] args){
         
         AbstractWindow myWindow;
