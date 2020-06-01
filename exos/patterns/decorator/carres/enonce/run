@@ -1,9 +1,0 @@
-
-dirbin="../../../../bin/exam/2019-02-07/carres/enonce"
-
-command="java -classpath $dirbin dessin.Main"
-
-echo $command
-
-$command
-

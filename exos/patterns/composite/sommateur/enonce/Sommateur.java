@@ -42,31 +42,31 @@ public class Sommateur {
     }
 }
 
-abstract class Node {
+abstract class Component {
     public abstract int somme();
-    public void addChild(Node c){}
-    public List<Node> getChildren(){
+    public void addChild(Component c){}
+    public List<Component> getChildren(){
         return null;
     }
 }
 
-class Nombre extends Node{
+class Nombre extends Component {
     // A compléter
 }
 
-class Composite extends Node{
+class Composite extends Component{
     
-    private List<Node> children = new ArrayList<>();
+    private List<Component> children = new ArrayList<>();
     
     public int somme(){
         // à compléter
     }
     
     // composite stuff
-    public List<Node> getChildren(){
+    public List<Component> getChildren(){
         return children;
     }
-    public void addChild(Node child){
+    public void addChild(Component child){
         children.add(child);
     }
 }

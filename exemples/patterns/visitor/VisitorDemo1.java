@@ -52,9 +52,7 @@ abstract class Node {
     public String getName(){ return name; }
     
     // composite stuff
-    public void print(){
-        System.out.println(name);
-    }
+    abstract public void print();
     public void addChild(Node c){}
     
     // visitor stuff
@@ -64,6 +62,14 @@ abstract class Node {
 // Noeud terminal
 abstract class Leaf extends Node{
     public Leaf(String name){ super(name); }
+    
+    // méthodes "operation"
+    public void print(){
+        System.out.println(name);
+    }
+    public void accept(Visitor v){
+        v.visit(this);
+    }                                                             
 }
 
 // Noeud composé
@@ -82,48 +88,37 @@ abstract class Composite extends Node{
         }
     }
     
+    public void accept(Visitor v){
+        v.visit(this);
+        for(Node child : children){
+            child.accept(v);
+        }
+    }
 }
 
 class IfNode extends Composite{
     public IfNode(String name){ super(name); }
-    public void accept(Visitor v){
-        v.visit(this);
-        for(Node child : children){
-            child.accept(v);
-        }
-    }
 }
 
 class SuperiorNode extends Composite{
     public SuperiorNode(String name){ super(name); }
-    public void accept(Visitor v){
-        v.visit(this);
-        for(Node child : children){
-            child.accept(v);
-        }
-    }
 }
 
 class AffectationNode extends Composite{
     public AffectationNode(String name){ super(name); }
-    public void accept(Visitor v){
-        v.visit(this);
-        for(Node child : children){
-            child.accept(v);
-        }
-    }
 }
 
 class VariableNode extends Leaf{
     public VariableNode(String name){ super(name); }
-    public void accept(Visitor v){
-        v.visit(this);
-    }
 }
 
 
 // ===== visitor classes =====
 abstract class Visitor{
+    // pour factoriser l'implémentation de accept() dans 
+    public void visit(Leaf node){}
+    public void visit(Composite node){}
+    
     abstract public void visit(IfNode node);
     abstract public void visit(SuperiorNode node);
     abstract public void visit(AffectationNode node);
