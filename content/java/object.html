@@ -508,7 +508,7 @@ En effet, la documentation de <code>hashCode()</code> indique :
     <li>Mais deux objets différents au sens de <code>equals()</code> ne doivent pas obligatoirement renvoyer deux hash codes différents (bien que ce soit conseillé).</li>
 </ol>
 
-Exemples : 
+Exemple : 
 
 <pre>
 public class HashCode1 {
@@ -516,7 +516,7 @@ public class HashCode1 {
         Personne p1 = new Personne("Curry", "Haskell", 1900);
         System.out.println("p1.hashCode() = " + p1.hashCode());
         
-        Personne p2 = new Personne("Curry", "Haskell", 1900);
+        Personne p2 = new Personne("Haskell", "Curry", 1900);
         System.out.println("p2.hashCode() = " + p2.hashCode());
         
         Personne p3 = new Personne("Hilbert", "David", 1862);
@@ -546,7 +546,7 @@ p1.hashCode() = 869721104
 p2.hashCode() = 869721104
 p3.hashCode() = 1761653376
 </pre>
-Les règles 1 et 2 sont respectées ; on voit bien qu'il peut exister deux personnes différentes ayant même hashCode.
+Les règles 1 et 2 sont respectées ; on voit bien qu'il peut exister deux personnes différentes ayant même hashCode (entre p1 et p2, on a permuté nom et prénom).
 <br>
 <br>Si on a une classe ayant un id unique (cas fréquent de classes représentant des objets stockés en base dont l'id est le clé primaire), l'implémentation est plus simple :
 

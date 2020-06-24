@@ -110,7 +110,7 @@ est remplacé par :
 
 <!-- ************************************* -->
 <h3>En java</h3>
-L'API <a href="collections.html">collection</a> fournit une implémentation de <i>Visitor</i> :
+L'API <a href="collections.html">collection</a> fournit une implémentation de <i>Iterator</i> :
 <pre>
 List<String> c = new ArrayList<String>();
 for(Iterator<String> i = c.iterator(); i.hasNext();) {
@@ -118,7 +118,7 @@ for(Iterator<String> i = c.iterator(); i.hasNext();) {
 }
 </pre>
 
-On a bien la notion de visiteur abstrait, comme le montre la signature de la méthode <code>iterator()</code> :
+On a bien la notion d'itérateur abstrait, comme le montre la signature de la méthode <code>iterator()</code> :
 <pre>public Iterator&lt;E> iterator()</pre>
 
 <!-- ************************************* -->
@@ -180,9 +180,6 @@ Modifier un aggrégat durant le parcours peut générer des bugs (accéder 2 foi
 <br>- Sont-ils robustes ?
 </div>
 
-
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->
 </article>
 
 </body>

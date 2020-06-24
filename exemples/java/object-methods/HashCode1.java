@@ -5,7 +5,7 @@ public class HashCode1 {
         Personne p1 = new Personne("Curry", "Haskell", 1900);
         System.out.println("p1.hashCode() = " + p1.hashCode());
         
-        Personne p2 = new Personne("Curry", "Haskell", 1900);
+        Personne p2 = new Personne("Haskell", "Curry", 1900);
         System.out.println("p2.hashCode() = " + p2.hashCode());
         
         Personne p3 = new Personne("Hilbert", "David", 1862);
