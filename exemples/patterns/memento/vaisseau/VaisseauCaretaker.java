@@ -8,10 +8,10 @@ import java.util.ArrayList;
 **/
 class VaisseauCaretaker {
     
-    List<Vaisseau.Memento> savedStates;
+    private List<Vaisseau.Memento> savedStates;
     
     /** Le vaisseau dont ce caretaker s'occupe **/
-    Vaisseau v;
+    private Vaisseau v;
     
     public VaisseauCaretaker(Vaisseau v) {
         this.v = v;

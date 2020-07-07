@@ -38,6 +38,7 @@ public class Vaisseau {
     }
     
     // === Pilotage du vaisseau ===
+    
     /** Freine ou accélère le vaisseau **/
     public void accelerer(float valeur){
         vitesse += valeur;
@@ -58,7 +59,8 @@ public class Vaisseau {
     }
     
     
-    // == Enregistre / restore ===
+    // == Memento management ===
+    
     public Memento enregistreEtat() {
         return new Memento(direction, vitesse);
     }
@@ -69,7 +71,8 @@ public class Vaisseau {
     }
  
 
-    // === memento : classe interne du vaisseau ===
+    // === Memento : classe interne du vaisseau ===
+    
     public static class Memento {
         private float direction;
         private float vitesse;

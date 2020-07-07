@@ -83,14 +83,33 @@ Le code client manipule l'originator (création, modification de son état).
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-structure">Structure</a></h2>
+<h2><a name="1-structure">Structure GOF</a></h2>
 
 <img class="border margin padding05" src="img/memento-gof-structure.jpg" alt="Memento - structure">
 
-
 <!-- ********************************************************************************* -->
-<h2><a name="2-exemples">Exemples</a></h2>
+<h2><a name="2-exemples">Exemple wikibook</a></h2>
 (code dans <a href="../../exemples/patterns/memento/wikibooks">exemples/patterns/memento/wikibooks</a>)
+<br>
+<br>Exemple simplifié où le mécanisme du <code>Caretaker</code> est géré dans <code>main()</code>
+
+
+<!-- ************************************* -->
+<h2><a name="2-2-vaisseau">Exemple Vaisseau</a></h2>
+(code dans <a href="../../exemples/patterns/memento/vaisseau">exemples/patterns/memento/vaisseau</a>)
+<br>
+<br>Exemple plus complet, implémentant un mécanisme d'undo.
+<ul>
+    <li>Une partie de l'état du vaisseau n'est pas sauvegardé (<code>pourcentFuel</code>).</li>
+    <li>Le caretaker est séparé du code client.</li>
+</ul>
+
+<img class="border margin padding" src="../../exemples/patterns/memento/vaisseau/memento-vaisseau.svg" alt="Classes Memento Vaisseau">
+
+<div class="exo">
+<b>Exercice</b> : Faire le diagramme de séquence correspondant à <code>Main.main()</code>
+</div>
+
 
 <!-- ************************************* -->
 <h3><a name="2-1-implementation-du-schema-gof">Implémentation du schéma GOF</a></h3>
@@ -147,16 +166,6 @@ class Caretaker {
     }
 }
 </pre>
-
-<!-- ************************************* -->
-<h3><a name="2-2-vaisseau">Vaisseau</a></h3>
-(code dans <a href="../../exemples/patterns/memento/vaisseau">exemples/patterns/memento/vaisseau</a>)
-<br>
-<br>Exemple similaire à l'exemple précédent avec quelques différences :
-<ul>
-    <li>Une partie de l'état du vaisseau n'est pas sauvegardé (<code>pourcentFuel</code>).</li>
-    <li>Le caretaker est séparé du code client.</li>
-</ul>
 
 <!-- ********************************************************************************* -->
 <h2><a name="3-remarques">Remarques</a></h2>
