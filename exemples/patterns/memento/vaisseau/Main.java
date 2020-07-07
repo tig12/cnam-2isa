@@ -10,21 +10,21 @@ class Main {
     public static void main(String[] args) {
         
         var v = new Vaisseau();
-        var caretaker = new VaisseauCaretaker(v);
+        var ct = new VaisseauCaretaker(v);
         
-        caretaker.saveState();
+        ct.saveState();
         System.out.println("=== Etat initial ===");
         System.out.println(v);
         
         v.accelerer(10.0f);
         v.tourner(-10.0f);
-        caretaker.saveState();
+        ct.saveState();
         System.out.println("\n=== Après modification 1 ===");
         System.out.println(v);
         
         v.accelerer(50.0f);
         v.tourner(-20.0f);
-        caretaker.saveState();
+        ct.saveState();
         System.out.println("\n=== Après modification 2 ===");
         System.out.println(v);
         
@@ -33,19 +33,19 @@ class Main {
         System.out.println("\n=== Après modification 3 ===");
         System.out.println(v);
         
-        caretaker.undo();
+        ct.undo();
         System.out.println("\n=== Après undo ===");
         System.out.println(v);
         
-        caretaker.undo();
+        ct.undo();
         System.out.println("\n=== Après undo ===");
         System.out.println(v);
         
-        caretaker.undo();
+        ct.undo();
         System.out.println("\n=== Après undo ===");
         System.out.println(v);
         
-        caretaker.undo();
+        ct.undo();
         System.out.println("\n=== Après undo ===");
         System.out.println(v);
     }
