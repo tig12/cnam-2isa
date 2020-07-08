@@ -35,14 +35,19 @@
         <br>On passe dans l'état "VEILLE" par une nouvelle transition, <code>mettreEnVeille()</code>. Cette transition ne fait rien si on est dans l'état "OFF" et passe dans "VEILLE" depuis les autres états.
         <br>Lorsqu'on est dans l'état de veille, 
         <ul>
-            <li>la transition <code>on()</code> permet de sortir de l'état de veille (et de retrouver l'état précédnt la mise en veille).</li>
+            <li>la transition <code>on()</code> permet de sortir de l'état de veille (et de retrouver l'état précédant la mise en veille).</li>
             <li>la transition <code>off()</code> passe à l'état "OFF".</li>
         </ul>
     </li>
     
     
     <li>
-        Ecrivez une application swing pour donner une interface graphique à votre radio. Chaque état est associé à un <code>Button</code> et une zone de texte affiche l'état courant.
+        Ecrivez une application swing pour donner une interface graphique à votre radio.
+        <ul>
+            <li>Chaque changement d'état est associé à un <code>Button</code>.</li>
+            <li>Une zone de texte affiche l'état courant.</li>
+            <li>Une zone texte affiche la fréquence courante (chaîne vide lordsque le poste est dans l'état OFF ou VEILLE)</li>
+        </ul>
     </li>
     
     <li>Listez les patterns que votre code ainsi que l'API swing utilisent.</li>
