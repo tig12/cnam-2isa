@@ -61,19 +61,22 @@ class PosteRadio {
     
     private Map<String, TreeSet<String>> stations = new HashMap<>();
     private Map<String, String> stationEnCours = new HashMap<>();
-    private String state; // FM, AM ou LW
+    private String state; // OFF, FM, AM ou LW
     
     
     public PosteRadio() {
         stations.put(STATE_FM, new TreeSet<String>(Arrays.asList(new String[]{"81.3", "89.1", "99.9"})));
         stations.put(STATE_AM, new TreeSet<String>(Arrays.asList(new String[]{"1250", "1380", "1510"})));
         stations.put(STATE_LW, new TreeSet<String>(Arrays.asList(new String[]{"1852", "1647", "1389", "1282"})));
-//System.out.println(stations);
+        
         stationEnCours.put(STATE_FM, stations.get(STATE_FM).first());
         stationEnCours.put(STATE_AM, stations.get(STATE_AM).first());
         stationEnCours.put(STATE_LW, stations.get(STATE_LW).first());
+        
         state = STATE_OFF;
     }
+    
+    public String getState(){ return state; }
     
     public void on(){
         System.out.println("on()");
@@ -83,8 +86,6 @@ class PosteRadio {
     public void off(){
         state = STATE_OFF;
     }
-    
-    public String getState(){ return state; }
     
     public String getStationEnCours(){
         if(state == STATE_OFF){
