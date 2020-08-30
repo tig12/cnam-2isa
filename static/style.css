@@ -147,6 +147,9 @@ table.wikitable tr td code{
 .bold{font-weight:bold;}
 
 .center{text-align:center;}
+.justify{text-align:justify;}
+.right{text-align:right;}
+.left{text-align:left;}
 
 .background-none{background:none;}
 .red{color:red;}

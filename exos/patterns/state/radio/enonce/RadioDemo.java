@@ -13,41 +13,41 @@ public class RadioDemo {
 
     public static void main(String[] args){
         PosteRadio poste = new PosteRadio();
-        poste.printEtat();
+        System.out.println(poste.toString());
         poste.stationSuivante();
-        poste.printEtat();
+        System.out.println(poste.toString());
         poste.changerBandeFrequence();
-        poste.printEtat();
+        System.out.println(poste.toString());
                                  
         System.out.println("");
         poste.on();
-        poste.printEtat();
+        System.out.println(poste.toString());
         poste.stationSuivante();
-        poste.printEtat();
+        System.out.println(poste.toString());
         poste.stationSuivante();
-        poste.printEtat();
+        System.out.println(poste.toString());
         poste.stationSuivante();
-        poste.printEtat();
+        System.out.println(poste.toString());
         
         System.out.println("");
         poste.changerBandeFrequence();
-        poste.printEtat();
+        System.out.println(poste.toString());
         poste.stationSuivante();
-        poste.printEtat();
+        System.out.println(poste.toString());
         
         System.out.println("");
         poste.changerBandeFrequence();
-        poste.printEtat();
+        System.out.println(poste.toString());
         poste.stationSuivante();
-        poste.printEtat();
+        System.out.println(poste.toString());
         
         System.out.println("");
         poste.off();
-        poste.printEtat();
+        System.out.println(poste.toString());
         
         System.out.println("");
         poste.on();
-        poste.printEtat();
+        System.out.println(poste.toString());
     }
 
 }
@@ -76,6 +76,11 @@ class PosteRadio {
         state = STATE_OFF;
     }
     
+    @Override
+    public String toString(){
+        return String.format("Etat du poste : %s %s", getStationEnCours(), getState());
+    }
+    
     public String getState(){ return state; }
     
     public void on(){
@@ -92,10 +97,6 @@ class PosteRadio {
             return "";
         }
         return stationEnCours.get(state);
-    }
-    
-    public void printEtat(){
-        System.out.printf("Etat du poste : %s %s%n", getStationEnCours(), getState());
     }
     
     public void changerBandeFrequence(){
