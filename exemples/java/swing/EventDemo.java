@@ -28,7 +28,8 @@ public class EventDemo extends JFrame implements ActionListener{
         add("South", affichage);
         
         setLocation(100,100);
-        pack();setVisible(true);
+        pack();
+        setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         btnAffiche.addActionListener(this);
