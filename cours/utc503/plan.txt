@@ -1,0 +1,9 @@
+
+Historique : impératif et fonctionnel
+
+Impératif
+-------------
+
+types de données
+variables
+fonctions
