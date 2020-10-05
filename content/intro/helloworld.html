@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Hello World! | Cnam 2ISA Millau</title>
+    <meta name="description" content="">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2020">
+</head>
+
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cnam 2ISA Millau" href="../../index.html">&uarr;</a>
+</nav>
+
+<header>
+<h1>Hello World!</h1>
+
+<style>
+    .toc>ul{text-align:center; font-size:1.2rem;}
+    .toc>ul>li{display:inline-block; padding-left:2em;}
+</style>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#python">python</a>
+        </li>
+        <li>
+            <a href="#java">java</a>
+        </li>
+        <li>
+            <a href="#php">php</a>
+        </li>
+        <li>
+            <a href="#go">go</a>
+        </li>
+        <li>
+            <a href="#rust">rust</a>
+        </li>
+        <li>
+            <a href="#haskell">haskell</a>
+        </li>
+        <li>
+            <a href="#ocaml">ocaml</a>
+        </li>
+        <li>
+            <a href="#prolog">prolog</a>
+        </li>
+        <li>
+            <a href="#bash">bash</a>
+        </li>
+    </ul>
+</nav>
+
+</header>
+
+<article>
+Utilise <a href="../../exemples/intro/helloworld/">exemples/intro/helloworld/</a>
+<pre>
+# depuis la racine du cours :
+cd exemples/intro/helloworld/
+</pre>
+
+<!-- ********************************************************************************* -->
+<h2><a name="python">python</a></h2>
+<code>HelloWorld.py</code> :
+<pre>print "Hello World!"</pre>
+Exécution :
+<pre>python HelloWorld.py</pre>
+
+<!-- ********************************************************************************* -->
+<h2><a name="java">java</a></h2>
+<code>HelloWorld.java</code> :
+<pre>
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+    }
+}
+</pre>
+Compilation :
+<pre>javac HelloWorld.java</pre>
+Génère un fichier <code>HelloWorld.class</code>
+
+<br><br>Exécution :
+<pre>java HelloWorld</pre>
+
+Nettoyage :
+<pre>rm HelloWorld.class</pre>
+
+<!-- ********************************************************************************* -->
+<h2><a name="php">php</a></h2>
+<code>HelloWorld.php</code> :
+<pre>
+&lt;?php
+echo "Hello World!\n";
+</pre>
+
+Exécution :
+<pre>php HelloWorld.php</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="go">go</a></h2>
+
+<code>HelloWorld.go</code> :
+<pre>
+package main
+
+import "fmt"
+
+func main(){
+    fmt.Println("Hello World!")
+}</pre>
+
+Exécution :
+<pre>go run HelloWorld.go</pre>
+
+<!-- ********************************************************************************* -->
+<h2><a name="rust">rust</a></h2>
+
+<!-- 
+Install
+
+<a href="https://www.rust-lang.org/tools/install">https://www.rust-lang.org/tools/install</a>
+<pre>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh</pre>
+
+Dans <code>~/.bashrc</code>
+<pre>export PATH="$HOME/.cargo/bin:$PATH"</pre>
+-->
+
+<code>HelloWorld.rs</code>
+<pre>
+fn main() {
+    println!("Hello World!");
+}
+</pre>
+
+Compilation :
+<pre>rustc HelloWorld.rs</pre>
+
+Exécution :
+<pre>./HelloWorld</pre>
+Génère un fichier exécutable <code>HelloWorld</code>
+
+<br><br>Nettoyage :
+<pre>rm HelloWorld</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="haskell">haskell</a></h2>
+
+<code>HelloWorld.hs</code> :
+<pre>main = putStrLn "Hello, World!"</pre>
+
+Compilation :
+<pre>ghc HelloWorld.hs</pre>
+
+Génère un fichier exécutable <code>HelloWorld</code> et 2 fichiers auxiliaires : <code>HelloWorld.hi</code> et <code>HelloWorld.o</code>.
+
+<br><br>Exécution :
+<pre>./HelloWorld</pre>
+
+Nettoyage :
+<pre>rm HelloWorld HelloWorld.{hi,o}</pre>
+
+<!-- ********************************************************************************* -->
+<h2><a name="ocaml">ocaml</a></h2>
+<code>HelloWorld.ml</code> :
+<pre>print_string "Hello world!\n";;</pre>
+
+Compilation :
+<pre>ocamlc -o HelloWorld HelloWorld.ml</pre>
+
+Génère un fichier exécutable <code>HelloWorld</code> et 2 fichiers auxiliaires : <code>HelloWorld.cmi</code> et <code>HelloWorld.cmo</code>.
+
+<br><br>Exécution :
+<pre>./HelloWorld</pre>
+
+Nettoyage :
+<pre>rm HelloWorld HelloWorld.{cmi,cmo}</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="prolog">prolog</a></h2>
+
+<!-- 
+Installation :
+<pre>sudo apt install swi-prolog</pre>
+-->
+
+<code>HelloWorld.pl</code> :
+<pre>
+:- initialization hello_world, halt.
+
+hello_world :-
+    write('Hello, World!'), nl.
+</pre>
+
+Exécution :
+<pre>swipl -l HelloWorld.pl</pre>
+
+<!-- ********************************************************************************* -->
+<h2><a name="bash">bash</a></h2>
+Si vous êtes sous bash, vous pouvez directement faire en ligne de commande :
+<pre>echo "Hello World!"</pre>
+
+Ou mettre ce code dans un fichier <code>HelloWorld.sh</code> et exécuter :
+<pre>bash HelloWorld.sh</pre>
+
+Ou rendre <code>HelloWorld.sh</code> exécutable :
+<pre>chmod +x HelloWorld.sh</pre>
+et l'exécuter :
+<pre>./HelloWorld.sh</pre>
+
+</article>
+
+</body>
+</html>
