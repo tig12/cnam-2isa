@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    version="1.1"
+    width="211px" height="100px"
+    viewBox="-0.5 -0.5 211 81"
+>
+    <defs/>
+    <g>
+        <ellipse
+            cx="150"
+            cy="40"
+            rx="60"
+            ry="40"
+            fill="none"
+            stroke="#000000"
+            pointer-events="all"
+        />
+        <ellipse
+            cx="60"
+            cy="40"
+            rx="60"
+            ry="40"
+            fill="none"
+            stroke="#000000"
+            pointer-events="all"
+        />
+    </g>
+    <text x="50" y="30" style="font-weight:bold; font-size:24px;">1</text>
+    <text x="20" y="60" style="font-weight:bold; font-size:24px;">2</text>
+    <text x="70" y="70" style="font-weight:bold; font-size:24px;">3</text>
+    <text x="95" y="50" style="font-weight:bold; font-size:24px;">4</text>
+    <text x="150" y="50" style="font-weight:bold; font-size:24px;">5</text>
+</svg>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <title>Les ensembles | CNAM 2ISA Millau</title>
+    <meta name="description" content="Un rapide aperçu des ensembles">
+    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+    <meta name="robots" content="index,follow">                                                                                                                        
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2019">
+    <!-- 
+    tigsite:
+        sidebar-right: maths/sidebar-maths.html
+    -->
+</head>
+
+<body>
+<div class="container">
+
+<div class="main">
+
+<nav class="prevnext">
+    <a class="top" title="" href="../../../index.html">&uarr;</a>
+    <!-- 
+    <a class="prev" title="" href="index.html">&larr;</a>
+    <a class="next" title="Les catégories" href="categories.html">&rarr;</a>
+    -->
+</nav>
+
+<header>
+<h1>Les ensembles</h1>
+<div class="intro">
+On utilise souvent les ensembles comme briques de base utilisées pour exprimer les mathématiques.
+<br>Les ensembles sont très pratiques ; avec quelques notions très simples, on peut exprimer un grand nombre de choses en mathématiques.
+<br>D'après <a href="https://fr.wikiversity.org/wiki/Ensemble_(math%C3%A9matiques)/D%C3%A9finitions">wikiversity.org</a>,
+<blockquote>
+Un ensemble est une collection ou un groupement d'objets distincts ; ces objets s'appellent les <b>éléments</b> de cet ensemble. 
+</blockquote>
+Cette définition ne précise pas la nature des éléments, un ensemble peut contenir n'importe quoi (quoique, voir le paradoxe de Russel).
+<br>La définition précise "distincts". Un ensemble ne peut pas contenir de doublons.
+<br>La notion d'ordre est absente de la définition.
+</div>
+</header>
+
+<article>
+
+<h2>Ensemble vide</h2>
+On note <code class="formula big5">&nbsp;&empty;&nbsp;</code> l'ensemble vide, qui ne contient aucun élément.
+
+
+<!-- ********************************************************************************* -->
+<h2>Eléments, Cardinal</h2>
+Un ensemble peut contenir un nombre fini d'éléments ou une infinité.
+
+<img class="margin padding border" src="img/ens-a-b.svg" alt="Ensembles A et B">
+
+On utilise les accolades pour représenter un ensemble : 
+<div class="formula margin big3">A = { 1, 2, 3, 4 } ; B = { 4, 5 }</div>
+L"ensemble vide peut donc s'écrire aussi : <span class="formula padding big3">&empty; = { }</span>
+<br>
+<br>On appelle <span class="big3 bold">Cardinal</span> le nombre d'éléments dans un ensemble.
+<br>On note <span class="big3 bold">card(E)</span> le nombre d'élément d'un ensemble E.
+<div class="formula margin big3">card( A ) = 4 ; card( B ) = 2</div>
+On a : <span class="formula padding big3">card( &empty; ) = 0</span>
+
+
+<!-- ********************************************************************************* -->
+<h2>Appartenance</h2>
+Un élément peut appartenir ou pas à un ensemble :
+<br>La relation d'<b>appartenance</b> entre un élément et un ensemble est notée <code class="formula">&nbsp;&in;&nbsp;</code>
+
+<div class="flex-wrap">
+<img class="border padding margin" src="img/ens-appartient.svg" alt="Ensemble, éléments, appartenance">
+<div><pre class="inline-block big2 normal">
+&laquo; <i>a appartient à E</i> &raquo; s'écrit :       <b>a &in; E</b>
+&laquo; <i>b n'appartient pas à E</i> &raquo; s'écrit : <b>b &notin; E</b>
+</pre></div>
+</div><!-- end class="flex-wrap" -->
+
+
+<!-- ********************************************************************************* -->
+<h2>Union, intersection</h2>
+<div class="flex-wrap">
+<img class="border margin padding" src="img/ens-union1.svg" alt="Union de deux ensembles">
+<div class="margin">L'union de deux ensembles est notée <code class="formula big5 padding-left">A &cup; B</code></div>
+</div><!-- end class="flex-wrap" -->
+
+
+
+<div class="flex-wrap">
+<img class="border margin padding" src="img/ens-inter1.svg" alt="Intersection de deux ensembles">
+<div class="margin">L'intersection de deux ensembles est notée <code class="formula big5 padding-left">A &cap; B</code></div>
+</div><!-- end class="flex-wrap" -->
+
+<div class="flex-wrap">
+<img class="border margin padding" src="img/ens-union2.svg" alt="Union de deux ensembles">
+<div>
+    <div class="formula margin big3">A &cup; B = { 1, 2, 3, 4, 5 }</div>
+    <div class="formula margin big3">A &cap; B = { 4 }</div>
+</div>
+</div><!-- end class="flex-wrap" -->
+
+<h3>ET, OU logiques</h3>
+Avec les notions très naturelles et intuitives d'union et d'intersection, on peut par exemple exprimer le ET et le OU logiques :
+<ul class="spaced">
+    <li>
+        Le ET correspond à l'intersection. A ET B est noté <span class="formula big3 padding-left">A &#8896; B</span>
+        <div class="formula margin05 big3">e &in; A &cap; B 	&hArr; e &in; A &#8896; e &in; B</div>
+        Un élément e appartient à A inter B si, et seulement si, e appartient à A ET e appartient à B.
+    </li>
+    <li>
+        Le OU correspond à l'union. A OU B est noté <span class="formula big3 padding-left">A &#8897; B</span>
+        <div class="formula margin05 big3">e &in; A &cup; B 	&hArr; e &in; A &#8897; e &in; B</div>
+        Un élément e appartient à A union B si, et seulement si, e appartient à A OU e appartient à B.
+    </li>
+</ul>
+
+<!-- ********************************************************************************* -->
+<h2>Somme ou Union disjointe</h2>
+<div class="flex-wrap">
+<img class="border margin padding" src="img/ens-union-disjointe.svg" alt="Union disjointe de deux ensembles">
+<div class="margin">L'union disjointe de deux ensembles est notée <code class="formula big5 padding-left">A &#8852; B</code></div>
+</div><!-- end class="flex-wrap" -->
+La somme, ou union disjointe de deux ensembles : ensemble qui contient tous les éléments de A et tous les éléments de B.
+<br>Contrairement à l'union "normale", si un élément appartient à A et à B, il est compté 2 fois.
+<br>
+<br>On a la propriété :
+
+<div class="formula big5 margin">card(A &#8852; B) = card(A) + card(B)</div>
+
+<!-- ********************************************************************************* -->
+<h2>Produit</h2>
+
+<div class="flex-wrap">
+<img class="border margin padding" src="img/ens-produit.svg" alt="Produit cartésien de deux ensembles">
+<div class="margin">Le produit de deux ensembles est noté <code class="formula big5 padding-left">A X B</code></div>
+</div><!-- end class="flex-wrap" -->
+
+On appelle <b>Produit cartésien</b> de deux ensembles A et B, un ensemble dont les éléments sont des paires formées d'un élément de A et d'un élément de B.
+
+<div class="formula margin big3">A X B = { (a, 1), (a, 2), (a, 3), (b, 1), (b, 2), (b, 3) }</div>
+
+On a la propriété :
+
+<div class="formula big5 margin">card(A X B) = card(A) x card(B)</div>
+
+
+
+<!-- 
+<br>
+<br>Bref, de fil en aiguille on peut construire des notions très variées en utilisant la théorie des ensembles. On travaille avec les notions d'appartenance, d'intersection, de réunion, et d'autres constructions, par exemple le produit cartésien (voir <a href="ensembles.html">cette page</a>).
+<br>Le point important est que pour fabriquer et décrire le comportement de ces notions, on utilise les <i>éléments</i> des ensembles.
+-->
+
+</article>
+</div><!-- end class="main" -->
+
+<!-- ************************************* -->
+<aside class="right">
+</aside>
+
+</div><!-- end class="container" -->
+
+</body>
+</html>
+<!-- ************************************* -->
+<!-- ********************************************************************************* -->

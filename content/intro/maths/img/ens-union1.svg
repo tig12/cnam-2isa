@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    version="1.1"
+    width="211px" height="140px"
+    viewBox="-0.5 -0.5 211 81"
+>
+    <defs>
+        <pattern id="pattern1"
+            x="10" y="10" width="10" height="10"
+            patternUnits="userSpaceOnUse" >
+            <circle cx="5" cy="5" r="2" style="stroke: none; fill: #22222" />
+        </pattern>
+    </defs>
+    <g>
+        <ellipse
+            cx="150"
+            cy="40"
+            rx="60"
+            ry="40"
+            fill="none"
+            stroke="#000000"
+            pointer-events="all"
+            style="stroke: #000000; fill: url(#pattern1);"
+        />
+        <ellipse
+            cx="60"
+            cy="40"
+            rx="60"
+            ry="40"
+            fill="none"
+            stroke="#000000"
+            pointer-events="all"
+            style="stroke: #000000; fill: url(#pattern1);"
+        />
+    </g>
+    <text x="0" y="0" style="font-weight:bold; font-size:24px;">
+        A
+    </text>
+    <text x="192" y="0" style="font-weight:bold; font-size:24px;">
+        B
+    </text>
+    <text x="70" y="110" style="font-weight:bold; font-size:24px;">
+        A &#8746; B
+    </text>
+</svg>
