@@ -17,7 +17,7 @@ pre.normal{background:none;}
 code.color{background:lightgrey;}
 .pre{white-space:pre;}
 
-img{display: block; background:white;}
+img{display:block; background:white;}
 img.center{border:none;margin:auto;}
 
 ul.spaced>li,ol.spaced>li{padding-bottom:0.8rem;}
