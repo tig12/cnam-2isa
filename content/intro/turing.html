@@ -19,8 +19,8 @@
 
 <nav class="prevnext">
     <a class="top" title="CNAM 2ISA Millau" href="../../index.html">&uarr;</a>    
-    <a class="prev" title="Previous" href="entscheidung.html">&larr;</a>
     <!-- 
+    <a class="prev" title="Previous" href="entscheidung.html">&larr;</a>
     <a class="next" title="Next" href=".html">&rarr;</a>
     -->
 </nav>
@@ -48,18 +48,18 @@ Les cases de la bande de papier sont numérotées.
     <li>A chaque instant, elle se trouve dans un état, l'<b>état courant</b> (ou la m-config courante).</li>
 </ul>
     
-Un état est constitué de : 
+Une m-config est constituée de : 
 <ul>
-    <li>Nom de l'état</li>
-    <li><b>Instructions</b> à exécuter</li>
-    <li>Etat suivant</li>
+    <li>Nom de la m-config</li>
+    <li><b>Instructions</b> à exécuter, dépendant du symbole courant</li>
+    <li>Nom de la m-config suivante</li>
 </ul>
 (voir exemple)
 
 <br><br>Instructions possibles :
 <ul>
-    <li><b>R</b> : Aller à droite</li>
-    <li><b>L</b> : Aller à gauche</li>
+    <li><b>R</b> : Go Right (change current square)</li>
+    <li><b>L</b> : Go Left (change current square)</li>
     <li>
         <b>P</b> : Print
         <ul>
@@ -81,7 +81,7 @@ La première machine présentée par Turing (p 81 de <i>The annotated Turing</i>
 <img class="img-turing padding05 margin border" src="img/turing.svg" alt="Machine de Turing">
 
 <table class="wikitable margin">
-    <tr><th>m-config</th><th>Symbol</th><th>Operations</th><th>Next</th></tr>
+    <tr><th>m-config</th><th>Current symbol</th><th>Operations</th><th>Next</th></tr>
     <tr>
         <td>b</td>
         <td>None</td>
@@ -107,6 +107,12 @@ La première machine présentée par Turing (p 81 de <i>The annotated Turing</i>
         <td>b</td>
     </tr>
 </table>
+
+Etat initial :
+<ul class="margin-top0">
+    <li>m-config = b</li>
+    <li>la tête de lecture est sur le carré n° 0</li>
+</ul>
 
 Exécution :
 <ul>
