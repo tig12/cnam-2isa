@@ -29,10 +29,13 @@
 
 <article>
 
+<a href="../../cours/utc503/utc503.html">Cours UTC 503</a>
+
 <!-- ********************************************************************************* -->
 <h2>Buts</h2>
-Ecrire du code robuste, simple à comprendre et à débugger.
+Ecrire du code robuste, simple à comprendre et à maintenir.
 <br>Lire la page <a href="../divers/conseils.html">Conseils</a>.
+
 
 <!-- ********************************************************************************* -->
 <h2>Paradigmes</h2>
@@ -41,7 +44,7 @@ Ecrire du code robuste, simple à comprendre et à débugger.
 On suit l'intro de Sébastien Verel, Université du Littoral Côte d’Opale : <a href="http://www-lisic.univ-littoral.fr/~verel/TEACHING/17-18/PF-M2app/cours02.pdf">Langage fonctionnel et Récursivité</a> - p 5 à 12.
 <br><a href="https://fr.wikipedia.org/wiki/Paradigme_(programmation)">Wikipedia</a> fournit une classification un peu plus générale.
 -->
-On suit l'intro de <a href="http://anf2012.mathrice.fr/lib/exe/fetch.php?media=paradigmes-1.pdf">Paradigmes de programmation - Une introduction</a>, Olivier PORTE ,CNRS, Mai 2012 - p 10 à 48.
+On suit l'intro de <a href="http://anf2012.mathrice.fr/lib/exe/fetch.php?media=paradigmes-1.pdf">Paradigmes de programmation - Une introduction, Olivier PORTE, CNRS, Mai 2012 - p 10 à 48</a>.
 
 
 <br><br>A retenir :
@@ -49,10 +52,46 @@ On suit l'intro de <a href="http://anf2012.mathrice.fr/lib/exe/fetch.php?media=p
     <li>
         <div class="bold">Impératif</div>
         Procédural, objet
+        <br>Python :
+<pre>
+def factorielle1(n):
+    if n == 0:
+        return 1
+    res = 1
+    for i in range(1, n+1):
+        res *= i
+    return res
+</pre>
+        Java :
+<pre>
+public static int factorielle(int n){
+    if(n == 0){
+        return 1;
+    }
+    int res = 1;
+    for(int i=1; i <= n; i++){
+        res *= i; // res = res * i
+    }
+    return res;
+}
+</pre>
     </li>
     <li>
         <div class="bold">Déclaratif</div>
         Fonctionnel, logique
+        <br>Haskell :
+<pre>
+factorielle :: (Integral a) => a -> a
+factorielle 0 = 1
+factorielle n = n * factorielle (n - 1)
+</pre>
+        <br>Python :
+<pre>
+def factorielle2(n):
+    if n == 0:
+        return 1
+    return n * factorielle2(n - 1)
+</pre>
     </li>
 </ul>
 
@@ -67,9 +106,9 @@ Utilise la théorie des catégories (isomorphisme de Curry - Howard - Lambek).
 <br><br>Lien très fort entre l'informatique et la logique, exprimée par l'isomorphisme de Curry - Howard.
 <br>Un langage de programmation peut être vu comme des transformations opérées sur des types de données.
 <br>On a : 
-<ul>
-    <li>Type de donnée &#8703; chose connue, axiome</li>
-    <li>Application d'une fonction, qui prend un type en entrée et renvoie un type en sortie &#8703; théorème.</li>
+<ul class="margin-top0">
+    <li>Type de donnée &#8703; chose connue ; axiome ou théorème démontré</li>
+    <li>Application d'une fonction &#8703; démonstration d'un théorème.</li>
 </ul>
 
 Annexes mathématiques :
