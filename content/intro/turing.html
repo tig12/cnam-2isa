@@ -26,7 +26,10 @@
 </nav>
 
 <header>
-<h1>La machine de Turing</h1>
+<h1>
+La machine de Turing
+<br>MT
+</h1>
 </header>
 
 <article>
@@ -125,51 +128,79 @@ Exécution :
 
 
 <!-- ********************************************************************************* -->
+<h2>TD MT1</h2>
+<div class="intro">
+<b>But</b> : Implémenter une machine de Turing dans un langage familier, puis la traduire en java
+</div>
+
+<div class="margin">En jaune = exo possible</div>
+
+A partir de la table de m-config et d'une bande vierge, mettez vous à la place de la machine pour écrire les symboles sur la bande en suivant les changements d'état de la machine.
+
+<!-- ********************************************************************************* -->
+<div class="exo margin">
+Ecrire une table de m-config qui fait exactement la même chose, mais différement :
+<ul>
+    <li>Une seule m-config.</li>
+    <li>Les opérations dépendent de <code>Current symbol</code>.</li>
+</ul>
+</div>
+
+Créez les répertoires :
+<pre>
+turing1/
+    ├── docs
+    └── src
+</pre>
+
+Créez un fichier <code>docs/analyse.txt</code>
+<br>Dans analyse.txt, listez les choses qui interviennent dans l'exécution de cette MT, ainsi que leurs propriétés
+<br>== collectif ==.
+
 <div class="exo">
-Suivez le fonctionnement de la machine, sur papier ou en imaginant.
+Faire
+<ul>
+    <li>Un diagramme ER (entité relation).</li>
+    <li>Un diagramme de séquence qui exprime le fonctionnement de la machine.</li>
+</ul>
 </div>
 
 
-<!-- ********************************************************************************* -->
-<div class="exo">
+<!-- ************************************* -->
+<h3>Implémentation</h3>
 Ecrivez un programme qui implémente cette machine, dans le langage de votre choix.
 <br>Dans un premier temps, ne cherchez pas à faire une bande de longueur infinie (limiter sa longueur à 20 carrés).
 
-<style>
-.solution{display:none;}
-</style>
-<div class="solution">
-Indications
+<br><br>=== collectif === Travailler d'abord individuel, puis en groupe, un par langage ?
+
+<br><br>Consigne : pour les 6 premières exécutions de votre machine, l'output doit être :
 <pre>
-Machine:
-    tape:           array of Symbols
-    mConfigs:       dictionary string: MConfig
-    currentSquare:  int
-    currentMConfig: string
-    
-Symbol:             string enum("1", "0", " ")
-
-MConfig:
-    operations:     array of Operations
-    next:           MConfig
-    
-Operation:
-    name:           string
-    exec:           function
-
+=== run 0 ===
+MConfig : b
+Tape : |   |   |   |   |   |   |   |   |   |   |
+         ^
+=== run 1 ===
+MConfig : c
+Tape : | 0 |   |   |   |   |   |   |   |   |   |
+             ^
+=== run 2 ===
+MConfig : e
+Tape : | 0 |   |   |   |   |   |   |   |   |   |
+                 ^
+=== run 3 ===
+MConfig : f
+Tape : | 0 |   | 1 |   |   |   |   |   |   |   |
+                     ^
+=== run 4 ===
+MConfig : b
+Tape : | 0 |   | 1 |   |   |   |   |   |   |   |
+                         ^
+=== run 5 ===
+MConfig : c
+Tape : | 0 |   | 1 |   | 0 |   |   |   |   |   |
+                             ^
 </pre>
-</div><!-- end solution -->
-</div><!-- end exo -->
 
-<!-- ********************************************************************************* -->
-<div class="exo">
-Implémentez une deuxième machine qui fait exactement la même chose:
-<ul>
-    <li>Un seul état.</li>
-    <li>Distinguez les opérations à effectuer en fonction du symbole courant.</li>
-</ul>
-
-</div>
 
 </article>
 

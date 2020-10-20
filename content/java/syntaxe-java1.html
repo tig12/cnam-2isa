@@ -779,9 +779,15 @@ void méthode(){
 <h4>Déclaration de variable avec <code>var</code></h4>
 Depuis java 10, il est possible d'utiliser <code>var</code> pour déclarer une variable locale lorsque le compilateur est capable d'<b>inférer</b> (= deviner) le type
 <br>Par exemple, remplacer :
-<pre>String message = "Hello World";</pre>
+<pre>
+MaClasseAvecUnNomPasPossible maClasseAvecUnNomPasPossible = new MaClasseAvecUnNomPasPossible();
+String message = "Hello World";
+</pre>
 par :
-<pre>var message = "Hello World";</pre>
+<pre>
+var maClasseAvecUnNomPasPossible = new MaClasseAvecUnNomPasPossible();
+var message = "Hello World";
+</pre>
 
 
 <!-- ********************************************************************************* -->

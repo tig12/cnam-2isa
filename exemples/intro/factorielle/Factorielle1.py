@@ -9,7 +9,7 @@ def factorielle1(n):
         return 1
     res = 1
     for i in range(1, n+1):
-        res *= i
+        res = res * i
     return res
 
 def main():
