@@ -34,13 +34,22 @@ La machine de Turing
 
 <article>
 
+<div class="margin">
+    <b>Abbréviations</b>                                        
+    <ul>
+        <li><b>[AT]</b> : Livre <i>The annotated Turing</i> (Charles Petzold, 2008)</li>
+    </ul>
+</div>
+
 Une machine de Turing peut être vue comme une <b>bande de papier infinie</b>, qui est découpée en <b>carrés</b>. Chaque carré peut contenir un <b>symbole</b>.
 
 <img class="img-turing padding05 margin border" src="img/turing.svg" alt="Machine de Turing">
 
 Les cases de la bande de papier sont numérotées.
 
-<br><br>Pour chaque machine, on choisit les symboles qu'on va représenter. Pour l'exemple, on choisit 3 symboles possibles : 0, 1 et <i>None</i> (case vide).
+<br><br>Pour chaque machine, on choisit les <b>symboles</b> qu'on va représenter.
+<br>La première machinefonctionne avec 3 symboles possibles :
+<span class="big2 bold">0, 1 et <i>None</i> (case vide)</span>
 
 <br><br>La machine est un automate qui ne peut faire que des choses très simples :
 <ul class="simple normal">
@@ -54,7 +63,7 @@ Les cases de la bande de papier sont numérotées.
 Une m-config est constituée de : 
 <ul>
     <li>Nom de la m-config</li>
-    <li><b>Instructions</b> à exécuter, dépendant du symbole courant</li>
+    <li><b>Instructions</b> à exécuter, dépendant du <b>symbole courant</b></li>
     <li>Nom de la m-config suivante</li>
 </ul>
 (voir exemple)
@@ -73,15 +82,20 @@ Une m-config est constituée de :
     <li><b>E</b> : Erase = Print None</li>
 </ul>
 
-Turing appelle <b>configuration</b> le couple (m-config courante, symbole courant). La configuration détermine le comportement attendu de la machine.
+Turing appelle <b>configuration</b> le couple (m-config courante, symbole courant).
+<br>La configuration détermine le comportement attendu de la machine.
 
 <!-- ********************************************************************************* -->
-<h2>Exemple 1</h2>
+<h2>MT1 - Machine de Turing 1</h2>
 
-La première machine présentée par Turing (p 81 de <i>The annotated Turing</i>).
-<br>Affiche alternativement 0 1 0 1 0
+Reproduit fidèlement la première machine présentée dans l'article original de Turing.
+<br>Référence : <b>[AT]</b> p 81
+
+<br><br>Cette machine affiche indéfiniment 0 1 0 1 0 1 0 ...
 
 <img class="img-turing padding05 margin border" src="img/turing.svg" alt="Machine de Turing">
+
+m-configurations :
 
 <table class="wikitable margin">
     <tr><th>m-config</th><th>Current symbol</th><th>Operations</th><th>Next</th></tr>
@@ -130,12 +144,26 @@ Exécution :
 <!-- ********************************************************************************* -->
 <h2>TD MT1</h2>
 <div class="intro">
-<b>But</b> : Implémenter une machine de Turing dans un langage familier, puis la traduire en java
+<b>But</b> : Implémenter la machine MT1 dans un langage familier, puis la traduire en java
 </div>
 
-<div class="margin">En jaune = exo possible</div>
+<div class="margin">En jaune = exercice possible</div>
 
-A partir de la table de m-config et d'une bande vierge, mettez vous à la place de la machine pour écrire les symboles sur la bande en suivant les changements d'état de la machine.
+Support de cours : plusieurs implémentations
+<table class="wikitable margin">
+    <tr>
+        <td>turing1-java-0</td><td>Pour RS</td>
+    </tr>
+    <tr>
+        <td>turing1-java-1</td><td>Pour SI</td>
+    </tr>
+    <tr>
+        <td>turing1-php</td><td></td>
+    </tr>
+</table>
+
+
+A partir de la table de m-config et d'une bande vierge, mettez vous à la place de MT1 pour écrire les symboles sur la bande en suivant les changements d'état de la machine.
 
 <!-- ********************************************************************************* -->
 <div class="exo margin">
@@ -146,16 +174,16 @@ Ecrire une table de m-config qui fait exactement la même chose, mais différeme
 </ul>
 </div>
 
-Créez les répertoires :
+Créez les répertoires et le fichier :
 <pre>
 turing1/
     ├── docs
+    │   └── analyse.txt
     └── src
 </pre>
 
-Créez un fichier <code>docs/analyse.txt</code>
-<br>Dans analyse.txt, listez les choses qui interviennent dans l'exécution de cette MT, ainsi que leurs propriétés
-<br>== collectif ==.
+<br>Dans analyse.txt, listez les choses qui interviennent dans l'exécution de cette MT, ainsi que leurs propriétés.
+<br>== collectif ==
 
 <div class="exo">
 Faire
@@ -200,6 +228,9 @@ MConfig : c
 Tape : | 0 |   | 1 |   | 0 |   |   |   |   |   |
                              ^
 </pre>
+
+<!-- ************************************* -->
+<h3>Traduction java</h3>
 
 
 </article>
