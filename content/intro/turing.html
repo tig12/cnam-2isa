@@ -41,14 +41,28 @@ La machine de Turing
     </ul>
 </div>
 
-Une machine de Turing peut être vue comme une <b>bande de papier infinie</b>, qui est découpée en <b>carrés</b>. Chaque carré peut contenir un <b>symbole</b>.
+Turing conçoit une machine pour explorer la notion de "nombre calculable". Une machine de Turing permet de générer une suite de 0 et de 1, qui exprime un nombre sous forme binaire.
+<br>Par convention, les nombres sont affichés de gauche à droite et les 0 1 générés par la machine représentent un nombre compris entre 0 et 1.
+
+<table class="wikitable margin">
+    <tr class="center">
+        <td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td>
+    </tr>
+    <tr>
+        <td>1/2</td><td>1/4</td><td>1/8</td><td>1/16</td><td>1/32</td><td>1/64</td>
+    </tr>
+</table>
+
+1	0	1	1	0	1 représente 1*1/2 + 0*1/4 + 1*1/8 + 1*1/16 + 0*1/32 + 1*1/64
+
+<br><br>Une machine de Turing peut être vue comme une <b>bande de papier infinie</b>, qui est découpée en <b>carrés</b>. Chaque carré peut contenir un <b>symbole</b>.
 
 <img class="img-turing padding05 margin border" src="img/turing.svg" alt="Machine de Turing">
 
 Les cases de la bande de papier sont numérotées.
 
 <br><br>Pour chaque machine, on choisit les <b>symboles</b> qu'on va représenter.
-<br>La première machinefonctionne avec 3 symboles possibles :
+<br>La première machine fonctionne avec 3 symboles possibles :
 <span class="big2 bold">0, 1 et <i>None</i> (case vide)</span>
 
 <br><br>La machine est un automate qui ne peut faire que des choses très simples :
@@ -140,6 +154,8 @@ Exécution :
     <li>Execution des opérations de f : R = va vers la droite ; va vers l'état b</li>
 </ul>
 
+On peut se demander pourquoi laisser des cases vides entre 2 symboles 0 ou 1 affiché. Cela ne sert à rien pour cette machine, mais sera utile dans les machines suivantes.
+
 
 <!-- ********************************************************************************* -->
 <h2>TD MT1</h2>
@@ -163,24 +179,8 @@ Support de cours : plusieurs implémentations
 </table>
 
 
-A partir de la table de m-config et d'une bande vierge, mettez vous à la place de MT1 pour écrire les symboles sur la bande en suivant les changements d'état de la machine.
+A partir de la table de m-config et d'une bande vierge, mettez vous à la place de MT1 pour écrire les symboles sur la bande en suivant les changements d'état de la machine (en imaginant, ou avec un papier et un crayon).
 
-<!-- ********************************************************************************* -->
-<div class="exo margin">
-Ecrire une table de m-config qui fait exactement la même chose, mais différement :
-<ul>
-    <li>Une seule m-config.</li>
-    <li>Les opérations dépendent de <code>Current symbol</code>.</li>
-</ul>
-</div>
-
-Créez les répertoires et le fichier :
-<pre>
-turing1/
-    ├── docs
-    │   └── analyse.txt
-    └── src
-</pre>
 
 <br>Dans analyse.txt, listez les choses qui interviennent dans l'exécution de cette MT, ainsi que leurs propriétés.
 <br>== collectif ==
@@ -230,7 +230,153 @@ Tape : | 0 |   | 1 |   | 0 |   |   |   |   |   |
 </pre>
 
 <!-- ************************************* -->
-<h3>Traduction java</h3>
+<h3>Changement de m-configurations</h3>
+
+Ecrire une table de m-config qui fait exactement la même chose que MT1, mais différement : il y a une seule m-config et les opérations dépendent de <code>Current symbol</code>.
+
+<br><br>Table à compléter, en indiquant les opérations à effectuer pour les différents cas (None, 0, 1).
+<table class="wikitable margin">
+    <tr><th>m-config</th><th>Current symbol</th><th>Operations</th><th>Next</th></tr>
+    <tr>
+        <td>b</td>
+        <td>
+            None
+            <br>0
+            <br>1
+        </td>
+        <td>
+            ?
+            <br>?
+            <br>?
+        </td>
+        <td>b</td>
+    </tr>
+</table>
+
+Faites fonctionner votre machine avec cette nouvelle table.
+<br>Si besoin, refactorisez votre code afin de pouvoir changer facilement de table de m_configurations.
+
+
+<!-- ********************************************************************************* -->
+<h2>TD MT2</h2>
+
+La seconde machine présentée par Turing a affiche la séquence
+<br><code>&#601; &#601; 0 0 1 0 1 1 0 1 1 1 0 1 1 1 1 0 1 1 1 1 1 0 ...</code>
+<br>La séquence affichée est  : Symboles d'initialisations &#601; &#601; 0 - un 0 - un 1 - un 0 - deux 1 - un 0 - trois 1 - un 0 - quatre 1 - etc.
+
+<br><br>Les symboles affichés sont : <span class="big2 bold">&#601;, 0, 1, x et <i>None</i></span>.
+<ul class="margin-top0">
+    <li>&#601; se nomme "schwa", et sert de "sentinelle", pour marquer le début de la séquence.</li>
+    <li>1 est utilisé pour marquer les "mots" (séries de 1).</li>
+    <li>0 sert de séparateur entre les mots.</li>
+    <li>x sert de marqueur, pour "compter" le nombre de 1 écrits dans la dernière séquence.</li>
+</ul>
+
+<table class="wikitable margin">
+    <tr><th>m-config</th><th>Current symbol</th><th>Operations</th><th>Next</th></tr>
+    <tr>
+        <td>b</td>
+        <td>
+            None
+        </td>
+        <td>
+            P&#601;, R, P&#601;, R, P0, R, R, P0, L, L
+        </td>
+        <td>
+            o
+        </td>
+    </tr>
+    <tr>
+        <td>o</td>
+        <td>
+            1
+            <br>0
+        </td>
+        <td>
+            R, Px, L, L, L
+        </td>
+        <td>
+            o
+            <br>q
+        </td>
+    </tr>
+    <tr>
+        <td>q</td>
+        <td>
+            0 ou 1
+            <br>None
+        </td>
+        <td>
+            R, R
+            <br>P1, L
+        </td>
+        <td>
+            q
+            <br>p
+        </td>
+    </tr>
+    <tr>
+        <td>p</td>
+        <td>
+            x
+            <br>&#601;
+            <br>None
+        </td>
+        <td>
+            E, R
+            <br>R
+            <br>L, L
+        </td>
+        <td>
+            q
+            <br>f
+            <br>p
+        </td>
+    </tr>
+    <tr>
+        <td>f</td>
+        <td>
+            0 ou 1
+            <br>None
+        </td>
+        <td>
+            R, R
+            <br>P0, L, L
+        </td>
+        <td>
+            f
+            <br>o
+        </td>
+    </tr>
+</table>
+
+Schéma permettant de suivre pas à pas l'évolution de la machine. Les symboles écrits sur la bande sont encerclés. Le symboles effacés sont encerclés et barrés.
+
+
+<img class="border margin" src="img/mt2.jpg" alt="Fonctionnement de la 2ème machine de Turing">
+
+<ul>
+    <li>b sert à initialiser la machine, et n'est appelé qu'une seule fois.</li>
+    <li>
+        q et f bouclent sur eux même pour aller à droite jusqu'à la position du prochain 0 ou 1 à imprimer. q affiche un 1 et f affiche un 0.
+    </li>
+    <li>
+        q écrit des 1 ; il est à la fois déclenché par p et par o
+    </li>
+    <li>
+        f écrit un 0, qui sépare deux séries de 1.
+        <br>f passe la main à o, qui va à reculons (vers la gauche) et écrire des x dans les cases intermédiaires tant qu'il trouve des 1.
+        <br><b>Il y a donc autant de x que de 1 écrits lors de la dernière série de 1.</b>
+    </li>
+    <li>
+        o passe à q, qui va écrire le premier 1 d'une nouvelle série.
+    </li>
+    <li>
+        p recule tant qu'il trouve des cases vides. Quand il tombe sur x, il l'efface et repasse à q pour écrire un 1.
+        <br>S'il ne rencontre pas de x, il recule jusqu'au début et passe la main à f pour imprimer un nouveau 0.
+    </li>
+</ul>
+
 
 
 </article>
