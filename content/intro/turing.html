@@ -235,6 +235,7 @@ Tape : | 0 |   | 1 |   | 0 |   |   |   |   |   |
 Ecrire une table de m-config qui fait exactement la même chose que MT1, mais différement : il y a une seule m-config et les opérations dépendent de <code>Current symbol</code>.
 
 <br><br>Table à compléter, en indiquant les opérations à effectuer pour les différents cas (None, 0, 1).
+<br>(note : c'est très simple, plus simple que la première table).
 <table class="wikitable margin">
     <tr><th>m-config</th><th>Current symbol</th><th>Operations</th><th>Next</th></tr>
     <tr>
@@ -254,7 +255,8 @@ Ecrire une table de m-config qui fait exactement la même chose que MT1, mais di
 </table>
 
 Faites fonctionner votre machine avec cette nouvelle table.
-<br>Si besoin, refactorisez votre code afin de pouvoir changer facilement de table de m_configurations.
+<br>Votre machine permet-elle de changer facilement de table de m_configurations ?
+<br>Si besoin, refactorisez votre code afin de pouvoir changer cette table facilement.
 
 
 <!-- ********************************************************************************* -->
@@ -264,7 +266,7 @@ La seconde machine présentée par Turing a affiche la séquence
 <br><code>&#601; &#601; 0 0 1 0 1 1 0 1 1 1 0 1 1 1 1 0 1 1 1 1 1 0 ...</code>
 <br>La séquence affichée est  : Symboles d'initialisations &#601; &#601; 0 - un 0 - un 1 - un 0 - deux 1 - un 0 - trois 1 - un 0 - quatre 1 - etc.
 
-<br><br>Les symboles affichés sont : <span class="big2 bold">&#601;, 0, 1, x et <i>None</i></span>.
+<br><br>Les symboles possibles sont : <span class="big2 bold">&#601;, 0, 1, x et <i>None</i></span>.
 <ul class="margin-top0">
     <li>&#601; se nomme "schwa", et sert de "sentinelle", pour marquer le début de la séquence.</li>
     <li>1 est utilisé pour marquer les "mots" (séries de 1).</li>
@@ -350,7 +352,7 @@ La seconde machine présentée par Turing a affiche la séquence
     </tr>
 </table>
 
-Schéma permettant de suivre pas à pas l'évolution de la machine. Les symboles écrits sur la bande sont encerclés. Le symboles effacés sont encerclés et barrés.
+Schéma permettant de suivre pas à pas l'évolution de la machine. Les symboles écrits sur la bande sont encerclés. Les symboles effacés sont encerclés et barrés.
 
 
 <img class="border margin" src="img/mt2.jpg" alt="Fonctionnement de la 2ème machine de Turing">
@@ -372,7 +374,7 @@ Schéma permettant de suivre pas à pas l'évolution de la machine. Les symboles
         o passe à q, qui va écrire le premier 1 d'une nouvelle série.
     </li>
     <li>
-        p recule tant qu'il trouve des cases vides. Quand il tombe sur x, il l'efface et repasse à q pour écrire un 1.
+        p se déplace sur les cases intermédiaires. Il recule tant qu'il trouve des cases vides. Quand il tombe sur x, il l'efface et repasse à q pour écrire un 1.
         <br>S'il ne rencontre pas de x, il recule jusqu'au début et passe la main à f pour imprimer un nouveau 0.
     </li>
 </ul>
