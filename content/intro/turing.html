@@ -246,21 +246,55 @@ Ecrire une table de m-config qui fait exactement la même chose que MT1, mais di
             <br>1
         </td>
         <td>
-            ?
-            <br>?
-            <br>?
+            <i>à compléter</i>
+            <br><i>à compléter</i>
+            <br><i>à compléter</i>
         </td>
         <td>b</td>
     </tr>
 </table>
 
-Faites fonctionner votre machine avec cette nouvelle table.
-<br>Votre machine permet-elle de changer facilement de table de m_configurations ?
-<br>Si besoin, refactorisez votre code afin de pouvoir changer cette table facilement.
+<br>Votre code permet-il de changer facilement de table de m-configurations ?
+<br>Cette question peut mener au raisonnement suivant : si on a besoin que la machine puisse facilement fonctionner avec différentes tables de m-configurations, on doit pouvoir stocker les m-configs hors du code et choisir la table de m-configurations à l'exécution.
+<br>On peut par exemple s'organiser de la manière suivante :
+<pre>
+turing/
+    ├── configs
+    │   ├── MT1.yml
+    │   ├── MT1b.yml
+    │   └── MT2.yml
+    └── src
+        └── Machine.java
+</pre>
+
+L'exécution de la machine prendrait alors un paramètre, exprimant le choix de la table de m-configurations, par exemple :
+<pre>java Machine MT1</pre>
+ou
+<pre>java Machine MT1b</pre>
+
+Un fichier de configuration pourrait avoir la forme suivante :
+<pre>
+b: 
+  operations: [P0, R]
+  next: c
+c: 
+  operations: [R]
+  next: e
+e: 
+  operations: [P1, R]
+  next: f
+f: 
+  operations: [R]
+  next: b
+</pre>
+La syntaxe yaml est utilisée pour cet exemple, mais on pourrait aussi l'exprimer en xml, json, toml, ou toute autre syntaxe permettant d'exprimer des données structurées.
+
+<br><br>Si besoin, refactorisez votre code afin de pouvoir changer facilement les m-configurations.
+
 
 
 <!-- ********************************************************************************* -->
-<h2>TD MT2</h2>
+<h2>Machine de Turing MT2</h2>
 
 La seconde machine présentée par Turing a affiche la séquence
 <br><code>&#601; &#601; 0 0 1 0 1 1 0 1 1 1 0 1 1 1 1 0 1 1 1 1 1 0 ...</code>
@@ -379,7 +413,15 @@ Schéma permettant de suivre pas à pas l'évolution de la machine. Les symboles
     </li>
 </ul>
 
+<div class="exo">
+<div class="bold">Exercice possible</div>
+Générer le schéma précédent
+<ul>
+    <li>En SVG</li>
+    <li>Avec Swing</li>
+</ul>
 
+</div>
 
 </article>
 
