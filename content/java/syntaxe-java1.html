@@ -27,9 +27,6 @@
             <a href="#1-vue-d-en-haut">Vue d'en haut</a>
         </li>
         <li>
-            <a href="#2-types-primitifs-et-types-references">Types primitifs et types références</a>
-        </li>
-        <li>
             <a href="#3-vue-d-en-bas">Vue d'en bas</a>
             <ul>
                 <li><a href="#3-1-unites-syntaxiques">Unités syntaxiques</a></li>
@@ -37,6 +34,9 @@
                 <li><a href="#3-3-espaces-casse-et-commentaires">Espaces, casse et commentaires</a></li>
                 <li><a href="#3-4-identifiants-mots-reserves-valeurs-litterales">Identifiants, mots réservés, valeurs littérales</a></li>
             </ul>
+        </li>
+        <li>
+            <a href="#2-types-primitifs-et-types-references">Types primitifs et types références</a>
         </li>
         <li>
             <a href="#4-les-types-primitifs">Les types primitifs</a>
@@ -94,8 +94,6 @@
     </ul>
 </nav>
 
-
-
 </header>
 
 <article>
@@ -107,40 +105,6 @@ Un programme java est constitué d'un ou plusieurs <b>package</b>.
 <br>Chaque package contient la définition d'un ou plusieurs <b>types référence</b> (en général classes ou interfaces).
 <br>Un type référence est constitué par la définition de ses <b>membres</b>.
 <br>Parmi les membres des classes, on a les méthodes, qui contiennent la majorité du code qu'on écrit.
-
-
-<!-- ********************************************************************************* -->
-<h2><a name="2-types-primitifs-et-types-references">Types primitifs et types références</a></h2>
-
-En java, il existe deux sortes de variables qui ont des comportements très différents :
-<ul class="spaced">
-    <li>
-        Les variables de <b>type primitif</b> ; il y en a 8 : 
-        <ul>
-            <li><code>void</code></li>
-            <li><code>bool</code></li>
-            <li>5 types représentant des entiers (<code>byte</code>, <code>char</code>, <code>short</code>, <code>int</code>, <code>long</code>)</li>
-            <li>2 types représentant des nombres réels (<code>float</code>, <code>double</code>)</li>
-        </ul>
-        - Les types primitifs sont définis par le langage, et on ne peut pas en définir de nouveaux.
-        <br>- Les types primitifs représentent des valeurs simples.
-        <br>- Les types primitifs utilisent entre 1 et 8 octets ; lorsqu'un type primitif est stocké, dupliqué dans une autre variable ou passé en paramètre, <b><i>ses octets sont recopiés</i></b>.
-    </li>
-    
-    <li>
-        Les variables de <b>type référence</b> ; il y en a 5 : classes, interfaces, tableaux, énumérations et annotations.
-        <br>Ils diffèrent des types primitifs de plusieurs manières :
-        <br>- On peut définir de nombreux nouveaux types référence ; c'est ce qu'on fait chaque fois qu'on crée une classe.
-        <br>- Les types références sont des types composés, qui comportent chacun 0 ou plusieurs valeurs primitives ou objets.
-        <br>- Les objets (les instances de n'importe quel type référence, y compris les tableaux) peuvent occuper beaucoup plus de mémoire. Lorsqu'un objet est stocké, dupliqué dans une autre variable ou passé en paramètre, ses octets ne sont pas recopiés, seule sa <b>référence</b> est transmise.
-    </li>
-</ul>
-
-<img class="border margin padding05" src="img/type-primitif-reference.jpg" alt="Types primimtif et référence">
-
-Java est un langage fortement typé ; toute variable doit avoir un type.
-<br>Le typage est <b>statique</b> : toute variable doit être déclarée avant d'être utilisée, et cette déclaration comporte la déclaration de son type.
-<br>Le typage est vérifié à la compilation, donc pas d’erreur à l’exécution due à une erreur de type, mais un changement de type hasardeux est toujours possible...
 
 
 <!-- ********************************************************************************* -->
@@ -245,6 +209,40 @@ Certains mots réservés peuvent prendre des significations différentes suivant
 true        // boolean
 null        
 </pre>
+
+
+<!-- ********************************************************************************* -->
+<h2><a name="2-types-primitifs-et-types-references">Types primitifs et types références</a></h2>
+
+En java, il existe deux sortes de variables qui ont des comportements très différents :
+<ul class="spaced">
+    <li>
+        Les variables de <b>type primitif</b> ; il y en a 8 : 
+        <ul>
+            <li><code>void</code></li>
+            <li><code>bool</code></li>
+            <li>5 types représentant des entiers (<code>byte</code>, <code>char</code>, <code>short</code>, <code>int</code>, <code>long</code>)</li>
+            <li>2 types représentant des nombres réels (<code>float</code>, <code>double</code>)</li>
+        </ul>
+        - Les types primitifs sont définis par le langage, et on ne peut pas en définir de nouveaux.
+        <br>- Les types primitifs représentent des valeurs simples.
+        <br>- Les types primitifs utilisent entre 1 et 8 octets ; lorsqu'un type primitif est stocké, dupliqué dans une autre variable ou passé en paramètre, <b><i>ses octets sont recopiés</i></b>.
+    </li>
+    
+    <li>
+        Les variables de <b>type référence</b> ; il y en a 5 : classes, interfaces, tableaux, énumérations et annotations.
+        <br>Ils diffèrent des types primitifs de plusieurs manières :
+        <br>- On peut définir de nombreux nouveaux types référence ; c'est ce qu'on fait chaque fois qu'on crée une classe.
+        <br>- Les types références sont des types composés, qui comportent chacun 0 ou plusieurs valeurs primitives ou objets.
+        <br>- Les objets (les instances de n'importe quel type référence, y compris les tableaux) peuvent occuper beaucoup plus de mémoire. Lorsqu'un objet est stocké, dupliqué dans une autre variable ou passé en paramètre, ses octets ne sont pas recopiés, seule sa <b>référence</b> est transmise.
+    </li>
+</ul>
+
+<img class="border margin padding05" src="img/type-primitif-reference.jpg" alt="Types primimtif et référence">
+
+Java est un langage fortement typé ; toute variable doit avoir un type.
+<br>Le typage est <b>statique</b> : toute variable doit être déclarée avant d'être utilisée, et cette déclaration comporte la déclaration de son type.
+<br>Le typage est vérifié à la compilation, donc pas d’erreur à l’exécution due à une erreur de type, mais un changement de type hasardeux est toujours possible...
 
 
 <!-- ********************************************************************************* -->
@@ -535,7 +533,7 @@ Jusqu'à présent on a vu les types primitifs qu'un programme peut manipuler et 
 <br>
 <br>Le niveau suivant dans la strcture d'un programme java est constitué par les <b>expressions</b>.
 
-<div class="bold margin">Une expression est une combinaison de symbole dont l'interpréteur java peut calculer la valeur.</div>
+<div class="bold margin">Une expression est une combinaison de symboles dont l'interpréteur java peut calculer la valeur.</div>
 
 Les expressions les plus simples sont les <i>expressions primaires</i>, qui sont soit une variable soit une valeur litérale.
 <br>Exemples :
@@ -546,12 +544,12 @@ somme   // une variable
 </pre>
 <br>Elles peuvent être ensuite combinées avec des <b>opérateurs</b> pour former des expressions composées.
 <br>Par exemple
-<pre>somme = 1.3</pre>
+<pre>somme = 1.3;</pre>
 combine 2 expressions primaires pour fabriquer une expression d'assignement (dont la valeur est celle de l'opérande gauche).
 <br>Voir plus loin les instructions expression.
 <br>
 <br>Les opérateurs peuvent être utilisés avec des expressions aussi complexes que l'on veut :
-<pre>somme = 1 + 2 + 3 * 1.2 + (4 + 8)/3.0</pre>
+<pre>somme = 1 + 2 + 3 * 1.2 + (4 + 8)/3.0;</pre>
 
 <table class="border margin-top">
     <tr>
@@ -647,10 +645,6 @@ System.out.println("Somme : " + (7 + 3));     // Somme : 10
 Remarquer les conversions automatiques de types ainsi que les parenthèses nécessaires pour l'addition
 <br>Utilise la méthode <code>toString()</code> des objets.
 <br>Plus de détails dans la <a href="strings.html">page sur les <code>String</code></a>
-
-<div class="exo">
-<b>Exercice</b> :  <a href="../../exos/java/bissextile/Bissextile.html">Année bissextile</a>
-</div>
 
 
 <!-- ********************************************************************************* -->
@@ -752,7 +746,7 @@ java ne permet pas d'utiliser une variable locale qui n'a pas été initialisée
 <pre>
 int i = 0;
 String s = "string";
-int[] a = {i+1, i+2, i+3} // on verra plus loin les tableaux
+int[] a = {i+1, i+2, i+3}; // on verra plus loin les tableaux
 </pre>
 La partie de droite d'une initialisation peut être tout type d'expression, aussi complexe soit elle.
 <br>
@@ -1053,10 +1047,16 @@ double square(double x) {
 Si la méthode est déclarée <code>void</code>, <code>return</code> ne doit pas être suivi d'une expression.
 <pre>
 void printSquareRoot(double x) {
-    if (x &lt; 0) return;
+    if (x &lt; 0){
+        return;
+    }
     System.out.println(Math.sqrt(x));
 }
 </pre>
+
+<div class="exo">
+<b>Exercice</b> :  <a href="../../exos/java/bissextile/Bissextile.html">Année bissextile</a>
+</div>
 
 <div class="exo">
     <b>Exercice</b> <a href="../../exos/java/multiples/Multiples1.html">Multiples1</a>

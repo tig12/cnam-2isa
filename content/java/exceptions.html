@@ -154,7 +154,7 @@ Dans le code qu'on écrit on a le choix entre utiliser <code>Exception</code> et
 Une exception est "lancée" avec l'instruction <code>throw</code> lorsqu'une condition anormale d'exécution est rencontrée :
 <pre>
 public static double factorial(int x) throws IllegalArgumentException{
-    if (x < 0){
+    if(x < 0){
         <b>throw new IllegalArgumentException("x must be >= 0")</b>;
     }
     double fact;

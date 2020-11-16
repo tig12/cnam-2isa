@@ -428,8 +428,8 @@ On a le droit de le faire car un <code>Carré</code> est un <code>PolygoneRégul
 <br>Il peut donc y avoir une différence entre le <b>type déclaré</b> et le <b>type constaté</b> d'une variable. Le choix de la méthode est résolu dynamiquement (lors de l'exécution) en fonction du type constaté de l'objet receveur.
 <br>
 <br>On voit bien la liaison dynamique à l'exécution :
+<pre>java Polygone3</pre>
 <pre>
-java Polygone3
 pr.surface() = surface() dans Carré
 c.surface() = surface() dans Carré
 </pre>
@@ -475,8 +475,8 @@ class Hexagone extends PolygoneRégulier{
 }
 </pre>
 Exécution : 
+<pre>java Polygone4</pre>
 <pre>
-java Polygone4 
 AVANT, p1.surface() = surface() dans Carré
 APRES, p1.surface() = surface() dans Hexagone
 </pre>
@@ -533,7 +533,7 @@ La relation "a un" est plus souple que la relation "est un".
 
 <!-- ************************************* -->
 <h2><a name="7-interfaces">Interfaces</a></h2>
-Le problème de l'héritage multiple est partiellement contourné en java avec la notion d'<b>interface</b> (et depuis java 8 avec les <b>default methods</b> et les méthodes statiques dans les interfaces).
+Le problème de l'héritage multiple est partiellement contourné en java avec la notion d'<b>interface</b> (et depuis java 8 avec les <b>default methods</b> et les <b>méthodes statiques</b> dans les interfaces).
 <br>Les interfaces sont comme des classes ne contenant que des méthodes abstraites, c'est-à-dire ne contenant aucun code.
 <br>Une classe ne peut hériter que d'une seule super classe mais peut implémenter un nombre quelconque d'interfaces.
 <br>C'est à la classe d'implémenter toutes les méthodes de toutes ses interfaces.
