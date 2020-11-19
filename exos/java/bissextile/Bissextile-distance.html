@@ -11,9 +11,7 @@
 <h1>
 Exercice : Année bissextile
 </h1>
-
-<div class="margin-bottom">Voir aussi <a href="Bissextile-distance.html">Version plus simple</a></div>
-
+<div class="margin-bottom">Voir aussi <a href="Bissextile.html">Version normale</a></div>
 </header>
 
 <article>
@@ -38,9 +36,7 @@ int b = 1901 % 4; // b = 1
 class Bissextile{
 
     public static void main(String[] args){
-        // on suppose que la fonction est appelée avec un seul argument
-        // et que cet argument représente un nombre entier positif.
-        int annee = Integer.parseInt(args[0]);
+        int annee = 1900;
         System.out.println(isBissextile(annee));
     }
     
@@ -50,16 +46,12 @@ class Bissextile{
 }
 </pre>
 
-Essayez avec différentes valeurs pour annee, en appelant votre code avec l'année en paramètre, par exemple :
-
-<pre>java Bissextile 2014</pre>
-
+Essayez avec différentes valeurs pour annee.
 <br>Pour tester :
 <br>1900 : true
 <br>2000 : false
 <br>2001 : false
 <br>2004 : true
-
 </article>
 
 </body>

@@ -48,11 +48,6 @@
 
 <article>
 
-
-
-
-
-
 Les chaînes de caractères sont manipulées en java à l'aide de trois classes : <code>String</code>, <code>StringBuffer</code> et <code>StringBuilder</code>.
 <br>La classe <code>String</code> est <b>immuable</b>, alors que <code>StringBuffer</code> et <code>StringBuilder</code> sont modifiables.
 
@@ -67,17 +62,32 @@ Remarquer l'utilisation des doubles quotes pour créer une <code>String</code> (
 <br>Java permet d'utiliser d'utiliser une syntaxe plus compacte : les <i>string litterals</i> : 
 <pre>String s1 = "abc";</pre>
 
-Java ne permet pas de créer une chaîne sur plusieurs lignes : 
+Depuis java 15, on peut initialiser une chaîne sur plusieurs lignes : 
 <pre>
-// ne passe pas à la compilation
-String s = "une chaîne
-            sur plusieurs lignes";
-</pre>
-Mais java 12 introduit une syntaxe backticks (`).
+class MultiLine {
+    public static void main(String[] args){
+        String html = """
+&lt;html>
+    &lt;body>
+        &lt;h1>Hello, world&lt;/h1>
+    &lt;/body>
+&lt;/html>
+""";
+        System.out.println(html);    
+    }
+}</pre>
+(code dans <a href="../../exemples/java/strings/MultiLine.java">MultiLine.java</a>)
+
+<br><br>Les 3 premiers guillemets (""") doivent être suivis d'un retour à la ligne.
+<br>Dans le string litteral, si une ligne se termine par antislash (\), la String ne contient pas de newline (\n).
+<br>(pratique pour les lignes très longues).
 <pre>
-String s = `une chaîne
-            sur plusieurs lignes`;
+String singleLine = """
+          Hello \
+          World
+          """;
 </pre>
+
 
 <!-- ************************************* -->
 <h3><a name="1-1-tableau-de-caracteres">Tableau de caractères</a></h3>

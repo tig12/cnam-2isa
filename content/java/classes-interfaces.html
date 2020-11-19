@@ -54,7 +54,8 @@ Java 8 introduces default methods on interfaces. If A,B,C are interfaces, B,C ca
                 <li><a href="#3-3-implementer-une-interface">Implémenter une interface</a></li>
                 <li><a href="#3-4-default-methods">Default methods</a></li>
                 <li><a href="#3-5-interface-static-methods">Interface static methods</a></li>
-                <li><a href="#3-6-interfaces-vides">Interfaces vides</a></li>
+                <li><a href="#3-6-methodes-privées-dans-les-interfaces">Méthodes privées dans les interfaces</a></li>
+                <li><a href="#3-7-interfaces-vides">Interfaces vides</a></li>
             </ul>
         </li>
         <li>
@@ -69,14 +70,6 @@ Java 8 introduces default methods on interfaces. If A,B,C are interfaces, B,C ca
 </header>
 
 <article>
-
-
-
-
-
-
-
-
 
 Les classes et les interfaces sont les 2 types référence les plus importants en java.
 <br>Autres types référence : Arrays, enumerated types (“enums”), annotation types (“annotations”).
@@ -1163,8 +1156,6 @@ class C3 implements Interface3{}
 </pre>
 (<a href="../../exemples/java/interfaces/extend-default/ExtendsDefault.java">ExtendsDefault.java</a>)
 
-
-
 <!-- ************************************* -->
 <h3><a name="3-5-interface-static-methods">Interface static methods</a></h3>
 Depuis java 8, il est aussi possible d'implémenter des méthodes statiques dans les interfaces.
@@ -1176,9 +1167,17 @@ interface Interface1{
 Lorsqu'on fabrique une API, permet de rassembler du code utilitaire dans des interfaces (avant, on mettait les constantes dans les interfaces et les méthodes static dans des classes).
 <br>Le mot-clé <code>public</code> est là aussi  implicite.
 
+<!-- ************************************* -->
+<h3><a name="3-6-methodes-privées-dans-les-interfaces">Méthodes privées dans les interfaces</a></h3>
+Dans la mesure où java 8 a introduit la possibilité des implémentations dans les interfaces (default ou static methods), il est logique de pouvoir implémenter des méthodes privées dans une interface.
+<br>Ces m"thodes privées ne sont utilisables que dans le code de l'interface qui les définit.
+<br>Les classes implémentant l'interface bénéficient indirectement des méthodes provées sans avoir à les implémenter.
+<br>Voir <a href="../../exemples/java/interfaces/private/PrivateMethodsInterface.java">PrivateMethodsInterface.java</a>.
+
+
 
 <!-- ************************************* -->
-<h3><a name="3-6-interfaces-vides">Interfaces vides</a></h3>
+<h3><a name="3-7-interfaces-vides">Interfaces vides</a></h3>
 Appelées aussi <b>marker interfaces</b>, elles permettent de signaler des caractéristiques de certaines classes.
 <br>
 <br>Exemple d'utilisation : l'interface <code>java.util.RandomAccess</code> est vide.
@@ -1199,6 +1198,8 @@ l.sort();
 </pre>
 
 Un autre exemple fréquemment utilisé est la marker interface <code>Cloneable</code> ; voir la page <a href="object.html">java.lang.Object</a>, paragraphe Clone().
+
+
 
 <!-- ********************************************************************************* -->
 <h2><a name="4-classe-abstraite-ou-interface">Classe abstraite ou interface ?</a></h2>
