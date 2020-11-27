@@ -19,8 +19,8 @@ interface PrivateMethodsInterface {
 
 
 /** 
-    On voit que C1 implémente PrivateMethodsInterface sans avoir eu besoin d'implémenter PrivateMethodsInterface.privateMethod()
     C1 récupère l'implémentation de method1(), en bénéficiant de privateMethod()
+    sans avoir eu besoin d'implémenter PrivateMethodsInterface.privateMethod()
 **/
 class C1 implements PrivateMethodsInterface{
 
