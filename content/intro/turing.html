@@ -69,7 +69,7 @@ Les cases de la bande de papier sont numérotées.
 <ul class="simple normal">
     <li>Elle a une tête de lecture qui pointe sur le <b>carré courant</b> qui contient le <b>symbole courant</b>.</li>
     <li>Elle peut lire, écrire ou effacer le symbole courant.</li>
-    <li>elle peut changer de carré courant (aller à droite ou à gauche).</li>
+    <li>Elle peut changer de carré courant (aller à droite ou à gauche).</li>
     <li>Elle peut se trouver dans un certain nombre d'<b>états</b>, que Turing appelle <b>m-configurations</b>.</li>
     <li>A chaque instant, elle se trouve dans un état, l'<b>état courant</b> (ou la m-config courante).</li>
 </ul>
@@ -158,74 +158,88 @@ On peut se demander pourquoi laisser des cases vides entre 2 symboles 0 ou 1 aff
 
 
 <!-- ********************************************************************************* -->
-<h2>TD MT1</h2>
+<h2>TD Machine de Turing</h2>
 <div class="intro">
 <b>But</b> : Implémenter la machine MT1 dans un langage familier, puis la traduire en java
 </div>
 
-<div class="margin">En jaune = exercice possible</div>
-
-Support de cours : plusieurs implémentations
-<table class="wikitable margin">
-    <tr>
-        <td>turing1-java-0</td><td>Pour RS</td>
-    </tr>
-    <tr>
-        <td>turing1-java-1</td><td>Pour SI</td>
-    </tr>
-    <tr>
-        <td>turing1-php</td><td></td>
-    </tr>
-</table>
-
-
-A partir de la table de m-config et d'une bande vierge, mettez vous à la place de MT1 pour écrire les symboles sur la bande en suivant les changements d'état de la machine (en imaginant, ou avec un papier et un crayon).
-
-
-<br>Dans analyse.txt, listez les choses qui interviennent dans l'exécution de cette MT, ainsi que leurs propriétés.
-<br>== collectif ==
-
 <div class="exo">
-Faire
-<ul>
-    <li>Un diagramme ER (entité relation).</li>
-    <li>Un diagramme de séquence qui exprime le fonctionnement de la machine.</li>
-</ul>
+A partir de la table de m-config et d'une bande vierge, mettez vous à la place de MT1 pour écrire les symboles sur la bande en suivant les changements d'état de la machine (en imaginant, ou avec un papier et un crayon).
 </div>
 
+<div class="exo">
+Faire l'inventaire des notions permettant de modéliser une machine de Turing ainsi que leurs relations.
+</div>
+
+Considérez le point suivant : on cherche à implémenter une machine qui puisse exécuter différentes configurations.
+<br>Si les instructions sont "codées en dur" (contenues dans le code), il faudra modifier le code pour chaque machine.
+<br>On va donc stocker les caractéristiques propres à chaque machine dans des fichiers de configuration, et le programme va prendre comme paramètre la configuration à exécuter.
+
+<div class="exo">
+    Décrivez la structure des informations à mettre dans un fichier de configuration.
+    <br>Prenez en compte le fait que les symboles écrits sur la bande sont spécifiques à chaque machine (par exemple, MT1 utilise 0 et 1, mais MT2 utilise aussi e et x). Les symboles possibles doivent donc faire aussi partie du fichier de configuration.
+    <br>Ecrivez un fichier de configuration contenant les informations de configuration. Utilisez la syntaxe de votre choix ; on a besoin d'une syntaxe permettant d'exprimer des données structurées, comme json, yaml, xml, toml.
+</div>
 
 <!-- ************************************* -->
 <h3>Implémentation</h3>
-Ecrivez un programme qui implémente cette machine, dans le langage de votre choix.
-<br>Dans un premier temps, ne cherchez pas à faire une bande de longueur infinie (limiter sa longueur à 20 carrés).
 
-<br><br>=== collectif === Travailler d'abord individuel, puis en groupe, un par langage ?
+<div class="exo">
+Ecrivez un programme qui implémente cette machine, <b>dans le langage de votre choix</b>.
+<br>Placez votre code et les configurations dans des répertories distincts (cela permet à plusieurs implémentations d'utiliser les mêmes configurations).
+<br>Le programme doit s'exécuter en mode console et prendre en paramètre :
+<ul>
+    <li>La configuration utilisée par la machine</li>
+    <li>Optionnelement, nombre d'itérations que la machine doit exécuter</li>
+</ul>
+Ex :
+<pre>php run-turing.php MT1 5</pre>
+Fixez à 10 le nombre d'itérations par défaut (utilisé si le second paramètre n'est pas spécifié).
+</div>
 
-<br><br>Consigne : pour les 6 premières exécutions de votre machine, l'output doit être :
+Le code proposé comme solution utilise la syntaxe yaml et est organisé de cette manière :
 <pre>
-=== run 0 ===
-MConfig : b
-Tape : |   |   |   |   |   |   |   |   |   |   |
-         ^
-=== run 1 ===
-MConfig : c
-Tape : | 0 |   |   |   |   |   |   |   |   |   |
-             ^
-=== run 2 ===
-MConfig : e
-Tape : | 0 |   |   |   |   |   |   |   |   |   |
-                 ^
-=== run 3 ===
-MConfig : f
-Tape : | 0 |   | 1 |   |   |   |   |   |   |   |
-                     ^
-=== run 4 ===
-MConfig : b
-Tape : | 0 |   | 1 |   |   |   |   |   |   |   |
-                         ^
-=== run 5 ===
-MConfig : c
-Tape : | 0 |   | 1 |   | 0 |   |   |   |   |   |
+turing/
+    ├── configs
+    │   ├── MT1b.yml
+    │   ├── MT1.yml
+    │   └── MT2.yml
+    ├── turing1-java
+    │   ├── Machine.java
+    │   └── RunTuring.java
+    ├── turing1-php
+    │   ├── Machine.php
+    │   └── run-turing.php
+    └── turing1-php-objet
+        ├── Machine.php
+        └── run-turing.php
+</pre>
+
+<div class="bold">Conseils</div>
+<ul>
+    <li>Séparez le code qui implémente la machine du code qui gère les paramètres et déclenche l'exécution de la machine.</li>
+</ul>
+
+<div class="bold">Consignes</div>
+L'affichage pour les 5 premières étapes de MT1 doit être
+<pre>
+=== run 0 - MConfig : b ===
+Tape : |   |
+         ^                                                                                                                                  
+=== run 1 - MConfig : c ===
+Tape : | 0 |   |
+             ^                                                                                                                              
+=== run 2 - MConfig : e ===
+Tape : | 0 |   |   |
+                 ^                                                                                                                          
+=== run 3 - MConfig : f ===
+Tape : | 0 |   | 1 |   |
+                     ^                                                                                                                      
+=== run 4 - MConfig : b ===
+Tape : | 0 |   | 1 |   |   |
+                         ^                                                                                                                  
+=== run 5 - MConfig : c ===
+Tape : | 0 |   | 1 |   | 0 |   |
                              ^
 </pre>
 
@@ -234,7 +248,9 @@ Tape : | 0 |   | 1 |   | 0 |   |   |   |   |   |
 Turing donne ensuite une autre table de m-config qui fait exactement la même chose, mais différement : il y a une seule m-config et les opérations dépendent de <code>Current symbol</code>.
 <br>(<b>[AT]</b> p 84)
 
-<br><br>Table à compléter, en indiquant les opérations à effectuer pour les différents cas (None, 0, 1).
+<br><br>Ob va appeler cette machine <b>MT1b</b>.
+<div class="exo">
+Complétez la table suivante, en indiquant les opérations à effectuer pour les différents cas (None, 0, 1).
 <br>(note : c'est très simple, plus simple que la première table).
 <table class="wikitable margin">
     <tr><th>m-config</th><th>Current symbol</th><th>Operations</th><th>Next</th></tr>
@@ -254,49 +270,13 @@ Turing donne ensuite une autre table de m-config qui fait exactement la même ch
     </tr>
 </table>
 
-<br>Votre code permet-il de changer facilement de table de m-configurations ?
-<br>Cette question peut mener au raisonnement suivant : si on a besoin que la machine puisse facilement fonctionner avec différentes tables de m-configurations, on doit pouvoir stocker les m-configs hors du code et choisir la table de m-configurations à l'exécution.
-<br>On peut par exemple s'organiser de la manière suivante :
-<pre>
-turing/
-    ├── configs
-    │   ├── MT1.yml
-    │   ├── MT1b.yml
-    │   └── MT2.yml
-    └── src
-        └── Machine.java
-</pre>
-
-L'exécution de la machine prendrait alors un paramètre, exprimant le choix de la table de m-configurations, par exemple :
-<pre>java Machine MT1</pre>
-ou
-<pre>java Machine MT1b</pre>
-
-Un fichier de configuration pourrait avoir la forme suivante :
-<pre>
-b: 
-  operations: [P0, R]
-  next: c
-c: 
-  operations: [R]
-  next: e
-e: 
-  operations: [P1, R]
-  next: f
-f: 
-  operations: [R]
-  next: b
-</pre>
-La syntaxe yaml est utilisée pour cet exemple, mais on pourrait aussi l'exprimer en xml, json, toml, ou toute autre syntaxe permettant d'exprimer des données structurées.
-
-<br><br>Si besoin, refactorisez votre code afin de pouvoir changer facilement les m-configurations.
-
-
+Ecrivez un fichier de configuration avec cette nouvelle table, et vérifiez que votre code l'exécute correctement.
+</div>
 
 <!-- ********************************************************************************* -->
 <h2>Machine de Turing MT2</h2>
 
-La seconde machine présentée par Turing a affiche la séquence
+La seconde machine présentée par Turing (<b>[AT] p 85</b>) affiche la séquence
 <br><code>&#601; &#601; 0 0 1 0 1 1 0 1 1 1 0 1 1 1 1 0 1 1 1 1 1 0 ...</code>
 <br>La séquence affichée est  : Symboles d'initialisations &#601; &#601; 0 - un 0 - un 1 - un 0 - deux 1 - un 0 - trois 1 - un 0 - quatre 1 - etc.
 
@@ -386,9 +366,8 @@ La seconde machine présentée par Turing a affiche la séquence
     </tr>
 </table>
 
+
 Schéma permettant de suivre pas à pas l'évolution de la machine. Les symboles écrits sur la bande sont encerclés. Les symboles effacés sont encerclés et barrés.
-
-
 <img class="border margin" src="img/mt2.jpg" alt="Fonctionnement de la 2ème machine de Turing">
 
 <ul>
@@ -413,14 +392,57 @@ Schéma permettant de suivre pas à pas l'évolution de la machine. Les symboles
     </li>
 </ul>
 
+On peut se demander pourquoi mettre deux &#601; au début. Cela ne sert à rien pour cette machine, mais est utilisé dans les machines suivantes.
+
 <div class="exo">
 <div class="bold">Exercice possible</div>
-Générer le schéma précédent
-<ul>
-    <li>En SVG</li>
-    <li>Avec Swing</li>
-</ul>
+Générer en SVG le schéma précédent.
+</div>
 
+<!-- ********************************************************************************* -->
+<h2>TD Machine de Turing (suite)</h2>
+
+Après avoir vu les implémentations php, analysez l'implémentation <code>turing1-java</code>
+<br>Cette implémentation a été implémentée "à la php", en utilisant des Maps. On peut voir que cette approche a ses limites en java : on ne peut pas typer correctement Machine.mconfigs.
+<br>En effet, pour traduire le contenu de la clé NONE de
+<pre>
+mconfigs: 
+  b: 
+    NONE:
+      operations: [P0, R]
+      next: c
+</pre>
+
+l'implémentation utilise comme type <code>Map&lt;String, Object></code>.
+<br>Impossible de faire plus précis que <code>Object</code> car ["P0", "R"] et "c" ne sont pas du même type.
+<br>On peut s'en rendre compte car javac fait un warning
+
+<br><br>Pour s'en sortir, on peut écrire une classe (MConfigEntry dans <code>doc/turing-er1.svg</code>), qui a 2 champs : operations et next.
+<br>Là, on pourra typer correctement.
+
+<div class="exo">
+<ol>
+    <li>
+        Suivez <code>turing1-java/README</code> pour installer yamlbeans
+    </li>
+    <li>
+        Compilez  le code
+        <pre>javac -Xlint:unchecked -cp /path/to/yamlbeans/src:. RunTuring.java</pre>
+        <code>-Xlint:unchecked</code> donne des détails sur ce problème de type
+    </li>
+    <li>
+        Ecrivez une classe <code>MConfigEntry</code>, et adapter le constructeur de manière à utiliser cette classe.
+    </li>
+    <li>
+        Adaptez <code>Machine.runOneStep()</code> pour utiliser <code>MConfigEntry</code>.
+    </li>
+</ol>
+</div>
+
+<div class="exo">
+<div class="bold">Exercice possible</div>
+Ecrire une application swing où <code>Machine.toString()</code> est affichée dans une zone de texte.
+<br>En utilisant un timer (par exemple avec <code>Thread.sleep()</code>), reproduisez le comportement du mode <code>DISPLAY_ANIME</code> de l'implémentation php.
 </div>
 
 </article>
