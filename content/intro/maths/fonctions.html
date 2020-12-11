@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <title>Les fonctions | CNAM 2ISA Millau</title>
+    <meta name="description" content="Introduction aux fonctions">
+    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+    <meta name="robots" content="index,follow">                                                                                                                        
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2019">
+</head>
+
+<body>
+<div class="container">
+
+<div class="main">
+
+<nav class="prevnext">
+    <a class="top" title="" href="../../../index.html">&uarr;</a>
+    <a class="prev" title="" href="categories.html">&larr;</a>
+</nav>
+
+<header>
+<h1>Les fonctions</h1>
+<div class="intro">
+Le but est d'illustrer la différence de manière de travailler, suivant qu'on utilise la théorie des ensembles ou des catégories.
+</div>
+</header>
+
+<article>
+
+<!-- ********************************************************************************* -->
+<h2>Relations, fonctions</h2>
+
+Une relation entre deux ensembles est la description de liens entre les éléments du premier ensemble et ceux du deuxième.
+
+<img class="margin border padding" src="img/func-relation.svg" alt="Relation entre deux ensembles">
+
+<br>Parmi toutes les relations possibles entre A et B, on définit la notion d'<b>application</b>, ou de <b>fonction</b>. Un des deux ensembles est appelé <b>ensemble de départ</b>, l'autre est appelé <b>ensemble d'arrivée</b>.
+<br>Une relation est une fonction <b>si un élément de l'ensemble de départ est en relation avec au plus un élément de l'ensemble d'arrivée</b>.
+<br>Le schéma précédent ne représente pas une fonction de A vers B, car les relations en rouge ne respectent pas cette condition.
+
+<br><br>Cette restriction n'est pas gratuite, car elle correspond à nos besoins les plus fréquents, où on est amené à étudier la valeur d'une chose en fonction d'une autre (par exemple la position d'un solide en fonction du temps : ensemble de départ = tous les instants possibles ; ensemble d'arrivée = la position du solide ; à un instant donné, un solide ne peut pas avoir deux positions différentes).
+
+<img class="margin border padding" src="img/func-fonction.svg" alt="Fonction d'un ensemble vers un autre">
+
+Ce schéma représente bien une fonction.
+<br>On dit que y est l'<b>image</b> de x, et que x est l'<b>antécédent</b> de y.
+<br>A est appelé l'<b>ensemble de départ</b> de la fonction, B l'<b>ensemble d'arrivée</b>.
+<br>L'ensemble en pointillé est son <b>domaine de définition</b> (sous-ensemble de l'ensemble de départ tel que tous ses éléments ont une image).
+
+
+<br><br>On parle de relation <b>entre</b> deux ensembles A et B, et d'une fonction d'un ensemble A <b>vers</b> un ensemble B.
+
+
+<!-- ********************************************************************************* -->
+<h2>Définition d'une fonction</h2>
+
+En utilisant la théorie des ensembles, une fonction est définie comme un sous-ensemble du produit cartésien.
+
+<br><br>Par exemple la fonction <code>isVoyelle()</code>, qui renvoie <code>true</code> si un caractère est une voyelle et <code>false</code> sinon.
+
+<img class="margin border padding" src="img/func-is-voyelle1.svg" alt="Produit cartésien pour isVoyelle()">
+
+Parmi tous les couples du produit cartésien, on en choisit un certain nombre, ce qui permet de définir la fonction sans ambiguité.
+
+<br><br>En utilisant les ensembles, une fonction est donc définie en utilisant les éléments des ensembles. Si on se place dans <code class="bold">Ens</code>, la catégorie des ensembles, on n'a plus cette possibilité. Dans cette catégorie, un ensemble est un objet, on ne sait rien des éléments qu'il contient. Une fonction est juste représentée par une flèche. On va voir qu'il est malgré tout possible d'étudier les propriétés d'une fonction en étudiant comment elles se composent entre elles.
+
+<!-- ********************************************************************************* -->
+<h2>Bijection, isomorphisme</h2>
+
+Les fonctions les plus simples à étudier sont les <b>bijections</b>.
+<br>Une application <code class="bold big2">f</code> est bijective si et seulement si tout élément de son ensemble d'arrivée a un et un seul antécédent, c'est-à-dire est image d'exactement un élément du domaine de définition de <code class="bold big2">f</code>.
+<br>Cette définition équivaut à dire qu'il existe une application inverse, notée <code class="bold big2">f <sup>-1</sup></code> telle que
+<br>Pour tout élément <code class="bold big2">x</code> de l'ensemble de définition, <code class="bold big2">f <sup>-1</sup> o f (x) = x</code>
+<br>Dans ce cas, on a aussi : pour tout élément <code class="bold big2">y</code> de l'ensemble d'arrivée, <code class="bold big2">f o f <sup>-1</sup> (y) = y</code>
+
+<img class="margin border padding" src="img/func-bijection.svg" alt="Exemple de bijection">
+
+En utilisant les catégories, une fonction ayant cette propriété s'appelle un <b>isomorphisme</b>.
+s'exprime par : 
+
+<br><br>Une flèche allant de l'objet A vers l'obket B est un isomorphisme s'il existe une flèche g (que l'on aurait aussi pu noter f <sup>-1</sup>) telle que
+
+<br><br><code class="formula big2 bold">g o f = Id<sub>A</sub></code>
+<br>et <code class="formula big2 bold">f o g = Id<sub>B</sub></code>
+
+<img class="margin border padding" src="img/func-isomorphisme.jpg" alt="Isomorphisme">
+
+On voit qu'en utilisant la théorie des ensembles, on utilise les éléments des ensembles pour définir la propriété, alors qu'en utilisant la théorie des catégories, on ne parle que de composition et d'identité.
+<br>Cette définition reste valable dans toute catégorie, pas seulement pour la catégorie des ensembles.
+
+<br><br>Une fonction peut ne pas être bijective pour deux raisons.
+
+<!-- ********************************************************************************* -->
+<h2>Injections, monomorphismes</h2>
+
+Raison 1 : si plusieurs éléments du domaine de définition ont la même image.
+
+<img class="margin border padding" src="img/func-is-voyelle2.svg" alt="Relations de isVoyelle()">
+
+Dans ce cas, on a une perte d'information, on ne peut pas reconstituer l'ensemble de définition à partir de l'ensemble d'arrivée.
+
+<br><br>Une fonction qui n'a pas cette caractéristique est appelée une <b>injection</b>.
+<br>Pour caractériser cette propriété en utilisant la théorie des ensembles, on dit qu'une fonction f est injective si
+
+<br><br>Pour tout élément x<sub>1</sub> et x<sub>2</sub> de son domaine de définition, <code class="formula big2 bold">f(x<sub>1</sub>) = f(x<sub>2</sub>)</code> entraîne que <code class="formula big2 bold">x<sub>1</sub> = x<sub>2</sub></code>
+
+<br><br>La propriété équivalente dans la théorie des catégories se nomme <b>monomorphisme</b>.
+<br>Comment exprimer cette propriété sans rien connaître de l'intérieur des ensembles ? En utilisant la composition.
+
+<br><br>On a une flèche <code class="formula big2 bold">f</code>, qui va d'un objet <code class="formula big2 bold">A</code> vers un objet <code class="formula big2 bold">B</code>, et on cherche à savoir quelle condition elle vérifie pour être un monomorphisme.
+
+<br><br>On se place dans la catégorie des ensembles ; <code class="formula big2 bold">A</code> et <code class="formula big2 bold">B</code> représentent donc des ensembles, et <code class="formula big2 bold">f</code> est une fonction, et on construit une situation où <code class="formula big2 bold">f</code> n'est pas injective.
+<br>On imagine deux fonctions <code class="formula big2 bold">g<sub>1</sub></code> et <code class="formula big2 bold">g<sub>2</sub></code> qui vont d'un autre ensemble <code class="formula big2 bold">C</code> vers <code class="formula big2 bold">A</code> ;  on les imagine en tout point égales, sauf en un point <code class="formula big2 bold">z</code>. <code class="formula big2 bold">f</code>, qui n'est pas injective peut tout à fait envoyer les points  <code class="formula big2 bold">x<sub>1</sub></code> et <code class="formula big2 bold">x<sub>2</sub></code> vers le même élément <code class="formula big2 bold">y</code>.
+
+<img class="margin border padding" src="img/func-monomorphism.svg" alt="Monomorphime">
+
+Cette situation nous donne la définition d'un monomorphisme :
+<br>Une fonction <code class="formula big2 bold">f</code> est un monomorphisme si, pour tout objet <code class="formula big2 bold">C</code> et pour toutes fonctions <code class="formula big2 bold">g<sub>1</sub></code> et <code class="formula big2 bold">g<sub>2</sub></code> allant de <code class="formula big2 bold">C</code> vers <code class="formula big2 bold">A</code>,
+<br><code class="formula big2 bold">f o g<sub>2</sub> = f o g<sub>1</sub></code> entraîne <code class="formula big2 bold">g<sub>1</sub> = g<sub>2</sub></code>
+
+<br><br>Cette propriété, valable dans toute catégorie, se traduit dans la catégorie des ensemble par l'injectivité.
+
+<!-- ********************************************************************************* -->
+<h2>Surjection, épimorphisme</h2>
+
+La deuxième raison pour qu'une application ne soit pas bijective est que l'image de la fonction ne couvre pas tout l'ensemble d'arrivée.
+<br>On dit que la fonction est <b>surjective</b> si cela ne peut pas se produire. ; voir un <a href="https://fr.wikipedia.org/wiki/Surjection#Exemple_concret">exemple sur Wikipedia</a>.
+
+<br><br>Cette propriété peut s'exprimer en utilisant uniquement la composition, voir les <a href="https://larzac.info/maths/categories/milewski/younotes1/2.1-functions-epimorphisms.html">notes du cours de Bartosz Milewski</a>, paragraphe "Epimorphism".
+
+
+</article>
+</div><!-- end class="main" -->
+
+<!-- ************************************* -->
+<aside class="right">
+</aside>
+
+</div><!-- end class="container" -->
+
+</body>
+</html>
