@@ -22,13 +22,13 @@ Créez une classe <code>Personne</code>, contenant 2 variables d'instance :
 
 Ces variables doivent être privées.
 
-<br><br>Ecrivez un constructeur qui prend en paramètre le nom et l'âge.
+<br><br>1 - Ecrivez un constructeur qui prend en paramètre le nom et l'âge.
 
-<br><br>Ecrivez une méthode dont la signature est : <code>public boolean estPlusAge(Personne p)</code>, qui renvoie <code>true</code> si la personne est plus âgée que <code>p</code>, et <code>false</code> sinon.
+<br><br>2 - Ecrivez une méthode dont la signature est : <code>public boolean estPlusAge(Personne p)</code>, qui renvoie <code>true</code> si la personne est plus âgée que <code>p</code>, et <code>false</code> sinon.
 
 <br><br>Pour implémenter cette méthode, vous aurez peut-être besoin d'un <i>getter</i>
 
-<br><br>Créez une class <code>Main1</code>, qui contient une fonction <code>main()</code>
+<br><br>3 - Créez une classe <code>Main1</code>, qui contient une fonction <code>main()</code>
 <br>Dans la fonction <code>main()</code>, créez 2 personnes :
 
 <ul>
@@ -36,12 +36,17 @@ Ces variables doivent être privées.
     <li>Alice, 34.5 ans</li>
 </ul>
 
-Toujours dans <code>main()</code>, affichez si Bob est plus vieux ou plus jeune qu'Alice.
+4 - Toujours dans <code>main()</code>, affichez si Bob est plus vieux ou plus jeune qu'Alice.
 
 <br><br>L'exécution doit donner :
 <pre>java Main1</pre>
 <pre>Bob est plus jeune</pre>
 
+5 - Implémentez une fonction <i>static</i> dans Personne avec cette signature :
+<br><code>public static Personne lePlusAge(Personne[] personnes)</code>, qui renvoie la personne la plus âgée parmi les personnes passées en paramètre paramètre <code>personnes</code>.
+
+<br><br>6 - Créez une classe <code>Main2</code>, qui contient une fonction <code>main()</code>
+<br>Dans la fonction <code>main()</code>, créez un tableau de 5 personnes, et utilisez la fonction <code>lePlusAge()</code> pour afficher le nom et l'âge de la plus vieille personne.
 
 </article>
 
