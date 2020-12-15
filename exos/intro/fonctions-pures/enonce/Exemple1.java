@@ -4,7 +4,7 @@ class Exemple1 {
     private static int a = 0;
     
     public static int incrementer(){
-        a++;
+        a = a + 1;
         return a;
     }
 }
@@ -12,7 +12,7 @@ class Exemple1 {
 class Exemple1Bis {
 
     public static int incrementer(int a){
-        a++;
+        a = a + 1;
         return a;
     }
 }
