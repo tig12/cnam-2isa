@@ -82,7 +82,7 @@ Les fonctions les plus simples à étudier sont les <b>bijections</b>.
 En utilisant les catégories, une fonction ayant cette propriété s'appelle un <b>isomorphisme</b>.
 s'exprime par : 
 
-<br><br>Une flèche allant de l'objet A vers l'obket B est un isomorphisme s'il existe une flèche g (que l'on aurait aussi pu noter f <sup>-1</sup>) telle que
+<br><br>Une flèche allant de l'objet A vers l'objet B est un isomorphisme s'il existe une flèche g (que l'on aurait aussi pu noter f <sup>-1</sup>) telle que
 
 <br><br><code class="formula big2 bold">g o f = Id<sub>A</sub></code>
 <br>et <code class="formula big2 bold">f o g = Id<sub>B</sub></code>
@@ -110,12 +110,13 @@ Dans ce cas, on a une perte d'information, on ne peut pas reconstituer l'ensembl
 <br><br>Pour tout élément x<sub>1</sub> et x<sub>2</sub> de son domaine de définition, <code class="formula big2 bold">f(x<sub>1</sub>) = f(x<sub>2</sub>)</code> entraîne que <code class="formula big2 bold">x<sub>1</sub> = x<sub>2</sub></code>
 
 <br><br>La propriété équivalente dans la théorie des catégories se nomme <b>monomorphisme</b>.
-<br>Comment exprimer cette propriété sans rien connaître de l'intérieur des ensembles ? En utilisant la composition.
+
+<br><br>Comment exprimer cette propriété sans rien connaître de l'intérieur des ensembles ? En utilisant la composition.
 
 <br><br>On a une flèche <code class="formula big2 bold">f</code>, qui va d'un objet <code class="formula big2 bold">A</code> vers un objet <code class="formula big2 bold">B</code>, et on cherche à savoir quelle condition elle vérifie pour être un monomorphisme.
 
 <br><br>On se place dans la catégorie des ensembles ; <code class="formula big2 bold">A</code> et <code class="formula big2 bold">B</code> représentent donc des ensembles, et <code class="formula big2 bold">f</code> est une fonction, et on construit une situation où <code class="formula big2 bold">f</code> n'est pas injective.
-<br>On imagine deux fonctions <code class="formula big2 bold">g<sub>1</sub></code> et <code class="formula big2 bold">g<sub>2</sub></code> qui vont d'un autre ensemble <code class="formula big2 bold">C</code> vers <code class="formula big2 bold">A</code> ;  on les imagine en tout point égales, sauf en un point <code class="formula big2 bold">z</code>. <code class="formula big2 bold">f</code>, qui n'est pas injective peut tout à fait envoyer les points  <code class="formula big2 bold">x<sub>1</sub></code> et <code class="formula big2 bold">x<sub>2</sub></code> vers le même élément <code class="formula big2 bold">y</code>.
+<br>On imagine deux fonctions <code class="formula big2 bold">g<sub>1</sub></code> et <code class="formula big2 bold">g<sub>2</sub></code> qui vont d'un autre ensemble <code class="formula big2 bold">C</code> vers <code class="formula big2 bold">A</code> ;  on les imagine en tout point égales, sauf en un point <code class="formula big2 bold">z</code>. <code class="formula big2 bold">f</code>, qui n'est pas injective, peut tout à fait envoyer les points  <code class="formula big2 bold">x<sub>1</sub></code> et <code class="formula big2 bold">x<sub>2</sub></code> vers le même élément <code class="formula big2 bold">y</code>.
 
 <img class="margin border padding" src="img/func-monomorphism.svg" alt="Monomorphime">
 

@@ -68,7 +68,7 @@ Et c'est tout.
 <br>On peut tout de suite imaginer que le fait d'avoir des flèches en plus des objets permet de représenter de nombreux phénomènes de manière naturelle.
 <br>Dans la théorie des ensembles, on travaille avc les éléments.
 <br>Dans la théorie des catégories, on travaille avec les flèches.
-<br>Pour une illustration de cette différence, voir <a href="morphismes.html#epimorphismes">les épimorphismes</a>
+<br>Pour une illustration de cette différence, voir <a href="fonctions.html">les fonctions</a>
 
 <!-- ********************************************************************************* -->
 <h2>Catégorie des ensembles</h2>
@@ -124,20 +124,25 @@ Certains types ont en théorie un nombre inifni de valeurs mais en pratique un n
 
 <h4>Fonctions pures</h4>
 
-Une <b>fonction pure</b> est une fonction au sens mathématique du terme : <code class="bold big2">f(x) = y</code>, qui prend en entrée un seul paramètre (d'un certain type) et renvoie une valeur (du même type ou d'un autre type), par exemple :
+Une fonction au sens mathématique du terme : <code class="bold big2">f(x) = y</code>, prend en entrée un paramètre et renvoie une valeur.
+<br>La définition d'une fonction pure est moins stricte ; une fonction est dite pure si :
+<ul class="margin-top0">
+    <li>Pour une valeur donnée d'un paramètre en entrée, elle renvoie toujours la même valeur.</li>
+    <li>Son exécution n'a aucun effet de bord (ne modifie pas de choses qui lui sont extérieures).</li>
+</ul>
+
+Par exemple :
 <pre>
 // char --> boolean
 boolean isVoyelle(char c){ }
 </pre>
 
-Une fonction pure a une propriété intéressante : pour une valeur donnée en entrée, elle renvoie <b>toujours</b> la même valeur.
-
-<br><br>En pratique, les fonctions ne sont pas aussi simples car elles peuvent :
+En pratique, les fonctions diffèrent des fonctions mathématiques car elles peuvent :
 <ul>
-    <li>avoir plusieurs paramètres (et dans certains langages renvoyer plusieurs valeurs).</li>
-    <li>générer des exceptions</li>
-    <li>avoir des effets de bords (I/O, modification de variables globales)</li>
-    <li>dépendre de condiftions extérieures (heure du système)</li>
+    <li>Avoir plusieurs paramètres (et dans certains langages renvoyer plusieurs valeurs).</li>
+    <li>Générer des exceptions.</li>
+    <li>Avoir des effets de bords (I/O, modification de variables globales).</li>
+    <li>Dépendre de conditions extérieures (propriétés du système, comme l'heure).</li>
 </ul>
 
 Mais toutes ces complexités peuvent être construites à partir de fonctions pures à un seul paramètre, ce qui permet de définir une <b>catégorie des types</b> comme un cas particulier de <code>Set</code> car un type peut être représenté par un ensemble.

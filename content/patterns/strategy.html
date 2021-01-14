@@ -102,31 +102,9 @@ Le diagramme classique (gof) :
 <code>Context</code> sert d'intermédiaire entre le code client et les statégies. Pas toujours utile, transmet les requêtes des clients à la stratégie utilisée.
 <br>Le code client choisit la stratégie à utiliser et la transmet au contexte.
 
-<!-- ************************************* -->
-<h3><a name="2-1-exemple-avec-contexte">Exemple avec contexte</a></h3>
-
-On souhaite réutiliser les différentes implémentations de l'exercice <a href="../../exos/java/pi/Pi.html">"Calcul approché de pi"</a> pour permettre à du code client de choisir l'implémentation.
-<br>Contrainte : on ne peut pas toucher aux implémentations originales.
-<br>On a vu qu'on peut comparer le calcul des 3 implémentations sans aucun pattern, comme dans la classe <code>Comparaison</code> :
-<pre>
-int N = 1000;
-double pi1 = Pi1.calculePi(N);
-double pi2 = Pi2.calculePi(N);
-double pi3 = Pi3.calculePi(N);
-</pre>
-L'inconvénient de cette solution est que le code client est lié aux implémentations.
-<br>On peut utiliser le pattern Strategy pour décoreller les deux.
-<br>Voir le <a href="../../exemples/patterns/strategy/pi">code source</a>.
-<br>A noter :
-<ul>
-    <li>
-        Comme on ne peut pas toucher aux implémentations existantes, on utilise un Adapter pour permettre aux classes <code>Pi1</code>, <code>Pi2</code>, <code>Pi3</code> d'implémenter une interface. L'adapter permet de passer d'une situation <code>static</code> à une situation d'instance.
-    </li>
-    <li>
-        Plusieurs implémentations sont possibles. On aurait pu se passer de la classe <code>PiContext</code>, de la classe <code>Client</code> ; <code>PiInterface</code> aurait pu imposer une méthode <code>static</code> etc. 
-    </li>
-</ul>
-
+<div class="exo">
+<b>Exercice</b> : <a href="../../exos/patterns/strategy/Pi-strategy.html">Utilisation de Strategy pour calculer pi</a>, qui permet d'illustrer l'utilisation de <code>Context</code>.
+</div>
 
 <!-- ********************************************************************************* -->
 <h2><a name="3-remarques">Remarques</a></h2>

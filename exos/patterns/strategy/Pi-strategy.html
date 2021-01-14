@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Exercice Utilisation de Strategy pour calculer pi | NFP121</title>
+    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<h1>Exercice : Utilisation de Strategy pour calculer pi</h1>
+</header>
+
+<article>
+
+On souhaite réutiliser les différentes implémentations de l'exercice <a href="../../java/pi/Pi.html">"Calcul approché de pi"</a> pour permettre à du code client de choisir l'implémentation.
+<br>Contrainte : on ne peut pas toucher aux implémentations originales.
+<br>On a vu qu'on peut comparer le calcul des 3 implémentations sans aucun pattern, comme dans la classe <code>Comparaison</code> :
+<pre>
+int N = 1000;
+double pi1 = Pi1.calculePi(N);
+double pi2 = Pi2.calculePi(N);
+double pi3 = Pi3.calculePi(N);
+</pre>
+L'inconvénient de cette solution est que le code client est lié aux implémentations. On va utiliser le pattern Strategy pour décoreller les deux, en se donnant une contrainte : on n'a pas le droit de modifier les implémentations existantes.
+
+<br><br>Utilisez comme point de départ la solution située dans <a href="../../../../solutions/exos/java/pi/">ce répertoire</a>.
+<br>Dans cette implémentation, les classes <code>Pi1</code>, <code>Pi2</code> et <code>Pi3</code> ont une méthode static pour effectuer le calcul :
+<pre>public static double calculePi(int N)</pre>
+On peut tout à fait utiliser une méthode static dans le cadre d'un pattern Strategy, mais on fait le choix d'implémenter le plus fidèlement possible le diagramme du GOF.
+
+<ol>
+    <li>
+        Utilisez un autre design pattern pour passer de cette situation static à une situation d'instance, de manière à avoir cette signature :
+        <pre>public double calculePi(int N)</pre>
+    </li>
+    <li>
+        Modifiez votre code en introduisant une classe <code>PiContext</code>, qui va encapsuler la paramètre <code>N</code>.
+        La signature de la méthode devient :
+        <pre>public double calculePi(PiContext c)</pre>
+    </li>
+    
+</ol>
+
+
+</article>
+
+</body>
+</html>
+
