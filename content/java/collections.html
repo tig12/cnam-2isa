@@ -351,9 +351,9 @@ Idiome appliquant du code (qui renvoie un booléen) à chaque élément de la co
 <pre>
 String[] input = {"tiger", "cat", "TIGER", "Tiger", "leopard"};
 String search = "tiger";
-        String tigers = <b>Arrays.stream(input)
-            .filter(s -> s.equalsIgnoreCase(search))
-            .collect(Collectors.joining(", "))</b>;
+String tigers = <b>Arrays.stream(input)
+    .filter(s -> s.equalsIgnoreCase(search))
+    .collect(Collectors.joining(", "))</b>;
 System.out.println(tigers);
 </pre>
 (code dans <a href="../../exemples/java/streams/Filter1.java">Filter1.java</a>)
@@ -395,7 +395,7 @@ List<Integer> namesLength = cats
     .stream()
     .map(<b>String::length</b>)
     .collect(Collectors.toList());
-System.out.println(namesLength);        
+System.out.println(namesLength);
 </pre>
 (code dans <a href="../../exemples/java/streams/Map1.java">Map1.java</a>)
 <br>
