@@ -401,7 +401,9 @@ java Polygone2
 pr.surface() = surface() dans PolygoneRégulier
 c.surface() = surface() dans Carré
 </pre>
-La méthode redéfinie a bien été utilisée
+La méthode redéfinie a bien été utilisée.
+
+<br><br>On appelle <b>Overriding</b> cette redéfinition de méthode.
 
 <!-- ************************************* -->
 <h3><a name="6-2-liaison-dynamique">Liaison dynamique</a></h3>
@@ -435,20 +437,11 @@ pr.surface() = surface() dans Carré
 c.surface() = surface() dans Carré
 </pre>
 
-Cette possibilité est très pratique, permet par exemple d'écrire :
-<pre>
-class Animal{}
-class Chat extends Animal{}
-class Chien extends Animal{}
-class Cheval extends Animal{}
-Animal[] animaux = {
-    new Chat(),
-    new Chien(),
-    new Cheval()
-};
-</pre>
+<div class="exo">
+<b>Exercice / TD</b> : <a href="../../exos/oop/animaux/Animaux.html">Animaux</a>
+</div>
 
-A manipuler avec précaution ; exemple <a href="../../exemples/java/polygone/Polygone4/Polygone4.java">Polygone4</a>  :
+L'affectation polymorphe est à manipuler avec précaution ; exemple <a href="../../exemples/java/polygone/Polygone4/Polygone4.java">Polygone4</a>  :
 <pre>
 class Polygone4{
     public static void main(String[] args) {
@@ -483,7 +476,7 @@ APRES, p1.surface() = surface() dans Hexagone
 </pre>
 
 <code>p1</code> est d'abord un carré, puis devient un hexagone.
-<br>La même variable a changé de comportement => Attention.
+<br>La même variable a changé de comportement => <b>ATTENTION</b>.
 
 
 <!-- ************************************* -->
@@ -520,6 +513,8 @@ Sans la classe <code>A</code>, le problème pourrait être détecté à la compi
 <br>Mais il se poserait à l'exécution si on faisait : 
 <pre>A a = new D()</pre>
 
+On verra plus loin que java permet de résoudre ce problème grâce aux interfaces.
+
 <h4>Rigidité des systèmes</h4>
 
 L'héritage génère un autre problème important : la rigidité des systèmes et la difficulté à les faire évoluer : une modification dans une superclasse peut générer des modifications dans toutes les classes en dessous dans la hiérarchie.
@@ -536,7 +531,7 @@ La relation "a un" est plus souple que la relation "est un".
 <h2><a name="7-interfaces">Interfaces</a></h2>
 Le problème de l'héritage multiple est partiellement contourné en java avec la notion d'<b>interface</b> (et depuis java 8 avec les <b>default methods</b> et les <b>méthodes statiques</b> dans les interfaces).
 <br>Les interfaces sont comme des classes ne contenant que des méthodes abstraites, c'est-à-dire ne contenant aucun code.
-<br>Une classe ne peut hériter que d'une seule super classe mais peut implémenter un nombre quelconque d'interfaces.
+<br><b>Une classe ne peut hériter que d'une seule super classe mais peut implémenter un nombre quelconque d'interfaces</b>.
 <br>C'est à la classe d'implémenter toutes les méthodes de toutes ses interfaces.
 <br>Les interfaces sont dans ce cas assimilables à des contrats forçant toutes les classes les utilisant d'implémenter les mêmes méthodes.
 <br>
@@ -575,22 +570,51 @@ L'utilisation d'interfaces permet ici de classifier correctement les classes.
 <br>Représentation UML :
 <img class="margin padding05 border" src="../uml/img/implements.jpg" alt="Implements - UML">
 
-Les interfaces supportent l'héritage simple, comme les classes :
+Les interfaces supportent l'héritage simple, comme les classes, mais aussi l'héritage multiple :
+
+<br><br>Héritage simple :
 <pre>
-    interface I1{
-        public method1();
-    }
-    
-    interface I2 extends I1{
-        public method2();
-    }
-    
-    class ClasseConcrète implements I2{
-        public method1(){ ... }
-        public method2(){ ... }
-    }
+interface I1{
+    public method1();
+}
+
+interface I2 extends I1{
+    public method2();
+}
+
+class ClasseConcrète implements I2{
+    public method1(){ ... }
+    public method2(){ ... }
+}
 </pre>
 
+Héritage multiple :
+<pre>
+interface I1 {
+    void m1();
+}
+
+interface I2 {
+    void m2();
+}
+
+<b>interface I3 extends I1, I2</b> {
+}
+
+class C implements I3 {
+    public void m1() { System.out.println("m1");}
+    public void m2() { System.out.println("m2");}
+}
+
+class Main {
+    public static void main(String[] args){
+        var c = new C();
+        c.m1();
+        c.m2();
+    }
+}
+</pre>
+(code dans <a href="../../exemples/java/interfaces/multiple/MultipleInheritance.java">MultipleInheritance.java</a>)
 
 <!-- ********************************************************************************* -->
 <h2><a name="8-classes-ou-methodes-abstraites">Classes ou méthodes abstraites</a></h2>
