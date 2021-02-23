@@ -599,7 +599,7 @@ interface I2 {
 }
 
 <b>interface I3 extends I1, I2</b> {
-}
+œ}
 
 class C implements I3 {
     public void m1() { System.out.println("m1");}
@@ -624,7 +624,7 @@ Une méthode peut être définie abstaite (mot clé <b>abstract</b> en java).
 <br>
 <br>Toute classe contenant au moins une méthode abstraite doit être aussi déclarée abstraite.
 <br>
-<br>Les classes filles peuvent implémenter ou pas les méthodes abstraites de leur classe mère. Mais pour pouvoir devenir une classe concrète (pour pouvoir être implémentées), les classes filles doivent impléménter TOUTES les méthodes abstraites de la classe mère.
+<br>Les classes filles peuvent implémenter ou pas les méthodes abstraites de leur classe mère. Mais pour pouvoir devenir une classe concrète (pour pouvoir être instanciées), les classes filles doivent impléménter TOUTES les méthodes abstraites de la classe mère.
 
 <pre>
 abstract class Shape{
@@ -639,7 +639,7 @@ class Circle extends Shape{
     }
     
     public double area(){
-        return 2 * 3.14 * this.radius;
+        return 3.14 * this.radius * this.radius;
     }
 }
 </pre>
@@ -664,9 +664,6 @@ Toutes les classes java ont un ancêtre commun : <code><b><a href="../java/objec
 <br>Si une classe ne précise pas quelle est sa classe mère avec le mot-clé <code><b>extends</b></code>, alors elle descend de <code>Object</code> (c'est le cas de la classe <code>Shape</code>).
 <br>
 <br>Toutes les classes java héritent des méthodes de <code>Object</code> - <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html">voir la doc de <code>java.lang.Object</code></a>.
-
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->
 
 </article>
 
