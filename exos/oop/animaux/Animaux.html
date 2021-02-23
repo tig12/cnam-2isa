@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Exercice Animaux | NFP121</title>
+    <link href="../../../static/style.css" rel="stylesheet" type="text/css">
+    <script async defer data-domain="larzac.info" src="http://plausible.tig12.net:8000/js/plausible.js"></script>
+</head>
+<body>
+
+<header>
+<h1>
+Exercice : Animaux
+</h1>
+<div class="intro">
+But : illustrer la <i>liaison dynamique</i> en java.
+</div>
+</header>
+
+<article>
+
+Ecrire une classe <code>Animal</code> qui contient 
+<ul>
+    <li>une variable <code>nom</code> de type <code>String</code> ;</li>
+    <li>un constructeur qui prend en paramètre une <code>String</code> et l'affecte à la variable <code>nom</code> ;</li>
+    <li>une méthode <code>toString()</code> qui renvoie une <code>String</code> : "Je suis un animal, je m'appelle " suivi du nom de l'animal.</li>
+</ul>
+
+Ecrire 3 sous-classes, <code>Chien</code>, <code>Chat</code>, <code>Cheval</code>.
+<br>Chaque sous-classe a un constructeur qui prend une <code>String</code> en paramètre et l'affecte à sa variable <code>nom</code>.
+<br>Chaque sous-classe redéfinit la méthode <code>toString()</code>, en remplaçant "animal" par "chien", "chat" ou "cheval".
+
+<br><br>Ecrire une classe <code>TestAnimaux</code> qui contient une fonction <code>main()</code>.
+<br>Dans <code>main()</code>, créez un tableau de type <code>Animal[]</code>, contenant un chat, un chien et un cheval.
+<br>Dans une boucle sur ce tableau, affichez les animaux, en constatant que ce sont bien les méthodes <code>toString()</code> des sous-classes qui sont appelées.
+
+<br><br>Exemple d'exécution :
+<pre>java TestAnimaux</pre>
+<pre>
+Je suis un chat, je m'appelle Minou
+Je suis un chien, je m'appelle Médor
+Je suis un cheval, je m'appelle Horace
+</pre>
+
+</article>
+
+</body>
+</html>
