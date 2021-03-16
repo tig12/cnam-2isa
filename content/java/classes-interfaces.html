@@ -93,6 +93,7 @@ Syntaxe générale :
 La déclaration d'une classe contient, dans l'ordre :
 <ol>
     <li>Modifiers (abstract, public, final) - <i>mais pas private ou protected</i></li>
+    <li>Le mot-clé <code>class</code></li>
     <li>Le nom de la classe</li>
     <li>Eventuellement <code>extends</code> le nom de la classe parent</li>
     <li>Eventuellement <code>implements</code> suivi du nom de(s) interface(s) implémentée(s)</li>
@@ -110,7 +111,7 @@ public class Circle {
     
     private double r;
 
-    public Circle() { <b>this(1.0)</b>; }
+    public Circle() { <b>this(1.0)</b>; } // L'overloading (polymorphisme ad'hoc) est aussi possible pour les constructeurs
     
     public Circle(double r) { this.r = r; }
     
@@ -148,7 +149,7 @@ public class Main1{
 }
 </pre>
         (code dans <a href="../../exemples/java/visibility/Main1.java">Main1.java</a>)
-        <br>Ici on spécifie la visibilité d'un membre de la classe <code>Main1</code> (qui se trouve être une classe).
+        <br>Ici on spécifie la visibilité d'un membre de la classe <code>Main1</code> (qui se trouve être une classe, voir <a href="nested.html">Nested types</a>).
     </li>
 </ul>
 
@@ -790,7 +791,9 @@ class Chien extends Animal {
     }
 }
 </pre>
-A la compilation, javac nous indique :
+(<a href="../../exemples/java/hiding/TestMethodHiding2.java">TestMethodHiding2.java</a>)
+
+<br><br>A la compilation, javac nous indique :
 <pre>
 TestMethodHiding2.java:21: error: static methods cannot be annotated with @Override
 TestMethodHiding2.java:27: error: static methods cannot be annotated with @Override
@@ -1171,7 +1174,7 @@ Lorsqu'on fabrique une API, permet de rassembler du code utilitaire dans des int
 <!-- ************************************* -->
 <h3><a name="3-6-methodes-privées-dans-les-interfaces">Méthodes privées dans les interfaces</a></h3>
 Dans la mesure où java 8 a introduit la possibilité des implémentations dans les interfaces (default ou static methods), il est logique de pouvoir implémenter des méthodes privées dans une interface.
-<br>Ces m"thodes privées ne sont utilisables que dans le code de l'interface qui les définit.
+<br>Ces méthodes privées ne sont utilisables que dans le code de l'interface qui les définit.
 <br>Les classes implémentant l'interface bénéficient indirectement des méthodes provées sans avoir à les implémenter.
 <br>Voir <a href="../../exemples/java/interfaces/private/PrivateMethodsInterface.java">PrivateMethodsInterface.java</a>.
 

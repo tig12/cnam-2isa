@@ -1,10 +1,11 @@
 
-class Polygone3{
+class Polygone3b{
     public static void main(String[] args) {
         Carré c = new Carré();
         PolygoneRégulier pr = c;
         System.out.println("pr.surface() = " + pr.surface());
         System.out.println("c.surface() = " + c.surface());
+        pr.toto();
     }
 }
 
@@ -19,4 +20,7 @@ class Carré extends PolygoneRégulier{
         return "surface() dans Carré";
     }
     
+    public void toto(){
+        System.out.println("toto dans Carré");
+    }
 }

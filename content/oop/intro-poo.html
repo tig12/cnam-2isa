@@ -437,6 +437,33 @@ pr.surface() = surface() dans Carré
 c.surface() = surface() dans Carré
 </pre>
 
+On a l'impression que <code>pr</code> est devenu un carré, mais pas complètement. Si <code>Carré</code> a un comportement qui n'est pas dans <code>PolygoneRégulier</code>, le compilateur ne permet pas de l'utiliser avec <code>pr</code> : 
+<pre>
+class Polygone3b{
+    public static void main(String[] args) {
+        Carré c = new Carré();
+        PolygoneRégulier pr = c; // **** ICI ****
+        System.out.println("pr.surface() = " + pr.surface());
+        System.out.println("c.surface() = " + c.surface());
+        <b>pr.toto(); // ne passe pas à la compilation</b>
+    }
+}
+
+// ...
+
+class Carré extends PolygoneRégulier{
+    public String surface(){
+        return "surface() dans Carré";
+    }
+    
+    <b>public void toto(){
+        System.out.println("toto dans Carré");
+    }</b>
+}
+</pre>
+
+(voir <a href="../../exemples/java/polygone/Polygone3b/Polygone3b.java">Polygone3b</a>)
+
 <div class="exo">
 <b>Exercice / TD</b> : <a href="../../exos/oop/animaux/Animaux.html">Animaux</a>
 </div>
