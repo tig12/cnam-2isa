@@ -14,10 +14,6 @@
 </head>
 <body>
 
-<!-- 
-Exemple des formes inspiré par
-https://scotch.io/bar-talk/s-o-l-i-d-the-first-five-principles-of-object-oriented-design
--->
 
 <nav class="prevnext">
     <a class="top" title="NFP121" href="../../index.html">&uarr;</a>
@@ -52,6 +48,8 @@ https://scotch.io/bar-talk/s-o-l-i-d-the-first-five-principles-of-object-oriente
 </header>
 
 <article>
+
+Exemple des formes inspiré par <a href="https://scotch.io/bar-talk/s-o-l-i-d-the-first-five-principles-of-object-oriented-design">cette page</a>.
 
 <!-- ********************************************************************************* -->
 <h2><a name="1-s-the-single-responsibility-principle">S - The Single Responsibility Principle</a></h2>
@@ -398,17 +396,17 @@ class PasswordReminder {
 <br>Pour remédier à cela, on peut faire :
 <pre>
 interface DBConnectionInterface {
-    public DBConnection connect();
+    public void connect();
 }
 
 class MySQLConnection implements DBConnectionInterface {
-    public DBConnection connect() { /* ... */ }
+    public void connect() { /* ... */ }
 }
 </pre>
 
 <pre>
 class PasswordReminder {
-    private DBConnection dbConnection;
+    private DBConnectionInterface dbConnection;
 
     public PasswordReminder(DBConnectionInterface dbConnection) {
         this.dbConnection = dbConnection;
@@ -420,9 +418,6 @@ Le code de haut niveau et de bas niveau dépendent maintenant tous les deux d'un
 <br>
 <br>Voir aussi <a href="../patterns/dependency-injection.html">Injection de dépendance</a>
 
-
-<!-- ********************************************************************************* -->
-<!-- ************************************* -->
 </article>
 
 </body>

@@ -225,9 +225,9 @@ class X1{
 }
 
 class Y1{
-    private X1 x1 = new X1();
+    private X1 x1 = new X1(); // à éviter (lazy loading) 
     public int doSomething(){
-        return x1.doSomething();
+        return x1.doSomething(); // exemple de délégation
     }
 }
 

@@ -137,9 +137,21 @@ class RegistrationManager {
     public static void registerUser (...) { ... }
 }
 </pre>
-ATTENTION : cela n'est pas toujours possible (cf contre-exemple dans le pattern Service locator, où on a besoin de transmettre une instance).
+ATTENTION : cela n'est pas toujours possible, par exemple : on utilise une API permettant de travailler sur des données ; cette API définit une interface 
+<pre>
+interface DBConnectionInterface {
+    public void connect();
+}
+</pre>
+et fournit des méthodes du type <code>faireUnTraitement(DBConnectionInterface connection, ...)</code>.
+<br>Pour utiliser cette API, on écrit une classe
+<pre>
+public class MaConnexion implements DBConnectionInterface { ... }
+</pre>
+Si la logique de notre code l'exige, on peut être amené à décider d'interdire que plus d'une instance de <code>MaConnexion</code> soit créee, et donc de faire un singleton. Mais l'API a besoin d'une instance, donc on ne peut pas travailler dans ce cas uniquement en static.
+
+<!-- (cf contre-exemple dans le pattern Service locator, où on a besoin de transmettre une instance). -->
 <br>
-<br>La présence d'un singleton permet d'accéder à un service depuis n'importe où sans avoir à transmettre la référence vers ce service.
 
 <!-- ************************************* -->
 <h3>Multiton</h3>
@@ -152,7 +164,8 @@ ATTENTION : cela n'est pas toujours possible (cf contre-exemple dans le pattern 
 
 <ul class="spaced">
     <li>
-        Pose le même problème qu'une variable globale, en introduisant des dépendances cachées dans le code :
+        La présence d'un singleton permet d'accéder à un service depuis n'importe où sans avoir à transmettre la référence vers ce service.
+        <br>Mais pose le même problème qu'une variable globale, en introduisant des dépendances cachées dans le code :
         <pre>
 class MySingleton{
     public void doSomething1(){ ... }
@@ -205,11 +218,6 @@ class ClientCode{
         <br>On se retrouve alors avec deux instances pour une classe Singleton.
     </li>
 </ul>
-
-
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->
-
 
 </article>
 

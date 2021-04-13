@@ -1173,9 +1173,9 @@ Lorsqu'on fabrique une API, permet de rassembler du code utilitaire dans des int
 
 <!-- ************************************* -->
 <h3><a name="3-6-methodes-privées-dans-les-interfaces">Méthodes privées dans les interfaces</a></h3>
-Dans la mesure où java 8 a introduit la possibilité des implémentations dans les interfaces (default ou static methods), il est logique de pouvoir implémenter des méthodes privées dans une interface.
+Dans la mesure où java 8 a introduit la possibilité des implémentations dans les interfaces (default ou static methods), il est logique de pouvoir implémenter des méthodes privées dans une interface ; possible depuis java 9.
 <br>Ces méthodes privées ne sont utilisables que dans le code de l'interface qui les définit.
-<br>Les classes implémentant l'interface bénéficient indirectement des méthodes provées sans avoir à les implémenter.
+<br>Les classes implémentant l'interface bénéficient indirectement des méthodes privées sans avoir à les implémenter.
 <br>Voir <a href="../../exemples/java/interfaces/private/PrivateMethodsInterface.java">PrivateMethodsInterface.java</a>.
 
 
@@ -1202,7 +1202,6 @@ l.sort();
 </pre>
 
 Un autre exemple fréquemment utilisé est la marker interface <code>Cloneable</code> ; voir la page <a href="object.html">java.lang.Object</a>, paragraphe Clone().
-
 
 
 <!-- ********************************************************************************* -->

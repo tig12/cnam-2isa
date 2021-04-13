@@ -1,0 +1,62 @@
+1 - création des fichiers .java
+-------------------------
+
+New java project
+Name : conversion
+
+Clic droit sur src
+New class
+Package conversion
+Name Conversion
+Coche pour avoir main()
+
+Clic droit sur src/conversion
+New package
+Source folder : conversion/src
+Name : conversion.utils
+
+Clic droit sur src/conversion/utils
+New class
+Package conversion.utils
+Name : Format
+
+Mêmes manipulations pour package conversion.model et class
+conversion.model.Degres
+
+2 - javadoc
+-------------------------
+Je n'ai pas trouvé comment dire à Eclipse "je veux overview.html" pour
+ce projet, et "je veux package.html pour ce package".
+J'ai utilisé new / File à la place.
+
+Clic droit sur src/conversion
+New file
+Name : overview.html
+
+Clic droit sur src/conversion
+New file
+Name : package.html
+
+Clic droit sur src/conversion/model
+New file
+Name : package.html
+
+Même chose pour src/conversion/utils
+
+Ensuite, pour générer la documentation, menu Project - Generate
+javadoc, qui permet de choisir le répertoire de destination.
+
+3 - Tests unitaires
+-------------------------
+
+Clic droit sur src / conversion / model / Degres
+New / Junit Test Case
+Cela génère une classe DegresTest
+
+Eclipse a demandé si je voulais ajouter JUnit5 au classpath, j'ai répondu oui.
+
+Même chose pour conversion.utils.FormatTest
+
+Pour exécuter un test unitaire :
+Clic droit sur une classe de test, et run as JUnit5 test
+
