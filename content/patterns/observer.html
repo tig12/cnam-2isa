@@ -135,8 +135,16 @@ Voir l'implémentation "after" <a href="../../exemples/patterns/observer/gof">de
 <br>Repérer les classes qui jouent le rôle de <code>Subject</code>, <code>Observer</code>, <code>ConcreteSubject</code>, <code>ConcreteObserver</code>.
 <br>Comprendre pourquoi la partie "1" de <code>main()</code> n'affiche rien. Comment pourrait-on remédier à ça ?
 <!--
-en faisant dans le constructeur des observateurs :
-state = o.getState();
+en déplaçant les lignes
+        // attach observers to observable
+        dataHolder.attach(o1);
+        dataHolder.attach(o2);
+        dataHolder.attach(o3);
+avant 
+        dataHolder.setState("a", 50.0);
+        dataHolder.setState("b", 30.0);
+        dataHolder.setState("c", 20.0);
+
 -->
 <br>
 <br>Faire le diagramme de séquence dans la partie "2" de <code>main()</code>

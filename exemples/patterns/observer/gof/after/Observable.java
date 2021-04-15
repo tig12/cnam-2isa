@@ -4,7 +4,7 @@ import java.util.Map;
 
 public abstract class Observable{
 
-    List<Observer> observers = new ArrayList<>();
+    protected List<Observer> observers = new ArrayList<>();
     
     public void attach(Observer o){
         observers.add(o);

@@ -12,6 +12,7 @@ class Main{
         Bar o1 = new Bar();
         Pie o2 = new Pie();
         Grid o3 = new Grid();
+        
         dataHolder.setState("a", 50.0);
         dataHolder.setState("b", 30.0);
         dataHolder.setState("c", 20.0);
@@ -20,6 +21,7 @@ class Main{
         dataHolder.attach(o1);
         dataHolder.attach(o2);
         dataHolder.attach(o3);
+        
         System.out.println("--------- 1 ---------");
         o1.print();
         o2.print();                                                                                  
