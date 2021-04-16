@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Exercice Command / Reflection | NFP121</title>
+    <link href="../../../../static/style.css" rel="stylesheet" type="text/css">
+    <script async defer data-domain="larzac.info" src="http://plausible.tig12.net:8000/js/plausible.js"></script>
+</head>
+<body>
+
+<header>
+<h1>Exercice : Command / Reflection</h1>
+</header>
+
+<div class="intro">
+    Cet exercice illustre l'utilisation de la reflection pour paramétrer le choix d'un service utilisé par un programme.
+</div>
+
+<article>
+
+<a href="enonce">Le code fourni dans l'énoncé</a> contient une classe <code>TestReflection</code>, qui est à compléter.
+<br>Le code contient une interface <code>Command</code>, ainsi qu'un package <code>reflection.commands</code> contenant des classes implémentant <code>Command</code>.
+<br>La classe <code>TestReflection</code> est à utiliser avec un paramètre contenant le nom de la commande à exécuter.
+
+<br><br>Complétez la classe <code>TestReflection</code> de manière à déclencher l'exécution de la méthode <code>execute()</code> de la commande passée en paramètre.
+<ol class="spaced">
+    <li>Créez une classe du package <code>reflection.commands</code> à partir du nom passé en paramètre.</li>
+    <li>Vérifiez que cette classe implémente <code>Command</code>.</li>
+    <li>Créez une instance de cette classe et exécutez sa méthode <code>execute()</code>.</li>
+</ol>
+
+Gérez les cas d'erreur en affichant des messages appropriés.
+
+<br><br>Le code peut être écrit en utilisant <a href="../../../../content/java/reflection.html">le cours sur la reflection</a>.
+<br>Voir aussi <a href="../../../../content/patterns/command.html">le pattern Command</a>.
+
+</article>
+
+</body>
+</html>

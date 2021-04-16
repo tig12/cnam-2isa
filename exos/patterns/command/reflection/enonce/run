@@ -1,0 +1,3 @@
+
+# Exemple d'utilsation :
+java -cp bin reflection.TestReflection Command2

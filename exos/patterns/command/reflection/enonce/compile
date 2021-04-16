@@ -1,0 +1,7 @@
+javac -sourcepath src -d bin src/reflection/TestReflection.java
+
+# TestReflection utilise les classes du package Command
+# mais le compilateur ne peut pas savoir qu'on en a besoin
+# car elles on utilise la reflection
+# => besoin de les compiler à part.
+javac -sourcepath src -cp bin -d bin src/reflection/commands/*.java
