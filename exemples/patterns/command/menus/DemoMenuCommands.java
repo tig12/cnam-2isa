@@ -1,12 +1,12 @@
 
 /** 
-    Use of Command and Composite patterns
+    Utilisation conjointe de Command and Composite
 **/
 
 import java.util.List;
 import java.util.ArrayList;
 
-public class MenuCommands {
+public class DemoMenuCommands {
     
     public static void main( String[] args ) {
         
@@ -48,8 +48,16 @@ public class MenuCommands {
 
 // ===== Composite menus =====
 interface MenuI{
+    
     public void setCommand(Command command);
-    public void performMenuAction();        // méthode operation() du pattern Composite
+    
+    /** 
+        performMenuAction() est à la fois 
+        la méthode operation() du pattern Composite
+        et la méthode execute() du pattern Command
+    **/
+    public void performMenuAction();
+    
     public void addChild(MenuI child);
 }
 

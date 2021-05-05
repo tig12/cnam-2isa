@@ -67,7 +67,7 @@ https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/swing/plaf
 <h2><a name="1-survol-de-swing">Survol de swing</a></h2>
 
 Dans les premières versions de java, les applications graphiques utilisaient AWT (Abstract Window Toolkit, package <code>java.awt</code>).
-<br>Les composants graphiques de awt utilisaient directement les composants de l'OS hôte (appelés <i>heavyweight</i>).
+<br>Les composants graphiques de AWT utilisaient directement les composants de l'OS hôte (appelés <i>heavyweight</i>).
 <br>AWT a été complété / remplacé par swing (package <code>javax.swing</code>).
 <br>Les composants swing sont dits <i>lightweight</i> car ils sont développés en java et n'utilisent pas de code natif (sauf les top-level components).
 <br>
@@ -89,6 +89,10 @@ Les composants ne sont pas placés directement dans un top-level container mais 
 
 <img class="margin padding border" src="img/swing-root-pane.jpg" alt="Sing root pane">
 
+<ul>
+    <li>Layered Pane sert à gérer la superposition de plusiuers composants (équivalent de <code>z-index</code> en CSS).</li>
+    <li>Glass Pane est inactif par défaut ; sert à intercepter des événements qui seraient gérés par des composants du Content Pane.</li>
+</ul>
 
 <!-- ************************************* -->
 <h3><a name="1-1-layout">Layout</a></h3>
@@ -154,9 +158,7 @@ public class HelloSwing1 {
 <!-- ************************************* -->
 <h3><a name="2-2-hello-swing-2">Hello Swing 2</a></h3>
 
-Autre manière possible :
-<br>
-<br>(voir <a href="../../exemples/java/hello/HelloSwing2.java">HelloSwing2.java</a>)
+Autre manière possible (voir <a href="../../exemples/java/hello/HelloSwing2.java">HelloSwing2.java</a>) :
 
 <pre>
 import javax.swing.*;
@@ -234,6 +236,7 @@ Voir page <a href="../patterns/observer.html">Observateur</a>.
 
 <div class="exo"><b>Exercice</b> : Gestion d'événements.
 <br>Recopiez et exécutez le code de <a href="../../exemples/java/swing/EventDemo.java">EventDemo.java</a>.
+<br>Analysez ce qui se passe lorsque l'utilisateur clique sur un bouton (vous pouvez vous aider en faisant un diagramme de séquence).
 </div>
 
 <table class="wikitable margin">

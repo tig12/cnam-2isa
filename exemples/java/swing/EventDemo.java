@@ -27,6 +27,13 @@ public class EventDemo extends JFrame implements ActionListener{
         add("Center", milieu);
         add("South", affichage);
         
+        Font font = new Font("Monaco", Font.PLAIN, 36);
+        donnee.setFont(font);
+        milieu.setFont(font);
+        affichage.setFont(font);
+        btnAffiche.setFont(font);
+        btnEfface.setFont(font);
+        
         setLocation(100,100);
         pack();
         setVisible(true);

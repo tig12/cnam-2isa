@@ -144,7 +144,7 @@ Programmer.execute()
 <!-- ************************************* -->
 <h3><a name="2-2-menus">Menus</a></h3>
 
-<a href="../../exemples/patterns/command/menus/MenuCommands.java">MenuCommands.java</a> contient l'utilisation de commandes au sein d'un composite.
+<a href="../../exemples/patterns/command/menus/MenuCommands.java">MenuCommands.java</a> contient l'utilisation de commandes au sein d'un <a href="composite.html">composite</a>.
 <br>Pour illustrer l'indépendance entre la création de commandes et leur utilisation, on crée des commandes qu'on associe à des menus, puis on change ces associations.
 
 <!-- ************************************* -->
@@ -166,9 +166,10 @@ class MonListener implements ActionListener{
 }
 </pre>
 
-Lorsqu'on fait <code>addActionListener(new MonListener())</code>, on bénéficie bien du pattern <i>Command</i> : on sait seulement que <code>MonListener</code> est un <code>EventListener</code>, mais on ne connait rien de son implémentation.
+Lorsqu'on fait <code>addActionListener(new MonListener())</code>, on bénéficie bien du pattern <i>Command</i> : on sait seulement que <code>MonListener</code> est un <code>EventListener</code>.
+<br>On sait seulement qu'elle dispose d'une méthode <code>actionPerformed()</code>, mais on ne connait rien de son implémentation.
 
-On a cette correspondance :
+<br><br>On a cette correspondance :
 <table class="wikitable margin">
     <tr><th>Pattern Command</th><th>Swing</th></tr>
     <tr>
@@ -195,14 +196,15 @@ On a cette correspondance :
 
 <b>Illustration</b> : <a href="../../exemples/patterns/command/swing/">Swing commands</a>.
 <br>Les deux exemples bénéficient du pattern <i>Command</i>.
-<br>Dans le premier cas, on fournit l'implémentation d'une commande concrète à chaque reciever (par le biais d'une lambda expression) ; dans le second cas, la classe <code>ExitAction</code> est une implémentation explicite d'une commande concrète, ce qui permet de factoriser le code.
+<br>Dans le premier cas, on fournit l'implémentation d'une commande concrète à chaque reciever (par le biais d'une <a href="../java/lambdas.html">lambda expression</a>) ; dans le second cas, la classe <code>ExitAction</code> est une implémentation explicite d'une commande concrète, ce qui permet de factoriser le code.
 <br>
 <br>Remarquer comment les patterns <i>Command</i> et <i><a href="observer.html">Observer</a></i> sont implémentés ensemble :
 <br>La méthode <code>actionPerformed()</code> est à la fois la méthode <code>execute()</code> du pattern <i>Command</i> ET la méthode <code>update()</code> du pattern <i>Observer</i>.
 
+<br><br>Cela mène à une remarque : <i>Lorsqu'on a un pattern Observer, on a automatiquement un pattern Command</i>.
+<br>En effet, le pattern <code>Command</code> n'a besoin que d'une seule chose : une interface avec une méthode <code>execute()</code> ; cela est fourni par l'interface <code>Observer</code> et sa méthode <code>update()</code>.
 
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->
+
 </article>
 
 </body>

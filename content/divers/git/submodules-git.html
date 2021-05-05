@@ -32,6 +32,8 @@
 <div class="intro">
 La notion de submodule permet d'avoir des dépôts git à l'intérieur d'un dépôt, tout en gardant la gestion des différents dépôts séparée.
 <br>Permet par exemple d'intégrer une lib à l'intérieur d'un projet, ou de séparer la gestion d'un projet en plusieurs sous-projets tout en pouvant les utiliser ensemble.
+
+<br><br>Référence : <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">https://git-scm.com/book/en/v2/Git-Tools-Submodules</a>
 </div>
 
 <!-- ********************************************************************************* -->
@@ -78,6 +80,8 @@ Le fichier <code>.gitmodules</code> a été créé par git :
 	url = ../repo1/
 </pre>
 
+<!-- ************************************* -->
+<h3>Fichier .git/config</h3>
 On peut voir aussi que <code>.git/config</code> a été modifié :
 <pre>
 [submodule "repo1"]
@@ -105,9 +109,13 @@ git remote -v
 
 Pourtant, on voit que <code>.git</code> n'est plus un répertoire mais un fichier qui contient une seule ligne :
 <pre>gitdir: ../.git/modules/repo1</pre>
-</article>
+
+Le répertoire <code>.git/modules/repo1</code> est un répertoire (bare) qui contient le dépôt correspondant au submodule.
 
 <!-- ********************************************************************************* -->
-<!-- ************************************* -->
+<h2>Travailler avec les submodules</h2>
+
+</article>
+
 </body>
 </html>
