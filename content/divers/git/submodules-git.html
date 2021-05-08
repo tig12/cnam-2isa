@@ -97,6 +97,16 @@ Ce qu'on a fait est correct dans le cadre d'un exercice, mais pas adapté à la 
 <pre>git config submodule.repo1.url ../repo1</pre>
 Cela modifie <code>.git/config</code>, donc affecte uniquement la version locale du dépôt <code>submodule-test</code>.
 
+<!-- ************************************* -->
+<h3>Récapitulation</h3>
+<pre>
+project
+    ├── .gitmodules
+    ├── MyModule
+    │   └── .git
+    └── .git
+        └── config
+</pre>
 
 <!-- ************************************* -->
 <h3>Dans le submodule</h3>
@@ -112,10 +122,85 @@ Pourtant, on voit que <code>.git</code> n'est plus un répertoire mais un fichie
 
 Le répertoire <code>.git/modules/repo1</code> est un répertoire (bare) qui contient le dépôt correspondant au submodule.
 
+
+<!-- ********************************************************************************* -->
+<h2>Cloner un dépôt avec submodules</h2>
+
+<pre>git clone https://github.com/some-user/Project</pre>
+<pre>git submodule init</pre>
+<pre>git submodule update</pre>
+ou, directement :
+<pre>git clone --recurse-submodules https://github.com/some-user/Project</pre>
+(fait init et update du sbmodule et de tous ses sous-modules).
+
+<br>Si on a oublié <code>--recurse-submodules</code> dans le clone, on peut faire :
+<pre>git submodule update --init --recursive</pre>
+
 <!-- ********************************************************************************* -->
 <h2>Travailler avec les submodules</h2>
 
+<pre>
+cd path/to/MyNewModule
+git fetch
+git merge origin/master
+</pre>
+
+
+<pre>git diff --cached path/to/MyNewModule</pre>
+
+<pre>git diff --cached --submodule</pre>
+
+Pour éviter de faire <code>--submodule</code> à chaque fois :
+
+<code>git config --global diff.submodule log</code>
+<code>git config --local diff.submodule log</code>
+
+Pour éviter de faire <code>cd path/to/MyNewModule</code> lors du <code>fetch</code> :
+
+<pre>git submodule update --remote pat/to/MyNewModule</pre>
+Utilise la branche <code>master</code> par défaut.
+
+<br><br>Pour suivre une autre branche :
+<pre>git config -f .gitmodules submodule.MyNewModule.branch stable</pre>
+Sans l'option <code>-f .gitmodules</code>, seul <code>.git/config</code> est modifié.
+<br>Avec <code>-f .gitmodules</code>, la modification sera versionnée, et tous ceux qui cloneront votre dépôt suivront cette branche.
+
+Maintenant, quand on fait :
+<pre>git pull</pre>
+git nous indique que des changeùents ont eu lieu dans les submodules.
+
+Pour avoir aussi un résumé des changements :
+<pre>git config status.submodulesummary 1</pre>
+
+Une fois les modifications enregistrées dans un commit, on peut les voir avec :
+<pre>git log -p --submodule</pre>
+
+<!-- ************************************* -->
+<h3>Récupérer les changements dans un submodule</h3>
+
+Un simple <code>git pull</code> fait un <code>git fetch</code> dans nos submodules, mais pas un <code>update</code>.
+<br>Il faut faire : 
+<pre>git submodule update --init --recursive</pre>
+(<code>--recursive</code> si certains submodules ont eux-même des submodules - à toujours faire par sécurité au cas où un de nos submodule soit transformé pour avoir lui-même un submodule).
+
+<br><br>Si un submodule change d'url, le <code>git pull</code> ne va pas marcher.
+<br>Dans ce cas, faire :
+<pre>git submodule sync --recursive</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2>Travailler sur un submodule</h2>
+Cas où on travaille à la fois sur le projet principal et dans différents submodules.
+<br>Jusqu'à présent, <code>git submodule update</code> pour rappatrier les changement dans les submodules, git récupère les changements les sous-répertoires se trouvent dans un état de “detached HEAD”.
+<br>Pour remédier à cela, il faut aller dans chaue sous-module et indiquer à git quelle branche suivre :
+<pre>
+cd pat/to/submodule
+git checkout stable
+</pre>
+
 </article>
+
+
 
 </body>
 </html>
