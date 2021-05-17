@@ -152,18 +152,21 @@ git merge origin/master
 
 Pour éviter de faire <code>--submodule</code> à chaque fois :
 
-<code>git config --global diff.submodule log</code>
-<code>git config --local diff.submodule log</code>
+<pre>
+git config --global diff.submodule log
+# ou alors
+git config --local diff.submodule log
+</pre>
 
 Pour éviter de faire <code>cd path/to/MyNewModule</code> lors du <code>fetch</code> :
 
-<pre>git submodule update --remote pat/to/MyNewModule</pre>
+<pre>git submodule update --remote path/to/MyNewModule</pre>
 Utilise la branche <code>master</code> par défaut.
 
 <br><br>Pour suivre une autre branche :
 <pre>git config -f .gitmodules submodule.MyNewModule.branch stable</pre>
 Sans l'option <code>-f .gitmodules</code>, seul <code>.git/config</code> est modifié.
-<br>Avec <code>-f .gitmodules</code>, la modification sera versionnée, et tous ceux qui cloneront votre dépôt suivront cette branche.
+<br>Avec <code>-f .gitmodules</code>, la modification ira aussi dans <code>.gitmodules</code> et sera donc versionnée. Tous ceux qui cloneront votre dépôt suivront cette branche.
 
 Maintenant, quand on fait :
 <pre>git pull</pre>
@@ -181,7 +184,7 @@ Une fois les modifications enregistrées dans un commit, on peut les voir avec :
 Un simple <code>git pull</code> fait un <code>git fetch</code> dans nos submodules, mais pas un <code>update</code>.
 <br>Il faut faire : 
 <pre>git submodule update --init --recursive</pre>
-(<code>--recursive</code> si certains submodules ont eux-même des submodules - à toujours faire par sécurité au cas où un de nos submodule soit transformé pour avoir lui-même un submodule).
+<code>--recursive</code> est nécessaire si certains submodules ont eux-même des submodules - à toujours faire par sécurité au cas où un de nos submodule soit transformé pour avoir lui-même un submodule.
 
 <br><br>Si un submodule change d'url, le <code>git pull</code> ne va pas marcher.
 <br>Dans ce cas, faire :
@@ -191,13 +194,30 @@ Un simple <code>git pull</code> fait un <code>git fetch</code> dans nos submodul
 <!-- ********************************************************************************* -->
 <h2>Travailler sur un submodule</h2>
 Cas où on travaille à la fois sur le projet principal et dans différents submodules.
-<br>Jusqu'à présent, <code>git submodule update</code> pour rappatrier les changement dans les submodules, git récupère les changements les sous-répertoires se trouvent dans un état de “detached HEAD”.
-<br>Pour remédier à cela, il faut aller dans chaue sous-module et indiquer à git quelle branche suivre :
+<br>Jusqu'à présent, <code>git submodule update</code> sert à rappatrier les changements dans les submodules, mais les sous-répertoires se trouvent dans un état de “detached HEAD”.
+<br>Pour remédier à cela, il faut aller dans chaque sous-module et indiquer à git quelle branche suivre :
 <pre>
 cd pat/to/submodule
 git checkout stable
 </pre>
+Pour récupérer les changements dans les submodules, il fau dirénavant faire :
+<pre>git submodule update --remote --merge</pre>
 
+Si on fait des changements dans le submodule, faire par exemple :
+<pre>git submodule update --remote --rebase</pre>
+
+Attention, si on oublie <code>--merge</code> ou <code>--rebase</code>, git va récupérer les changemùents et mettre le fédôp des sous-modules dans un état "detached HEAD".
+
+<br><br>Si on a travaillé en local sur un submodule et qu'un <code>git submodule update</code> génère des conflits, on doit les gérer (dans le répertoire de chaque submodule) comme on gère un conflit normal.
+
+<br><br>Attention, lorsqu'on fait un commit sur le dépôt principal, il faut aussi faire un push des commits effectués dans les submodules.
+
+<br><br>A DETAILLER
+
+<pre>git push --recurse-submodules=on-demand</pre>
+<pre>git push --recurse-submodules=check</pre>
+
+<pre>git config push.recurseSubmodules check</pre>
 </article>
 
 

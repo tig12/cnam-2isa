@@ -1,0 +1,64 @@
+# ********************************************************************************
+#
+#   Configuration d'une machine affichant ee0 0 1 0 1 1 0 1 1 1 0 1 1 1 1 0 1 1 1 1 1 0 ...
+#   Second exemple donné par Turing
+#   Voir "The annotated Turing" (Charles Petzold, 2008) p 85
+#
+#   @license  FDL, GPL, CC-BY-SA
+#   @history  2020-11-03 13:11:00+01:00, Thierry Graff : Creation
+# ********************************************************************************
+
+
+# Symboles connus par la machine
+symbols:
+  # associations nom - représentation texte
+  0: 0
+  1: 1
+  x: x
+  e: e
+  "NONE": " "
+
+mconfigs: 
+  b: 
+    NONE:
+      operations: [Pe, R, Pe, R, P0, R, R, P0, L, L]
+      next: o
+  o: 
+    1:
+      operations: [R, Px, L, L, L]
+      next: o
+    0:
+      operations: []
+      next: q
+  q: 
+    0:
+      operations: [R, R]
+      next: q
+    1:
+      operations: [R, R]
+      next: q
+    NONE: 
+      operations: [P1, L]
+      next: p
+  p:
+    x:
+      operations: [E, R]
+      next: q
+    e:
+      operations: [R]
+      next: f
+    NONE:
+      operations: [L, L]
+      next: p
+  f:
+    0:
+      operations: [R, R]
+      next: f
+    1:
+      operations: [R, R]
+      next: f
+    NONE:
+      operations: [P0, L, L]
+      next: o
+    
+initial-mconfig: b

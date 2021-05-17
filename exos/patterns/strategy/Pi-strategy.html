@@ -26,7 +26,7 @@ double pi3 = Pi3.calculePi(N);
 </pre>
 L'inconvénient de cette solution est que le code client est lié aux implémentations. On va utiliser le pattern Strategy pour décoreller les deux, en se donnant une contrainte : on n'a pas le droit de modifier les implémentations existantes.
 
-<br><br>Utilisez comme point de départ la solution située dans <a href="../../../../solutions/exos/java/pi/">ce répertoire</a>.
+<br><br>Utilisez comme point de départ la solution située dans <a href="../../../solutions/exos/java/pi/">ce répertoire</a>.
 <br>Dans cette implémentation, les classes <code>Pi1</code>, <code>Pi2</code> et <code>Pi3</code> ont une méthode static pour effectuer le calcul :
 <pre>public static double calculePi(int N)</pre>
 On peut tout à fait utiliser une méthode static dans le cadre d'un pattern Strategy, mais on fait le choix d'implémenter le plus fidèlement possible le diagramme du GOF.
