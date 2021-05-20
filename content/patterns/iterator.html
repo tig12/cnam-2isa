@@ -64,30 +64,33 @@ On souhaite itérer une liste.
 
 <img class="border margin padding05" src="img/iterator-gof-detail1.jpg" alt="Iterator exemple liste">
 
-<b>Note</b> : l'API java (<code>java.util.Iterator)</code> utilise <code>hasNext()</code> et <code>next()</code>.
-<br>
-<br>Pour l'utiliser (pseudo-code):
+<b>Note</b> : l'API java (<code>java.util.Iterator)</code> utilise <code><b>hasNext()</b></code> et <code><b>next()</b></code>.
+
+<br><br>Pour l'utiliser (pseudo-code):
 
 <pre>
 List list = new List();
-ListIterator itr1 = new ListIterator(list);
-ListIterator itr2 = new FilteringListIterator(list);
+ListIterator it1 = new ListIterator(list);
+ListIterator it2 = new FilteringListIterator(list);
+while(it1.hasNext()){
+    System.out.println(it1.next());
+}
 </pre>
 
 Cette solution permet déjà :
 <br>- d'externaliser les méthodes d'itération dans un itérateur
 <br>- d'effectuer plusieurs itérations simultanées
-<br>
-<br>Voir un exemple dans <a href="../../exemples/patterns/iterator/simple/DemoSimple.java">DemoSimple.java</a>.
+
+<br><br>Voir un exemple dans <a href="../../exemples/patterns/iterator/simple/DemoSimple.java">DemoSimple.java</a>.
 <br>On définit une classe <code>ArrayAggregate</code> qui encapsule un tableau d'objets, et on définit deux itérateurs pour cette classe.
 <br>Le code de test montre qu'on peut itérer cet aggrégat de différentes manières, et itérer de plusieurs manières en même temps.
-<br>
-<br>Mais il reste un problème :
+
+<br><br>Mais il reste un problème :
 <br>L'itérateur et l'aggrégat sont couplés : le client doit savoir que l'itérateur parcourt tel type d'aggrégat.
 <br>Il serait préférable de pouvoir changer la classe de l'aggrégat sans changer le code client.
-<br>
-<br>On fait ça en généralisant le concept d'itérateur pour supporter le concept d'<b>itérateur polymorphe</b>.
-<br>Pour ça, on introduit 2 interfaces, <code>AbstractList</code> et <code>AbstractIterator</code>, ce qui rend le mécanisme d'itération indépendant de l'implémentation de l'aggrégat.
+
+<br><br>Pour y arriver, on généralise le concept d'itérateur pour supporter le concept d'<b>itérateur polymorphe</b>.
+<br>Pour cela, on introduit 2 interfaces, <code>AbstractList</code> et <code>AbstractIterator</code>, ce qui rend le mécanisme d'itération indépendant de l'implémentation de l'aggrégat.
 
 <img class="border margin padding05" src="img/iterator-gof-detail2.jpg" alt="Iterator exemple liste">
 

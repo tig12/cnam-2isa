@@ -67,9 +67,7 @@ abstract class Leaf extends Node{
     public void print(){
         System.out.println(name);
     }
-    public void accept(Visitor v){
-        v.visit(this);
-    }                                                             
+
 }
 
 // Noeud composé
@@ -98,25 +96,28 @@ abstract class Composite extends Node{
 
 class IfNode extends Composite{
     public IfNode(String name){ super(name); }
+    public void accept(Visitor v){ super.accept(v); }
 }
 
 class SuperiorNode extends Composite{
     public SuperiorNode(String name){ super(name); }
+    public void accept(Visitor v){ super.accept(v); }
 }
 
 class AffectationNode extends Composite{
     public AffectationNode(String name){ super(name); }
+    public void accept(Visitor v){ super.accept(v); }
 }
 
 class VariableNode extends Leaf{
     public VariableNode(String name){ super(name); }
+    public void accept(Visitor v){ v.visit(this); }
 }
 
 
 // ===== visitor classes =====
 abstract class Visitor{
-    // pour factoriser l'implémentation de accept() dans 
-    public void visit(Leaf node){}
+        // pour factoriser l'implémentation de accept()
     public void visit(Composite node){}
     
     abstract public void visit(IfNode node);
@@ -133,7 +134,7 @@ class TypeCheckVisitor extends Visitor{
         System.out.println("TypeCheckVisitor visiting SuperiorNode : " + node.getName());
     }
     public void visit(AffectationNode node){
-        //System.out.println("TypeCheckVisitor visiting AffectationNode : " + node.getName());
+        System.out.println("TypeCheckVisitor visiting AffectationNode : " + node.getName());
     }
     public void visit(VariableNode node){
         System.out.println("TypeCheckVisitor visiting VariableNode : " + node.getName());

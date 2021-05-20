@@ -13,14 +13,19 @@ public class DemoMenuCommands {
         // on crée deux structures composites : mFile et mEdit
         
         MenuI mFile = new Menu("File");
+        
         MenuI mNew = new Menu("New");
-        MenuI mOpen = new Menu("Open");
-        MenuI mPrint = new Menu("Print");
-        MenuI mQuit = new Menu("Quit");
         mNew.setCommand(new NewCommand());
+        
+        MenuI mOpen = new Menu("Open");
         mOpen.setCommand(new OpenCommand());
+        
+        MenuI mPrint = new Menu("Print");
         mPrint.setCommand(new PrintCommand());
+        
+        MenuI mQuit = new Menu("Quit");
         mQuit.setCommand(new QuitCommand());
+
         mFile.addChild(mNew);               
         mFile.addChild(mOpen);
         mFile.addChild(mPrint);
@@ -31,7 +36,6 @@ public class DemoMenuCommands {
         mPreferences.setCommand(new PreferencesCommand());
         mEdit.addChild(mPreferences);
         
-        
         // Execution normale
         System.out.println("\n=== Normal execution ===");
         mFile.performMenuAction();
@@ -41,6 +45,7 @@ public class DemoMenuCommands {
         System.out.println("\n=== Play a trick to user : invert new and open ===");
         mNew.setCommand(new OpenCommand());
         mOpen.setCommand(new NewCommand());
+        
         mFile.performMenuAction();
         mEdit.performMenuAction();
     }

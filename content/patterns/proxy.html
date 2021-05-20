@@ -88,14 +88,11 @@ Livre livre = new Livre(123);
 </pre>
 L'ORM ne renvoie pas un objet Livre, mais un proxy vers Livre.
 <br>Le livre n'est effectivement lu en base de données que lorsqu'on utilise vraiment ses données, par ex avec :
-<pre>String titre = livre.getTitre();</pre>
-
-De la même manière si on fait :
 <pre>
+String titre = livre.getTitre();
 Auteur auteur = livre.getAuteur();
 Livre[] livres = auteur.getLivres();
 </pre>
-les requêtes SQL ne seront faites que lorsqu'on en a besoin.
 
 <div class="exo">
     <b>Exercice</b> : <a href="../../exos/patterns/proxy/protection/ProtectionProxy.html">Protection proxy</a> (classe sensible)

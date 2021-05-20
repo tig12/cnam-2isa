@@ -380,15 +380,18 @@ public String[] list(FilenameFilter filter) {
 }
 </pre>
 
-L'utilisation d'une classe anonyme dans le code :
+Donc dans le code
 <pre>
+File dir = new File(args[0]);
 String[] files = dir.list(new FilenameFilter() {
     public boolean accept(File f, String s) {
         return s.endsWith(".java");
     }
 });
 </pre>
-peut être rendue plus compacte en utilisant une <a href="lambdas.html">lambda expression</a>.
+La variable <code>f</code> fait donc référence à <code>dir</code> (puisque <code>list()</code> est une méthode de l'instance <code>dir</code>).
+
+<br><br>L'utilisation d'une classe anonyme peut être ici rendue plus compacte en utilisant une <a href="lambdas.html">lambda expression</a>.
 
 </article>
 
