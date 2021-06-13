@@ -1,0 +1,14 @@
+
+dirbin="../../../../bin/exam/2019-02-07/carres/enonce"
+
+if [ ! -d $dirbin ]; then
+    echo "creating $dirbin"
+    mkdir -p $dirbin
+fi
+
+command="javac -classpath . -d $dirbin dessin/Main.java"
+
+echo $command
+
+$command
+

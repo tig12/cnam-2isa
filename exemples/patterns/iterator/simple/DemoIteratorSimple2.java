@@ -105,7 +105,7 @@ class ReverseIterator {
 
 // =========== 3 - Code client ===========
 
-public class DemoSimple2{
+public class DemoIteratorSimple2{
     
     public static void main(String[] args) {
         var aa = new ArrayAggregate(new String[]{

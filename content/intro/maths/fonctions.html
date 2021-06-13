@@ -65,7 +65,7 @@ En utilisant la théorie des ensembles, une fonction est définie comme un sous-
 
 <img class="margin border padding" src="img/func-is-voyelle1.svg" alt="Produit cartésien pour isVoyelle()">
 
-Parmi tous les couples du produit cartésien, on en choisit un certain nombre, ce qui permet de définir la fonction sans ambiguité.
+Parmi tous les couples du produit cartésien, on en choisit un certain nombre (en vert sur le schéma), ce qui permet de définir la fonction sans ambiguité.
 
 <br><br>En utilisant les ensembles, une fonction est donc définie en utilisant les éléments des ensembles. Si on se place dans <code class="bold">Ens</code>, la catégorie des ensembles, on n'a plus cette possibilité. Dans cette catégorie, un ensemble est un objet, on ne sait rien des éléments qu'il contient. Une fonction est juste représentée par une flèche. On va voir qu'il est malgré tout possible d'étudier les propriétés d'une fonction en étudiant comment elles se composent entre elles.
 
@@ -105,8 +105,8 @@ Raison 1 : si plusieurs éléments du domaine de définition ont la même image.
 
 Dans ce cas, on a une perte d'information, on ne peut pas reconstituer l'ensemble de définition à partir de l'ensemble d'arrivée.
 
-<br><br>Une fonction qui n'a pas cette caractéristique est appelée une <b>injection</b>.
-<br>Pour caractériser cette propriété en utilisant la théorie des ensembles, on dit qu'une fonction f est injective si
+<br><br>Une fonction qui n'a pas cette caractéristique est appelée une <b>injection</b>, on dit que la fonction est <b>injective</b> (ce qui n'est donc pas le cas pour <code>isVoyelle()</code>).
+<br>Pour caractériser cette propriété en utilisant la théorie des ensembles, on dit qu'une fonction f est injective si :
 
 <br><br>Pour tout élément x<sub>1</sub> et x<sub>2</sub> de son domaine de définition, <code class="formula big2 bold">f(x<sub>1</sub>) = f(x<sub>2</sub>)</code> entraîne que <code class="formula big2 bold">x<sub>1</sub> = x<sub>2</sub></code>
 

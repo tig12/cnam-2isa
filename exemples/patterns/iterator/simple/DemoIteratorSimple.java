@@ -87,7 +87,7 @@ class ArrayAggregate {
     
 }
 
-public class DemoSimple{
+public class DemoIteratorSimple{
     
     public static void main(String[] args) {
         var aa = new ArrayAggregate(new String[]{

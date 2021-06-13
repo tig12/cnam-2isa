@@ -169,14 +169,14 @@ public class MazeGame{
         aMaze.addRoom(r1);
         aMaze.addRoom(r2);
         
-        r1.setSide(NORTH, makeWall());
+        r1.setSide(NORTH, <b>makeWall()</b>);
         r1.setSide(EAST, theDoor);
-        r1.setSide(SOUTH, makeWall());
-        r1.setSide(WEST, makeWall());
+        r1.setSide(SOUTH, <b>makeWall()</b>);
+        r1.setSide(WEST, <b>makeWall()</b>);
         
-        r2.setSide(NORTH, makeWall());
-        r2.setSide(EAST, makeWall());
-        r2.setSide(SOUTH, makeWall());
+        r2.setSide(NORTH, <b>makeWall()</b>);
+        r2.setSide(EAST, <b>makeWall()</b>);
+        r2.setSide(SOUTH, <b>makeWall()</b>);
         r2.setSide(WEST, theDoor);
         
         return aMaze;

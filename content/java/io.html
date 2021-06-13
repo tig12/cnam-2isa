@@ -84,14 +84,14 @@ if (f.exists() && f.isFile() && f.canRead()) {
 File f = new File("/path/to/file");
 
 // Gestion des droits
-boolean canX = f.canExecute();
 boolean canR = f.canRead();
 boolean canW = f.canWrite();
+boolean canX = f.canExecute();
 boolean ok;
 ok = f.setReadOnly();
-ok = f.setExecutable(true);
 ok = f.setReadable(true);
 ok = f.setWritable(false);
+ok = f.setExecutable(true);
 
 // Différents aspects du nom du fichier
 File absF = f.getAbsoluteFile();
@@ -205,7 +205,7 @@ BufferedWriter
 </pre>
 (code dans <a href="../../exemples/java/io/BufferedReaderExample.java">BufferedReaderExample.java</a>)
 <br>
-<br>Pour comprendre l'intérêt de <code>BufferedReader</code>, voir <a href="../../exemples/java/io/BufferedReaderCompare.java">BufferedReaderCompare.java</a>
+<br>Pour comprendre l'intérêt de <code>BufferedReader</code>, voir <a href="../../exemples/java/io/BufferedReaderCompare.java">BufferedReaderCompare.java</a>  (<code>BufferedReader</code> est bien plus rapide que <code>FileReader</code>).
 <br>
 <br>On peut passer d'une représentation "octet" à une représentation "caractère" en utilisant les classes <code>InputStreamReader</code> et <code>OutputStreamWriter</code>.
 
@@ -275,7 +275,7 @@ Similaire à <code>using</code> en C#.
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-java-i-o-moderne">Java I / O moderne</a></h2>
+<h2><a name="2-java-i-o-moderne">Java I / O moderne (java.nio)</a></h2>
 <!-- 
 http://tutorials.jenkov.com/java-nio/index.html
 https://www.ibm.com/developerworks/java/tutorials/j-nio/j-nio.html
@@ -389,35 +389,48 @@ class FilesExamples{
         try{
             String input;
             
+            // Créer un nouveau fichier
             // touch toto1.txt
             Path p1 = Paths.get("toto1.txt").toAbsolutePath();
-            Files.<b>createFile</b>(p1); // que si n'existe pas (sinon FileAlreadyExistsException)
+            Files.createFile(p1); // que si n'existe pas (sinon FileAlreadyExistsException)
             
+            // Ajouter du contenu dans un fichier
             // cat "du contenu" > toto1.txt
+            String content = "du contenu";
             PrintWriter out = new PrintWriter(p1.toFile()); // TWR préférable ici (pas besoin de close())
-            out.println("du contenu");
+            out.println(content);
             out.close();
             
+            // Autre manière :
+            Files.writeString(p1, content);
+            
+            // Lire le contenu d'un fichier
+            String myContent = Files.readString(p1);
+            
+            // Renommer un fichier
             // cp toto1.txt toto2.txt
             Path p2 = p1.resolveSibling("toto2.txt");
-            <b>Files.copy</b>(p1, p2);
+            Files.copy(p1, p2);
             
             System.out.print("toto1.txt et toto2.txt ont été créés - appuyez sur 'Enter' pour les effacer");
             input = System.console().readLine();
-
+            
+            // Effacer un fichier
             // rm toto1.txt toto2.txt
-            <b>Files.delete</b>(p1);
+            Files.delete(p1);
             Files.delete(p2);
             
+            // Créer des répertoires
             // mkdir -p test/{dir1,dir2,dir3/dir4}
-            <b>Files.createDirectories</b>(p1.resolveSibling("test/dir1"));
+            Files.createDirectories(p1.resolveSibling("test/dir1"));
             Files.createDirectories(p1.resolveSibling("test/dir2"));
             Files.createDirectories(p1.resolveSibling("test/dir3/dir4"));
             
             Path test = p1.resolveSibling("test");
             
+            // Parcourir une hiérarchie de fichiers
             // for i in $(tree -fi test | grep test); do touch $i/test.txt; done;
-            <b>Files.walkFileTree</b>(test, new SimpleFileVisitor&lt;Path>() {
+            Files.walkFileTree(test, new SimpleFileVisitor<Path>() {
                  @Override public FileVisitResult postVisitDirectory(Path dir, IOException e) throws IOException {
                      if (e == null) {
                          Files.createFile(dir.resolve("test.txt"));
@@ -431,8 +444,9 @@ class FilesExamples{
             System.out.print("test/ a été créé - appuyez sur 'Enter' pour l'effacer");
             input = System.console().readLine();
             
+            // Supprimer récursivement un répertoire
             // rm -fr test/
-            Files.walkFileTree(test, new SimpleFileVisitor&lt;Path>() {
+            Files.walkFileTree(test, new SimpleFileVisitor<Path>() {
                  @Override public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                      Files.delete(file);
                      return FileVisitResult.CONTINUE;

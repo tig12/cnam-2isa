@@ -81,7 +81,7 @@ Cette solution permet déjà :
 <br>- d'externaliser les méthodes d'itération dans un itérateur
 <br>- d'effectuer plusieurs itérations simultanées
 
-<br><br>Voir un exemple dans <a href="../../exemples/patterns/iterator/simple/DemoSimple.java">DemoSimple.java</a>.
+<br><br>Voir un exemple dans <a href="../../exemples/patterns/iterator/simple/DemoIteratorSimple.java">DemoIteratorSimple.java</a>.
 <br>On définit une classe <code>ArrayAggregate</code> qui encapsule un tableau d'objets, et on définit deux itérateurs pour cette classe.
 <br>Le code de test montre qu'on peut itérer cet aggrégat de différentes manières, et itérer de plusieurs manières en même temps.
 
@@ -105,8 +105,8 @@ Schéma GOF :
 
 <img class=" margin padding05 border" src="img/iterator-gof-diagram.jpg" alt="Iterator GOF">
 
-<br>Voir un exemple dans <a href="../../exemples/patterns/iterator/complet/DemoComplet.java">DemoComplet.java</a>.
-<br><code>DemoSimple.java</code> a été modifié et complété de manière à utiliser les itérateurs et aggrégats abstraits.
+<br>Voir un exemple dans <a href="../../exemples/patterns/iterator/complet/DemoIteratorComplet.java">DemoIteratorComplet.java</a>.
+<br><code>DemoIteratorSimple.java</code> a été modifié et complété de manière à utiliser les itérateurs et aggrégats abstraits.
 <br>On voit dans le code de test que le client n'est plus obligé de préciser le type précis d'itérateur utilisé :
 <pre>ArrayAggregate.NormalIterator it1 = aa.getNormalIterator();</pre>
 est remplacé par :
@@ -178,7 +178,7 @@ Modifier un aggrégat durant le parcours peut générer des bugs (accéder 2 foi
 
 <div class="exo">
 <b>Exercice</b> :
-<br>Quelles sont les caractéristiques des itérateurs d'exemple (<code>DemoSimple</code> et <code>DemoComplet</code>) ?
+<br>Quelles sont les caractéristiques des itérateurs d'exemple (<code>DemoIteratorSimple</code> et <code>DemoIteratorComplet</code>) ?
 <br>- Interne, externe ?
 <br>- S'agit-il de curseurs ?
 <br>- Sont-ils robustes ?

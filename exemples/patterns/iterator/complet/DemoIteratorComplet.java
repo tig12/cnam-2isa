@@ -106,7 +106,7 @@ class ArrayAggregate implements Aggregate{
 }
 
 // ========= 4 - Code client =========
-public class DemoComplet{
+public class DemoIteratorComplet{
     
     public static void main(String[] args) {
         Aggregate aa = new ArrayAggregate(new String[]{

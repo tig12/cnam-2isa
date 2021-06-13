@@ -87,7 +87,7 @@ Les patterns de création sont importants lorsque les systèmes deviennent compl
 <br>Suivant les cas, les patterns de création peuvent être complémentaires ou en concurrence.
 <br>Comme ils sont reliés, on va les étudier en utilisant un exemple commun.
 <br>Cet exemple est une adaptation java du livre du GOF, et utilise la terminologie originale en anglais.
-<br>Le code correspondant se trouve dans <a href="../../exemples/patterns/creation/src/maze">exemples/patterns/creation/src/maze</a>.
+<br>Le code correspondant se trouve dans <a href="../../exemples/patterns/creation-gof/src/maze">exemples/patterns/creation-gof/src/maze</a>.
 <br>
 <br>Dans le cadre du développement d'un jeu, on a besoin de créer un labyrinthe.
 <br>Suivant le pattern étudié, les spécifications varieront un peu.
@@ -134,7 +134,7 @@ Dans l'exemple utilisé, on va créer un labyrinthe contenant 2 pièces avec une
 <!-- ************************************* -->
 <h3><a name="1-1-implementation-java">Implémentation java</a></h3>
 
-<a href="../../exemples/patterns/creation/src/maze">exemples/patterns/creation/src/maze</a>
+<a href="../../exemples/patterns/creation-gof/src/maze">exemples/patterns/creation-gof/src/maze</a>
 <pre>
 maze/
 ├── Main.java
@@ -221,6 +221,8 @@ public class MazeGame{
 }
 </pre>
 
+<img class="margin border" src="../../exemples/patterns/creation-gof/doc/example-maze.svg" alt="Représentation du labyrinthe">
+
 La fonction <code>createMaze()</code> est rigide, car elle code en dur à la fois les composants utilisés et leur layout.
 <br>
 <br>Par exemple, si on veut réutiliser ce layout avec des composants différents : des <code>DoorNeedingSpell</code>, une porte qui a besoin d'un mot de passe pour être ouverte et des <code>EnchantedRoom</code>s, pièces qui possèdent des mots de passe pour ouvrir les <code>DoorNeedingSpell</code> ?
@@ -237,14 +239,11 @@ par
         Room r2 = <b>new EnchantedRoom</b>(2);
         Door theDoor = <b>new DoorNeedingSpell</b>(r1, r2);
 </pre>
-On pourrait réimplémenter <code>createMaze()</code> avec des if, mais on aura une fonction compilquée ; ou alors sous-classer <code>MazeGame</code>, mais une grosse partie du code est commune.
+On pourrait réimplémenter <code>createMaze()</code> avec des if, mais on aura une fonction compliquée ; ou alors sous-classer <code>MazeGame</code>, mais une grosse partie du code est commune.
 <br>
 <br>La difficulté vient du fait que le code qui <b>utilise</b> les classes <code>Room</code> et <code>Door</code> <b>instancie</b> lui-même ces classes.
 
 <div class="big4 center margin">Les patterns de création permettent de séparer le code utilisateur de l'instanciation.</div>
-
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->
 
 </article>
 
