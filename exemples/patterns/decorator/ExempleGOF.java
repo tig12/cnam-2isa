@@ -1,4 +1,4 @@
-/** 
+/**
     Traduction de l'exemple GOF
 **/
 
@@ -28,7 +28,7 @@ abstract class Decorator implements VisualComponent{
 // Les décorateurs concrets
 
 class ScrollDecorator extends Decorator{
-    public ScrollDecorator(VisualComponent component){                                                              
+    public ScrollDecorator(VisualComponent component){
         super(component);
     }
 
@@ -36,7 +36,7 @@ class ScrollDecorator extends Decorator{
         addedBehaviour();
         super.draw();
     }
-    
+
     private void addedBehaviour(){
         System.out.println("  ScrollDecorator.addedBehaviour()");
     }
@@ -51,7 +51,7 @@ class BorderDecorator extends Decorator{
         addedBehaviour();
         super.draw();
     }
-    
+
     private void addedBehaviour(){
         System.out.println("  BorderDecorator.addedBehaviour()");
     }
@@ -64,17 +64,19 @@ public class ExempleGOF{
         System.out.println("=== c1 (pas de décoration) ===");
         VisualComponent c1 = new TextView();
         c1.draw();
-        
+
         System.out.println("\n=== c2 (décoration par ScrollDecorator) ===");
         VisualComponent c2 = new ScrollDecorator(new TextView());
         c2.draw();
-        
+
         System.out.println("\n=== c3 (décoration par BorderDecorator) ===");
         VisualComponent c3 = new BorderDecorator(new TextView());
         c3.draw();
-        
+
         System.out.println("\n=== c4 (décoration par ScrollDecorator et BorderDecorator) ===");
-        VisualComponent c4 = new ScrollDecorator(new BorderDecorator(new TextView()));
+        VisualComponent c4 = new ScrollDecorator(
+                                new BorderDecorator(
+                                    new TextView()));
         c4.draw();
     }
 }

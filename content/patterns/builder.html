@@ -48,7 +48,7 @@ Builder
 But : Séparer la construction d'un objet complexe de sa représentation de manière à pouvoir utiliser le même processus de création pour différentes représentations (gof).
 </div>
 Concerne <b>la création d'objets complexes pas à pas.</b>
-<br>Lorsqu'on a un ensemble objets à construire, et que <b>tous ces objets partagent les mêmes étapes de création</b>.
+<br>Lorsqu'on a un ensemble d'objets à construire, et que <b>tous ces objets partagent les mêmes étapes de création</b>.
 
 
 <!-- ********************************************************************************* -->
@@ -114,22 +114,24 @@ class <b>PizzaDirector</b>{
 
 <pre>
         <b>PizzaDirector pizzaDirector = new PizzaDirector();</b>
-        
+
         PizzaBuilder siciliennePizzaBuilder = <code>new SiciliennePizzaBuilder()</code>;
         PizzaBuilder blanchePizzaBuilder = new BlanchePizzaBuilder();
 
         pizzaDirector.<b>setPizzaBuilder</b>( siciliennePizzaBuilder );
         pizzaDirector.<b>constructPizza</b>();
         Pizza pizza1 = pizzaDirector.getPizza();
-        
+
         pizzaDirector.setPizzaBuilder( blanchePizzaBuilder );
         pizzaDirector.constructPizza();
         Pizza pizza2 = pizzaDirector.getPizza();
 </pre>
 
 Code dans <a href="../../exemples/patterns/builder/PizzaBuilderDemo.java">PizzaBuilderDemo.java</a>
-<br>
-<br>Si on veut maintenant produire une pizza aux fruits de mer, on a juste à construire un <code>FruitsDeMerPizzaBuilder</code>, qui devient utilisable par le code client <i>sans avoir du tout touché aux classes <code>PizzaDirector</code> et <code>PizzaBuilder</code></i>.
+
+<br><br>Le rôle de <code>PizzaDirector</code> est de cacher au client le processus de fabrication : le client ne fait qu'appeler <code>constructPizza()</code>.
+
+<br><br>Si on veut maintenant produire une pizza aux fruits de mer, on a juste à construire un <code>FruitsDeMerPizzaBuilder</code>, qui devient utilisable par le code client <i>sans avoir du tout touché aux classes <code>PizzaDirector</code> et <code>PizzaBuilder</code></i>.
 
 
 
