@@ -73,8 +73,36 @@ En général, pour permettre au client de cloner simplement les objets, on utili
     <b>Exercice</b> : Compilez et exécutez <a href="../../exemples/patterns/prototype/demo1/PrototypeDemo1.java">PrototypeDemo1.java</a>.
     <br>Quel est l'inconvénient de ce type d'implémentation ?
     <br>Comment y remédier ?
+    <br>
+    <br>Remarquer que les méthodes <code>clone()</code> de cet exemple créent un objet avec <code>new()</code>, ce qui n'a aucun intérêt !
 </div>
-
+<!-- 
+    Inconvénient : on crée systématiquement chacun des objets Tom Harris et Dick,
+    même si on n'en a pas besoin.
+    Pour y remédier, implémenter le lazy loading au niveau de getPrototype()
+    if(prototypes.get(type) == null) {
+        switch(type){
+            case 'tom':
+                prototypes.put(type, new Tom());
+            break;
+            case 'dick':
+                prototypes.put(type, new Dick());
+            break;
+            case 'harry':
+                prototypes.put(type, new Harry());
+            break;
+            default:
+                throw new Exception("Type d'objet invalide: " + type);
+        }
+        // Puis code déjà existant :
+        try {
+            return prototypes.get(type).clone();
+        } catch (NullPointerException ex) {
+            System.out.println("Le prototype : '" + type + "' n'existe pas");
+            return null;
+        }
+    }
+-->
 
 
 <!-- ********************************************************************************* -->

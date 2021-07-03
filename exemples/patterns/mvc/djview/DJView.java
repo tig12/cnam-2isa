@@ -34,10 +34,13 @@ public class DJView implements ActionListener,  BeatObserver, BPMObserver {
         Crée la fenêtre où le BPM est affiché
     **/
     public void createView() {
+        
+        setUIFont(new javax.swing.plaf.FontUIResource(new Font("MS Mincho",Font.PLAIN, 32)));
+        
         viewPanel = new JPanel(new GridLayout(1, 2));
+        viewPanel.setPreferredSize(new Dimension(600, 80));
         viewFrame = new JFrame("View");
         viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        viewFrame.setSize(new Dimension(100, 80));
         
         bpmOutputLabel = new JLabel("offline", SwingConstants.CENTER);
         beatBar = new BeatBar();
@@ -50,6 +53,7 @@ public class DJView implements ActionListener,  BeatObserver, BPMObserver {
         
         viewFrame.getContentPane().add(viewPanel, BorderLayout.CENTER);
         viewFrame.pack();
+        viewFrame.setLocation(100, 100);
         viewFrame.setVisible(true);
     }
   
@@ -123,6 +127,7 @@ public class DJView implements ActionListener,  BeatObserver, BPMObserver {
         controlFrame.getContentPane().add(controlPanel, BorderLayout.CENTER);
 
         controlFrame.pack();
+        controlFrame.setLocationRelativeTo(null); // centrer sur l'écran
         controlFrame.setVisible(true);
     }
 
@@ -144,8 +149,14 @@ public class DJView implements ActionListener,  BeatObserver, BPMObserver {
 
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == setBPMButton) {
-            int bpm = Integer.parseInt(bpmTextField.getText());
-            controller.setBPM(bpm);
+            int bpm;
+            try{
+                bpm = Integer.parseInt(bpmTextField.getText());
+                controller.setBPM(bpm);
+            }
+            catch(Exception e){
+                bpmOutputLabel.setText("Invalid BPM: '" + bpmTextField.getText() + "'");
+            }
         } else if (event.getSource() == increaseBPMButton) {
             controller.increaseBPM();
         } else if (event.getSource() == decreaseBPMButton) {
@@ -173,4 +184,20 @@ public class DJView implements ActionListener,  BeatObserver, BPMObserver {
              beatBar.setValue(100);
         }
     }
+    
+    /** 
+        Méthode auxiliaire pour changer la font de tous les composants
+        https://stackoverflow.com/questions/5824342/setting-the-global-font-for-a-java-application    
+    **/
+    private static void setUIFont(javax.swing.plaf.FontUIResource f){
+        java.util.Enumeration<Object> keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()){
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            if (value instanceof javax.swing.plaf.FontUIResource){
+                UIManager.put(key, f);
+            }
+        }
+    }
+    
 }
