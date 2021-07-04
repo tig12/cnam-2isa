@@ -1,8 +1,7 @@
 
-Example coming from https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Memento
+Exemple tiré de https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Memento
 (à peu près identique à https://sourcemaking.com/design_patterns/memento/java/1)
 
 2018-02-05 22:48:25+01:00
-
 
 main() dans Caretaker.java

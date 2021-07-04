@@ -345,21 +345,14 @@ int winner = randomWinner.nextInt(10);
 On utilise la composition pour associer un état au contexte, ce qui permet au contexte de changer dynamiquement d'état.
 
 <br>
-<br>Le diagramme de classe est exactement le même que celui du pattern <a href="strategy.html">Strategy</a>, mais l'intention et le fonctionnement des deux patterns sont bien différents :
-<ul>
-    <li>
-        Dans le pattern <i>State</i>, différents états ont été encapsulés dans des objets, et l'état courant change en fonction du temps.
-        <br>Le client n'a pas besoin de connaître ces états.
-    </li>
-    <li>Dans le pattern <i>Strategy</i>, le client choisit une stratégie, qui va s'exécuter en entier.</li>
-</ul>
+<br>Le diagramme de classe est exactement le même que celui des patterns <a href="strategy.html">Strategy</a> et <a href="command.html">Command</a>, mais l'intention et le fonctionnement sont bien différents.
+<br>Dans le pattern <i>State</i>, différents états ont été encapsulés dans des objets, et l'état courant change en fonction du temps.
+<br>Le client n'a pas besoin de connaître ces états.
 
 <div class="exo">
 <b>Exercice</b> : <a href="../../exos/patterns/state/radio/radio.html">Poste de radio</a>
 </div>
 
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->
 </article>
 
 </body>

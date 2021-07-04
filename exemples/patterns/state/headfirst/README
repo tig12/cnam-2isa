@@ -9,3 +9,4 @@ directory src/headfirst/designpatterns/state/
 2-refactored : Mêmes fcontionnalités que 1-base, en ayant introduit des classes d'état
 
 3-winner : Implémentation de la demande de modifcation.
+           Se trouve dans le dépôt des solutions.
