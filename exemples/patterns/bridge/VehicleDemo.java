@@ -7,23 +7,22 @@
 // ===== Client =====
 public class VehicleDemo {
     public static void main(String args[]){
-        Gear gear;
+        Gear gearAuto, gearManual;
         Vehicle vehicle;
         
-        gear = new ManualGear();
-        vehicle = new Car(gear);
+        gearManual = new ManualGear();
+        gearAuto = new AutomaticGear();
+        
+        vehicle = new Car(gearAuto);
         vehicle.displayGear();
 
-        gear = new AutomaticGear();
-        vehicle = new Car(gear);
+        vehicle = new Car(gearManual);
         vehicle.displayGear();
 
-        gear = new ManualGear();
-        vehicle = new Truck(gear);
+        vehicle = new Truck(gearAuto);
         vehicle.displayGear();
 
-        gear = new AutomaticGear();
-        vehicle = new Truck(gear);
+        vehicle = new Truck(gearManual);
         vehicle.displayGear();
     }
 }

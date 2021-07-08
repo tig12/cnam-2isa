@@ -66,8 +66,8 @@ public class Vaisseau {
     }
  
     public void restoreEtat(Memento memento) {
-        vitesse = memento.getVitesse();
-        direction = memento.getDirection();
+        this.vitesse = memento.getVitesse();
+        this.direction = memento.getDirection();
     }
  
 

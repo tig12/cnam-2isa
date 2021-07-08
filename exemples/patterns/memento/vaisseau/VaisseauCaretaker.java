@@ -27,6 +27,7 @@ class VaisseauCaretaker {
         if(size == 0){
             return; // pourrait lancer une exception
         }
+        // remove() renvoie et supprime l'élément
         v.restoreEtat(savedStates.remove(size - 1));
     }
     
