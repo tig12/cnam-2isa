@@ -455,7 +455,14 @@ En base 2, multiplier par 2 revient à "rajouter un 0 à droite".
 <br><code>(45)<sub>10</sub> = 1 x 2<sup>5</sup> + 0 x 2<sup>4</sup> + 1 x 2<sup>3</sup> + 1 x 2<sup>2</sup> + 0 x 2<sup>1</sup> + 1 x 2<sup>0</sup></code>
 <br><code>(90)<sub>10</sub> = 1 x 2<sup>6</sup> + 0 x 2<sup>5</sup> + 1 x 2<sup>4</sup> + 1 x 2<sup>3</sup> + 0 x 2<sup>2</sup> + 1 x 2<sup>1</sup> + 0 x 2<sup>0</sup></code>
 <br>On a la multiplication binaire : <code>101101 x 10 = 1011010</code>
-<br><br>On est exactement dans la même situation que losqu'on multiplie par 10 en base 10.
+<br><br>On est exactement dans la même situation que lorsqu'on multiplie par 10 en base 10.
+
+<!-- ************************************* -->
+<h3>Octets</h3>
+On appelle <b>octet</b> un nombre exprimé en binaire constitué de 8 chiffres (0 ou 1).
+<br>Ex : <code>1 0 1 1 0 0 1 0</code>
+<br>On dit que un octet est un <b>mot binaire</b> de longueur 8 (on appelle <b>mot binaire</b> une suite de 0 et de 1).
+
 
 <!-- ************************************* -->
 <div class="exo">
@@ -519,7 +526,39 @@ On a besoin de 16 symboles, et nos 10 chiffres habituels ne suffisent pas, on le
 </table>
 
 <!-- ************************************* -->
-<h3>Conversion de base 16 vers base 10</h3>
+<h3>Utile pour la suite</h3>
+
+Les premières puissances de 16 :
+<table class="wikitable margin bold">
+    <tr>
+        <td><code>16<sup>0</sup> = 1</code></td>
+    </tr>
+    <tr>
+        <td><code>16<sup>1</sup> = 16</code></td>
+    </tr>
+    <tr>
+        <td><code>16<sup>2</sup> = 256</code></td>
+    </tr>
+    <tr>
+        <td><code>16<sup>3</sup> = 4 096</code></td>
+    </tr>
+    <tr>
+        <td><code>16<sup>4</sup> = 65 536</code></td>
+    </tr>
+    <tr>
+        <td><code>16<sup>5</sup> = 1 048 576</code></td>
+    </tr>
+    <tr>
+        <td><code>16<sup>6</sup> = 16 777 216</code></td>
+    </tr>
+    <tr>
+        <td><code>16<sup>7</sup> = 268 435 456</code></td>
+    </tr>
+</table>
+
+
+<!-- ************************************* -->
+<h3>Conversion base 16 &rarr; base 10</h3>
 Exemple :
 <table>
     <tr>
@@ -580,10 +619,80 @@ Convertir en base 10 :
 </ul>
 </div>
 
+<pre>
+(1 5)<sub>16</sub> = = "1 seizaine" + 5 unités = (1 x 16 + 5 x 1)<sub>10</sub>
+
+(A B C)<sub>16</sub>
+    = (A "256aines" + B "seizaine" + C unités)<sub>10</sub>
+    = (10 x 256 + 11 x 16 + 12 x 1)<sub>10</sub>
+    = (2560 + 176 + 12)<sub>10</sub>
+    = (2748)<sub>10</sub>
+    
+</pre>
+
+
 <!-- ************************************* -->
-<h3>Conversion de base 10 vers base 16</h3>
+<h3>Conversion base 10 &rarr; base 16</h3>
 
 Fonctionne exactement comme en base 2, avec la méthode des restes et la méthode des divisions successives.
+
+<br><br>Exemple utilisant la méthode des restes :convertir le nombre <code>(853)<sub>10</sub></code> en base 16 :
+<br>On se demande : quelle est la plus grande puissance de 16 qui "tient" dans 853 ?
+<br>La réponse est 256 (16<sup>2</sup>), que 853 peut contenir 3 fois.
+<br>Nous indique qu'il y a un 3 dans le 3ème bit :
+<table class="wikitable margin">
+    <tr>
+        <th>16<sup>2</sup><br>256</th>
+        <th>16<sup>1</sup><br>16</th>
+        <th>16<sup>0</sup><br>1</th>
+        <td>SOMME <br>Base 10</td>
+    </tr>
+    <tr>
+        <td>3<br>3 x 256<br>= 768</td>
+        <td>?<br>?</td>
+        <td>?<br>?</td>
+        <td><br>853</td>
+</table>
+
+On a casé 768, reste à caser 853 - 768 = 85
+
+<br><br>On recommence avec 85 : quelle est la plus grande puissance de 16 qui "tient" dans 85 ?
+<br>La réponse est 16 (16<sup>1</sup>), que 853 peut contenir 5 fois.
+<table class="wikitable margin">
+    <tr>
+        <th>16<sup>2</sup><br>256</th>
+        <th>16<sup>1</sup><br>16</th>
+        <th>16<sup>0</sup><br>1</th>
+        <td>SOMME <br>Base 10</td>
+    </tr>
+    <tr>
+        <td>3<br>3 x 256<br>= 768</td>
+        <td>5<br>5 x 16<br>=80</td>
+        <td>?<br>?</td>
+        <td><br>853</td>
+</table>
+
+On a casé 80, reste à caser 85 - 80 = 5 
+
+<br><br>On recommence avec 5 : quelle est la plus grande puissance de 16 qui "tient" dans 8 ?
+<br>La réponse est 1 (16<sup>0</sup>), que 5 peut contenir 5 fois.
+<table class="wikitable margin">
+    <tr>
+        <th>16<sup>2</sup><br>256</th>
+        <th>16<sup>1</sup><br>16</th>
+        <th>16<sup>0</sup><br>1</th>
+        <td>SOMME <br>Base 10</td>
+    </tr>
+    <tr>
+        <td>3<br>3 x 256<br>= 768</td>
+        <td>5<br>5 x 16<br>=80</td>
+        <td>?<br>5 x 1 <br>=5</td>
+        <td><br>853</td>
+</table>
+
+Le reste vaut mainenant 0 et le processus s'arrête.
+
+<br><br>Finalemet, <code>(853)<sub>10</sub> = (355)<sub>16</sub></code>
 
 <div class="exo">
 Convertir en base 16 : 
@@ -596,7 +705,6 @@ Convertir en base 16 :
     <li><code>(15 945)<sub>10</sub></code></li>
     <li><code>(41 628)<sub>10</sub></code></li>
 </ul>
-</div>
 </div>
 
 <!-- ********************************************************************************* -->
@@ -926,9 +1034,17 @@ Convertir en base 16 :
 <td class="row-15 col=14" title="15 + 14 addition"> 1D</td>
 <td class="row-15 col=15" title="15 + 15 addition"> 1E</td>
 </tr>
-</tbody>
 </table>
 
+<div class="exo">
+Calculer les additions suivantes en base 16 :
+<ul>
+    <li>(8 + 5)<sub>16</sub></li>
+    <li>(A + B)<sub>16</sub></li>
+    <li>(FF + 1)<sub>16</sub></li>
+    <li>(1F4 + 102)<sub>16</sub></li>
+</ul>
+</div>
 
 <!-- ********************************************************************************* -->
 <h2>Multiplication en base 16</h2>
@@ -1260,10 +1376,43 @@ Convertir en base 16 :
 </table>
 
 <div class="exo">
-<div class="bold">Recherche perso</div>
-Regardez comment les codes couleurs sont fabriqués en html. Chaque composante rouge, vert, bleu est exprimé en hexadécimal.
-
+Calculer les multiplications suivantes en base 16 :
+<ul>
+    <li>(8 x 5)<sub>16</sub></li>
+    <li>(A x B)<sub>16</sub></li>
+    <li>(FF x FF)<sub>16</sub></li>
+    <li>(1F4 x 102)<sub>16</sub></li>
+</ul>
 </div>
+
+<!-- ************************************* -->
+<h3>Conversion base 16 &rarr; base 2</h3>
+
+Le fait que <code>16 = 2<sup>4</sup></code> permet un passage facile entre ces deux bases.
+
+
+<!-- ************************************* -->
+<h3>Utilisations de l'hexadécimal</h3>
+
+En programmation, la valeur d'un nombre exprimé en hexadécimal est généralement préfixée de <code>0x</code>.
+<br>Par exemple :
+<pre>
+a = 0x12    // signifie (12)<sub>16</sub> = (18)<sub>10</sub>
+b = 12      // signifie (12)<sub>10</sub>
+</pre>
+
+<div class="exo">
+<div class="bold">Recherche perso</div>
+Regardez comment les codes couleurs sont fabriqués en html. Chaque composante rouge, vert, bleu est exprimée en hexadécimal.
+</div>
+
+<div class="exo">
+<div class="bold">Recherche perso</div>
+Trouvez une description de la fabrication d'une IP V6 et voyez comment la base 16 est utilisée.
+</div>
+
+
+
 
 </article>
 
