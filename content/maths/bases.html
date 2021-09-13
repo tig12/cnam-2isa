@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Bases 2 10 16... | 2ISA Millau</title>
+    <meta name="description" content="">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2017">
+    </head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="NFP121" href="../../index.html">&uarr;</a>
+    <!-- 
+    <a class="prev" title="" href="ensembles.html">&larr;</a>
+    <a class="next" title="" href="fonctions.html">&rarr;</a>
+    -->
+</nav>
+
+<header>
+<h1>Bases 2 10 16...</h1>
+</header>
+
+<article>
+
+De la même manière que nous utilisons des lettres pour former des mots, nous utilisons des chiffres pour former des nombres.
+
+<table class="wikitable margin padding">
+    <tr>
+        <td>Lettre</td><td>Mot</td>
+    </tr>
+    <tr>
+        <td>Chiffre</td><td>Nombre</td>
+    </tr>
+</table>
+
+Les chiffres et les lettres sont donc des <b>symboles</b> abstraits, qui ne représentent rien de particulier dans le monde réel.
+<br>Avec les chiffres, on forme des nombres, qui ont comme les mots une signification dans l'univers qu'on étudie.
+
+<!-- ************************************* -->
+<h3>Notation</h3>
+"45 en base 10 = 101101 en base 2" se note :
+<div class="bold margin big2">
+<code>(45)<sub>10</sub> = (101101)<sub>2</sub></code>
+</div>
+
+<!-- ********************************************************************************* -->
+<h2>Base 10 - Système décimal</h2>
+Nous sommes habitués à compter en <b>base 10</b>, c'est à dire que nous utilisons 10 chiffres différents pour former des nombres : 0, 1, 2, 3, 4, 5, 6, 7, 8, 9.
+<br>Lorsqu'on forme un nombre, on utilise les puissances successives de 10.
+
+<table class="margin bold">
+    <tr>
+        <td><code>
+            2 652
+        </code></td>
+        <td><code>
+            = 2 x 1000 + 6 x 100 + 5 x 10 + 2
+        </code></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><code>
+            = 2 x 10<sup>3</sup> + 6 x 10<sup>2</sup> + 5 x  10<sup>1</sup> + 2 x 10<sup>0</sup>
+        </code></td>
+    </tr>
+</table>
+
+<div class="big1 bold margin"><code>
+    (2 652)<sub>10</sub> = (2 652)<sub>10</sub>
+</code></div>
+
+<table class="wikitable margin">
+    <tr>
+        <th>10<sup>4</sup><br>10 000</th>
+        <th>10<sup>3</sup><br>1 000</th>
+        <th>10<sup>2</sup><br>100</th>
+        <th>10<sup>1</sup><br>10</th>
+        <th>10<sup>0</sup><br>1</th>
+        <td>SOMME<br>base 10</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>2</td>
+        <td>6</td>
+        <td>5</td>    
+        <td>2</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>2 000</td>
+        <td>+ 600</td>
+        <td>+ 50</td>    
+        <td>+ 2</td>
+        <td>= 2 652</td>
+    </tr>
+</table>
+
+De la même manière, on peut exprimer des nombres dans différentes bases.
+
+<!-- ********************************************************************************* -->
+<h2>Base 7</h2>
+Si on comptait en base 7, on ne disposerait que de 7 chiffres : 0, 1, 2, 3, 4, 5, 6.
+
+<br><br>Le nombre 2 652 écrit en base 7 ne représente pas la même quantité que 2 652 écrit en base 10 :
+
+<table class="wikitable margin">
+    <tr>
+        <th>7<sup>4</sup><br>2 401</th>
+        <th>7<sup>3</sup><br>343</th>
+        <th>7<sup>2</sup><br>49</th>
+        <th>7<sup>1</sup><br>7</th>
+        <th>7<sup>0</sup><br>1</th>
+        <td>SOMME<br>base 10</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>2</td>
+        <td>6</td>
+        <td>5</td>    
+        <td>2</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>2 x 343</td>
+        <td>6 x 49</td>
+        <td>5 x 7</td>
+        <td>2 x 1</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>646</td>
+        <td>+ 294</td>
+        <td>+ 35</td>
+        <td>+ 2</td>
+        <td>= 977</td>
+    </tr>
+</table>
+
+<div class="big1 bold margin"><code>
+    (2 652)<sub>7</sub> = (977)<sub>10</sub>
+</code></div>
+
+<!-- ********************************************************************************* -->
+<h2>Base 2 - Système binaire</h2>
+En base 2, nous n'utilisons que 2 chiffres : 0 et 1.
+<br>Le principe pour écrire un nombre est le même qu'en base 10.
+<br>Par exemple, 
+
+
+<table class="margin bold">
+    <tr>
+        <td><code>
+            101101
+        </code></td>
+        <td><code>
+            = 1 x 2<sup>5</sup> + 0 x 2<sup>4</sup> + 1 x 2<sup>3</sup> + 1 x 2<sup>2</sup> + 0 x 2<sup>1</sup> + 1 x 2<sup>0</sup>
+        </code></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><code>
+            = 32 + 8 + 4 + 1
+        </code></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><code>
+            = 45
+        </code></td>
+    </tr>
+</table>
+
+<div class="big1 bold margin"><code>
+    (101101)<sub>2</sub> = (45)<sub>10</sub>
+</code></div>
+
+<table class="wikitable margin">
+    <tr>
+        <th>2<sup>10</sup><br>1024</th>
+        <th>2<sup>9</sup><br>512</th>
+        <th>2<sup>8</sup><br>256</th>
+        <th>2<sup>7</sup><br>128</th>
+        <th>2<sup>6</sup><br>64</th>
+        <th>2<sup>5</sup><br>32</th>
+        <th>2<sup>4</sup><br>16</th>
+        <th>2<sup>3</sup><br>8</th>
+        <th>2<sup>2</sup><br>4</th>
+        <th>2<sup>1</sup><br>2</th>
+        <th>2<sup>0</sup><br>1</th>
+        <td>SOMME</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>    
+        <td></td>
+        <td>1<br>32</td>
+        <td>0<br>0</td>
+        <td>1<br>8</td>
+        <td>1<br>4</td>
+        <td>0<br>0</td>
+        <td>1<br>1</td>
+        <td><br>45</td>
+</table>
+
+<!-- ************************************* -->
+<h3>Conversion base 2 &rarr; base 10</h3>
+
+On utilise simplement la définition précédente pour faire le calcul.
+
+
+
+<div class="exo">
+<div class="bold">Exercices</div>
+Convertir en base 10 les nombres suivants exprimés en base 2 :
+<ul>
+    <li><code>0</code></li>
+    <li><code>1</code></li>
+    <li><code>10</code></li>
+    <li><code>111</code></li>
+    <li><code>1000</code></li>
+    <li><code>100110</code></li>
+    <li><code>1010110110</code></li>
+</ul>
+</div>
+
+<!-- ************************************* -->
+<h3>
+    Conversion base 10 &rarr; base 2
+    <br>Méthode des restes
+</h3>
+
+Par exemple, si on veut convertir le nombre <code>45</code> en base 2 :
+<br>On se demande : quelle est la plus grande puissance de 2 qui "tient" dans 45 ?
+<br>La réponse est 32 (2<sup>5</sup>).
+<br>Nous indique qu'il y a un 1 dans le 6ème bit :
+<table class="wikitable margin">
+    <tr>
+        <th>2<sup>5</sup><br>32</th>                   
+        <th>2<sup>4</sup><br>16</th>
+        <th>2<sup>3</sup><br>8</th>
+        <th>2<sup>2</sup><br>4</th>
+        <th>2<sup>1</sup><br>2</th>
+        <th>2<sup>0</sup><br>1</th>
+        <td>SOMME</td>
+    </tr>
+    <tr>
+        <td>1<br>32</td>
+        <td>?<br>?</td>
+        <td>?<br>?</td>
+        <td>?<br>?</td>
+        <td>?<br>?</td>
+        <td>?<br>?</td>
+        <td><br>45</td>
+</table>
+
+On a casé 32, reste à caser 45 - 32 = 13
+
+<br><br>On recommence avec 13 : quelle est la plus grande puissance de 2 qui "tient" dans 13 ?
+<br>La réponse est 8 = 2<sup>3</sup>
+
+<table class="wikitable margin">
+    <tr>
+        <th>2<sup>5</sup><br>32</th>                   
+        <th>2<sup>4</sup><br>16</th>
+        <th>2<sup>3</sup><br>8</th>
+        <th>2<sup>2</sup><br>4</th>
+        <th>2<sup>1</sup><br>2</th>
+        <th>2<sup>0</sup><br>1</th>
+        <td>SOMME</td>
+    </tr>
+    <tr>
+        <td>1<br>32</td>
+        <td>0<br>0</td>
+        <td>1<br>8</td>
+        <td>?<br>?</td>
+        <td>?<br>?</td>
+        <td>?<br>?</td>
+        <td><br>45</td>
+</table>
+
+Reste à caser 13 - 8 = 5
+
+<br><br>On recommence avec 5 : quelle est la plus grande puissance de 2 qui "tient" dans 5 ?
+<br>La réponse est 4 = 2<sup>2</sup>
+
+<table class="wikitable margin">
+    <tr>
+        <th>2<sup>5</sup><br>32</th>                   
+        <th>2<sup>4</sup><br>16</th>
+        <th>2<sup>3</sup><br>8</th>
+        <th>2<sup>2</sup><br>4</th>
+        <th>2<sup>1</sup><br>2</th>
+        <th>2<sup>0</sup><br>1</th>
+        <td>SOMME</td>
+    </tr>
+    <tr>
+        <td>1<br>32</td>
+        <td>0<br>0</td>
+        <td>1<br>8</td>
+        <td>1<br>1</td>
+        <td>?<br>?</td>
+        <td>?<br>?</td>
+        <td><br>45</td>
+</table>
+
+Reste à caser 5 - 4 = 1
+
+<br><br>On recommence avec 1 : quelle est la plus grande puissance de 2 qui "tient" dans 1 ?
+<br>La réponse est 1 = 2<sup>0</sup>
+<table class="wikitable margin">
+    <tr>
+        <th>2<sup>5</sup><br>32</th>                   
+        <th>2<sup>4</sup><br>16</th>
+        <th>2<sup>3</sup><br>8</th>
+        <th>2<sup>2</sup><br>4</th>
+        <th>2<sup>1</sup><br>2</th>
+        <th>2<sup>0</sup><br>1</th>
+        <td>SOMME</td>
+    </tr>
+    <tr>
+        <td>1<br>32</td>
+        <td>0<br>0</td>
+        <td>1<br>8</td>
+        <td>1<br>4</td>
+        <td>0<br>0</td>
+        <td>1<br>1</td>
+        <td><br>45</td>
+</table>
+
+<br>Reste à caser 1 - 1 = <span class="red">0</span>
+
+<br><br>Lorsque le reste vaut 0, le processus est terminé.
+
+<br><br>Finalement, <code>45 = 2<sup>5</sup> + 2<sup>3</sup> + 2<sup>2</sup> + 2<sup>0</sup></code>
+
+<div class="exo">
+Ecrire en base 2 les nombres suivants écrits en base 10.
+
+<ul>
+    <li><code>285</code></li>
+    <li><code>473</code></li>
+    <li><code>54</code></li>
+    <li><code>455</code></li>
+</ul>
+</div>
+
+<!-- ************************************* -->
+<h3>
+Conversion base 10 &rarr; base 2
+<br>Méthode des divisions successives
+</h3>
+
+La méthode de la division successive sert à transformer n'importe quelle nombre dans n'importe quelle base.
+<div class="bold margin">Pour transformer un nombre décimal en un nombre de base « a », il suffit de diviser le nombre décimal par la base « a » jusqu'à obtenir un quotient inférieur à la base. Le résultat recherché se compose du dernier quotient et de tous les restes des divisions successives pris dans l'ordre inverse.</div>
+<img class="margin border" src="img/conversion-division.jpg" alt="Conversion par divisions successives">
+
+<!-- ********************************************************************************* -->
+<h2>Addition, multiplication binaire</h2>
+Fonctionne comme en base 10, mais les tables d'addition et de multiplication sont beaucoup plus simples !
+
+<table class="wikidata margin">
+    <tr>
+        <td>
+<b>Addition</b>
+<code class="bold">
+<br>0 + 0 = 0
+<br>0 + 1 = 1
+<br>1 + 0 = 1
+<br>1 + 1 = 10
+</code>
+        </td>
+        <td style="padding-left:2em;">
+<b>Multiplication</b>
+<code class="bold">
+<br>0 x 0 = 0
+<br>0 x 1 = 0
+<br>1 x 0 = 0
+<br>1 x 1 = 1
+</code>
+        </td>
+    </tr>
+</table>
+
+Exemple d'addition :
+<code class="bold">
+<br>
+<br>&nbsp;&nbsp;&nbsp; <span class="red">1 1</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &larr; retenues
+<br>&nbsp;&nbsp;&nbsp; 1 0 1
+<br>&nbsp;&nbsp;+ 1 1 1
+<br>&nbsp;------------
+<br>&nbsp;&nbsp;1 1 0 0
+</code>
+
+<br><br>Exemple de multiplication :
+<code class="bold">
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 0 1 0
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x 1 0 1 1
+<br>&nbsp;---------------
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 0 1 0
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 0 1 0
+<br>&nbsp;&nbsp;&nbsp;0 0 0 0
+<br>&nbsp;1 0 0 0
+<br>&nbsp;---------------
+<br>&nbsp;1 1 0 1 1 1 0
+</code>
+
+<!-- ************************************* -->
+<div class="exo">
+Effectuer les additions binaires suivantes :
+<ul>
+    <li>10 + 101</li>
+    <li>111 + 101</li>
+    <li>100101 + 111101</li>
+</ul>
+</div>
+
+<!-- ************************************* -->
+<div class="exo">
+Effectuer les multiplications binaires suivantes :
+<ul>
+    <li>100 x 100</li>
+    <li>10001 x 110</li>
+</ul>
+</div>
+
+
+<!-- ********************************************************************************* -->
+<h2>Remarques</h2>
+
+<!-- ************************************* -->
+<h3>Exprimer une puissance de 2</h3>
+Une puissance exacte de 2 (1, 2, 4, 8...) est très facile à exprimer en base 2.
+<br>Par exemple, <code>64 = 2<sup>6</sup></code> = <code>64 = 1 x 2<sup>6</sup> + 0 x 2<sup>5</sup> + 0 x 2<sup>4</sup> + 0 x 2<sup>3</sup> + 0 x 2<sup>2</sup> + 0 x 2<sup>1</sup> + 0 x 2<sup>0</sup></code>
+<br>Donc <code>(64)<sub>10</sub> = (1000000)<sub>2</sub></code>
+<br>Remarquez que la situation est identique pour toutes les bases, par exemple :
+<ul>
+    <li>Base 10 : <code>10<sup>6</sup> = 1000000</code></li>
+    <li>Base 3 : <code>(27)<sub>10</sub> = (1000)<sub>3</sub></code></li>
+</ul>
+
+<!-- ************************************* -->
+<h3>Multiplier par 2</h3>
+En base 2, multiplier par 2 revient à "rajouter un 0 à droite".
+<br>Par exemple <code>(45)<sub>10</sub> = (101101)<sub>2</sub></code>
+<br><code>(45)<sub>10</sub> = 1 x 2<sup>5</sup> + 0 x 2<sup>4</sup> + 1 x 2<sup>3</sup> + 1 x 2<sup>2</sup> + 0 x 2<sup>1</sup> + 1 x 2<sup>0</sup></code>
+<br><code>(90)<sub>10</sub> = 1 x 2<sup>6</sup> + 0 x 2<sup>5</sup> + 1 x 2<sup>4</sup> + 1 x 2<sup>3</sup> + 0 x 2<sup>2</sup> + 1 x 2<sup>1</sup> + 0 x 2<sup>0</sup></code>
+<br>On a la multiplication binaire : <code>101101 x 10 = 1011010</code>
+<br><br>On est exactement dans la même situation que losqu'on multiplie par 10 en base 10.
+
+<!-- ************************************* -->
+<div class="exo">
+La mémoire de l'ordinateur conserve toutes les données sous forme binaire. Pour stocker des caractères, on a associé à chaque caractère un code numérique : c'est le code ASCII (American Standard Code for Information Interchange - « Code Americain Standard pour l'Echange d'Informations »). Le code ASCII d'origine représentait les caractères sur 7 bits (c'est-à-dire 128 caractères possibles, de 0 à 127).
+<br>Pour les lettres majuscules, on a : <code>A: 65, B: 66 ... Z: 90</code>
+<br>Pour les lettres minuscules, on a : <code>a: 97, b: 98 ... z: 122</code>
+<br>En utilisant le code ASCII, représentez comment le mot <b>SALUT</b> est stocké en mémoire.
+<br>En remarquant que 65 + 32 = 97, représentez comment le mot <b>salut</b> (en minuscules) est stocké en mémoire, sans refaire la conversion pour chaque lettre.
+</div>
+
+<!-- ************************************* -->
+<div class="exo">
+Représentez sous forme binaire l'adresse IP : <code>192.168.1.15</code>, sous forme de 4 octets, en rajoutant pour chaque octet des 0 à gauche si nécessaire.
+</div>
+
+
+<!-- ********************************************************************************* -->
+<h2>Base 16 - Système hexadécimal</h2>
+Le principe est le même que pour n'importe quelle base.
+On a besoin de 16 symboles, et nos 10 chiffres habituels ne suffisent pas, on les complète avec les 6 premières lettres de l'alphabet.
+
+<table class="wikitable margin">
+    <tr>
+        <th>Base 16</th>
+        <td>0</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>A</td>
+        <td>B</td>
+        <td>C</td>
+        <td>D</td>
+        <td>E</td>
+        <td>F</td>
+    </tr>
+    <tr>
+        <th>Base 10</th>
+        <td>0</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+        <td>15</td>
+    </tr>
+</table>
+
+<!-- ************************************* -->
+<h3>Conversion de base 16 vers base 10</h3>
+Exemple :
+<table>
+    <tr>
+        <td><code>(1B2)<sub>16</sub></code></td>
+        <td><code> = (1 x 16<sup>2</sup> + 11 x 16<sup>1</sup> + 2 x 16<sup>0</sup>)<sub>10</sub></code></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><code> = (256 + 176 + 2)<sub>10</sub></code></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><code> = (434)<sub>10</sub></code></td>
+    </tr>
+</table>
+
+<div class="exo">
+Convertir en base 10 : 
+<ul>
+    <li><code>(15)<sub>16</sub></code></li>
+    <li><code>(7)<sub>16</sub></code></li>
+    <li><code>(F)<sub>16</sub></code></li>
+    <li><code>(16)<sub>16</sub></code></li>
+    <li><code>(ABC)<sub>16</sub></code></li>
+    <li><code>(FADA)<sub>16</sub></code></li>
+    <li><code>(19DD5)<sub>16</sub></code></li>
+    <li><code>(28FEC)<sub>16</sub></code></li>
+</ul>
+</div>
+
+<!-- ************************************* -->
+<h3>Conversion de base 10 vers base 16</h3>
+
+Fonctionne exactement comme en base 2, avec la méthode des restes et la méthode des divisions successives.
+
+<div class="exo">
+Convertir en base 16 : 
+<ul>
+    <li><code>(15)<sub>10</sub></code></li>
+    <li><code>(16)<sub>10</sub></code></li>
+    <li><code>(26)<sub>10</sub></code></li>
+    <li><code>(100)<sub>10</sub></code></li>
+    <li><code>(255)<sub>10</sub></code></li>
+    <li><code>(15 945)<sub>10</sub></code></li>
+    <li><code>(41 628)<sub>10</sub></code></li>
+    <li><code>()<sub>10</sub></code></li>
+</ul>
+</div>
+</div>
+
+<!-- ********************************************************************************* -->
+<h2>Addition en base 16</h2>
+
+<table class="wikitable margin">
+<tr>
+    <th>+</th>
+    <th>0</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    <th>5</th>
+    <th>6</th>
+    <th>7</th>
+    <th>8</th>
+    <th>9</th>
+    <th>A</th>
+    <th>B</th>
+    <th>C</th>
+    <th>D</th>
+    <th>E</th>
+    <th>F</th>
+</tr>
+<tr>
+<td class="info row-0 col-0"><b>0</b></td>
+<td class="row-0 col=0" title="0 + 0 addition"> 0</td>
+<td class="row-0 col=1" title="0 + 1 addition"> 1</td>
+<td class="row-0 col=2" title="0 + 2 addition"> 2</td>
+<td class="row-0 col=3" title="0 + 3 addition"> 3</td>
+<td class="row-0 col=4" title="0 + 4 addition"> 4</td>
+<td class="row-0 col=5" title="0 + 5 addition"> 5</td>
+<td class="row-0 col=6" title="0 + 6 addition"> 6</td>
+<td class="row-0 col=7" title="0 + 7 addition"> 7</td>
+<td class="row-0 col=8" title="0 + 8 addition"> 8</td>
+<td class="row-0 col=9" title="0 + 9 addition"> 9</td>
+<td class="row-0 col=10" title="0 + 10 addition"> A</td>
+<td class="row-0 col=11 mhov" title="0 + 11 addition"> B</td>
+<td class="row-0 col=12" title="0 + 12 addition"> C</td>
+<td class="row-0 col=13" title="0 + 13 addition"> D</td>
+<td class="row-0 col=14" title="0 + 14 addition"> E</td>
+<td class="row-0 col=15" title="0 + 15 addition"> F</td>
+</tr>
+<tr>
+<td class="info row-1 col-0"><b>1</b></td>
+<td class="row-1 col=0" title="1 + 0 addition"> 1</td>
+<td class="row-1 col=1" title="1 + 1 addition"> 2</td>
+<td class="row-1 col=2" title="1 + 2 addition"> 3</td>
+<td class="row-1 col=3" title="1 + 3 addition"> 4</td>
+<td class="row-1 col=4" title="1 + 4 addition"> 5</td>
+<td class="row-1 col=5" title="1 + 5 addition"> 6</td>
+<td class="row-1 col=6" title="1 + 6 addition"> 7</td>
+<td class="row-1 col=7" title="1 + 7 addition"> 8</td>
+<td class="row-1 col=8" title="1 + 8 addition"> 9</td>
+<td class="row-1 col=9" title="1 + 9 addition"> A</td>
+<td class="row-1 col=10" title="1 + 10 addition"> B</td>
+<td class="row-1 col=11 mhov" title="1 + 11 addition"> C</td>
+<td class="row-1 col=12" title="1 + 12 addition"> D</td>
+<td class="row-1 col=13" title="1 + 13 addition"> E</td>
+<td class="row-1 col=14" title="1 + 14 addition"> F</td>
+<td class="row-1 col=15" title="1 + 15 addition"> 10</td>
+</tr>
+<tr>
+<td class="info row-2 col-0"><b>2</b></td>
+<td class="row-2 col=0" title="2 + 0 addition"> 2</td>
+<td class="row-2 col=1" title="2 + 1 addition"> 3</td>
+<td class="row-2 col=2" title="2 + 2 addition"> 4</td>
+<td class="row-2 col=3" title="2 + 3 addition"> 5</td>
+<td class="row-2 col=4" title="2 + 4 addition"> 6</td>
+<td class="row-2 col=5" title="2 + 5 addition"> 7</td>
+<td class="row-2 col=6" title="2 + 6 addition"> 8</td>
+<td class="row-2 col=7" title="2 + 7 addition"> 9</td>
+<td class="row-2 col=8" title="2 + 8 addition"> A</td>
+<td class="row-2 col=9" title="2 + 9 addition"> B</td>
+<td class="row-2 col=10" title="2 + 10 addition"> C</td>
+<td class="row-2 col=11 mhov" title="2 + 11 addition"> D</td>
+<td class="row-2 col=12" title="2 + 12 addition"> E</td>
+<td class="row-2 col=13" title="2 + 13 addition"> F</td>
+<td class="row-2 col=14" title="2 + 14 addition"> 10</td>
+<td class="row-2 col=15" title="2 + 15 addition"> 11</td>
+</tr>
+<tr>
+<td class="info row-3 col-0"><b>3</b></td>
+<td class="row-3 col=0" title="3 + 0 addition"> 3</td>
+<td class="row-3 col=1" title="3 + 1 addition"> 4</td>
+<td class="row-3 col=2" title="3 + 2 addition"> 5</td>
+<td class="row-3 col=3" title="3 + 3 addition"> 6</td>
+<td class="row-3 col=4" title="3 + 4 addition"> 7</td>
+<td class="row-3 col=5" title="3 + 5 addition"> 8</td>
+<td class="row-3 col=6" title="3 + 6 addition"> 9</td>
+<td class="row-3 col=7" title="3 + 7 addition"> A</td>
+<td class="row-3 col=8" title="3 + 8 addition"> B</td>
+<td class="row-3 col=9" title="3 + 9 addition"> C</td>
+<td class="row-3 col=10" title="3 + 10 addition"> D</td>
+<td class="row-3 col=11 mhov" title="3 + 11 addition"> E</td>
+<td class="row-3 col=12" title="3 + 12 addition"> F</td>
+<td class="row-3 col=13" title="3 + 13 addition"> 10</td>
+<td class="row-3 col=14" title="3 + 14 addition"> 11</td>
+<td class="row-3 col=15" title="3 + 15 addition"> 12</td>
+</tr>
+<tr>
+<td class="info row-4 col-0"><b>4</b></td>
+<td class="row-4 col=0" title="4 + 0 addition"> 4</td>
+<td class="row-4 col=1" title="4 + 1 addition"> 5</td>
+<td class="row-4 col=2" title="4 + 2 addition"> 6</td>
+<td class="row-4 col=3" title="4 + 3 addition"> 7</td>
+<td class="row-4 col=4" title="4 + 4 addition"> 8</td>
+<td class="row-4 col=5" title="4 + 5 addition"> 9</td>
+<td class="row-4 col=6" title="4 + 6 addition"> A</td>
+<td class="row-4 col=7" title="4 + 7 addition"> B</td>
+<td class="row-4 col=8" title="4 + 8 addition"> C</td>
+<td class="row-4 col=9" title="4 + 9 addition"> D</td>
+<td class="row-4 col=10" title="4 + 10 addition"> E</td>
+<td class="row-4 col=11 mhov" title="4 + 11 addition"> F</td>
+<td class="row-4 col=12" title="4 + 12 addition"> 10</td>
+<td class="row-4 col=13" title="4 + 13 addition"> 11</td>
+<td class="row-4 col=14" title="4 + 14 addition"> 12</td>
+<td class="row-4 col=15" title="4 + 15 addition"> 13</td>
+</tr>
+<tr>
+<td class="info row-5 col-0"><b>5</b></td>
+<td class="row-5 col=0" title="5 + 0 addition"> 5</td>
+<td class="row-5 col=1" title="5 + 1 addition"> 6</td>
+<td class="row-5 col=2" title="5 + 2 addition"> 7</td>
+<td class="row-5 col=3" title="5 + 3 addition"> 8</td>
+<td class="row-5 col=4" title="5 + 4 addition"> 9</td>
+<td class="row-5 col=5" title="5 + 5 addition"> A</td>
+<td class="row-5 col=6" title="5 + 6 addition"> B</td>
+<td class="row-5 col=7" title="5 + 7 addition"> C</td>
+<td class="row-5 col=8" title="5 + 8 addition"> D</td>
+<td class="row-5 col=9" title="5 + 9 addition"> E</td>
+<td class="row-5 col=10" title="5 + 10 addition"> F</td>
+<td class="row-5 col=11 mhov" title="5 + 11 addition"> 10</td>
+<td class="row-5 col=12" title="5 + 12 addition"> 11</td>
+<td class="row-5 col=13" title="5 + 13 addition"> 12</td>
+<td class="row-5 col=14" title="5 + 14 addition"> 13</td>
+<td class="row-5 col=15" title="5 + 15 addition"> 14</td>
+</tr>
+<tr>
+<td class="info row-6 col-0"><b>6</b></td>
+<td class="row-6 col=0" title="6 + 0 addition"> 6</td>
+<td class="row-6 col=1" title="6 + 1 addition"> 7</td>
+<td class="row-6 col=2" title="6 + 2 addition"> 8</td>
+<td class="row-6 col=3" title="6 + 3 addition"> 9</td>
+<td class="row-6 col=4" title="6 + 4 addition"> A</td>
+<td class="row-6 col=5" title="6 + 5 addition"> B</td>
+<td class="row-6 col=6" title="6 + 6 addition"> C</td>
+<td class="row-6 col=7" title="6 + 7 addition"> D</td>
+<td class="row-6 col=8" title="6 + 8 addition"> E</td>
+<td class="row-6 col=9" title="6 + 9 addition"> F</td>
+<td class="row-6 col=10" title="6 + 10 addition"> 10</td>
+<td class="row-6 col=11 mhov" title="6 + 11 addition"> 11</td>
+<td class="row-6 col=12" title="6 + 12 addition"> 12</td>
+<td class="row-6 col=13" title="6 + 13 addition"> 13</td>
+<td class="row-6 col=14" title="6 + 14 addition"> 14</td>
+<td class="row-6 col=15" title="6 + 15 addition"> 15</td>
+</tr>
+<tr>
+<td class="info row-7 col-0"><b>7</b></td>
+<td class="row-7 col=0" title="7 + 0 addition"> 7</td>
+<td class="row-7 col=1" title="7 + 1 addition"> 8</td>
+<td class="row-7 col=2" title="7 + 2 addition"> 9</td>
+<td class="row-7 col=3" title="7 + 3 addition"> A</td>
+<td class="row-7 col=4" title="7 + 4 addition"> B</td>
+<td class="row-7 col=5" title="7 + 5 addition"> C</td>
+<td class="row-7 col=6" title="7 + 6 addition"> D</td>
+<td class="row-7 col=7" title="7 + 7 addition"> E</td>
+<td class="row-7 col=8" title="7 + 8 addition"> F</td>
+<td class="row-7 col=9" title="7 + 9 addition"> 10</td>
+<td class="row-7 col=10" title="7 + 10 addition"> 11</td>
+<td class="row-7 col=11 mhov" title="7 + 11 addition"> 12</td>
+<td class="row-7 col=12" title="7 + 12 addition"> 13</td>
+<td class="row-7 col=13" title="7 + 13 addition"> 14</td>
+<td class="row-7 col=14" title="7 + 14 addition"> 15</td>
+<td class="row-7 col=15" title="7 + 15 addition"> 16</td>
+</tr>
+<tr>
+<td class="info row-8 col-0"><b>8</b></td>
+<td class="row-8 col=0" title="8 + 0 addition"> 8</td>
+<td class="row-8 col=1" title="8 + 1 addition"> 9</td>
+<td class="row-8 col=2" title="8 + 2 addition"> A</td>
+<td class="row-8 col=3" title="8 + 3 addition"> B</td>
+<td class="row-8 col=4" title="8 + 4 addition"> C</td>
+<td class="row-8 col=5" title="8 + 5 addition"> D</td>
+<td class="row-8 col=6" title="8 + 6 addition"> E</td>
+<td class="row-8 col=7" title="8 + 7 addition"> F</td>
+<td class="row-8 col=8" title="8 + 8 addition"> 10</td>
+<td class="row-8 col=9" title="8 + 9 addition"> 11</td>
+<td class="row-8 col=10" title="8 + 10 addition"> 12</td>
+<td class="row-8 col=11 mhov" title="8 + 11 addition"> 13</td>
+<td class="row-8 col=12" title="8 + 12 addition"> 14</td>
+<td class="row-8 col=13" title="8 + 13 addition"> 15</td>
+<td class="row-8 col=14" title="8 + 14 addition"> 16</td>
+<td class="row-8 col=15" title="8 + 15 addition"> 17</td>
+</tr>
+<tr>
+<td class="info row-9 col-0"><b>9</b></td>
+<td class="row-9 col=0" title="9 + 0 addition"> 9</td>
+<td class="row-9 col=1" title="9 + 1 addition"> A</td>
+<td class="row-9 col=2" title="9 + 2 addition"> B</td>
+<td class="row-9 col=3" title="9 + 3 addition"> C</td>
+<td class="row-9 col=4" title="9 + 4 addition"> D</td>
+<td class="row-9 col=5" title="9 + 5 addition"> E</td>
+<td class="row-9 col=6" title="9 + 6 addition"> F</td>
+<td class="row-9 col=7" title="9 + 7 addition"> 10</td>
+<td class="row-9 col=8" title="9 + 8 addition"> 11</td>
+<td class="row-9 col=9" title="9 + 9 addition"> 12</td>
+<td class="row-9 col=10" title="9 + 10 addition"> 13</td>
+<td class="row-9 col=11 mhov" title="9 + 11 addition"> 14</td>
+<td class="row-9 col=12" title="9 + 12 addition"> 15</td>
+<td class="row-9 col=13" title="9 + 13 addition"> 16</td>
+<td class="row-9 col=14" title="9 + 14 addition"> 17</td>
+<td class="row-9 col=15" title="9 + 15 addition"> 18</td>
+</tr>
+<tr>
+<td class="info row-10 col-0"><b>A</b></td>
+<td class="row-10 col=0" title="10 + 0 addition"> A</td>
+<td class="row-10 col=1" title="10 + 1 addition"> B</td>
+<td class="row-10 col=2" title="10 + 2 addition"> C</td>
+<td class="row-10 col=3" title="10 + 3 addition"> D</td>
+<td class="row-10 col=4" title="10 + 4 addition"> E</td>
+<td class="row-10 col=5" title="10 + 5 addition"> F</td>
+<td class="row-10 col=6" title="10 + 6 addition"> 10</td>
+<td class="row-10 col=7" title="10 + 7 addition"> 11</td>
+<td class="row-10 col=8" title="10 + 8 addition"> 12</td>
+<td class="row-10 col=9" title="10 + 9 addition"> 13</td>
+<td class="row-10 col=10" title="10 + 10 addition"> 14</td>
+<td class="row-10 col=11 mhov" title="10 + 11 addition"> 15</td>
+<td class="row-10 col=12" title="10 + 12 addition"> 16</td>
+<td class="row-10 col=13" title="10 + 13 addition"> 17</td>
+<td class="row-10 col=14" title="10 + 14 addition"> 18</td>
+<td class="row-10 col=15" title="10 + 15 addition"> 19</td>
+</tr>
+<tr>
+<td class="info row-11 col-0"><b>B</b></td>
+<td class="row-11 col=0" title="11 + 0 addition"> B</td>
+<td class="row-11 col=1" title="11 + 1 addition"> C</td>
+<td class="row-11 col=2" title="11 + 2 addition"> D</td>
+<td class="row-11 col=3" title="11 + 3 addition"> E</td>
+<td class="row-11 col=4" title="11 + 4 addition"> F</td>
+<td class="row-11 col=5" title="11 + 5 addition"> 10</td>
+<td class="row-11 col=6" title="11 + 6 addition"> 11</td>
+<td class="row-11 col=7" title="11 + 7 addition"> 12</td>
+<td class="row-11 col=8" title="11 + 8 addition"> 13</td>
+<td class="row-11 col=9" title="11 + 9 addition"> 14</td>
+<td class="row-11 col=10" title="11 + 10 addition"> 15</td>
+<td class="row-11 col=11 mhov" title="11 + 11 addition"> 16</td>
+<td class="row-11 col=12" title="11 + 12 addition"> 17</td>
+<td class="row-11 col=13" title="11 + 13 addition"> 18</td>
+<td class="row-11 col=14" title="11 + 14 addition"> 19</td>
+<td class="row-11 col=15" title="11 + 15 addition"> 1A</td>
+</tr>
+<tr>
+<td class="info row-12 col-0"><b>C</b></td>
+<td class="row-12 col=0" title="12 + 0 addition"> C</td>
+<td class="row-12 col=1" title="12 + 1 addition"> D</td>
+<td class="row-12 col=2" title="12 + 2 addition"> E</td>
+<td class="row-12 col=3" title="12 + 3 addition"> F</td>
+<td class="row-12 col=4" title="12 + 4 addition"> 10</td>
+<td class="row-12 col=5" title="12 + 5 addition"> 11</td>
+<td class="row-12 col=6" title="12 + 6 addition"> 12</td>
+<td class="row-12 col=7" title="12 + 7 addition"> 13</td>
+<td class="row-12 col=8" title="12 + 8 addition"> 14</td>
+<td class="row-12 col=9" title="12 + 9 addition"> 15</td>
+<td class="row-12 col=10" title="12 + 10 addition"> 16</td>
+<td class="row-12 col=11 mhov" title="12 + 11 addition"> 17</td>
+<td class="row-12 col=12" title="12 + 12 addition"> 18</td>
+<td class="row-12 col=13" title="12 + 13 addition"> 19</td>
+<td class="row-12 col=14" title="12 + 14 addition"> 1A</td>
+<td class="row-12 col=15" title="12 + 15 addition"> 1B</td>
+</tr>
+<tr>
+<td class="info row-13 col-0"><b>D</b></td>
+<td class="row-13 col=0" title="13 + 0 addition"> D</td>
+<td class="row-13 col=1" title="13 + 1 addition"> E</td>
+<td class="row-13 col=2" title="13 + 2 addition"> F</td>
+<td class="row-13 col=3" title="13 + 3 addition"> 10</td>
+<td class="row-13 col=4" title="13 + 4 addition"> 11</td>
+<td class="row-13 col=5" title="13 + 5 addition"> 12</td>
+<td class="row-13 col=6" title="13 + 6 addition"> 13</td>
+<td class="row-13 col=7" title="13 + 7 addition"> 14</td>
+<td class="row-13 col=8" title="13 + 8 addition"> 15</td>
+<td class="row-13 col=9" title="13 + 9 addition"> 16</td>
+<td class="row-13 col=10" title="13 + 10 addition"> 17</td>
+<td class="row-13 col=11 mhov" title="13 + 11 addition"> 18</td>
+<td class="row-13 col=12" title="13 + 12 addition"> 19</td>
+<td class="row-13 col=13" title="13 + 13 addition"> 1A</td>
+<td class="row-13 col=14" title="13 + 14 addition"> 1B</td>
+<td class="row-13 col=15" title="13 + 15 addition"> 1C</td>
+</tr>
+<tr>
+<td class="info row-14 col-0"><b>E</b></td>
+<td class="row-14 col=0" title="14 + 0 addition"> E</td>
+<td class="row-14 col=1" title="14 + 1 addition"> F</td>
+<td class="row-14 col=2" title="14 + 2 addition"> 10</td>
+<td class="row-14 col=3" title="14 + 3 addition"> 11</td>
+<td class="row-14 col=4" title="14 + 4 addition"> 12</td>
+<td class="row-14 col=5" title="14 + 5 addition"> 13</td>
+<td class="row-14 col=6" title="14 + 6 addition"> 14</td>
+<td class="row-14 col=7" title="14 + 7 addition"> 15</td>
+<td class="row-14 col=8" title="14 + 8 addition"> 16</td>
+<td class="row-14 col=9" title="14 + 9 addition"> 17</td>
+<td class="row-14 col=10" title="14 + 10 addition"> 18</td>
+<td class="row-14 col=11 mhov" title="14 + 11 addition"> 19</td>
+<td class="row-14 col=12" title="14 + 12 addition"> 1A</td>
+<td class="row-14 col=13" title="14 + 13 addition"> 1B</td>
+<td class="row-14 col=14" title="14 + 14 addition"> 1C</td>
+<td class="row-14 col=15" title="14 + 15 addition"> 1D</td>
+</tr>
+<tr>
+<td class="info row-15 col-0"><b>F</b></td>
+<td class="row-15 col=0" title="15 + 0 addition"> F</td>
+<td class="row-15 col=1" title="15 + 1 addition"> 10</td>
+<td class="row-15 col=2" title="15 + 2 addition"> 11</td>
+<td class="row-15 col=3" title="15 + 3 addition"> 12</td>
+<td class="row-15 col=4" title="15 + 4 addition"> 13</td>
+<td class="row-15 col=5" title="15 + 5 addition"> 14</td>
+<td class="row-15 col=6" title="15 + 6 addition"> 15</td>
+<td class="row-15 col=7" title="15 + 7 addition"> 16</td>
+<td class="row-15 col=8" title="15 + 8 addition"> 17</td>
+<td class="row-15 col=9" title="15 + 9 addition"> 18</td>
+<td class="row-15 col=10" title="15 + 10 addition"> 19</td>
+<td class="row-15 col=11 mhov" title="15 + 11 addition"> 1A</td>
+<td class="row-15 col=12" title="15 + 12 addition"> 1B</td>
+<td class="row-15 col=13" title="15 + 13 addition"> 1C</td>
+<td class="row-15 col=14" title="15 + 14 addition"> 1D</td>
+<td class="row-15 col=15" title="15 + 15 addition"> 1E</td>
+</tr>
+</tbody>
+</table>
+
+
+<!-- ********************************************************************************* -->
+<h2>Multiplication en base 16</h2>
+
+<table class="wikitable margin">
+<tr>
+    <th>x</th>
+    <th>0</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    <th>5</th>
+    <th>6</th>
+    <th>7</th>
+    <th>8</th>
+    <th>9</th>
+    <th>A</th>
+    <th>B</th>
+    <th>C</th>
+    <th>D</th>
+    <th>E</th>
+    <th>F</th>
+ </tr>
+ <tr>
+    <th>0</th>
+    <td title="0 x 0"> 0</td>
+    <td title="0 x 1"> 0</td>
+    <td title="0 x 2"> 0</td>
+    <td title="0 x 3"> 0</td>
+    <td title="0 x 4"> 0</td>
+    <td title="0 x 5"> 0</td>
+    <td title="0 x 6"> 0</td>
+    <td title="0 x 7"> 0</td>
+    <td title="0 x 8"> 0</td>
+    <td title="0 x 9"> 0</td>
+    <td title="0 x 10"> 0</td>
+    <td title="0 x 11"> 0</td>
+    <td title="0 x 12"> 0</td>
+    <td title="0 x 13"> 0</td>
+    <td title="0 x 14"> 0</td>
+    <td title="0 x 15"> 0</td>
+</tr>
+<tr>
+    <th>1</th>
+    <td title="1 x 0"> 0</td>
+    <td title="1 x 1"> 1</td>
+    <td title="1 x 2"> 2</td>
+    <td title="1 x 3"> 3</td>
+    <td title="1 x 4"> 4</td>
+    <td title="1 x 5"> 5</td>
+    <td title="1 x 6"> 6</td>
+    <td title="1 x 7"> 7</td>
+    <td title="1 x 8"> 8</td>
+    <td title="1 x 9"> 9</td>
+    <td title="1 x 10"> A</td>
+    <td title="1 x 11"> B</td>
+    <td title="1 x 12"> C</td>
+    <td title="1 x 13"> D</td>
+    <td title="1 x 14"> E</td>
+    <td title="1 x 15"> F</td>
+</tr>
+<tr>
+    <th>2</th>
+    <td title="2 x 0"> 0</td>
+    <td title="2 x 1"> 2</td>
+    <td title="2 x 2"> 4</td>
+    <td title="2 x 3"> 6</td>
+    <td title="2 x 4"> 8</td>
+    <td title="2 x 5"> A</td>
+    <td title="2 x 6"> C</td>
+    <td title="2 x 7"> E</td>
+    <td title="2 x 8"> 10</td>
+    <td title="2 x 9"> 12</td>
+    <td title="2 x 10"> 14</td>
+    <td title="2 x 11"> 16</td>
+    <td title="2 x 12"> 18</td>
+    <td title="2 x 13"> 1A</td>
+    <td title="2 x 14"> 1C</td>
+    <td title="2 x 15"> 1E</td>
+</tr>
+<tr>
+    <th>3</th>
+    <td title="3 x 0"> 0</td>
+    <td title="3 x 1"> 3</td>
+    <td title="3 x 2"> 6</td>
+    <td title="3 x 3"> 9</td>
+    <td title="3 x 4"> C</td>
+    <td title="3 x 5"> F</td>
+    <td title="3 x 6"> 12</td>
+    <td title="3 x 7"> 15</td>
+    <td title="3 x 8"> 18</td>
+    <td title="3 x 9"> 1B</td>
+    <td title="3 x 10"> 1E</td>
+    <td title="3 x 11"> 21</td>
+    <td title="3 x 12"> 24</td>
+    <td title="3 x 13"> 27</td>
+    <td title="3 x 14"> 2A</td>
+    <td title="3 x 15"> 2D</td>
+</tr>
+<tr>
+    <th>4</th>
+    <td title="4 x 0"> 0</td>
+    <td title="4 x 1"> 4</td>
+    <td title="4 x 2"> 8</td>
+    <td title="4 x 3"> C</td>
+    <td title="4 x 4"> 10</td>
+    <td title="4 x 5"> 14</td>
+    <td title="4 x 6"> 18</td>
+    <td title="4 x 7"> 1C</td>
+    <td title="4 x 8"> 20</td>
+    <td title="4 x 9"> 24</td>
+    <td title="4 x 10"> 28</td>
+    <td title="4 x 11"> 2C</td>
+    <td title="4 x 12"> 30</td>
+    <td title="4 x 13"> 34</td>
+    <td title="4 x 14"> 38</td>
+    <td title="4 x 15"> 3C</td>
+</tr>
+<tr>
+    <th>5</th>
+    <td title="5 x 0"> 0</td>
+    <td title="5 x 1"> 5</td>
+    <td title="5 x 2"> A</td>
+    <td title="5 x 3"> F</td>
+    <td title="5 x 4"> 14</td>
+    <td title="5 x 5"> 19</td>
+    <td title="5 x 6"> 1E</td>
+    <td title="5 x 7"> 23</td>
+    <td title="5 x 8"> 28</td>
+    <td title="5 x 9"> 2D</td>
+    <td title="5 x 10"> 32</td>
+    <td title="5 x 11"> 37</td>
+    <td title="5 x 12"> 3C</td>
+    <td title="5 x 13"> 41</td>
+    <td title="5 x 14"> 46</td>
+    <td title="5 x 15"> 4B</td>
+</tr>
+<tr>
+    <th>6</th>
+    <td title="6 x 0"> 0</td>
+    <td title="6 x 1"> 6</td>
+    <td title="6 x 2"> C</td>
+    <td title="6 x 3"> 12</td>
+    <td title="6 x 4"> 18</td>
+    <td title="6 x 5"> 1E</td>
+    <td title="6 x 6"> 24</td>
+    <td title="6 x 7"> 2A</td>
+    <td title="6 x 8"> 30</td>
+    <td title="6 x 9"> 36</td>
+    <td title="6 x 10"> 3C</td>
+    <td title="6 x 11"> 42</td>
+    <td title="6 x 12"> 48</td>
+    <td title="6 x 13"> 4E</td>
+    <td title="6 x 14"> 54</td>
+    <td title="6 x 15"> 5A</td>
+</tr>
+<tr>
+    <th>7</th>
+    <td title="7 x 0"> 0</td>
+    <td title="7 x 1"> 7</td>
+    <td title="7 x 2"> E</td>
+    <td title="7 x 3"> 15</td>
+    <td title="7 x 4"> 1C</td>
+    <td title="7 x 5"> 23</td>
+    <td title="7 x 6"> 2A</td>
+    <td title="7 x 7"> 31</td>
+    <td title="7 x 8"> 38</td>
+    <td title="7 x 9"> 3F</td>
+    <td title="7 x 10"> 46</td>
+    <td title="7 x 11"> 4D</td>
+    <td title="7 x 12"> 54</td>
+    <td title="7 x 13"> 5B</td>
+    <td title="7 x 14"> 62</td>
+    <td title="7 x 15"> 69</td>
+</tr>
+<tr>
+    <th>8</th>
+    <td title="8 x 0"> 0</td>
+    <td title="8 x 1"> 8</td>
+    <td title="8 x 2"> 10</td>
+    <td title="8 x 3"> 18</td>
+    <td title="8 x 4"> 20</td>
+    <td title="8 x 5"> 28</td>
+    <td title="8 x 6"> 30</td>
+    <td title="8 x 7"> 38</td>
+    <td title="8 x 8"> 40</td>
+    <td title="8 x 9"> 48</td>
+    <td title="8 x 10"> 50</td>
+    <td title="8 x 11"> 58</td>
+    <td title="8 x 12"> 60</td>
+    <td title="8 x 13"> 68</td>
+    <td title="8 x 14"> 70</td>
+    <td title="8 x 15"> 78</td>
+</tr>
+<tr>
+    <th>9</th>
+    <td title="9 x 0"> 0</td>
+    <td title="9 x 1"> 9</td>
+    <td title="9 x 2"> 12</td>
+    <td title="9 x 3"> 1B</td>
+    <td title="9 x 4"> 24</td>
+    <td title="9 x 5"> 2D</td>
+    <td title="9 x 6"> 36</td>
+    <td title="9 x 7"> 3F</td>
+    <td title="9 x 8"> 48</td>
+    <td title="9 x 9"> 51</td>
+    <td title="9 x 10"> 5A</td>
+    <td title="9 x 11"> 63</td>
+    <td title="9 x 12"> 6C</td>
+    <td title="9 x 13"> 75</td>
+    <td title="9 x 14"> 7E</td>
+    <td title="9 x 15"> 87</td>
+</tr>
+<tr>
+    <th>A</th>
+    <td title="10 x 0"> 0</td>
+    <td title="10 x 1"> A</td>
+    <td title="10 x 2"> 14</td>
+    <td title="10 x 3"> 1E</td>
+    <td title="10 x 4"> 28</td>
+    <td title="10 x 5"> 32</td>
+    <td title="10 x 6"> 3C</td>
+    <td title="10 x 7"> 46</td>
+    <td title="10 x 8"> 50</td>
+    <td title="10 x 9"> 5A</td>
+    <td title="10 x 10"> 64</td>
+    <td title="10 x 11"> 6E</td>
+    <td title="10 x 12"> 78</td>
+    <td title="10 x 13"> 82</td>
+    <td title="10 x 14"> 8C</td>
+    <td title="10 x 15"> 96</td>
+</tr>
+<tr>
+    <th>B</th>
+    <td title="11 x 0"> 0</td>
+    <td title="11 x 1"> B</td>
+    <td title="11 x 2"> 16</td>
+    <td title="11 x 3"> 21</td>
+    <td title="11 x 4"> 2C</td>
+    <td title="11 x 5"> 37</td>
+    <td title="11 x 6"> 42</td>
+    <td title="11 x 7"> 4D</td>
+    <td title="11 x 8"> 58</td>
+    <td title="11 x 9"> 63</td>
+    <td title="11 x 10"> 6E</td>
+    <td title="11 x 11"> 79</td>
+    <td title="11 x 12"> 84</td>
+    <td title="11 x 13"> 8F</td>
+    <td title="11 x 14"> 9A</td>
+    <td title="11 x 15"> A5</td>
+</tr>
+<tr>
+    <th>C</th>
+    <td title="12 x 0"> 0</td>
+    <td title="12 x 1"> C</td>
+    <td title="12 x 2"> 18</td>
+    <td title="12 x 3"> 24</td>
+    <td title="12 x 4"> 30</td>
+    <td title="12 x 5"> 3C</td>
+    <td title="12 x 6"> 48</td>
+    <td title="12 x 7"> 54</td>
+    <td title="12 x 8"> 60</td>
+    <td title="12 x 9"> 6C</td>
+    <td title="12 x 10"> 78</td>
+    <td title="12 x 11"> 84</td>
+    <td title="12 x 12"> 90</td>
+    <td title="12 x 13"> 9C</td>
+    <td title="12 x 14"> A8</td>
+    <td title="12 x 15"> B4</td>
+</tr>
+<tr>
+    <th>D</th>
+    <td title="13 x 0"> 0</td>
+    <td title="13 x 1"> D</td>
+    <td title="13 x 2"> 1A</td>
+    <td title="13 x 3"> 27</td>
+    <td title="13 x 4"> 34</td>
+    <td title="13 x 5"> 41</td>
+    <td title="13 x 6"> 4E</td>
+    <td title="13 x 7"> 5B</td>
+    <td title="13 x 8"> 68</td>
+    <td title="13 x 9"> 75</td>
+    <td title="13 x 10"> 82</td>
+    <td title="13 x 11"> 8F</td>
+    <td title="13 x 12"> 9C</td>
+    <td title="13 x 13"> A9</td>
+    <td title="13 x 14"> B6</td>
+    <td title="13 x 15"> C3</td>
+</tr>
+<tr>
+    <th>E</th>
+    <td title="14 x 0"> 0</td>
+    <td title="14 x 1"> E</td>
+    <td title="14 x 2"> 1C</td>
+    <td title="14 x 3"> 2A</td>
+    <td title="14 x 4"> 38</td>
+    <td title="14 x 5"> 46</td>
+    <td title="14 x 6"> 54</td>
+    <td title="14 x 7"> 62</td>
+    <td title="14 x 8"> 70</td>
+    <td title="14 x 9"> 7E</td>
+    <td title="14 x 10"> 8C</td>
+    <td title="14 x 11"> 9A</td>
+    <td title="14 x 12"> A8</td>
+    <td title="14 x 13"> B6</td>
+    <td title="14 x 14"> C4</td>
+    <td title="14 x 15"> D2</td>
+</tr>
+<tr>
+    <th>F</th>
+    <td title="15 x 0"> 0</td>
+    <td title="15 x 1"> F</td>
+    <td title="15 x 2"> 1E</td>
+    <td title="15 x 3"> 2D</td>
+    <td title="15 x 4"> 3C</td>
+    <td title="15 x 5"> 4B</td>
+    <td title="15 x 6"> 5A</td>
+    <td title="15 x 7"> 69</td>
+    <td title="15 x 8"> 78</td>
+    <td title="15 x 9"> 87</td>
+    <td title="15 x 10"> 96</td>
+    <td title="15 x 11"> A5</td>
+    <td title="15 x 12"> B4</td>
+    <td title="15 x 13"> C3</td>
+    <td title="15 x 14"> D2</td>
+    <td title="15 x 15"> E1</td>
+</tr>
+</table>
+
+<div class="exo">
+<div class="bold">Recherche perso</div>
+Regardez comment les codes couleurs sont fabriqués en html. Chaque composante rouge, vert, bleu est exprimé en hexadécimal.
+
+</div>
+
+</article>
+
+</body>
+</html>
