@@ -151,6 +151,9 @@ table.wikitable tr td code{
 .right{text-align:right;}
 .left{text-align:left;}
 
+.vertical-align-top{vertical-align:top;}
+.vertical-align-middle{vertical-align:middle;}
+
 .background-none{background:none;}
 .red{color:red;}
 
