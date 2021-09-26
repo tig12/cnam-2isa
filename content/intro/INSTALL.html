@@ -3,7 +3,7 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>INSTALL - Prérequis | CNAM 2ISA Millau</title>
+    <title>INSTALL | CNAM 2ISA Millau</title>
     <meta name="description" content="">
     <meta name="robots" content="index,follow">
     <link href="../../static/style.css" rel="stylesheet" type="text/css">
@@ -25,60 +25,54 @@
 </nav>
 
 <header>
-<h1>INSTALL - Prérequis</h1>
+<h1>INSTALL</h1>
 </header>
 
 <div class="intro">
-Le cours se déroule sous Linux. Une machine virtuelle est fournie en début de cours.
-<br>Sur cette VM, la dernière version LTS de java est installée, ainsi que python et php.
+Le cours se déroule sous Linux. Une machine virtuelle (VM) est fournie en début de cours.
+<br>Sur cette VM, la dernière version LTS de java est installée, ainsi que python, php et git.
 </div>
 
 <article>
 
-Note : <code>sudo</code> indique qu'on execute la commande en tant qu'utilisateur <code>root</code>.
-
 <!-- ********************************************************************************* -->
-<h2>git</h2>
+<h2>Prise en main</h2>
 
-<div class="bold margin-top">Installer git</div>
-<pre>sudo apt install git</pre>
-
-<div class="bold">Cloner le répertoire du cours</div>
-<pre>git clone https://github.com/tig12/cnam-2isa.git</pre>
-Crée un dossier <code>cnam-2isa/</code> dans le répertoire courant.
-<br>Vérifier que vous avez le cours en local en visitant la page <code>cnam-2isa/index.html</code>.
-
-
-<div class="bold margin-top">Tester git</div>
-<pre>cd cnam-2isa/</pre>
-<pre>git remote -v</pre>
-
-Pour récupérer en local la dernière version du cours :
-<pre>git pull</pre>
-
-<!-- 
-Plus de détails :
+La machine virtuelle est fournie sous la forme d'un fichier <b>.ovf</b> (Open Virtualization Format).
+Pour installer cette VM sur votre machine :
 <ul>
-    <li><a href="git/premiers-pas-git.html">Git, premiers pas</a></li>
-    <li><a href="git/git.html">Section git</a></li>
+    <li>Démarrez VMWare</li>
+    <li>Menu File / Open...</li>
+    <li>Sélectionner "Open Virtualization Format VMs (*.ovf *.ova)"</li>
+    <li>Choisissez le fichier ovf fourni pour ce cours et installez la machine</li>
+    <li>Démarrez cette machine virtuelle</li>
 </ul>
--->
 
-<!-- ********************************************************************************* -->
-<!-- 
-<h2>Installer les langages</h2>
-Pour le début du cours, seuls java et php sont indispensables.
-<br><br>Voir la page <a href="helloworld.html">Hello World!</a> pour tester les différents langages.
-<h3>java</h3>
-<h3>python</h3>
-<h3>javascript</h3>
-<h3>php</h3>
-<h3>go</h3>
-<h3>rust</h3>
-<h3>haskell</h3>
-<h3>ocaml</h3>
-<h3>prolog</h3>
--->
+Note: pour sortir de la VM et revenir sur votre système habituel, utilisez <code class="bold big1">Ctrl Alt</code>
+
+<br><br>Sur cette machine : double-click sur "Dossier personnel".
+<br>La hiérarchie suivante est disponible :
+
+<pre>
+/home/toto/
+    ├── Bureau
+    ├── cours
+    │   ├── cnam-2isa   # Copie locale du cours (dépôt git)
+    │   └── doc-java    # Copie locale de la doc java
+    └── tmp
+</pre>
+
+On est sous Linux (Mint), sous le compte utilisateur <code class="bold big1">toto</code>.
+<br>Le mot de passe à utiliser pour effectuer des opérations en mode <code>root</code> est <code class="bold big1">toto</code>
+
+<!-- ************************************* -->
+<h3>Récupérer la dernière version du cours</h3>
+Ouvrez un terminal
+<pre>
+cd cours/cnam-2isa
+git pull
+</pre>
+
 
 </article>
 

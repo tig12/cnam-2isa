@@ -132,7 +132,7 @@ Les programmes java utilisent le codage unicode ; il est donc possible d'utilise
 \u00AE                  ©
 \u00BD                  / la barre de fraction ...
 \u0000 à \u1FFF         zone alphabets
-\u0370 à \u03FFF alphabet grec
+\u0370 à \u03FFF        alphabet grec
 ...
 </pre>
 Voir <a href="http://www.unicode.org">http://www.unicode.org</a>
@@ -180,18 +180,18 @@ Par convention, on évite d'utiliser les symboles unicode représentant une monn
 <br>
 <br>Un identifiant ne peut pas prendre la valeur des mots qui font partie du langage lui-même, les <b>mots réservés</b>.
 <br>On a déjà vu quelques mots réservés (reserved words) : <code>class</code>, <code>interface</code>, <code>void</code>, <code>static</code>...
-<br>Liste complète pour java 11 :
+<br>Liste complète pour java 17 (même liste que pour java 11) :
 <pre class="normal">
-abstract   continue   for          new         switch
-assert     default    if           package     synchronized
-boolean    do         goto         private     this
-break      double     implements   protected   throw
-byte       else       import       public      throws
-case       enum       instanceof   return      transient
-catch      extends    int          short       try
-char       final      interface    static      void
-class      finally    long         strictfp    volatile
-const      float      native       super       while
+abstract    continue    for         new         switch
+assert      default     if          package     synchronized
+boolean     do          goto        private     this
+break       double      implements  protected   throw
+byte        else        import      public      throws
+case        enum        instanceof  return      transient
+catch       extends     int         short       try
+char        final       interface   static      void
+class       finally     long        strictfp    volatile
+const       float       native      super       while
 </pre>
 
 Certains mots réservés peuvent prendre des significations différentes suivant le contexte, par exemple <code>default</code> et <code>final</code>.
@@ -546,8 +546,7 @@ somme   // une variable
 <br>Elles peuvent être ensuite combinées avec des <b>opérateurs</b> pour former des expressions composées.
 <br>Par exemple
 <pre>somme = 1.3;</pre>
-combine 2 expressions primaires pour fabriquer une expression d'assignement (dont la valeur est celle de l'opérande gauche).
-<br>Voir plus loin les instructions expression.
+combine 2 expressions primaires (<code>somme</code> et <code>1.3</code>) pour fabriquer une expression d'assignement (dont la valeur est celle de l'opérande de droite - voir plus loin les instructions expression).
 <br>
 <br>Les opérateurs peuvent être utilisés avec des expressions aussi complexes que l'on veut :
 <pre>somme = 1 + 2 + 3 * 1.2 + (4 + 8)/3.0;</pre>
@@ -783,6 +782,10 @@ par :
 var maClasseAvecUnNomPasPossible = new MaClasseAvecUnNomPasPossible();
 var message = "Hello World";
 </pre>
+
+<div class="exo">
+    <b>Exercice</b> : <a href="../../exos/java/declaration/Declaration.html">Déclaration, affectation</a>
+</div>
 
 
 <!-- ********************************************************************************* -->

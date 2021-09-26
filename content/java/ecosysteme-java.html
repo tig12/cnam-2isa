@@ -59,17 +59,18 @@ Java SE 8	2014   4240 classes
 Java SE 9       2017   6005 classes
 Java SE 10      2018   6002 classes
 Java SE 11      2018   4410 classes
+Java SE 17      2021   3130 classes (?)
 </pre>
 <!--
-grep '<li><a href' All\ Classes\ \(Java\ SE\ 11\ \&\ JDK\ 11\ \).html | wc -l
-Java SE 11     2018    4410 classes
+cat /home/thierry/if/languages/java/docs-17/api/overview-tree.html | grep 'title="class in' | wc -l
+3130
 -->
 
 Les étapes importantes de cette évolution ont été java 2, java 5 et java 8.
 <br>
 <br>Après la publication de java 9, Sun a annoncé une version majeure tous les 6 mois ; java 10 est la première version respectant ce cycle.
-<br>Les versions LTS (long term support) actuelles sont java 8 (support jusqu'en mars 2022) et java 11 (support jusqu'en septembre 2026).
-<br>Plus de précisions <a href="https://www.oracle.com/technetwork/java/eol-135779.html">sur le site d'Oracle</a>.
+<br>Les versions LTS (long term support) actuelles sont java 8, java 11 et java 17.
+<br>Plus de précisions <a href="https://www.oracle.com/java/technologies/java-se-support-roadmap.html">sur le site d'Oracle</a>.
 
 <br><br>Pour suivre les évolutions du langage depuis java 9 : <a href="https://docs.oracle.com/en/java/javase/15/language/java-language-changes.html">https://docs.oracle.com/en/java/javase/15/language/java-language-changes.html</a>
 
@@ -115,18 +116,19 @@ Java developer homepage : <a href="http://www.oracle.com/technetwork/java/index.
 <br>
 <br>Et surtout la documentation de référence (API doc) :
 <div class="big2 margin bold">
-<a href="https://docs.oracle.com/en/java/javase/11/docs/api/index.html">https://docs.oracle.com/en/java/javase/11/docs/api/index.html</a>
+<a href="https://docs.oracle.com/en/java/javase/17/docs/api/index.html">https://docs.oracle.com/en/java/javase/17/docs/api/index.html</a>
 </div>
 
 Depuis java 9, le JDK a été découpé en <i>modules</i> ; on utilisera surtout le module <code>java.base</code> :
 <div class="big2 margin">
-    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/module-summary.html">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/module-summary.html</a>.
+    <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/module-summary.html">https://docs.oracle.com/en/java/javase/17/docs/api/java.base/module-summary.html</a>.
 </div>
 
 Deux autres sources importantes d'information :
-<ul>
+<ul class="spaced">
     <li>
-        <a href="https://hg.openjdk.java.net/jdk/jdk/file/ee1d592a9f53/src/java.base/share/classes/java">hg.openjdk.java.net</a> : code source d'une implémentation libre de java.
+        <a href="https://github.com/openjdk/jdk">https://github.com/openjdk/jdk</a> : code source de l'implémentation openjdk de java.
+        <br>(le code qui nous intéressera est dans <a href="https://github.com/openjdk/jdk/tree/master/src/java.base/share/classes/java">https://github.com/openjdk/jdk/tree/master/src/java.base/share/classes/java</a>)
     </li>
     <li>
         Java Language Specification (<b>JLS</b>) et Java Virtual Machine Specification, documents de référence lorsqu'on a besoin de documentation détaillée :

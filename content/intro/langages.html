@@ -104,7 +104,8 @@ La machine de Turing a servi de modèle pour le "paradigme impératif". Un progr
 <!-- ********************************************************************************* -->
 <h2><a name="3-le-lambda-calcul">Le lambda-calcul</a></h2>
 
-Le lambda-calcul est un système dans lequel tout est fonction et doté d'une seule opération : l'application d'une fonction à une autre. Tout est <i>lambda-expression</i> ; toute expression est remplacée par une fonction.
+Le lambda-calcul est un système dans lequel tout est fonction et doté d'une seule opération : l'application d'une fonction à une autre.
+<br>Tout est <i>lambda-expression</i> ; toute expression est remplacée par une fonction.
 <br>Par exemple <code>3x + 1</code> est remplacé par la fonction qui à <code>x</code> associe <code>3x + 1</code> ; on note : <code>&lambda;x.3*x+1</code>
 <br>Le lambda calcul n'utilise que deux notations :
 <ul>
@@ -122,9 +123,10 @@ Le lambda-calcul est un système dans lequel tout est fonction et doté d'une se
 
 La seule règle pour passer d'une expression à une autre est la <i>réduction &beta;</i> : <code><b>(&lambda;x.M)N &rarr; <sub>&beta;</sub> M[x:=N]</b></code>
 <br>Appliquer la &lambda; expression <code>&lambda;x.M</code> au paramètre <code>N</code> revient au même que de remplacer <code>x</code> par <code>N</code> dans le corps de la fonction <code>M</code>.
+<br>Par exemple, <code>(&lambda;x.3*x+1)(x+2) = &lambda;x.3*(x+2)+1</code>
 
-Le lambda calcul a servi de modèle pour le "paradigme fonctionnel". "Tout est fonction" ; les notions fondamentales sont celles de fonction, de valeur, d'application d'une fonction à une valeur.
-
+<br><br>Le lambda calcul a servi de modèle pour le "paradigme fonctionnel". "Tout est fonction" ; les notions fondamentales sont celles de fonction, de valeur, d'application d'une fonction à une valeur.
+<br>Un point important est que la notion de fonction ignore la notion d'état de la machine. Si tout est fonction, on ne dispose pas d'état global, comme dans le modèle de Turing.
 <!-- 
 Voir <a href="https://mathdevelopment.tumblr.com/post/182509661410/lambda-calculus-for-programmers">cette page</a>
 -->
