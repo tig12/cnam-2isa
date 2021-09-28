@@ -1,6 +1,7 @@
 /* 
     Styles spécifiques aux cours cnam / 2isa
 */
+@import url("style.css");
 
 .flex-center{justify-content:center;}
 
@@ -28,3 +29,10 @@
     border:1px solid grey;
     background:#fee;
 }
+
+/* 
+.code{
+    background:#dce2e5;
+    font-family:"Courier New",Courier,monospace;
+}
+*/
