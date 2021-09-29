@@ -47,6 +47,11 @@
 
 <table class="wikitable margin memo">
     <tr>
+        <td>&empty;</td>
+        <td>Ensemble vide</td>
+        <td>Ensemble ne contenant aucun élément</td>
+    </tr>
+    <tr>
         <td>&isin;</td>
         <td>Appartient</td>
         <td><span>a &isin; A</span> signifie "a appartient à A".</td>
@@ -97,7 +102,7 @@
         <td>C = A &cap; B : C = {x | x &in; A, x &in; B}</td>
     </tr>
     <tr>
-        <td><span style="text-decoration: overline;">E</span></td>
+        <td><span style="text-decoration:overline;">E</span></td>
         <td>Complémentaire</td>
         <td>
             Dans un référentiel U, le complémentaire de l'ensemble E est l'ensemble des éléments de U qui n'appartiennent pas à l'ensemble E.
@@ -142,6 +147,50 @@
     </tr>
 </table>
 
+On a : 
+<span class="code big2 padding05 bold">&#8469; &sub; &#8484; &sub; &#8474; &sub; &#8477; &sub; &#8450;</span>
+
+<!-- ************************************* -->
+<h3>Lois</h3>
+
+<table class="wikitable margin memo">
+    <tr>
+        <td>A &cup; A = A<br>A &cap; A = A</td>
+        <td>Lois idempotentes</td>
+    </tr>
+    <tr>
+        <td>(A &cup; B) &cup; C = A &cup; (B &cup; C)<br>(A &cap; B) &cap; C = A &cap; (B &cap; C)</td>
+        <td>Lois d'associativité</td>
+    </tr>
+    <tr>
+        <td>A &cup; B = B &cup; A<br>A &cap; B = B &cap; A</td>
+        <td>Lois de commutativité</td>
+    </tr>
+    <tr>
+        <td>A &cup; (B &cap; C) = (A &cup; B) &cap; (A &cup; C)<br>A &cap; (B &cup; C) = (A &cap; B) &cup; (A &cap; C)</td>
+        <td>Lois de distributivité</td>
+    </tr>
+    <tr>
+        <td>A &cup; &empty; = A&nbsp;&nbsp;&nbsp;&nbsp;(1)<br>A &cup; U = U<br><br>A &cap; U = A<br>A &cap; &empty; = &empty;&nbsp;&nbsp;&nbsp;(2)</td>
+        <td>
+            Lois d'identité
+            <br>(U désigne le référentiel)
+            <br>(1) &empty; est l'élément neutre de &cup;
+            <br>(2) &empty; est l'élément absorbant de &cap;
+        </td>
+    </tr>
+    <tr>
+        <td>A &cup; <span style="text-decoration:overline;">A</span> = U<br>A &cap; <span style="text-decoration:overline;">A</span> = &empty;<br><span style="text-decoration:overline;">U</span> = &empty;<br><span style="text-decoration:overline;">&empty;</span> = U</td>
+        <td>
+            Lois de complémentarité
+            <br>(U désigne le référentiel)
+        </td>
+    </tr>
+    <tr>
+        <td><s>&nbsp;&nbsp;&nbsp;</s><br>(<span style="text-decoration:overline;">A</span>) = A<br><span style="text-decoration:overline;">(A &cup; B)</span> = <span style="text-decoration:overline;">A</span> &cap; <span style="text-decoration:overline;">B</span><br><span style="text-decoration:overline;">(A &cap; B)</span> = <span style="text-decoration:overline;">A</span> &cup; <span style="text-decoration:overline;">B</span></td>
+        <td>Lois de Morgan</td>
+    </tr>
+</table>
 
 </article>
 </div><!-- end class="main" -->
