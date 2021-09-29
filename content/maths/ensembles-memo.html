@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <title>Ensembles - Mémo | CNAM 2ISA Millau</title>
+    <meta name="description" content="Un rapide aperçu de la théorie des ensembles">
+    <link href="../../static/cnam-2isa.css" rel="stylesheet" type="text/css">
+    <meta name="robots" content="index,follow">                                                                                                                        
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2019">
+    <!--
+    @history    2021-09-28 23:32:33+02:00, Thierry Graff : Creation
+    tigsite:
+    -->
+</head>
+
+<body>
+<div class="container">
+
+<div class="main">
+
+<nav class="prevnext">
+    <a class="top" title="" href="../../index.html">&uarr;</a>
+    <a class="next" title="" href="categories.html">&rarr;</a>
+    <!-- 
+    <a class="prev" title="" href="index.html">&larr;</a>
+    -->
+</nav>
+
+<header>
+<h1>Ensembles - Mémo</h1>
+<div class="intro">
+</div>
+</header>
+
+<article>
+
+<style>
+    .memo td:nth-child(1){
+        background:#dce2e5;
+        white-space:pre;
+        font-family:"Courier New",Courier,monospace;
+    }
+</style>
+
+<table class="wikitable margin memo">
+    <tr>
+        <td>&isin;</td>
+        <td>Appartient</td>
+        <td><span>a &isin; A</span> signifie "a appartient à A".</td>
+    </tr>
+    <tr>
+        <td>&notin;</td>
+        <td>N'appartient pas</td>
+        <td><span>a &notin; A</span> signifie "a n'appartient pas à A".</td>
+    </tr>
+    <tr>
+        <td>A = {1, 2, 3}</td>
+        <td>Définition par extension</td>
+        <td>A est l'ensemble composé des éléments 1, 2 et 3</td>
+    </tr>
+    <tr>
+        <td>A = {x | x &isin; &#8469;, x > 3, x &le; 5}</td>
+        <td>Définition par compréhension</td>
+        <td>
+            A est l'ensemble composé des entiers naturels (&isin; &#8469;) supérieurs à 3 et inférieurs ou égaux à 5
+            <br>(A = {4, 5} en extension).
+        </td>
+    </tr>
+    <tr>
+        <td>&sub;<br>&sup;</td>
+        <td>Inclus</td>
+        <td>
+            A &sub; B signifie "A est inclus dans B" (ou A est un sous-ensemble de B).
+            <br>A &sup; B signifie "B est inclus dans A".
+            <br>
+        </td>
+    </tr>
+    <tr>
+        <td>&nsub;<br>&#8837;</td>
+        <td>N'est pas inclus</td>
+        <td>
+            A &nsub; B signifie "A n'est pas inclus dans B".
+            <br>A &#8837; B signifie "B n'est pas inclus dans A".
+        </td>
+    </tr>
+    <tr>
+        <td>&cup;</td>
+        <td>Union</td>
+        <td>C = A &cup; B : C = {x | x &in; A ou x &in; B}</td>
+    </tr>
+    <tr>
+        <td>&cap;</td>
+        <td>Intersection</td>
+        <td>C = A &cap; B : C = {x | x &in; A, x &in; B}</td>
+    </tr>
+    <tr>
+        <td><span style="text-decoration: overline;">E</span></td>
+        <td>Complémentaire</td>
+        <td>
+            Dans un référentiel U, le complémentaire de l'ensemble E est l'ensemble des éléments de U qui n'appartiennent pas à l'ensemble E.
+            <br>Le complémentaire de E est parfois prononcé "E barre". 
+        </td>
+    </tr>
+</table>
+
+<!-- ************************************* -->
+<h3>Ensembles de nombres</h3>
+<table class="wikitable margin memo">
+    <tr>
+        <td>&#8469;</td>
+        <td>Entiers naturels</td>
+        <td>{0, 1, 2, 3, ...}</td>
+    </tr>
+    <tr>
+        <td>&#8484;</td>
+        <td>Entiers relatifs</td>
+        <td>{..., -1, -2, -3, 0, 1, 2, 3, ...}</td>
+    </tr>
+    <tr>
+        <td>&#8474;</td>
+        <td>Nombres rationnels</td>
+        <td>
+            Pouvant s'écrire sous forme de fraction (un entier relatif divisé par un autre entier relatif)
+            <br>Ex : 1 / 2 ou -3 / 8
+        </td>
+    </tr>
+    <tr>
+        <td>&#8477;</td>
+        <td>Nombres réels</td>
+        <td>
+            N'importe quel nombre, rationnel ou pas
+            <br>(par exemple, &pi; &in; &#8477; mais &pi; &notin; &#8474;).
+        </td>
+    </tr>
+    <tr>
+        <td>&#8450;</td>
+        <td>Nombres complexes</td>
+        <td>De la forme z = a + ib, avec a et b &isin; &#8477;</td>
+    </tr>
+</table>
+
+
+</article>
+</div><!-- end class="main" -->
+
+<!-- ************************************* -->
+<aside class="right">
+</aside>
+
+</div><!-- end class="container" -->
+
+</body>
+</html>
