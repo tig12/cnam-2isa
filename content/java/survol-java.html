@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Survol java | NFP121 Millau</title>
+    <meta name="description" content="Syntaxe java non-objet : unités syntaxiques, types primitifs">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2021">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
+    <!-- 
+    <a class="prev" title="Previous" href="outils-java.html">&larr;</a>
+    <a class="next" title="Next" href="tableaux.html">&rarr;</a>
+    -->
+</nav>
+
+<header>
+<h1>Un survol de java</h1>
+</header>
+
+<article>
+
+<div class="intro">
+Cette page propose une première approche de java, sans être exhaustif.
+</div>
+
+<!-- ********************************************************************************* -->
+<h2>Un premier programme java</h2>
+Un programme java est constitué de <b>classes</b>, par exemple :
+
+<pre>
+/** 
+    Premier exemple
+**/
+public class HelloWorld {
+
+    /**
+        Point d'entrée du programme
+        @param  args Tableau de chaînes passé au programme
+    **/
+    public static void main(String[] args) {
+        System.out.println("Hello World!"); // Affiche une chaîne de caractères
+    }
+}
+</pre>
+
+Ce code contient plusieurs choses :
+
+<ul class="spaced">
+    <li>
+        <b>Des commentaires</b>, qui peuvent être de plusieurs types :
+        <ul>
+            <li><b>Multiligne</b> : texte situé entre <code>/*</code> et <code>*/</code></li>
+            <li><b>"Doc comments"</b> : texte situé entre <code>/**</code> et <code>*/</code></li>
+            <li><b>Simple ligne</b> : texte situé après <code>//</code></li>
+        </ul>
+    </li>
+    
+    <li>
+        <b>La définition d'une classe</b>, avec l'instruction <code>public class HelloWorld</code>.
+        <br>Par convention, les noms de classe commencent par une majuscule (mais ce n'est pas obligatoire).
+        <br>Le corps de la classe est contenu entre les accolades.
+    </li>
+    
+    <li>
+        <b>La définition d'une méthode (ou fonction)</b> : <code>public static void main(String[] args)</code>
+        <br>Par convention, les noms de méthodes commencent par une minuscule (mais ce n'est pas obligatoire).
+        <br>La méthode <code>public static void main(String[] args)</code> est particulière, car elle a une <b>signature</b> bien précise, qui permet constitue le <b>point d'entrée</b> d'un programme.
+    </li>
+    
+    <li>
+        <b>Une instruction</b>, <code>System.out.println("Hello World!");</code>, qui ordonne à java d'afficher une chaîne de caractère.
+    </li>
+    
+</ul>
+
+C'est à l'intérieur des méthodes qu'on écrit le code java qu'on va exécuter. Un programme java va être une suite d'instructions, qui vont être exécutées séquentiellement (l'une après l'autre).
+
+<br><br>A retenir :
+<ul>
+    <li>
+        Tout programme java doit contenir au moins une classe qui a une fonction <code>main()</code>, qui va être exécutée.
+    </li>
+    <li>
+        Le nom du fichier doit obligatoirement correspondre au nom de la classe.
+        <br>La classe <code>HelloWorld</code> doit donc se trouver dans un fichier nommé <code>HelloWorld.java</code>.
+    </li>
+</ul>
+
+<!-- ************************************* -->
+<h3>Exécution</h3>
+Avant d'exécuter ce programme, on doit le <b>compiler</b> : on se place dans le répertoire contenant <code>HelloWorld.java</code> et on le compile :
+<pre>javac HelloWorld.java</pre>
+Cette opération produit un nouveau fichier, <code>HelloWorld.class</code>, qui est exécutable.
+<br>On peut maintenant l'exécuter :
+<pre>java HelloWorld</pre>
+
+Bien noter qu'on utilise un premier outil (<code>javac</code>) pour compiler un fichier, et qu'on utilise un autre outil (<code>java</code>) pour exécuter une classe (et non pas un fichier).
+
+
+<!-- ********************************************************************************* -->
+<h2>Manipuler des variables</h2>
+
+Pour faire des choses plus élaborées, on va pouvoir créer des variables et leur affecter des valeurs.
+
+<br><br>En java, toute variable qu'on utilise doit être déclarée et associée à un <b>type</b>, par exemple :
+<pre>
+int a;
+String s;
+double d;
+boolean b;
+</pre>
+
+Une fois qu'une variable est déclarée, on peut lui affecter une valeur :
+<pre>
+a = 17;
+s = "Bonjour";
+b = true;
+</pre>
+
+On peut déclarer et donner une valeur initiale à une variable dans une seule instruction :
+<pre>
+int a = 17;
+double d = 45.87;
+</pre>
+
+Les principaux types disponibles sont :
+
+<table class="wikitable margin">
+    <tr>
+        <td><b>boolean</b></td>
+        <td>Peut prendre 2 valeurs : <code>true</code> ou <code>false</code></td>
+    </tr>
+    <tr>
+        <td><b>int</b></td>
+        <td>Nombre entier - il existe aussi d'autres types : <code><b>byte</b></code>, <code><b>short</b></code>, <code><b>long</b></code></td>
+    </tr>
+    <tr>
+        <td><b>double</b></td>
+        <td>Nombre à virgule - il existe aussi le type <code><b>float</b></code></td>
+    </tr>
+    <tr>
+        <td><b>String</b></td>
+        <td>Représente une chaîne de caractères</td>
+    </tr>
+    <tr></tr>
+</table>
+
+Une fois qu'une variable est déclarée, on peut lui affecter des valeurs différentes en utilisant des <b>opérateurs</b>.
+
+<pre>
+int a = 17;
+a = a + 3; // maintenant a vaut 20
+
+String nom = "toto";
+String affichage;
+affichage = "Bonjour " + nom;
+</pre>
+
+Les opérateurs disponibles dépendent du type de la variable.
+
+<table class="wikitable margin">
+    <tr><th>Opérateurs</th><th>Types concernés</th><th>Commentaire</th></tr>
+    <tr>
+        <td>
+            +
+            <br>-
+            <br>*
+            <br>/
+        </td>
+        <td>Nombres</td>
+        <td>
+            Opérateurs arithmétiques habituels
+        </td>
+    </tr>
+    <tr>
+        <td>%</td>
+        <td>Nombres entiers</td>
+        <td>
+            Modulo : reste de la division d'un nombre par un autre.
+            <br><code>4 % 3 = 1</code>
+        </td>
+    </tr>
+    <tr>
+        <td>+</td>
+        <td>String</td>
+        <td>Concaténation</td>
+    </tr>
+</table>
+
+<div class="exo">
+    <b>Exercice</b>
+</div>
+
+<!-- ********************************************************************************* -->
+<h2>Effectuer des tests</h2>
+
+Deux mots-clés du langages permettent de tester des conditions : <code>if</code> et <code>else</code>.
+<pre>
+if(une condition){
+    faire des choses
+}
+else {
+    faire autre chose
+}
+</pre>
+
+Les conditions sont exprimées par des <b>expressions</b> ayant une valeur de type <code>boolean</code>.
+<pre>
+boolean a = true;
+if(a) { ... }
+</pre>
+
+Les expressions booléennes utilisées dans les tests sont souvent le résultat d'<b>opérateurs de comparaison</b> :
+
+<table class="wikitable margin">
+    <tr>
+        <td>==</td>
+        <td>
+            Renvoie <code>true</code> si deux variables sont égales, false sinon.
+        </td>
+    </tr>
+    <tr>
+        <td>!=</td>
+        <td>
+            Renvoie <code>true</code> si deux variables sont différentes, false sinon.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            >
+            <br>>=
+            <br>&lt;
+            <br>&lt;=
+        </td>
+        <td></td>
+    </tr>
+</table>
+
+<pre>
+int a = 10, b = 12;
+if(a == b) {
+    System.out.println("a et b sont égaux");
+}
+else {
+    System.out.println("a et b sont différents");
+}
+</pre>
+
+Les instructions <code>if</code> et <code>else</code> peuvent s'enchaîner :
+<pre>
+int a = 10, b = 12;
+if(a == b) {
+    System.out.println("a et b sont égaux");
+}
+<b>else if</b>(a > b) {
+    System.out.println("a est supérieur à b");
+}
+else {
+    System.out.println("a est inféreieur à b");
+}
+</pre>
+
+Elles peuvent aussi s'emboîter :
+<pre>
+int a = 10, b = 12;
+if(a == b) {
+    System.out.println("a et b sont égaux");
+}
+else {
+    if(a > b){
+        System.out.println("a est supérieur à b");
+    }
+    else {
+        System.out.println("a est inféreieur à b");
+    }
+}
+</pre>
+
+<div class="exo">
+    <b>Exercice</b>
+</div>
+
+<!-- ********************************************************************************* -->
+<h2>Ecrire des boucles</h2>
+
+
+<div class="exo">
+    <b>Exercice</b>
+</div>
+
+
+<!-- ********************************************************************************* -->
+<h2>Créer et appeler des méthodes</h2>
+
+
+</article>
+
+</body>
+</html>
