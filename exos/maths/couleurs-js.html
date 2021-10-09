@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Exercices Couleurs javascript | 2ISA Millau</title>
+    <meta name="description" content="Page dédiée au groupe TAI 22 (2ISA).">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2021">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Accueil" href="../../index.html">&uarr;</a>
+</nav>
+
+<header>
+<h1>
+    Exercices Couleurs javascript
+</h1>
+</header>
+
+<article>
+
+<!-- ********************************************************************************* -->
+<h2>Variante 1</h2>
+
+Ecrire une page HTML contenant 
+<ul class="spaced">
+    <li>Une div carrée de 200 px par 200 px.</li>
+    <li>3 boutons ayant comme texte "R", "G", et "B"</li>
+    <li>
+        3 zones de texte (<code>input type="text"</code>), non éditables, pouvant contenir 2 caractères.
+        <br>Chaque zone de texte est asociée à un bouton, et va correspondre à la valeur en hexadécimal de la composante R, G ou B de la couleur de fond de la div.
+    </li>
+</ul>
+
+Initialement, la couleur de fond de la div est le noir, et les zones de texte contiennent "00".
+
+<br><br>Chaque fois qu'on clique sur un bouton,
+<ul>
+    <li>la valeur de la zone texte correspondante est incrémentée de 10 (en base 10).</li>
+    <li>La couleur de fond de la div change de manière à refléter la nouvelle valeur de la zone texte.</li>
+</ul>
+
+Si la valeur est à "FF", un clic sur le bouton la fait revenir à "00".
+
+
+<!-- ********************************************************************************* -->
+<h2>Variante 2</h2>
+
+Remplacez les boutons par des <code>input type="range"</code>, pouvant prendre une valeur de 0 à 255.
+<br>Lorsqu'on modifie la position du curseur, la couleur de fond de la div se met à jour, ainsi que les valeurs des zones texte (qui affichent toujours la valeur en base 16).
+
+<!-- ********************************************************************************* -->
+<!-- 
+<h2>Variante 3</h2>
+Cette variante contient 3 boutons R, V et B (avec toujours 3 zones texte), associés aux comportements suivants :
+<ul>
+    <li>
+        Lorsqu'on clique sur un bouton, une boucle va être exécutée ; chaque itération incrémente la valeur de la couleur correspondante et attend 1/4 de seconde.
+        <br>Un changement de valeur de la couleur entraîne toujours une modification de la zone texte associée, ainsi que la couleur de fond de la div.
+    </li>
+    <li>Lorsqu'on clique à nouveau sur le même bouton, l'exécution de la boucle s'arrête.</li>
+</ul>
+
+Notez que plusieurs boutons peuvent avoir déclenché l'exécution de la boucle correspondant à la couleur.
+-->
+
+</article>
+
+</body>
+</html>
