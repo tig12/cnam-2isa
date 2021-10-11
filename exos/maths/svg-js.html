@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>SVG Javascript | 2ISA Millau</title>
+    <meta name="description" content="Page dédiée au groupe TAI 22 (2ISA).">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2021">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="Exos" href="../../content/maths/exos.html">&uarr;</a>
+</nav>
+
+<header>
+<h1>
+    Dessiner avec SVG.
+</h1>
+</header>
+
+<article>
+
+<div class="intro">
+On va dessiner une figure simple, en la plaçant dans un <b>repère</b> orthonormé.
+</div>
+
+Créez une nouvelle page html et insérez le code :
+<pre>
+&lt;style>
+.svgexo{
+    display:block;
+    margin:1rem;
+    border:1px solid grey;
+}
+.svgexo .axis{
+    stroke:black;
+}
+&lt;/style>
+
+&lt;svg
+    class="svgexo"
+    width="600"
+    height="300"
+>
+    &lt;!-- Dessine les axes -->
+    &lt;line x1="30" y1="30" x2="30" y2="270" class="axis" />
+    &lt;line x1="30" y1="270" x2="570" y2="270" class="axis" />
+    
+    &lt;!-- Dessine la maison -->
+    &lt;path d="M100 250 h120 v-150 l-60 -60 l-60 60 v150" style="stroke:darkblue; fill:lightblue" />
+&lt;/svg>
+</pre>
+
+<style>
+.svgexo{
+    display:block;
+    margin:1rem;
+    border:1px solid grey;
+}
+.svgexo .axis{
+    stroke:black;
+}
+.svgexo .dessin{
+    stroke:darkblue;
+    fill:lightblue;
+}
+/* pas utilisé */
+.svgexo .grad{
+  /*  fill:linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet); */
+  fill: url(#linear);
+}
+</style>
+<svg
+    class="svgexo"
+    width="600"
+    height="300"
+>
+  <defs>
+    <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#05a"/>
+      <stop offset="100%" stop-color="#0a5"/>
+    </linearGradient>
+  </defs>
+  
+    <!-- Axes -->
+    <line x1="30" y1="30" x2="30" y2="270" class="axis" />
+    <line x1="30" y1="270" x2="570" y2="270" class="axis" />
+    
+    <!-- Dessin -->
+    <path d="M100 250 h120 v-150 l-60 -60 l-60 60 v150" class="dessin" />
+    <!-- 
+    <path d="M100 250 h120 v-150 l-60 -60 l-60 60 v150" class="grad" />
+    -->
+    
+    <!-- 
+    <text x="5" y="15" style="font-family:Times,serif;fill:red;font-size:12px">Text</text>
+    -->
+    
+</svg>
+
+<div class="exo">
+    Se documenter sur quelques formes que l'on peut dessiner en svg :
+    <ul>
+        <li>circle</li>
+        <li>ellipse</li>
+        <li>line</li>
+        <li>polygon</li>
+        <li>polyline</li>
+        <li>rect</li>
+        <li>text</li>
+    </ul>
+    Voir par exemple <a href="http://www.math.wsu.edu/math/kcooper/M300/svgcheat.php">http://www.math.wsu.edu/math/kcooper/M300/svgcheat.php</a>.
+    <br>Faire des essais en jouant avec ces formes sur une page html brouillon.
+    
+</div>
+
+<div class="exo">
+    <b>Pour comprendre la balise <code>path</code></b>, lire <a href="https://developer.mozilla.org/fr/docs/Web/SVG/Tutorial/Paths">developer.mozilla.org</a>
+</div>
+
+<div class="exo">
+    Comprendre l'utilisation de la balise &lt;defs>, l'utiliser pour modifier la figure ci-dessus en utilisant <i>linear gradient</i> pour remplir la figure.
+    <br>Voir par exemple <a href="https://vanseodesign.com/web-design/svg-linear-gradients/">https://vanseodesign.com/web-design/svg-linear-gradients/</a>
+</div>
+
+<!-- ********************************************************************************* -->
+<h2>Au papier et au crayon</h2>
+
+<div class="exo">
+    Sur une feuille de papier; compléter la figure ci-dessus en dessinant soigneusement les axes, avec des flèches.
+    <ul>
+        <li>Représentez les graduations, de 1 à 10 horizontalement et verticalement.</li>
+        <li>Dessinez une forme faite de points reliés par des lignes.</li>
+        <li>
+            Mesurez les coordonnées de chaque point du dessin.
+            <br>Vous obtenez une suite de coordonnées <code>{ (x1, y1), (x2, y2) ... }</code>
+        </li>
+    </ul>
+    <br>
+</div>
+
+<!-- ********************************************************************************* -->
+<h2>javascript</h2>
+<div class="exo">
+    <li>Initialisez un tableau javascript contenant les coordonnées des points de votre dessin.</li>
+    <li>
+        Ecrivez une fonction 
+        <pre>function svg(params, ){ ... }</pre>
+        où params est un dictionnaire clé: valeur.
+<pre>const params = {
+    class:  svgexo,
+    width:  600,
+    height: 300
+}
+</pre>
+        
+
+    </li>
+</div>
+
+<div class="exo">
+<div class="bold">Recherche</div>
+Comment construire un svg en javascript et l'ajouter à la page ?
+<!-- 
+<ul>
+    <li></li>
+    <li>Ecrire des fonctions qui renvoient une portion de path sous forme de string
+        <div><code>L(x1, y1, x2, y2)</code></div>
+        <div><code>l(dx, dy)</code></div>
+        <div><code>r(dx, dy)</code></div>
+        <div><code>h(dx, dy)</code></div>
+        <div><code>v(dx, dy)</code></div>
+    </li>
+</ul>
+-->
+</div>
+
+<!-- ********************************************************************************* -->
+<h2>Dessiner les axes</h2>
+
+
+
+<!-- ********************************************************************************* -->
+<h2>Ressources</h2>
+<ul class="spaced">
+    <li><a href="https://css-tricks.com/svg-properties-and-css/">https://css-tricks.com/svg-properties-and-css/</a></li>
+    <li><a href="https://developer.mozilla.org/fr/docs/Web/SVG/Tutorial/Paths">https://developer.mozilla.org/fr/docs/Web/SVG/Tutorial/Paths</a></li>
+    <li><a href="https://code-boxx.com/create-save-files-javascript/">Create &amp; Save Files In Javascript</a></li>
+</ul>
+</article>
+
+</body>
+</html>
