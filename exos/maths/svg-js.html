@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>SVG Javascript | 2ISA Millau</title>
-    <meta name="description" content="Page dédiée au groupe TAI 22 (2ISA).">
+    <meta name="description" content="">
     <meta name="robots" content="index,follow">
-    <link href="../../static/style.css" rel="stylesheet" type="text/css">
+    <link href="../../static/cnam-2isa.css" rel="stylesheet" type="text/css">
     <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
     <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
     <meta name="dcterms.rightsHolder" content="Thierry Graff">
@@ -26,9 +26,13 @@
 <article>
 
 <div class="intro">
-Thèmes abordés : plan, représentation graphique, repère, coordonnées, changement de repère.
+Le but est de représenter une figure simple (composée de points reliés par des segements de droite), de placer ces points dans un repère orthonormé, et d'utilise SVG pour la représenter dans une page HTML.
+
+<br><br>Thèmes abordés : plan, représentation graphique, repère, coordonnées, changement de repère.
 </div>
 
+<!-- ********************************************************************************* -->
+<h2>SVG</h2>
 Créez une nouvelle page html et insérez le code :
 <pre>
 &lt;style>
@@ -115,7 +119,8 @@ Créez une nouvelle page html et insérez le code :
         <li>text</li>
     </ul>
     Voir par exemple <a href="http://www.math.wsu.edu/math/kcooper/M300/svgcheat.php">http://www.math.wsu.edu/math/kcooper/M300/svgcheat.php</a>.
-    <br>Faire des essais en jouant avec ces formes sur une page html brouillon.
+    
+    <br><br>Faire des essais en jouant avec ces formes sur une page html brouillon.
     
 </div>
 
@@ -124,20 +129,24 @@ Créez une nouvelle page html et insérez le code :
 </div>
 
 <div class="exo">
-    Comprendre l'utilisation de la balise &lt;defs>, l'utiliser pour modifier la figure ci-dessus en utilisant <i>linear gradient</i> pour remplir la figure.
+    <b>Comprendre l'utilisation de la balise &lt;defs></b>.
     <br>Voir par exemple <a href="https://vanseodesign.com/web-design/svg-linear-gradients/">https://vanseodesign.com/web-design/svg-linear-gradients/</a>
+    <br>Utiliser une balise <code>&lt;defs></code> pour remplir la figure ci-dessus en utilisant un <i>linear gradient</i>.
 </div>
 
 <!-- ********************************************************************************* -->
 <h2>Au papier et au crayon</h2>
 
 <div class="exo">
-    Sur une feuille de papier; compléter la figure ci-dessus en dessinant soigneusement les axes, avec des flèches.
+    Sur une feuille de papier, dessinez une zone rectangulaire qui va représenter une dessin SVG.
+    <br>Dessinez soigneusement les axes.
     <ul>
-        <li>Représentez les graduations, de 1 à 10 horizontalement et verticalement.</li>
-        <li>Dessinez une forme faite de points reliés par des lignes.</li>
+        <li>Les axes se terminenet par une flèche</li>
+        <li>Ils ont une légende</li>
+        <li>Représentez les graduations, sur les axes horizontal et vertical.</li>
+        <li>Dessinez une figure composée de points reliés par des lignes (utilisez la figure donnée en exemple ou créez une figure de votre choix).</li>
         <li>
-            Mesurez les coordonnées de chaque point du dessin.
+            Mesurez les coordonnées de chaque point de votre figure.
             <br>Vous obtenez une suite de coordonnées <code>{ (x1, y1), (x2, y2) ... }</code>
         </li>
     </ul>
@@ -145,30 +154,77 @@ Créez une nouvelle page html et insérez le code :
 </div>
 
 <!-- ********************************************************************************* -->
-<h2>javascript</h2>
-<div class="exo">
-    <li>Initialisez un tableau javascript contenant les coordonnées des points de votre dessin.</li>
-    <li>
-        Ecrivez une fonction 
-        <pre>function svg(params, ){ ... }</pre>
-        où params est un dictionnaire clé: valeur.
-<pre>const params = {
-    class:  svgexo,
-    width:  600,
-    height: 300
-}
-</pre>
-        
-
-    </li>
-</div>
+<h2>Javascript</h2>
 
 <div class="exo">
 <div class="bold">Recherche</div>
 Comment construire un svg en javascript et l'ajouter à la page ?
-<!-- 
+</div>
+
+<div class="exo">
+Ecrivez une fonction
+<pre>function svg(attributs, contenu, style, defs){ ... }</pre>
 <ul>
-    <li></li>
+    <li>
+        <code>attributs</code> est un dictionnaire clé: valeur, par exemple :
+<pre>const attributs = {
+class:  svgexo,
+width:  600,
+height: 300
+}
+</pre>
+        <code>attributs</code> doit au moins contenir les clés <code>width</code> et <code>height</code>.
+    </li>
+    <li>
+        <code>contenu</code> est une chaîne de caractères contenant les instructions de dessin (<code>line</code>, <code>path</code> etc.)
+    </li>
+    <li>
+        <code>style</code> est une chaîne de caractères contenant le CSS à utiliser dans ce SVG (par défaut chaîne vide).
+    </li>
+    <li>
+        <code>contenu</code> est une chaîne de caractères contenant une balise <code>defs</code> (par défaut chaîne vide).
+    </li>
+</ul>
+
+La fonction <code>svg()</code> renvoie une chaîne de caractère contenant la balise svg.
+
+<br><br>Ecrire une page html testant cette fonction.
+<br>Réfléchir aux tests qu'il faudrait écrire pour tester les différents comportements possibles de la fonction :
+<ul>
+    <li><code>attributs</code> ne contient pas <code>width</code> ou <code>height</code>, les valeurs ne de ces attributs ne représentent pas des nombres entiers positifs.</li>
+    <li>L'attribut <code>style</code> est une chaîne vide</li>
+    <li>etc.</li>
+</ul>
+
+Notez que l'écriture de cette fonction correspond à une réponse possible à la question <i>Comment construire un svg en javascript et l'ajouter à la page ?</i>, mais qu'on aurait pu arriver au même résultat d'une autre manière.
+</div>
+
+On va maintenant se concentrer sur la manière d'écrire le contenu du SVG.
+
+
+<!-- ********************************************************************************* -->
+<h2>Dessiner une courbe dans un repère</h2>
+
+Le but est maintenant d'écrire du code permettant de représenter une courbe constituée de points reliés par des lignes dans un repère muni de coordonnées cartésiennes.
+
+<div class="exo">
+A partir de votre schéma sur papier, identifiez les paramètres utiles à une telle représentation.
+</div>
+
+<!-- ********************************************************************************* -->
+<h2>Dessiner les axes</h2>
+
+<!-- ********************************************************************************* -->
+<h2>Dessiner la figure</h2>
+Changement de repère.
+
+
+<!-- ********************************************************************************* -->
+<h2>Dessiner un path</h2>
+
+<!-- 
+<div class="exo">
+<ul>
     <li>Ecrire des fonctions qui renvoient une portion de path sous forme de string
         <div><code>L(x1, y1, x2, y2)</code></div>
         <div><code>l(dx, dy)</code></div>
@@ -177,11 +233,9 @@ Comment construire un svg en javascript et l'ajouter à la page ?
         <div><code>v(dx, dy)</code></div>
     </li>
 </ul>
--->
 </div>
+-->
 
-<!-- ********************************************************************************* -->
-<h2>Dessiner les axes</h2>
 
 
 

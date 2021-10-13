@@ -133,6 +133,19 @@ table.wikitable tr td code{
 }
 
 /* ================ Style shortcuts ================ */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
 
 .clear-left{clear:left;}
 .float-left{float:left;}
