@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Langages fonctionnels | CNAM / 2ISA Millau</title>
+    <meta name="description" content="Le problème de la décision et la manière dont il a été résolu, par Alan Turing et Alonzo Church.">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/cnam-2isa.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2021-10-11 22:31:37+02:00">
+</head>
+
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="NFP121" href="../../index.html">&uarr;</a>
+    <!-- 
+    <a class="next" title="Next" href="turing.html">&rarr;</a>
+    <a class="prev" title="Previous" href="INSTALL.html">&larr;</a>
+    -->
+ </nav>
+
+<header>
+<h1>Langages fonctionnels</h1>
+</header>
+
+<article>
+
+<!-- ********************************************************************************* -->
+<h2>Fonctions</h2>
+
+Dans un langage fonctionnel "pur", le terme fonction est à prendre au sens mathématique du terme.
+<br><code>f(x) = y</code>.
+<br>En informatique, cela se traduit par une fonction qui prend <code>x</code> en paramètre et renvoie <code>y</code> :
+<pre>
+// isVoyelle('a') = true
+// isVoyelle('r') = false
+boolean isVoyelle(char c){ ... }
+</pre>
+Une fonction transforme un <b>type de donnée</b> en un autre :
+
+<code class="block margin">char -- isVoyelle() --> boolean</code>
+
+Dans les langages impératifs, à l'intérieur de la fonction <code>isVoyelle()</code>, on pourrait aller lire ou écrire dans un fichier, afficher une chaîne à l'écran, modifier une variable globale, tout en renvoyant toujours le même résultat. Une fonction peut avoir des <b>effets de bord</b>, son exécution a toujours lieu dans le cadre global de l'<b>environnement d'exécution du programme</b>.
+
+<br><br>C'est bien pratique mais ça ne donne pas la garantie qu'une fonction fera toujours exactement la même chose chaque fois qu'on l'appelle, ce qui peut avoir comme effet :
+<ul>
+    <li>Compliquer, voir rendre impossible les tests unitaires.</li>
+    <li>Compliquer l'exécution parallèle de plusieurs fonctions.</li>
+</ul>
+
+<!-- ************************************* -->
+<h3>Fonction pure</h3>
+Une fonction est dite <b>pure</b> si elle n'a pas d'effet de bord ; pour une valeur donnée d'un argument, la valeur du retour sera toujours la même.
+
+<br><br>En pratique, quand on programme, les fonctions ne sont pas pures, elles peuvent :
+<ul class="margin0 simple">
+    <li>Renvoyer des erreurs ou exceptions.</li>
+    <li>Dépendre de l'extérieur de la fonction (par ex. variables globales, date et heure de l'exécution, disponibilité d'une ressource extérieure).</li>
+    <li>Modifier le système (écrire dans un fichier, une base de données).</li>
+</ul>
+
+Par exemple, la fonction <code>test()</code> suivante n'est pas pure.
+
+<pre>
+class ExempleFonctionImpure {
+    
+    private static int i = 0;
+    
+    public static String test(int j){
+        i += j;
+        return i;
+    }
+    
+}
+</pre>
+En effet, <code>test(1)</code> va renvoyer 1 au premier appel, puis 2 au second appel etc.
+
+<!-- ************************************* -->
+<h3>Transparence référentielle</h3>
+
+<div class="definition">
+Propriété d'un langage (ou d'un programme) qui fait que toute variable, ainsi que tout appel à une fonction, <b>peut être remplacée par sa valeur sans changer le comportement du programme</b>.
+</div>
+(tiré de <a href="https://www.fil.univ-lille1.fr/~wegrzyno/portail/Elfe/Doc/Cours-PF/cours-1.pdf">www.fil.univ-lille1.fr</a>)
+
+<br><br>Pour satisfaire cette propriété,
+<ul class="spaced">
+    <li>
+        <div class="bold">Les fonctions doivent être pures.</div>
+        Dans un langage impératif, une fonction est une suite d'instructions qui sont exécutées.
+        <br>Dans une langage fonctionnel, une fonction est <b>évaluée</b> comme n'importe quelle expression et le langage garantit que le résultat de cette évaluation sera <b>toujours identique</b>.
+    </li>
+    <li>
+        <div class="bold">Les variables doivent être immutables.</div>
+        Une fois qu'on a déclaré <code>a = 12</code>, on peut indifféremment utiliser <code>a</code> ou <code>12</code>.
+    </li>
+</ul>
+
+
+<!-- ********************************************************************************* -->
+<h2>Monades</h2>
+
+En pratique, on a besoin des effets de bords - sans eux, on ne pourrait même pas connaître le résultat de l'exécution d'un programme !
+
+<br>Comment faire tout en respectant l'intégrité référentielle ?
+<br>C'est expliqué ici : <a href="http://blog.sigfpe.com/2006/08/you-could-have-invented-monads-and.html">You Could Have Invented Monads! (And Maybe You Already Have.) </a>
+
+<br><br>Dans un langage fonctionnel pur, les effets de bords sont "emprisonnées" dans des <b>monades</b>.
+
+
+<br><br>Prenons deux fonctions pures, <code>f</code> et <code>g</code>, qui transforment un <code>float</code> en <code>float</code>.
+<pre>
+    f : float -> float
+    g : float -> float
+</pre>
+
+Pour débugger, on voudrait que chaque fonction, en plus de renvoyer un <code>float</code>, renvoie aussi un message.
+<br>Si on ne peut pas afficher à l'écran ou remplir un log global, on peut toujours construire deux fonctions qui renvoient un message (<code>string</code>) en plus d'un <code>float</code> :
+<pre>
+    f' : float -> (float, string)
+    g' : float -> (float, string)
+</pre>
+<pre>
+    f'(x) = (f(x), "f a été appelée")
+</pre>
+
+On voudrait en plus continuer à pouvoir <b>composer</b> nos fonctions.
+<br>Avec <code>f</code> et <code>g</code>, pas de problème:
+
+<pre>
+    x --f--> y = f(x) --g--> z = g(y) = g(f(x)) = g o f (x)
+    |        |               |
+  float    float           float
+</pre>
+
+Avec <code>f'</code> et <code>g'</code>, on peut le faire aussi, en définissant par exemple:
+
+<pre>g'(f'(x)) = ( g(f(x)), "message de f" + "message de g" )</pre>
+
+<pre>
+    (x, "")
+      |
+      f'
+      |
+      y = (f(x), "message de f")
+      |
+      g'
+      |
+      z = (g(y), "message de g")
+        = (g( (f(x), "message de f") ), "message de g")
+        = ( g(f(x)), "message de f" + "message de g" )
+</pre>
+
+On réussit à composer <code>f'</code> et <code>g'</code>, mais ça n'est pas pratique car chaque fois qu'on utilise <code>f'</code> ou <code>g'</code>, on doit se préoccuper de la concaténation des messages.
+
+
+
+<!-- ********************************************************************************* -->
+<h2>Divers</h2>
+
+<!-- ************************************* -->
+<h3>Mémoïsation</h3>
+Si une fonction est pure, pour un argument donné elle renvoie toujours la même valeur.
+<br>On peut donc fabriquer un cache : enregistrer dans un tableau toutes les valeurs possibles que peut prendre le argument, avec la valeur de retour de la fonction. on dit qu'on peut la <strong>mémoïser</strong>.
+<br>Que l'on renvoie la valeur calculée ou la valeur stockée dans le cache, on aura le même résultat.
+<br>On dit que la fonction est <strong>mémoïsable</strong>.
+<br>
+<br>En pratique, on ne peut pas le faire pour des types infinis (dont le cardinal de l'ensemble des valeurs du type est infini).
+
+<!-- ************************************* -->
+<h3>Curryfication</h3>
+La notion de fonction pure est plus large que la notion mathématique de fonction ; en effet, une fonction pure peut avoir plusieurs arguments en entrée (et dans certains langages renvoyer plusieurs valeurs).
+<br>Mais on peut transformer une fonction prenant plusieurs arguments en une fonction prenant le premier argument et renvoyant une fonction prenant les arguments suivants. Ce procédé s'appelle la <b>curryfication</b> (le nom vient de Haskel Curry).
+
+<br><br>Exemple en PHP :
+<pre>
+&lt;?php
+function uncurried_add($x, $y){
+    return $x + $y;
+}
+
+// Avant PHP 7.4
+function curried_add($x){
+    return function($y) use($x) { return $x + $y; };
+}
+
+// Depuis PHP 7.4 ("arrow functions")
+function curried_add2($x){
+    return fn($y) => $x + $y;
+}
+
+echo "uncurried_add(3, 5) = " . uncurried_add(3, 5) . "\n";
+echo "curried_add(3)(5) = " . curried_add(3)(5) . "\n";
+echo "curried_add2(3)(5) = " . curried_add2(3)(5) . "\n";
+</pre>
+(<a href="../../exemples/intro/curryfication/curry.php">code source</a>)
+
+<br><br>Voir aussi un <a href="../../exemples/intro/curryfication/TestCurry.java">exemple en java</a>.
+
+<br>
+<br>Vocabulaire :
+<br>Une <b>fonction d'ordre supérieur</b> est une fonction qui prend en paramètre une fonction ou qui renvoie une fonction.
+
+<!-- ************************************* -->
+<h3><a name="4-2-functions-as-first-class-citizens">Functions as first class citizens</a></h3>
+Les fonctions font partie des types connus des langages fonctionnels ; elles peuvent être
+<br>- nommées
+<br>- évaluées
+<br>- passées comme argument
+<br>- renvoyées comme résultat
+<br>- utilisées partout où une expression peut l'être.
+
+
+
+On se retrouve donc avec deux manières de programmer équivalentes mais différentes.
+
+<!-- ************************************* -->
+<h3><a name="4-1-exemple-factorielle">Exemple : factorielle</a></h3>
+
+En java :
+<pre>
+public class Factorial{
+    public static int compute(int n){
+        int res = 1;
+        for (int c = 1; c <= n; c++)
+            res = res * c;
+        return res;
+    }
+}
+</pre>
+
+En ~ lambda-calcul :
+<pre>&lambda; n.if n=0 then 1 else n*(fact (n-1))</pre>
+
+En Ocaml :
+<pre>
+let rec fact =
+    function n -> if n=0 then 1 else n*(fact (n-1))
+</pre>
+
+En Haskell :
+<br>
+
+<div class="flex-wrap">
+
+<pre>
+factorial n = if n < 2
+              then 1
+              else n * factorial (n - 1)
+</pre>
+
+<div>ou</div>
+
+<pre>
+factorial 0 = 1
+factorial n = n * factorial (n - 1)
+</pre>
+
+</div>
+
+
+En Lisp :
+<pre>
+(defun factorial (n)
+  (if (= n 1)              
+      1                           
+      (* n (factorial (- n 1))))) 
+</pre>
+
+<br>On peut remplacer la fonction par son résultat, on est surs qu'on ne va pas avoir fait
+
+
+Dans un langage purement fonctionnel, une fonction ne fait qu'une seule chose : elle prend un (ou plusieurs) argument(s) en entrée et renvoie une valeur en sortie.
+<br>Le corps de la fonction est comme un gros return, on se concentre sur ce qu'on renvoie, pas ce qu'on fait entre temps.
+<br>La syntaxe facilite cette orientation.
+<br>Par exemple en java, <code>if then else</code> est une <i>instruction composée</i>, qui <i>fait</i> des choses. En Ocaml, c'est une <i>expression</i>, qui <i>calcule</i> la valeur d'un type.
+
+</article>
+
+</body>
+</html>
