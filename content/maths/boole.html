@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <title>Algèbre de Boole | CNAM 2ISA Millau</title>
+    <meta name="description" content="">
+    <link href="../../static/cnam-2isa.css" rel="stylesheet" type="text/css">
+    <meta name="robots" content="index,follow">                                                                                                                        
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2021-10-13 11:26:14+02:00">
+    <!-- 
+    tigsite:
+        sidebar-right: maths/sidebar-maths.html
+    -->
+<style>
+/* Diagonale pour th table vérité */
+.diag {
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'><path d='M1 0 L0 1 L99 100 L100 99' fill='black' /></svg>");
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-size: 100% 100%, auto;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<div class="main">
+
+<nav class="prevnext">
+    <a class="top" title="" href="../../index.html">&uarr;</a>
+    <a class="prev" title="" href="ensembles.html">&larr;</a>
+    <!-- 
+    <a class="next" title="" href="categories.html">&rarr;</a>
+    -->
+</nav>
+
+<header>
+<h1>Algèbre de Boole</h1>
+<div class="intro">
+
+</div>
+</header>
+
+<article>
+
+On considère 2 ensembles et les opérations
+
+<br class="clear-left">
+
+<div class="float-left">
+    <div class="big3 bold">Intersection <span class="big30">&cap;</span></div>
+    <div class="big30 padding-left">. OR</div>
+</div>
+<div class="float-left">
+    <img src="img/ens-inter1.svg" alt="A inter B" class="border margin padding">
+</div>
+<div class="float-left">
+    <div class="margin">&in; A &cap; B</div>
+    <table class="wikitable margin">
+        <tr>
+            <th class="diag">
+                <div style="position:relative; min-height:2rem; min-width:2rem;">
+                    <div style="position:absolute; right:0; top:0;">A</div>
+                    <div style="position:absolute; left:0; bottom:0;">B</div>
+                </div>
+            </th>
+            <th>1</th>
+            <th>0</th>
+        </tr>
+        <tr><th>1</th><td>1</td><td>0</td></tr>
+        <tr><th>0</th><td>0</td><td>0</td></tr>
+    </table>
+</div>
+<div class="float-left">
+    <div class="margin">Multiplication binaire</div>    
+    <table class="wikitable margin">
+        <tr>
+            <th><div style="min-height:2rem;">x</div></th>
+            <th>1</th>
+            <th>0</th>
+        </tr>
+        <tr><th>1</th><td>1</td><td>0</td></tr>
+        <tr><th>0</th><td>0</td><td>0</td></tr>
+    </table>
+</div>
+<div class="float-left">
+    <div class="margin">ET logique</div>
+    <table class="wikitable margin">
+        <tr>
+            <th><div style="min-height:2rem;">AND</div></th>
+            <th>1</th>
+            <th>0</th>
+        </tr>
+        <tr><th>1</th><td>1</td><td>0</td></tr>
+        <tr><th>0</th><td>0</td><td>0</td></tr>
+    </table>
+</div>
+
+<br class="clear-left">
+
+<div class="float-left">
+    <div class="big3 bold">
+        Union
+        <span class="big30 padding-left">&cup;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+    <div class="big30">+ AND</div>
+</div>
+<div class="float-left">
+    <img src="img/ens-union1.svg" alt="A union B" class="border margin padding">
+</div>
+<div class="float-left">
+    <div class="margin">&in; A &cup; B</div>
+    <table class="wikitable margin">
+        <tr>
+            <th class="diag">
+                <div style="position:relative; min-height:2rem; min-width:2rem;">
+                    <div style="position:absolute; right:0; top:0;">A</div>
+                    <div style="position:absolute; left:0; bottom:0;">B</div>
+                </div>
+            </th>
+            <th>1</th>
+            <th>0</th>
+        </tr>
+        <tr><th>1</th><td>1</td><td>1</td></tr>
+        <tr><th>0</th><td>1</td><td>0</td></tr>
+    </table>
+</div>
+<div class="float-left">
+    <div class="margin">Addition binaire&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+    <table class="wikitable margin">
+        <tr>
+            <th><div style="min-height:2rem;">+</div></th>
+            <th>1</th>
+            <th>0</th>
+        </tr>
+        <tr><th>1</th><td>1</td><td>1</td></tr>
+        <tr><th>0</th><td>1</td><td>0</td></tr>
+    </table>
+</div>
+<div class="float-left">
+    <div class="margin">OU logique</div>
+    <table class="wikitable margin">
+        <tr>
+            <th><div style="min-height:2rem;">OR</div></th>
+            <th>1</th>
+            <th>0</th>
+        </tr>
+        <tr><th>1</th><td>1</td><td>1</td></tr>
+        <tr><th>0</th><td>1</td><td>0</td></tr>
+    </table>
+</div>
+
+<br class="clear-left">
+
+<a href="https://www.apprendre-en-ligne.net/info/logique/logique.pdf">https://www.apprendre-en-ligne.net/info/logique/logique.pdf</a>
+
+</article>
+</div><!-- end class="main" -->
+
+<!-- ************************************* -->
+<aside class="right">
+</aside>
+
+</div><!-- end class="container" -->
+
+</body>
+</html>
