@@ -19,12 +19,27 @@
 
 <header>
 <h1>
-    Exercices opérateurs logiques ET, OU, NON, SI
+    ET, OU, NON, SI
 </h1>
 </header>
 
 <article>
 
+<!-- ********************************************************************************* -->
+<h2>Table de vérité</h2>
+<!-- Origine : http://helios.mi.parisdescartes.fr/~cabanal/WIMS/Logique/co/etneg1.html -->
+Soit P et Q deux propositions logiques. Déterminer la table de vérité de la proposition « non (P) ou Q ».
+<table class="wikitable margin">
+    <tr><th>P</th><th>Q</th><th>&not;P &or; Q</th></tr>
+    <tr><td>V</td><td>V</td><td></td></tr>
+    <tr><td>V</td><td>F</td><td></td></tr>
+    <tr><td>F</td><td>V</td><td></td></tr>
+    <tr><td>F</td><td>F</td><td></td></tr>
+</table>
+
+
+<!-- ********************************************************************************* -->
+<h2>Tests conditionnels</h2>
 <table class="wikitable margin">
     <tr>
         <th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th>
@@ -72,15 +87,24 @@
 </table>
 
 Les codes suivants sont utilisés pour représenter des couleurs :
+
+<br class="clear-left">
+<div style="float:left">
 <ul>
     <li>B : Bleu</li>
     <li>G : Gris</li>
     <li>J : Jaune</li>
     <li>O : Orange</li>
+</ul>
+</div>
+<div style="float:left;">
+<ul>
     <li>N : Noir</li>
     <li>R : Rouge</li>
     <li>V : Vert</li>
 </ul>
+</div>
+<br class="clear-left">
 
 Complétez les couleurs de la table en appliquant les règles suivantes :
 
@@ -119,7 +143,7 @@ Complétez les couleurs de la table en appliquant les règles suivantes :
         <br>&nbsp;&nbsp;&nbsp;&nbsp;Sinon (
         <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Si la grille contient plus de cases jaunes que de cases noires alors E5 est bleue
         <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sinon (
-        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Si D3 et O3 sont de même couleur alors E5 est jaune
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Si D3 et B3 sont de même couleur alors E5 est jaune
         <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sinon E5 est noire
         <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
         <br>&nbsp;&nbsp;&nbsp;&nbsp;)
