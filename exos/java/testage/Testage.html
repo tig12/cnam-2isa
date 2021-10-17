@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Exercice Année bissextile | NFP121</title>
+    <link href="../../../static/cnam-2isa.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2021-10-17 16:09:20+02:00">
+</head>
+<body>
+
+<header>
+<h1>
+Exercice : Test de l'âge
+</h1>
+</header>
+
+<article>
+
+Ecrire un programme qui prend en entrée un paramètre (nombre entier).
+<br>Si ce nombre est > 18, affichez la chaîne : "La personne est majeure"
+<br>Sinon, affichez la chaîne : "La personne est mineure"
+
+<br><br>Instructions permettant de compiler et exécuter le programme :
+<pre>
+javac TestAge.java
+java TestAge 12
+java TestAge 34
+</pre>
+
+<br><br>Aide : pour gérer un paramètre en entrée, on peut utiliser <code>Integer.parseInt()</code>.
+
+<pre>
+class TestAge{
+
+    public static void main(String[] args){
+        // on suppose que la fonction est appelée avec un seul argument
+        // et que cet argument représente un nombre entier positif.
+        int age = Integer.parseInt(args[0]);
+    }
+}
+</pre>
+
+Essayez avec différentes valeurs pour age.
+<br>Testez en particulier la valeur 18
+
+</article>
+
+</body>
+</html>

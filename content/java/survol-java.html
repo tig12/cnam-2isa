@@ -195,8 +195,23 @@ Les opérateurs disponibles dépendent du type de la variable.
     </tr>
 </table>
 
+A noter, deux raccourcis syntaxiques souvent utilisés :
+<table class="wikitable margin">
+    <tr>
+        <td>++</td>
+        <td><code>i++</code> signifie <code>i = i + 1</code></td>
+    </tr>
+    <tr>
+        <td>+=</td>
+        <td><code>i+=3</code> signifie <code>i = i + 3</code></td>
+    </tr>
+</table>
+
+Les mêmes raccourcis existent aussi avec <code>-</code> (l'opérateur moins).
+
+
 <div class="exo">
-    <b>Exercice</b>
+    <b>Exercice</b> : <a href="../../exos/java/declaration/Declaration.html">Déclaration, affectation</a>
 </div>
 
 <!-- ********************************************************************************* -->
@@ -212,7 +227,7 @@ else {
 }
 </pre>
 
-Les conditions sont exprimées par des <b>expressions</b> ayant une valeur de type <code>boolean</code>.
+Les conditions sont exprimées par des <b>expressions</b> ayant une valeur de type <code>boolean</code> (<b>expressions booléennes</b>).
 <pre>
 boolean a = true;
 if(a) { ... }
@@ -284,21 +299,176 @@ else {
 }
 </pre>
 
+Les conditions (expressions booléennes) peuvent être combinées avec des <b>opérateurs booléens</b>.
+
+<table class="wikitable margin">
+    <tr>
+        <td>&amp;&amp;</td>
+        <td>et</td>
+        <td>and</td>
+        <td>
+            Evalué à <code>true</code> si les deux opérandes sont évaluées à <code>true</code>.
+            <pre>if(12 > 10 &amp;&amp; "a" &lt; "b"){ ... }</pre> 
+        </td>
+    </tr>
+    <tr>
+        <td>||</td>
+        <td>ou</td>
+        <td>or</td>
+        <td>
+            Evalué à <code>true</code> si une des deux opérandes sont évaluées à <code>true</code>.
+            <pre>if(12 > 10 &amp;&amp; "a" > "b"){ ... }</<pre></pre>
+        </td>
+    </tr>
+    <tr>
+        <td>!</td>
+        <td>négation</td>
+        <td>not</td>
+        <td>
+            Evalué à <code>true</code> si l'opérande est évaluée à <code>false</code>.
+            <pre>if(!12 > 10){ ... }</pre> 
+        </td>
+    </tr>
+</table>
+
 <div class="exo">
-    <b>Exercice</b>
+    <b>Exercice</b> <a href="../../exos/java/testage/Testage.html">Test de l'âge</a>
 </div>
+
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/bissextile/Bissextile.html">Année bissextile</a>
+</div>
+
 
 <!-- ********************************************************************************* -->
 <h2>Ecrire des boucles</h2>
 
+On peut demander d'exécuter certaines instructions plusieurs fois.
+<br>L'instruction <code>for</code> est la plus fréquemment utilisée.
+<pre>
+for(int i=0; i &lt; 10; i++){
+    System.out.println(i);
+}
+</pre>
+
+Signification :
+<pre>for(initialisation; condition d'arrêt; update){ ... }</pre>
+<ul>
+    <li>
+        Initialisation : on peut déclarer et initialiser des variables avant que la boucle commence à s'exécuter.
+        <br>Noter que la <b>portée</b> des variables définies ici est limitée à la boucle
+        <br><code>i</code> n'a d'existence qu'à l'intérieur de la boucle, entre { et }.
+    </li>
+    <li>Condition d'arrêt : expression booléenne ; la boucle va s'exécuter tant que cette condition est à <code>true</code>.</li>
+    <li>Update : instruction exécutée à la fin de chaque itération.</li>
+</ul>
+
+On peut aussi écrire des boucles de deux autres manières :
+
+<pre>
+int i = 0;
+while(i &lt; 10){
+    System.out.println(i);
+    i++;
+}
+</pre>
+<pre>
+int i = 0;
+do{
+    System.out.println(i);
+} while(i &lt; 10)
+</pre>
+
+Deux instructions importantes permettent de modifier le cours d'une boucle : <code>break</code> et <code>continue</code>.
+
+<!-- ************************************* -->
+<h3>break</h3>
+<code>break</code> permet de sortir de l'instruction qui la contient.
+<pre>
+for(int i = 0; i &lt; data.length; i++) {
+    if (data[i] == target) {
+        index = i;
+        break;
+    }
+} // l'interpreteur arrive ici après le break
+</pre>
+
+
+<!-- ************************************* -->
+<h3>continue</h3>
+Passe à l'itération suivante de la boucle
+<pre>
+for(int i = 0; i &lt; data.length; i++) {
+    if(data[i] == false){
+        continue;
+    }
+    process(data[i]);
+}
+</pre>
+
 
 <div class="exo">
-    <b>Exercice</b>
+    <b>Exercice</b> <a href="../../exos/java/multiples/Multiples1.html">Multiples1</a>
+</div>
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/multiplication/TableMultiplication.html">TableMultiplication</a>
 </div>
 
 
 <!-- ********************************************************************************* -->
 <h2>Créer et appeler des méthodes</h2>
+La très grande majorité du code qu'on écrit se trouve dans des méthodes (terminologie objet pour désigner une fonction).
+<br>Les méthodes se trouvent à l'intérieur de classes, comme la méthode <code>main()</code> qu'on a déjà vu.
+<br>Au sein d'une classe, une méthode doit avoir une <b>signature</b> unique. Voir page <a href="methodes.html">Méthodes</a>.
+
+<br><br>Application : L'exemple HelloWorld pourrait être modifié pour déporter l'affichage dans une méthode :
+<br>Voir l'exemple <a href="../../exemples/java/hello/HelloWorld2.java">HelloWorld2.java</a>
+<br>Une variante pourrait passer en agrument la chaîne à afficher.
+<br>Voir l'exemple <a href="../../exemples/java/hello/HelloWorld3.java">HelloWorld3.java</a>
+
+
+<div class="exo">
+<b>Exercice</b> : Reprendre l'exercice <a href="../../exos/java/testage/Testage.html">Test de l'âge</a> et écrivez une méthode qui effectue le test.
+<br>En entrée, elle prend en paramètre un <code>int</code>.
+<br>En sortie, elle renvoie un <code>boolean</code>.
+</div>
+
+<!-- ********************************************************************************* -->
+<h2>Utiliser des tableaux</h2>
+
+Voir page <a href="tableaux.html">Tableaux</a>
+
+<div class="exo">
+    <b>Exercice</b> <a href="../../exos/java/max/Max.html">Max et moyenne</a>
+</div>
+
+<div class="exo">
+<b>Exercice</b> : <a href="../../exos/java/testage/Testage.html">Voitures</a>
+</div>
+
+
+<!-- ********************************************************************************* -->
+<h2>Créer des objets</h2>
+
+Jusqu'à présent, on a créé des classes qui ne contenaient que des méthodes de classe (déclarées <code>static</code>).
+<br>Travailler uniquement avec des méthodes <code>static</code> revient finalement à programmer de manière classique (impératif non-objet), et les classes fournissent juste un moyen commode de "ranger" les méthodes.
+
+<div class="margin">Voir les pages <a href="../oop/intro-poo.html">Introduction à l'objet</a> (sans la partie sur l'héritage) et <a href="classes-interfaces.html">Classes, interfaces</a>.</div>
+
+A retenir :
+<ul class="spaced">
+    <li>Lorsqu'on crée une classe, on crée un nouveau type de données.</li>
+    <li>On crée une variable du type d'une classe (on l'<b>instancie</b>) en utilisant un <b>constructeur</b>, appelé à l'aide du mot-clé <b>new</b></li>
+</ul>
+
+<div class="exo">
+<b>Exercice</b> : <a href="../../exos/java/personnes/Personnes.html">Personnes</a>
+</div>
+
+
+<!-- ********************************************************************************* -->
+<h2>Travailler avec des packages</h2>
+Voir <a href=""></a>
 
 
 </article>
