@@ -317,7 +317,7 @@ Les conditions (expressions booléennes) peuvent être combinées avec des <b>op
         <td>or</td>
         <td>
             Evalué à <code>true</code> si une des deux opérandes sont évaluées à <code>true</code>.
-            <pre>if(12 > 10 &amp;&amp; "a" > "b"){ ... }</<pre></pre>
+            <pre>if(12 > 10 || "a" > "b"){ ... }</<pre></pre>
         </td>
     </tr>
     <tr>
@@ -326,7 +326,7 @@ Les conditions (expressions booléennes) peuvent être combinées avec des <b>op
         <td>not</td>
         <td>
             Evalué à <code>true</code> si l'opérande est évaluée à <code>false</code>.
-            <pre>if(!12 > 10){ ... }</pre> 
+            <pre>if(!(12 > 14)){ ... }</pre> 
         </td>
     </tr>
 </table>
