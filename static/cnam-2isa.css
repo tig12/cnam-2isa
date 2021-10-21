@@ -3,6 +3,12 @@
 */
 @import url("style.css");
 
+@media print {
+    .prevnext{
+        display:none;
+    }
+}
+
 .flex-center{justify-content:center;}
 
 /* ================ index page ================ */

@@ -92,6 +92,8 @@ h3{font-size:1.5rem;}
 
 
 /* ================ Particular elements ================ */
+.page-break-before{page-break-before:always;}
+
 .warning{
     width:50%;
     padding:.5rem;
