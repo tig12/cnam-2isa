@@ -29,8 +29,8 @@
     </style>
     <script>
         // Objets pour générer des exemples
-        const mymul = new mul(400);
-        const mysvg = new svg(400, 400, {'class': "svg"});
+        const mymul = new mul(300);
+        const mysvg = new svg(300, 300, {'class': "svg"});
     </script>
     <!-- Incrustation mulform -->
 </head>
@@ -184,12 +184,12 @@ Le centre du repère est le centre du cercle O<sub>2</sub>, et l'axe des x est d
 <br>Noté sur le dessin <span class="bold big">R'(0<sub>2</sub>, x', y')</span>
 
 <div class="exo">
-On note R le rayon du cercle.
-<br>Exprimer, en fonction de k et de R, les coordonnées (x'<sub>k</sub>, y'<sub>k</sub>) dans le repère R' du point M<sub>k</sub> où va être écrit le nombre k sur le cercle.
+On note r le rayon du cercle.
+<br>Exprimer, en fonction de k et de r, les coordonnées (x'<sub>k</sub>, y'<sub>k</sub>) dans le repère R' du point M<sub>k</sub> où va être écrit le nombre k sur le cercle.
 </div>
 
 <h4>Changement de repère</h4>
-On connaît les coordonnées (x'<sub>k</sub>, y'<sub>k</sub>) mais on a besoin des coordonnées (x, y) pour renseigner le svg.
+On connaît les coordonnées (x', y') mais on a besoin des coordonnées (x, y) pour renseigner le svg.
 
 <div class="exo">
 Trouver les relations donnant (x, y) en fonction de (x', y').
@@ -204,6 +204,27 @@ Trouver les relations donnant (x, y) en fonction de (x', y').
 <h3>Organisation du code</h3>
 
 <h4>Utiliser une classe</h4>
+
+<!-- ************************************* -->
+<h3>Test</h3>
+
+<div class="exo">
+Utilisez votre code pour générer une gallerie comme ci-dessous.
+</div>
+
+<script>
+    const mymod = 210;
+    const modfrom = 2;
+    const modto = 20
+    document.write('<div class="center big3 bold">Tables modulo ' + mymod + '</div>\n');
+    for(let i = 2; i <= 20; i++){
+        document.write('<div style="float:left;">\n');
+        document.write('<center><h2>' + i + '</h2></center>\n');
+        document.write(mymul.draw(mult=i, mod=mymod));
+        document.write('</div>\n');
+    }
+</script>
+
 
 </article>
 <!-- 
