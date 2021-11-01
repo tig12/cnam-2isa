@@ -1,0 +1,16 @@
+.svg{
+    display:block;
+    margin:1rem;
+    border:1px solid grey;
+}
+.svg circle{
+    fill:white;
+    stroke:black;
+}
+.svg line{
+    stroke:black;
+}
+.svg path{
+    stroke:black;
+    fill:none;
+}

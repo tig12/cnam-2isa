@@ -1,0 +1,13 @@
+.mul{
+    margin:1rem;
+    border:1px solid grey;
+    background: white;
+}
+.mul circle{
+    fill:white;
+    stroke:black;
+    stroke-width:2;
+}
+.mul line{
+    stroke:black;
+}

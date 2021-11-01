@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>SVG | CNAM 2ISA Millau</title>
+    <meta name="description" content="">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/cnam-2isa.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2020">
+    <script async defer data-domain="larzac.info" src="http://plausible.tig12.net:8000/js/plausible.js"></script>
+</head>
+
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="CNAM 2ISA Millau" href="../../index.html">&uarr;</a>    
+    <!-- 
+    <a class="prev" title="Previous" href=".html">&larr;</a>
+    <a class="next" title="Next" href=".html">&rarr;</a>
+    -->
+</nav>
+
+<header>
+<h1>SVG</h1>
+</header>
+
+<article>
+
+
+<table class="wikitable">
+<tbody>
+<tr>
+    <th>Object</th>
+    <th>Example</th>
+    <th>Result</th>
+</tr>
+<tr>
+    <td>circle</td>
+    <td>&lt;circle cx="20" cy="20" r="15" stroke="black"
+    stroke-width="1" fill="blue"/&gt;</td>
+    <td><object data="math.wsu.edu-SVG%20cheatsheet_fichiers/ex-circle.xml" height="40" width="60"></object></td>
+    </tr><tr>
+    <td>ellipse</td>
+    <td>&lt;ellipse cx="30" cy="20" rx="25" ry="17" stroke="blue"
+    stroke-width="2" fill="red"/&gt;</td>
+    <td><object data="math.wsu.edu-SVG%20cheatsheet_fichiers/ex-ellipse.xml" height="40" width="60"></object></td>
+    </tr><tr>
+    <td>line</td>
+    <td>&lt;line x1="5" y1="5" x2="55" y2="37" stroke="green"
+    /&gt;</td>
+    <td><object data="math.wsu.edu-SVG%20cheatsheet_fichiers/ex-line.xml" height="40" width="60"></object></td>
+</tr>
+<tr>
+    <td>path</td>
+    <td>&lt;path d="M5 5 C5 5 10 35 55 30 L30 5" style="stroke: black;fill:white"
+    /&gt;</td>
+    <td><object data="math.wsu.edu-SVG%20cheatsheet_fichiers/ex-path.xml" height="40" width="60"></object></td>
+    </tr><tr>
+    <td>polygon</td>
+    <td>&lt;polygon points="5,5 15,35 55,35 45,5" style="stroke:black; fill:rgb(200,200,200)"
+    /&gt;</td>
+    <td><object data="math.wsu.edu-SVG%20cheatsheet_fichiers/ex-polygon.xml" height="40" width="60"></object></td>
+</tr>
+<tr>
+<td>polyline</td>
+<td>&lt;polyline points="30,5 25,8 20,12 15,20 20,28 25,32 30,35" style="fill:blue;stroke:black; opacity:.5"
+/&gt;</td>
+<td><object data="math.wsu.edu-SVG%20cheatsheet_fichiers/ex-polyline.xml" height="40" width="60"></object></td>
+</tr><tr>
+<td>rect</td>
+<td>&lt;rect x="5" y="5" width="50" height="30" stroke="red" stroke-width="1"
+/&gt;</td>
+<td><object data="math.wsu.edu-SVG%20cheatsheet_fichiers/ex-rect.xml" height="40" width="60"></object></td>
+</tr><tr>
+<td>text</td>
+<td>&lt;text x="5" y="15" style="font-family:Times,serif;fill:red;font-size:12px"&gt;Text&lt;/text&gt;<br>
+&lt;text x="15" y="30" style="fill:blue;font-size:15px;opacity:.2"&gt;Here&lt;/text&gt;
+</td>
+<td><object data="math.wsu.edu-SVG%20cheatsheet_fichiers/ex-text.xml" height="40" width="60"></object></td>
+</tr>
+</tbody></table>
+
+<br><br>
+<h2>Gradients</h2>
+Gradients and a few other graphical elements can be defined
+between &lt;def&gt; tags near the top of the SVG file.
+<table>
+<tbody><tr>
+<th>Gradient</th>
+<th>Example</th>
+<th>Result</th>
+</tr><tr>
+<td>linearGradient</td>
+<td>&lt;linearGradient id="purple_red" x1="0%" y1="0%" x2="100%" y2="0%"&gt;<br>
+&lt;stop offset="0%" style="stop-color:rgb(255,0,255);
+stop-opacity:1"/&gt;<br>
+&lt;stop offset="100%" style="stop-color:rgb(255,0,0);
+stop-opacity:1"/&gt;<br>
+&lt;/linearGradient&gt;<br>
+&lt;linearGradient id="purple_yellow" x1="0%" y1="0%" x2="100%" y2="100%"&gt;<br>
+&lt;stop offset="0%" style="stop-color:rgb(255,0,255);
+stop-opacity:1"/&gt;<br>
+&lt;stop offset="50%" style="stop-color:rgb(255,255,0);
+stop-opacity:1"/&gt;<br>
+&lt;/linearGradient/&gt;</td>
+<td><object data="math.wsu.edu-SVG%20cheatsheet_fichiers/ex-lineargrad.xml" height="80" width="60"></object></td>
+</tr><tr>
+<td>radialGradient</td>
+<td>&lt;radialGradient id="green_blue" cx="50%" cy="50%" r="50%"
+fx="50%" fy="50%"&gt;<br>
+&lt;stop offset="0%" style="stop-color:rgb(0,255,0);
+stop-opacity:.2"/&gt;<br>
+&lt;stop offset="100%" style="stop-color:rgb(0,0,255);
+stop-opacity:1"/&gt;<br>
+&lt;/radialGradient&gt;</td>
+<td><object data="math.wsu.edu-SVG%20cheatsheet_fichiers/ex-radialgrad.xml" height="40" width="60"></object></td>
+</tr>
+</tbody></table>
+
+<br><br>
+<h2>Attributes</h2>
+<p>
+Attributes for SVG objects may be assigned values in two ways.  
+They can always be assigned in the form <i>attribute="value"</i>, 
+or they can frequently be assigned in a CSS style specification:
+<i>style="attribute:value"</i>.
+</p>
+<table>
+<tbody><tr>
+<th>Attribute</th>
+<th>Valid Tags</th>
+<th>Describes</th>
+<th>Example</th>
+</tr><tr>
+<td>cx, cy</td>
+<td>circle, ellipse</td>
+<td>The x and y coordinates of the center of a circle or ellipse.
+</td>
+<td>&lt;circle cx="20" cy="30" r="15" stroke="black"
+stroke-width="1" fill="blue"/&gt;</td>
+</tr><tr>
+<td>fill</td>
+<td>Almost all</td>
+<td>This describes the color or gradient used to fill the interior of the 
+graphics object.</td>
+<td>&lt;rect x="5" y="5" width="50" height="30" stroke="red" fill="green" /&gt;</td>
+</tr><tr>
+<td>opacity</td>
+<td>Almost all</td>
+<td>This describes the translucence of the fill color.  0 indicates tranparency,
+while 1 indicates complete opacity.  </td>
+<td>&lt;rect x="5" y="5" width="50" height="30" opacity=".5" fill="green" /&gt;</td>
+</tr><tr>
+<td>stroke</td>
+<td>All</td>
+<td>This describes the color of the boundary of the 
+graphics object.</td>
+<td>&lt;rect x="5" y="5" width="50" height="30" stroke="red" fill="green" /&gt;</td>
+</tr><tr>
+<td>width, height</td>
+<td>rect</td>
+<td>Specifies the width and height of a rectangle</td>
+<td>&lt;rect x="5" y="5" width="50" height="30" stroke="red" fill="green" /&gt;</td>
+</tr><tr>
+<td>x,y</td>
+<td>rect, text</td>
+<td>This gives the location of a vertex of the
+graphics object.</td>
+<td>&lt;rect x="5" y="5" width="50" height="30" stroke="red" fill="green" /&gt;</td>
+</tr>
+</tbody>
+</table>
+
+
+
+</article>
+
+</body>
+</html>

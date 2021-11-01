@@ -1,0 +1,60 @@
+/******************************************************************************
+    Style to display a round multiplication form
+    
+    @license    GPL
+    @history    2021-11-01 12:44:55+01:00, Thierry Graff : Creation
+********************************************************************************/
+
+.mulform{
+    font-family:Arial,Helvetica,sans-serif;
+}
+.mulform .right{
+    margin-top:.5rem;
+}
+.mulform .bottom{
+    margin-left:4rem;
+}
+.mulform .carac{
+    display:inline-block;
+    padding:.7rem;
+    margin:.5rem;
+    margin-top:0;
+    border:1px solid lightgrey;
+    border-radius:10px;
+    background:lightblue;
+}
+.mulform .play{
+    display:inline-block;
+    padding:.7rem;
+    margin:.5rem;
+    border:1px solid lightgrey;
+    border-radius:10px;
+    background:lightblue;
+}
+
+/* ================ Generic styles ================ */
+
+/* Field alignment - 2 fields per line */
+.grid2-form {
+    display:grid;
+    grid-template-columns:max-content 1fr;
+    grid-gap:.5em;
+}
+.grid2-form label{
+    text-align:right;
+}
+.flex-row {
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  width:100%;
+}
+.flex-col {
+  display:flex;
+  flex-direction:column;
+  flex-basis:100%;
+  flex:1;
+}
+.padding-left{padding-left:1rem;}
+.padding-top05{padding-top:0.5rem;}
+.padding-bottom05{padding-bottom:0.5rem;}
