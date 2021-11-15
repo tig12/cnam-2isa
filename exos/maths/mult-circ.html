@@ -87,7 +87,7 @@ window.addEventListener('load', function(){
                 </div>
                 <div class="grid2-form">
                     <label for="step-t" class="padding-left">Step:</label>
-                    <input id="step-t" type="number" value="0.01" step="0.01" size="2"/>
+                    <input id="step-t" type="number" value="0.1" step="0.01" size="2"/>
                 </div>
             </div>
             <br>
@@ -175,7 +175,7 @@ Si deux nombres sont reliés par la relation "multiplier par 2", on dessine une 
 <h3>Les repères</h3>
 
 Un repère sert à gérer des coordonnées. Il est caractérisé par son centre et ses axes.
-<br>Noté <span class="bold big">R(0, x, y)</span> : repère de centre O muni de 2 axes pour mesurer les coordonnées.
+<br>Noté <span class="bold big">R(0, x, y)</span> : repère de centre O muni de 2 axes, x et y, pour mesurer les coordonnées.
 
 <h4>R = Repère de l'écran</h4>
 Notre repère de départ est le système de coordonnées qu'on utilise en svg :
@@ -202,12 +202,16 @@ Trouver les relations donnant (x, y) en fonction de (x', y').
 <details>
     <summary>Indication</summary>
     Regardez le point M sur le dessin.
+    <br>Par exemple sur l'axe x, quelle est la relation entre x, x<sub>2</sub> et y' ?
+    <br>Trouver une relation similaire sur l'axe y.
 </details>
 
 </div>
 
 <!-- ************************************* -->
 <h3>Organisation du code</h3>
+
+Dans un premier temps, on se concentre sur le code à écrire pour générer un seul dessin.
 
 <h4>Utiliser une classe</h4>
 

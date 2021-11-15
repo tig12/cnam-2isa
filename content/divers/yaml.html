@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>YAML en java | CNAM 2ISA Millau</title>
+    <title>YAML | CNAM 2ISA Millau</title>
     <meta name="description" content="">
     <meta name="robots" content="index,follow">
     <link href="../../static/cnam-2isa.css" rel="stylesheet" type="text/css">
@@ -24,12 +24,158 @@
 </nav>
 
 <header>
-<h1>YAML en java</h1>
+<h1>Manipuler du YAML</h1>
 </header>
 
 <article>
-<a href="https://github.com/EsotericSoftware/yamlbeans">https://github.com/EsotericSoftware/yamlbeans</a>
-<a href="https://repo1.maven.org/maven2/com/esotericsoftware/yamlbeans/yamlbeans">https://repo1.maven.org/maven2/com/esotericsoftware/yamlbeans/yamlbeans</a>
+
+YAML (YAML Ain't Markup Language) est un langage de sérialisation de données, similaire à JSON ou XML ; voir <a href="https://yaml.org/">https://yaml.org/</a>.
+<br>YAML peut être vu comme une extension de json : tout document json valide est un document yaml valide (le contraire n'est pas vrai).
+
+<br><br>Un des intérêts de yaml est de supporter 2 modes : un mode "inline", comme json et un mode "multiligne" utilisant les tabulations pour exprimer la structure des objets, ce qui permet d'écrire des fichiers de configuration sans caractères tels que <code>[ ] { } " ,</code>.
+
+<br><br>Exemple d'un tableau contenant 2 maps en json :
+<pre>
+[
+    {
+        "nom": "Curry",
+        "pr\u00e9nom": "Haskell Brooks",
+        "naissance": {
+            "date": "1900-12-09",
+            "lieu": "Millis",
+            "admin-code-level1": "Massachusetts",
+            "pays": "US"
+        },
+        "mort": {
+            "date": "1982-12-01",
+            "lieu": "State College",
+            "admin-code-level1": "Pennsylvania",
+            "pays": "US"
+        }
+    },
+    {
+        "nom": "Howard",
+        "pr\u00e9nom": "William Alvin",
+        "naissance": {
+            "date": "1926",
+            "pays": "US"
+        }
+    }
+]
+</pre>
+
+Le même tableau écrit en yaml, mode multiline :
+<pre>
+-
+  nom: Curry
+  "pr\xE9nom": Haskell Brooks
+  naissance:
+    date: "1900-12-09"
+    lieu: Millis
+    admin-code-level1: Massachusetts
+    pays: US
+  mort:
+    date: "1982-12-01"
+    lieu: State College
+    admin-code-level1: Pennsylvania
+    pays: US
+- 
+  nom: Howard
+  "pr\xE9nom": William Alvin
+  naissance:
+    date: "1926"
+    pays: US
+</pre>
+
+Note : on peut mélanger les 2 syntaxes, par exemple écrire :
+<pre>
+- 
+  nom: Howard
+  "pr\xE9nom": William Alvin
+  naissance: {date: "1926", pays: US}
+</pre>
+
+<!-- ********************************************************************************* -->
+<h2>Tester l'utilisation de YAML</h2>
+Créez un répertoire de test et allez dedans :
+<pre>
+mkdir test-yaml
+cd test-yaml
+</pre>
+Créez un fichier <code>test.yml</code> contenant le yaml d'exemple.
+
+<!-- ********************************************************************************* -->
+<h2>YAML en java</h2>
+L'API java ne fournit pas de classes pour gérer le yaml. Il faut donc utiliser une bibliothèque ; il en existe plusieurs, par exemple <a href="https://github.com/snakeyaml/snakeyaml">SnakeYAML</a>, <a href="https://github.com/decorators-squad/eo-yaml">eo-yaml</a>, <a href="https://github.com/EsotericSoftware/yamlbeans">YamlBeans</a>.
+
+<br><br>On va utiliser  <a href="https://github.com/EsotericSoftware/yamlbeans">YamlBeans</a>.
+
+<h3>Installation</h3>
+Téléchargez sur votre machine locale le jar contenant le code de YamlBeans, à partir de
+<a href="https://repo1.maven.org/maven2/com/esotericsoftware/yamlbeans/yamlbeans">https://repo1.maven.org/maven2/com/esotericsoftware/yamlbeans/yamlbeans</a>.
+<pre>
+wget https://repo1.maven.org/maven2/com/esotericsoftware/yamlbeans/yamlbeans/1.15/yamlbeans-1.15.jar
+</pre>
+
+Créez un fichier <code>YamlTest.java</code>
+<pre>
+import java.util.*;
+import java.io.*;
+import com.esotericsoftware.yamlbeans.*;
+
+class YamlTest{
+
+    public static void main(String[] args){
+        try{
+            YamlReader reader = new YamlReader(new FileReader("test.yml"));
+            List theList = (ArrayList)reader.read();
+            System.out.println(theList);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            System.exit(0);
+        }
+    }
+}
+</pre>
+
+Compilez :
+<pre>
+javac -cp yamlbeans-1.15.jar YamlTest.java 
+</pre>
+
+Exécutez :
+<pre>
+java -cp yamlbeans-1.15.jar:. YamlTest
+</pre>
+
+Attention, java étant un langage typé, il faut associer à chaque noeud un type java.
+
+<br><br>Note : 
+A la place de télécharger un fichier jar, on aurait pu cloner le code source et l'utiliser pour compiler et exécuter :
+
+<pre>
+git clone https://github.com/EsotericSoftware/yamlbeans.git
+javac -cp yamlbeans/src YamlTest.java
+java -cp yamlbeans/src:. YamlTest
+</pre>
+
+
+<!-- ********************************************************************************* -->
+<h2>YAML en php</h2>
+Installer l'extension yaml de php :
+<pre>
+sudo apt install php8.0-yaml
+</pre>
+
+<pre>
+&lt;?php
+$yaml = yaml_parse_file('test.yml');
+echo "\n"; print_r($yaml); echo "\n";
+</pre>
+
+
 </article>
 
 </body>
