@@ -11,10 +11,61 @@
 <h1>
 Exercice : Une première classe
 </h1>
+<div class="intro">
+But : écrire une classe, créer des objets de cette classe et les utiliser.
+<br>Pour la syntaxe, vous pouvez vous aider de l'exemple de <a href="../../../content/java/classes-interfaces.html">la page sur les classes et les interfaces</a>, ou de la classe située dans <a href="Personne.java">Personne.java</a>.
+</div>
 </header>
 
 <article>
+
+<!-- ********************************************************************************* -->
+<h2>I - Classe <code>Chat</code></h2>
+Dans un fichier <code>Chat.java</code>, écrire une classe <code>Chat</code>.
+<br>Note : cette classe n'a pas besoin d'avoir une fonction <code>main()</code>.
+
+<br><br>Cette classe a 3 <b>variables d'instance</b> (qui ne sont pas déclarées <code>static</code>) :
+<ul>
+    <li>Le nom, de type <code>String</code></li>
+    <li>L'âge, de type <code>int</code></li>
+    <li>La couleur, de type <code>String</code></li>
+</ul>
+Ces 3 variables d'instance doivent être toutes les trois déclarées <b>privées</b>.
+
+<br><br>La classe <code>Chat</code> a aussi une <code>variable de classe</code> (déclarée <code>static</code>) :
+<br><code>Nombre de pattes</code>, de type int, dont la valeur est 4.
+Cette variable doit être toutes les trois déclarées <b>privées</b>.
+
+
+<ol class="spaced">
+    <li>
+        Ecrire un <b>constructeur</b> prenant 3 paramètres : le nom de l'animal, son âge et sa couleur.
+    </li>
+    <li>Pour chacune des 3 variables d'instance, écrire un <b>getter</b> et un <b>setter</b>.</li>
+    <li>
+        Ecrire une fonction <code>direBonjour()</code>, qui ne prend aucun paramètre, et qui renvoie une String contenant :
+        <br>"Miaou, je m'appelle ", suivi du nom du chat, suivi de son âge, de sa couleur et de son nombre de pattes.
+        <br>Par exemple, pour un chat nommé <i>Félix</i>, vieux de 3 ans et de couleur noire, la fonction <code>sePresenter()</code> renvoie :
+        <pre>Bonjour, je m'appelle Félix, j'ai 3 ans, ma couleur est le noir, et j'ai 4 pattes.</pre>
+    </li>
+</ol>
+
+<!-- ********************************************************************************* -->
+<h2>II - classe <code>TestChat</code></h2>
+
+Dans un fichier <code>TestChat.java</code>, écrire une classe <code>TestChat</code>, qui va contenir une fonction <code>main()</code>.
+
+<ol class="spaced">
+    <li>Dans cette fonction <code>main()</code>, créez un chat nommé <i>Minou</i>, qui a 3 ans et qui est gris.</li>
+    <li>Affichez le résultat de l'exécution de <code>sePresenter()</code> de ce chat.</li>
+    <li>Modifiez votre chat, en lui affectant un âge de 5 ans.</li>
+    <li>Affichez de nouveau le résultat de l'exécution de <code>sePresenter()</code> de ce chat. Constatez que cette fonction a bien pris en compte le changement d'âge.</li>
+</ol>
+
 </article>
+
+<!-- ********************************************************************************* -->
+<h2>III Dialogue</h2>
 
 </body>
 </html>
