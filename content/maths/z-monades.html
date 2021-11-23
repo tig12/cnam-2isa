@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Monades | CNAM 2ISA Millau</title>
+    <meta name="description" content="Exercices de mathématiques">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/cnam-2isa.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2021">
+</head>
+
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="CNAM 2ISA Millau" href="../../index.html">&uarr;</a>    
+    <!-- 
+    <a class="prev" title="Previous" href=".html">&larr;</a>
+    <a class="next" title="Next" href=".html">&rarr;</a>
+    -->
+</nav>
+
+<header>
+<h1>
+    Monades
+    <br>(brouillon)
+</h1>
+</header>
+
+<article>
+
+<style>
+code{font-size:1.3rem;}
+</style>
+
+<!-- ********************************************************************************* -->
+<h2>Définition</h2>
+
+D'après <a href="https://fr.wikipedia.org/wiki/Monade_(informatique)">Wikipedia</a> :
+
+<br><br>Une monade peut se voir comme la donnée d'un triplet constitué des trois éléments suivants&nbsp;:
+
+<ul class="spaced margin border" style="background:lightblue;">
+    <li>
+        un constructeur de type appelé type monadique, qui associe au type <code>t</code> le type <code>Mt</code>.
+    </li>
+    <li>
+        une fonction nommée <i>unit</i> ou <i>return</i>, qui construit à partir d'un élément de type sous-jacent <code>a</code> un autre objet de type monadique <code>Ma</code>.
+        <br>Cette fonction est alors de signature <code>return: t &rarr; Mt</code>
+    </li>
+    <li>
+        une fonction <i>bind</i>, représentée par l'opérateur <code>&#8811;=</code>, associant à un type monadique et une fonction d'association un autre type monadique. Il permet de composer une fonction monadique à partir d'autres fonctions monadiques. Cet opérateur est de type
+        <br><code>&#8811;=: Mt &rarr; (t &rarr; Mu) &rarr; Mu</code>
+    </li>
+</ul>
+
+Du point de vue des catégories, une monade est constituée d'un <b>foncteur</b> et de 2 <b>transformations naturelles</b>.
+
+<br><br>La catégorie des fonctions monadiques est appelée <b>catégorie de Kleisli</b>. Dans cette catégorie,
+<ul class="margin-top0">
+    <li>La flèche identité est la fonction <i>unit</i>.</li>
+    <li>L'opérateur de composition est la fonction <i>bind</i>.</li>
+</ul>
+
+
+
+<!-- ************************************* -->
+<h3>Le constructeur de type monadique</h3>
+
+Voir <a href="categories.html">la page sur les catégories</a>, un constructeur est bien un <b>foncteur</b>.
+
+<img class="margin padding border" src="img/mon-construct.svg" alt="Monade transformée par un constructeur de type monadique">
+
+<!-- ************************************* -->
+<h3>La fonction <i>unit</i> ou <i>return</i></h3>
+
+<!-- ************************************* -->
+<h3>La fonction <i>bind</i></h3>
+
+La notation à la Haskell : <code>&#8811;=: Mt &rarr; (t &rarr; Mu) &rarr; Mu</code>
+<br>se lit :
+<br><code>&#8811;=</code>
+<br>prend en paramètres :
+<div class="margin-left2"><code>Mt</code></div>
+<div class="margin-left2"><code>(t &rarr; Mu)</code></div>
+et renvoie
+<div class="margin-left2"><code>Mu</code></div>
+
+Avec notre manière habituelle d'écrire les fonctions:
+<div class="margin-left2"><code>&#8811;=: Mt, (t &rarr; Mu) &rarr; Mu</code></div>
+
+<!-- ********************************************************************************* -->
+<h2>Liens</h2>
+
+
+<ul>
+    <li><a href="https://fr.wikipedia.org/wiki/Monade_(informatique)">fr.wikipedia.org</a></li>
+    <li><a href="http://www.valuedlessons.com/2008/01/monads-in-python-with-nice-syntax.html">www.valuedlessons.com</a></li>
+    <li><a href="https://www.atikteam.com/fr/blog/page/Les-Monades-Dans-La-Programmation-Fonctionnelle">www.atikteam.com/fr/blog/page/Les-Monades-Dans-La-Programmation-Fonctionnelle</a></li>
+    <li><a href="https://www.atikteam.com/fr/blog/page/Programmation-Fonctionnelle-et-Theorie-des-Categories">www.atikteam.com/fr/blog/page/Programmation-Fonctionnelle-et-Theorie-des-Categories</a></li>
+    <li>you-could-have-invented-monads.html</li>
+</ul>
+    
+
+</article>
+
+</body>
+</html>

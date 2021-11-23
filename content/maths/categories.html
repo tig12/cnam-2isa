@@ -153,6 +153,28 @@ Mais toutes ces complexités peuvent être construites à partir de fonctions pu
 <br>La catégorie des types fournit donc une représentation mathématique d'un langage fonctionnel.
 
 
+<!-- ********************************************************************************* -->
+<h2>Foncteurs</h2>
+Un foncteur transforme une catégorie en une autre.
+<br>Lorsqu'on spécifie un foncteur, il faut
+<ul>
+    <li>Spécifier comment les objets vont être transformés</li>
+    <li>Spécifier comment les flèches vont être transformées</li>
+</ul>
+
+<!-- ************************************* -->
+<h3>Constructeur</h3>
+Un foncteur couramment utilisé en informatique est le <b>contructeur de type</b>.
+
+<br><br>Lorsqu'on écrit en java :
+<pre>class Animal {}</pre>
+cela permet de créer des objet de type <code>Animal</code> :
+<pre>Animal a = new Animal();</pre>
+
+On passe bien d'une première catégorie, dont les objets sont les types manipulés par notre programme : <code>String</code> etc.
+<br>à une deuxième catégorie, dont les objets sont les types précédent PLUS le nouveau type, <code>Animal</code>.
+
+
 <!-- ************************************* -->
 <h3>Quelques liens</h3>
 <ul>
