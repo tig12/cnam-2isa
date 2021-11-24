@@ -42,8 +42,8 @@ D'après <a href="https://fr.wikipedia.org/wiki/Monade_(informatique)">Wikipedia
 
 <br><br>Une monade peut se voir comme la donnée d'un triplet constitué des trois éléments suivants&nbsp;:
 
-<ul class="spaced margin border" style="background:lightblue;">
-    <li>
+<ul class="spaced margin border">
+    <li class="padding-top">
         un constructeur de type appelé type monadique, qui associe au type <code>t</code> le type <code>Mt</code>.
     </li>
     <li>
@@ -56,15 +56,23 @@ D'après <a href="https://fr.wikipedia.org/wiki/Monade_(informatique)">Wikipedia
     </li>
 </ul>
 
-Du point de vue des catégories, une monade est constituée d'un <b>foncteur</b> et de 2 <b>transformations naturelles</b>.
+Du point de vue des catégories, une monade est constituée
+<br>d'un <b>foncteur</b>, <i>t &rarr; Mt</i> constructeur de type appelé type monadique
+<br>et de 2 <b>transformations naturelles</b>, <i>return</i> et <i>bind</i>.
 
-<br><br>La catégorie des fonctions monadiques est appelée <b>catégorie de Kleisli</b>. Dans cette catégorie,
-<ul class="margin-top0">
+<br><br>On appelle <b>Monade</b> un triplet (<i>t &rarr; Mt</i>, <i>return</i>, <i>bind</i>).
+
+<!-- ************************************* -->
+<h3>Catégorie de Kleisli</h3>
+La catégorie des <b>fonctions monadiques</b> est appelée <b>catégorie de Kleisli</b>.
+
+<br><div class="todo">TODO déf fonction monadique</div>
+
+<br>Dans cette catégorie,
+<ul class="spaced bold margin-top05">
     <li>La flèche identité est la fonction <i>unit</i>.</li>
     <li>L'opérateur de composition est la fonction <i>bind</i>.</li>
 </ul>
-
-
 
 <!-- ************************************* -->
 <h3>Le constructeur de type monadique</h3>
@@ -73,23 +81,83 @@ Voir <a href="categories.html">la page sur les catégories</a>, un constructeur 
 
 <img class="margin padding border" src="img/mon-construct.svg" alt="Monade transformée par un constructeur de type monadique">
 
+<div class="question">Constructeur pour chaque type de la cat de départ ? pas un constructeur au sens habituel où un seul type est construit ?</div>
+
+
 <!-- ************************************* -->
 <h3>La fonction <i>unit</i> ou <i>return</i></h3>
 
 <!-- ************************************* -->
 <h3>La fonction <i>bind</i></h3>
 
-La notation à la Haskell : <code>&#8811;=: Mt &rarr; (t &rarr; Mu) &rarr; Mu</code>
-<br>se lit :
-<br><code>&#8811;=</code>
-<br>prend en paramètres :
-<div class="margin-left2"><code>Mt</code></div>
-<div class="margin-left2"><code>(t &rarr; Mu)</code></div>
-et renvoie
-<div class="margin-left2"><code>Mu</code></div>
+<div class="">
+    La notation  Haskell
+    <br><code>&#8811;=: Mt &rarr; (t &rarr; Mu) &rarr; Mu</code>
+    <br>Avec notre manière habituelle d'écrire les fonctions :
+    <div class="margin-left2"><code>&#8811;=: Mt, (t &rarr; Mu) &rarr; Mu</code></div>
+    <div class="margin-left2"><code>&#8811;=:( Mt, (t &rarr; Mu) ) = Mu</code></div>
+    
+    Soit:
+    <div class="margin-left2"><code>&#8811;=</code></div>
+    prend en paramètres :
+    <div class="margin-left5"><code>Mt</code></div>
+    <div class="margin-left5"><code>(t &rarr; Mu)</code></div>
+    et renvoie
+    <div class="margin-left5"><code>Mu</code></div>
+</div>
 
-Avec notre manière habituelle d'écrire les fonctions:
-<div class="margin-left2"><code>&#8811;=: Mt, (t &rarr; Mu) &rarr; Mu</code></div>
+<!-- ********************************************************************************* -->
+<h2>FROM OLD</h2>
+
+<br><br>Dans un langage fonctionnel pur, les effets de bords sont "emprisonnées" dans des <b>monades</b>.
+
+
+<br><br>Prenons deux fonctions pures, <code>f</code> et <code>g</code>, qui transforment un <code>float</code> en <code>float</code>.
+<pre>
+    f : float -> float
+    g : float -> float
+</pre>
+
+Pour débugger, on voudrait que chaque fonction, en plus de renvoyer un <code>float</code>, renvoie aussi un message.
+<br>Si on ne peut pas afficher à l'écran ou remplir un log global, on peut toujours construire deux fonctions qui renvoient un message (<code>string</code>) en plus d'un <code>float</code> :
+<pre>
+    f' : float -> (float, string)
+    g' : float -> (float, string)
+</pre>
+<pre>
+    f'(x) = (f(x), "f a été appelée")
+</pre>
+
+On voudrait en plus continuer à pouvoir <b>composer</b> nos fonctions.
+<br>Avec <code>f</code> et <code>g</code>, pas de problème:
+
+<pre>
+    x --f--> y = f(x) --g--> z = g(y) = g(f(x)) = g o f (x)
+    |        |               |
+  float    float           float
+</pre>
+
+Avec <code>f'</code> et <code>g'</code>, on peut le faire aussi, en définissant par exemple:
+
+<pre>g'(f'(x)) = ( g(f(x)), "message de f" + "message de g" )</pre>
+
+<pre>
+    (x, "")
+      |
+      f'
+      |
+      y = (f(x), "message de f")
+      |
+      g'
+      |
+      z = (g(y), "message de g")
+        = (g( (f(x), "message de f") ), "message de g")
+        = ( g(f(x)), "message de f" + "message de g" )
+</pre>
+
+On réussit à composer <code>f'</code> et <code>g'</code>, mais ça n'est pas pratique car chaque fois qu'on utilise <code>f'</code> ou <code>g'</code>, on doit se préoccuper de la concaténation des messages.
+
+
 
 <!-- ********************************************************************************* -->
 <h2>Liens</h2>
@@ -97,9 +165,9 @@ Avec notre manière habituelle d'écrire les fonctions:
 
 <ul>
     <li><a href="https://fr.wikipedia.org/wiki/Monade_(informatique)">fr.wikipedia.org</a></li>
-    <li><a href="http://www.valuedlessons.com/2008/01/monads-in-python-with-nice-syntax.html">www.valuedlessons.com</a></li>
-    <li><a href="https://www.atikteam.com/fr/blog/page/Les-Monades-Dans-La-Programmation-Fonctionnelle">www.atikteam.com/fr/blog/page/Les-Monades-Dans-La-Programmation-Fonctionnelle</a></li>
-    <li><a href="https://www.atikteam.com/fr/blog/page/Programmation-Fonctionnelle-et-Theorie-des-Categories">www.atikteam.com/fr/blog/page/Programmation-Fonctionnelle-et-Theorie-des-Categories</a></li>
+    <li><a href="http://www.valuedlessons.com/2008/01/monads-in-python-with-nice-syntax.html">www.valuedlessons.com/monads-in-python-with-nice-syntax</a></li>
+    <li><a href="https://www.atikteam.com/fr/blog/page/Les-Monades-Dans-La-Programmation-Fonctionnelle">www.atikteam.com/Les-Monades-Dans-La-Programmation-Fonctionnelle</a></li>
+    <li><a href="https://www.atikteam.com/fr/blog/page/Programmation-Fonctionnelle-et-Theorie-des-Categories">www.atikteam.com/Programmation-Fonctionnelle-et-Theorie-des-Categories</a></li>
     <li>you-could-have-invented-monads.html</li>
 </ul>
     

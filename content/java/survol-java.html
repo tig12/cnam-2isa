@@ -26,13 +26,59 @@
 </header>
 
 <article>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#un-premier-programme-java">Un premier programme java</a>
+            <ul>
+                <li><a href="#1-1-execution">Exécution</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#manipuler-des-variables">Manipuler des variables</a>
+        </li>
+        <li>
+            <a href="#effectuer-des-tests">Effectuer des tests</a>
+        </li>
+        <li>
+            <a href="#ecrire-des-boucles">Ecrire des boucles</a>
+            <ul>
+                <li><a href="#4-1-break">break</a></li>
+                <li><a href="#4-2-continue">continue</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#creer-et-appeler-des-methodes">Créer et appeler des méthodes</a>
+        </li>
+        <li>
+            <a href="#utiliser-des-tableaux">Utiliser des tableaux</a>
+        </li>
+        <li>
+            <a href="#creer-des-objets">Créer des objets</a>
+            <ul>
+                <li><a href="#7-1-membres-de-classe">Membres de classe</a></li>
+                <li><a href="#7-2-variable-de-classe">Variable de classe</a></li>
+                <li><a href="#7-3-objets">Objets</a></li>
+                <li><a href="#7-4-constructeur-mot-cle-new">Constructeur, mot-clé new</a></li>
+                <li><a href="#7-5-mot-cle-this">Mot-clé this</a></li>
+                <li><a href="#7-6-visibilite">Visibilité</a></li>
+                <li><a href="#7-7-getters-setters">Getters, setters</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#travailler-avec-des-packages">Travailler avec des packages</a>
+        </li>
+    </ul>
+</nav>
+
+
 
 <div class="intro">
 Cette page propose une première approche de java, sans être exhaustif.
 </div>
 
 <!-- ********************************************************************************* -->
-<h2>Un premier programme java</h2>
+<h2><a name="un-premier-programme-java">Un premier programme java</a></h2>
 Un programme java est constitué de <b>classes</b>, par exemple :
 
 <pre>
@@ -95,7 +141,7 @@ C'est à l'intérieur des méthodes qu'on écrit le code java qui va être exéc
 </ul>
 
 <!-- ************************************* -->
-<h3>Exécution</h3>
+<h3><a name="1-1-execution">Exécution</a></h3>
 Avant d'exécuter ce programme, on doit le <b>compiler</b> : on se place dans le répertoire contenant <code>HelloWorld.java</code> et on le compile :
 <pre>javac HelloWorld.java</pre>
 Cette opération produit un nouveau fichier, <code>HelloWorld.class</code>, qui est exécutable.
@@ -106,7 +152,7 @@ Bien noter qu'on utilise un premier outil (<code>javac</code>) pour compiler un 
 
 
 <!-- ********************************************************************************* -->
-<h2>Manipuler des variables</h2>
+<h2><a name="manipuler-des-variables">Manipuler des variables</a></h2>
 
 Pour faire des choses plus élaborées, on va pouvoir créer des variables et leur affecter des valeurs.
 
@@ -215,7 +261,7 @@ Les mêmes raccourcis existent aussi avec <code>-</code> (l'opérateur moins).
 </div>
 
 <!-- ********************************************************************************* -->
-<h2>Effectuer des tests</h2>
+<h2><a name="effectuer-des-tests">Effectuer des tests</a></h2>
 
 Deux mots-clés du langages permettent de tester des conditions : <code>if</code> et <code>else</code>.
 <pre>
@@ -341,7 +387,7 @@ Les conditions (expressions booléennes) peuvent être combinées avec des <b>op
 
 
 <!-- ********************************************************************************* -->
-<h2>Ecrire des boucles</h2>
+<h2><a name="ecrire-des-boucles">Ecrire des boucles</a></h2>
 
 On peut demander d'exécuter certaines instructions plusieurs fois.
 <br>L'instruction <code>for</code> est la plus fréquemment utilisée.
@@ -386,7 +432,7 @@ do{
 Deux instructions importantes permettent de modifier le cours d'une boucle : <code>break</code> et <code>continue</code>.
 
 <!-- ************************************* -->
-<h3>break</h3>
+<h3><a name="4-1-break">break</a></h3>
 <code>break</code> permet de sortir de l'instruction qui la contient.
 <pre>
 for(int i = 0; i &lt; data.length; i++) {
@@ -399,7 +445,7 @@ for(int i = 0; i &lt; data.length; i++) {
 
 
 <!-- ************************************* -->
-<h3>continue</h3>
+<h3><a name="4-2-continue">continue</a></h3>
 Passe à l'itération suivante de la boucle
 <pre>
 for(int i = 0; i &lt; data.length; i++) {
@@ -420,7 +466,7 @@ for(int i = 0; i &lt; data.length; i++) {
 
 
 <!-- ********************************************************************************* -->
-<h2>Créer et appeler des méthodes</h2>
+<h2><a name="creer-et-appeler-des-methodes">Créer et appeler des méthodes</a></h2>
 La très grande majorité du code qu'on écrit se trouve dans des méthodes (terminologie objet pour désigner une fonction).
 <br>Les méthodes se trouvent à l'intérieur de classes, comme la méthode <code>main()</code> qu'on a déjà vu.
 <br>Au sein d'une classe, une méthode doit avoir une <b>signature</b> unique. Voir page <a href="methodes.html">Méthodes</a>.
@@ -440,7 +486,7 @@ La très grande majorité du code qu'on écrit se trouve dans des méthodes (ter
 
 
 <!-- ********************************************************************************* -->
-<h2>Utiliser des tableaux</h2>
+<h2><a name="utiliser-des-tableaux">Utiliser des tableaux</a></h2>
 
 Voir page <a href="tableaux.html">Tableaux</a>
 
@@ -458,18 +504,239 @@ Voir page <a href="tableaux.html">Tableaux</a>
 
 
 <!-- ********************************************************************************* -->
-<h2>Créer des objets</h2>
+<h2><a name="creer-des-objets">Créer des objets</a></h2>
 
-Jusqu'à présent, on a créé des classes qui ne contenaient que des méthodes de classe (déclarées <code>static</code>).
+<!-- ************************************* -->
+<h3><a name="7-1-membres-de-classe">Membres de classe</a></h3>
+
+Jusqu'à présent, on a créé des classes qui ne contenaient que des <b>méthodes de classe</b> (déclarées <code>static</code>).
 <br>Travailler uniquement avec des méthodes <code>static</code> revient finalement à programmer de manière classique (impératif non-objet), et les classes fournissent juste un moyen commode de "ranger" les méthodes.
 
-<div class="margin">Voir les pages <a href="../oop/intro-poo.html">Introduction à l'objet</a> (sans la partie sur l'héritage) et <a href="classes-interfaces.html">Classes, interfaces</a>.</div>
+<pre>
+class HelloWorld2 {
+    
+    public <b>static</b> void main(String[] args) {
+        echo();
+    }
+    
+    public <b>static</b> void echo() {
+        System.out.println("Hello World!");
+    }
+    
+}
+</pre>
+Ici, <code>main()</code> ou <code>echo()</code> sont des méthodes static de la classe <code>HelloWorld2</code>.
+<br>Pour les appeler depuis l'extérieur de la classe, on utilise le nom de la classe, suivi d'un point, suivi de l'appel de la méthode :
+<pre>
+class TestHelloWorld2() {
+    public static void main(String[] args) {
+        <b>HelloWorld2.echo()</b>;
+    }
+}
+</pre>
 
-A retenir :
-<ul class="spaced">
-    <li>Lorsqu'on crée une classe, on crée un nouveau type de données.</li>
-    <li>On crée une variable du type d'une classe (on l'<b>instancie</b>) en utilisant un <b>constructeur</b>, appelé à l'aide du mot-clé <b>new</b></li>
+<!-- ************************************* -->
+<h3><a name="7-2-variable-de-classe">Variable de classe</a></h3>
+De la même manière qu'une classe peut avoir des méthodes, elle peut aussi avoir des variables :
+
+<pre>
+class HelloWorld2 {
+    
+    <b>public static uneVariable = 4</b>
+
+    public static void main(String[] args) {
+        echo();
+    }
+    
+    public static void echo() {
+        System.out.println("Hello World!");
+    }
+    
+}
+
+class TestHelloWorld2() {
+    public static void main(String[] args) {
+        HelloWorld2.echo();
+        <b>System.out.println(HelloWorld2.uneVariable);</b>
+    }
+}
+</pre>
+
+Les méthodes et les variables d'une classe sont appelés les <b>membres</b> de la classe.
+
+<!-- ************************************* -->
+<h3><a name="7-3-objets">Objets</a></h3>
+
+Une classe peut aussi être vue comme un patron, une template pour créer des <b>objets</b> de cette classe :
+
+<pre>
+public class Chat {
+    
+    // variables non static
+    // Ont une valeur différente pour chaque objet
+    <b>private String nom</b>;
+    <b>private int age</b>;
+    
+    // constructeur
+    public Chat(String nom, int age) {
+        this.nom = nom;
+        this.age = age;
+    }
+    
+    // Méthode non static
+    // A un résultat différent pour chaque objet
+    <b>public String direBonjour()</b> {
+        return "Bonjour, je m'appelle " + this.nom + ", j'ai " + this.age + " ans";
+    }
+}
+</pre>
+
+<br>Les membres non static de la classe sont les <b>variables et méthodes d'instance</b>, qui vont dépendre d'un chat en particulier.
+<br>La valeur des variables d'instance constituent l'<b>état</b> d'un objet.
+<br>Les méthodes d'instance définissent le <b>comportement</b> de l'objet.
+
+<br><br>On peut affecter une valeur initiale aux variables de classe ou d'instance.
+<pre>
+public class Chat {
+    <b>private String nom = "?"</b>;
+}
+</pre>
+Les variables de classe ou d'instance qui n'ont pas encore reçu de valeur ont une valeur par défaut ("" pour String, 0 pour les nombres...).
+
+<br><br>A noter: une classe peut à la fois avoir des membres d'instance (non <code>static</code>) et d'instance (<code>static</code>).
+
+<!-- ************************************* -->
+<h3><a name="7-4-constructeur-mot-cle-new">Constructeur, mot-clé new</a></h3>
+
+Pour créer un nouveau chat, on introduit une méthode particulière, un <b>constructeur</b>. C'est une méthode qui a exactement le même nom que la classe qui le contient.
+
+<br><br>Pour créer un chat, on utilise le mot-clé <b>new</b> :
+
+<pre>
+public class TestChat {
+    public static void main(String[] args) {
+        <b>Chat minou = new Chat("Minou", 3)</b>;
+    }
+}
+</pre>
+
+On dit qu'on a <b>instancié</b> la classe <code>Chat</code>.
+<br>La variable <code>minou</code> représente une <b>instance</b> de la classe <code>Chat</code>.
+
+<br><br>Une classe peut avoir plusieurs constructeurs, qui diffèrent par leurs paramètres.
+
+<pre>
+public class Chat {
+    private String nom;
+    private int age;
+    
+    public Chat(String nom, int age) {
+        this.nom = nom;
+        this.age = age;
+    }
+    
+    // en utilisant ce constructeur, l'âge n'est pas initialisé,
+    // this.age = 0 (valeur par défaut)
+    public Chat(String nom) {
+        this.nom = nom;
+    }
+}
+</pre>
+
+A l'utilisation :
+<pre>
+Chat c1 = new Chat("chat 1", 2);
+Chat c2 = new Chat("chat 2");
+</pre>
+
+
+<!-- ************************************* -->
+<h3><a name="7-5-mot-cle-this">Mot-clé this</a></h3>
+Lorsqu'on se trouve dans le code de la classe, à l'intérieur d'une méthode d'instance (non <code>static</code>), on peut désigner l'objet courant en utilisant le mot-clé <b>this</b>.
+
+<br><br>L'emploi de ce mot-clé est optionnel, sauf pour résoudre une ambiguïté :
+<pre>
+    // constructeur
+    public Chat(String nom, int age) {
+        this.nom = nom;
+        this.age = age;
+    }
+</pre>
+Ici, le compilateur doit pouvoir faire la différence entre la variable locale passée en paramètre, <code>nom</code>, et la variable d'instance <code>nom</code>. Donc ici, <code>this</code> est obligatoire.
+
+<br><br>Mais on aurait pu écrire aussi :
+<pre>
+    // constructeur
+    public Chat(String nomDuChat, int ageDuChat) {
+        nom = nomDuChat;
+        age = ageDuChat;
+    }
+</pre>
+Ici, pas d'ambiguïté donc <code>this</code> est facultatif, on peut écrire indifféremment <code>nom</code> ou <code>this.nom</code> pour référer à la variable d'instance <code>nom</code>.
+
+<!-- ************************************* -->
+<h3><a name="7-6-visibilite">Visibilité</a></h3>
+
+On peut décider de la <b>visibilité</b> des membres d'une classe, en les déclarant (entre autres) <code>public</code> ou <code>private</code>.
+<ul>
+    <li><code>public</code> : le membre est accessible depuis les autres classes.</li>
+    <li><code>private</code> : le membre n'est accessible que depuis l'intérieur de la classe où il est déclaré.</li>
 </ul>
+
+La possibilité de rendre privés les membres d'une classe s'appelle l'<b>encapsulation</b> (voir <a href="../oop/intro-poo.html#5-visibilite">cette page</a>).
+
+<br><br>Dans la classe <code>Chat</code>, les variables d'instance <code>nom</code> et <code>age</code> ont été déclarées <code>private</code>, donc on ne peut pas les utiliser à l'extérieur :
+<pre>
+public class TestChat {
+    public static void main(String[] args) {
+        Chat minou = new Chat("Minou", 3);
+        // === NON : la ligne suivante génère une erreur de compilation ===
+        <b>System.out.println(minou.nom);</b>
+    }
+}
+</pre>
+
+On souvent intérêt à réduire le plus possible la visibilité des membres d'une classe.
+<br>Par exemple pour la classe <code>Chat</code>, si l'âge était public, on pourrait écrire :
+
+<pre>
+public class Chat {
+    // ...
+    public int age;
+    // ...
+}
+
+public class TestChat {
+    public static void main(String[] args) {
+        Chat minou = new Chat("Minou", 3);
+        <b>minou.age = -3;</b>
+    }
+}
+</pre>
+
+Déclarer que l'âge est privé permet de contrôler la cohérence de la classe.
+
+<!-- ************************************* -->
+<h3><a name="7-7-getters-setters">Getters, setters</a></h3>
+
+Afin de garder privées les variables d'une classe tout en permettant d'y accéder, on définit souvent des méthodes pour les lire (<i>getter</i>) et les modifier (<i>setter</i>).
+<pre>
+public class Chat {
+    
+    private int age;
+    
+    <b>public int getAge()</b> {
+        return age;
+    }
+    
+    <b>public void setAge(int age)</b> {
+        if(age &lt; 0) {
+            // Envoyer une exception
+        }
+        this.age = age;
+    }
+}
+</pre>
 
 <div class="exo">
 <b>Exercice</b> : <a href="../../exos/java/personnes/Personnes.html">Personnes</a>
@@ -477,7 +744,7 @@ A retenir :
 
 
 <!-- ********************************************************************************* -->
-<h2>Travailler avec des packages</h2>
+<h2><a name="travailler-avec-des-packages">Travailler avec des packages</a></h2>
 Voir <a href="packages.html">page "Packages, application java</a>
 
 

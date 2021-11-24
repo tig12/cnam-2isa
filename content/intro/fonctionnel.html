@@ -108,56 +108,6 @@ En pratique, on a besoin des effets de bords - sans eux, on ne pourrait même pa
 <br>Comment faire tout en respectant l'intégrité référentielle ?
 <br>C'est expliqué ici : <a href="http://blog.sigfpe.com/2006/08/you-could-have-invented-monads-and.html">You Could Have Invented Monads! (And Maybe You Already Have.) </a>
 
-<br><br>Dans un langage fonctionnel pur, les effets de bords sont "emprisonnées" dans des <b>monades</b>.
-
-
-<br><br>Prenons deux fonctions pures, <code>f</code> et <code>g</code>, qui transforment un <code>float</code> en <code>float</code>.
-<pre>
-    f : float -> float
-    g : float -> float
-</pre>
-
-Pour débugger, on voudrait que chaque fonction, en plus de renvoyer un <code>float</code>, renvoie aussi un message.
-<br>Si on ne peut pas afficher à l'écran ou remplir un log global, on peut toujours construire deux fonctions qui renvoient un message (<code>string</code>) en plus d'un <code>float</code> :
-<pre>
-    f' : float -> (float, string)
-    g' : float -> (float, string)
-</pre>
-<pre>
-    f'(x) = (f(x), "f a été appelée")
-</pre>
-
-On voudrait en plus continuer à pouvoir <b>composer</b> nos fonctions.
-<br>Avec <code>f</code> et <code>g</code>, pas de problème:
-
-<pre>
-    x --f--> y = f(x) --g--> z = g(y) = g(f(x)) = g o f (x)
-    |        |               |
-  float    float           float
-</pre>
-
-Avec <code>f'</code> et <code>g'</code>, on peut le faire aussi, en définissant par exemple:
-
-<pre>g'(f'(x)) = ( g(f(x)), "message de f" + "message de g" )</pre>
-
-<pre>
-    (x, "")
-      |
-      f'
-      |
-      y = (f(x), "message de f")
-      |
-      g'
-      |
-      z = (g(y), "message de g")
-        = (g( (f(x), "message de f") ), "message de g")
-        = ( g(f(x)), "message de f" + "message de g" )
-</pre>
-
-On réussit à composer <code>f'</code> et <code>g'</code>, mais ça n'est pas pratique car chaque fois qu'on utilise <code>f'</code> ou <code>g'</code>, on doit se préoccuper de la concaténation des messages.
-
-
-
 <!-- ********************************************************************************* -->
 <h2>Divers</h2>
 

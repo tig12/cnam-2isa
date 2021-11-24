@@ -11,6 +11,27 @@
 
 .flex-center{justify-content:center;}
 
+/* ================ A mettre dans style.css => tigsite ================ */
+/** colors **/
+.lightblue{background:lightblue;}
+
+/** semantic **/
+.question,
+.todo{
+    display:inline-block;
+    margin:.5em;
+    padding:.5em;
+    border:1px solid grey;
+    background:#fffacd;
+}
+.warning{
+    padding:.5rem;
+    margin:.5rem;
+    background:#fffacd;
+    border:1px solid grey;
+}
+
+
 /* ================ index page ================ */
 
 .index .subtitle1{
@@ -27,14 +48,6 @@
 }
 .index ul{list-style-type:none;}
 .index li{padding-left:1rem;}
-
-.todo{
-    display:inline-block;
-    margin:.5em;
-    padding:.5em;
-    border:1px solid grey;
-    background:#fee;
-}
 
 .code{
     background:#dce2e5;
