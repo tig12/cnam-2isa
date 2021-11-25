@@ -542,7 +542,9 @@ De la même manière qu'une classe peut avoir des méthodes, elle peut aussi avo
 <pre>
 class HelloWorld2 {
     
-    <b>public static uneVariable = 4</b>
+    <b>public static uneVariable = 4;</b>
+
+    <b>public static uneAutreVariable;</b>
 
     public static void main(String[] args) {
         echo();
@@ -648,7 +650,7 @@ A l'utilisation :
 Chat c1 = new Chat("chat 1", 2);
 Chat c2 = new Chat("chat 2");
 </pre>
-
+Le compilateur peut déterminer quel constructeur appeler, en se basant sur les paramètres utilisés.
 
 <!-- ************************************* -->
 <h3><a name="7-5-mot-cle-this">Mot-clé this</a></h3>
@@ -658,8 +660,8 @@ Lorsqu'on se trouve dans le code de la classe, à l'intérieur d'une méthode d'
 <pre>
     // constructeur
     public Chat(String nom, int age) {
-        this.nom = nom;
-        this.age = age;
+        <b>this.nom = nom;
+        this.age = age;</b>
     }
 </pre>
 Ici, le compilateur doit pouvoir faire la différence entre la variable locale passée en paramètre, <code>nom</code>, et la variable d'instance <code>nom</code>. Donc ici, <code>this</code> est obligatoire.
@@ -668,8 +670,8 @@ Ici, le compilateur doit pouvoir faire la différence entre la variable locale p
 <pre>
     // constructeur
     public Chat(String nomDuChat, int ageDuChat) {
-        nom = nomDuChat;
-        age = ageDuChat;
+        <b>nom = nomDuChat;
+        age = ageDuChat;</b>
     }
 </pre>
 Ici, pas d'ambiguïté donc <code>this</code> est facultatif, on peut écrire indifféremment <code>nom</code> ou <code>this.nom</code> pour référer à la variable d'instance <code>nom</code>.
@@ -714,7 +716,7 @@ public class TestChat {
 }
 </pre>
 
-Déclarer que l'âge est privé permet de contrôler la cohérence de la classe.
+Déclarer que l'âge est privé permet de contrôler la cohérence de l'état d'un objet.
 
 <!-- ************************************* -->
 <h3><a name="7-7-getters-setters">Getters, setters</a></h3>

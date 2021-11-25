@@ -30,13 +30,34 @@
 </header>
 
 <article>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#definition">Définition</a>
+            <ul>
+                <li><a href="#1-1-categorie-de-kleisli">Catégorie de Kleisli</a></li>
+                <li><a href="#1-2-le-constructeur-de-type-monadique">Le constructeur de type monadique</a></li>
+                <li><a href="#1-3-la-fonction-return">La fonction return</a></li>
+                <li><a href="#1-4-la-fonction-bind">La fonction bind</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#from-old">FROM OLD</a>
+        </li>
+        <li>
+            <a href="#liens">Liens</a>
+        </li>
+    </ul>
+</nav>
+
+
 
 <style>
 code{font-size:1.3rem;}
 </style>
 
 <!-- ********************************************************************************* -->
-<h2>Définition</h2>
+<h2 id="definition">Définition</h2>
 
 D'après <a href="https://fr.wikipedia.org/wiki/Monade_(informatique)">Wikipedia</a> :
 
@@ -53,6 +74,7 @@ D'après <a href="https://fr.wikipedia.org/wiki/Monade_(informatique)">Wikipedia
     <li>
         une fonction <i>bind</i>, représentée par l'opérateur <code>&#8811;=</code>, associant à un type monadique et une fonction d'association un autre type monadique. Il permet de composer une fonction monadique à partir d'autres fonctions monadiques. Cet opérateur est de type
         <br><code>&#8811;=: Mt &rarr; (t &rarr; Mu) &rarr; Mu</code>
+        <br>Traduction : l'opérateur <code>&#8811;=</code> prend en paramètre Mt et <code>(t &rarr; Mu)</code> et renvoie <code>Mu</code>
     </li>
 </ul>
 
@@ -63,10 +85,11 @@ Du point de vue des catégories, une monade est constituée
 <br><br>On appelle <b>Monade</b> un triplet (<i>t &rarr; Mt</i>, <i>return</i>, <i>bind</i>).
 
 <!-- ************************************* -->
-<h3>Catégorie de Kleisli</h3>
+<h3 id="1-1-categorie-de-kleisli">Catégorie de Kleisli</h3>
 La catégorie des <b>fonctions monadiques</b> est appelée <b>catégorie de Kleisli</b>.
+<br>Une fonction monadique est une fonction qui renvoie un type monadique.
 
-<br><div class="todo">TODO déf fonction monadique</div>
+<br><div class="todo">TODO verif définition - https://en.wikipedia.org/wiki/Monad_(functional_programming)</div>
 
 <br>Dans cette catégorie,
 <ul class="spaced bold margin-top05">
@@ -75,7 +98,7 @@ La catégorie des <b>fonctions monadiques</b> est appelée <b>catégorie de Klei
 </ul>
 
 <!-- ************************************* -->
-<h3>Le constructeur de type monadique</h3>
+<h3 id="1-2-le-constructeur-de-type-monadique">Le constructeur de type monadique</h3>
 
 Voir <a href="categories.html">la page sur les catégories</a>, un constructeur est bien un <b>foncteur</b>.
 
@@ -85,17 +108,16 @@ Voir <a href="categories.html">la page sur les catégories</a>, un constructeur 
 
 
 <!-- ************************************* -->
-<h3>La fonction <i>unit</i> ou <i>return</i></h3>
+<h3 id="1-3-la-fonction">La fonction return</h3>
 
 <!-- ************************************* -->
-<h3>La fonction <i>bind</i></h3>
+<h3 id="1-4-la-fonction">La fonction bind</h3>
 
 <div class="">
-    La notation  Haskell
+    Notation  Haskell :
     <br><code>&#8811;=: Mt &rarr; (t &rarr; Mu) &rarr; Mu</code>
     <br>Avec notre manière habituelle d'écrire les fonctions :
-    <div class="margin-left2"><code>&#8811;=: Mt, (t &rarr; Mu) &rarr; Mu</code></div>
-    <div class="margin-left2"><code>&#8811;=:( Mt, (t &rarr; Mu) ) = Mu</code></div>
+    <div class="margin-left2"><code>&#8811;=( Mt, (t &rarr; Mu) ) = Mu</code></div>
     
     Soit:
     <div class="margin-left2"><code>&#8811;=</code></div>
@@ -107,7 +129,7 @@ Voir <a href="categories.html">la page sur les catégories</a>, un constructeur 
 </div>
 
 <!-- ********************************************************************************* -->
-<h2>FROM OLD</h2>
+<h2 id="from-old">FROM OLD</h2>
 
 <br><br>Dans un langage fonctionnel pur, les effets de bords sont "emprisonnées" dans des <b>monades</b>.
 
@@ -160,7 +182,7 @@ On réussit à composer <code>f'</code> et <code>g'</code>, mais ça n'est pas p
 
 
 <!-- ********************************************************************************* -->
-<h2>Liens</h2>
+<h2 id="liens">Liens</h2>
 
 
 <ul>
