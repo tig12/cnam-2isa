@@ -10,6 +10,9 @@
     <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
     <meta name="dcterms.rightsHolder" content="Thierry Graff">
     <meta name="dcterms.dateCopyrighted" content="2021">
+    <style>
+    code{font-size:1.3rem;}
+    </style>
 </head>
 
 <body>
@@ -50,11 +53,10 @@
     </ul>
 </nav>
 
-
-
-<style>
-code{font-size:1.3rem;}
-</style>
+<div class="intro">
+    Les monades permettent de "décorer" un type, d'ajouter une information à un type, et de manipuler ces types décorés comme des types normaux.
+    <br>Leur utilisation en informatique est omniprésente, car elles permettent de gérer les effets de bord au sein des fonctions pures.
+</div>
 
 <!-- ********************************************************************************* -->
 <h2 id="definition">Définition</h2>
@@ -79,10 +81,12 @@ D'après <a href="https://fr.wikipedia.org/wiki/Monade_(informatique)">Wikipedia
 </ul>
 
 Du point de vue des catégories, une monade est constituée
-<br>d'un <b>foncteur</b>, <i>t &rarr; Mt</i> constructeur de type appelé type monadique
-<br>et de 2 <b>transformations naturelles</b>, <i>return</i> et <i>bind</i>.
+<ul class="naked margin-top0">
+    <li>d'un <b>foncteur</b>, <i>t &rarr; Mt</i> constructeur de type appelé type monadique,</li>
+    <li>et de 2 <b>transformations naturelles</b>, <i>return</i> et <i>bind</i>.</li>
+</ul>
 
-<br><br>On appelle <b>Monade</b> un triplet (<i>t &rarr; Mt</i>, <i>return</i>, <i>bind</i>).
+On appelle <b>Monade</b> un triplet (<i>t &rarr; Mt</i>, <i>return</i>, <i>bind</i>).
 
 <!-- ************************************* -->
 <h3 id="1-1-categorie-de-kleisli">Catégorie de Kleisli</h3>
