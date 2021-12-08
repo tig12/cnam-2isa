@@ -28,9 +28,22 @@
 
 <article>
 
+
+
+<h3><a name="4-2-functions-as-first-class-citizens">Functions as first class citizens</a></h3>
+Les fonctions font partie des types connus des langages fonctionnels ; elles peuvent être
+<br>- nommées
+<br>- évaluées
+<br>- passées comme argument
+<br>- renvoyées comme résultat
+<br>- utilisées partout où une expression peut l'être.
+
+
 <!-- ********************************************************************************* -->
 <h2>Fonctions</h2>
 
+<!-- ************************************* -->
+<h3>Fonctions mathématiques</h3>
 Dans un langage fonctionnel "pur", le terme fonction est à prendre au sens mathématique du terme.
 <br><code>f(x) = y</code>.
 <br>En informatique, cela se traduit par une fonction qui prend <code>x</code> en paramètre et renvoie <code>y</code> :
@@ -155,19 +168,7 @@ echo "curried_add2(3)(5) = " . curried_add2(3)(5) . "\n";
 <br>Une <b>fonction d'ordre supérieur</b> est une fonction qui prend en paramètre une fonction ou qui renvoie une fonction.
 
 <!-- ************************************* -->
-<h3><a name="4-2-functions-as-first-class-citizens">Functions as first class citizens</a></h3>
-Les fonctions font partie des types connus des langages fonctionnels ; elles peuvent être
-<br>- nommées
-<br>- évaluées
-<br>- passées comme argument
-<br>- renvoyées comme résultat
-<br>- utilisées partout où une expression peut l'être.
-
-
-
-On se retrouve donc avec deux manières de programmer équivalentes mais différentes.
-
-<!-- ************************************* -->
+<!-- 
 <h3><a name="4-1-exemple-factorielle">Exemple : factorielle</a></h3>
 
 En java :
@@ -227,6 +228,7 @@ Dans un langage purement fonctionnel, une fonction ne fait qu'une seule chose : 
 <br>Le corps de la fonction est comme un gros return, on se concentre sur ce qu'on renvoie, pas ce qu'on fait entre temps.
 <br>La syntaxe facilite cette orientation.
 <br>Par exemple en java, <code>if then else</code> est une <i>instruction composée</i>, qui <i>fait</i> des choses. En Ocaml, c'est une <i>expression</i>, qui <i>calcule</i> la valeur d'un type.
+-->
 
 </article>
 

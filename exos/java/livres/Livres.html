@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Exercice Livres | NFP121</title>
+    <link href="../../../static/cnam-2isa.css" rel="stylesheet" type="text/css">
+    <meta name="description" content="Exercice d'introduction à l'utilisation de lambdas expressions">
+    <meta name="robots" content="index,follow">
+    <script async defer data-domain="larzac.info" src="http://plausible.tig12.net:8000/js/plausible.js"></script>
+</head>
+<body>
+
+<header>
+<h1>Exercice : Livres</h1>
+<div class="intro">
+On représente ici des livres et leurs auteurs.
+<br>Un livre peut être écrit par un et un seul auteur.
+<br>Un auteur peut avoir écrit plusieurs livres.
+</div>
+</header>
+
+<article>
+
+<div class="big3 bold">Livre</div>
+<ol class="spaced">
+    <li>
+        Ecrire une classe <code>Livre</code>, qui possède comme variables d'instance privées
+        <ul>
+            <li>son titre (de type <code>String</code>)</li>
+            <li>l'année de publication, de type <code>int</code></li>
+        </ul>
+        Cette classe possède un constructeur, qui prend en paramètres le titre et l'année de publication.
+    </li>
+    <li>
+        Ecrire les getters et setters pour lire / modifier les variables privées de cette classe.
+    </li>
+    <li>
+        Ecrire une méthode <code>toString()</code> qui renvoie une représentation texte du livre (voir exemple ci-dessous).
+    </li>
+</ol>
+
+<div class="big3 bold">Auteur</div>
+<ol class="spaced">
+    <li>
+        Ecrire une classe <code>Auteur</code>, qui possède comme variable d'instance privée
+        <ul>
+            <li>son nom (de type <code>String</code>)</li>
+            <li>son prénom (de type <code>String</code>)</li>
+        </ul>
+        Cette classe possède un constructeur, qui prend en paramètres le nom et le prénom.
+    </li>
+    <li>
+        Ecrire les getters et setters pour lire / modifier les variables privées de cette classe.
+    </li>
+    <li>
+        Ecrire une méthode <code>toString()</code> qui renvoie une représentation texte de l'auteur (voir exemple ci-dessous).
+    </li>
+</ol>
+
+<div class="big3 bold margin-bottom">Classe de test</div>
+        Dans une classe <code>TestLivre</code>, contenant une fonction main(), effectuez les choses suivantes :
+<ol class="spaced">
+    <li>Créez un livre "Au bohneur des dames" (1883)</li>
+    <li>Créez un livre "La bête humaine" (1890)</li>
+    <li>Créez un auteur "Emile Zola"</li>
+    <li>
+        En utilisant les méthodes <code>toString()</code> précédemment écrites, affichez les objets que vous avez créés.
+        <br>L'affichage doit donner le résultat suivant :
+<pre>
+Livre "Au bohneur des dames" (1883)
+Livre "La bête humaine" (1890)
+Auteur "Emile Zola"
+</pre>
+    </li>
+</ol>
+
+<div class="big3 bold">Liens livre - auteur</div>
+<ol class="spaced">
+    <li>Ajoutez à la classe <code>Livre</code> une variable d'instance privée <code>auteur</code>, de type <code>Auteur</code>.</li>
+    <li>Ajoutez à la classe <code>Livre</code> une méthode <code>setAuteur()</code>.</li>
+    <li>
+        Modifiez la méthode toString() de <code>Livre</code>, de manière à avoir un affichage similaire à
+        <pre>Livre "Au bohneur des dames" (Emile Zola, 1883)</pre>
+        Votre méthode doit générer un affichage correct, que l'auteur soit connu ou pas.
+    </li>
+</ol>
+
+<div class="big3 bold">Liens auteur - livre</div>
+    <li>
+        Ajoutez à la classe <code>Auteur</code> une variable d'instance privée <code>livres</code>.
+        <br>Cette variable doit être de type <code>List&lt;Livre></code>
+    </li>
+    <li>
+        Ajoutez à la classe <code>Auteur</code> une méthode <code>addLivre</code>.
+    </li>
+    <li>
+        Modifiez la méthode toString() de <code>Auteur</code>, de manière à avoir un affichage similaire à
+<pre>
+Emile Zola
+  - "Au bohneur des dames" (1883)
+  - "La bête humaine" (1890)
+</pre>
+    </li>
+</ol>
+
+
+</article>
+
+</body>
+</html>
+
