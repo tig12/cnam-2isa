@@ -33,30 +33,102 @@
 </header>
 
 <article>
-<nav class="toc">
-    <ul>
-        <li>
-            <a href="#definition">Définition</a>
-            <ul>
-                <li><a href="#1-1-categorie-de-kleisli">Catégorie de Kleisli</a></li>
-                <li><a href="#1-2-le-constructeur-de-type-monadique">Le constructeur de type monadique</a></li>
-                <li><a href="#1-3-la-fonction-return">La fonction return</a></li>
-                <li><a href="#1-4-la-fonction-bind">La fonction bind</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="#from-old">FROM OLD</a>
-        </li>
-        <li>
-            <a href="#liens">Liens</a>
-        </li>
-    </ul>
-</nav>
 
 <div class="intro">
     Les monades permettent d'ajouter une information à un type, et de manipuler ces types décorés comme des types normaux.
     <br>Leur utilisation en informatique est omniprésente, car elles permettent de gérer les effets de bord au sein des fonctions pures.
 </div>
+
+<!-- ********************************************************************************* -->
+<h2>Exemple</h2>
+Exemple tiré du cours <a href="https://larzac.info/maths/categories/milewski/younotes1/3.2-kleisli-category.html">Category Theory for programmers (Bartosz Milewski)</a>
+
+<br>On se trouve dans une catégorie dont les objets sont les types d'un langage, et les flèches les fonctions (pures, évidemment) transformant un type en un autre.
+<br>On a 3 types, <code>a</code>, <code>b</code>, <code>c</code> et deux fonctions :
+<pre>
+f : a &rarr; b
+g : b &rarr; c
+</pre>
+
+On peut composer ces fonctions, c'est à dire construire une nouvelle fonction
+<pre>g(f(x)) : a &rarr; c</pre>
+
+En pseudo-code, si on appelle cette fonction <code>compose</code> :
+<pre>
+compose (f, g)(x){
+    return g(f(x))
+}
+</pre>
+
+Maintenant, on veut pouvoir <b>logger l'exécution des fonctions</b>.
+<br>Mais on est limité à l'utilisation de fonction pures, donc on ne peut pas afficher le message de log à l'écran, ou le stocker dans un ficher de log global - Aucun effet de bord n'est possible.
+<br>Avec une monade, on va emprisonner l'information qui génère un besoin d'effet de bord.
+
+<br><br>On définit donc deux <b>fonctions décorées</b> à partir de <code>f</code> et <code>g</code>.
+<pre>
+f' : a &rarr; &lt;b, string>
+g' : b &rarr; &lt;c, string>
+
+f'(x) = &lt;f(x), "f a été appelée">
+g'(y) = &lt;g(y), "g a été appelée">
+</pre>
+
+On passe donc d'une catégorie dont les objets sont des types simples <code>a</code>, <code>b</code>, <code>c</code> à une catégorie (?) dont les objets sont des types décorés <code>&lt;a, string></code>, <code>&lt;b, string></code>, <code>&lt;c, string></code>.
+
+<br><br>La question est de savoir si ces types et les fonctions qui permettent de transformer un type composé en un autre peuvent former une catégorie.
+
+<!-- ************************************* -->
+<h3>Composition</h3>
+On ne peut pas composer <code>f'</code> et <code>g'</code> aussi facilement que les fonctions simples <code>f</code> et <code>g</code> car les types ne sont pas compatibles :
+<br><code>g'(f'(x))</code> n'a pas de sens, car <code>f'</code> renvoie un type composé <code>&lt;b, string></code> alors que <code>g'</code> prend en paramètre un type <code>b</code>
+
+<br><br>Mais on peut définir la composition de ces fonctions en décidant que la composée va renvoyer une paire
+<ul class="margin-top0">
+    <li>Le premier élément est le résultat de la composition des fonctions d'origine, non décorées</li>
+    <li>Le second élément contient la concaténation des logs</li>
+</ul>
+<pre>
+compose(f', g')(x){
+    return fonction(f', g')(x)
+        p1 := f'(x)         // paire &lt;f(x), "f a été appelée">
+        p2 := g'(p1.first)  // paire &lt;g(f(x)), "g a été appelée">
+        return &lt;p2.first, p1.second + " - " + p2.second>    // paire &lt;g(f(x)), "f a été appelée - g a été appelée">
+    }
+}
+</pre>
+(TODO expliquer first and second)
+
+<br><br>On a donc
+<pre>compose : (a &rarr; &lt;b, string>), (b &rarr; &lt;c, string>) &rarr; (a &rarr; &lt;c, string>)</pre>
+
+Cette composition est-elle associative ? oui car
+<ul class="margin-top0">
+    <li>le premier composant est la composition normale, qui était associative.</li>
+    <li>le second composant est la concaténation de chaîne, qui est associative.</li>
+</ul>
+
+<!-- ************************************* -->
+<h3>Identité</h3>
+C'est simplement un type décoré d'une chaîne vide :
+<pre>
+id(a)(x){
+    return &lt;a, "">
+}
+</pre>
+
+<!-- ************************************* -->
+<h3>Récapitulation</h3>
+
+<ul class="">
+    <li>On est parti de la situation habituelle, où on travaille avec des types et des fonctions pures.</li>
+    <li>On a défini des types décorés.</li>
+    <li>On a construit des fonctions décorées, qui convertissent un type habituel en type décoré.</li>
+    <li>On a défini les opérateurs de composition et d'identité qui opèrent sur ces types et fonctions décorés.</li>
+    <li>On a vu que ces nouveaux types et nouvelles fonctions forment une catégorie.</li>
+</ul>
+On peut donc travailler avec ces types et ces fonctions augmentés comme avec des types et des fonctions habituels.
+
+<br><br>Les langages fonctionnels purs utilisent cette capacité à encapsuler une information supplémentaire pour gérer les effets de bord, et les transmettre à la partie du code limitée et bien identifiée qui effectue les effets de bord.
 
 <!-- ********************************************************************************* -->
 <h2 id="definition">Définition</h2>
@@ -82,7 +154,7 @@ On appelle <b>Monade</b> un triplet (<i>type monadique</i>, <i>return</i>, <i>bi
         </li>
         <li>
             une fonction <i>bind</i>, représentée par l'opérateur <code>&#8811;=</code>, associant à un type monadique et une fonction d'association un autre type monadique. Il permet de composer une fonction monadique à partir d'autres fonctions monadiques. Cet opérateur est de type
-            <br><code>&#8811;=: Mt &rarr; (t &rarr; Mu) &rarr; Mu</code>
+            <br><code>&#8811;= : Mt &rarr; (t &rarr; Mu) &rarr; Mu</code>
             <hr>
             Traduction : l'opérateur <code>&#8811;=</code> prend en paramètre <code>Mt</code> et <code>(t &rarr; Mu)</code> et renvoie <code>Mu</code>.
             <br>Avec la notation habituelle : <code>bind(Mt, (t &rarr; Mu))</code> renvoie un objet de type <code>Mu</code>
@@ -107,15 +179,15 @@ class Monad m  where
 La catégorie des <b>fonctions monadiques</b> est appelée <b>catégorie de Kleisli</b>.
 <br>Une fonction monadique est une fonction qui renvoie un type monadique.
 
-<br><div class="todo">TODO verif définition - https://en.wikipedia.org/wiki/Monad_(functional_programming)</div>
-
 <br>Dans cette catégorie,
 <ul class="spaced bold margin-top05">
     <li>La flèche identité est la fonction <i>unit</i>.</li>
     <li>L'opérateur de composition est la fonction <i>bind</i>.</li>
 </ul>
 
+
 <!-- ********************************************************************************* -->
+<!-- 
 <h2>Side Effects: Debugging Pure Functions</h2>
 Exemple venant de <a href="http://blog.sigfpe.com/2006/08/you-could-have-invented-monads-and.html">You could have invented monads</a>
 
@@ -125,7 +197,7 @@ Exemple venant de <a href="http://blog.sigfpe.com/2006/08/you-could-have-invente
     g : float -> float
 </pre>
 
-Pour débugger, on voudrait que chaque fonction, en plus de renvoyer un <code>float</code>, renvoie aussi un message, une <code>String</code>.
+Pour débugger, on voudrait que chaque fonction, en plus de renvoyer un <code>float</code>, renvoie aussi un message, de type <code>dtring</code>.
 
 <br><br>Dans une fonction pure, on ne peut pas afficher à l'écran, ni remplir un log global - Aucun effet de bord n'est possible.
 <br>Avec une monade, on emprisonne l'information qui génère un besoin d'effet de bord. Ainsi, on peut transmettre ce besoin d'effet de bord à la partie du code limitée et bien identifiée qui effectue les effets de bord. 
@@ -146,8 +218,10 @@ Ex :
     f'(2) = (3, "f(2) a été appelée - a renvoyé 3")
 
 </pre>
+-->
 
 <!-- ************************************* -->
+<!--
 <h3 id="1-2-le-constructeur-de-type-monadique">Le constructeur de type monadique</h3>
 
 Voir <a href="categories.html">la page sur les catégories</a>, un constructeur est bien un <b>foncteur</b>.
@@ -157,12 +231,16 @@ Voir <a href="categories.html">la page sur les catégories</a>, un constructeur 
 <img class="margin padding border inline-block" src="img/mon-construct-ex.svg" alt="Monade transformée par un constructeur de type monadique">
 
 <div class="question">Constructeur pour chaque type de la cat de départ ? pas un constructeur au sens habituel où un seul type est construit ?</div>
+-->
 
 
 <!-- ************************************* -->
+<!--
 <h3 id="1-3-la-fonction">La fonction return <code class="padding-left2">t → Mt</code></h3>
+-->
 
 <!-- ************************************* -->
+<!--
 <h3 id="1-4-la-fonction">La fonction bind <span class="padding-left2">&#8811;=</span></h3>
 
 <div class="">
@@ -179,15 +257,17 @@ Voir <a href="categories.html">la page sur les catégories</a>, un constructeur 
     et renvoie
     <div class="margin-left5"><code>Mu</code></div>
 </div>
+-->
 
 <!-- ********************************************************************************* -->
+<!--
 <h2 id="from-old">FROM OLD</h2>
 
 On voudrait en plus continuer à pouvoir <b>composer</b> nos fonctions.
 <br>Avec <code>f</code> et <code>g</code>, pas de problème:
 
 <pre>
-    x --f--> f(x) --g--> g(f(x)) = g o f (x)
+    x --f- -> f(x) --g- -> g(f(x)) = g o f (x)
     |         |            |
   float     float        float
 </pre>
@@ -212,6 +292,7 @@ Avec <code>f'</code> et <code>g'</code>, on peut le faire aussi, en définissant
 </pre>
 
 On réussit à composer <code>f'</code> et <code>g'</code>, mais ça n'est pas pratique car chaque fois qu'on utilise <code>f'</code> ou <code>g'</code>, on doit se préoccuper de la concaténation des messages.
+-->
 
 
 

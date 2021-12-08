@@ -28,35 +28,37 @@
 
 <article>
 
-
-
-<h3><a name="4-2-functions-as-first-class-citizens">Functions as first class citizens</a></h3>
-Les fonctions font partie des types connus des langages fonctionnels ; elles peuvent être
-<br>- nommées
-<br>- évaluées
-<br>- passées comme argument
-<br>- renvoyées comme résultat
-<br>- utilisées partout où une expression peut l'être.
-
+La programmation fonctionnelle est un paradigme de programmation (une vision de la programmation) dans lequel un programme est construit en appliquant et en composant des fonctions ; le terme <i>fonction</i> est à prendre au sens mathématique du terme : <code>f(x) = y</code>.
 
 <!-- ********************************************************************************* -->
 <h2>Fonctions</h2>
 
 <!-- ************************************* -->
-<h3>Fonctions mathématiques</h3>
-Dans un langage fonctionnel "pur", le terme fonction est à prendre au sens mathématique du terme.
-<br><code>f(x) = y</code>.
-<br>En informatique, cela se traduit par une fonction qui prend <code>x</code> en paramètre et renvoie <code>y</code> :
+<h3>Functions as "first class citizens"</h3>
+Différents langages dits fonctionnels traduisent plus ou moins cette vision de manière stricte. Ils partagent tous au moins une caractéristique, c'est que les fonctions sont des "citoyennes de première classe", c'est à dire qu'elles font partie des types connus des langages fonctionnels.
+Une fonction peut donc être :
+<br>- nommée
+<br>- évaluée
+<br>- passée comme argument
+<br>- renvoyée comme résultat
+<br>- utilisée partout où une expression peut l'être.
+
+<!-- ************************************* -->
+<h3>Fonctions pures</h3>
+Une fonction mathématique prend <code>x</code> en paramètre et renvoie <code>y</code> :
 <pre>
 // isVoyelle('a') = true
 // isVoyelle('r') = false
 boolean isVoyelle(char c){ ... }
 </pre>
-Une fonction transforme un <b>type de donnée</b> en un autre :
+
+Une fonction transforme donc un <b>type de donnée</b> en un autre :
 
 <code class="block margin">char -- isVoyelle() --> boolean</code>
 
-Dans les langages impératifs, à l'intérieur de la fonction <code>isVoyelle()</code>, on pourrait aller lire ou écrire dans un fichier, afficher une chaîne à l'écran, modifier une variable globale, tout en renvoyant toujours le même résultat. Une fonction peut avoir des <b>effets de bord</b>, son exécution a toujours lieu dans le cadre global de l'<b>environnement d'exécution du programme</b>.
+Et pour une valeur données de <code>x</code>, <code>y = f(x)</code> renvoie <b>toujours</b> la même valeur.
+
+<br><br>Dans les langages impératifs, à l'intérieur de la fonction <code>isVoyelle()</code>, on pourrait aller lire ou écrire dans un fichier, afficher une chaîne à l'écran, modifier une variable globale, tout en renvoyant toujours le même résultat. Une fonction peut avoir des <b>effets de bord</b>, son exécution a toujours lieu dans le cadre global de l'<b>environnement d'exécution du programme</b>.
 
 <br><br>C'est bien pratique mais ça ne donne pas la garantie qu'une fonction fera toujours exactement la même chose chaque fois qu'on l'appelle, ce qui peut avoir comme effet :
 <ul>
@@ -64,8 +66,6 @@ Dans les langages impératifs, à l'intérieur de la fonction <code>isVoyelle()<
     <li>Compliquer l'exécution parallèle de plusieurs fonctions.</li>
 </ul>
 
-<!-- ************************************* -->
-<h3>Fonction pure</h3>
 Une fonction est dite <b>pure</b> si elle n'a pas d'effet de bord ; pour une valeur donnée d'un argument, la valeur du retour sera toujours la même.
 
 <br><br>En pratique, quand on programme, les fonctions ne sont pas pures, elles peuvent :
@@ -113,17 +113,6 @@ Propriété d'un langage (ou d'un programme) qui fait que toute variable, ainsi 
 </ul>
 
 
-<!-- ********************************************************************************* -->
-<h2>Monades</h2>
-
-En pratique, on a besoin des effets de bords - sans eux, on ne pourrait même pas connaître le résultat de l'exécution d'un programme !
-
-<br>Comment faire tout en respectant l'intégrité référentielle ?
-<br>C'est expliqué ici : <a href="http://blog.sigfpe.com/2006/08/you-could-have-invented-monads-and.html">You Could Have Invented Monads! (And Maybe You Already Have.) </a>
-
-<!-- ********************************************************************************* -->
-<h2>Divers</h2>
-
 <!-- ************************************* -->
 <h3>Mémoïsation</h3>
 Si une fonction est pure, pour un argument donné elle renvoie toujours la même valeur.
@@ -160,15 +149,32 @@ echo "curried_add(3)(5) = " . curried_add(3)(5) . "\n";
 echo "curried_add2(3)(5) = " . curried_add2(3)(5) . "\n";
 </pre>
 (<a href="../../exemples/intro/curryfication/curry.php">code source</a>)
+<pre>php curry.php</pre>
+<pre>
+uncurried_add(3, 5) = 8
+curried_add(3)(5) = 8
+curried_add2(3)(5) = 8
+</pre>
 
-<br><br>Voir aussi un <a href="../../exemples/intro/curryfication/TestCurry.java">exemple en java</a>.
+Voir aussi un <a href="../../exemples/intro/curryfication/TestCurry.java">exemple en java</a>.
 
 <br>
 <br>Vocabulaire :
 <br>Une <b>fonction d'ordre supérieur</b> est une fonction qui prend en paramètre une fonction ou qui renvoie une fonction.
 
+
+<!-- ********************************************************************************* -->
+<h2>Monades</h2>
+
+En pratique, on a besoin des effets de bords - sans eux, on ne pourrait même pas connaître le résultat de l'exécution d'un programme !
+
+<br>Comment faire tout en respectant l'intégrité référentielle ?
+<br>Les langages fonctionneles "purs" utilisent une construction nommée <a href="../maths/monades.html">Monades</a>.
+
 <!-- ************************************* -->
 <!-- 
+<br>C'est expliqué ici : <a href="http://blog.sigfpe.com/2006/08/you-could-have-invented-monads-and.html">You Could Have Invented Monads! (And Maybe You Already Have.) </a>
+
 <h3><a name="4-1-exemple-factorielle">Exemple : factorielle</a></h3>
 
 En java :
