@@ -58,6 +58,9 @@ En pseudo-code, si on appelle cette fonction <code>compose</code> :
 compose (f, g)(x){
     return g(f(x))
 }
+
+compose : (a &rarr; b), (b &rarr; c) &rarr; (a &rarr; c)
+
 </pre>
 
 Maintenant, on veut pouvoir <b>logger l'exécution des fonctions</b>.
