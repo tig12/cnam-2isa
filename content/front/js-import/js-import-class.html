@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>JS test import</title>
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <link rel="copyright" href="http://www.gnu.org/copyleft/gpl.html"/>
+        
+</head>
+
+<body>
+<h1>Test import class</h1>
+
+Fonctionne uniquement si utilisé sur http:// ou https://, pas file://
+
+<script type="module">
+    import {class1} from './class1.js';
+    const c1 = new class1();
+    console.log("publicMethod = " + c1.publicMethod());
+    console.log("publicMethodFromClass2 = " + c1.publicMethodFromClass2());
+</script>
+
+</body>
+</html>
