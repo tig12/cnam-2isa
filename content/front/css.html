@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8" />
+    <title>CSS | CNAM 2ISA Millau</title>
+    <meta name="description" content="Divers sujets CSS">
+    <meta name="robots" content="index,follow">
+    <link href="../../static/cnam-2isa.css" rel="stylesheet" type="text/css">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2022-01-04 15:48:26">
+</head>
+<body>
+
+<nav class="prevnext">
+    <a class="top" title="CNAM 2ISA Millau" href="../../index.html">&uarr;</a>
+</nav>
+
+<h1>CSS</h1>
+
+<h2>Variables CSS</h2>
+
+Voir <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties">developer.mozilla.org</a>.
+
+<br><br>Utilise <code>--</code> pour définir une variable et <code>var()</code> pour l'utiliser.
+<br>La règle CSS où la variable est déclarée définit la portée de l'utilisation de la variable.
+<pre>
+.element {
+    --main-bg-color: brown;
+    background-color: var(--main-bg-color);
+}
+</pre>
+Usage courant : définir les variables dans le pseudo-élément <code>:root</code> pour les avoir disponibles dans toutes les autres règles.
+<pre>
+:root {
+    --main-bg-color: brown;
+}
+.test {
+    background-color: var(--main-bg-color);
+}
+</pre>
+
+<h3>Héritage</h3>
+Les variables sont héritées comme les règles CSS habituelles.
+
+<h3>Valeurs par défaut</h3>
+Sera utilisée si la règle n'existe pas.
+<pre>
+.test {
+    background-color: var(--main-bg-color, red);
+}
+</pre>
+
+
+
+
+</body>
+</html>
