@@ -10,7 +10,6 @@ a{text-decoration:none;}
 pre{
     margin:1rem 2rem;
     background:lightgrey;
-    font-size:1rem;
     padding:.5rem;
 }
 pre.normal{background:none;}
@@ -179,7 +178,7 @@ table.wikitable tr td code{
 .margin2{margin:2rem;}
 .margin3{margin:3rem;}
 
-.margin-top{margin-top:1rem;}                            
+.margin-top{margin-top:1rem;}
 .margin-top0{margin-top:0;}
 .margin-top05{margin-top:.5rem;}
 .margin-top2{margin-top:2rem;}
@@ -192,7 +191,7 @@ table.wikitable tr td code{
 .margin-left3{margin-left:3rem;}
 .margin-left5{margin-left:5rem;}
 
-.margin-bottom{margin-bottom:1rem;}                            
+.margin-bottom{margin-bottom:1rem;}
 .margin-bottom0{margin-bottom:0;}
 .margin-bottom05{margin-bottom:.5rem;}
 .margin-bottom2{margin-bottom:2rem;}
@@ -217,7 +216,7 @@ table.wikitable tr td code{
 .padding-top3{padding-top:3rem;}
 
 .padding-left{padding-left:1rem;}
-.padding-left0{padding-left:0;}                                      
+.padding-left0{padding-left:0;}
 .padding-left05{padding-left:.5rem;}
 .padding-left2{padding-left:2rem;}
 .padding-left3{padding-left:3rem;}

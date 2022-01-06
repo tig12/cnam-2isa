@@ -26,9 +26,10 @@
 <article>
 
 <div class="intro">
-Le but est de représenter une figure simple (composée de points reliés par des segements de droite), de placer ces points dans un repère orthonormé, et d'utilise SVG pour la représenter dans une page HTML.
+Le but est de représenter une figure simple (composée de points reliés par des segements de droite), de placer ces points dans un repère orthonormé, et d'utiliser SVG pour la représenter dans une page HTML.
 
 <br><br>Thèmes abordés : plan, représentation graphique, repère, coordonnées, changement de repère.
+<br><br>Voir aussi : <a href="../../content/front/svg.html">Cheatsheet SVG</a>.
 </div>
 
 <!-- ********************************************************************************* -->
@@ -54,7 +55,7 @@ Créez une nouvelle page html et insérez le code :
     &lt;!-- Dessine les axes -->
     &lt;line x1="30" y1="30" x2="30" y2="270" class="axis" />
     &lt;line x1="30" y1="270" x2="570" y2="270" class="axis" />
-    
+
     &lt;!-- Dessine la maison -->
     &lt;path d="M100 250 h120 v-150 l-60 -60 l-60 60 v150" style="stroke:darkblue; fill:lightblue" />
 &lt;/svg>
@@ -90,21 +91,21 @@ Créez une nouvelle page html et insérez le code :
       <stop offset="100%" stop-color="#0a5"/>
     </linearGradient>
   </defs>
-  
+
     <!-- Axes -->
     <line x1="30" y1="30" x2="30" y2="270" class="axis" />
     <line x1="30" y1="270" x2="570" y2="270" class="axis" />
-    
+
     <!-- Dessin -->
     <path d="M100 250 h120 v-150 l-60 -60 l-60 60 v150" class="dessin" />
-    <!-- 
+    <!--
     <path d="M100 250 h120 v-150 l-60 -60 l-60 60 v150" class="grad" />
     -->
-    
-    <!-- 
+
+    <!--
     <text x="5" y="15" style="font-family:Times,serif;fill:red;font-size:12px">Text</text>
     -->
-    
+
 </svg>
 
 <div class="exo">
@@ -119,9 +120,9 @@ Créez une nouvelle page html et insérez le code :
         <li>text</li>
     </ul>
     Voir par exemple <a href="http://www.math.wsu.edu/math/kcooper/M300/svgcheat.php">http://www.math.wsu.edu/math/kcooper/M300/svgcheat.php</a>.
-    
+
     <br><br>Faire des essais en jouant avec ces formes sur une page html brouillon.
-    
+
 </div>
 
 <div class="exo">
@@ -222,7 +223,7 @@ Changement de repère.
 <!-- ********************************************************************************* -->
 <h2>Dessiner un path</h2>
 
-<!-- 
+<!--
 <div class="exo">
 <ul>
     <li>Ecrire des fonctions qui renvoient une portion de path sous forme de string
