@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>JS import / export</title>
+    <meta name="description" content="">
+    <link href="../../../static/cnam-2isa.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <link rel="copyright" href="http://www.gnu.org/copyleft/gpl.html"/>
+</head>
+
+<body>
+    <nav class="prevnext">
+    <a class="top" title="CNAM 2ISA Millau" href="../js.html">&uarr;</a>
+</nav>
+
+<h1>JS import / export</h1>
+
+<div class="intro">
+Les instructions <code>import</code> ou <code>export</code> servent à utiliser du code javascript écrit dans d'autres fichiers. Elles fonctionnent uniquement avec les protocoles <code>http://</code> ou <code>https://</code>. Le protocole <code>file://</code> ne permet pas d'utiliser <code>import</code> ou <code>export</code> ; une erreur "Cross-Origin Request Blocked" est générée. Voir <a href="https://developer.mozilla.org/fr/docs/Web/HTTP/CORS">developer.mozilla.org/fr/docs/Web/HTTP/CORS</a>.
+<br><br>Bien noter qu'on est ici dans un contexte de javascript <b>côté client</b>, et non pas côté serveur, comme avec node.js, qui possède sa propre manière d'importer les modules.
+<br><br>Pour une référence plus complète, voir <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide/Modules">developer.mozilla.org/fr/docs/Web/JavaScript/Guide/Modules</a>
+
+</div>
+
+<h2>Importer / exporter une fonction</h2>
+
+Exemple d'utilisation : voir les fichiers <a href="function1.js">function1.js</a> et <a href="function2.js">function2.js</a>.
+
+<h3>function2.js</h3>
+On indique avec <code>export</code> la possibilité d'utiliser <code>f2</code> dans d'autres fichiers.
+<pre>
+<b>export</b> function f2(){
+    console.log("dans f2");
+}
+</pre>
+
+<h3>function1.js</h3>
+On indique avec <code>import</code> qu'on va utiliser <code>f2</code>, déclarée et exportée dans un autre fichier.
+<br>On indique aussi avec <code>export</code> la possibilité d'utiliser <code>f1</code> dans d'autres fichiers.
+
+<pre>
+<b>import {f2} from './function2.js';</b>
+
+<b>export</b> function f1(){
+    console.log("dans f1");
+    f2();
+}
+</pre>
+
+<h3>Utilisation</h3>
+<pre>
+&lt;script <b>type="module"</b>>
+    import {f1} from './function1.js';
+    console.log('Test import fonctions');
+    f1();
+&lt;/script>
+</pre>
+
+<h3>Exécution</h3>
+Si vous êtes sur une URL utilisant le protocole <code>http://</code> ou <code>https://</code>, ouvrez une console javascript et vous verrez le code précédent s'exécuter.
+<script type="module">
+    import {f1} from './function1.js';
+    console.log('Test import fonctions');
+    f1();
+</script>
+
+<h2>Importer / exporter une classe</h2>
+
+Exemple d'utilisation : voir les fichiers <a href="class1.js">class1.js</a> et <a href="class2.js">class2.js</a>.
+
+<h3>class2.js</h3>
+<pre>
+export class class2 {
+
+    publicMethod() {
+        return 'publicMethod() dans class2';
+    }
+
+} // end class
+</pre>
+
+<h3>class1.js</h3>
+<pre>
+import {class2} from './class2.js';
+
+export class class1 {
+
+    publicMethod() {
+        return 'publicMethod() dans class1';
+    }
+
+    publicMethodFromClass2() {
+        const c2 = new class2();
+        return c2.publicMethod();
+    }
+
+} // end class
+</pre>
+
+<h3>Utilisation</h3>
+<pre>
+&lt;script type="module">
+    import {class1} from './class1.js';
+    const c1 = new class1();
+    console.log("Test import classe");
+    console.log("publicMethod = " + c1.publicMethod());
+    console.log("publicMethodFromClass2 = " + c1.publicMethodFromClass2());
+&lt;/script>
+</pre>
+
+<h3>Exécution</h3>
+Si vous êtes sur une URL utilisant le protocole <code>http://</code> ou <code>https://</code>, ouvrez une console javascript et vous verrez le code précédent s'exécuter.
+
+<script type="module">
+    import {class1} from './class1.js';
+    const c1 = new class1();
+    console.log("Test import classe");
+    console.log("publicMethod = " + c1.publicMethod());
+    console.log("publicMethodFromClass2 = " + c1.publicMethodFromClass2());
+</script>
+
+</body>
+</html>
