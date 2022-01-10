@@ -46,9 +46,6 @@
     </ul>
 </nav>
 
-
-
-
 </header>
 
 <main>
@@ -294,7 +291,7 @@ Ou alors :
 <h3><a name="3-1-place-des-tests">Place des tests</a></h3>
 Il est conseillé de <b>séparer le code de test du code de production</b> (car le code de test n'a pas besoin d'être déployé en production).
 <br>Mais on a souvent besoin de <b>mettre le code de test dans le même package que le code de production</b> car cela permet d'avoir accès dans les tests aux classes et méthodes ayant une visibilité <code>package</code>.
-<br>C'est possible en utilisant les options <code>classpath</code> et <code>destination</code> de <code>javac</code> et <code>java</code>.
+<br>C'est possible en utilisant les options classpath (<code>-cp</code>) et destination (<code>-d</code>) de <code>javac</code> et <code>java</code>.
 <br>Voir <a href="../../exemples/java/junit5/maven-dirs">exemples/java/junit5/maven-dirs</a>, qui reproduit la hiérarchie par défaut de maven :
 <pre>
 maven-dirs
