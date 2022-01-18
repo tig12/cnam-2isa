@@ -15,12 +15,6 @@
 
 <body>
 
-<!-- 
-Java 8 introduces default methods on interfaces. If A,B,C are interfaces, B,C can each provide a different implementation to an abstract method of A, causing the diamond problem. Either class D must reimplement the method (the body of which can simply forward the call to one of the super implementations), or the ambiguity will be rejected as a compile error.[7] Prior to Java 8, Java was not subject to the Diamond problem risk because it did not support multiple inheritance.
--->
-
-
-
 <nav class="prevnext">
     <a class="top" title="Cours CNAM" href="../../index.html">&uarr;</a>
     <a class="prev" title="Previous" href="methodes.html">&larr;</a>
@@ -1059,8 +1053,10 @@ class RepeteMethodes implements Interface1, Interface2{
 
 <!-- ************************************* -->
 <h3><a name="3-4-default-methods">Default methods</a></h3>
-Le but principal est de pouvoir faire évoluer des interfaces sans casser le code existant (la compatibilité ascendante est un des points forts de java).
-<br>C'est possible depuis java 8 avec la possibilité de fournir des implémentations par défaut dans les interfaces.
+<!-- 
+Java 8 introduces default methods on interfaces. If A,B,C are interfaces, B,C can each provide a different implementation to an abstract method of A, causing the diamond problem. Either class D must reimplement the method (the body of which can simply forward the call to one of the super implementations), or the ambiguity will be rejected as a compile error.[7] Prior to Java 8, Java was not subject to the Diamond problem risk because it did not support multiple inheritance.
+-->
+Depuis java 8, il est possible de fournir des implémentations par défaut des méthodes définies dans une interface.
 <pre>
 interface DoIt {
     // ...
@@ -1069,12 +1065,17 @@ interface DoIt {
    }
 }
 </pre>
-
 Une classe implémentant une interface peut implémenter les méthodes par défaut (mais n'est pas obligée).
 <br>Si elle l'implémente, c'est cette version qui sera utilisée, sinon, c'est l'implémentation par défaut fournie par l'interface.
-<br>
-<br>Cela permet aussi d'éviter de répéter du code, si l'implémentation est commune à plusieurs classes.
-<br>
+
+<br>Cela répond à deux besoins :
+<ul>
+    <li>
+        La possibilité de faire évoluer des interfaces sans casser le code existant (la compatibilité ascendante est un des points forts de java).
+    </li>
+    <li>Eviter de répéter du code, si l'implémentation est commune à plusieurs classes.</li>
+</ul>
+
 <br>Une limite : overrider les méthodes de <code>Object</code> n'est pas possible.
 <pre>
 // Ne passe pas à la compilation

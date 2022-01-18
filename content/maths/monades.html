@@ -59,16 +59,14 @@ En pseudo-code, si on appelle cette fonction <code>compose</code> :
 compose (f, g)(x){
     return g(f(x))
 }
-
 compose : (a &rarr; b), (b &rarr; c) &rarr; (a &rarr; c)
-
 </pre>
 
 Maintenant, on veut pouvoir <b>logger l'exécution des fonctions</b>.
 <br>Mais on est limité à l'utilisation de fonction pures, donc on ne peut pas afficher le message de log à l'écran, ou le stocker dans un ficher de log global - Aucun effet de bord n'est possible.
 <br>Avec une monade, on va emprisonner l'information qui génère un besoin d'effet de bord.
 
-<br><br>On définit donc deux <b>fonctions décorées</b> à partir de <code>f</code> et <code>g</code>.
+<br>On définit donc deux <b>fonctions décorées</b> à partir de <code>f</code> et <code>g</code>.
 <pre>
 f' : a &rarr; &lt;b, string>
 g' : b &rarr; &lt;c, string>
@@ -79,7 +77,7 @@ g'(y) = &lt;g(y), "g a été appelée">
 
 On passe donc d'une catégorie dont les objets sont des types simples <code>a</code>, <code>b</code>, <code>c</code> à une catégorie (?) dont les objets sont des types décorés <code>&lt;a, string></code>, <code>&lt;b, string></code>, <code>&lt;c, string></code>.
 
-<br><br>La question est de savoir si ces types et les fonctions qui permettent de transformer un type composé en un autre peuvent former une catégorie.
+<br>La question est de savoir si ces types et les fonctions qui permettent de transformer un type composé en un autre peuvent former une catégorie.
 
 <!-- ************************************* -->
 <h3>Composition</h3>

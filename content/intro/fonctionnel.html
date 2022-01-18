@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Langages fonctionnels | CNAM / 2ISA Millau</title>
-    <meta name="description" content="Le problème de la décision et la manière dont il a été résolu, par Alan Turing et Alonzo Church.">
+    <meta name="description" content="">
     <meta name="robots" content="index,follow">
     <link href="../../static/cnam-2isa.css" rel="stylesheet" type="text/css">
     <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
@@ -57,9 +57,9 @@ Une fonction transforme donc un <b>type de donnée</b> en un autre :
 
 <code class="block margin">char -- isVoyelle() --> boolean</code>
 
-Et pour une valeur données de <code>x</code>, <code>y = f(x)</code> renvoie <b>toujours</b> la même valeur.
+Et pour une valeur données de <code>x</code>, <code>f(x)</code> renvoie <b>toujours</b> la même valeur.
 
-<br><br>Dans les langages impératifs, à l'intérieur de la fonction <code>isVoyelle()</code>, on pourrait aller lire ou écrire dans un fichier, afficher une chaîne à l'écran, modifier une variable globale, tout en renvoyant toujours le même résultat. Une fonction peut avoir des <b>effets de bord</b>, son exécution a toujours lieu dans le cadre global de l'<b>environnement d'exécution du programme</b>.
+<br>Dans les langages impératifs, à l'intérieur de la fonction <code>isVoyelle()</code>, on pourrait aller lire ou écrire dans un fichier, afficher une chaîne à l'écran, modifier une variable globale, tout en renvoyant toujours le même résultat. Une fonction peut avoir des <b>effets de bord</b>, son exécution a toujours lieu dans le cadre global de l'<b>environnement d'exécution du programme</b>.
 
 <br><br>C'est bien pratique mais ça ne donne pas la garantie qu'une fonction fera toujours exactement la même chose chaque fois qu'on l'appelle, ce qui peut avoir comme effet :
 <ul>
@@ -117,7 +117,7 @@ Propriété d'un langage (ou d'un programme) qui fait que toute variable, ainsi 
 <!-- ************************************* -->
 <h3>Mémoïsation</h3>
 Si une fonction est pure, pour un argument donné elle renvoie toujours la même valeur.
-<br>On peut donc fabriquer un cache : enregistrer dans un tableau toutes les valeurs possibles que peut prendre le argument, avec la valeur de retour de la fonction. on dit qu'on peut la <strong>mémoïser</strong>.
+<br>On peut donc fabriquer un cache : enregistrer dans un tableau toutes les valeurs possibles que peut prendre l'argument, avec la valeur de retour de la fonction. On dit qu'on peut la <strong>mémoïser</strong>.
 <br>Que l'on renvoie la valeur calculée ou la valeur stockée dans le cache, on aura le même résultat.
 <br>On dit que la fonction est <strong>mémoïsable</strong>.
 <br>
@@ -126,7 +126,7 @@ Si une fonction est pure, pour un argument donné elle renvoie toujours la même
 <!-- ************************************* -->
 <h3>Curryfication</h3>
 La notion de fonction pure est plus large que la notion mathématique de fonction ; en effet, une fonction pure peut avoir plusieurs arguments en entrée (et dans certains langages renvoyer plusieurs valeurs).
-<br>Mais on peut transformer une fonction prenant plusieurs arguments en une fonction prenant le premier argument et renvoyant une fonction prenant les arguments suivants. Ce procédé s'appelle la <b>curryfication</b> (le nom vient de Haskel Curry).
+<br>Mais on peut transformer une fonction prenant plusieurs arguments en une fonction prenant le premier argument et renvoyant une fonction prenant les arguments suivants. Ce procédé s'appelle la <b>curryfication</b> (le nom vient de Haskell Curry).
 
 <br><br>Exemple en PHP :
 <pre>
@@ -170,7 +170,7 @@ Voir aussi un <a href="../../exemples/intro/curryfication/TestCurry.java">exempl
 En pratique, on a besoin des effets de bords - sans eux, on ne pourrait même pas connaître le résultat de l'exécution d'un programme !
 
 <br>Comment faire tout en respectant l'intégrité référentielle ?
-<br>Les langages fonctionneles "purs" utilisent une construction nommée <a href="../maths/monades.html">Monades</a>.
+<br>Les langages fonctionneles "purs" utilisent une construction nommée <a href="../maths/monades.html">Monade</a>.
 
 <!-- ************************************* -->
 <!-- 
