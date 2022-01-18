@@ -1,144 +1,36 @@
-/* ================ General styles ================ */
-body{
-    margin-bottom:2em;
-    background:#eee;
-    font-family:Arial,Helvetica,sans-serif;
-}
+/** 
+    Style shortcuts
+    
+    @history    2017, Thierry Graff : Creation
+**/
 
-a{text-decoration:none;}
-
-pre{
-    margin:1rem 2rem;
-    background:lightgrey;
-    padding:.5rem;
-}
-pre.normal{background:none;}
-code.color{background:lightgrey;}
-.pre{white-space:pre;}
-
-img{display:block; background:white;}
-img.center{border:none;margin:auto;}
-
-ul.spaced>li,ol.spaced>li{padding-bottom:0.8rem;}
-ul.naked>li,ol.naked>li{list-style-type:none;}
-ul.simple{list-style-type: '- ';}
-
-table.border{border-collapse:collapse;}
-table.border td{border: 1px solid #a2a9b1;}
-.vertical-align-top{vertical-align:top;}
-
-cite{
-    font-family:DejaVu,serif;
-    display:block;
-    margin:1rem;
-}
-blockquote{
-    display:block;
-    border:1px solid grey;
-    padding:5px;
-    margin:1rem;
-    font-family:DejaVu,serif;
-    background:#fee;
-}
-
-/* ================ Site layout ================ */
 .flex-wrap{
     display:flex;
     flex-wrap:wrap;
 }
-
-/* ================ Headings ================ */
-h1{
-    width:100%;
-    margin:auto;
-    text-align:center;
-    font-size:2.5rem;
-    font-weight:bold;
-    padding:0.3rem;
-    margin-bottom:1rem;
+.flex-center{
+    justify-content:center;
 }
-h2{font-size:2rem;}
-h1 .subtitle{font-size:0.8em;}
-h3{font-size:1.5rem;}
 
-
-/* ================ Navigation ================ */
-.prevnext{
-    font-family:DejaVu,serif;
-    position:fixed; top:0px; right:0px;
-    margin:1rem;
-    width:75px; height:40px
-}
-.prevnext a{
-    display:inline-block;
-    position:fixed;
-    width:40px; height:40px;
-    text-decoration:none;
-    font-weight:bolder;
-    font-size:2rem;
-}
-.prevnext a.index{top:0px; right:10px; font-size:0.5rem;}
-.prevnext a.top{top:0px; right:40px;}
-.prevnext a.prev{top:25px; right:75px;}
-.prevnext a.next{top:25px; right:5px;}
-
-/* table of content */
-.toc{font-family:Arial,Helvetica,sans-serif;}
-.toc ul{list-style-type:none;}
-.toc{padding:0;}
-.toc>ul>li>a{font-weight:bold;}
-.toc>ul>li>ul{padding-left:1.3rem;}
-
-
-/* ================ Particular elements ================ */
 .page-break-before{page-break-before:always;}
 
-.intro{
-    font-size:1.4rem;
-    margin:1rem 0 1rem 2rem;
+img{display:block; background:white;}
+img.center{border:none;margin:auto;}
+
+ul.spaced>li,
+ol.spaced>li{
+    padding-bottom:0.8rem;
+}
+ul.naked>li,
+ol.naked>li{
+    list-style-type:none;
+}
+ul.simple{
+    list-style-type: '- ';
 }
 
-.exo{
-    font-size:1rem;
-    border:1px solid grey;
-    padding:0.6rem 1rem;;
-    background:lightyellow;
-    margin:1rem;
-}
-.exo ul{margin:0;}
-
-table.wikitable{
-    border-collapse:collapse;
-}
-table.wikitable > tr > th, table.wikitable > * > tr > th {
-    /* background-color: #eaecf0; */
-    background-color: lightblue;
-    text-align: center;
-    vertical-align:top;
-}
-table.wikitable > tr > th, table.wikitable > tr > td, table.wikitable > * > tr > th, table.wikitable > * > tr > td {
-    border: 1px solid #a2a9b1;
-    padding: 0.2rem 0.4rem;
-    vertical-align:top;
-}
-table.wikitable tr td code{
-    background:none;
-}
-
-/* ================ Style shortcuts ================ */
-.flex-row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.flex-col {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 100%;
-  flex: 1;
-}
+table.border{border-collapse:collapse;}
+table.border td{border: 1px solid #a2a9b1;}
 
 .clear-left{clear:left;}
 .float-left{float:left;}
@@ -161,7 +53,6 @@ table.wikitable tr td code{
 .vertical-align-middle{vertical-align:middle;}
 
 .background-none{background:none;}
-.red{color:red;}
 
 .border-none{border:none;}
 .border-radius10{border-radius:10px;}
