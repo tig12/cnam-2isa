@@ -25,7 +25,7 @@ On représente ici des livres et leurs auteurs.
 <main>
 <article>
 
-<div class="big3 bold">Livre</div>
+<div class="big3 bold">1 - Livre</div>
 <ol class="spaced">
     <li>
         Ecrire une classe <code>Livre</code>, qui possède comme variables d'instance privées
@@ -40,10 +40,11 @@ On représente ici des livres et leurs auteurs.
     </li>
     <li>
         Ecrire une méthode <code>toString()</code> qui renvoie une représentation texte du livre (voir exemple ci-dessous).
+        <br>Par exemple : <code>"Crime et Châtiment" (1866)</code>
     </li>
 </ol>
 
-<div class="big3 bold">Auteur</div>
+<div class="big3 bold">2 - Auteur</div>
 <ol class="spaced">
     <li>
         Ecrire une classe <code>Auteur</code>, qui possède comme variable d'instance privée
@@ -57,12 +58,13 @@ On représente ici des livres et leurs auteurs.
         Ecrire les getters et setters pour lire / modifier les variables privées de cette classe.
     </li>
     <li>
-        Ecrire une méthode <code>toString()</code> qui renvoie une représentation texte de l'auteur (voir exemple ci-dessous).
+        Ecrire une méthode <code>toString()</code> qui renvoie une représentation texte de l'auteur contenant son prénom, suivi d'un espace et son nom.
+        <br>Par exemple : <code>Emile Zola</code>
     </li>
 </ol>
 
-<div class="big3 bold margin-bottom">Classe de test</div>
-        Dans une classe <code>TestLivre</code>, contenant une fonction main(), effectuez les choses suivantes :
+<div class="big3 bold margin-bottom">3 - Classe de test</div>
+        Dans une classe <code>TestLivres</code>, contenant une fonction main(), effectuez les choses suivantes :
 <ol class="spaced">
     <li>Créez un livre "Au bohneur des dames" (1883)</li>
     <li>Créez un livre "La bête humaine" (1890)</li>
@@ -73,12 +75,12 @@ On représente ici des livres et leurs auteurs.
 <pre>
 Livre "Au bohneur des dames" (1883)
 Livre "La bête humaine" (1890)
-Auteur "Emile Zola"
+Auteur Emile Zola
 </pre>
     </li>
 </ol>
 
-<div class="big3 bold">Liens livre - auteur</div>
+<div class="big3 bold">4 - Liens livre - auteur</div>
 <ol class="spaced">
     <li>Ajoutez à la classe <code>Livre</code> une variable d'instance privée <code>auteur</code>, de type <code>Auteur</code>.</li>
     <li>Ajoutez à la classe <code>Livre</code> une méthode <code>setAuteur()</code>.</li>
@@ -89,7 +91,8 @@ Auteur "Emile Zola"
     </li>
 </ol>
 
-<div class="big3 bold">Liens auteur - livre</div>
+<div class="big3 bold">5 - Liens auteur - livre</div>
+<ol class="spaced">
     <li>
         Ajoutez à la classe <code>Auteur</code> une variable d'instance privée <code>livres</code>.
         <br>Cette variable doit être de type <code>List&lt;Livre></code>
