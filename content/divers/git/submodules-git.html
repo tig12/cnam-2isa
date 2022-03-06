@@ -59,16 +59,23 @@ Clonage dans '/path/to/git-test/submodule-test/repo1'...
 fait.
 </pre>
 
-On constater l'effet de la commande avec <code>git status</code> :
+On constate l'effet de la commande avec <code>git status</code> :
 <pre>git st</pre>
 <pre>
-Sur la branche master
+Sur la branche main
 Modifications qui seront validées :
   (utilisez "git reset HEAD <fichier>..." pour désindexer)
 
 	nouveau fichier : .gitmodules
 	nouveau fichier : repo1
 </pre>
+
+<b>Note</b>
+La commande
+<pre><b>git submodule add</b> ../repo1/</pre>
+met une copie de <code>repo1</code> à la racine. Pour que <code>repo1</code> soit recopié dans un sous-répertoire, on peut faire par exemple :
+
+<pre><b>git submodule add</b> ../repo1/ path/to/subdirectory</pre>
 
 <!-- ************************************* -->
 <h3>Fichier .gitmodules</h3>
@@ -132,7 +139,7 @@ Le répertoire <code>.git/modules/repo1</code> est un répertoire (bare) qui con
 <pre>git submodule update</pre>
 ou, directement :
 <pre>git clone --recurse-submodules https://github.com/some-user/Project</pre>
-(fait init et update du sbmodule et de tous ses sous-modules).
+(fait init et update du submodule et de tous ses sous-modules).
 
 <br>Si on a oublié <code>--recurse-submodules</code> dans le clone, on peut faire :
 <pre>git submodule update --init --recursive</pre>
@@ -142,8 +149,10 @@ ou, directement :
 
 <pre>
 cd path/to/MyNewModule
+# vérifier si des modifications ont été apportées
 git fetch
-git merge origin/master
+# récupérer ces modifications en local
+git merge origin/main
 </pre>
 
 
@@ -162,7 +171,7 @@ git config --local diff.submodule log
 Pour éviter de faire <code>cd path/to/MyNewModule</code> lors du <code>fetch</code> :
 
 <pre>git submodule update --remote path/to/MyNewModule</pre>
-Utilise la branche <code>master</code> par défaut.
+Utilise la branche <code>main</code> par défaut.
 
 <br><br>Pour suivre une autre branche :
 <pre>git config -f .gitmodules submodule.MyNewModule.branch stable</pre>
@@ -171,7 +180,7 @@ Sans l'option <code>-f .gitmodules</code>, seul <code>.git/config</code> est mod
 
 Maintenant, quand on fait :
 <pre>git pull</pre>
-git nous indique que des changeùents ont eu lieu dans les submodules.
+git nous indique que des changements ont eu lieu dans les submodules.
 
 Pour avoir aussi un résumé des changements :
 <pre>git config status.submodulesummary 1</pre>
@@ -198,16 +207,16 @@ Cas où on travaille à la fois sur le projet principal et dans différents subm
 <br>Jusqu'à présent, <code>git submodule update</code> sert à rappatrier les changements dans les submodules, mais les sous-répertoires se trouvent dans un état de “detached HEAD”.
 <br>Pour remédier à cela, il faut aller dans chaque sous-module et indiquer à git quelle branche suivre :
 <pre>
-cd pat/to/submodule
+cd path/to/submodule
 git checkout stable
 </pre>
-Pour récupérer les changements dans les submodules, il fau dirénavant faire :
+Pour récupérer les changements dans les submodules, il faut dorénavant faire :
 <pre>git submodule update --remote --merge</pre>
 
 Si on fait des changements dans le submodule, faire par exemple :
 <pre>git submodule update --remote --rebase</pre>
 
-Attention, si on oublie <code>--merge</code> ou <code>--rebase</code>, git va récupérer les changemùents et mettre le fédôp des sous-modules dans un état "detached HEAD".
+Attention, si on oublie <code>--merge</code> ou <code>--rebase</code>, git va récupérer les changements et mettre le dédôt des sous-modules dans un état "detached HEAD".
 
 <br><br>Si on a travaillé en local sur un submodule et qu'un <code>git submodule update</code> génère des conflits, on doit les gérer (dans le répertoire de chaque submodule) comme on gère un conflit normal.
 
@@ -222,7 +231,20 @@ Attention, si on oublie <code>--merge</code> ou <code>--rebase</code>, git va r�
 </article>
 </main>
 
+<!-- ********************************************************************************* -->
+<h2>Supprimer un submodule</h2>
 
+Voir <a href="https://stackoverflow.com/questions/1260748/how-do-i-remove-a-submodule/36593218#36593218">stackoverflow</a> :
+<pre>
+# Remove the submodule entry from .git/config
+git submodule deinit -f path/to/submodule
+
+# Remove the submodule directory from the superproject's .git/modules directory
+rm -rf .git/modules/path/to/submodule
+
+# Remove the entry in .gitmodules and remove the submodule directory located at path/to/submodule
+git rm -f path/to/submodule
+</pre>
 
 </body>
 </html>
