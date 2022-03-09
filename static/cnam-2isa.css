@@ -30,7 +30,7 @@ body{
     font-size:1rem;
     border:1px solid grey;
     padding:0.6rem 1rem;;
-    background:lightyellow;
+    background:#FFEBCC; /* #FFF6D3 */
     margin:1rem;
 }
 .exo ul{margin:0;}

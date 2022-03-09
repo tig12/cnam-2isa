@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <title>Atelier découverte HTML JS | 2ISA</title>
     <meta name="description" content="But : culture web minimale, notions de html, utiliser javascript dans une page web, introduction à la programmation.">
-    <link href="../../../static/cnam-2isa.css" rel="stylesheet" type="text/css">
+    <link href="../../static/cnam-2isa.css" rel="stylesheet" type="text/css">
     
 </head>
 <body>
 <nav class="prevnext">
-    <a class="top" title="Accueil CNAM 2ISA" href="../index.html">&uarr;</a>
+    <a class="top" title="Accueil CNAM 2ISA" href="index.html">&uarr;</a>
 </nav>
 
 <header>
@@ -106,7 +106,7 @@ On constate que le saut de ligne n'est toujours pas pris en compte.
 </li>
 
 <li>
-Ajouter des sauts de ligne :
+Ajoutez des sauts de ligne :
 <pre>
 Salut, il est 9h.
 &lt;br>
@@ -195,21 +195,24 @@ A l'intérieur de la balise <code>&lt;script></code> :
 <!-- ************************************* -->
 <h3>Boucle</h3>
 <pre>
-    for(let j=0; j &lt; 20; j = j+1){
+    for(let j=0; j &lt; 10; j = j+1){
         document.write("&lt;br>La valeur de j est " + j);
     }
 </pre>
-Signification :
+Syntaxe générale :
 <pre>
     for(initialisation; test; update){
         instructions
     }
 </pre>
+Pour l'exemple précédent :
 <ul>
     <li>La première fois, définis une variable j et affecte lui la valeur 0.</li>
-    <li>Tant que j est inférieur à 20, effectue le contenu de la boucle, situé entre les accolades.</li>
+    <li>Tant que j est inférieur à 10, effectue le contenu de la boucle, situé entre les accolades.</li>
     <li>A chaque fin de l'exécution d'une itération, ajoute 2 à j.</li>
 </ul>
+
+Ou encore : &laquo; Pour j allant de 0 à 9, affiche "&lt;br>La valeur de j est " + j &raquo;
 
 <!-- ************************************* -->
 <h3>Fonction</h3>
