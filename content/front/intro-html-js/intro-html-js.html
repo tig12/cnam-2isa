@@ -206,19 +206,103 @@ Signification :
     }
 </pre>
 <ul>
-    <li>La première fois, définis une variable j et affecte lui la valeur 0</li>
-    <li>Tant que j est inférieur à 20, effectue le contenu de la boucle, situé entre les accolades</li>
-    <li>A chaque fin de l'exécution d'une itération, ajoute 2 à j</li>
+    <li>La première fois, définis une variable j et affecte lui la valeur 0.</li>
+    <li>Tant que j est inférieur à 20, effectue le contenu de la boucle, situé entre les accolades.</li>
+    <li>A chaque fin de l'exécution d'une itération, ajoute 2 à j.</li>
 </ul>
 
 <!-- ************************************* -->
 <h3>Fonction</h3>
+Permet d'isoler du code, qui peut être ensuite appelé depuis différents endroits.
 
+<br><br>Exemple : fonction qui calcule un prix TTC à partir d'un prix HT (TVA à 20%)
 
+<pre>
+/** 
+    Calcule le prix TTC à partir d'un prix hors taxe.
+    Le pourcentage de taxe est de 20%
+    @param  prixHT  Prix hors taxe
+    @return prixHT augmenté de 20%
+**/
+function calculerPrixTTC(prixHT){
+    let prixTTC = prixHT * 1.2;
+    return prixTTC;
+}
+</pre>
+Syntaxe générale :
+<pre>
+function nomDeLaFonction(paramètres){
+    corps de la fonction
+}
+</pre>    
+<ul>
+    <li>
+        On définit la fonction en utilisant le mot-clé <b>function</b>.
+    </li>
+    <li>
+        Une fonction a un nom, ici <code>calculerPrixTTC</code>.
+    </li>
+    <li>
+        Une fonction peut avoir des <b>paramètres</b>.
+        <br>Ici, il y a un seul paramètre, qui a comme nom <code>prixHT</code>.
+        <br>Les paramètres peuvent être utilisés dans le corps de la fonction.
+    </li>
+    <li>
+        Une fonction peut éventuellement renvoyer une valeur, en utilisant le mot-clé <b>return</b>.
+    </li>
+</ul>
+
+Une fois qu'on a défini une fonction, on peut l'utiliser ;
+<pre>
+let prixTTC = calculerPrixTTC(20);
+document.write("&lt;br>Le prix TTC est " + prixTTC);
+
+prixTTC = calculerPrixTTC(30);
+document.write("&lt;br>Le prix TTC est " + prixTTC);
+</pre>
+
+<!-- ************************************* -->
+<h3>Outils pour programmer</h3>
+
+<h4>Console javascript</h4>
+Les navigateurs fournissent un outil permettant de débugger lors de l'écriture d'une page.
+<br>Appuyez sur F12 pour voir cet outil (et à nouveau sur F12 pour le faire disparaître).
+<br>Choisissez l'onglet "Console".
+
+<h4>Editeur de texte</h4>
+Installer un éditeur de texte qui fait au moins la coloration syntaxique et l'indentation, par exemple Notepad++ ou VSCodium.
+
+<!-- ************************************* -->
+<h3>Entraînement</h3>
+
+<div class="exo">
+Modifier la fonction <code>calculerPrixTTC</code> de manière à passer en paramètre aussi le pourcentage de taxe.
+</div>
+
+<div class="exo">
+Ecrire une fonction nommée <code>additionner</code> qui prend en paramètre deux nombres et qui renvoie la somme de ces deux nombres.
+</div>
+
+<div class="exo">
+Pour convertir un nombre de degrés fahrenheit en un nombre de degrés celsius, on utilise la formule :
+<br>On utilise les notations : F = fahrenheit ; C = celsius
+<br><code>F = (C - 32) * 5 / 9</code>
+<ol class="spaced">
+    <li>
+        Ecrire une fonction nommée <code>fahrenheit2celsius</code> qui prend en paramètre représentant un nombre de &deg;F et renvoie sa valeur exprimée en &deg;C.
+        <br>Utilisez votre fonction pour afficher en &deg;C combien valent 0&deg;F, puis 100&deg;F.
+    </li>
+    <li>
+        Etablir la formule inverse, permettant de calculer le nombre de &deg;C à partir du nombre de &deg;F.
+    </li>
+    <li>
+        Ecrire une fonction nommée <code>celsius2fahrenheit</code> qui prend en paramètre représentant un nombre de &deg;C et renvoie sa valeur exprimée en &deg;F.
+        <br>Utilisez votre fonction pour afficher en &deg;F combien valent 0&deg;C, puis 100&deg;C.
+    </li>
+</ol>
+</div>
 
 </article>
 </main>
-
 </body>
 </html>
-
