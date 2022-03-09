@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Atelier découverte HTML JS | 2ISA</title>
+    <meta name="description" content="But : culture web minimale, notions de html, utiliser javascript dans une page web, introduction à la programmation.">
+    <link href="../../../static/cnam-2isa.css" rel="stylesheet" type="text/css">
+    
+</head>
+<body>
+<nav class="prevnext">
+    <a class="top" title="Accueil CNAM 2ISA" href="../index.html">&uarr;</a>
+</nav>
+
+<header>
+<h1>Atelier découverte programmation</h1>
+</header>
+
+<div class="intro">
+Objectif : notions de HTML, initiation à la programmation à travers Javascript.
+</div>
+
+<main>
+<article>
+
+<!-- ********************************************************************************* -->
+<h2>Navigateur web, document HTML</h2>
+
+Fonctionnalités utiles d'un navigateur web :
+
+<table class="wikitable">
+    <tr><td>Raccourci clavier</td><td>Action</td></tr>
+    <tr>
+        <td><code>F5</code> ou <code>ctrl R</code></td>
+        <td>Rafraîchir la page</td>
+    </tr>
+    </tr>
+        <td><code>ctrl U</code></td>
+        <td>Voir la source</td>
+    <tr>
+    <tr>
+        <td><code>F12</code></td>
+        <td>Outils développement web</td>
+    </tr>
+</table>
+
+
+<ol class="spaced">
+
+<li>
+Sur votre machine, créez un nouveau dossier, en le nommant par exemple <code>test-prog</code>.
+<br>Dans ce dossier, créez un document vide nommé <code>test1.html</code>
+<br>Ouvrez <code>test1.html</code> dans un navigateur web. Une page blanche s'affiche.
+<br>Ouvrez <code>test1.html</code> avec notepad (bloc-note).
+</li>
+    
+<li>
+Avec notepad (bloc-note), écrivez dans le fichier <code>test1.html</code> :
+<pre>
+Salut, il est 9h.
+</pre>
+Rafraîchissez la page dans votre navigateur
+</li>
+
+<li>
+Toujours avec notepad, modifiez le fichier <code>test1.html</code> :
+<pre>
+Salut, il est 9h.
+
+Il fait beau ce matin
+</pre>
+Rafraîchissez la page dans votre navigateur. On constate que le saut de ligne n'est pas pris en compte.
+</li>
+    
+<li>
+Copiez le fichier <code>test1.html</code>, pour créer un document nommé <code>test1.txt</code>.
+<br>Ouvrez <code>test1.txt</code> dans votre navigateur ; vous constatez que le saut de ligne est bien affiché.
+</li>
+
+</ol>
+
+
+<!-- ********************************************************************************* -->
+<h2>HTML</h2>
+Parmi les nombreuses références disponibles, <a href="https://developer.mozilla.org/fr">MDN, Mozilla Developer Network</a> ou <a href="https://www.w3schools.com">w3schools.com</a>.
+
+<ol class="spaced">
+
+<li>
+Notion de <b>balise</b> (<b>tag</b> en anglais), ouvrante et fermante.
+<br>Modifiez <code>test1.html</code> de manière à ce qu'il contienne :
+<pre>
+&lt;!DOCTYPE html>
+&lt;html>
+&lt;head>
+&lt;/head>
+
+&lt;body>
+Salut, il est 9h.
+
+Il fait beau ce matin
+&lt;/body>
+&lt;/html>
+</pre>
+On constate que le saut de ligne n'est toujours pas pris en compte.
+</li>
+
+<li>
+Ajouter des sauts de ligne :
+<pre>
+Salut, il est 9h.
+&lt;br>
+&lt;br>Il fait beau ce matin
+</pre>
+Il existe plusieurs moyens de faire des sauts de ligne : balises <code>p</code>, <code>div</code>, en utilisant css.
+</li>
+<li>
+Modifiez le texte :
+<pre>
+Salut, &lt;b>il est 9h&lt;/b>.
+
+Il fait &lt;i>beau&lt;/i> ce matin
+</pre>
+Dans le head (entre les balises <code>&lt;head></code> et <code>&lt;/head></code>), ajoutez
+<pre>&lt;title>Première page de test&lt;/title></pre>
+</li>
+
+</li>
+<li>
+<div class="bold">Lien hypertexte</div>
+<ul class="padding0">
+    <li>
+        Copiez <code>test1.html</code> pour créer un fichier <code>test2.html</code>.
+    </li>
+    <li>
+        Modifiez <code>test2.html</code> de manière à ce que son titre devienne "Seconde page de test", et que son contenu devienne "Bonjour, je suis test2".
+    </li>
+    <li>
+        Dans le <code>body</code> de <code>test1.html</code>, ajoutez un lien vers <code>test2.html</code> :
+        <pre>&lt;a href="test2.html">Lien vers test2&lt;/a></pre>
+    </li>
+    <li>
+        Modifiez <code>test2.html</code> de manière à faire un lien vers <code>test1.html</code>
+    </li>
+    Nouvelle notion : <b>attribut d'une balise</b> ; <code>href</code> est un attribut de la balise <code>a</code>.
+    <pre>&lt;balise attribut="valeur de l'attribut">Contenu de la balise&lt;/balise></pre>
+</ul>
+</li>
+
+<li>
+<div class="bold">Image</div>
+Modifiez <code>test1.html</code>
+<pre>
+&lt;br>&lt;img src="https://amio-fit.2isa.eu/pluginfile.php/1/theme_adaptable/logo/1632918530/AMIO_fond_bleuPetit-ConvertImage.png">
+</pre>
+</li>
+
+</ol>
+
+<!-- ********************************************************************************* -->
+<h2>Javascript</h2>
+Notions importantes en programmation : <b>instruction</b>, <b>variable</b>, <b>test</b>, <b>boucle</b>, <b>fonction</b>.
+
+<!-- ************************************* -->
+<h3>Incruster des instructions javascript dans une page</h3>
+
+Modifiez <code>test1.html</code> :
+<pre>
+&lt;script>
+    document.write("Je suis affiché par js.");
+&lt;/script>
+</pre>
+
+<!-- ************************************* -->
+<h3>Définir une variable</h3>
+A l'intérieur de la balise <code>&lt;script></code> :
+<pre>
+    let nom = "Mon nom";
+    document.write("&lt;br>Je m'appelle " + nom);
+</pre>
+
+
+<!-- ************************************* -->
+<h3>Test</h3>
+<pre>
+    let nombre = 4;
+    if(nombre > 10){
+        document.write("&lt;br>Le nombre est supérieur à 10");
+    }
+    else{
+        document.write("&lt;br>Le nombre est inférieur à 10");
+    }
+</pre>
+
+<!-- ************************************* -->
+<h3>Boucle</h3>
+<pre>
+    for(let j=0; j &lt; 20; j = j+1){
+        document.write("&lt;br>La valeur de j est " + j);
+    }
+</pre>
+Signification :
+<pre>
+    for(initialisation; test; update){
+        instructions
+    }
+</pre>
+<ul>
+    <li>La première fois, définis une variable j et affecte lui la valeur 0</li>
+    <li>Tant que j est inférieur à 20, effectue le contenu de la boucle, situé entre les accolades</li>
+    <li>A chaque fin de l'exécution d'une itération, ajoute 2 à j</li>
+</ul>
+
+<!-- ************************************* -->
+<h3>Fonction</h3>
+
+
+
+</article>
+</main>
+
+</body>
+</html>
+
