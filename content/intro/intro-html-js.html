@@ -9,7 +9,7 @@
 </head>
 <body>
 <nav class="prevnext">
-    <a class="top" title="Accueil CNAM 2ISA" href="index.html">&uarr;</a>
+    <a class="top" title="Accueil CNAM 2ISA" href="../../index.html">&uarr;</a>
 </nav>
 
 <header>
@@ -78,7 +78,6 @@ Copiez le fichier <code>test1.html</code>, pour créer un document nommé <code>
 </li>
 
 </ol>
-
 
 <!-- ********************************************************************************* -->
 <h2>HTML</h2>
@@ -159,7 +158,9 @@ Modifiez <code>test1.html</code>
 
 <!-- ********************************************************************************* -->
 <h2>Javascript</h2>
-Notions importantes en programmation : <b>instruction</b>, <b>variable</b>, <b>test</b>, <b>boucle</b>, <b>fonction</b>.
+Notions importantes en programmation : <b>instruction</b>, <b>variable</b>, <b>opérateur</b>, <b>expression</b>, <b>test</b>, <b>boucle</b>, <b>fonction</b>.
+
+<br><br>Exemple de référence : <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript">developer.mozilla.org</a>
 
 <!-- ************************************* -->
 <h3>Incruster des instructions javascript dans une page</h3>
@@ -175,10 +176,81 @@ Modifiez <code>test1.html</code> :
 <h3>Définir une variable</h3>
 A l'intérieur de la balise <code>&lt;script></code> :
 <pre>
-    let nom = "Mon nom";
-    document.write("&lt;br>Je m'appelle " + nom);
+let nom = "Mon nom";
+document.write("&lt;br>Je m'appelle " + nom);
+</pre>
+<code>let</code> permet de <b>déclarer</b> une variable.
+<br><code>nom = "Mon nom"</code> permet de lui <b>affecter une valeur</b>.
+<br>Donc l'instruction
+<pre>let nom = "Mon nom";</pre>
+fait deux choses à la fois ; on aurait pu écrire :
+<pre>
+let nom; // déclaration
+nom = "mon nom"; // affectation d'une valeur
 </pre>
 
+A retenir : une variable a un <b>nom</b> et une <b>valeur</b>.
+
+<br><br>De plus, chaque variable a un <b>type</b> (chaîne de caractère, nombre entier, nombre à virgule...), mais javascript fait partie des langages "non typés", c'est à dire que les développeurs n'ont pas besoin de préciser le type des variables, le langage s'en charge.
+
+<!-- ************************************* -->
+<h3>Opérateur</h3>
+Un <b>opérateur</b> permet de combiner des expressions pour fabriquer une nouvelle expression.
+
+<table class="wikitable margin">
+    <tr>
+        <th>Types d'opérateur</th>
+        <th>Opérateurs</th>
+        <th>Exemples</th>
+    </tr>
+    <tr>
+        <td>Opérateurs arithmétiques</td>
+        <td>
+            + (addition)
+            <br>- (soustraction)
+            <br>* (multiplication)
+            <br>/ (division)
+        </td>
+        <td>
+            <code>3 + 4 = 7</code>
+        </td>
+    </tr>
+    <tr>
+        <td>Concaténation de chaîne</td>
+        <td>+</td>
+        <td>'toto' + 'titi' = 'tototiti'</td>
+    </tr>
+    <tr>
+        <td>Opérateurs logiques</td>
+        <td>
+            || (ou)
+            <br>&amp;&amp; (et)
+            <br>! (négation)
+        </td>
+        <td>(a > 4 || b &lt; 10) &amp;&amp; nom == 'bonjour'</td>
+    </tr>
+    <tr>
+        <td>Opérateurs de comparaison</td>
+        <td>
+            == (égal)
+            <br>!= (différent)
+            <br>> (supérieur)
+            <br>>= (supérieur ou égal)
+            <br>&lt; (inférieur)
+            <br>&lt;= (inférieur ou égal)
+        </td>
+        <td></td>
+    </tr>
+</table>
+
+<!-- ************************************* -->
+<h3>Expression</h3>
+Une <b>expression</b> est une combinaison d'identifiants ou de valeurs littérales qui peut prendre une valeur.
+<br>Par exemple
+<pre>
+a = 3;
+b = 5*a;
+</pre>
 
 <!-- ************************************* -->
 <h3>Test</h3>
@@ -227,7 +299,7 @@ Permet d'isoler du code, qui peut être ensuite appelé depuis différents endro
     @param  prixHT  Prix hors taxe
     @return prixHT augmenté de 20%
 **/
-function calculerPrixTTC(prixHT){
+function calculerPrixTTC_20pourcent(prixHT){
     let prixTTC = prixHT * 1.2;
     return prixTTC;
 }
@@ -243,7 +315,8 @@ function nomDeLaFonction(paramètres){
         On définit la fonction en utilisant le mot-clé <b>function</b>.
     </li>
     <li>
-        Une fonction a un nom, ici <code>calculerPrixTTC</code>.
+        Une fonction a un <b>nom</b>, ici <code>calculerPrixTTC_20pourcent</code>.
+        <br>Attention, règles précises pour nommer une fonction, voir par exemple <a href="https://www.w3schools.com/js/js_functions.asp">cette page</a>.
     </li>
     <li>
         Une fonction peut avoir des <b>paramètres</b>.
@@ -257,10 +330,10 @@ function nomDeLaFonction(paramètres){
 
 Une fois qu'on a défini une fonction, on peut l'utiliser ;
 <pre>
-let prixTTC = calculerPrixTTC(20);
+let prixTTC = calculerPrixTTC_20pourcent(20);
 document.write("&lt;br>Le prix TTC est " + prixTTC);
 
-prixTTC = calculerPrixTTC(30);
+prixTTC = calculerPrixTTC_20pourcent(30);
 document.write("&lt;br>Le prix TTC est " + prixTTC);
 </pre>
 
@@ -276,17 +349,73 @@ Les navigateurs fournissent un outil permettant de débugger lors de l'écriture
 Installer un éditeur de texte qui fait au moins la coloration syntaxique et l'indentation, par exemple Notepad++ ou VSCodium.
 
 <!-- ************************************* -->
+<h3>Organiser son code</h3>
+Jusqu'à présent, on a écrit du js à l'intérieur d'une balise <code>&lt;script></code>.
+<br>On peut aussi séparer le code js du html à l'aide de l'attribut <code>src</code>.
+<br>On pourrait par exemple organiser son code de la manière suivante :
+<pre style="line-height:1.2;">
+test-prog/
+    ├── js
+    │   └── taxes.js
+    └── test-taxes.html
+</pre>
+
+Avec cette organisation, on aurait :
+<br><code>test-taxes.html</code> :
+<pre>
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+&lt;head>
+    &lt;meta charset="utf-8" />
+    &lt;title>Calcul de taxes&lt;/title>
+    <b>&lt;script src="js/taxes.js">&lt;/script></b>
+&lt;/head>
+
+&lt;body>
+&lt;script>
+    let prixTTC, prixHT;
+    
+    prixHT = 20;
+    prixTTC = calculerPrixTTC_20pourcent(prixHT);
+    document.write("&lt;br>Le prix TTC de " + prixHT + " est " + prixTTC);
+    
+    prixHT = 30;
+    prixTTC = calculerPrixTTC_20pourcent(prixHT);
+    document.write("&lt;br>Le prix TTC de " + prixHT + " est " + prixTTC);
+&lt;/script>
+&lt;/body>
+&lt;/html>
+</pre>
+
+Et <code>taxes.js</code> contient la définition des fonctions :
+<pre>
+/** 
+    Calcule le prix TTC à partir d'un prix hors taxe.
+    Le pourcentage de taxe est de 20%
+    @param  prixHT  Prix hors taxe
+    @return prixHT augmenté de 20%
+**/
+function calculerPrixTTC_20pourcent(prixHT){
+    let prixTTC = prixHT * 1.2;
+    return prixTTC;
+}
+</pre>
+
+
+<!-- ************************************* -->
 <h3>Entraînement</h3>
 
 <div class="exo">
-Modifier la fonction <code>calculerPrixTTC</code> de manière à passer en paramètre aussi le pourcentage de taxe.
+Ecrire une fonction <code>calculerPrixTTC()</code> en vous inspirant de la fonction <code>calculerPrixTTC_20pourcent()</code>, de manière à passer en paramètre aussi le pourcentage de taxe.
 </div>
 
 <div class="exo">
-Ecrire une fonction nommée <code>additionner</code> qui prend en paramètre deux nombres et qui renvoie la somme de ces deux nombres.
+Ecrire une fonction nommée <code>additionner()</code> qui prend en paramètre deux nombres et qui renvoie la somme de ces deux nombres.
 </div>
 
+
 <div class="exo">
+<div class="bold">Fahrenheit / Celsius</div>
 Pour convertir un nombre de degrés fahrenheit en un nombre de degrés celsius, on utilise la formule :
 <br>On utilise les notations : F = fahrenheit ; C = celsius
 <br><code>F = (C - 32) * 5 / 9</code>
@@ -304,6 +433,33 @@ Pour convertir un nombre de degrés fahrenheit en un nombre de degrés celsius, 
     </li>
 </ol>
 </div>
+
+<div class="exo">
+<div class="bold">Triangles de chiffres</div>
+<ol class="spaced">
+    <li>
+        Ecrire une fonction <code>dessinerTriangle()</code>, qui prend en paramètre un chiffre entre 1 et 9, et qui renvoie une chaîne de caractères.
+        <br>Par exemple, 
+        <pre>dessinerTriangle(6);</pre>
+        renvoie la chaîne
+<pre>
+1
+22
+333
+4444
+55555
+666666
+</pre>
+    </li>
+    
+    <li>
+        Modifiez votre fonction de manière à ce que, si le paramètre <code>n</code> n'est pas compris entre 1 et 9, ou si <code>n</code> n'est pas un nombre, la fonction renvoie un message d'erreur.
+        <pre>dessinerTriangle('toto');</pre>
+        <pre>Le nombre doit être compris entre 1 et 9</pre>
+    </li>
+</ol>
+</div>
+
 
 </article>
 </main>
