@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Page de test</title>
+</head>
+
+<body>
+
+Salut, <b>il est 9h.</b>
+
+<br>On est <i>lundi</i>.
+
+<a href="test2.html">Un lien vers la page test2.</a>
+
+<br><img src="https://amio-fit.2isa.eu/pluginfile.php/1/theme_adaptable/logo/1632918530/AMIO_fond_bleuPetit-ConvertImage.png">
+
+<script>
+document.write("<br>Je suis affiché par js.");
+let nom = "Thierry";
+document.write("<br>Je m'appelle " + nom);
+let i = 10;
+document.write("<br>La valeur de i est " + i);
+i = i + 1;
+document.write("<br>La valeur de i est " + i);
+
+let nombre = 10;
+if(nombre > 10){
+    document.write("<br>Le nombre est supérieur à 10");
+}
+else{
+    document.write("<br>Le nombre est inférieur ou égal à 10");
+}
+
+document.write("<br>");
+/* 
+    j commence à la valeur 0
+    tant que j est inférieur à 20, exécute les opérations situées entre { et }
+    Lorsque la fin de boucle est atteint ( } ), exécute j = j + 2
+    Recommence au début de la boucle ( { )
+*/
+for(let j=0; j < 20; j = j+2){
+    document.write("<br>La valeur de j est " + j);
+}
+
+function calculePrixTTC(prixHT){
+    let prixTTC = prixHT * 1.2;
+    return prixTTC;
+}
+
+let prixTTC = calculePrixTTC(20);
+document.write("<br>Le prix TTC est " + prixTTC);
+
+prixTTC = calculePrixTTC(30);
+document.write("<br>Le prix TTC est " + prixTTC);
+
+</script>
+
+</body>
+</html>

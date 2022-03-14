@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Test JS string</title>
+</head>
+
+<body>
+
+<script>
+let str1 = 'Une string définie avec des simples quotes';
+let str2 = "Une string définie avec des doubles quotes";
+let str3 = `Une string définie avec des "backticks"`;
+
+document.write('<br>str1 = ' + str1);
+document.write('<br>str2 = ' + str2);
+document.write('<br>str3 = ' + str3);
+
+document.write('<br>str1.length = ' + str1.length);
+
+document.write('<br>Utilisation de charAt() : ');
+for(let i=0; i < str1.length; i++){
+    document.write(str1.charAt(i) +' ');
+}
+
+document.write('<br>str1.toUpperCase() = ' + str1.toUpperCase());
+document.write('<br>str1.toLowerCase() = ' + str1.toLowerCase());
+
+document.write('<br>str1.indexOf("e") = ' + str1.indexOf("e"));
+document.write('<br>str1.lastIndexOf("e") = ' + str1.lastIndexOf("e"));
+
+document.write('<br>str1.substr(2, 5) = ' + str1.substr(2, 5));
+
+document.write('<br>str1.replace("e", "X") = ' + str1.replace("e", "X"));
+document.write('<br>str1.replaceAll("e", "X") = ' + str1.replaceAll("e", "X"));
+
+function inverser(str) {
+    res = '';
+    for(let i=str.length - 1; i >=0 ; i--){
+        res += str.charAt(i);
+    }
+    return res;
+}
+
+document.write("<br><br>inverser('Bonjour') = " + inverser('Bonjour'));
+
+
+</script>
+
+
+</body>
+</html>

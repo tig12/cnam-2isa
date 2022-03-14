@@ -117,8 +117,8 @@ Il existe plusieurs moyens de faire des sauts de ligne : balises <code>p</code>,
 Modifiez le texte :
 <pre>
 Salut, &lt;b>il est 9h&lt;/b>.
-
-Il fait &lt;i>beau&lt;/i> ce matin
+&lt;br>
+&lt;br>Il fait &lt;i>beau&lt;/i> ce matin
 </pre>
 Dans le head (entre les balises <code>&lt;head></code> et <code>&lt;/head></code>), ajoutez
 <pre>&lt;title>Première page de test&lt;/title></pre>
@@ -191,10 +191,10 @@ nom = "mon nom"; // affectation d'une valeur
 
 A retenir : une variable a un <b>nom</b> et une <b>valeur</b>.
 
-<br><br>De plus, chaque variable a un <b>type</b> (chaîne de caractère, nombre entier, nombre à virgule...), mais javascript fait partie des langages "non typés", c'est à dire que les développeurs n'ont pas besoin de préciser le type des variables, le langage s'en charge.
+<br>De plus, chaque variable a un <b>type</b> (chaîne de caractère, nombre entier, nombre à virgule...), mais javascript fait partie des langages "non typés", c'est à dire que les développeurs n'ont pas besoin de préciser le type des variables, le langage s'en charge.
 
 <!-- ************************************* -->
-<h3>Opérateur</h3>
+<h3>Opérateurs</h3>
 Un <b>opérateur</b> permet de combiner des expressions pour fabriquer une nouvelle expression.
 
 <table class="wikitable margin">
@@ -214,6 +214,11 @@ Un <b>opérateur</b> permet de combiner des expressions pour fabriquer une nouve
         <td>
             <code>3 + 4 = 7</code>
         </td>
+    </tr>
+    <tr>
+        <td>Modulo</td>
+        <td>%</td>
+        <td>7 % 3 = 1</td>
     </tr>
     <tr>
         <td>Concaténation de chaîne</td>
@@ -245,7 +250,7 @@ Un <b>opérateur</b> permet de combiner des expressions pour fabriquer une nouve
 
 <!-- ************************************* -->
 <h3>Expression</h3>
-Une <b>expression</b> est une combinaison d'identifiants ou de valeurs littérales qui peut prendre une valeur.
+Une <b>expression</b> est une combinaison d'identifiants ou de valeurs littérales qui peut prendre une <b>valeur</b>.
 <br>Par exemple
 <pre>
 a = 3;
@@ -253,41 +258,49 @@ b = 5*a;
 </pre>
 
 <!-- ************************************* -->
-<h3>Test</h3>
-<pre>
-    let nombre = 4;
-    if(nombre > 10){
-        document.write("&lt;br>Le nombre est supérieur à 10");
-    }
-    else{
-        document.write("&lt;br>Le nombre est inférieur à 10");
-    }
-</pre>
-
-<!-- ************************************* -->
-<h3>Boucle</h3>
-<pre>
-    for(let j=0; j &lt; 10; j = j+1){
-        document.write("&lt;br>La valeur de j est " + j);
-    }
-</pre>
-Syntaxe générale :
-<pre>
-    for(initialisation; test; update){
-        instructions
-    }
-</pre>
-Pour l'exemple précédent :
+<h3>Commentaires</h3>
 <ul>
-    <li>La première fois, définis une variable j et affecte lui la valeur 0.</li>
-    <li>Tant que j est inférieur à 10, effectue le contenu de la boucle, situé entre les accolades.</li>
-    <li>A chaque fin de l'exécution d'une itération, ajoute 2 à j.</li>
+    <li>
+        Commenter une seule ligne avec <code>//</code> :
+<pre>
+// Je vais déclarer la variable a.
+let a;
+a = 3; // ici, j'ai affecté une valeur à ma variable.
+</pre>
+    </li>
+    <li>
+        Commenter plusieurs lignes avec <code>/*  */</code>
+<pre>
+/* 
+    Ces deux lignes
+    sont ignorées par javascript.
+*/
+</pre>
+    </li>
 </ul>
 
-Ou encore : &laquo; Pour j allant de 0 à 9, affiche "&lt;br>La valeur de j est " + j &raquo;
 
-<!-- ************************************* -->
-<h3>Fonction</h3>
+<div class="exo">
+Toujours dans <code>test1.html</code>,
+<ol>
+    <li>Déclarez une variable <code>x</code>.</li>
+    <li>Affectez lui la valeur 10.</li>
+    <li>Déclarez une deuxième variable <code>y</code>.</li>
+    <li>Affectez à y : 5 plus 3 fois la valeur de x.</li>
+    <li>
+        Affichez les valeurs de x et de y, de manière à obtenir :
+<pre>
+Valeur de x : 10
+Valeur de y : 35
+</pre>
+    </li>
+</ol>
+</div>
+
+
+<!-- ********************************************************************************* -->
+<h2>Fonctions</h2>
+
 Permet d'isoler du code, qui peut être ensuite appelé depuis différents endroits.
 
 <br><br>Exemple : fonction qui calcule un prix TTC à partir d'un prix HT (TVA à 20%)
@@ -312,15 +325,21 @@ function nomDeLaFonction(paramètres){
 </pre>    
 <ul>
     <li>
-        On définit la fonction en utilisant le mot-clé <b>function</b>.
+        On définit une fonction en utilisant le mot-clé <b>function</b>.
     </li>
     <li>
         Une fonction a un <b>nom</b>, ici <code>calculerPrixTTC_20pourcent</code>.
         <br>Attention, règles précises pour nommer une fonction, voir par exemple <a href="https://www.w3schools.com/js/js_functions.asp">cette page</a>.
     </li>
     <li>
-        Une fonction peut avoir des <b>paramètres</b>.
+        Une fonction peut avoir zéro ou plusieurs <b>paramètres</b>.
         <br>Ici, il y a un seul paramètre, qui a comme nom <code>prixHT</code>.
+        <br>Si une fonction a zéro paramètre, on écrit simplement des parenthèses vides:
+        <pre>function uneFonctionSansParametre(){ ... }</pre>
+    </li>
+    <li>
+        Après les paramètres, on écrit le <b>corps de la fonction</b>, situé entre des accolades.
+        <br>Le corps de la fonction est l'ensemble des instructions qu'exécute la fonction.
         <br>Les paramètres peuvent être utilisés dans le corps de la fonction.
     </li>
     <li>
@@ -337,15 +356,25 @@ prixTTC = calculerPrixTTC_20pourcent(30);
 document.write("&lt;br>Le prix TTC est " + prixTTC);
 </pre>
 
-<!-- ************************************* -->
-<h3>Outils pour programmer</h3>
 
-<h4>Console javascript</h4>
+<!-- ********************************************************************************* -->
+<h2>Outils pour programmer</h2>
+
+<!-- ************************************* -->
+<h3>Console javascript</h3>
 Les navigateurs fournissent un outil permettant de débugger lors de l'écriture d'une page.
 <br>Appuyez sur F12 pour voir cet outil (et à nouveau sur F12 pour le faire disparaître).
 <br>Choisissez l'onglet "Console".
 
-<h4>Editeur de texte</h4>
+<br><br>Javascript fournit un objet appelé <code>console</code>, que l'on peut utiliser pour développer.
+<br>Au lieu d'utiliser
+<pre>document.write()</pre>
+qui ajoute du texte dans la page HTML, on peut utiliser
+<pre>console.log()</pre>
+qui affiche du texte dans la console.
+
+<!-- ************************************* -->
+<h3>Editeur de texte</h3>
 Installer un éditeur de texte qui fait au moins la coloration syntaxique et l'indentation, par exemple Notepad++ ou VSCodium.
 
 <!-- ************************************* -->
@@ -401,24 +430,26 @@ function calculerPrixTTC_20pourcent(prixHT){
 }
 </pre>
 
-
-<!-- ************************************* -->
-<h3>Entraînement</h3>
-
 <div class="exo">
-Ecrire une fonction <code>calculerPrixTTC()</code> en vous inspirant de la fonction <code>calculerPrixTTC_20pourcent()</code>, de manière à passer en paramètre aussi le pourcentage de taxe.
+Ecrire une fonction nommée <code>afficher()</code> qui prend en paramètre une chaîne de caractères et qui l'affiche en utilisant <code>document.write()</code>.
+<br>Ecrire du code js qui utilise cette fonction.
 </div>
 
 <div class="exo">
 Ecrire une fonction nommée <code>additionner()</code> qui prend en paramètre deux nombres et qui renvoie la somme de ces deux nombres.
+<br>Ecrire du code js qui utilise cette fonction.
 </div>
 
+<div class="exo">
+Ecrire une fonction <code>calculerPrixTTC()</code> en vous inspirant de la fonction <code>calculerPrixTTC_20pourcent()</code>, de manière à passer en paramètre aussi le pourcentage de taxe.
+<br>Ecrire du code js qui utilise cette fonction.
+</div>
 
 <div class="exo">
 <div class="bold">Fahrenheit / Celsius</div>
 Pour convertir un nombre de degrés fahrenheit en un nombre de degrés celsius, on utilise la formule :
-<br>On utilise les notations : F = fahrenheit ; C = celsius
 <br><code>F = (C - 32) * 5 / 9</code>
+<br>(Notations : F = fahrenheit ; C = celsius)
 <ol class="spaced">
     <li>
         Ecrire une fonction nommée <code>fahrenheit2celsius</code> qui prend en paramètre représentant un nombre de &deg;F et renvoie sa valeur exprimée en &deg;C.
@@ -433,6 +464,62 @@ Pour convertir un nombre de degrés fahrenheit en un nombre de degrés celsius, 
     </li>
 </ol>
 </div>
+
+
+<!-- ********************************************************************************* -->
+<h2>Tests</h2>
+Exemple :
+<pre>
+    let nombre = 4;
+    if(nombre > 10){
+        document.write("&lt;br>Le nombre est supérieur à 10");
+    }
+    else{
+        document.write("&lt;br>Le nombre est inférieur à 10");
+    }
+</pre>
+
+<!-- ************************************* -->
+<h3>Booléens</h3>
+La condition <code>nombre > 10</code> est une <b>expression</b> qui peut être évaluée à <b>true</b> ou <b>false</b>.
+
+Les <b>opérateurs de comparaison</b> (<code>==</code>, <code>!=</code>, <code>></code> etc.) renvoient un booléen.
+<br>Les booléens peuvent être combinés avec des <b>opérateurs logiques</b> et (<code>&amp;&amp;</code>), ou (<code>||</code>), négation (<code>!</code>).
+
+<div class="exo">
+Ecrire une fonction <code>estPair()</code>, qui prend en paramètre un nombre et qui renvoie un booléen : <code>true</code> si le nombre est pair, <code>false</code> sinon.
+<br>Utiliser l'opérateur modulo (<code>%</code>).
+<br>Ecrire du code js qui utilise cette fonction.
+
+</div>
+
+<!-- ********************************************************************************* -->
+<h2>Boucles</h2>
+<pre>
+    for(let i=0; i &lt; 10; i = i+1){
+        document.write("&lt;br>La valeur de i est " + i);
+    }
+</pre>
+Signification : &laquo; Pour i allant de 0 à 9, affiche "&lt;br>La valeur de i est " + i &raquo;
+
+<br><br>Syntaxe générale :
+<pre>
+    for(initialisation; test; update){
+        instructions
+    }
+</pre>
+Pour l'exemple précédent :
+<ul>
+    <li>La première fois, définis une variable i et affecte lui la valeur 0.</li>
+    <li>Tant que i est inférieur à 10, effectue le contenu de la boucle, situé entre les accolades.</li>
+    <li>A chaque fin de l'exécution d'une itération, ajoute 2 à i.</li>
+</ul>
+
+
+<div class="exo">
+En utilisant votre fonction <code>estPair()</code>, affichez tous les nombres pairs compris entre 1 et 20.
+</div>
+
 
 <div class="exo">
 <div class="bold">Triangles de chiffres</div>
@@ -454,12 +541,72 @@ Pour convertir un nombre de degrés fahrenheit en un nombre de degrés celsius, 
     
     <li>
         Modifiez votre fonction de manière à ce que, si le paramètre <code>n</code> n'est pas compris entre 1 et 9, ou si <code>n</code> n'est pas un nombre, la fonction renvoie un message d'erreur.
+        <br>Utiliser la fonction <code>isNaN()</code> fournie par javascript.
         <pre>dessinerTriangle('toto');</pre>
         <pre>Le nombre doit être compris entre 1 et 9</pre>
     </li>
 </ol>
 </div>
 
+
+<!-- ********************************************************************************* -->
+<h2>Chaînes de caractères</h2>
+<!-- https://justacoding.blog/javascript-exercises-for-beginners-part-1-strings/ -->
+Javascript propose de nombreuses fonctions (méthodes) pour travailler avec des chaînes de caractères (<b>string</b> en anglais).
+
+<pre>
+&lt;script>
+let str1 = 'Une string définie avec des simples quotes';
+let str2 = "Une string définie avec des doubles quotes";
+let str3 = `Une string définie avec des "backticks"`;
+
+document.write('&lt;br>str1 = ' + str1);
+document.write('&lt;br>str2 = ' + str2);
+document.write('&lt;br>str3 = ' + str3);
+
+document.write('&lt;br>str1.length = ' + str1.length);
+
+document.write('&lt;br>Utilisation de charAt() : ');
+for(let i=0; i &lt; str1.length; i++){
+    document.write(str1.charAt(i) +' ');
+}
+
+document.write('&lt;br>str1.toUpperCase() = ' + str1.toUpperCase());
+document.write('&lt;br>str1.toLowerCase() = ' + str1.toLowerCase());
+
+document.write('&lt;br>str1.indexOf("e") = ' + str1.indexOf("e"));
+document.write('&lt;br>str1.lastIndexOf("e") = ' + str1.lastIndexOf("e"));
+
+document.write('&lt;br>str1.substr(2, 5) = ' + str1.substr(2, 5));
+
+document.write('&lt;br>str1.replace("e", "X") = ' + str1.replace("e", "X"));
+document.write('&lt;br>str1.replaceAll("e", "X") = ' + str1.replaceAll("e", "X"));
+&lt;/script>
+</pre>
+
+Voir par exemple <a href="https://www.w3schools.com/jsref/jsref_obj_string.asp">cette page</a> pour une liste plus complète.
+
+<div class="exo">
+<ol>
+    <li>
+        Ecrivez une fonction <code>inverser()</code>, qui prend en paramètre une chaîne de caractères et renvoie cette chaîne écrite à l'envers.
+        <br>Ecrire du code js qui utilise cette fonction.
+        <br>Exemple :
+        <pre>inverser('Bonjour') = ruojnoB</pre>
+    </li>
+    <li>
+        Utilisez votre fonction <code>inverser()</code> pour écrire une fonction <code>isPalindrome()</code>, qui prend en entrée une string et renvoie un booléen.
+        <br>Exemples :
+<pre>
+isPalindrome('Bonjour') = false
+isPalindrome('ressasser') = true
+</pre>
+    </li>
+</ol>
+</div>
+
+<!-- ********************************************************************************* -->
+<h2>Tableaux</h2>
 
 </article>
 </main>

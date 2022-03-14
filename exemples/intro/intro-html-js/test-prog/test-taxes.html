@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Calcul de taxes</title>
+    <script src="js/taxes.js"></script>
+</head>
+
+<body>
+
+<script>
+let prixTTC, prixHT;
+
+prixHT = 20;
+prixTTC = calculerPrixTTC_20pourcent(prixHT);
+document.write("<br>Le prix TTC de " + prixHT + " est " + prixTTC);
+
+prixHT = 30;
+prixTTC = calculerPrixTTC_20pourcent(prixHT);
+document.write("<br>Le prix TTC de " + prixHT + " est " + prixTTC);
+</script>
+
+</body>
+</html>
