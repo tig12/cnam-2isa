@@ -18,6 +18,18 @@ document.write("<br>Le prix TTC de " + prixHT + " est " + prixTTC);
 prixHT = 30;
 prixTTC = calculerPrixTTC_20pourcent(prixHT);
 document.write("<br>Le prix TTC de " + prixHT + " est " + prixTTC);
+
+let taux;
+prixHT = 100;
+taux = 10;
+prixTTC = calculerPrixTTC(prixHT, taux);
+document.write("<br>Le prix TTC de " + prixHT + " est " + prixTTC + " (avec un taux de " + taux + "%)");
+
+taux = 40;
+prixTTC = calculerPrixTTC(prixHT, taux);
+document.write("<br>Le prix TTC de " + prixHT + " est " + prixTTC + " (avec un taux de " + taux + "%)");
+
+
 </script>
 
 </body>
