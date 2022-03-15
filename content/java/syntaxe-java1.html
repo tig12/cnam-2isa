@@ -425,6 +425,7 @@ Pour travailler sur des chars, java fournit une classe <code>Characters</code>, 
 <!-- ************************************* -->
 <h3><a name="4-3-les-types-entiers">Les types entiers</a></h3>
 Concerne les types java <b>byte</b>, <b>short</b>, <b>int</b> et <b>long</b>, qui diffèrent par la taille mémoire qu'ils occupent.
+
 <br>Tous ces types sont signés, java ne possède pas d'équivalent des types <b>unsigned</b> en C.
 <br>En général, on utilise le type <b>int</b>, dont la valeur littérale s'écrit "normalement" :
 <pre>int i = 9874;</pre>
@@ -445,7 +446,7 @@ n1 = 255
 n2 = 255
 </pre>
 
-ATTENTION : si la valeur maximale est dépassée, java ne le signale pas (comportement circulaire), nous sommes responsables d'utiliser un type correspondant aux calculs
+ATTENTION : si la valeur maximale est dépassée, java ne le signale pas (<b>comportement circulaire</b>), nous sommes responsables d'utiliser un type correspondant aux calculs
 <br>Par exemple, 
 <pre>
 byte b1 = 127, b2 = 1; // La valeur max pour un byte est 127
@@ -595,7 +596,7 @@ Prio    A   Opérateur   Types opérandes         Description
             +=, -=, <<=,
             >>=, >>>=,
             &=, ^=, |=
-1       R   →           arglist, method body    lambda expression
+1       R   ->          arglist, method body    lambda expression
 </pre>
 </td>
     </tr>
@@ -607,7 +608,7 @@ Prio    A   Opérateur   Types opérandes         Description
 <br>
 <br><b>A</b> = Associativité - peut être gauche à droite (L) ou de droite à gauche (R)
 <br>Ex : <code>72 / 2 / 3</code> est traité comme <code>(72 / 2) / 3</code> car l'opérateur <code>/</code> est associatif de gauche à droite.
-<br>Mais <code>x = y = z = 17</code> est traité comme <code>x = (y = (z = 17))</code> car l'opérateur <code>=</code> est associatif de droite à gauche (et dans l'affectation, le membre de gauche reçoit la valeur du membre de droite).
+<br>Mais <code>x = y = z = 17</code> est traité comme <code>x = (y = (z = 17))</code> car l'opérateur <code>=</code> est associatif de droite à gauche (et dans l'affectation, le membre de gauche reçoit la valeur du membre de droite). A noter : l'opérateur d'assignement est le seul opérateur binaire associatif à droite.
 <br>Certains opérateurs ne sont pas associatifs. Par exemple, les expressions <code>(x <= y <= z)</code> et <code>x++--</code> sont invalides.
 <br>
 <br><b>Types opérandes</b> = A quel type(s) de variables s'appliquent les opérateurs
@@ -686,7 +687,7 @@ System.out.println("Statement"); // appel d'une méthode
 </pre>
 
 <div class="exo">
-<b>Exercice</b> : Compilez et exécutez <a href="../../exemples/java/expressions/Expressions.java">Expressions.java</a>, et bien comprendre ce qui est affiché.
+<b>Exercice</b> : Compilez et exécutez <a href="../../exemples/java/expressions/Expressions.java">Expressions.java</a> ainsi que <a href="../../exemples/java/expressions/PrePost.java">PrePost.java</a>, et bien comprendre ce qui est affiché.
 </div>
 
 Le fait que des choses comme l'affectation soient des expressions peut surprendre mais est très utile :
@@ -785,7 +786,7 @@ var message = "Hello World";
 </pre>
 
 <div class="exo">
-    <b>Exercice</b> : <a href="../../exos/java/declaration/Declaration.html">Déclaration, affectation</a>
+    <b>Exercice</b> (débutants) : <a href="../../exos/java/declaration/Declaration.html">Déclaration, affectation</a>.
 </div>
 
 
@@ -865,9 +866,8 @@ switch(n){
     case 1:
         ...
     break;
+    // syntaxe pour faire la même chose dans plusieurs cas possibles
     case 2:
-        ...
-    break;
     case 3:
         ...
     break;
@@ -882,10 +882,40 @@ switch(n){
 <!-- ************************************* -->
 <h3>switch (expression)</h3>
 
-Depuis java 14, le mot-clé <code>switch</code> peut aussi être utilisé comme une expression (avec une valeur, contrairement à l'utilisation traditionnelle).
-<br>TODO A intégrer au cours
-<br>Voir <a href="https://advancedweb.hu/new-language-features-since-java-8-to-15/#switch-expressions">cette page</a> en attendant.
+Depuis java 14, le mot-clé <code>switch</code> peut aussi être utilisé comme une <b>expression</b> (dont l'évaluation prend une valeur, contrairement à l'utilisation traditionnelle).
 
+<br>Ainsi, on peut remplacer :
+<pre>
+        int a = 3;
+        String message = "";
+        switch(a){
+            case 1:
+            case 2:
+            case 3:
+            case 4: message = "a vaut " + Integer.toString(a); break;
+            default: message = "a est trop grand pour moi"; break;
+        }
+        System.out.println("switch traditionnel (statement) : " + message);
+</pre>
+par :
+<pre>
+        message = switch(a){
+            case 1, 2, 3, 4 -> "a vaut " + Integer.toString(a);
+            default -> "a est trop grand pour moi";
+        };
+        System.out.println("switch nouveau : " + message);
+</pre>
+Comme switch est une expression, on peut aussi directement l'utiliser dans println :
+<pre>
+        System.out.println("switch nouveau (directement dans le println) : " + switch(a){
+            case 1, 2, 3, 4 -> "a vaut " + Integer.toString(a);
+            default -> "a est trop grand pour moi";
+        });
+</pre>
+
+(code dans <a href="../../exemples/java/switch/Switch.java">Switch.java</a>)
+
+<br><br>TODO : ajouter condition d'exhaustivité, yield ; voir <a href="https://docs.oracle.com/en/java/javase/17/language/switch-expressions.html">https://docs.oracle.com/en/java/javase/17/language/switch-expressions.html</a>.
 
 <!-- ********************************************************************************* -->
 <h2><a name="9-boucles">Boucles</a></h2>
@@ -974,7 +1004,7 @@ for(int i=0, j=10; i < 10; i++, j--){
     System.out.println("i = " + i + ", j = " + j);
 }
 </pre>
-les parties <i>initialize</i>, <i>test</i>, <i>update</i> sont optionnelles (mais les points-virgules sont obligatoire).
+les parties <i>initialize</i>, <i>test</i>, <i>update</i> sont optionnelles (mais les points-virgules sont obligatoires).
 <br><code>for(;;)</code> fait donc une boucle infinie.
 
 <div class="exo">

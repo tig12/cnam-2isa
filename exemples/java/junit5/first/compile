@@ -1,1 +1,1 @@
-javac -cp ../../../../bin/junit-platform-console-standalone-1.3.1.jar FirstJUnit5Tests.java 
+javac -cp ../../../../bin/junit-platform-console-standalone-1.8.2.jar FirstJUnit5Tests.java 
