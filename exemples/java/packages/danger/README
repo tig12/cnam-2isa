@@ -1,10 +1,9 @@
 
-Met en évidence le danger d'avoir plusieurs classes dans un même fichier
+Met en évidence le danger d'avoir une classe de même nom dans plusieurs fichiers différents.
 
-Problème : Fichier1.java et Fichier2.java contiennent des classes (de visibilité package)
-de même nom (Class1 et Class2) avec les mêmes méthodes
+Problème : Fichier1.java et Fichier2.java contiennent Class1 de visibilité package
 
-Suivant qu'on compile Fichier1.java ou Fichier2.java en dernier, les versions des .class de Class1 et Class2 seront différentes.
+Suivant qu'on compile Fichier1.java ou Fichier2.java en dernier, Class1.class sera différente.
 Donc le même code (dans Danger) va se comporter différement.
 
 javac Fichier1.java 

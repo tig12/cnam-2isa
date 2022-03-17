@@ -91,11 +91,12 @@ La classe <code>Object</code> fournit une méthode <code>clone()</code> dont tou
 <br>Par exemple, pour dupliquer 2 tableaux, on dispose de <code>System.arraycopy()</code>.
 <br>Mais si on a besoin de recopier des objets de nos propres classes, on doit l'implémenter.
 
+<br><br>Le sujet est traité en détail dans la page <a href="object">java.lang.Object</a>.
 
 <!-- ********************************************************************************* -->
 <h2><a name="2-comparaison">Comparaison</a></h2>
 Lorsqu'on utilise l'opérateur de comparaison <code>==</code> pour les types primitifs, java compare leurs valeurs (est évalué à <code>true</code> s'ils ont exactement les mêmes bits), donc on a le résultat attendu.
-<br>Mais si on compare 2 types référence, java compare leurs références, pas leurs valeurs.
+<br><b>Mais si on compare 2 types référence, java compare leurs références, pas leurs valeurs</b>.
 <pre>
 String s = "hello";
 String letter = "o";
@@ -171,12 +172,18 @@ i = null;
 j = i; 
 </pre>
 
+Exemple d'autoboxing très fréquemment utilisé :
+<pre>
+int i = 2;
+// opération à priori impossible dans un langage typé.
+String s = "i = " + i;
+// ou alors :
+System.out.println("i = " + i);
+</pre>
+L'opérateur de concaténation appelle implicitement <code>toString()</code> sur chacun des opérandes. Pour les types primitifs, un autoboxing est effectué.
+
 </article>
 </main>
 
 </body>
 </html>
-
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->
-

@@ -62,9 +62,6 @@
     </ul>
 </nav>
 
-
-
-
 </header>
 
 <main>
@@ -75,9 +72,15 @@ Les classes et les interfaces sont les 2 types référence les plus importants e
 <br>
 <br>Un fichier <i>.java</i> peut contenir :
 <br>- un seul type référence déclaré <code>public</code> ainsi que 0 ou plus types références de visibilité package.
-<br>- ou une ou plusieurs types références de visibilité package.
-<br>
-<br>Mais attention lorsqu'on met plusieurs type références dans le même fichier.
+<br>ou alors :
+<br>- un ou plusieurs types références de visibilité package.
+
+<br><br>Si un fichier .java contient un type référence <code>public</code>, <b>alors le nom du fichier doit être identique au nom du type</b>.
+<br>(ex : <code>MaClasse.java</code> doit contenir le type public <code>MaClasse</code>).
+
+<br><br>
+Cette règle n'est pas imposée pour les types de visibilité package.
+<br>Attention lorsqu'on ne respecte pas la règle : 1 fichier java &#8703; 1 classe du même nom.
 <br>Voir <a href="../../exemples/java/packages/danger">exemples/java/packages/danger</a>.
 <br>
 
