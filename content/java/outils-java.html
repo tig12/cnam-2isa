@@ -25,21 +25,21 @@
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-programmer-en-java">Programmer en java</a>
+            <a href="#programmer-en-java">Programmer en java</a>
             <ul>
                 <li><a href="#1-1-les-outils-du-jdk">Les outils du JDK</a></li>
                 <li><a href="#1-2-classpath">Classpath</a></li>
-                <li><a href="#1-3-variables">Variables</a></li>
+                <li><a href="#1-3-variables-d-environnement">Variables d'environnement</a></li>
             </ul>
         </li>
         <li>
-            <a href="#2-compilation-javac">Compilation - javac</a>
+            <a href="#compilation-javac">Compilation - javac</a>
         </li>
         <li>
-            <a href="#3-execution-java">Exécution - java</a>
+            <a href="#execution-java">Exécution - java</a>
         </li>
         <li>
-            <a href="#4-documentation-javadoc">Documentation - javadoc</a>
+            <a href="#documentation-javadoc">Documentation - javadoc</a>
             <ul>
                 <li><a href="#4-1-documenter-une-classe-une-interface">Documenter une classe, une interface</a></li>
                 <li><a href="#4-2-documenter-une-methode">Documenter une méthode</a></li>
@@ -47,7 +47,7 @@
             </ul>
         </li>
         <li>
-            <a href="#5-tests-jshell">Tests - jshell</a>
+            <a href="#tests-jshell">Tests - jshell</a>
             <ul>
                 <li><a href="#5-1-imports-par-defaut">Imports par défaut</a></li>
                 <li><a href="#5-2-expressions">Expressions</a></li>
@@ -59,13 +59,14 @@
     </ul>
 </nav>
 
+
 </header>
 
 <main>
 <article>
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-programmer-en-java">Programmer en java</a></h2>
+<h2 id="programmer-en-java">Programmer en java</h2>
 
 On a besoin d'avoir un JDK installé sur la machine de développement ; voir <a href="https://www.java.com/en/download/help/index_installing.xml">https://www.java.com/en/download/help/index_installing.xml</a>.
 <br>Les utilisateurs de programmes écrits en java n'ont pas besoin du JDK sur leur machine, mais uniquement d'un JRE.
@@ -74,7 +75,7 @@ On a besoin d'avoir un JDK installé sur la machine de développement ; voir <a 
 <br>Dans ce cours, on utilisera Eclipse mais dans un premier temps, on va utiliser <code>javac</code> et <code>java</code> en ligne de commande.
 
 <!-- ************************************* -->
-<h3><a name="1-1-les-outils-du-jdk">Les outils du JDK</a></h3>
+<h3 id="1-1-les-outils-du-jdk">Les outils du JDK</h3>
 
 Le JDK fournit des outils pour développer et déployer des applications java
 <br>Dans ce cours, on va surtout utiliser les deux principaux outils :
@@ -96,7 +97,7 @@ Note valable aussi pour tous les outils : lorsqu'on spécifie le nom d'un réper
 </div>
 
 <!-- ************************************* -->
-<h3><a name="1-2-classpath">Classpath</a></h3>
+<h3 id="1-2-classpath">Classpath</h3>
 Pour fonctionner, la plupart des outils du JDK ont besoin de savoir où aller chercher les classes dont ils ont besoin.
 <br>Ces classes se trouvent soit dans des fichiers <code>.class</code> ou dans des <code>.jar</code> (java archives).
 <br>L'ensemble des chemins (répertoires) à utiliser s'appelle le <b>classpath</b>.
@@ -106,7 +107,7 @@ Pour fonctionner, la plupart des outils du JDK ont besoin de savoir où aller ch
 <br>- Les classes constituant le programme sur lequel on travaille.
 
 <!-- ************************************* -->
-<h3><a name="5-3-variables">Variables d'environnement</a></h3>
+<h3 id="1-3-variables-d-environnement">Variables d'environnement</h3>
 
 Permettent d'intégrer java au système d'exploitation.
 <br>La variable <code>CLASSPATH</code> contient le chemin vers les classes du JRE, donc on n'a pas besoin de les répéter lorsqu'on spécifie le classpath.
@@ -139,7 +140,7 @@ PATH      : your-unique-entries:$JAVA_HOME/bin
 </div><!-- end class="flex-wrap" -->
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-compilation-javac">Compilation - javac</a></h2>
+<h2 id="compilation-javac">Compilation - javac</h2>
 
 Les deux principales options sont :
 <br>- où aller chercher les fichiers source .java (<code>-sourcepath</code>).
@@ -177,7 +178,7 @@ Note : <code>javac</code> va chercher à compiler les .java qu'on lui spécifie 
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="3-execution-java">Exécution - java</a></h2>
+<h2 id="execution-java">Exécution - java</h2>
 
 On utilise surtout l'option <code>-classpath</code> (ou <code>-cp</code>).
 <br>
@@ -204,7 +205,7 @@ Les argument suivant le nom de la classe ou le nom du fichier jar sont transmis 
 ATTENTION : cela n'est possible que pour des petits programmes, constitués d'un seul fichier.
 
 <!-- ********************************************************************************* -->
-<h2><a name="4-documentation-javadoc">Documentation - javadoc</a></h2>
+<h2 id="documentation-javadoc">Documentation - javadoc</h2>
 
 <a href="http://www.oracle.com/technetwork/java/javase/documentation/index-jsp-135444.html">Page d'accueil officielle</a> ; voir notamment <a href="http://www.oracle.com/technetwork/java/javase/documentation/index-137868.html">How to Write Doc Comments for Javadoc</a> et <a href="http://www.oracle.com/technetwork/java/javase/documentation/index-142372.html">Requirements for Writing API Specifications</a>.
 <br>
@@ -218,7 +219,7 @@ ATTENTION : cela n'est possible que pour des petits programmes, constitués d'un
 <br>Un bon endroit pour trouver des exemples de documentation est le code source de open JDK.
 
 <!-- ************************************* -->
-<h3><a name="4-1-documenter-une-classe-une-interface">Documenter une classe, une interface</a></h3>
+<h3 id="4-1-documenter-une-classe-une-interface">Documenter une classe, une interface</h3>
 La documentation d'une classe ou interface se trouve dans le commentaire javadoc précédant la déclaration de la classe.
 <pre>
 /** 
@@ -234,7 +235,7 @@ public class MyClass{
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="4-2-documenter-une-methode">Documenter une méthode</a></h3>
+<h3 id="4-2-documenter-une-methode">Documenter une méthode</h3>
 
 <pre>
 public class MyClass{
@@ -260,7 +261,7 @@ public class MyClass{
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="4-3-liens-entre-les-pages-inline-doc-comment-tags">Liens entre les pages, inline doc-comment tags</a></h3>
+<h3 id="4-3-liens-entre-les-pages-inline-doc-comment-tags">Liens entre les pages, inline doc-comment tags</h3>
 
 On appelle <b>inline doc-comment tags</b> des tags javadoc utilisés à l'intérieur des descriptions ; ils sont repérés par des accolades <code>{ ... }</code>.
 <br>
@@ -334,7 +335,7 @@ Dans ce cas, la doc de package1 contient des images, donc on crée un dossier do
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="5-tests-jshell">Tests - jshell</a></h2>
+<h2 id="tests-jshell">Tests - jshell</h2>
 
 <!-- source : http://jakubdziworski.github.io/java/2016/07/31/jshell-getting-started-examples.html -->
 
@@ -362,7 +363,7 @@ Comme dans toute application en ligne de commande :
 <br><code>Ctrl D</code> permet de sortir de jshell (identique à <code>/exit</code>)
 
 <!-- ************************************* -->
-<h3><a name="5-1-imports-par-defaut">Imports par défaut</a></h3>
+<h3 id="5-1-imports-par-defaut">Imports par défaut</h3>
 Certains packages sont inclus par défaut, qu'on peut connaître en tapant <code>/import</code> :
 <pre>
 jshell> /import
@@ -381,7 +382,7 @@ Pour importer d'autres packages, on tape la commande java usuelle
 <pre>jshell> import java.lang.reflect.*</pre>
 
 <!-- ************************************* -->
-<h3><a name="5-2-expressions">Expressions</a></h3>
+<h3 id="5-2-expressions">Expressions</h3>
 
 jshell permet d'évaluer des expressions.
 <br>Pratique par exemple pour savoir comment java se comporte dans les conversions automatiques de type :
@@ -422,7 +423,7 @@ $3 ==> 3.141592653589793
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="5-3-variables">Variables</a></h3>
+<h3 id="5-3-variables">Variables</h3>
 On peut créer des variables et les réutiliser
 <pre>jshell> int x = 5
 x ==> 5
@@ -435,7 +436,7 @@ x ==> 5
 
 
 <!-- ************************************* -->
-<h3><a name="5-4-methodes">Méthodes</a></h3>
+<h3 id="5-4-methodes">Méthodes</h3>
 On peut créer des méthodes et les appeler
 <pre>
 jshell> void hello(){System.out.println("hello");}
@@ -459,7 +460,7 @@ $17 ==> 9
 
 
 <!-- ************************************* -->
-<h3><a name="5-5-commandes">Commandes</a></h3>
+<h3 id="5-5-commandes">Commandes</h3>
 Une ligne commençant par <code>/</code> est considérée comme une commande jshell (ex : <code>/imports</code>).
 <br>Pour la liste des commandes disponibles :
 <pre>
@@ -475,6 +476,3 @@ Commandes utiles
 
 </body>
 </html>
-
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->

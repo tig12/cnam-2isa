@@ -25,32 +25,33 @@
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-definir-une-methode">Définir une méthode</a>
+            <a href="#definir-une-methode">Définir une méthode</a>
         </li>
         <li>
-            <a href="#2-polymorphisme-ad-hoc">Polymorphisme ad'hoc</a>
+            <a href="#polymorphisme-ad-hoc">Polymorphisme ad'hoc</a>
         </li>
         <li>
-            <a href="#3-les-modifiers">Les modifiers</a>
+            <a href="#les-modifiers">Les modifiers</a>
         </li>
         <li>
-            <a href="#4-les-arguments">Les arguments</a>
+            <a href="#les-arguments">Les arguments</a>
             <ul>
                 <li><a href="#4-1-liste-d-arguments-variables">Liste d'arguments variables</a></li>
             </ul>
         </li>
         <li>
-            <a href="#5-retour-d-une-methode">Retour d'une méthode</a>
+            <a href="#retour-d-une-methode">Retour d'une méthode</a>
         </li>
     </ul>
 </nav>
+
 </header>
 
 <main>
 <article>
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-definir-une-methode">Définir une méthode</a></h2>
+<h2 id="definir-une-methode">Définir une méthode</h2>
 Une méthode est définie par sa <b>signature</b>, qui doit être unique au sein d'une classe.
 <br>La signature d'une méthode est composée de :
 <ul>
@@ -70,13 +71,13 @@ La signature est suivie par le corps de la méthode (une suite d'instructions en
 <br>Si la méthode est abstraite (si le mot-clé <code>abstract</code> fait partie de sa signature), le corps est remplacé par un point-virgule.
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-polymorphisme-ad-hoc">Polymorphisme ad'hoc</a></h2>
+<h2 id="polymorphisme-ad-hoc">Polymorphisme ad'hoc</h2>
 Une méthode doit avoir une signature unique au sein d'une classe, mais il peut exister plusieurs méthodes du même nom, ce qu'on appelle le <b>polymorphisme ad'hoc</b> ou <b>overloading</b>.
 <br>C'est très fréquemment utilisé en java, par exemple la classe <code>java.lang.System</code> a une variable static nommée <code>out</code>, qui est un objet de la classe <code>java.io.PrintStream</code>. Cette classe possède plusieurs méthodes <code>println()</code>, dont les signatures diffèrent par le type de l'argument à afficher.
 <br>Cela permet d'utiliser <code>System.out.println(maVariable)</code> sans se soucier du type de <code>maVariable</code>.
 
 <!-- ********************************************************************************* -->
-<h2><a name="3-les-modifiers">Les modifiers</a></h2>
+<h2 id="les-modifiers">Les modifiers</h2>
 Liste de zéro ou plusieurs mots-clés.
 <br>
 <br>Modifiers traités dans ce cours :
@@ -108,12 +109,12 @@ Autres modifiers, non traités :
 </ul>
 
 <!-- ********************************************************************************* -->
-<h2><a name="4-les-arguments">Les arguments</a></h2>
+<h2 id="les-arguments">Les arguments</h2>
 Comme déjà vu, les arguments sont une liste séparée par des virgules contenant le type et le nom des arguments.
 <br>Le type des arguments n'est donc pas limité aux types primitifs, par ex <code>public void myMethod(int arg1, String arg2)</code>
 
 <!-- ************************************* -->
-<h3><a name="4-1-liste-d-arguments-variables">Liste d'arguments variables</a></h3>
+<h3 id="4-1-liste-d-arguments-variables">Liste d'arguments variables</h3>
 java permet à une fonction d'avoir un nombre variable d'arguments, <i>qui doivent être tous du même type</i>.
 <br>Les arguments variables doivent être placés en dernier ; on utilise <code>...</code> pour les définir.
 <br>Cette possibilité s'appelle <b>varargs</b>.
@@ -144,7 +145,7 @@ max(16, 8, 4, 2, 1)
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="5-retour-d-une-methode">Retour d'une méthode</a></h2>
+<h2 id="retour-d-une-methode">Retour d'une méthode</h2>
 Si elle n'est pas déclarée <code>void</code>, une méthode peut renvoyer un objet du type spécifié dans sa signature.
 <br>L'instruction <code>return</code> peut se trouver à n'importe quel endroit du corps de la méthode.
 <br>Si la méthode est déclarée <code>void</code> et qu'elle ne contient aucun return, elle s'exécute jusqu'au bout et retourne après avoir exécuté la dernière instruction.
@@ -156,6 +157,3 @@ Si elle n'est pas déclarée <code>void</code>, une méthode peut renvoyer un ob
 
 </body>
 </html>
-
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->

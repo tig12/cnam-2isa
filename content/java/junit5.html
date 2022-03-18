@@ -23,28 +23,36 @@
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-prise-en-main">Prise en main</a>
+            <a href="#prise-en-main">Prise en main</a>
             <ul>
                 <li><a href="#1-1-en-mode-console">En mode console</a></li>
                 <li><a href="#1-2-avec-eclipse">Avec Eclipse</a></li>
             </ul>
         </li>
         <li>
-            <a href="#2-testcase-tester-une-classe">TestCase : tester une classe</a>
+            <a href="#tester-une-classe">Tester une classe</a>
             <ul>
-                <li><a href="#2-1-initialisations-et-fixtures">Initialisations et fixtures</a></li>
-                <li><a href="#2-2-methodes-de-test">Méthodes de test</a></li>
+                <li><a href="#2-1-assertions">Assertions</a></li>
+                <li><a href="#2-2-exemple">Exemple</a></li>
                 <li><a href="#2-3-tester-les-exceptions">Tester les exceptions</a></li>
             </ul>
         </li>
         <li>
-            <a href="#3-conseils">Conseils</a>
+            <a href="#test-suite-tester-plusieurs-classes">Test Suite : tester plusieurs classes</a>
             <ul>
-                <li><a href="#3-1-place-des-tests">Place des tests</a></li>
+                <li><a href="#3-1-compilation">Compilation</a></li>
+                <li><a href="#3-2-execution">Exécution</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#conseils">Conseils</a>
+            <ul>
+                <li><a href="#4-1-place-des-tests">Place des tests</a></li>
             </ul>
         </li>
     </ul>
 </nav>
+
 
 </header>
 
@@ -62,13 +70,14 @@ mvn -version
 -->
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-prise-en-main">Prise en main</a></h2>
+<h2 id="prise-en-main">Prise en main</h2>
 
 Quelques liens utiles :
 <br><a href="https://junit.org/junit5/docs/current/user-guide">Site officiel Junit 5</a>
 <br><a href="https://junit.org/junit5/docs/current/user-guide">User guide</a>
 <br><a href="https://junit.org/junit5/docs/current/api/overview-summary.html">API documentation</a>
-<br>
+
+<br><br>Les tests sont organisés en utilsant des <b>annotations</b> (<a href="https://junit.org/junit5/docs/current/user-guide/#writing-tests-annotations">voir la liste complète</a>).
 <br>On va utiliser une classe d'exemple pour vérifier que Junit5 est opérationnel :
 
 <pre>
@@ -89,18 +98,20 @@ class FirstJUnit5Tests {
 (voir <a href="../../exemples/java/junit5/first">exemples/java/junit5/first</a>)
 
 <!-- ************************************* -->
-<h3><a name="1-1-en-mode-console">En mode console</a></h3>
+<h3 id="1-1-en-mode-console">En mode console</h3>
 
 On peut exécuter JUnit5 en ligne de commande en utilisant <code>junit-platform-console-standalone</code> (version utilisée : 1.8.2).
 
 <br>Télécharger <a href="https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.8.2/junit-platform-console-standalone-1.8.2.jar">junit-platform-console-standalone-1.8.2.jar</a> et le stocker en local.
-<br>(une copie se trouve sur <a href="https://larzac.info/cnam/bin">le répêrtoire bin/ de ce cours</a> - accessible depuis la page d'accueil du cours).
-<br>
+<br>(une copie se trouve sur <a href="https://larzac.info/cnam/bin">le répertoire bin/ de ce cours</a> - accessible depuis la page d'accueil du cours).
 <br>Pour avoir la liste des options à passer à junit :
-<pre>java -jar /path/to/junit-platform-console-standalone-1.8.2.jar -h</pre>
-ou encore plus simple
-<pre>java -jar /path/to/junit-platform-console-standalone-1.8.2.jar</pre>
+<pre>
+java -jar /path/to/junit-platform-console-standalone-1.8.2.jar -h
+# ou plus simplement
+java -jar /path/to/junit-platform-console-standalone-1.8.2.jar
+</pre>
 
+<h4>Compiler / exécuter</h4>
 En se plaçant dans le répertoire contenant <code>FirstJUnit5Tests.java</code> :
 <br>Pour compiler :
 <pre>javac -cp /path/to/junit-platform-console-standalone-1.8.2.jar FirstJUnit5Tests.java</pre>
@@ -109,7 +120,7 @@ Pour exécuter la classe de test :
 (noter que les options <code>-cp</code> et <code>-c</code> sont ici des options passées à JUnit, pas des options de java).
 
 <!-- ************************************* -->
-<h3><a name="1-2-avec-eclipse">Avec Eclipse</a></h3>
+<h3 id="1-2-avec-eclipse">Avec Eclipse</h3>
 
 <ul>
     <li>Créer un nouveau projet java.</li>
@@ -126,84 +137,38 @@ Pour exécuter la classe de test :
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-testcase-tester-une-classe">TestCase : tester une classe</a></h2>
-
+<h2 id="tester-une-classe">Tester une classe</h2>
 Par convention, les tests unitaires sont situés dans des classes dont le nom finit par <code>Test</code> (par exemple, les tests de la classe <code>MyClass</code> seront dans <code>MyClassTest</code>).
 <br>Par convention, les méthodes de test commencent par <code>test</code>, par exemple <code>testMyMethod()</code>.
-<br>
-<br>Les méthodes de test sont repérées par des <b>annotations</b> (<a href="https://junit.org/junit5/docs/current/user-guide/#writing-tests-annotations">voir la liste complète</a>).
-
-<pre>
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.platform.runner.JUnitPlatform;
- 
-public class MyClassTest {
-
-    @BeforeAll
-    static void setup() {
-        // exécutée une fois avant tous les tests
-    }
- 
-    @BeforeEach
-    void init() {
-        // exécutée avant chaque méthode marquée @Test
-    }
- 
-    @DisplayName("Test myMethod réussi")
-    @Test
-    void testMyMethod() {
-        // Méthode de test unitaire
-        // @DisplayName permet de personnaliser 
-        // le message qui apparaît à l'exécution des tests
-    }
- 
-    @AfterEach
-    void tearDown() {
-        // exécutée après chaque méthode marquée @Test
-    }
- 
-    @AfterAll
-    static void done() {
-        // exécutée une fois après tous les tests
-    }
- 
-}
-</pre>
+<br>Les méthodes de test sont annnotées avec <code class="bold">@Test</code> ; elles vont être exécutées par JUnit et leur résultat va être inclus dans le rapport.
 
 <!-- ************************************* -->
-<h3><a name="2-1-initialisations-et-fixtures">Initialisations et fixtures</a></h3>
-
-Les annotations <code>@BeforeAll</code> et <code>@AfterAll</code> servent à identifier des méthodes qui seront exécutées une seule fois avant et après tous les tests ; utile par exemple pour initialiser une connection réseau ou à une base de données.
-<br>
-<br><code>@BeforeEach</code> et <code>@AfterEach</code> identifient des méthodes qui seront exécutées avant / après chaque tests. Servent par exemple à initialiser des structures de données (fixtures) et garantir que chaque méthode de test disposera d'un état identique.
-<br>Par exemple, si on veut tester l'implémentation d'une liste, on peut créer une liste vide, qui sera utilisable par toutes les méthodes de test.
-
-
-<!-- ************************************* -->
-<h3><a name="2-2-methodes-de-test">Méthodes de test</a></h3>
-
-Les méthodes marquées <code>@Test</code> (<a href="https://junit.org/junit5/docs/current/user-guide/#writing-tests-annotations">voir la liste complète dans la doc</a>) sont les méthodes qui vont être exécutées par junit et dont le résultat va être inclus dans le rapport.
-<br>
-<br>Ces méthodes contiennent des <b>assertions</b> qui doivent être vérifiées pour que le test soit valide.
+<h3 id="2-1-assertions">Assertions</h3>
+Ces méthodes contiennent des <b>assertions</b> qui doivent être vérifiées pour que le test soit valide.
 <br>Ces assertions sont exprimées avec des méthodes commençant par <code>assert</code> de la classe <a href="https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/Assertions.html"><code>org.junit.jupiter.api.Assertions</code></a>.
-<br>
-<br>Par exemple, si on a écrit l'implémentation d'une liste de <code>String</code> contenant ces méthodes publiques :
+<br>Autres annotations courantes :
+<br>- <code>@BeforeAll</code> et <code>@AfterAll</code> servent à identifier des méthodes qui seront exécutées une seule fois avant et après tous les tests ; utile par exemple pour initialiser une connection réseau ou à une base de données.
+<br>- <code>@BeforeEach</code> et <code>@AfterEach</code> identifient des méthodes qui seront exécutées avant / après chaque test. Servent par exemple à initialiser des structures de données (fixtures) et garantir que chaque méthode de test disposera d'un état identique. Par exemple, si on veut tester l'implémentation d'une liste, on peut créer une liste vide, qui sera utilisable par toutes les méthodes de test.
+
+<br><br>ATTENTION : lorsque vous utilisez <code>assertEquals()</code> avec des <code>float</code> ou des <code>double</code>, utilisez les méthodes avec un paramètre <code>delta</code>, par exemple :
+<pre>assertEquals​(float expected, float actual, float delta)</pre>
+qui signifie "assert presque égal" (égalité stricte impossible due à la représentation binaire des nombres réels).
+
+
+<!-- ************************************* -->
+<h3 id="2-2-exemple">Exemple</h3>
+Liste de <code>String</code> contenant ces méthodes publiques :
 <pre>
 public class CustomList{
 
     /** Renvoie le nombre d'élément dans la liste **/
     public int getLength(){ ... }
     
-    /** Ajoute u élément à la fin de la liste **/
+    /** Ajoute un élément à la fin de la liste **/
     public void add(String s){ ... }
     
     /** Supprime un élément de la liste **/
-    public String remove(int index){ ... }
+    public void remove(int index){ ... }
     
     /** Renvoie un élément de la liste **/
     public String getElement(int index){ ... }
@@ -219,10 +184,29 @@ public class CustomListTest{
 
     private CustomList l1;
     
+    @BeforeAll
+    static void setup() {
+        // exécutée une fois avant tous les tests
+    }
+    
     @BeforeEach
     void init() {
         l1 = new CustomList();
     }
+    
+    @AfterEach
+    void tearDown() {
+        // exécutée après chaque méthode marquée @Test
+    }
+ 
+    @AfterAll
+    static void done() {
+        // exécutée une fois après tous les tests
+    }
+    
+    //
+    // Méthodes de tests unitaires
+    //
     
     @Test
     void testListeVide(){
@@ -237,12 +221,13 @@ public class CustomListTest{
         assertEquals(l1.get(0), str);
     }
 
+ 
 }
 </pre>
 
 
 <!-- ************************************* -->
-<h3><a name="2-3-tester-les-exceptions">Tester les exceptions</a></h3>
+<h3 id="2-3-tester-les-exceptions">Tester les exceptions</h3>
 
 Il existe des méthodes <code>org.junit.jupiter.api.Assertions.assertThrows</code>, mais demande d'avoir vu les lambda expressions.
 <br>On peut cependant tester qu'une exception a bien été lancée en utilisant <code>org.junit.jupiter.api.Assertions.fail()</code>
@@ -281,15 +266,104 @@ Ou alors :
 
 
 <!-- ********************************************************************************* -->
-<!-- <h2>TestSuite : tester plusieurs classes</h2> -->
+<h2 id="test-suite-tester-plusieurs-classes">Test Suite : tester plusieurs classes</h2>
 
+En plus de <a href="https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.8.2/junit-platform-console-standalone-1.8.2.jar">junit-platform-console-standalone-1.8.2.jar</a>, les jars suivants doivent être dans le classpath (à la fois pour compiler et pour exécuter) :
+<ul>
+    <li><a href="https://repo1.maven.org/maven2/org/junit/platform/junit-platform-suite-api/1.8.2/junit-platform-suite-api-1.8.2.jar">junit-platform-suite-api-1.8.2.jar</a></li>
+    <li><a href="https://repo1.maven.org/maven2/org/junit/platform/junit-platform-suite-commons/1.8.2/junit-platform-suite-commons-1.8.2.jar">junit-platform-suite-commons-1.8.2.jar</a></li>
+    <li><a href="https://repo1.maven.org/maven2/org/junit/platform/junit-platform-suite-engine/1.8.2/junit-platform-suite-engine-1.8.2.jar">junit-platform-suite-engine-1.8.2.jar</a></li>
+</ul>
+(une copie de ces jars se trouve sur <a href="https://larzac.info/cnam/bin">le répertoire bin/ de ce cours</a>)
+
+<br><br>Exemple : suite de tests pour le <a href="../../cours/nfp121/tps/2-conversion/tp2-millau.html">TP2 : conversion</a>
+<pre>
+package conversion;
+
+import conversion.model.DegresTest;
+import conversion.utils.FormatTest;
+
+import org.junit.platform.suite.api.Suite;
+import org.junit.platform.suite.api.SuiteDisplayName;
+import org.junit.platform.suite.api.SelectClasses;
+
+<b>@Suite</b>
+@SuiteDisplayName("TP2 conversion test suite")
+<b>@SelectClasses({DegresTest.class, FormatTest.class})</b>
+public class ConversionTestSuite {}
+</pre>
+
+On signale à JUnit une suite de tests en utilisant <code class="bold">@Suite</code>.
+<br>Dans cet exemple, on a utilisé <code>@SelectClasses</code> pour indiquer quelles classes de tests unitaires exécuter.
+<br>D'autres annotations permettent de spécifier les classes de test (<code>@SelectPackages</code> etc.), voir par exemple 
+<a href="https://junit.org/junit5/docs/current/user-guide/#running-tests-junit-platform-runner-test-suite">JUnit5 User Guide</a>
+ou
+<a href="https://howtodoinjava.com/junit5/junit5-test-suites-examples/">https://howtodoinjava.com/junit5/junit5-test-suites-examples</a>
+
+<!-- ************************************* -->
+<h3 id="3-1-compilation">Compilation</h3>
+<code>test-suite-compile</code>
+<pre>
+#!/bin/sh
+
+dir_bin='bin'
+jar1_junit='../../../bin/junit-platform-console-standalone-1.8.2.jar'
+jar2_junit='../../../bin/junit-platform-suite-api-1.8.2.jar'
+jar3_junit='../../../bin/junit-platform-suite-commons-1.8.2.jar'
+jar4_junit='../../../bin/junit-platform-suite-engine-1.8.2.jar'
+
+# compile chacun des tests
+./test-compile
+
+# compile la suite de tests
+command="javac -d $dir_bin -cp $jar1_junit:$jar2_junit:$jar3_junit:$jar4_junit:$dir_bin tests/conversion/ConversionTestSuite.java"
+echo $command
+$command
+</pre>
+
+Avant de compiler la suite, chaque test doit être compilé :
+<br><code>test-compile</code>
+<pre>
+#!/bin/sh
+
+# Cette commande peut être exécutée directement
+# ou être exécutée depuis test-suite-compile
+
+dir_bin='bin'
+jar_junit='../../../bin/junit-platform-console-standalone-1.8.2.jar'
+
+command="javac -d $dir_bin -cp $jar_junit:$dir_bin tests/conversion/utils/FormatTest.java"
+echo $command
+$command
+
+command="javac -d $dir_bin -cp $jar_junit:$dir_bin tests/conversion/model/DegresTest.java"
+echo $command
+$command
+</pre>
+
+<!-- ************************************* -->
+<h3 id="3-2-execution">Exécution</h3>
+<code>test-suite-run</code>
+<pre>
+#!/bin/sh
+
+dir_bin='bin'
+jar1_junit='../../../bin/junit-platform-console-standalone-1.8.2.jar'
+jar2_junit='../../../bin/junit-platform-suite-api-1.8.2.jar'
+jar3_junit='../../../bin/junit-platform-suite-commons-1.8.2.jar'
+jar4_junit='../../../bin/junit-platform-suite-engine-1.8.2.jar'
+
+command="java -jar $jar1_junit -cp $dir_bin:$jar2_junit:$jar3_junit:$jar4_junit -c conversion.ConversionTestSuite"
+echo $command
+$command
+</pre>
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="3-conseils">Conseils</a></h2>
+<h2 id="conseils">Conseils</h2>
 
 <!-- ************************************* -->
-<h3><a name="3-1-place-des-tests">Place des tests</a></h3>
+<h3 id="4-1-place-des-tests">Place des tests</h3>
 Il est conseillé de <b>séparer le code de test du code de production</b> (car le code de test n'a pas besoin d'être déployé en production).
 <br>Mais on a souvent besoin de <b>mettre le code de test dans le même package que le code de production</b> car cela permet d'avoir accès dans les tests aux classes et méthodes ayant une visibilité <code>package</code>.
 <br>C'est possible en utilisant les options classpath (<code>-cp</code>) et destination (<code>-d</code>) de <code>javac</code> et <code>java</code>.

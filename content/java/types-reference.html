@@ -25,22 +25,23 @@
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-copie">Copie</a>
+            <a href="#copie">Copie</a>
             <ul>
                 <li><a href="#1-1-clone">Clone</a></li>
             </ul>
         </li>
         <li>
-            <a href="#2-comparaison">Comparaison</a>
+            <a href="#comparaison">Comparaison</a>
         </li>
         <li>
-            <a href="#3-passage-en-parametre">Passage en paramètre</a>
+            <a href="#passage-en-parametre">Passage en paramètre</a>
         </li>
         <li>
-            <a href="#4-autoboxing">Autoboxing</a>
+            <a href="#autoboxing">Autoboxing</a>
         </li>
     </ul>
 </nav>
+
 </header>
 
 <main>
@@ -50,7 +51,7 @@ A voir avant : <a href="syntaxe-java1.html#2-types-primitifs-et-types-references
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-copie">Copie</a></h2>
+<h2 id="copie">Copie</h2>
 <!-- todo : rajouter schéma -->
 En java, les références sont complètement opaques, on ne peut pas comme en C les manipuler (en C, opérateurs <code>&</code>, <code>*</code> et <code>-></code>)
 <br>Cela a une importance lorsqu'on duplique des variables :
@@ -84,7 +85,7 @@ System.out.println(b); // affiche (2,1)
 
 
 <!-- ************************************* -->
-<h3><a name="1-1-clone">Clone</a></h3>
+<h3 id="1-1-clone">Clone</h3>
 
 La classe <code>Object</code> fournit une méthode <code>clone()</code> dont toutes les classes héritent, mais elle ne fait que copier les références (shallow copy).
 <br>L'API java fournit des méthodes de recopie pour certaines classes.
@@ -94,7 +95,7 @@ La classe <code>Object</code> fournit une méthode <code>clone()</code> dont tou
 <br><br>Le sujet est traité en détail dans la page <a href="object">java.lang.Object</a>.
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-comparaison">Comparaison</a></h2>
+<h2 id="comparaison">Comparaison</h2>
 Lorsqu'on utilise l'opérateur de comparaison <code>==</code> pour les types primitifs, java compare leurs valeurs (est évalué à <code>true</code> s'ils ont exactement les mêmes bits), donc on a le résultat attendu.
 <br><b>Mais si on compare 2 types référence, java compare leurs références, pas leurs valeurs</b>.
 <pre>
@@ -127,7 +128,7 @@ Cette méthode fait partie de la classe <code>java.lang.Object</code>, donc tout
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="3-passage-en-parametre">Passage en paramètre</a></h2>
+<h2 id="passage-en-parametre">Passage en paramètre</h2>
 <!-- important -->
 Le même phénomène se produit lorsqu'on passe une variable en paramètre : 
 <pre>
@@ -151,7 +152,7 @@ System.out.println(a); // affiche (0,1)
 </pre>
 
 <!-- ********************************************************************************* -->
-<h2><a name="4-autoboxing">Autoboxing</a></h2>
+<h2 id="autoboxing">Autoboxing</h2>
 Il peut être utile de traduire des types primitifs en objet.
 <br>Pour ça, java fournit des <i>wrapper classes</i> pour chaque type primitif : <code>Boolean</code>, <code>Byte</code>, <code>Short</code>, <code>Character</code>, <code>Integer</code>, <code>Long</code>, <code>Float</code>, et <code>Double</code>.
 <br>Passer du type primitif à sa représentation objet s'appelle le <b>boxing</b>, l'inverse <b>unboxing</b>.

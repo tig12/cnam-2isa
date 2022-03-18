@@ -26,13 +26,13 @@
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-syntaxe-a-l-utilisation">Syntaxe à l'utilisation</a>
+            <a href="#syntaxe-a-l-utilisation">Syntaxe à l'utilisation</a>
             <ul>
                 <li><a href="#1-1-ou-les-utiliser">Où les utiliser ?</a></li>
             </ul>
         </li>
         <li>
-            <a href="#2-annotations-predefinies">Annotations prédéfinies</a>
+            <a href="#annotations-predefinies">Annotations prédéfinies</a>
             <ul>
                 <li><a href="#2-1-suppresswarnings">@SuppressWarnings</a></li>
                 <li><a href="#2-2-deprecated">@Deprecated</a></li>
@@ -42,10 +42,10 @@
             </ul>
         </li>
         <li>
-            <a href="#3-custom-annotations">Custom annotations</a>
+            <a href="#custom-annotations">Custom annotations</a>
         </li>
         <li>
-            <a href="#4-meta-annotations-ou-annotations-d-annotations">Meta-annotations (ou annotations d'annotations)</a>
+            <a href="#meta-annotations-ou-annotations-d-annotations">Meta-annotations (ou annotations d'annotations)</a>
             <ul>
                 <li><a href="#4-1-target">@Target</a></li>
                 <li><a href="#4-2-retention">@Retention</a></li>
@@ -54,10 +54,11 @@
             </ul>
         </li>
         <li>
-            <a href="#5-autres-annotations">Autres annotations</a>
+            <a href="#autres-annotations">Autres annotations</a>
         </li>
     </ul>
 </nav>
+
 
 
 
@@ -79,7 +80,7 @@ Le type Annotation est un des 5 types référence de java ; introduites en java 
 <br>Elles sont un type spécial d'interface, qui sont toutes (implicitement) des sous-interfaces de <code>java.lang.annotation.Annotation</code>.
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-syntaxe-a-l-utilisation">Syntaxe à l'utilisation</a></h2>
+<h2 id="syntaxe-a-l-utilisation">Syntaxe à l'utilisation</h2>
 Forme simple :
 <pre>
 // fait partie des annotations prédéfinies
@@ -125,7 +126,7 @@ class MyClass { ... }
 
 
 <!-- ************************************* -->
-<h3><a name="1-1-ou-les-utiliser">Où les utiliser ?</a></h3>
+<h3 id="1-1-ou-les-utiliser">Où les utiliser ?</h3>
 Les annotations peuvent être appliquées aux déclarations de classe, champs et méthodes de classe et aux autres éléments d'un programme.
 <br>Depuis java8, les annotations peuvent être utilisées lorsqu'on utilise un type, par exemple :
 <br>
@@ -140,12 +141,12 @@ Clause <code>throws</code>
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-annotations-predefinies">Annotations prédéfinies</a></h2>
+<h2 id="annotations-predefinies">Annotations prédéfinies</h2>
 Les 3 annotations de base dans <code>java.lang</code> sont <code>@Deprecated</code>, <code>@Override</code>, and <code>@SuppressWarnings</code>.
 <br><code>@SafeVarargs</code> a été introduit dans java7 et <code>@FunctionalInterface</code> dans java8.
 
 <!-- ************************************* -->
-<h3><a name="2-1-suppresswarnings">@SuppressWarnings</a></h3>
+<h3 id="2-1-suppresswarnings">@SuppressWarnings</h3>
 Permet d'éviter des warnings à la compilation ; 2 types de warning : <code>deprecation</code> et <code>unchecked</code>.
 <pre>
 @SuppressWarnings("deprecation")
@@ -159,7 +160,7 @@ Pour utiliser les 2, notation tableau :
 Une annotation non définie, par ex <code>@SuppressWarnings(“toto”)</code>, sera ignorée par le compilateur.
 
 <!-- ************************************* -->
-<h3><a name="2-2-deprecated">@Deprecated</a></h3>
+<h3 id="2-2-deprecated">@Deprecated</h3>
 (= déprécié, ne doit plus être utilisé).
 <br>Doit être utilisé en lien avec javadoc (remarquer la différence de casse).
 <pre>
@@ -177,7 +178,7 @@ static void deprecatedMethod() { }
 </div>
 
 <!-- ************************************* -->
-<h3><a name="2-3-override">@Override</a></h3>
+<h3 id="2-3-override">@Override</h3>
 Pour signaler qu'un élément doit en surcharger un autre. Utilisé par exemple par un IDE pour signaler une typo, une erreur de type.
 <br>Utile aussi pour être certain d'avoir bien la bonne signature dans notre code.
 <br>Note : <code>@Override</code> est à comprendre comme "overrides ou implements" (même sémantique que <code>extends</code> pour les types génériques).
@@ -187,7 +188,7 @@ int overriddenMethod() { }
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="2-4-safevarargs">@SafeVarargs</a></h3>
+<h3 id="2-4-safevarargs">@SafeVarargs</h3>
 Utilisé lorsqu'on définit une méthode ou un constructeur avec des arguments variables de type générique.
 <br>Permet de désactiver à la compilation des warnings relatifs à des vérifications de type sur les arguments variables de type générique.
 
@@ -196,12 +197,12 @@ Utilisé lorsqu'on définit une méthode ou un constructeur avec des arguments v
 </div>
 
 <!-- ************************************* -->
-<h3><a name="2-5-functionalinterface">@FunctionalInterface</a></h3>
+<h3 id="2-5-functionalinterface">@FunctionalInterface</h3>
 Permet de signaler une interface dont l'implémentation peut être exprimée sous forme de <a href="lambdas.html">lambda expression</a>.
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="3-custom-annotations">Custom annotations</a></h2>
+<h2 id="custom-annotations">Custom annotations</h2>
 
 Pour utiliser des annotations personnalisées, il faut les définir.
 <br>Les annotations sont un type spécial d'interface, qui sont toutes (implicitement) des sous-interfaces de <code>java.lang.annotation.Annotation</code>.
@@ -257,7 +258,7 @@ public class MyClass { ... }
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="4-meta-annotations-ou-annotations-d-annotations">Meta-annotations (ou annotations d'annotations)</a></h2>
+<h2 id="meta-annotations-ou-annotations-d-annotations">Meta-annotations (ou annotations d'annotations)</h2>
 
 Permettent d'annoter la définition des annotations, pour spécifier où le nouveau type d'annotation peut être utilisé et comment il sera utilisé à la compilation et à l'exécution.
 <br>
@@ -278,7 +279,7 @@ Les meta-annotations possibles sont :
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="4-1-target">@Target</a></h3>
+<h3 id="4-1-target">@Target</h3>
 Permet de spécifier où la nouvelle annotation peut être utilisée.
 <br>Peut prendre les valeurs de l'enum <code>java.lang.annotation.ElementType</code> :
 <pre class="normal">
@@ -306,7 +307,7 @@ public @interface MyAnnotation {
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="4-2-retention">@Retention</a></h3>
+<h3 id="4-2-retention">@Retention</h3>
 Permet d'indiquer au compilateur et à l'interpréteur à quel endroit les annotations doivent être disponibles.
 <br>Peuvent prendre les valeurs de l'enum <code>java.lang.annotation.RetentionPolicy</code> :
 <ul>
@@ -331,7 +332,7 @@ public @interface Nickname {
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="4-3-inherited">@Inherited</a></h3>
+<h3 id="4-3-inherited">@Inherited</h3>
 Indique si les sous-classes d'une classe annotée héritent de l'annotation
 <pre>
 import java.lang.annotation.Inherited
@@ -350,7 +351,7 @@ public class MySubClass extends MySuperClass { ... }
 <code>MySubClass</code> hérite de l'annotation.
 
 <!-- ************************************* -->
-<h3><a name="4-4-documented">@Documented</a></h3>
+<h3 id="4-4-documented">@Documented</h3>
 Indique si l'annotation sera visible dans le javadoc.
 <br>Par exemple, le code source de <code>java.lang.FunctionalInterface</code> :
 <pre>
@@ -369,7 +370,7 @@ https://docs.oracle.com/javase/tutorial/java/annotations/repeating.html
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="5-autres-annotations">Autres annotations</a></h2>
+<h2 id="autres-annotations">Autres annotations</h2>
 Java fournit un nombre réduit d'annotations dans <code>java.lang</code> et <code>java.lang.annotation</code>, mais les annotations personnalisées permettent d'en ajouter selon les besoin, ce qui est fait dans certains packages de l'API (liste complète dans la doc de <code>java.lang.annotation.Annotation</code>).
 <br>
 <br>Il est possible aussi d'inclure dans son code des annotations définies dans des libs ("pluggable annotation type system").
@@ -386,9 +387,6 @@ Java fournit un nombre réduit d'annotations dans <code>java.lang</code> et <cod
     <br>
     <br>Par curiosité, vous pouvez aller voir <a href="https://github.com/typetools/checker-framework">le code implémentant le null checker sur github</a>.
 </div>
-
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->
 
 </article>
 </main>

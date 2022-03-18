@@ -32,7 +32,7 @@ https://docs.oracle.com/javase/tutorial/jaxp/index.html
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-xml">XML</a>
+            <a href="#xml">XML</a>
             <ul>
                 <li><a href="#1-1-balises-tags">Balises (tags)</a></li>
                 <li><a href="#1-2-processing-instructions">Processing instructions</a></li>
@@ -41,19 +41,20 @@ https://docs.oracle.com/javase/tutorial/jaxp/index.html
             </ul>
         </li>
         <li>
-            <a href="#2-jaxp">JAXP</a>
+            <a href="#jaxp">JAXP</a>
         </li>
         <li>
-            <a href="#3-dom">DOM</a>
+            <a href="#dom">DOM</a>
             <ul>
                 <li><a href="#3-1-lecture-d-un-document-xml">Lecture d'un document xml</a></li>
             </ul>
         </li>
         <li>
-            <a href="#4-sax">SAX</a>
+            <a href="#sax">SAX</a>
         </li>
     </ul>
 </nav>
+
 
 
 
@@ -82,7 +83,7 @@ https://docs.oracle.com/javase/tutorial/jaxp/index.html
 Cours en cours de fabrication
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-xml">XML</a></h2>
+<h2 id="xml">XML</h2>
 
 XML (Extensible Markup Language) est un langage à balise (tag) permettant de stocker et transporter de l'information structurée dans un format texte.
 <br>Un document XML a vocation à être à la fois lisible et exploitables par des humains (contenu des balises) et des machines (instructions de traitement, attributs des balises).
@@ -148,7 +149,7 @@ Seul le prologue est obligatoire.
 
 
 <!-- ************************************* -->
-<h3><a name="1-1-balises-tags">Balises (tags)</a></h3>
+<h3 id="1-1-balises-tags">Balises (tags)</h3>
 
 Une balise encadre du contenu, situé entre la balise ouvrante et la balise fermante.
 <pre>&lt;balise> ... &lt;/balise></pre>
@@ -168,7 +169,7 @@ Contrairement au HTML, la liste des balises n'est pas prédéfinie.
 <h4>Elements textes</h4>
 
 <!-- ************************************* -->
-<h3><a name="1-2-processing-instructions">Processing instructions</a></h3>
+<h3 id="1-2-processing-instructions">Processing instructions</h3>
 
 Type particulier de balise à destination des applications qui exploitent le document XML.
 <pre>&lt;?clé valeur qui peut contenir des espaces?></pre>
@@ -177,7 +178,7 @@ La syntaxe peut être choisie librement
 
 
 <!-- ************************************* -->
-<h3><a name="1-3-document-xml">Document XML</a></h3>
+<h3 id="1-3-document-xml">Document XML</h3>
 
 Pour être exploitable, un document XML doit être <b>bien formé</b> et <b>valide</b>.
 
@@ -212,11 +213,11 @@ Valide = sémantiquement correct.
 
 
 <!-- ************************************* -->
-<h3><a name="1-4-xpath">XPath</a></h3>
+<h3 id="1-4-xpath">XPath</h3>
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-jaxp">JAXP</a></h2>
+<h2 id="jaxp">JAXP</h2>
 
 Il existe plusieurs manières de traiter un document XML, définies par le W3C : 
 <ul>
@@ -259,10 +260,10 @@ Il existe plusieurs manières de traiter un document XML, définies par le W3C :
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="3-dom">DOM</a></h2>
+<h2 id="dom">DOM</h2>
 
 <!-- ************************************* -->
-<h3><a name="3-1-lecture-d-un-document-xml">Lecture d'un document xml</a></h3>
+<h3 id="3-1-lecture-d-un-document-xml">Lecture d'un document xml</h3>
 Code de l'exemple dans <a href="../../exemples/java/xml/dom">DomExample1.java</a>.
 <br>
 <br>Pour lire un document xml, on crée un <code>org.w3c.dom.Document</code> en utilisant un <code>javax.xml.parsers.DocumentBuilder</code>.
@@ -276,11 +277,8 @@ La méthode <code>parse()</code> permet d'obtenir le <code>Document</code>, qui 
          Document doc = dBuilder.parse(inputFile);
 </pre>
 <!-- ********************************************************************************* -->
-<h2><a name="4-sax">SAX</a></h2>
+<h2 id="sax">SAX</h2>
 
-
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->
 </article>
 </main>
 

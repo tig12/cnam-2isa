@@ -25,22 +25,23 @@
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-les-classes-d-exception">Les classes d'exception</a>
+            <a href="#les-classes-d-exception">Les classes d'exception</a>
         </li>
         <li>
-            <a href="#2-creer-ses-propres-exceptions">Créer ses propres exceptions</a>
+            <a href="#creer-ses-propres-exceptions">Créer ses propres exceptions</a>
         </li>
         <li>
-            <a href="#3-lancer-des-exceptions">Lancer des exceptions</a>
+            <a href="#lancer-des-exceptions">Lancer des exceptions</a>
         </li>
         <li>
-            <a href="#4-propagation-des-exceptions">Propagation des exceptions</a>
+            <a href="#propagation-des-exceptions">Propagation des exceptions</a>
         </li>
         <li>
-            <a href="#5-try-with-resources-twr">try with resources (TWR)</a>
+            <a href="#try-with-resources-twr">try with resources (TWR)</a>
         </li>
     </ul>
 </nav>
+
 </header>
 
 <main>
@@ -126,7 +127,7 @@ catch(<b>ExceptionType1 | ExceptionType2 e</b>){
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-les-classes-d-exception">Les classes d'exception</a></h2>
+<h2 id="les-classes-d-exception">Les classes d'exception</h2>
 
 Les exceptions que l'on peut lancer ou attrapper sont des objets de type <code>java.lang.Exception</code> ou de ses sous-classes.
 <br>L'API java fournit un grand nombre de classes :
@@ -144,7 +145,7 @@ Les exceptions que l'on peut lancer ou attrapper sont des objets de type <code>j
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-creer-ses-propres-exceptions">Créer ses propres exceptions</a></h2>
+<h2 id="creer-ses-propres-exceptions">Créer ses propres exceptions</h2>
 On peut créer des exceptions personnalisées en sous-classant <code>Exception</code> :
 
 <pre>public MyException extends Exception {}</pre>
@@ -152,7 +153,7 @@ On peut créer des exceptions personnalisées en sous-classant <code>Exception</
 Dans le code qu'on écrit on a le choix entre utiliser <code>Exception</code> et ses sous-classes lorsque c'est pertinent, ou les classes d'exceptions spécifiques à l'application.
 
 <!-- ********************************************************************************* -->
-<h2><a name="3-lancer-des-exceptions">Lancer des exceptions</a></h2>
+<h2 id="lancer-des-exceptions">Lancer des exceptions</h2>
 Une exception est "lancée" avec l'instruction <code>throw</code> lorsqu'une condition anormale d'exécution est rencontrée :
 <pre>
 public static double factorial(int x) throws IllegalArgumentException{
@@ -169,7 +170,7 @@ public static double factorial(int x) throws IllegalArgumentException{
 (code dans <a href="../../exemples/java/factorial/Factorial.java">Factorial.java</a>)
 
 <!-- ********************************************************************************* -->
-<h2><a name="4-propagation-des-exceptions">Propagation des exceptions</a></h2>
+<h2 id="propagation-des-exceptions">Propagation des exceptions</h2>
 
 Si l'interpréteur java rencontre une exception, il arrête l'exécution du code et cherche un gestionnaire d'exception (un bloc <code>catch</code>).
 <br>
@@ -241,12 +242,8 @@ Si ce code passait à la compilation, le <code>catch</code> de <code>IllegalArgu
 </div>
 
 <!-- ********************************************************************************* -->
-<h2><a name="5-try-with-resources-twr">try with resources (TWR)</a></h2>
+<h2 id="try-with-resources-twr">try with resources (TWR)</h2>
 Voir <a href="io.html#1-3-try-with-resources-twr">le cours sur java.io</a>
-
-
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->
 
 </article>
 </main>

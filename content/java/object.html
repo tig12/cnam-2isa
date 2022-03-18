@@ -25,33 +25,34 @@
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-constructeur">Constructeur</a>
+            <a href="#constructeur">Constructeur</a>
         </li>
         <li>
-            <a href="#2-tostring">toString()</a>
+            <a href="#tostring">toString()</a>
             <ul>
                 <li><a href="#2-1-comportement-par-defaut">Comportement par défaut</a></li>
                 <li><a href="#2-2-overriding">Overriding</a></li>
             </ul>
         </li>
         <li>
-            <a href="#3-getclass">getClass()</a>
+            <a href="#getclass">getClass()</a>
         </li>
         <li>
-            <a href="#4-clone">clone()</a>
+            <a href="#clone">clone()</a>
             <ul>
                 <li><a href="#4-1-implementer-clone">Implémenter clone()</a></li>
                 <li><a href="#4-2-shallow-vs-deep-copy">Shallow vs deep copy</a></li>
             </ul>
         </li>
         <li>
-            <a href="#5-equals-hashcode">equals(), hashCode()</a>
+            <a href="#equals-hashcode">equals(), hashCode()</a>
             <ul>
                 <li><a href="#5-1-liens-entre-hashcode-et-equals">Liens entre hashCode() et equals()</a></li>
             </ul>
         </li>
     </ul>
 </nav>
+
 
 </header>
 
@@ -85,16 +86,16 @@ public  class Object {
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-constructeur">Constructeur</a></h2>
+<h2 id="constructeur">Constructeur</h2>
 Ce constructeur est appelé à chaque création d'objet, voir la page <a href="classes-interfaces.html">"Classes, interfaces"</a>, paragraphe "Chaînage d'appel".
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-tostring">toString()</a></h2>
+<h2 id="tostring">toString()</h2>
 
 Permet d'obtenir une représentation textuelle de l'objet.
 
 <!-- ************************************* -->
-<h3><a name="2-1-comportement-par-defaut">Comportement par défaut</a></h3>
+<h3 id="2-1-comportement-par-defaut">Comportement par défaut</h3>
 
 Par défaut, cette chaîne est constituée du type de l'objet, suivi de "@", suivi du hashcode (en hexadécimal) de l'objet ; égale à :
 
@@ -156,7 +157,7 @@ Exception in thread "main" java.lang.NullPointerException
 
 
 <!-- ************************************* -->
-<h3><a name="2-2-overriding">Overriding</a></h3>
+<h3 id="2-2-overriding">Overriding</h3>
 
 L'implémentation par défaut n'étant pas très parlante, elle est en général réimplémentée dans les sous-classes, comme conseillé par la documentation :
 <blockquote>It is recommended that all subclasses override this method.</blockquote>
@@ -179,7 +180,7 @@ p1 = Haskell Curry (1900)
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="3-getclass">getClass()</a></h2>
+<h2 id="getclass">getClass()</h2>
 <!-- 
 https://howtodoinjava.com/java/cloning/a-guide-to-object-cloning-in-java/
 https://howtodoinjava.com/java/serialization/how-to-do-deep-cloning-using-in-memory-serialization-in-java/
@@ -210,7 +211,7 @@ Voir la page <a href="reflection.html">Reflection</a> pour plus de détails
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="4-clone">clone()</a></h2>
+<h2 id="clone">clone()</h2>
 <!-- 
 https://en.wikipedia.org/wiki/Clone_%28Java_method%29
 https://howtodoinjava.com/java/cloning/a-guide-to-object-cloning-in-java/
@@ -233,7 +234,7 @@ Le but est d'obtenir une copie exacte de l'objet, donc de même classe, ayant le
 </ul>
 
 <!-- ************************************* -->
-<h3><a name="4-1-implementer-clone">Implémenter clone()</a></h3>
+<h3 id="4-1-implementer-clone">Implémenter clone()</h3>
 La signature de <code>Object.clone()</code> est
 <pre>protected native Object clone() throws CloneNotSupportedException</pre>
 
@@ -259,7 +260,7 @@ On a à la fois rendu la méthode <code>public</code>, modifié son type de reto
 
 
 <!-- ************************************* -->
-<h3><a name="4-2-shallow-vs-deep-copy">Shallow vs deep copy</a></h3>
+<h3 id="4-2-shallow-vs-deep-copy">Shallow vs deep copy</h3>
 L'implémentation de <code>Object.clone()</code> effectue une <b>shallow copy</b> de l'objet : elle recopie les membres de l'objet.
 <br>Pour les types primitifs ou les objets immuables, cela implique l'indépendance de l'objet et de son clone.
 <br>Mais pour les types références mutables, l'objet original et son clone vont partager les mêmes membres.
@@ -401,7 +402,7 @@ p2 = Haskell Curry (1900) <b>Etats-Unis</b>
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="5-equals-hashcode">equals(), hashCode()</a></h2>
+<h2 id="equals-hashcode">equals(), hashCode()</h2>
 
 Pour les types références, l'opérateur <code>==</code> teste l'égalité des références, renvoie donc <code>true</code> si deux objets pointent vers le même zone mémoire.
 <br>L'implémentation de <code>Object.equals()</code> ne fait rien de plus, comme on peut le voir dans cet extrait du code source de <code>java.lang.Object</code> (open JDK). 
@@ -497,7 +498,7 @@ Attention, <code>String</code> a parfois un comportement différent, voir la pag
 
 
 <!-- ************************************* -->
-<h3><a name="5-1-liens-entre-hashcode-et-equals">Liens entre hashCode() et equals()</a></h3>
+<h3 id="5-1-liens-entre-hashcode-et-equals">Liens entre hashCode() et equals()</h3>
 
 La documentation de <code>equals()</code> indique :
 <blockquote>

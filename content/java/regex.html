@@ -25,10 +25,10 @@
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-introduction">Introduction</a>
+            <a href="#introduction">Introduction</a>
         </li>
         <li>
-            <a href="#2-en-java">En java</a>
+            <a href="#en-java">En java</a>
             <ul>
                 <li><a href="#2-1-tester-une-chaine">Tester une chaîne</a></li>
                 <li><a href="#2-2-capturer-les-chaines-qui-matchent">Capturer les chaînes qui matchent</a></li>
@@ -36,6 +36,7 @@
         </li>
     </ul>
 </nav>
+
 
 
 
@@ -61,7 +62,7 @@
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-introduction">Introduction</a></h2>
+<h2 id="introduction">Introduction</h2>
 
 Une expression régulière permet de décrire un ensemble de chaînes de caractères partageant des caractéristiques communes.
 <br>Utilisées dans la plupart des langages, l'implémentation de référence vient de Perl (on parle de <b>PCRE</b> - Perl-compatible regular expression).
@@ -96,7 +97,7 @@ Par exemple <code>a[ab]*.txt</code> est la version glob de <code>a[ab]*\.txt</co
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-en-java">En java</a></h2>
+<h2 id="en-java">En java</h2>
 
 En java, les classes utiles se trouvent dans le package <code>java.util.regex</code>.
 <br>Les classes principales sont <code>Pattern</code> et <code>Matcher</code>, ainsi que <code>PatternSyntaxException</code>
@@ -108,7 +109,7 @@ En java, les classes utiles se trouvent dans le package <code>java.util.regex</c
 <br>Pas de constructeur public, on utilise en invoquant <code>matcher()</code> sur un objet <code>Pattern</code>.
 
 <!-- ************************************* -->
-<h3><a name="2-1-tester-une-chaine">Tester une chaîne</a></h3>
+<h3 id="2-1-tester-une-chaine">Tester une chaîne</h3>
 <pre>
     Pattern p = Pattern.compile("a*b");
     Matcher m = p.matcher("aaaaab");
@@ -116,7 +117,7 @@ En java, les classes utiles se trouvent dans le package <code>java.util.regex</c
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="2-2-capturer-les-chaines-qui-matchent">Capturer les chaînes qui matchent</a></h3>
+<h3 id="2-2-capturer-les-chaines-qui-matchent">Capturer les chaînes qui matchent</h3>
 On utilise les parenthèses pour indiquer quelles parties du texte on va récupérer :
 
 
@@ -130,10 +131,6 @@ On utilise les parenthèses pour indiquer quelles parties du texte on va récup�
     <li>named patterns</li>
 </ul>
 
-
-
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->
 </article>
 </main>
 

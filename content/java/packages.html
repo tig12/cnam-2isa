@@ -25,20 +25,21 @@
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-packages-java-namespace">Packages, java namespace</a>
+            <a href="#packages-java-namespace">Packages, java namespace</a>
             <ul>
                 <li><a href="#1-1-conflits">Conflits</a></li>
                 <li><a href="#1-2-import-static">import static</a></li>
             </ul>
         </li>
         <li>
-            <a href="#2-structure-d-une-application-java">Structure d'une application java</a>
+            <a href="#structure-d-une-application-java">Structure d'une application java</a>
         </li>
         <li>
-            <a href="#3-modules">Modules</a>
+            <a href="#modules">Modules</a>
         </li>
     </ul>
 </nav>
+
 </header>
 
 
@@ -47,7 +48,7 @@
 <article>
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-packages-java-namespace">Packages, java namespace</a></h2>
+<h2 id="packages-java-namespace">Packages, java namespace</h2>
 Package = ensemble de classes (ou d'interfaces) ; sert à regrouper du code et à fournir un espace de nommage (namespace) aux classes qu'ils contiennent.
 <br>
 <br>Par convention, les noms de packages sont en lettres minuscules.
@@ -90,7 +91,7 @@ import java.io.*;       // <b>on-demand</b> type import - ne s'applique pas aux 
 On-demand import équivalent à simple type import <i>uniquement pour les classes que l'on utilse</i>.
 
 <!-- ************************************* -->
-<h3><a name="1-1-conflits">Conflits</a></h3>
+<h3 id="1-1-conflits">Conflits</h3>
 <pre>
 import java.util.List;
 import java.awt.List;
@@ -111,7 +112,7 @@ Dans le code, l'identifiant "<code>List</code>" désignera une <code>java.util.L
 <pre>java.awt.List = new java.awt.List(...)</pre>
 
 <!-- ************************************* -->
-<h3><a name="1-2-import-static">import static</a></h3>
+<h3 id="1-2-import-static">import static</h3>
 Introduit en java 5.
 <br>Les imports "normaux" permettent d'importer des noms de types référence (classes, interfaces...).
 <br>Les imports static permettent d'importer les membres statiques (variables et méthodes) d'une classe, en faisant : 
@@ -132,7 +133,7 @@ Aussi utile pour les constantes (utiliser <code>PI</code> au lieu de <code>Math.
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-structure-d-une-application-java">Structure d'une application java</a></h2>
+<h2 id="structure-d-une-application-java">Structure d'une application java</h2>
 
 En java, le code est écrit dans des fichiers <b>.java</b>.
 <br>Les fichiers .java doivent être compilés (transformés en bytecode lisible par la JVM) en utilisant <b>javac</b>. Le bytecode est stocké dans des fichiers <b>.class</b>.
@@ -176,7 +177,7 @@ Une manière assez répandue de nommer les packages utilise l'url de(s) auteur(s
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="3-modules">Modules</a></h2>
+<h2 id="modules">Modules</h2>
 La notion de module a été introduite en java 9. Un module regroupe un ou plusieurs packages.
 <br>Java SE a été découpé en modules, ce qui permet de déployer une application en n'incluant que les modules utiles.
 <br>Voir <a href="https://www.oracle.com/corporate/features/understanding-java-9-modules.html">https://www.oracle.com/corporate/features/understanding-java-9-modules.html</a>
@@ -191,5 +192,3 @@ La notion de module a été introduite en java 9. Un module regroupe un ou plusi
 
 </body>
 </html>
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->

@@ -25,25 +25,26 @@
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-hello-world-1">Hello World 1</a>
+            <a href="#hello-world-1">Hello World 1</a>
         </li>
         <li>
-            <a href="#2-la-fonction-main">La fonction main()</a>
+            <a href="#la-fonction-main">La fonction main()</a>
         </li>
         <li>
-            <a href="#3-hello-world-2">Hello World 2</a>
+            <a href="#hello-world-2">Hello World 2</a>
         </li>
         <li>
-            <a href="#4-hello-world-3">Hello World 3</a>
+            <a href="#hello-world-3">Hello World 3</a>
         </li>
         <li>
-            <a href="#5-hello-world-4">Hello World 4</a>
+            <a href="#hello-world-4">Hello World 4</a>
         </li>
         <li>
-            <a href="#6-hello-world-5">Hello World 5</a>
+            <a href="#hello-world-5">Hello World 5</a>
         </li>
     </ul>
 </nav>
+
 
 </header>
 
@@ -56,7 +57,7 @@
 </div>
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-hello-world-1">Hello World 1</a></h2>
+<h2 id="hello-world-1">Hello World 1</h2>
 
 (voir <a href="../../exemples/java/hello/HelloWorld1.java">HelloWorld1.java</a>)
 <br>
@@ -117,7 +118,7 @@ Notes :
 </ul>
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-la-fonction-main">La fonction main()</a></h2>
+<h2 id="la-fonction-main">La fonction main()</h2>
 
 la méthode <code>main()</code> est particulière car elle fournit un point d'entrée à l'interpréteur <code>java</code>.
 <br>Lorsqu'on exécute du code java, l'interpéteur va chercher un méthode dont la <b>signature</b> est <i>exactement</i> :
@@ -131,7 +132,7 @@ Une classe donnée ne peut avoir qu'une seule fonction <code>main()</code> avec 
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="3-hello-world-2">Hello World 2</a></h2>
+<h2 id="hello-world-2">Hello World 2</h2>
 (voir <a href="../../exemples/java/hello/HelloWorld2.java">HelloWorld2.java</a>)
 <br>
 <br>On déporte l'affichage dans une méthode statique :
@@ -164,7 +165,7 @@ Notes :
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="4-hello-world-3">Hello World 3</a></h2>
+<h2 id="hello-world-3">Hello World 3</h2>
 (voir <a href="../../exemples/java/hello/HelloWorld3.java">HelloWorld3.java</a>)
 <br>
 <br>On passe le message à afficher en paramètre au programme :
@@ -202,7 +203,7 @@ Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: 0
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="5-hello-world-4">Hello World 4</a></h2>
+<h2 id="hello-world-4">Hello World 4</h2>
 
 (voir <a href="../../exemples/java/hello/HelloWorld4.java">HelloWorld4.java</a>)
 <br>
@@ -241,7 +242,7 @@ Pour compiler la classe <code>HelloWorld4</code>, le compilateur voit qu'il doit
 </ul>
 
 <!-- ********************************************************************************* -->
-<h2><a name="6-hello-world-5">Hello World 5</a></h2>
+<h2 id="hello-world-5">Hello World 5</h2>
 
 (voir <a href="../../exemples/java/hello/hello5">hello5</a>)
 <br>
@@ -301,10 +302,6 @@ public Afficheur(String message){
         <br>Mais on aurait pu aussi écrire explicitement : <code>System.out.println(this.msg);</code>
     </li>
 </ul>
-
-
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->
 
 </article>
 </main>

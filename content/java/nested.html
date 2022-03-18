@@ -29,22 +29,23 @@
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-membres-static">Membres static</a>
+            <a href="#membres-static">Membres static</a>
         </li>
         <li>
-            <a href="#2-membre-d-instance">Membre d'instance</a>
+            <a href="#membre-d-instance">Membre d'instance</a>
         </li>
         <li>
-            <a href="#3-shadowing">Shadowing</a>
+            <a href="#shadowing">Shadowing</a>
         </li>
         <li>
-            <a href="#4-classes-locales">Classes locales</a>
+            <a href="#classes-locales">Classes locales</a>
         </li>
         <li>
-            <a href="#5-classes-anonymes">Classes anonymes</a>
+            <a href="#classes-anonymes">Classes anonymes</a>
         </li>
     </ul>
 </nav>
+
 </header>
 
 <main>
@@ -59,7 +60,7 @@ Deux raisons liées à l'encapsulation peuvent mener à faire des types imbriqu�
 <br>Important : bien distinguer <b>inheritance hierarchy</b> et <b>containment hierarchy</b>.
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-membres-static">Membres static</a></h2>
+<h2 id="membres-static">Membres static</h2>
 Exemple dans TP3, question 2 : la classe <code>Maillon</code> est un membre static de <code>Pile4</code>.
 <ul>
     <li>Les classes internes static doivent utiliser le mot-clé static.</li>
@@ -93,7 +94,7 @@ import package1.Class1.*;
 </pre>
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-membre-d-instance">Membre d'instance</a></h2>
+<h2 id="membre-d-instance">Membre d'instance</h2>
 (Uniquement pour les classes, pas les interfaces ou enums)
 <ul>
     <li>Toujours associé à une <b>instance</b> de la classe englobante.</li>
@@ -122,7 +123,7 @@ OuterClass.InnerClass innerObject = <b>outerObject.new InnerClass()</b>;
 -->
 
 <!-- ********************************************************************************* -->
-<h2><a name="3-shadowing">Shadowing</a></h2>
+<h2 id="shadowing">Shadowing</h2>
 
 Si une variable porte le même nom qu'une autre variable dans un contexte englobant, elle cache le nom (shadowing), donc syntaxe spéciale.
 
@@ -252,14 +253,14 @@ ClasseInterne.printInstance(), d = 5
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="4-classes-locales">Classes locales</a></h2>
+<h2 id="classes-locales">Classes locales</h2>
 On peut définir une classe interne dans n'importe quel bloc, par ex dans une méthode, un initialisateur statique ou d'instance, une boucle for, dans un if.
 <br>Une classe locale a accès aux champs de sa classe environnante et aux variables locales de son bloc.
 <br>Ne peut pas être définie <code>public</code>, <code>protected</code>, <code>private</code> ou <code>static</code>.
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="5-classes-anonymes">Classes anonymes</a></h2>
+<h2 id="classes-anonymes">Classes anonymes</h2>
 Classes utilisées à un seul endroit ; n'ont même pas de nom.
 <br>
 <br>Exemple : on cherche à afficher les fichiers ".java" d'un répertoire.

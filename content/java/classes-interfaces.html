@@ -26,7 +26,7 @@
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-classes">Classes</a>
+            <a href="#classes">Classes</a>
             <ul>
                 <li><a href="#1-1-visibilite-des-classes">Visibilité des classes</a></li>
                 <li><a href="#1-2-membres-d-une-classe">Membres d'une classe</a></li>
@@ -39,28 +39,29 @@
             </ul>
         </li>
         <li>
-            <a href="#2-abstract-classes">Abstract classes</a>
+            <a href="#abstract-classes">Abstract classes</a>
         </li>
         <li>
-            <a href="#3-interfaces">Interfaces</a>
+            <a href="#interfaces">Interfaces</a>
             <ul>
                 <li><a href="#3-1-definir-un-contrat">Définir un contrat</a></li>
                 <li><a href="#3-2-definir-une-interface">Définir une interface</a></li>
                 <li><a href="#3-3-implementer-une-interface">Implémenter une interface</a></li>
                 <li><a href="#3-4-default-methods">Default methods</a></li>
                 <li><a href="#3-5-interface-static-methods">Interface static methods</a></li>
-                <li><a href="#3-6-methodes-privées-dans-les-interfaces">Méthodes privées dans les interfaces</a></li>
+                <li><a href="#3-6-methodes-privees-dans-les-interfaces">Méthodes privées dans les interfaces</a></li>
                 <li><a href="#3-7-interfaces-vides">Interfaces vides</a></li>
             </ul>
         </li>
         <li>
-            <a href="#4-classe-abstraite-ou-interface">Classe abstraite ou interface ?</a>
+            <a href="#classe-abstraite-ou-interface">Classe abstraite ou interface ?</a>
         </li>
         <li>
-            <a href="#5-sealed-classes">Sealed classes</a>
+            <a href="#sealed-classes">Sealed classes</a>
         </li>
     </ul>
 </nav>
+
 
 </header>
 
@@ -85,7 +86,7 @@ Cette règle n'est pas imposée pour les types de visibilité package.
 <br>
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-classes">Classes</a></h2>
+<h2 id="classes">Classes</h2>
 
 Syntaxe générale :
 
@@ -135,7 +136,7 @@ public class Circle {
 
 
 <!-- ************************************* -->
-<h3><a name="1-1-visibilite-des-classes">Visibilité des classes</a></h3>
+<h3 id="1-1-visibilite-des-classes">Visibilité des classes</h3>
 <ul>
     <li><b>public</b> : classe accessible partout</li>
     <li>Non spécifié (<b>package</b>) : la classe ne sera accessible qu'aux classes du même package.</li>
@@ -156,7 +157,7 @@ public class Main1{
 
 
 <!-- ************************************* -->
-<h3><a name="1-2-membres-d-une-classe">Membres d'une classe</a></h3>
+<h3 id="1-2-membres-d-une-classe">Membres d'une classe</h3>
 
 Une classe peut avoir comme membres des variables, des méthodes ou des classes (voir classes internes plus loin).
 <br>
@@ -204,7 +205,7 @@ Les visibilités <code>public</code> et <code>protected</code> font partie de l'
 <br>Donc bien noter que la visibilité <code><i>default</i></code> est plus restrictive que <code>protected</code>.
 
 <!-- ************************************* -->
-<h3><a name="1-3-variables-de-classe-ou-d-instance">Variables de classe ou d'instance</a></h3>
+<h3 id="1-3-variables-de-classe-ou-d-instance">Variables de classe ou d'instance</h3>
 
 La syntaxe pour déclarer ou initialiser une variable de classe ou d'instance est similaire aux variables locales (à l'intérieur d'une méthode).
 <pre>
@@ -349,7 +350,7 @@ La variable ne peut plus être modifiée une fois qu'elle a été initialisée.
 
 
 <!-- ************************************* -->
-<h3><a name="1-4-constructeurs">Constructeurs</a></h3>
+<h3 id="1-4-constructeurs">Constructeurs</h3>
 Méthodes <b>static</b> ayant exactement le même nom de la classe, servent à initialiser les variables d'instances des nouveaux objets créés.
 <br>Chaque classe a au moins un constructeur ; s'il n'est pas explicitement présent, javac en crée un (appelé <i>constructeur par défaut</i>), sans paramètre et qui ne fait rien.
 <br>La signature d'un constructeur ne comporte aucun type de retour (pas même <code>void</code>) et pas le mot-clé <code>static</code>.
@@ -369,7 +370,7 @@ public Circle() { this(1.0); }
 Restriction importante : l'appel utilisant <code>this()</code> <b>ne peut être que la première instruction</b> (voir héritage plus loin).
 
 <!-- ************************************* -->
-<h3><a name="1-5-initialisations">Initialisations</a></h3>
+<h3 id="1-5-initialisations">Initialisations</h3>
 
 <!-- **************** -->
 <h4>Dans un contexte d'instance</h4>
@@ -480,7 +481,7 @@ Circle2.java:20: error: cannot find symbol
 </div>
 
 <!-- ************************************* -->
-<h3><a name="1-6-sous-classes-et-heritage">Sous-classes et héritage</a></h3>
+<h3 id="1-6-sous-classes-et-heritage">Sous-classes et héritage</h3>
 
 <pre>
 /**
@@ -628,7 +629,7 @@ Voir une application dans le <a href="../patterns/singleton.html">pattern Single
 
 
 <!-- ************************************* -->
-<h3><a name="1-7-overloading-overriding-hiding">Overloading, overriding, hiding</a></h3>
+<h3 id="1-7-overloading-overriding-hiding">Overloading, overriding, hiding</h3>
 
 Ce sont trois notions distinctes qu'il ne faut pas confondre.
 
@@ -862,7 +863,7 @@ Notez qu'on est ici dans un contexte d'instance, et que variables et méthodes n
 <br>- Pour les variables, on est en situation de hiding.
 
 <!-- ************************************* -->
-<h3><a name="1-8-utilisations-de-super">Utilisations de super</a></h3>
+<h3 id="1-8-utilisations-de-super">Utilisations de super</h3>
 
 On a vu que le mot-clé <code>super</code> a plusieurs utilisations dont la syntaxe et la sématique sont différentes :
 <br>- <code>super()</code> pour appeler un constructeur de la superclasse.
@@ -900,7 +901,7 @@ class SousClasse extends SuperClasse {
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-abstract-classes">Abstract classes</a></h2>
+<h2 id="abstract-classes">Abstract classes</h2>
 
 Imaginons qu'on développe une API qui manipule différentes formes : <code>Cercle</code>, <code>Carre</code>, <code>Triangle</code>, et que chacune de ces formes ait deux méthodes en commun : <code>aire()</code> et <code>circonference()</code>.
 <br>Pour pouvoir facilement manipuler des tableaux de formes, on a besoin de créer une classe <code>Forme</code>, mais donner une implémentation générale aux méthodes <code>aire()</code> et <code>circonference()</code> n'a pas de sens.
@@ -946,10 +947,10 @@ Les règles sont :
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="3-interfaces">Interfaces</a></h2>
+<h2 id="interfaces">Interfaces</h2>
 
 <!-- ************************************* -->
-<h3><a name="3-1-definir-un-contrat">Définir un contrat</a></h3>
+<h3 id="3-1-definir-un-contrat">Définir un contrat</h3>
 Un aspect important des interfaces est qu'elles permettent de définir des <b>contrats</b> que les implémentations doivent respecter.
 <br>Exemple : une société qui développe des véhicules autonomes va définir et publier des interfaces pour faire déplacer une voiture (tourner, accélérer, freiner...), des interfaces liées au guidage (positionnement, environnement géographique, conditions de traffic) et développer le code qui articule ces sous-systèmes pour faire fonctioner la voiture.
 <br>Des sociétés tierces vont pouvoir développer des implémentations de ces différentes interfaces (constructeurs auto pour le déplacement, sociétés spécialisées dans le guidage électronique pour le guidage). Chacune ignore les implémentations des autres, mais elles vont pouvoir collaborer grace aux interfaces qu'elles sont tenues de respecter. Il sera aussi possible de changer l'implémentation d'un sous-système sans affecter les autres parties.
@@ -987,7 +988,7 @@ public Class DéplacerMégane implements DéplacerVoiture{
 </table>
 
 <!-- ************************************* -->
-<h3><a name="3-2-definir-une-interface">Définir une interface</a></h3>
+<h3 id="3-2-definir-une-interface">Définir une interface</h3>
 Similaire à la définition d'une classe
 <pre>
 interface Interface1 extends Interface2, Interface3{
@@ -1029,7 +1030,7 @@ Comme pour une classe, lorsqu'on définit une nouvelle interface, on définit un
 
 
 <!-- ************************************* -->
-<h3><a name="3-3-implementer-une-interface">Implémenter une interface</a></h3>
+<h3 id="3-3-implementer-une-interface">Implémenter une interface</h3>
 Pour déclarer une classe qui implémente une interface, on utilise la clause <code>implements</code> dans la déclaration de la classe.
 <br>Si la déclaration de la classe contient aussi une clause <code>extends</code>, on la place avant (par convention).
 <pre>public Class1 extends class2 implements interface1, interface2{ ... }</pre>
@@ -1058,7 +1059,7 @@ class RepeteMethodes implements Interface1, Interface2{
 
 
 <!-- ************************************* -->
-<h3><a name="3-4-default-methods">Default methods</a></h3>
+<h3 id="3-4-default-methods">Default methods</h3>
 <!-- 
 Java 8 introduces default methods on interfaces. If A,B,C are interfaces, B,C can each provide a different implementation to an abstract method of A, causing the diamond problem. Either class D must reimplement the method (the body of which can simply forward the call to one of the super implementations), or the ambiguity will be rejected as a compile error.[7] Prior to Java 8, Java was not subject to the Diamond problem risk because it did not support multiple inheritance.
 -->
@@ -1169,7 +1170,7 @@ class C3 implements Interface3{}
 (<a href="../../exemples/java/interfaces/extend-default/ExtendsDefault.java">ExtendsDefault.java</a>)
 
 <!-- ************************************* -->
-<h3><a name="3-5-interface-static-methods">Interface static methods</a></h3>
+<h3 id="3-5-interface-static-methods">Interface static methods</h3>
 Depuis java 8, il est aussi possible d'implémenter des méthodes statiques dans les interfaces.
 <pre>
 interface Interface1{
@@ -1180,7 +1181,7 @@ Lorsqu'on fabrique une API, permet de rassembler du code utilitaire dans des int
 <br>Le mot-clé <code>public</code> est là aussi  implicite.
 
 <!-- ************************************* -->
-<h3><a name="3-6-methodes-privées-dans-les-interfaces">Méthodes privées dans les interfaces</a></h3>
+<h3 id="3-6-methodes-privees-dans-les-interfaces">Méthodes privées dans les interfaces</h3>
 Dans la mesure où java 8 a introduit la possibilité des implémentations dans les interfaces (default ou static methods), il est logique de pouvoir implémenter des méthodes privées dans une interface ; possible depuis java 9.
 <br>Ces méthodes privées ne sont utilisables que dans le code de l'interface qui les définit.
 <br>Les classes implémentant l'interface bénéficient indirectement des méthodes privées sans avoir à les implémenter.
@@ -1189,7 +1190,7 @@ Dans la mesure où java 8 a introduit la possibilité des implémentations dans 
 
 
 <!-- ************************************* -->
-<h3><a name="3-7-interfaces-vides">Interfaces vides</a></h3>
+<h3 id="3-7-interfaces-vides">Interfaces vides</h3>
 Appelées aussi <b>marker interfaces</b>, elles permettent de signaler des caractéristiques de certaines classes.
 <br>
 <br>Exemple d'utilisation : l'interface <code>java.util.RandomAccess</code> est vide.
@@ -1213,7 +1214,7 @@ Un autre exemple fréquemment utilisé est la marker interface <code>Cloneable</
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="4-classe-abstraite-ou-interface">Classe abstraite ou interface ?</a></h2>
+<h2 id="classe-abstraite-ou-interface">Classe abstraite ou interface ?</h2>
 
 Avant java 8, les interfaces ne pouvaient que contenir des spécifications de méthodes, sans aucune implémentation, ce qui pouvait mener à dupliquer du code, dans les différentes implémentations d'une interface.
 <br>On trouvait souvent des classes abstraites couplées à des interfaces : les interfaces contenaient la spécification de l'API, et une classe abstraite fournissait l'implémentation de certaines méthodes.
@@ -1238,6 +1239,10 @@ Depuis les default et static methods, on a le choix.
 <h2 id="5-sealed-classes">Sealed classes</h2>
 
 Depuis java 17 - TODO - voir <a href="https://docs.oracle.com/en/java/javase/17/language/sealed-classes-and-interfaces.html">https://docs.oracle.com/en/java/javase/17/language/sealed-classes-and-interfaces.html</a>
+
+</body>
+</html>
+s://docs.oracle.com/en/java/javase/17/language/sealed-classes-and-interfaces.html">https://docs.oracle.com/en/java/javase/17/language/sealed-classes-and-interfaces.html</a>
 
 </body>
 </html>

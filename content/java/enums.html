@@ -26,20 +26,21 @@
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-exemple-simple">Exemple simple</a>
+            <a href="#exemple-simple">Exemple simple</a>
             <ul>
                 <li><a href="#1-1-methode-values">Méthode values()</a></li>
                 <li><a href="#1-2-methodes-heritees-de-java-lang-enum">Méthodes héritées de java.lang.Enum</a></li>
             </ul>
         </li>
         <li>
-            <a href="#2-membres-d-une-enum">Membres d'une enum</a>
+            <a href="#membres-d-une-enum">Membres d'une enum</a>
         </li>
         <li>
-            <a href="#3-pour-aller-plus-loin">Pour aller plus loin</a>
+            <a href="#pour-aller-plus-loin">Pour aller plus loin</a>
         </li>
     </ul>
 </nav>
+
 
 
 
@@ -55,7 +56,7 @@ Le type Enum est un des 5 types référence de java (depuis java 5).
 <br>Les enums sont utiles pour spécifier un ensemble de constantes (comme le type enum en sql).
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-exemple-simple">Exemple simple</a></h2>
+<h2 id="exemple-simple">Exemple simple</h2>
 
 <pre>
 <b>enum CouleurPrimaire {
@@ -100,7 +101,7 @@ class TestEnum1{
 
 
 <!-- ************************************* -->
-<h3><a name="1-1-methode-values">Méthode values()</a></h3>
+<h3 id="1-1-methode-values">Méthode values()</h3>
 
 Lorsqu'il crée une enum, le compilateur ajoute automatiquement certaines méthodes, notamment une méthode <code>values()</code>, qu'on peut utiliser dans un <code>foreach</code> :
 <pre>
@@ -119,7 +120,7 @@ java TestEnum2
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="1-2-methodes-heritees-de-java-lang-enum">Méthodes héritées de java.lang.Enum</a></h3>
+<h3 id="1-2-methodes-heritees-de-java-lang-enum">Méthodes héritées de java.lang.Enum</h3>
 
 <h4>Méthodes d'instance</h4>
 Le code précédent montre que la méthode <code>toString()</code> renvoie la chaîne de caractère utilisée pour définir l'instance.
@@ -136,7 +137,7 @@ La méthode <code>Enum.valueOf()</code> permet de créer une instance d'une enum
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-membres-d-une-enum">Membres d'une enum</a></h2>
+<h2 id="membres-d-une-enum">Membres d'une enum</h2>
 
 Les enums sont des classes, elles peuvent donc avoir des méthodes et des variables.
 <br>Si une enum a des membres (variables et / ou méthodes), un point-virgule est obligatoire après la liste des valeurs possibles.
@@ -201,7 +202,7 @@ On indique que <code>CouleurPrimaire.ROUGE</code> a deux variables d'instance, e
 Autre exemple : <a href="../../exemples/java/enums/TestPlanets.java">TestPlanets.java</a>
 
 <!-- ********************************************************************************* -->
-<h2><a name="3-pour-aller-plus-loin">Pour aller plus loin</a></h2>
+<h2 id="pour-aller-plus-loin">Pour aller plus loin</h2>
 
 Pour la reflection, on dispose des méthodes <code>getEnumConstants()</code> et <code>isEnum()</code> de la classe <code>java.lang.Class</code>.
 <br>
@@ -222,5 +223,3 @@ Restrictions par rapport à une classe normale :
 
 </body>
 </html>
-
-

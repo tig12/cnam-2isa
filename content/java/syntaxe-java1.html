@@ -25,22 +25,22 @@
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-vue-d-en-haut">Vue d'en haut</a>
+            <a href="#vue-d-en-haut">Vue d'en haut</a>
         </li>
         <li>
-            <a href="#3-vue-d-en-bas">Vue d'en bas</a>
+            <a href="#vue-d-en-bas">Vue d'en bas</a>
             <ul>
-                <li><a href="#3-1-unites-syntaxiques">Unités syntaxiques</a></li>
-                <li><a href="#3-2-unicode">Unicode</a></li>
-                <li><a href="#3-3-espaces-casse-et-commentaires">Espaces, casse et commentaires</a></li>
-                <li><a href="#3-4-identifiants-mots-reserves-valeurs-litterales">Identifiants, mots réservés, valeurs littérales</a></li>
+                <li><a href="#2-1-unites-syntaxiques">Unités syntaxiques</a></li>
+                <li><a href="#2-2-unicode">Unicode</a></li>
+                <li><a href="#2-3-espaces-casse-et-commentaires">Espaces, casse et commentaires</a></li>
+                <li><a href="#2-4-identifiants-mots-reserves-valeurs-litterales">Identifiants, mots réservés, valeurs littérales</a></li>
             </ul>
         </li>
         <li>
-            <a href="#2-types-primitifs-et-types-references">Types primitifs et types références</a>
+            <a href="#types-primitifs-et-types-references">Types primitifs et types références</a>
         </li>
         <li>
-            <a href="#4-les-types-primitifs">Les types primitifs</a>
+            <a href="#les-types-primitifs">Les types primitifs</a>
             <ul>
                 <li><a href="#4-1-boolean">boolean</a></li>
                 <li><a href="#4-2-char">char</a></li>
@@ -50,16 +50,16 @@
             </ul>
         </li>
         <li>
-            <a href="#5-conversion-entre-les-types">Conversion entre les types</a>
+            <a href="#conversion-entre-les-types">Conversion entre les types</a>
         </li>
         <li>
-            <a href="#6-expressions-et-operateurs">Expressions et opérateurs</a>
+            <a href="#expressions-et-operateurs">Expressions et opérateurs</a>
             <ul>
                 <li><a href="#6-1-concatenation-de-chaines">Concaténation de chaînes</a></li>
             </ul>
         </li>
         <li>
-            <a href="#7-instructions-statements">Instructions (statements)</a>
+            <a href="#instructions-statements">Instructions (statements)</a>
             <ul>
                 <li><a href="#7-1-les-instructions-expression-expression-statements">Les instructions expression (expression statements)</a></li>
                 <li><a href="#7-2-les-instructions-composees-compound-statements">Les instructions composées (compound statements)</a></li>
@@ -69,14 +69,15 @@
             </ul>
         </li>
         <li>
-            <a href="#8-instructions-conditionnelles">Instructions conditionnelles</a>
+            <a href="#instructions-conditionnelles">Instructions conditionnelles</a>
             <ul>
                 <li><a href="#8-1-if-else">if / else </a></li>
-                <li><a href="#8-2-switch">switch</a></li>
+                <li><a href="#8-2-switch-instruction">switch (instruction)</a></li>
+                <li><a href="#8-3-switch-expression">switch (expression)</a></li>
             </ul>
         </li>
         <li>
-            <a href="#9-boucles">Boucles</a>
+            <a href="#boucles">Boucles</a>
             <ul>
                 <li><a href="#9-1-while">while</a></li>
                 <li><a href="#9-2-do">do</a></li>
@@ -87,13 +88,14 @@
             </ul>
         </li>
         <li>
-            <a href="#10-return">return</a>
+            <a href="#return">return</a>
         </li>
         <li>
-            <a href="#11-autres-instructions">Autres instructions</a>
+            <a href="#autres-instructions">Autres instructions</a>
         </li>
     </ul>
 </nav>
+
 
 </header>
 
@@ -101,7 +103,7 @@
 <article>
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-vue-d-en-haut">Vue d'en haut</a></h2>
+<h2 id="vue-d-en-haut">Vue d'en haut</h2>
 
 Un programme java est constitué d'un ou plusieurs <b>package</b>.
 <br>Chaque package contient la définition d'un ou plusieurs <b>types référence</b> (en général classes ou interfaces).
@@ -110,10 +112,10 @@ Un programme java est constitué d'un ou plusieurs <b>package</b>.
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="3-vue-d-en-bas">Vue d'en bas</a></h2>
+<h2 id="vue-d-en-bas">Vue d'en bas</h2>
 
 <!-- ************************************* -->
-<h3><a name="3-1-unites-syntaxiques">Unités syntaxiques</a></h3>
+<h3 id="2-1-unites-syntaxiques">Unités syntaxiques</h3>
 
 Un fichier java contient la définition d'un ou plusieurs <i>type référence</i>.
 <br>
@@ -125,7 +127,7 @@ Un fichier java contient la définition d'un ou plusieurs <i>type référence</i
 
 
 <!-- ************************************* -->
-<h3><a name="3-2-unicode">Unicode</a></h3>
+<h3 id="2-2-unicode">Unicode</h3>
 Les programmes java utilisent le codage unicode ; il est donc possible d'utiliser des caractères accentués, des lettres grecques ou de tout autre alphabet dans le code (noms des variables, méthodes, classes).
 <br>Chaque caractère d'un programme java est représenté par 16 bits.
 <pre class="normal">
@@ -140,7 +142,7 @@ Voir <a href="http://www.unicode.org">http://www.unicode.org</a>
 
 
 <!-- ************************************* -->
-<h3><a name="3-3-espaces-casse-et-commentaires">Espaces, casse et commentaires</a></h3>
+<h3 id="2-3-espaces-casse-et-commentaires">Espaces, casse et commentaires</h3>
 Java est sensible à la casse (case sensitive), donc les variables <code>toto</code> et <code>Toto</code> sont différentes.
 <br>Par exemple le mot-clé <code>for</code> est différent de <code>For</code> ou <code>FOR</code> (en pratique, on évite de compter sur la casse pour différencier des identifiants car source de bug).
 <br>
@@ -164,7 +166,7 @@ Les commentaires multilignes commençant par <code>/**</code> sont utilisés pou
 
 
 <!-- ************************************* -->
-<h3><a name="3-4-identifiants-mots-reserves-valeurs-litterales">Identifiants, mots réservés, valeurs littérales</a></h3>
+<h3 id="2-4-identifiants-mots-reserves-valeurs-litterales">Identifiants, mots réservés, valeurs littérales</h3>
 Un identifiant (<i>identifier</i>) est une suite de caractères qui représente quelque chose dans un programme java (classe, méthode, paramètre, variable).
 <br>Un identifiant commence par une lettre, un underscore (_) ou un symbole unicode représentant une monnaie (<i>currency symbol</i>) tel que $, €, £...
 <br>Un identifiant ne peut pas commencer par un chiffre.
@@ -214,7 +216,7 @@ null
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-types-primitifs-et-types-references">Types primitifs et types références</a></h2>
+<h2 id="types-primitifs-et-types-references">Types primitifs et types références</h2>
 
 En java, il existe deux sortes de variables qui ont des comportements très différents :
 <ul class="spaced">
@@ -248,7 +250,7 @@ Java est un langage fortement typé ; toute variable doit avoir un type.
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="4-les-types-primitifs">Les types primitifs</a></h2>
+<h2 id="les-types-primitifs">Les types primitifs</h2>
 
 Les types primitifs sont au nombre de 8 :
 <br>
@@ -348,7 +350,7 @@ char c = 65;</code></td>
 <br><b>A chaque type primitif correspond une classe de <code>java.lang</code> permettant d'encapsuler une variable d'un type primitif donné dans un objet</b>.
 
 <!-- ************************************* -->
-<h3><a name="4-1-boolean">boolean</a></h3>
+<h3 id="4-1-boolean">boolean</h3>
 Peuvent prendre deux valeurs : <code>true</code> ou <code>false</code>.
 <br>ATTENTION : contrairement à d'autres langages, les booléens ne peuvent pas être convertis dans d'autres types.
 <br>Le code suivant n'est pas valide :
@@ -361,7 +363,7 @@ if(myVar != null){ ... }
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="4-2-char">char</a></h3>
+<h3 id="4-2-char">char</h3>
 Un char représente un caractère unicode. On lui affecte une valeur en utilisant des <b>simples quotes</b> :
 <pre>char c = 'r';</pre>
 Un char peut contenir tout caractère unicode, en utilsant <code>\u</code> :
@@ -423,7 +425,7 @@ Certains caractères spéciaux sont exprimés en utilisant un antislash (<code>\
 Pour travailler sur des chars, java fournit une classe <code>Characters</code>, qui fournit des méthodes utilitaires telles que <code>isDigit()</code>, <code>isLowerCase()</code>
 
 <!-- ************************************* -->
-<h3><a name="4-3-les-types-entiers">Les types entiers</a></h3>
+<h3 id="4-3-les-types-entiers">Les types entiers</h3>
 Concerne les types java <b>byte</b>, <b>short</b>, <b>int</b> et <b>long</b>, qui diffèrent par la taille mémoire qu'ils occupent.
 
 <br>Tous ces types sont signés, java ne possède pas d'équivalent des types <b>unsigned</b> en C.
@@ -457,7 +459,7 @@ Pour travailler sur les types entiers, on dispose des classes <code>Byte</code>,
 <br>Chacune de ces classes fournit aussi 2 constantes, <code>MIN_VALUE</code> et <code>MAX_VALUE</code>, qui indiquent les valeurs extrèmes que peut prendre le type correspondant.
 
 <!-- ************************************* -->
-<h3><a name="4-4-les-types-de-nombres-reels">Les types de nombres réels</a></h3>
+<h3 id="4-4-les-types-de-nombres-reels">Les types de nombres réels</h3>
 java définit les types <b>float</b> (32 bits) et <b>double</b> (64 bits).
 <br>Quelques exemples de valeurs littérales pour des doubles :
 <pre>
@@ -474,7 +476,7 @@ Par défaut, on travaille avec des doubles. Pour définir un <b>float</b>, il fa
 <br>Les classes <code>Double</code> et <code>Float</code> fournissent des méthodes (notamment pour convertir dans d'autres types) et des constantes aidant à les manipuler.
 
 <!-- ************************************* -->
-<h3><a name="4-5-les-chaines-de-caracteres-strings">Les chaînes de caractères (strings)</a></h3>
+<h3 id="4-5-les-chaines-de-caracteres-strings">Les chaînes de caractères (strings)</h3>
 Les strings sont représentées par la classe <code>java.lang.String</code>, ce n'est donc pas un type primitif.
 <br>Mais l'usage des strings est tellement courant que java permet une syntaxe spéciale pour l'affectation :
 <br>On peut écrire <code>String s = "abcd"</code> à la place de <code>String s = new String("abcd")</code>.
@@ -484,7 +486,7 @@ Les strings sont représentées par la classe <code>java.lang.String</code>, ce 
 
 
 <!-- ************************************* -->
-<h2><a name="5-conversion-entre-les-types">Conversion entre les types</a></h2>
+<h2 id="conversion-entre-les-types">Conversion entre les types</h2>
 
 Les conversions entre les types sont parfois possible ; certaines conversions implicites (sans type cast) sont possibles, obéissent à des règles précises, voir <a href="https://docs.oracle.com/javase/specs/jls/se11/html/jls-5.html">la doc d'Oracle</a>.
 <br>On distingue les conversions vers un type plus grand (<b>widening conversion</b>) - par ex de <code>int</code> vers <code>long</code> et les conversions vers des types plus petits (<b>narrowing conversion</b>).
@@ -529,7 +531,7 @@ En utilisant jshell, expériementer la conversion de types, en faisant par exemp
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="6-expressions-et-operateurs">Expressions et opérateurs</a></h2>
+<h2 id="expressions-et-operateurs">Expressions et opérateurs</h2>
 
 Jusqu'à présent on a vu les types primitifs qu'un programme peut manipuler et comment leur affecter des <b>valeurs littérales</b>.
 <br>On a aussi utilisé des <b>variables</b> (noms symboliques qui représentent ces valeurs).
@@ -637,7 +639,7 @@ int c = 14 % 12;    // c = 2
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="6-1-concatenation-de-chaines">Concaténation de chaînes</a></h3>
+<h3 id="6-1-concatenation-de-chaines">Concaténation de chaînes</h3>
 Cas particulier, l'opérateur <code>+</code> s'applique aussi aux chaînes (instances de la classe String).
 <pre>
 System.out.println("Quotient : " + 7/3.0f);   // Quotient : 2.3333333
@@ -650,7 +652,7 @@ Remarquer les conversions automatiques de types ainsi que les parenthèses néce
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="7-instructions-statements">Instructions (statements)</a></h2>
+<h2 id="instructions-statements">Instructions (statements)</h2>
 
 L'instruction est l'unité d'exécution de base. <b>Contrairement aux expressions, les instructions n'ont pas de valeur</b> (leur type est <code>void</code>).
 <br>
@@ -668,7 +670,7 @@ jshell> var a = System.out.println("Hello World!");
 <br>Les instructions sont séparées par des <code>;</code> (point-virgule) ou regroupées entre des accolades <code>{ ... }</code>
 
 <!-- ************************************* -->
-<h3><a name="7-1-les-instructions-expression-expression-statements">Les instructions expression (expression statements)</a></h3>
+<h3 id="7-1-les-instructions-expression-expression-statements">Les instructions expression (expression statements)</h3>
 Certaines expressions (celles qui, en plus de renvoyer une valeur, modifient l'état du programme) peuvent constituer des instructions.
 <br>Les expressions pouvant constituer des instructions sont :
 <ul>
@@ -696,7 +698,7 @@ Ici, <code>(line = in.readLine())</code> est une expression, dont la valeur est 
 
 
 <!-- ************************************* -->
-<h3><a name="7-2-les-instructions-composees-compound-statements">Les instructions composées (compound statements)</a></h3>
+<h3 id="7-2-les-instructions-composees-compound-statements">Les instructions composées (compound statements)</h3>
 Sont composées d'un nombre quelconque d'instructions regroupées par des accolades.
 <br>Elles peuvent être utilisées partout où la syntaxe java attend une instruction simple.
 <pre>
@@ -716,7 +718,7 @@ A noter : on peut isoler une partie du code entre des accolades (réduit la visi
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="7-3-l-instruction-vide-empty-statement">L'instruction vide (empty statement)</a></h3>
+<h3 id="7-3-l-instruction-vide-empty-statement">L'instruction vide (empty statement)</h3>
 Ne fait rien, mais parfois pratique :
 <pre>
 for(int i=0; i < 10; i++)
@@ -724,7 +726,7 @@ for(int i=0; i < 10; i++)
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="7-4-les-instructions-labelisees-labeled-statements">Les instructions labelisées (labeled statements)</a></h3>
+<h3 id="7-4-les-instructions-labelisees-labeled-statements">Les instructions labelisées (labeled statements)</h3>
 Ce sont des instructions commençant par un label et suivi de <code>:</code> (deux points)
 <br>Utilisés par <code>break</code> et <code>continue</code> (très utiles dans certains cas).
 <pre>
@@ -736,7 +738,7 @@ iloop: for(int i=0; i < 10; i++){
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="7-5-les-instructions-de-declaration-de-variable-locale">Les instructions de déclaration de variable locale</a></h3>
+<h3 id="7-5-les-instructions-de-declaration-de-variable-locale">Les instructions de déclaration de variable locale</h3>
 <pre>
 int i;
 String s;
@@ -791,10 +793,10 @@ var message = "Hello World";
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="8-instructions-conditionnelles">Instructions conditionnelles</a></h2>
+<h2 id="instructions-conditionnelles">Instructions conditionnelles</h2>
 
 <!-- ************************************* -->
-<h3><a name="8-1-if-else">if / else </a></h3>
+<h3 id="8-1-if-else">if / else </h3>
 <pre>
 if(a == null){
     a = 10;
@@ -858,7 +860,7 @@ else{
 </table>
 
 <!-- ************************************* -->
-<h3><a name="8-2-switch">switch (instruction)</a></h3>
+<h3 id="8-2-switch-instruction">switch (instruction)</h3>
 Une instruction switch permet d'exprimer de manière plus claire une suite de <code>if .. else if</code>.
 <br>Le code précédent est équivalent à :
 <pre>
@@ -880,7 +882,7 @@ switch(n){
 <br><code>n</code> peut être de type <code>byte</code>, <code>short</code>, <code>char</code>, <code>int</code>, <code>enumerated type</code>, <code>String</code>, <code>Character</code>, <code>Byte</code>, <code>Short</code> et <code>Integer</code>
 
 <!-- ************************************* -->
-<h3>switch (expression)</h3>
+<h3 id="8-3-switch-expression">switch (expression)</h3>
 
 Depuis java 14, le mot-clé <code>switch</code> peut aussi être utilisé comme une <b>expression</b> (dont l'évaluation prend une valeur, contrairement à l'utilisation traditionnelle).
 
@@ -918,10 +920,10 @@ Comme switch est une expression, on peut aussi directement l'utiliser dans print
 <br><br>TODO : ajouter condition d'exhaustivité, yield ; voir <a href="https://docs.oracle.com/en/java/javase/17/language/switch-expressions.html">https://docs.oracle.com/en/java/javase/17/language/switch-expressions.html</a>.
 
 <!-- ********************************************************************************* -->
-<h2><a name="9-boucles">Boucles</a></h2>
+<h2 id="boucles">Boucles</h2>
 
 <!-- ************************************* -->
-<h3><a name="9-1-while">while</a></h3>
+<h3 id="9-1-while">while</h3>
 <table>
     <tr>
         <td class="vertical-align-top">
@@ -943,7 +945,7 @@ while(count < 10){
 </table>
 
 <!-- ************************************* -->
-<h3><a name="9-2-do">do</a></h3>
+<h3 id="9-2-do">do</h3>
 Peu utilisé (on doit être dans une situation où on est sûrs de vouloir au moins une fois exécuter l'intérieur de la boucle).
 <table>
     <tr>
@@ -967,7 +969,7 @@ do {
 </table>
 
 <!-- ************************************* -->
-<h3><a name="9-3-for">for</a></h3>
+<h3 id="9-3-for">for</h3>
 
 Par exemple :
 <pre>
@@ -1012,7 +1014,7 @@ les parties <i>initialize</i>, <i>test</i>, <i>update</i> sont optionnelles (mai
 </div>
 
 <!-- ************************************* -->
-<h3><a name="9-4-foreach">foreach</a></h3>
+<h3 id="9-4-foreach">foreach</h3>
 Permet d'itérer sur une collection sans la lourdeur des indexes :
 <pre>
 for( declaration : expression )
@@ -1045,7 +1047,7 @@ for(int i = 0; i < words.length; i++) {
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="9-5-break">break</a></h3>
+<h3 id="9-5-break">break</h3>
 <code>break</code> permet de sortir de l'instruction qui la contient.
 <pre>
 for(int i = 0; i < data.length; i++) {
@@ -1066,7 +1068,7 @@ iloop: for(int i=0; i < 10; i++){
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="9-6-continue">continue</a></h3>
+<h3 id="9-6-continue">continue</h3>
 Passe à l'itération suivante de la boucle
 <pre>
 for(int i = 0; i < data.length; i++) {
@@ -1080,7 +1082,7 @@ Utilisé sans label, <code>continue</code> passe à l'itération suivante de la 
 <br>Utilisé avec un label (ex : <code>continue iloop;</code>), passe à l'itération suivante de la boucle labelisée.
 
 <!-- ************************************* -->
-<h2><a name="10-return">return</a></h2>
+<h2 id="return">return</h2>
 Indique à java de stopper l'exécution de la méthode courante.
 <br>Si la méthode a été déclarée avec un type de retour, <code>return</code> doit être suivi par une expression (dont la valeur est du même type que celui déclaré dans la méthode).
 <pre>
@@ -1116,9 +1118,8 @@ void printSquareRoot(double x) {
 </div>
 
 <!-- ********************************************************************************* -->
-<h2><a name="11-autres-instructions">Autres instructions</a></h2>
+<h2 id="autres-instructions">Autres instructions</h2>
 java fournit d'autres instructions qu'on ne verra pas dans ce cours : <code>synchronized</code>, <code>assert</code>
-
 
 </article>
 </main>

@@ -23,25 +23,26 @@
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-introduction">Introduction</a>
+            <a href="#introduction">Introduction</a>
             <ul>
                 <li><a href="#1-1-documents-de-reference">Documents de référence</a></li>
             </ul>
         </li>
         <li>
-            <a href="#2-testcase-tester-une-classe">TestCase : tester une classe</a>
+            <a href="#testcase-tester-une-classe">TestCase : tester une classe</a>
             <ul>
                 <li><a href="#2-1-executer-un-test">Exécuter un test</a></li>
             </ul>
         </li>
         <li>
-            <a href="#3-executer-une-suite-de-tests-testsuite">Exécuter une suite de tests : TestSuite</a>
+            <a href="#executer-une-suite-de-tests-testsuite">Exécuter une suite de tests : TestSuite</a>
         </li>
         <li>
-            <a href="#4-tester-les-exceptions">Tester les exceptions</a>
+            <a href="#tester-les-exceptions">Tester les exceptions</a>
         </li>
     </ul>
 </nav>
+
 
 
 
@@ -78,10 +79,10 @@
 Version utilisée : JUnit 3.8.1
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-introduction">Introduction</a></h2>
+<h2 id="introduction">Introduction</h2>
 
 <!-- ************************************* -->
-<h3><a name="1-1-documents-de-reference">Documents de référence</a></h3>
+<h3 id="1-1-documents-de-reference">Documents de référence</h3>
 <ul>
     <li><a href="http://junit.sourceforge.net/junit3.8.1/doc/cookbook/cookbook.htm">http://junit.sourceforge.net/junit3.8.1/doc/cookbook/cookbook.htm</a></li>
     <li>API doc de JUnit : <a href="http://junit.sourceforge.net/junit3.8.1/javadoc/index.html">http://junit.sourceforge.net/junit3.8.1/javadoc/index.html</a></li>
@@ -92,7 +93,7 @@ JUnit fournit une API permettant d'organiser les tests unitaires d'une applicati
 <br>Les <code>TestCase</code> sont ensuite regroupés en <code>TestSuite</code>, ce qui permet d'exécuter tous les test cases en une seule commande.
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-testcase-tester-une-classe">TestCase : tester une classe</a></h2>
+<h2 id="testcase-tester-une-classe">TestCase : tester une classe</h2>
 
 Utilise comme exemple les tests unitaires de la classe <code>Pile</code>, question1 du TP3.                                          
 <br>
@@ -174,7 +175,7 @@ Dans une méthode de test, on utilise des <code>assertions</code>, méthodes de 
 <br><code>assertTrue()</code> et <code>assertEqual()</code> font partie des méthodes les plus couramment utilisées.
 
 <!-- ************************************* -->
-<h3><a name="2-1-executer-un-test">Exécuter un test</a></h3>
+<h3 id="2-1-executer-un-test">Exécuter un test</h3>
 
 Pour compiler une classe de test, ne pas oublier de mettre junit.jar dans le classpath.
 <br>
@@ -183,7 +184,7 @@ Pour compiler une classe de test, ne pas oublier de mettre junit.jar dans le cla
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="3-executer-une-suite-de-tests-testsuite">Exécuter une suite de tests : TestSuite</a></h2>
+<h2 id="executer-une-suite-de-tests-testsuite">Exécuter une suite de tests : TestSuite</h2>
 
 Pour rassembler plusieurs test cases en une seule exécution :
 
@@ -208,7 +209,7 @@ Pour compiler, junit.jar doit être dans le classpath.
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="4-tester-les-exceptions">Tester les exceptions</a></h2>
+<h2 id="tester-les-exceptions">Tester les exceptions</h2>
 On peut tester qu'une exception est bien lancée dans un test unitaire en utilisant <code>junit.framework.Assert.fail()</code>.
 <br>Voir une utilisation dans <a href="../../exemples/java/junit3/exception/">exemples/java/junit3/exception/</a> :
 <pre>
@@ -223,9 +224,6 @@ On peut tester qu'une exception est bien lancée dans un test unitaire en utilis
         }
 </pre>
 
-
-<!-- ********************************************************************************* -->
-<!-- ************************************* -->
 </article>
 </main>
 

@@ -49,20 +49,34 @@ Le résultat est attendu avec un seul chiffre derrière la virgule. Vous pouvez 
 <br>Utiliser la hiérarchie de fichiers suivante :
 <pre>
 tp2-conversion
-    ├── apidoc                      // contient la doc html générée par javadoc
     ├── bin                         // contient les .class générés par javac
+    ├── apidoc                      // contient la doc html générée par javadoc
     ├── src
     │   └── conversion              // package conversion
-    │       ├── Conversion.java     // contient <code>public static void main(String[] args)</code>
-    │       ├── model               // package conversion.model
-    │       │   ├── Degres.java     // contient <code>public static float fahrenheitToCelsius(int f)</code>
-    │       │   └── package.html
-    │       ├── overview.html
-    │       ├── package.html
-    │       └── utils               // package conversion.util
-    │           ├── Format.java     // contient <code>public static float uneDecimale(float x)</code>
-    │           └── package.html
-    └── tests
+    │       ├── model               // package conversion.model
+    │       │   ├── Degres.java     // contient <code>public static float fahrenheitToCelsius(int f)</code>
+    │       │   └── package.html
+    │       ├── utils               // package conversion.utils
+    │       │   ├── Format.java     // contient <code>public static float uneDecimale(float x)</code>
+    │       │   └── package.html
+    │       ├── Conversion.java     // contient <code>public static void main(String[] args)</code>
+    │       ├── overview.html
+    │       └── package.html
+    ├── tests                       // Contient les tests unitaires
+    │   └── conversion
+    │       ├── model
+    │       │   └── DegresTest.java
+    │       ├── utils
+    │       │   └── FormatTest.java
+    │       └── ConversionTestSuite.java
+    ├── compile                     // script contenant la commande javac
+    ├── doc                         // script contenant la commande javadoc
+    ├── run                         // script contenant la commande java
+    ├── test-compile                // script contenant la commande javac pour JUnit
+    ├── test-run                    // script contenant la commande java pour JUnit
+    ├── test-suite-compile          // script contenant la commande javac pour la suite de tests
+    └── test-suite-run              // script contenant la commande java pour la suite de tests
+
 </pre>
 
 Les instructions utilisées en console (à adapter à vos IDEs) depuis le répertoire <code>tp2-conversion/</code>
@@ -97,6 +111,7 @@ Note : les <code>\</code> indiquent sous linux que la même instruction se pours
 
 <li>
     Ecrire des tests unitaires pour les classes <code>Degres</code> et <code>Format</code>.
+    <br>Voir la page <a href="../../../../content/java/junit5.html">JUnit5</a> pour les scripts de compilation en ligne de commande.
 </li>
 
 </ol>

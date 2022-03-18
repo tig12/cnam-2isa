@@ -29,26 +29,27 @@ https://en.wikipedia.org/wiki/Java_Database_Connectivity
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-tests-de-connection">Tests de connection</a>
+            <a href="#tests-de-connection">Tests de connection</a>
             <ul>
                 <li><a href="#1-1-sqlite">Sqlite</a></li>
                 <li><a href="#1-2-postgresql">Postgresql</a></li>
             </ul>
         </li>
         <li>
-            <a href="#2-requetes">Requêtes</a>
+            <a href="#requetes">Requêtes</a>
         </li>
         <li>
-            <a href="#3-prepared-statements">Prepared statements</a>
+            <a href="#prepared-statements">Prepared statements</a>
         </li>
         <li>
-            <a href="#4-transactions">Transactions</a>
+            <a href="#transactions">Transactions</a>
         </li>
         <li>
-            <a href="#5-maps">Maps</a>
+            <a href="#maps">Maps</a>
         </li>
     </ul>
 </nav>
+
 
 
 
@@ -106,7 +107,7 @@ Permet d'écrire du code indépendant du DBMS utilisé ; attention cependant aux
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-tests-de-connection">Tests de connection</a></h2>
+<h2 id="tests-de-connection">Tests de connection</h2>
 
 Le code suivant teste la connection à différents DBMS :
 <pre>
@@ -185,7 +186,7 @@ Pour se connecter, il faut spécifier les paramètres de connection, ce qui est 
 
 
 <!-- ************************************* -->
-<h3><a name="1-1-sqlite">Sqlite</a></h3>
+<h3 id="1-1-sqlite">Sqlite</h3>
 Il faut télécharger le driver jdbc correspondant à la version de sqlite installée sur votre machine, sur <a href="https://bitbucket.org/xerial/sqlite-jdbc/downloads/">https://bitbucket.org/xerial/sqlite-jdbc/downloads/</a>.
 <br>L'url de connection est de la forme :
 <pre>jdbc:sqlite:/path/to/dbfile></pre>
@@ -197,7 +198,7 @@ Dans l'url de connection, on spécifie le chemin (relatif ou absolu) vers le fic
 
 
 <!-- ************************************* -->
-<h3><a name="1-2-postgresql">Postgresql</a></h3>
+<h3 id="1-2-postgresql">Postgresql</h3>
 Le driver peut être récupéré sur <a href="https://jdbc.postgresql.org/">https://jdbc.postgresql.org/</a>
 <br>Pour postgres, l'url de connection est de la forme :
 <pre>jdbc:postgresql://&lt;database_host>:&lt;port>/&lt;database_name></pre>
@@ -205,23 +206,20 @@ Le port est optionnel si on utilise le port par défaut (5432)
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-requetes">Requêtes</a></h2>
+<h2 id="requetes">Requêtes</h2>
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="3-prepared-statements">Prepared statements</a></h2>
+<h2 id="prepared-statements">Prepared statements</h2>
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="4-transactions">Transactions</a></h2>
+<h2 id="transactions">Transactions</h2>
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="5-maps">Maps</a></h2>
+<h2 id="maps">Maps</h2>
 
-
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->
 </article>
 </main>
 

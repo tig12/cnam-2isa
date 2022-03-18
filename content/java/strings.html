@@ -25,7 +25,7 @@
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-la-classe-string">La classe String</a>
+            <a href="#la-classe-string">La classe String</a>
             <ul>
                 <li><a href="#1-1-tableau-de-caracteres">Tableau de caractères</a></li>
                 <li><a href="#1-2-comparaison-de-chaines">Comparaison de chaînes</a></li>
@@ -34,13 +34,14 @@
             </ul>
         </li>
         <li>
-            <a href="#2-classes-stringbuilder-et-stringbuffer">Classes StringBuilder et StringBuffer</a>
+            <a href="#classes-stringbuilder-et-stringbuffer">Classes StringBuilder et StringBuffer</a>
         </li>
         <li>
-            <a href="#3-string-formating">String formating</a>
+            <a href="#string-formating">String formating</a>
         </li>
     </ul>
 </nav>
+
 
 
 
@@ -54,7 +55,7 @@ Les chaînes de caractères sont manipulées en java à l'aide de trois classes 
 <br>La classe <code>String</code> est <b>immuable</b>, alors que <code>StringBuffer</code> et <code>StringBuilder</code> sont modifiables.
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-la-classe-string">La classe String</a></h2>
+<h2 id="la-classe-string">La classe String</h2>
 
 Une <code>String</code> est un objet, que l'on peut donc créer en utilisant l'opérateur <code>new</code> :
 <pre>String s1 = new String("abc");</pre>
@@ -92,7 +93,7 @@ String singleLine = """
 
 
 <!-- ************************************* -->
-<h3><a name="1-1-tableau-de-caracteres">Tableau de caractères</a></h3>
+<h3 id="1-1-tableau-de-caracteres">Tableau de caractères</h3>
 En interne, une String est représentée par un tableau de <code>char</code> (16 bits) ; depuis java 9, si une <code>String</code> ne contient que des caractères ISO-8859-1, la représentation est optimisée pour utiliser des <code>byte</code> (8 bits) ; on parle de compact strings.
 <pre>String s1 = "abc";</pre>
 est équivalent à :
@@ -118,7 +119,7 @@ for(int i=0; i &lt; s2.<b>length()</b>; i++){
 (code dans <a href="../../exemples/java/strings/CharAt.java">CharAt.java</a>)
 
 <!-- ************************************* -->
-<h3><a name="1-2-comparaison-de-chaines">Comparaison de chaînes</a></h3>
+<h3 id="1-2-comparaison-de-chaines">Comparaison de chaînes</h3>
 
 Comme pour les autres objets, l'opérateur <code>==</code> teste <b>l'égalité des références</b> et ne renverra pas <code>true</code> si le contenu de deux chaînes est identique (ce qui est le résultat auquel on s'attend intuitivement).
 <br>Dans le cas général, <code>Object.equals()</code> revient au même que <code>==</code>, mais <code>equals()</code> est overridé dans <code>String</code> pour faire une comparaison caractère par caractère et renvoyer un résultat conforme à l'intuition (voir la page <a href="object.html">java.lang.Object</a> pour la comparaison des objets en général).
@@ -174,7 +175,7 @@ D'après le test dans <code>Equals1</code>, on s'attend à ce que <code>s1 == s2
 
 
 <!-- ************************************* -->
-<h3><a name="1-3-concatenation">Concaténation</a></h3>
+<h3 id="1-3-concatenation">Concaténation</h3>
 
 La classe <code>String</code> contient une méthode <code>concat()</code>, pas très pratique pour une opération si fréquente.
 <br>Java permet donc la concaténation de chaînes avec l'opérateur <code>+</code>.
@@ -280,7 +281,7 @@ concat StringBuilder : dt = 8
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="1-4-methodes-frequentes">Méthodes fréquentes</a></h3>
+<h3 id="1-4-methodes-frequentes">Méthodes fréquentes</h3>
 La classe <code>String</code> contient de nombreuses méthodes pour manipuler les chaînes ; voir la liste complète dans <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">la documentation de l'API java</a>.
 
 <ul class="spaced">
@@ -316,7 +317,7 @@ toLowerCase()</pre>
 </ul>
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-classes-stringbuilder-et-stringbuffer">Classes StringBuilder et StringBuffer</a></h2>
+<h2 id="classes-stringbuilder-et-stringbuffer">Classes StringBuilder et StringBuffer</h2>
 Ces deux classes représentent aussi des chaînes de caractères, mais sont <b>mutables</b>.
 <br>Il est donc conseillé de les utiliser pour des raisons de performance lorsqu'on a du code qui manipule des chaînes.
 <br>Les deux méthodes les plus utiles sont <code>append()</code> et <code>insert()</code>.
@@ -335,7 +336,7 @@ Ces deux classes représentent aussi des chaînes de caractères, mais sont <b>m
 </div>
 
 <!-- ********************************************************************************* -->
-<h2><a name="3-string-formating">String formating</a></h2>
+<h2 id="string-formating">String formating</h2>
 
 Un équivalent de <code>printf()</code> existe en java :
 <pre>System.out.printf("format-string" [, arg1, arg2, ... ]);</pre>
@@ -369,9 +370,6 @@ La même syntaxe peut être utilisée avec <code>String.format()</code>.
 
 <br>
 <br>La référence complète se trouve <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Formatter.html">dans le javadoc de la classe <code>java.util.Formatter</code></a>
-
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->
 
 </article>
 </main>

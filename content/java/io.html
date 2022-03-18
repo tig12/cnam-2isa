@@ -25,23 +25,27 @@
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-java-i-o-classique">Java I / O classique</a>
+            <a href="#java-i-o-classique">Java I / O classique</a>
             <ul>
-                <li><a href="#1-1-streams">Streams</a></li>
-                <li><a href="#1-2-readers-et-writers">Readers et Writers</a></li>
-                <li><a href="#1-3-try-with-resources-twr">try with resources (TWR)</a></li>
+                <li><a href="#1-1-lecture-ecriture">Lecture écriture</a></li>
+                <li><a href="#1-2-streams">Streams</a></li>
+                <li><a href="#1-3-readers-et-writers">Readers et Writers</a></li>
                 <li><a href="#1-4-fichiers-distants">Fichiers distants</a></li>
             </ul>
         </li>
         <li>
-            <a href="#2-java-i-o-moderne">Java I / O moderne</a>
+            <a href="#try-with-resources-twr">try with resources (TWR)</a>
+        </li>
+        <li>
+            <a href="#java-i-o-moderne-java-nio">Java I / O moderne (java.nio)</a>
             <ul>
-                <li><a href="#2-1-paths">Paths</a></li>
-                <li><a href="#2-2-files">Files</a></li>
+                <li><a href="#3-1-paths">Paths</a></li>
+                <li><a href="#3-2-files">Files</a></li>
             </ul>
         </li>
     </ul>
 </nav>
+
 
 </header>
 
@@ -55,7 +59,7 @@
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-java-i-o-classique">Java I / O classique</a></h2>
+<h2 id="java-i-o-classique">Java I / O classique</h2>
 
 API présente dès le début de java, package <code>java.io</code>.
 <br>La classe principale est <b><code>java.io.File</code></b>, qui représente à la fois un fichier et ou un répertoire.
@@ -133,7 +137,7 @@ File[] files = dir.listFiles();
 <br>Noter qu'il n'y a pas de méthode pour lire le contenu d'un fichier.
 
 <!-- ************************************* -->
-<h3>Lecture écriture</h3>
+<h3 id="1-1-lecture-ecriture">Lecture écriture</h3>
 <!-- http://thecodersbreakfast.net/index.php?post/2012/01/15/java-io-explique-simplement -->
 L'API java pour lire ou écrire dans des fichiers est déroutante au premier abord mais pratique à l'utilisation.
 
@@ -156,7 +160,7 @@ Chaque classe a des sous-classes permettant de travailler sur des sources de don
 <br>On choisit la source de données et les fonctionnalités utilisables en emboîtant ces classes, qui implémentnent le pattern <a href="../patterns/decorator.html">Decorator</a>.
 
 <!-- ************************************* -->
-<h3><a name="1-1-streams">Streams</a></h3>
+<h3 id="1-2-streams">Streams</h3>
 Les I/O streams (attention : différents des streams introduits en java8 pour les collections) permettent de gérer des <b>flux d'octets</b> en provenance du disque <i>ou d'autres sources</i>.
 <br>API organisée autour de 2 classes abstraites : <code>InputStream</code> et <code>OutputStream</code> et de leurs sous-classes.
 <br>
@@ -184,7 +188,7 @@ Les I/O streams (attention : différents des streams introduits en java8 pour le
 <br>Noter la syntaxe inhabituelle du try, voir try-with-resources plus loin.
 
 <!-- ************************************* -->
-<h3><a name="1-2-readers-et-writers">Readers et Writers</a></h3>
+<h3 id="1-3-readers-et-writers">Readers et Writers</h3>
 Travailler avec des octets n'étant pas toujours pratique, deux autres classes abstraites, <code>Reader</code> et <code>Writer</code> permettent de travailler au niveau des <b>caractères</b>.
 <br>Sous-classes fréquemment utilisées :
 <pre class="normal">
@@ -211,7 +215,7 @@ BufferedWriter
 <br>On peut passer d'une représentation "octet" à une représentation "caractère" en utilisant les classes <code>InputStreamReader</code> et <code>OutputStreamWriter</code>.
 
 <!-- ************************************* -->
-<h3><a name="1-4-fichiers-distants">Fichiers distants</a></h3>
+<h3 id="1-4-fichiers-distants">Fichiers distants</h3>
 En utilisant des classes du package <code>java.net</code>, on peut lire des fichiers distants :
 <pre>
 import java.io.*;
@@ -248,7 +252,7 @@ class RemoteExample{
 </div>
 
 <!-- ************************************* -->
-<h2><a name="1-3-try-with-resources-twr">try with resources (TWR)</a></h2>
+<h2 id="try-with-resources-twr">try with resources (TWR)</h2>
 A lire avant : <a href="exceptions.html">Exceptions</a>
 <br>
 <br>Mécanisme introduit en java 7, particulièrement utile pour java.io :
@@ -276,7 +280,7 @@ Similaire à <code>using</code> en C#.
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-java-i-o-moderne">Java I / O moderne (java.nio)</a></h2>
+<h2 id="java-i-o-moderne-java-nio">Java I / O moderne (java.nio)</h2>
 <!-- 
 http://tutorials.jenkov.com/java-nio/index.html
 https://www.ibm.com/developerworks/java/tutorials/j-nio/j-nio.html
@@ -288,7 +292,7 @@ Nouvelle API introduite en java 4, fournit un remplacement presque complet de <c
 <br>Les classes principales sont dans le package <b><code>java.nio.file</code></b>.
 
 <!-- ************************************* -->
-<h3><a name="2-1-paths">Paths</a></h3>
+<h3 id="3-1-paths">Paths</h3>
 Représente le chemin d'un fichier dans un système de fichier.
 <br>Peut être absolu ou relatif
 <br>Peut correspondre ou pas à un fichier existant.
@@ -367,7 +371,7 @@ class PathExamples{
 <br>Remarquer qu'aucune <code>IOException</code> n'est lancée.
 
 <!-- ************************************* -->
-<h3><a name="2-2-files">Files</a></h3>
+<h3 id="3-2-files">Files</h3>
 On peut toujours travailler avec des <code>java.io.File</code> ou directement avec des <code>java.nio.file.Path</code>.
 <br>Pour passer de l'un à l'autre, on peut utiliser <code>Path.toFile()</code> ou <code>File.toPath()</code> (since java 1.7).
 <br>
@@ -506,8 +510,6 @@ async io
     directory searching
 -->
 
-<!-- ************************************* -->
-<!-- ********************************************************************************* -->
 </article>
 </main>
 

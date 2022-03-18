@@ -25,37 +25,38 @@
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-generic-types">Generic types</a>
+            <a href="#generic-types">Generic types</a>
             <ul>
                 <li><a href="#1-1-inference-de-type">Inférence de type</a></li>
             </ul>
         </li>
         <li>
-            <a href="#2-parametrer-avec-plusieurs-types">Paramétrer avec plusieurs types</a>
+            <a href="#parametrer-avec-plusieurs-types">Paramétrer avec plusieurs types</a>
         </li>
         <li>
-            <a href="#3-raw-types">Raw types</a>
+            <a href="#raw-types">Raw types</a>
         </li>
         <li>
-            <a href="#4-methodes-generiques">Méthodes génériques</a>
+            <a href="#methodes-generiques">Méthodes génériques</a>
         </li>
         <li>
-            <a href="#5-bounded-type-parameters">Bounded type parameters</a>
+            <a href="#bounded-type-parameters">Bounded type parameters</a>
         </li>
         <li>
-            <a href="#6-heritage">Héritage</a>
+            <a href="#heritage">Héritage</a>
         </li>
         <li>
-            <a href="#7-sous-classage">Sous-classage</a>
+            <a href="#sous-classage">Sous-classage</a>
         </li>
         <li>
-            <a href="#8-wildcard">Wildcard</a>
+            <a href="#wildcard">Wildcard</a>
         </li>
         <li>
-            <a href="#9-type-erasure">Type erasure</a>
+            <a href="#type-erasure">Type erasure</a>
         </li>
     </ul>
 </nav>
+
 
 
 
@@ -133,7 +134,7 @@ l.add(Integer.valueOf(3)); // erreur à la compilation
 </ul>
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-generic-types">Generic types</a></h2>
+<h2 id="generic-types">Generic types</h2>
 (= types génériques)
 <br>
 <br>Soit une classe <code>Box</code> qui encapsule un objet, avec deux méthodes, <code>get()</code> et <code>set()</code>.
@@ -194,7 +195,7 @@ java.util.stream.Stream&lt;T>
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="1-1-inference-de-type">Inférence de type</a></h3>
+<h3 id="1-1-inference-de-type">Inférence de type</h3>
 
 Depuis java 7, il est possible de ne pas spécifier le type lorsqu'il peut être <b>inféré</b> (deviné) par le compilateur :
 <pre>Box&lt;String> b = new Box&lt;String>;</pre>
@@ -203,7 +204,7 @@ peut être remplacé par :
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-parametrer-avec-plusieurs-types">Paramétrer avec plusieurs types</a></h2>
+<h2 id="parametrer-avec-plusieurs-types">Paramétrer avec plusieurs types</h2>
 La syntaxe générale est <code>&lt;T1, T2, ..., Tn></code> (les <code>Ti</code> représentent des types).
 <pre>
 public interface Pair&lt;K, V> {
@@ -236,7 +237,7 @@ Voir par exemple dans l'API <code>java.util.Map</code>
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="3-raw-types">Raw types</a></h2>
+<h2 id="raw-types">Raw types</h2>
 Si on a :
 <pre>
 public class Box&lt;T> {
@@ -317,7 +318,7 @@ public class TestRawType2{
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="4-methodes-generiques">Méthodes génériques</a></h2>
+<h2 id="methodes-generiques">Méthodes génériques</h2>
 Méthode générique = méthode qui introduit ses propres types paramétrés, <i><b>mais dont la portée est limitée à la méthode</b></i>. 
 <br>Meme syntaxe que pour la déclaration de types paramétrés.
 <br>Peut se trouver dans des méthodes statiques, d'instance ou des constructeurs.
@@ -366,7 +367,7 @@ public class TestGenericMethods1{
 <br>La classe <code>Util</code> ne définit pas de type paramétré. Pour permettre à <code>compare()</code> d'utiliser des types paramétrés, on a besoin de paramétrer la méthode.
 
 <!-- ********************************************************************************* -->
-<h2><a name="5-bounded-type-parameters">Bounded type parameters</a></h2>
+<h2 id="bounded-type-parameters">Bounded type parameters</h2>
 ( = types paramétrés limités)
 
 <!-- 
@@ -452,7 +453,7 @@ On peut aussi spécifier des limites multiples :
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="6-heritage">Héritage</a></h2>
+<h2 id="heritage">Héritage</h2>
 En java, on peut assigner des objets d'un type à des objets d'un autre type, si ces types sont compatibles :
 <pre>
 Object someObject = new Object();
@@ -486,7 +487,7 @@ Est-ce qu'on peut passer à cette méthode des <code>Box&lt;Integer></code> ou d
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="7-sous-classage">Sous-classage</a></h2>
+<h2 id="sous-classage">Sous-classage</h2>
 On peut sous-classer une classe ou une interface générique avec les clauses <code>extends</code> et <code>implements</code>.
 <br>Exemple pour les sous-classes de <code>java.util.Collection</code>
 <pre>
@@ -517,7 +518,7 @@ interface PayloadList&lt;E,P> extends List&lt;E> {
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="8-wildcard">Wildcard</a></h2>
+<h2 id="wildcard">Wildcard</h2>
 (wildcard = joker, comme <code>*</code> dans une expression régulière ou <code>%</code> en sql)
 <br>Ici, le caractère utilisé est <code><b>?</b></code>
 <br><code>?</code> représente un <b>type inconnu à la compilation</b>.
@@ -662,7 +663,7 @@ List&lt;? extends A>  la = lb;
 </div>
 
 <!-- ********************************************************************************* -->
-<h2><a name="9-type-erasure">Type erasure</a></h2>
+<h2 id="type-erasure">Type erasure</h2>
 A savoir : tous les types sont traduits à la compilation ; le code compilé se retrouve sans type générique.
 <br>La traduction n'est pas triviale, par exemple des casts sont rajoutés, des méthodes supplémentaires sont générées dans le cas d'utilisation de <code>extends</code>.
 
@@ -675,4 +676,3 @@ A savoir : tous les types sont traduits à la compilation ; le code compilé se 
 
 </body>
 </html>
-

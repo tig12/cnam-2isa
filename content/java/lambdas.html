@@ -35,7 +35,7 @@ Using lambda expression, you can refer to any final variable or effectively fina
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-lambdas-et-functional-interfaces">Lambdas et functional interfaces</a>
+            <a href="#lambdas-et-functional-interfaces">Lambdas et functional interfaces</a>
             <ul>
                 <li><a href="#1-1-regles-syntaxiques-des-lambdas">Règles syntaxiques des lambdas</a></li>
                 <li><a href="#1-2-exemple">Exemple</a></li>
@@ -43,20 +43,21 @@ Using lambda expression, you can refer to any final variable or effectively fina
             </ul>
         </li>
         <li>
-            <a href="#2-method-reference">Method reference</a>
+            <a href="#method-reference">Method reference</a>
         </li>
         <li>
-            <a href="#3-generalites">Généralités</a>
+            <a href="#generalites">Généralités</a>
         </li>
     </ul>
 </nav>
+
 </header>
 
 <main>
 <article>
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-lambdas-et-functional-interfaces">Lambdas et functional interfaces</a></h2>
+<h2 id="lambdas-et-functional-interfaces">Lambdas et functional interfaces</h2>
 Introduites en java 8, les lambdas expressions sont des fonctions (des méthodes) anonymes qui sont traitées comme des <i>valeurs</i> par le langage.
 <br>La syntaxe est :
 
@@ -108,7 +109,7 @@ r.run();
 (code dans <a href="../../exemples/java/lambdas/Run.java">Run.java</a>)
 
 <!-- ************************************* -->
-<h3><a name="1-1-regles-syntaxiques-des-lambdas">Règles syntaxiques des lambdas</a></h3>
+<h3 id="1-1-regles-syntaxiques-des-lambdas">Règles syntaxiques des lambdas</h3>
 <ul>
     <li>Inutile de déclarer les types des paramètres car le compilateur peut les inférer.</li>
     <li>Si la lambda ne contient qu'un seul paramètre, les parenthèses peuvent être omises.</li>
@@ -118,7 +119,7 @@ r.run();
 Ce sont les mêmes règles utilisées pour les fonctions fléchées de javascript (voir <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Fonctions/Fonctions_fl%C3%A9ch%C3%A9es">developer.mozilla.org</a>).
 
 <!-- ************************************* -->
-<h3><a name="1-2-exemple">Exemple</a></h3>
+<h3 id="1-2-exemple">Exemple</h3>
 <pre>
 public class LambdaDemo1{
 
@@ -158,7 +159,7 @@ public class LambdaDemo1{
 
 
 <!-- ************************************* -->
-<h3><a name="1-3-retour-sur-filenamefilter">Retour sur FilenameFilter</a></h3>
+<h3 id="1-3-retour-sur-filenamefilter">Retour sur FilenameFilter</h3>
 On reprend l'exemple des <a href="nested.html#5-classes-anonymes">classes anonymes</a> en allant voir l'interface <code>FilenameFilter</code> :
 <pre>
 package java.io;
@@ -217,7 +218,7 @@ String[] files =
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-method-reference">Method reference</a></h2>
+<h2 id="method-reference">Method reference</h2>
 
 Raccourci syntaxique lorsqu'il n'y a qu'un seul paramètre et que le corps de la lambda ne contient qu'une instruction contenant une seule méthode.
 <br>
@@ -237,7 +238,7 @@ peut être exprimé par :
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="3-generalites">Généralités</a></h2>
+<h2 id="generalites">Généralités</h2>
  
 Une motivation importante ayant conduit à l'introduction des lambdas en java est leur utilité dans les <a href="collections.html">collections</a>.
 <br>

@@ -25,20 +25,20 @@
 <nav class="toc">
     <ul>
         <li>
-            <a href="#1-l-interface-collection">L'interface collection</a>
+            <a href="#l-interface-collection">L'interface collection</a>
         </li>
         <li>
-            <a href="#2-iteration">Itération</a>
+            <a href="#iteration">Itération</a>
             <ul>
                 <li><a href="#2-1-iteration-classique">Itération classique</a></li>
                 <li><a href="#2-2-iterator">Iterator</a></li>
             </ul>
         </li>
         <li>
-            <a href="#3-maps">Maps</a>
+            <a href="#maps">Maps</a>
         </li>
         <li>
-            <a href="#4-collections-streams-et-lambda-expressions">Collections, streams et lambda expressions</a>
+            <a href="#collections-streams-et-lambda-expressions">Collections, streams et lambda expressions</a>
             <ul>
                 <li><a href="#4-1-collection-stream-api">Collection stream API</a></li>
                 <li><a href="#4-2-filter">filter()</a></li>
@@ -50,6 +50,7 @@
         </li>
     </ul>
 </nav>
+
 
 
 
@@ -99,7 +100,7 @@ if(!(l instanceof RandomAccess)) l = new ArrayList&lt;?>(l);
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="1-l-interface-collection">L'interface collection</a></h2>
+<h2 id="l-interface-collection">L'interface collection</h2>
 
 Définit les méthodes communes à toutes les implémentations, voir <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html">l'apidoc de <code>java.util.Collection</code></a>.
 <br><code>Collection&lt;E></code>, paramétrée par le type d'éléments qu'elle contient.
@@ -144,10 +145,10 @@ String[] strings = c.toArray(new String[c.size()]);
 Toutes ces opérations sont utilisables avec n'importe quelle implémentation des sous-interfaces de <code>Collection</code> (<code>Set</code>, <code>List</code> ou <code>Queue</code>).
 
 <!-- ********************************************************************************* -->
-<h2><a name="2-iteration">Itération</a></h2>
+<h2 id="iteration">Itération</h2>
 
 <!-- ************************************* -->
-<h3><a name="2-1-iteration-classique">Itération classique</a></h3>
+<h3 id="2-1-iteration-classique">Itération classique</h3>
 
 Boucle <i>for</i> ou <i>foreach</i> :
 <pre>
@@ -163,7 +164,7 @@ for( declaration : expression )
 </pre>
 
 <!-- ************************************* -->
-<h3><a name="2-2-iterator">Iterator</a></h3>
+<h3 id="2-2-iterator">Iterator</h3>
 
 <code>expression</code> doit être un tableau, ou une classe implémentant <code>java.lang.Iterable</code>.
 <pre>
@@ -210,7 +211,7 @@ Attention, <code>next()</code> fait 2 choses : renvoie l'élément courant de l'
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="3-maps">Maps</a></h2>
+<h2 id="maps">Maps</h2>
 
 Une map est une collection contenant des associations clé, valeur ; parfois appelé dictionnaire ou tableau associatif.
 <br>
@@ -267,14 +268,14 @@ public class MapTest{
 
 
 <!-- ********************************************************************************* -->
-<h2><a name="4-collections-streams-et-lambda-expressions">Collections, streams et lambda expressions</a></h2>
+<h2 id="collections-streams-et-lambda-expressions">Collections, streams et lambda expressions</h2>
 Une des motivations de l'introduction des lambdas expressions est de permettre d'utiliser des collections comme des touts, sans avoir à itérer.
 <br>Dans cette approche, on se concentre sur <i>quoi</i> faire plutôt que <i>comment</i> le faire.
 <br>Cette nouvelle API permet d'appliquer à des collections entières des méthodes comme <code>filter()</code>, <code>map()</code>, <code>reduce()</code> etc.
 
 
 <!-- ************************************* -->
-<h3><a name="4-1-collection-stream-api">Collection stream API</a></h3>
+<h3 id="4-1-collection-stream-api">Collection stream API</h3>
 Pour arriver à ça, les designers de java ont dû résoudre un problème : de nombreuses libs implémentant les interfaces définies par l'API collections ont été développées hors de leur contrôle, notamment des libs permettant de simuler cette nouvelle manière de travailler.
 <br>Le risque de collision de nom était fort donc une nouvelle classe a été introduite :
 <br><code><b>java.util.stream.Stream&lt;T></b></code>
@@ -347,7 +348,7 @@ On peut créer un stream à partir de différentes sources, entre autre :
 
 
 <!-- ************************************* -->
-<h3><a name="4-2-filter">filter()</a></h3>
+<h3 id="4-2-filter">filter()</h3>
 Idiome appliquant du code (qui renvoie un booléen) à chaque élément de la collection, et fabrique une nouvelle collection à partir des éléments passant le test.
 
 <pre>
@@ -382,7 +383,7 @@ System.out.println(pride);
 <br>Remarquer que dans cet exemple, on a converti le tableau en <code>List</code>, puis créé le stream à partir de la <code>List</code>.
 
 <!-- ************************************* -->
-<h3><a name="4-3-map">map()</a></h3>
+<h3 id="4-3-map">map()</h3>
 Idiome permettant de transformer une collection en une collection d'un type potentiellement différent.
 <br><code>map()</code> prend en paramètre une <code>java.util.function.Function&lt;T, R></code>, interface fonctionnelle qui représente une fonction, dont la méthode fonctionnelle est :
 <pre>R apply(T t)</pre>
@@ -404,7 +405,7 @@ System.out.println(namesLength);
 <br>Rappel : <code>String::length</code> est équivalent à <code>s -> s.length();</code> ("bound method reference").
 
 <!-- ************************************* -->
-<h3><a name="4-4-foreach">forEach()</a></h3>
+<h3 id="4-4-foreach">forEach()</h3>
 Idiome permettant de modifier une collection.
 <br><code>forEach()</code> prend en paramètre un <code>java.util.function.Consumer&lt;T></code>, interface fonctionnelle dont la méthode fonctionnelle est :
 <pre>void accept(T t)</pre>
@@ -428,7 +429,7 @@ cats.forEach(<b>System.out::println</b>);
 
 
 <!-- ************************************* -->
-<h3><a name="4-5-reduce">reduce()</a></h3>
+<h3 id="4-5-reduce">reduce()</h3>
 Permet d'effectuer des opérations d'aggrégations.
 <pre>
 T reduce(T identity,
@@ -458,7 +459,7 @@ System.out.println("Somme : " + sommePremiers);
 
 
 <!-- ************************************* -->
-<h3><a name="4-6-generators-lazy-evaluation-infinite-streams">Generators, lazy evaluation, infinite streams</a></h3>
+<h3 id="4-6-generators-lazy-evaluation-infinite-streams">Generators, lazy evaluation, infinite streams</h3>
 cf "Java in a nutshell", 6th edition, chap 7, p 222.
 <br>
 <br>D'autres langages fournissent aussi ces possibilités : <a href="http://php.net/manual/en/language.generators.syntax.php">PHP</a>, <a href="https://wiki.python.org/moin/Generators">Python</a>.
