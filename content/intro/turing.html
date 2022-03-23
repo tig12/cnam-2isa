@@ -30,6 +30,26 @@
 <h1>
 La machine de Turing
 </h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#mt1-machine-de-turing-1">MT1 - Machine de Turing 1</a>
+        </li>
+        <li>
+            <a href="#td-machine-de-turing">TD Machine de Turing</a>
+            <ul>
+                <li><a href="#2-1-implementation">Implémentation</a></li>
+                <li><a href="#2-2-changement-de-m-configurations">Changement de m-configurations</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#machine-de-turing-mt2">Machine de Turing MT2</a>
+        </li>
+        <li>
+            <a href="#td-machine-de-turing-suite">TD Machine de Turing (suite)</a>
+        </li>
+    </ul>
+</nav>
 </header>
 
 <main>
@@ -106,7 +126,7 @@ Turing appelle <b>configuration</b> le couple (m-config courante, symbole couran
 <br>La configuration détermine le comportement attendu de la machine.
 
 <!-- ********************************************************************************* -->
-<h2>MT1 - Machine de Turing 1</h2>
+<h2 id="mt1-machine-de-turing-1">MT1 - Machine de Turing 1</h2>
 
 Reproduit fidèlement la première machine présentée dans l'article original de Turing.
 <br>Référence : <b>[AT]</b> p 81
@@ -164,7 +184,7 @@ On peut se demander pourquoi laisser des cases vides entre 2 symboles 0 ou 1 aff
 
 
 <!-- ********************************************************************************* -->
-<h2>TD Machine de Turing</h2>
+<h2 id="td-machine-de-turing">TD Machine de Turing</h2>
 <div class="intro">
 <b>But</b> : Implémenter la machine MT1 dans un langage familier, puis la traduire en java
 </div>
@@ -189,7 +209,7 @@ Considérez le point suivant : on cherche à implémenter une machine qui puisse
 </div>
 
 <!-- ************************************* -->
-<h3>Implémentation</h3>
+<h3 id="2-1-implementation">Implémentation</h3>
 
 <div class="exo">
 Ecrivez un programme qui implémente cette machine, <b>dans le langage de votre choix</b>.
@@ -253,7 +273,7 @@ Tape : | 0 |   | 1 |   | 0 |   |
 </pre>
 
 <!-- ************************************* -->
-<h3>Changement de m-configurations</h3>
+<h3 id="2-2-changement-de-m-configurations">Changement de m-configurations</h3>
 Turing donne ensuite une autre table de m-config qui fait exactement la même chose, mais différement : il y a une seule m-config et les opérations dépendent de <code>Current symbol</code>.
 <br>(<b>[AT]</b> p 84)
 
@@ -283,7 +303,7 @@ Ecrivez un fichier de configuration avec cette nouvelle table, et vérifiez que 
 </div>
 
 <!-- ********************************************************************************* -->
-<h2>Machine de Turing MT2</h2>
+<h2 id="machine-de-turing-mt2">Machine de Turing MT2</h2>
 
 La seconde machine présentée par Turing (<b>[AT] p 85</b>) affiche la séquence
 <br><code>&#601; &#601; 0 0 1 0 1 1 0 1 1 1 0 1 1 1 1 0 1 1 1 1 1 0 ...</code>
@@ -409,7 +429,7 @@ Générer en SVG le schéma précédent.
 </div>
 
 <!-- ********************************************************************************* -->
-<h2>TD Machine de Turing (suite)</h2>
+<h2 id="td-machine-de-turing">TD Machine de Turing</h2>
 
 Après avoir vu les implémentations php, analysez l'implémentation <code>turing1-java</code>
 <br>Cette implémentation a été implémentée "à la php", en utilisant des Maps. On peut voir que cette approche a ses limites en java : on ne peut pas typer correctement Machine.mconfigs.

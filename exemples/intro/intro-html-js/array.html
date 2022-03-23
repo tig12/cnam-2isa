@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Exemple array javascript</title>
+</head>
+
+<body>
+
+<h1>Exemple array javascript</h1>
+
+<script>
+
+let langages = ['javascript', 'php', 'python'];
+
+/* 
+Remarquer l'utilisation des backticks.
+
+document.write(`<br>langages[0] = '${langages[0]}'`);
+équivalent à 
+document.write("<br>langages[0] = '" + langages[0] + "'");
+
+*/
+
+document.write(`<br>langages[0] = '${langages[0]}'`);
+document.write(`<br>langages[1] = '${langages[1]}'`);
+document.write(`<br>langages[2] = '${langages[2]}'`);
+
+document.write('<br>');
+document.write(`<br>langages[3] = '${langages[3]}'`);
+
+langages[1] = 'java';
+langages[3] = 'go';
+
+// length
+document.write('<br>');
+document.write(`<br>langages.length = ${langages.length}`);
+
+document.write('<br>');
+document.write(`<br>Premier élément = '${langages[0]}'`);
+document.write(`<br>Dernier élément = '${langages[langages.length - 1]}'`);
+
+// boucle for
+document.write('<br>');
+document.write('<br>Affichage avec une boucle for');
+for(let i=0; i < langages.length; i++){
+    document.write(`<br>langages[${i}] = '${langages[i]}'`);
+}
+
+// boucle foreach
+document.write('<br>');
+document.write('<br>Affichage avec une boucle foreach');
+langages.forEach(afficher);
+
+function afficher(str){
+    document.write('<br>' + str);
+}
+
+</script>
+
+</body>
+</html>

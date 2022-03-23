@@ -14,6 +14,56 @@
 
 <header>
 <h1>Atelier découverte programmation</h1>
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#navigateur-web-document-html">Navigateur web, document HTML</a>
+        </li>
+        <li>
+            <a href="#html">HTML</a>
+        </li>
+        <li>
+            <a href="#javascript">Javascript</a>
+            <ul>
+                <li><a href="#3-1-incruster-des-instructions-javascript-dans-une-page">Incruster des instructions javascript dans une page</a></li>
+                <li><a href="#3-2-definir-une-variable">Définir une variable</a></li>
+                <li><a href="#3-3-operateurs">Opérateurs</a></li>
+                <li><a href="#3-4-expression">Expression</a></li>
+                <li><a href="#3-5-commentaires">Commentaires</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#fonctions">Fonctions</a>
+        </li>
+        <li>
+            <a href="#outils-pour-programmer">Outils pour programmer</a>
+            <ul>
+                <li><a href="#5-1-console-javascript">Console javascript</a></li>
+                <li><a href="#5-2-editeur-de-texte">Editeur de texte</a></li>
+                <li><a href="#5-3-organiser-son-code">Organiser son code</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#tests">Tests</a>
+            <ul>
+                <li><a href="#6-1-booleens">Booléens</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#boucles">Boucles</a>
+        </li>
+        <li>
+            <a href="#chaines-de-caracteres">Chaînes de caractères</a>
+        </li>
+        <li>
+            <a href="#tableaux">Tableaux</a>
+            <ul>
+                <li><a href="#9-1-length">length</a></li>
+                <li><a href="#9-2-parcourir-un-tableau">Parcourir un tableau</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
 </header>
 
 <div class="intro">
@@ -24,7 +74,7 @@ Objectif : notions de HTML, initiation à la programmation à travers Javascript
 <article>
 
 <!-- ********************************************************************************* -->
-<h2>Navigateur web, document HTML</h2>
+<h2 id="navigateur-web-document-html">Navigateur web, document HTML</h2>
 
 Fonctionnalités utiles d'un navigateur web :
 
@@ -80,7 +130,7 @@ Copiez le fichier <code>test1.html</code>, pour créer un document nommé <code>
 </ol>
 
 <!-- ********************************************************************************* -->
-<h2>HTML</h2>
+<h2 id="html">HTML</h2>
 Parmi les nombreuses références disponibles, <a href="https://developer.mozilla.org/fr">MDN, Mozilla Developer Network</a> ou <a href="https://www.w3schools.com">w3schools.com</a>.
 
 <ol class="spaced">
@@ -157,13 +207,13 @@ Modifiez <code>test1.html</code>
 </ol>
 
 <!-- ********************************************************************************* -->
-<h2>Javascript</h2>
+<h2 id="javascript">Javascript</h2>
 Notions importantes en programmation : <b>instruction</b>, <b>variable</b>, <b>opérateur</b>, <b>expression</b>, <b>test</b>, <b>boucle</b>, <b>fonction</b>.
 
 <br><br>Exemple de référence : <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript">developer.mozilla.org</a>
 
 <!-- ************************************* -->
-<h3>Incruster des instructions javascript dans une page</h3>
+<h3 id="3-1-incruster-des-instructions-javascript-dans-une-page">Incruster des instructions javascript dans une page</h3>
 
 Modifiez <code>test1.html</code> :
 <pre>
@@ -173,7 +223,7 @@ Modifiez <code>test1.html</code> :
 </pre>
 
 <!-- ************************************* -->
-<h3>Définir une variable</h3>
+<h3 id="3-2-definir-une-variable">Définir une variable</h3>
 A l'intérieur de la balise <code>&lt;script></code> :
 <pre>
 let nom = "Mon nom";
@@ -193,8 +243,40 @@ A retenir : une variable a un <b>nom</b> et une <b>valeur</b>.
 
 <br>De plus, chaque variable a un <b>type</b> (chaîne de caractère, nombre entier, nombre à virgule...), mais javascript fait partie des langages "non typés", c'est à dire que les développeurs n'ont pas besoin de préciser le type des variables, le langage s'en charge.
 
+<h4>let, const, var</h4>
+Il existe plusieurs moyens en javascript de déclarer une variable :
+<ul class="spaced">
+    <li>
+        <b>let</b> permet de déclarer une variable dont la valeur va pouvoir changer.
+<pre>
+let i = 1;
+i = i + 3;
+</pre>
+    </li>
+    <li>
+        <b>const</b> permet de déclarer une variable dont la valeur va être toujours la même.
+<pre>
+const i = 1;
+i = i + 3; // ERREUR
+</pre>
+    </li>
+    <li>
+        <b>var</b> permet de déclarer une variable qui va être associée au document HTML, variable globale accessible partout.
+    </li>
+</ul>
+
+CONSEILS :
+<ul>
+    <li>Utiliser <code>const</code> le plus souvent possible, car c'est la solution la plus "économique" (permet à javascript d'optimiser).</li>
+    <li>Si la variable est amenée à changer de valeur, alors utiliser <code>let</code>.</li>
+    <li><code>var</code> est rarement utile.</li>
+</ul>
+
+ATTENTION : on trouve sur internet dans beaucoup d'exemples l'utilisation de <code>var</code> alors qu'il faudrait utiliser <code>const</code> ou <code>let</code>.
+<br>La raison est que, jusqu'en 2015, <code>let</code> et <code>const</code> n'existaient pas en javascript.
+
 <!-- ************************************* -->
-<h3>Opérateurs</h3>
+<h3 id="3-3-operateurs">Opérateurs</h3>
 Un <b>opérateur</b> permet de combiner des expressions pour fabriquer une nouvelle expression.
 
 <table class="wikitable margin">
@@ -249,7 +331,7 @@ Un <b>opérateur</b> permet de combiner des expressions pour fabriquer une nouve
 </table>
 
 <!-- ************************************* -->
-<h3>Expression</h3>
+<h3 id="3-4-expression">Expression</h3>
 Une <b>expression</b> est une combinaison d'identifiants ou de valeurs littérales qui peut prendre une <b>valeur</b>.
 <br>Par exemple
 <pre>
@@ -258,7 +340,7 @@ b = 5*a;
 </pre>
 
 <!-- ************************************* -->
-<h3>Commentaires</h3>
+<h3 id="3-5-commentaires">Commentaires</h3>
 <ul>
     <li>
         Commenter une seule ligne avec <code>//</code> :
@@ -299,7 +381,7 @@ Valeur de y : 35
 
 
 <!-- ********************************************************************************* -->
-<h2>Fonctions</h2>
+<h2 id="fonctions">Fonctions</h2>
 
 Permet d'isoler du code, qui peut être ensuite appelé depuis différents endroits.
 
@@ -317,6 +399,13 @@ function calculerPrixTTC_20pourcent(prixHT){
     return prixTTC;
 }
 </pre>
+On aurait pu écrire directement :
+<pre>
+function calculerPrixTTC_20pourcent(prixHT){
+    return prixHT * 1.2;
+}
+</pre>
+
 Syntaxe générale :
 <pre>
 function nomDeLaFonction(paramètres){
@@ -358,10 +447,10 @@ document.write("&lt;br>Le prix TTC est " + prixTTC);
 
 
 <!-- ********************************************************************************* -->
-<h2>Outils pour programmer</h2>
+<h2 id="outils-pour-programmer">Outils pour programmer</h2>
 
 <!-- ************************************* -->
-<h3>Console javascript</h3>
+<h3 id="5-1-console-javascript">Console javascript</h3>
 Les navigateurs fournissent un outil permettant de débugger lors de l'écriture d'une page.
 <br>Appuyez sur F12 pour voir cet outil (et à nouveau sur F12 pour le faire disparaître).
 <br>Choisissez l'onglet "Console".
@@ -374,11 +463,11 @@ qui ajoute du texte dans la page HTML, on peut utiliser
 qui affiche du texte dans la console.
 
 <!-- ************************************* -->
-<h3>Editeur de texte</h3>
+<h3 id="5-2-editeur-de-texte">Editeur de texte</h3>
 Installer un éditeur de texte qui fait au moins la coloration syntaxique et l'indentation, par exemple Notepad++ ou VSCodium.
 
 <!-- ************************************* -->
-<h3>Organiser son code</h3>
+<h3 id="5-3-organiser-son-code">Organiser son code</h3>
 Jusqu'à présent, on a écrit du js à l'intérieur d'une balise <code>&lt;script></code>.
 <br>On peut aussi séparer le code js du html à l'aide de l'attribut <code>src</code>.
 <br>On pourrait par exemple organiser son code de la manière suivante :
@@ -464,7 +553,7 @@ Pour convertir un nombre de degrés fahrenheit en un nombre de degrés celsius, 
 
 
 <!-- ********************************************************************************* -->
-<h2>Tests</h2>
+<h2 id="tests">Tests</h2>
 Exemple :
 <pre>
     let nombre = 4;
@@ -477,10 +566,10 @@ Exemple :
 </pre>
 
 <!-- ************************************* -->
-<h3>Booléens</h3>
-La condition <code>nombre > 10</code> est une <b>expression</b> qui peut être évaluée à <b>true</b> ou <b>false</b>.
-
-Les <b>opérateurs de comparaison</b> (<code>==</code>, <code>!=</code>, <code>></code> etc.) renvoient un booléen.
+<h3 id="6-1-booleens">Booléens</h3>
+C'est un <i>type de donnée</i> qui peut prendre comme valeur <b>true</b> ou <b>false</b>
+<br>La condition <code>nombre > 10</code> est une <b>expression</b> dont la valeur est un booléen.
+<br>Les <b>opérateurs de comparaison</b> (<code>==</code>, <code>!=</code>, <code>></code> etc.) renvoient un booléen.
 <br>Les booléens peuvent être combinés avec des <b>opérateurs logiques</b> et (<code>&amp;&amp;</code>), ou (<code>||</code>), négation (<code>!</code>).
 
 <div class="exo">
@@ -491,7 +580,7 @@ Ecrire une fonction <code>estPair()</code>, qui prend en paramètre un nombre et
 </div>
 
 <!-- ********************************************************************************* -->
-<h2>Boucles</h2>
+<h2 id="boucles">Boucles</h2>
 <pre>
     for(let i=0; i &lt; 10; i = i+1){
         document.write("&lt;br>La valeur de i est " + i);
@@ -509,7 +598,7 @@ Pour l'exemple précédent :
 <ul>
     <li>La première fois, définis une variable i et affecte lui la valeur 0.</li>
     <li>Tant que i est inférieur à 10, effectue le contenu de la boucle, situé entre les accolades.</li>
-    <li>A chaque fin de l'exécution d'une itération, ajoute 2 à i.</li>
+    <li>A la fin de l'exécution de chaque itération, ajoute 2 à i.</li>
 </ul>
 
 
@@ -534,6 +623,16 @@ En utilisant votre fonction <code>estPair()</code>, affichez tous les nombres pa
 55555
 666666
 </pre>
+        Aide : vous pouvez commencer à écrire dans cette fonction une boucle qui affiche
+<pre>
+1
+2
+3
+4
+5
+6
+</pre>
+        et la modifier ensuite pour afficher le triangle.
     </li>
     
     <li>
@@ -547,41 +646,54 @@ En utilisant votre fonction <code>estPair()</code>, affichez tous les nombres pa
 
 
 <!-- ********************************************************************************* -->
-<h2>Chaînes de caractères</h2>
-<!-- https://justacoding.blog/javascript-exercises-for-beginners-part-1-strings/ -->
+<h2 id="chaines-de-caracteres">Chaînes de caractères</h2>
+<!--
+https://justacoding.blog/javascript-exercises-for-beginners-part-1-strings/
+-->
 Javascript propose de nombreuses fonctions (méthodes) pour travailler avec des chaînes de caractères (<b>string</b> en anglais).
 
+<br><br>Quelques exemples (<a href="../../exemples/intro/intro-html-js/string.html">cliquez ici pour exécuter</a>) :
 <pre>
 &lt;script>
 let str1 = 'Une string définie avec des simples quotes';
 let str2 = "Une string définie avec des doubles quotes";
-let str3 = `Une string définie avec des "backticks"`;
+let str3 = `Une string définie avec des "backticks" (au clavier : AltGr 7, deux fois)
+&lt;br>Bien pratique, car elle peut être définie sur plusieurs lignes.
+&lt;br>De plus, on peut y insérer du code javascript entre accolades précédées d'un signe $ : 3+ 4 = ${3 + 4}
+`;
 
+document.write('&lt;br>');
 document.write('&lt;br>str1 = ' + str1);
 document.write('&lt;br>str2 = ' + str2);
 document.write('&lt;br>str3 = ' + str3);
 
+document.write('&lt;br>');
 document.write('&lt;br>str1.length = ' + str1.length);
 
+document.write('&lt;br>');
 document.write('&lt;br>Utilisation de charAt() : ');
 for(let i=0; i &lt; str1.length; i++){
     document.write(str1.charAt(i) +' ');
 }
 
+document.write('&lt;br>');
 document.write('&lt;br>str1.toUpperCase() = ' + str1.toUpperCase());
 document.write('&lt;br>str1.toLowerCase() = ' + str1.toLowerCase());
 
+document.write('&lt;br>');
 document.write('&lt;br>str1.indexOf("e") = ' + str1.indexOf("e"));
 document.write('&lt;br>str1.lastIndexOf("e") = ' + str1.lastIndexOf("e"));
 
+document.write('&lt;br>');
 document.write('&lt;br>str1.substr(2, 5) = ' + str1.substr(2, 5));
 
+document.write('&lt;br>');
 document.write('&lt;br>str1.replace("e", "X") = ' + str1.replace("e", "X"));
 document.write('&lt;br>str1.replaceAll("e", "X") = ' + str1.replaceAll("e", "X"));
 &lt;/script>
 </pre>
 
-Voir par exemple <a href="https://www.w3schools.com/jsref/jsref_obj_string.asp">cette page</a> pour une liste plus complète.
+Voir par exemple <a href="https://www.w3schools.com/jsref/jsref_obj_string.asp">w3schools.com</a> pour une liste plus complète de fonctions permettant de travailler avec des chaînes de caractères.
 
 <div class="exo">
 <ol>
@@ -592,6 +704,7 @@ Voir par exemple <a href="https://www.w3schools.com/jsref/jsref_obj_string.asp">
         <pre>inverser('Bonjour') = ruojnoB</pre>
     </li>
     <li>
+        <br>Un <i>palindrome</i> est un mot qui s'écrit de la même manière à l'endroit comme à l'envers. Ex : <code>été</code>, <code>laval</code>
         Utilisez votre fonction <code>inverser()</code> pour écrire une fonction <code>isPalindrome()</code>, qui prend en entrée une string et renvoie un booléen.
         <br>Exemples :
 <pre>
@@ -603,7 +716,105 @@ isPalindrome('ressasser') = true
 </div>
 
 <!-- ********************************************************************************* -->
-<h2>Tableaux</h2>
+<h2 id="tableaux">Tableaux</h2>
+
+Un tableau (<b>array</b> en anglais) permet de stocker plusieurs valeurs dans une seule variable.
+
+<br><br>Les exemples peuvent être exécutés sur <a href="../../exemples/intro/intro-html-js/array.html">cette page</a>.
+
+<br><br>On utilise les crochets <code>[</code> et <code>]</code>.
+
+<br>Exemple :
+<pre>
+let langages = ['javascript', 'php', 'python'];
+</pre>
+
+Les valeurs stockées dans un tableau sont appelées les <b>éléments du tableau</b>.
+<br>On accède aux éléments du tableau à partir de leur <b>index</b>.
+<br>Les index commencent à 0.
+<pre>
+document.write(`&lt;br>langages[0] = '${langages[0]}'`);
+document.write(`&lt;br>langages[1] = '${langages[1]}'`);
+document.write(`&lt;br>langages[2] = '${langages[2]}'`);
+</pre>
+<pre>
+langages[0] = 'javascript'
+langages[1] = 'php'
+langages[2] = 'python'
+</pre>
+
+<br>Si on cherche à accéder à un élément qui n'existe pas, javascript renvoie la valeur spéciale <code>undefined</code>.
+<pre>document.write(`&lt;br>langages[3] = '${langages[3]}'`);</pre>
+<pre>langages[3] = 'undefined'</pre>
+
+<br>On peut modifier un élément d'un tableau : 
+<pre>langages[1] = 'java';</pre>
+
+<br>On peut aussi ajouter un élément :
+<pre>langages[3] = 'go';</pre>
+
+<!-- ************************************* -->
+<h3 id="9-1-length">length</h3>
+Un tableau a une propriété, <b>length</b>, qui indique le nombre de ses éléments.
+<pre>document.write(`&lt;br>langages.length = ${langages.length}`);</pre>
+<pre>langages.length = 4</pre>
+
+Ainsi,
+<br>- le premier élément a pour index <code>0</code>
+<br>- le dernier élément a pour index <code>length - 1</code>
+<pre>
+document.write(`&lt;br>Premier élément = '${langages[0]}'`);
+document.write(`&lt;br>Dernier élément = '${langages[langages.length - 1]}'`);
+</pre>
+
+<!-- ************************************* -->
+<h3 id="9-2-parcourir-un-tableau">Parcourir un tableau</h3>
+On peut parcourir les éléments d'un tableau en utilisant une boucle <code>for</code> :
+<pre>
+document.write('&lt;br>');
+for(let i=0; i &lt; langages.length; i++){
+    document.write(`&lt;br>langages[${i}] = '${langages[i]}'`);
+}
+</pre>
+
+Il existe une autre syntaxe pour parcourir un tableau, en utilisant <code>forEach</code> :
+<pre>
+langages.forEach(afficher);
+
+function afficher(str){
+    document.write('&lt;br>' + str);
+}
+</pre>
+
+La signification de 
+<pre>langages.forEach(afficher);</pre>
+est : "Pour chaque élément du tableau, exécute la fonction <code>afficher()</code> en lui passant en paramètre l'élément courant.
+<br>Pour que cela marche, il faut qu'il existe une fonction <code>afficher()</code>, et que cette fonction accepte un paramètre.
+<br>Dans ce cas, javascript va appeler la fonction pour chaque élément du tableau.
+
+<div class="exo">
+<div class="bold">Fusionner 2 tableaux</div>
+Ecrire une fonction qui prend en paramètres deux tableaux et qui renvoie un nouveau tableau contenant les éléments des deux tableaux.
+
+
+</div>
+
+<div class="exo">
+<div class="bold">Max et moyenne</div>
+Créer un tableau contenant les éléments suivants :
+<br>12, 87, 56, 4, -5 et 18
+<br>Calculer et afficher :
+<ul>
+    <li>La valeur maximale du tableau</li>
+    <li>L'index contenant cette valeur maximale</li>
+    <li>La somme des éléments du tableau</li>
+    <li>
+        La moyenne arithmétique des éléments de ce tableau (= somme des éléments du tableau divisée par le nombre des éléments du tableau).
+    </li>
+</ul>
+</div>
+
+
 
 </article>
 </main>
