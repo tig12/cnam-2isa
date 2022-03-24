@@ -33,6 +33,7 @@
         // Objets pour générer des exemples
         const mymul = new mul(300);
         const mysvg = new svg(300, 300, {'class': "svg"});
+        mymul.INTERVAL = 500;
     </script>
     <!-- 
         FIN Incrustation mulform
@@ -108,9 +109,9 @@ window.addEventListener('load', function(){
     <div class="bottom">
         <div class="carac">
             <span class="">Table: </span>
-            <input id="table" type="number" value="2" size="2"/>
+            <input id="table" type="number" value="2" size="4"/>
             <span class="padding-left">Modulo: </span>
-            <input id="modulo" type="number" value="300" size="3"/>
+            <input id="modulo" type="number" value="300" size="5"/>
         </div>
     </div><!-- end class="bottom" -->
     

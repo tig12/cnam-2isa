@@ -33,6 +33,10 @@ document.write(`<br>langages[3] = '${langages[3]}'`);
 langages[1] = 'java';
 langages[3] = 'go';
 
+// affichage du tableau entier
+document.write('<br>');
+document.write('<br>langages = ' + langages);
+
 // length
 document.write('<br>');
 document.write(`<br>langages.length = ${langages.length}`);
@@ -56,6 +60,15 @@ langages.forEach(afficher);
 function afficher(str){
     document.write('<br>' + str);
 }
+
+// test const / let
+const lettres = ['a', 'b', 'c'];
+document.write('<br>');
+document.write('<br>lettres = ' + lettres);
+lettres[3] = ['d'];
+document.write('<br>lettres = ' + lettres);
+
+
 
 </script>
 

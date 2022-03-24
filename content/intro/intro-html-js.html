@@ -241,9 +241,45 @@ nom = "mon nom"; // affectation d'une valeur
 
 A retenir : une variable a un <b>nom</b> et une <b>valeur</b>.
 
-<br>De plus, chaque variable a un <b>type</b> (chaîne de caractère, nombre entier, nombre à virgule...), mais javascript fait partie des langages "non typés", c'est à dire que les développeurs n'ont pas besoin de préciser le type des variables, le langage s'en charge.
+<h4>Types de donnée</h4>
+
+De plus, chaque variable a un <b>type</b>, mais javascript fait partie des langages "non typés", c'est à dire que les développeurs n'ont <i>à priori</i> pas besoin de préciser le type des variables, le langage s'en charge.
+<br>Mais lorsqu'on programme, on est parfois (ou souvent) amené à se préoccuper du type des données qu'on manipule.
+
+<br><br>Javascript définit les types suivants :
+<table class="wikitable margin">
+    <tr>
+        <td>string</td>
+        <td>Chaîne de caractères</td>
+    </tr>
+    <tr>
+        <td>number</td>
+        <td>Nombre</td>
+    </tr>
+    <tr>
+        <td>boolean</td>
+        <td>Booléen, pouvant prendre comme valeur <code>true</code> ou <code>false</code></td>
+    </tr>
+    <tr>
+        <td>array</td>
+        <td>Tableau</td>
+    </tr>
+    <tr>
+        <td>object</td>
+        <td>Objet</td>
+    </tr>
+    <tr>
+        <td>null</td>
+        <td></td>                                                
+    </tr>
+    <tr>
+        <td>undefined</td>
+        <td></td>
+    </tr>
+</table>
 
 <h4>let, const, var</h4>
+
 Il existe plusieurs moyens en javascript de déclarer une variable :
 <ul class="spaced">
     <li>
@@ -381,6 +417,27 @@ Valeur de y : 35
 
 
 <!-- ********************************************************************************* -->
+<h2 id="outils-pour-programmer">Outils pour programmer</h2>
+
+<!-- ************************************* -->
+<h3 id="5-1-console-javascript">Console javascript</h3>
+Les navigateurs fournissent un outil permettant de débugger lors de l'écriture d'une page.
+<br>Appuyez sur F12 pour voir cet outil (et à nouveau sur F12 pour le faire disparaître).
+<br>Choisissez l'onglet "Console".
+
+<br><br>Javascript fournit un objet appelé <code>console</code>, que l'on peut utiliser pour développer.
+<br>Au lieu d'utiliser
+<pre>document.write()</pre>
+qui ajoute du texte dans la page HTML, on peut utiliser
+<pre>console.log()</pre>
+qui affiche du texte dans la console.
+
+<!-- ************************************* -->
+<h3 id="5-2-editeur-de-texte">Editeur de texte</h3>
+Installer un éditeur de texte qui fait au moins la coloration syntaxique et l'indentation, par exemple Notepad++ ou VSCodium.
+
+
+<!-- ********************************************************************************* -->
 <h2 id="fonctions">Fonctions</h2>
 
 Permet d'isoler du code, qui peut être ensuite appelé depuis différents endroits.
@@ -447,27 +504,7 @@ document.write("&lt;br>Le prix TTC est " + prixTTC);
 
 
 <!-- ********************************************************************************* -->
-<h2 id="outils-pour-programmer">Outils pour programmer</h2>
-
-<!-- ************************************* -->
-<h3 id="5-1-console-javascript">Console javascript</h3>
-Les navigateurs fournissent un outil permettant de débugger lors de l'écriture d'une page.
-<br>Appuyez sur F12 pour voir cet outil (et à nouveau sur F12 pour le faire disparaître).
-<br>Choisissez l'onglet "Console".
-
-<br><br>Javascript fournit un objet appelé <code>console</code>, que l'on peut utiliser pour développer.
-<br>Au lieu d'utiliser
-<pre>document.write()</pre>
-qui ajoute du texte dans la page HTML, on peut utiliser
-<pre>console.log()</pre>
-qui affiche du texte dans la console.
-
-<!-- ************************************* -->
-<h3 id="5-2-editeur-de-texte">Editeur de texte</h3>
-Installer un éditeur de texte qui fait au moins la coloration syntaxique et l'indentation, par exemple Notepad++ ou VSCodium.
-
-<!-- ************************************* -->
-<h3 id="5-3-organiser-son-code">Organiser son code</h3>
+<h2>Organiser son code</h2>
 Jusqu'à présent, on a écrit du js à l'intérieur d'une balise <code>&lt;script></code>.
 <br>On peut aussi séparer le code js du html à l'aide de l'attribut <code>src</code>.
 <br>On pourrait par exemple organiser son code de la manière suivante :
@@ -743,7 +780,7 @@ langages[1] = 'php'
 langages[2] = 'python'
 </pre>
 
-<br>Si on cherche à accéder à un élément qui n'existe pas, javascript renvoie la valeur spéciale <code>undefined</code>.
+<br>Si on cherche à accéder à un élément qui n'existe pas, javascript renvoie le type <code>undefined</code>.
 <pre>document.write(`&lt;br>langages[3] = '${langages[3]}'`);</pre>
 <pre>langages[3] = 'undefined'</pre>
 
@@ -752,6 +789,10 @@ langages[2] = 'python'
 
 <br>On peut aussi ajouter un élément :
 <pre>langages[3] = 'go';</pre>
+
+<br>Javascript permet d'afficher un tableau entier :
+<pre>document.write('&lt;br>langages = ' + langages);</pre>
+<pre>langages = javascript,java,python,go</pre>
 
 <!-- ************************************* -->
 <h3 id="9-1-length">length</h3>
@@ -795,8 +836,6 @@ est : "Pour chaque élément du tableau, exécute la fonction <code>afficher()</
 <div class="exo">
 <div class="bold">Fusionner 2 tableaux</div>
 Ecrire une fonction qui prend en paramètres deux tableaux et qui renvoie un nouveau tableau contenant les éléments des deux tableaux.
-
-
 </div>
 
 <div class="exo">
@@ -814,7 +853,45 @@ Créer un tableau contenant les éléments suivants :
 </ul>
 </div>
 
+<!-- ********************************************************************************* -->
+<h2>Objets</h2>
 
+
+<!-- ********************************************************************************* -->
+<h2>Interagir avec le document HTML</h2>
+
+A voir avant : introduction au CSS.
+
+<br><br>Un document HTML est constitué de tags (balises), qui peuvent être représentés comme une arborescence.
+<pre>
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+&lt;head>
+    &lt;title>Test&lt;/title>
+&lt;/head>
+
+&lt;body>
+&lt;h1>Titre&lt;/h1>
+
+&lt;p>
+    Un paragraphe
+&lt;/p>
+&lt;/body>
+&lt;/html>
+</pre>
+
+peut être représenté par cet arbre :
+<pre>
+html
+  ├── body
+  │   ├── h1
+  │   └── p
+  └── head
+      └── title
+</pre>
+
+L'arbre qui représente la hiérarchie des tags html s'appelle le <b>DOM, Document Object Model</b>.
+<br>Javascript fournit des méthodes pour parcourir et modifier le DOM, ce qui permet d'interagir avec la page HTML. 
 
 </article>
 </main>
