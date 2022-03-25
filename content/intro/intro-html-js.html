@@ -515,7 +515,9 @@ test-prog/
     └── test-taxes.html
 </pre>
 
-Avec cette organisation, on aurait :
+Travailler de cette manière est pratique, car cela permet par exemple de "ranger" les fonctions dans des fichiers js, et de les utiliser depuis plusieurs pages HTML.
+
+<br><br>Avec cette organisation, on aurait :
 <br><code>test-taxes.html</code> :
 <pre>
 &lt;!DOCTYPE html>
@@ -557,12 +559,22 @@ function calculerPrixTTC_20pourcent(prixHT){
 </pre>
 
 <div class="exo">
+<div class="bold">Taxes</div>
 Dans <code>taxes.js</code>, écrivez une fonction <code>calculerPrixTTC()</code> en vous inspirant de la fonction <code>calculerPrixTTC_20pourcent()</code>, de manière à passer en paramètre aussi le pourcentage de taxe.
 <br>Dans <code>test-taxes.html</code>, écrivez du code js qui utilise cette fonction.
 </div>
 
 <div class="exo">
-<div class="bold">Addition</div>
+<div class="bold">Addition, soustraction, multiplication, division</div>
+On va utiliser la possibilité d'avoir du code js commun à différentes pages.
+<ul class="spaced">
+    <li>Créez une page <code>addition.html</code></li>
+    <li>Créez dans votre dossier <code>js</code> un nouveau fichier <code>maths.js</code></li>
+    <li>Dans <code>maths.js</code>, écrivez une fonction <code>additioner()</code> qui prend en paramètre deux nombres, et qui renvoie la somme de ces deux nombres.</li>
+    <li>Ecrivez du code dans la page <code>addition.html</code> qui utilise la fonction <code>additioner()</code></li>
+    <li>Dans <code>maths.js</code>, écrivez une autre fonction, <code>multiplier()</code>qui prend en paramètre deux nombres, et qui renvoie le produit de ces deux nombres.</li>
+</ul>
+
 Créez une nouvelle page, <code>addition.html</code>, et un nouveau document javascript nommé <code>maths.js</code> dans le dossier <code>js/</code>.
 <br>Dans <code>maths.js</code>, écrivez une fonction <code>additionner()</code>, qui prend en paramètre deux nombres et qui renvoie la somme de ces deux nombres.
 <br>Ecrivez dans <code>addition.html</code> un script js qui utilise cette fonction.
@@ -705,28 +717,28 @@ document.write('&lt;br>str2 = ' + str2);
 document.write('&lt;br>str3 = ' + str3);
 
 document.write('&lt;br>');
-document.write('&lt;br>str1.length = ' + str1.length);
+document.write('&lt;br>str1.length = ' + <b>str1.length</b>);
 
 document.write('&lt;br>');
 document.write('&lt;br>Utilisation de charAt() : ');
-for(let i=0; i &lt; str1.length; i++){
-    document.write(str1.charAt(i) +' ');
+for(let i=0; i &lt; <b>str1.length</b>; i++){
+    document.write(<b>str1.charAt(i)</b> + ' ');
 }
 
 document.write('&lt;br>');
-document.write('&lt;br>str1.toUpperCase() = ' + str1.toUpperCase());
-document.write('&lt;br>str1.toLowerCase() = ' + str1.toLowerCase());
+document.write('&lt;br>str1.toUpperCase() = ' + <b>str1.toUpperCase()</b>);
+document.write('&lt;br>str1.toLowerCase() = ' + <b>str1.toLowerCase()</b>);
 
 document.write('&lt;br>');
-document.write('&lt;br>str1.indexOf("e") = ' + str1.indexOf("e"));
-document.write('&lt;br>str1.lastIndexOf("e") = ' + str1.lastIndexOf("e"));
+document.write("&lt;br>str1.indexOf('e') = " + <b>str1.indexOf('e')</b>);
+document.write("&lt;br>str1.lastIndexOf('e') = " + <b>str1.lastIndexOf('e')</b>);
 
 document.write('&lt;br>');
-document.write('&lt;br>str1.substr(2, 5) = ' + str1.substr(2, 5));
+document.write('&lt;br>str1.substr(2, 5) = ' + <b>str1.substr(2, 5)</b>);
 
 document.write('&lt;br>');
-document.write('&lt;br>str1.replace("e", "X") = ' + str1.replace("e", "X"));
-document.write('&lt;br>str1.replaceAll("e", "X") = ' + str1.replaceAll("e", "X"));
+document.write("&lt;br>str1.replace('e', 'X') = " + <b>str1.replace('e', 'X')</b>);
+document.write("&lt;br>str1.replaceAll('e', 'X') = " + <b>str1.replaceAll('e', 'X')</b>);
 &lt;/script>
 </pre>
 
