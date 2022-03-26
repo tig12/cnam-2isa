@@ -699,7 +699,17 @@ En utilisant votre fonction <code>estPair()</code>, affichez tous les nombres pa
 <!--
 https://justacoding.blog/javascript-exercises-for-beginners-part-1-strings/
 -->
-Javascript propose de nombreuses fonctions (méthodes) pour travailler avec des chaînes de caractères (<b>string</b> en anglais).
+Une chaîne de caractères (<b>string</b>) peut être vue comme une liste de caractères.
+<br>JavaScript (comme tous les autres langages) compte en commençant à 0.
+<br>Par exemple, dans la chaîne <code>bonjour</code>,
+<br>- b est le caractère 0
+<br>- o est le caractère 1
+<br>- n est le caractère 2
+<br>etc.
+
+<br><br>Javascript propose de nombreuses fonctions (méthodes) pour travailler avec des chaînes de caractères (<b>string</b> en anglais).
+<br>Voir par exemple <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/String">developer.mozilla.org</a> ou <a href="https://www.w3schools.com/jsref/jsref_obj_string.asp">w3schools.com</a> pour une liste plus complète de fonctions permettant de travailler avec des chaînes de caractères.
+
 
 <br><br>Quelques exemples (<a href="../../exemples/intro/intro-html-js/string.html">cliquez ici pour exécuter</a>) :
 <pre>
@@ -716,42 +726,69 @@ document.write('&lt;br>str1 = ' + str1);
 document.write('&lt;br>str2 = ' + str2);
 document.write('&lt;br>str3 = ' + str3);
 
+// Longueur d'une chaîne
 document.write('&lt;br>');
 document.write('&lt;br>str1.length = ' + <b>str1.length</b>);
 
+// Extraire un caractère d'une chaîne
 document.write('&lt;br>');
 document.write('&lt;br>Utilisation de charAt() : ');
 for(let i=0; i &lt; <b>str1.length</b>; i++){
     document.write(<b>str1.charAt(i)</b> + ' ');
 }
 
+// Convertir en majuscules / minuscules
 document.write('&lt;br>');
 document.write('&lt;br>str1.toUpperCase() = ' + <b>str1.toUpperCase()</b>);
 document.write('&lt;br>str1.toLowerCase() = ' + <b>str1.toLowerCase()</b>);
 
+// Trouver la position d'un caractère dans une chaîne
 document.write('&lt;br>');
+// Position du premier e dans la chaîne
 document.write("&lt;br>str1.indexOf('e') = " + <b>str1.indexOf('e')</b>);
+// Position du dernier e dans la chaîne
 document.write("&lt;br>str1.lastIndexOf('e') = " + <b>str1.lastIndexOf('e')</b>);
 
+// Extraire une sous-chaîne, 1ère forme
 document.write('&lt;br>');
+// Chaîne commençant au caractère d'index = 2 (donc le 3ème), et d'une longueur de 5
 document.write('&lt;br>str1.substr(2, 5) = ' + <b>str1.substr(2, 5)</b>);
+// Chaîne commençant au caractère d'index = 2, jusqu'à la fin
+document.write('&lt;br>str1.substr(2) = ' + <b>str1.substr(2)</b>);
+
+// Extraire une sous-chaîne, 2ème forme
+document.write('&lt;br>');
+// Chaîne commençant au caractère d'index = 2 (donc le 3ème),
+// jusqu'au caractère d'index = 5, non compris
+// donc les caractères d'index 2, 3, 4
+document.write('&lt;br>str1.substring(2, 5) = ' + <b>str1.substring(2, 5)</b>);
+// Chaîne commençant au caractère d'index = 2, jusqu'à la fin
+document.write('&lt;br>str1.substrinf(2) = ' + <b>str1.substring(2)</b>);
 
 document.write('&lt;br>');
+// Remplacer un caractère par un autre (ne remplace que le premier e)
 document.write("&lt;br>str1.replace('e', 'X') = " + <b>str1.replace('e', 'X')</b>);
+// Remplacer tous les caractères par un autre
 document.write("&lt;br>str1.replaceAll('e', 'X') = " + <b>str1.replaceAll('e', 'X')</b>);
 &lt;/script>
 </pre>
 
-Voir par exemple <a href="https://www.w3schools.com/jsref/jsref_obj_string.asp">w3schools.com</a> pour une liste plus complète de fonctions permettant de travailler avec des chaînes de caractères.
+Note sur la troisième forme, avec les backticks :
+<br>Lorsqu'on utilise les simples ou doubles quotes pour affecter une valeur à une chaîne, javascript prend tout le contenu entre les quotes et le stocke tel quel dans la chaîne.
+<br>Avec la syntaxe backticks, javascript fait pareil sauf lorsqu'il rencontre <b>${ ... }</b>.
+<br>Dans ce cas là, il considère que le contenu situé entre les accolades est du code javascript, qu'il va exécuter, et stocker le résultat de cette exécution dans la chaîne.
+
+
 
 <div class="exo">
 <div class="bold">Majuscule / minuscule</div>
 Ecrivez un script qui demande un nom (en utilisant <code>prompt()</code>) et qui affiche :
 <ul>
-    <li>Le nom en majuscule</li>
-    <li>Le nom en minuscule</li>
-    <li>Le nom en minuscule, mais avec la première lettre en majuscule</li>
-    <li>Le nom en minuscule, mais avec la première et la dernière lettre en majuscule</li>
+    <li>Le nom en majuscule.</li>
+    <li>Le nom en minuscule.</li>
+    <li>Le nom en minuscule, mais avec la première lettre en majuscule.</li>
+    <li>Le nom en minuscule, mais avec la première et la dernière lettre en majuscule.</li>
+    <li>Le nom avec une lettre sur deux en majuscule et une lettre sur deux en minuscule, en réutilisant votre fonction <code>estPair()</code>.</li>
 </ul>
 Exemple :
 <pre>
@@ -764,8 +801,6 @@ bonjour
 Bonjour
 BonjouR
 </pre>
-
-
 </div>
 
 <div class="exo">
@@ -778,13 +813,20 @@ BonjouR
         <pre>inverser('Bonjour') = ruojnoB</pre>
     </li>
     <li>
-        <br>Un <i>palindrome</i> est un mot qui s'écrit de la même manière à l'endroit comme à l'envers. Ex : <code>été</code>, <code>laval</code>
-        Utilisez votre fonction <code>inverser()</code> pour écrire une fonction <code>isPalindrome()</code>, qui prend en entrée une string et renvoie un booléen.
+        <br>Un <i>palindrome</i> est un mot qui s'écrit de la même manière à l'endroit comme à l'envers. Ex : <code>été</code>, <code>radar</code>, <code>tôt</code>.
+        <br>Utilisez votre fonction <code>inverser()</code> pour écrire une fonction <code>isPalindrome()</code>, qui prend en entrée une string et renvoie un booléen.
         <br>Exemples :
 <pre>
 isPalindrome('Bonjour') = false
 isPalindrome('ressasser') = true
 </pre>
+    </li>
+    <li>
+        Optionnel : Améliorez votre fonction <code>isPalindrome()</code> de manière à gérer les majuscules, les accents, la ponctuation et les cas particuliers (comme le <code>ç</code>), de manière à avoir par exemple :
+<pre>
+isPalindrome("Tu l'as trop écrasé, César, ce Port-Salut") = true
+</pre>
+        Vous pouvez tester votre fonction avec les exemples présents sur <a href="https://fr.wikipedia.org/wiki/Palindrome">fr.wikipedia.org</a>.
     </li>
 </ol>
 </div>
