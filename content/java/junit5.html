@@ -52,8 +52,6 @@
         </li>
     </ul>
 </nav>
-
-
 </header>
 
 <main>
@@ -87,15 +85,15 @@ import org.junit.jupiter.api.Test;
 
 class FirstJUnit5Tests {
 
-    @Test
+    <b>@Test</b>
     void myFirstTest() {
-        assertEquals(2, 1 + 1);
+        <b>assertEquals</b>(2, 1 + 1);
     }
 
 }
 </pre>
 
-(voir <a href="../../exemples/java/junit5/first">exemples/java/junit5/first</a>)
+(code dans <a href="../../exemples/java/junit5/first">exemples/java/junit5/first</a>)
 
 <!-- ************************************* -->
 <h3 id="1-1-en-mode-console">En mode console</h3>
@@ -146,11 +144,19 @@ Par convention, les tests unitaires sont situés dans des classes dont le nom fi
 <h3 id="2-1-assertions">Assertions</h3>
 Ces méthodes contiennent des <b>assertions</b> qui doivent être vérifiées pour que le test soit valide.
 <br>Ces assertions sont exprimées avec des méthodes commençant par <code>assert</code> de la classe <a href="https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/Assertions.html"><code>org.junit.jupiter.api.Assertions</code></a>.
-<br>Autres annotations courantes :
-<br>- <code>@BeforeAll</code> et <code>@AfterAll</code> servent à identifier des méthodes qui seront exécutées une seule fois avant et après tous les tests ; utile par exemple pour initialiser une connection réseau ou à une base de données.
-<br>- <code>@BeforeEach</code> et <code>@AfterEach</code> identifient des méthodes qui seront exécutées avant / après chaque test. Servent par exemple à initialiser des structures de données (fixtures) et garantir que chaque méthode de test disposera d'un état identique. Par exemple, si on veut tester l'implémentation d'une liste, on peut créer une liste vide, qui sera utilisable par toutes les méthodes de test.
 
-<br><br>ATTENTION : lorsque vous utilisez <code>assertEquals()</code> avec des <code>float</code> ou des <code>double</code>, utilisez les méthodes avec un paramètre <code>delta</code>, par exemple :
+<br><br>Autres annotations courantes :
+<ul class="spaced">
+    <li>
+        <code class="bold">@BeforeAll</code> et <code class="bold">@AfterAll</code> servent à identifier des méthodes qui seront exécutées une seule fois avant et après tous les tests ; utile par exemple pour initialiser une connection réseau ou à une base de données.
+    </li>
+    <li>
+        <code class="bold">@BeforeEach</code> et <code class="bold">@AfterEach</code> identifient des méthodes qui seront exécutées avant / après chaque test. Servent par exemple à initialiser des structures de données (fixtures) et garantir que chaque méthode de test disposera d'un état identique. Par exemple, si on veut tester l'implémentation d'une liste, on peut créer une liste vide, qui sera utilisable par toutes les méthodes de test.
+    </li>
+</ul>
+
+
+<b>ATTENTION</b> : lorsque vous utilisez <code>assertEquals()</code> avec des <code>float</code> ou des <code>double</code>, utilisez les méthodes avec un paramètre <code>delta</code>, par exemple :
 <pre>assertEquals​(float expected, float actual, float delta)</pre>
 qui signifie "assert presque égal" (égalité stricte impossible due à la représentation binaire des nombres réels).
 
@@ -276,7 +282,7 @@ En plus de <a href="https://repo1.maven.org/maven2/org/junit/platform/junit-plat
 </ul>
 (une copie de ces jars se trouve sur <a href="https://larzac.info/cnam/bin">le répertoire bin/ de ce cours</a>)
 
-<br><br>Exemple : suite de tests pour le <a href="../../cours/nfp121/tps/2-conversion/tp2-millau.html">TP2 : conversion</a>
+<br><br><b>Exemple</b> : suite de tests pour le <a href="../../cours/nfp121/tps/2-conversion/tp2-millau.html">TP2 : conversion</a>
 <pre>
 package conversion;
 
@@ -306,11 +312,13 @@ ou
 <pre>
 #!/bin/sh
 
-dir_bin='bin'
-jar1_junit='../../../bin/junit-platform-console-standalone-1.8.2.jar'
-jar2_junit='../../../bin/junit-platform-suite-api-1.8.2.jar'
-jar3_junit='../../../bin/junit-platform-suite-commons-1.8.2.jar'
-jar4_junit='../../../bin/junit-platform-suite-engine-1.8.2.jar'
+dir_bin='../../bin/tps/2-conversion'
+dir_jar='../../../bin'
+
+jar1_junit="$dir_jar/junit-platform-console-standalone-1.8.2.jar"
+jar2_junit="$dir_jar/junit-platform-suite-api-1.8.2.jar"
+jar3_junit="$dir_jar/junit-platform-suite-commons-1.8.2.jar"
+jar4_junit="$dir_jar/junit-platform-suite-engine-1.8.2.jar"
 
 # compile chacun des tests
 ./test-compile
@@ -347,11 +355,13 @@ $command
 <pre>
 #!/bin/sh
 
-dir_bin='bin'
-jar1_junit='../../../bin/junit-platform-console-standalone-1.8.2.jar'
-jar2_junit='../../../bin/junit-platform-suite-api-1.8.2.jar'
-jar3_junit='../../../bin/junit-platform-suite-commons-1.8.2.jar'
-jar4_junit='../../../bin/junit-platform-suite-engine-1.8.2.jar'
+dir_bin='../../bin/tps/2-conversion'
+dir_jar='../../../bin'
+
+jar1_junit="$dir_jar/junit-platform-console-standalone-1.8.2.jar"
+jar2_junit="$dir_jar/junit-platform-suite-api-1.8.2.jar"
+jar3_junit="$dir_jar/junit-platform-suite-commons-1.8.2.jar"
+jar4_junit="$dir_jar/junit-platform-suite-engine-1.8.2.jar"
 
 command="java -jar $jar1_junit -cp $dir_bin:$jar2_junit:$jar3_junit:$jar4_junit -c conversion.ConversionTestSuite"
 echo $command
