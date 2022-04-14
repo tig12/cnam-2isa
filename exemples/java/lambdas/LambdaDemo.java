@@ -1,6 +1,6 @@
 
 
-public class LambdaDemo1{
+class LambdaDemo {
 
     public static void main(String args[]) {
     

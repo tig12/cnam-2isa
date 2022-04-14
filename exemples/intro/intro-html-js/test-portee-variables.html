@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>JS - Test portée des variables</title>
+</head>
+
+<body>
+
+<h1>JS - Test portée des variables</h1>
+
+<script>
+for(let i=0; i < 10; i++){
+    // faire qq chose
+    let j = 12;
+}
+// Ici, i et j non définis
+// Uncaught ReferenceError: i is not defined
+// document.write(`<br>Après la boucle : i = ${i}`);
+// document.write(`<br>Après la boucle : j = ${j}`);
+document.write(`<br>Après la boucle : i et j ne sont pas définis`);
+
+let k = 12;
+testPortee();
+document.write(`<br>Après appel testPortee() : k = ${k}`); // k = 13
+
+function testPortee(){
+    k++; // ici k est accessible !
+}
+
+
+
+</script>
+
+</body>
+</html>

@@ -59,7 +59,7 @@ En java, les références sont complètement opaques, on ne peut pas comme en C 
 int a = 42;
 int b = a;
 </pre>
-Pour les types primitifs, la JVM stocke 2 fois la valeur 42 dans 2 endroits différents de sa mémoire.
+Pour les types primitifs, la JVM stocke deux fois la valeur 42 dans deux endroits différents de la mémoire.
 <pre>
 int a = 42;
 int b = a;
@@ -92,7 +92,7 @@ La classe <code>Object</code> fournit une méthode <code>clone()</code> dont tou
 <br>Par exemple, pour dupliquer 2 tableaux, on dispose de <code>System.arraycopy()</code>.
 <br>Mais si on a besoin de recopier des objets de nos propres classes, on doit l'implémenter.
 
-<br><br>Le sujet est traité en détail dans la page <a href="object">java.lang.Object</a>.
+<br><br>Le sujet est traité en détail dans la page <a href="object.html">java.lang.Object</a>.
 
 <!-- ********************************************************************************* -->
 <h2 id="comparaison">Comparaison</h2>
@@ -116,9 +116,10 @@ avec equals     equal
 Comme on pouvait s'y attendre, le test avec <code>==</code> indique que <code>s</code> et <code>t</code> ne sont pas égales.
 <br>Pour faire le test correctement, on a utilisé la méthode <code>equals()</code>.
 Cette méthode fait partie de la classe <code>java.lang.Object</code>, donc toutes les classes en héritent, mais dans le cas général, elle n'est pas plus utile, car l'implémentation par défaut utilise simplement <code>==</code> pour faire la comparaison.
-<br>Le test a marché uniquement parceque la classe <code>String</code> réimplémente <b>equals()</b>.
+
+<br><br>Le test a marché uniquement parceque la classe <code>String</code> réimplémente <b>equals()</b>.
 <br>
-<br>Pour comparer les valeurs des tableaux, il faut par exemple utiliser <code>java.util.Arrays.equals()</code> ou <code>java.util.Arrays.deepEquals()</code> pour les tableaux à plusieurs dimensions.
+<br>Pour comparer les valeurs des tableaux, il faut par exemple utiliser <code class="bold">java.util.Arrays.equals()</code> ou <code class="bold">java.util.Arrays.deepEquals()</code> pour les tableaux à plusieurs dimensions.
 <!-- 
 <br>
 <br>On pourrait être tenté d'utiliser <code>java.lang.Object.hashCode()</code> pour tester l'égalité, mais ce n'est pas possible sans redéfinir <code>hashCode()</code>, car la règle est :

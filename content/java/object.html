@@ -105,13 +105,21 @@ Par exemple <code>Personne@7bfcd12c</code>.
 <br>
 <br>A noter :
 <ul>
-    <li>Cette chaîne identifie un objet de manière unique.</li>
-    <li>Le type affiché correspond au type constaté, pas au type déclaré (voir <a href="../oop/intro-poo.html">Introduction POO</a>, paragraphe "Liaison dynamique").</li>
-    <li><code>System.out.println</code> utilise <code>toString()</code> pour afficher les objets, avec une petite différence de comportement si l'objet vaut <code>null</code>.</li>
+    <li>
+        Cette chaîne identifie un objet de manière unique.
+    </li>
+    <!-- 
+    <li>
+        Le type affiché correspond au type constaté, pas au type déclaré (voir <a href="../oop/intro-poo.html">Introduction POO</a>, paragraphe "Liaison dynamique").
+    </li>
+    -->
+    <li>
+        <code>System.out.println</code> utilise <code>toString()</code> pour afficher les objets, avec une petite différence de comportement si l'objet vaut <code>null</code>, comme l'illustre le code suivant :
+    </li>
 </ul>
 
 <pre>
-class Personne{
+class Personne {
     private String nom, prenom;
     private int anneeNaissance;
     public Personne(String nom, String prenom, int anneeNaissance){
@@ -139,20 +147,30 @@ public class ToString1 {
         System.out.println("p3 = " + p3);
         
         Personne p4 = null;
-        <b>System.out.println("p4 = " + p4);</b>
-        <b>System.out.println("p4.toString() = " + p4.toString());</b> // java.lang.NullPointerException
+        
+        // Lorsqu'on utilise l'opérateur de concaténation de chaîne ou println(),
+        // on obtient la chaîne "null"
+        System.out.println("p4 = " + p4); // p4 = null
+        String affichage = "affichage : p4 = " + p4;
+        System.out.println(affichage); // affichage : p4 = null
+        System.out.println(p4); // null
+        
+        // Mais lorsqu'on appelle une méthode sur un objet null, on obtient une exception.
+        System.out.println("p4.toString() = " + p4.toString()); // java.lang.NullPointerException
     }
 }
 </pre>
 (code dans <a href="../../exemples/java/object-methods/ToString1.java">ToString1.java</a>)
 <pre>java ToString1</pre>
 <pre>
-p1 = Personne@7bfcd12c
-p2 = Mathematicien@24273305
-p3 = Mathematicien@24273305
+p1 = Personne@7344699f
+p2 = Mathematicien@7e9e5f8a
+p3 = Mathematicien@7e9e5f8a
 p4 = null
-Exception in thread "main" java.lang.NullPointerException
-	at ToString1.main(ToString1.java:17)
+affichage : p4 = null
+null
+Exception in thread "main" java.lang.NullPointerException: Cannot invoke "Object.toString()" because "<local4>" is null
+	at ToString1.main(ToString1.java:39)
 </pre>
 
 
