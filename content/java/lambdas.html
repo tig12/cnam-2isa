@@ -350,9 +350,9 @@ class ExterieurDemo3 {
 i1 = 0
 i2 = 0
 </pre>
-Rappel : lorsqu'une variable de classe ou d'instance est déclarée, elle est initialisée avec une valeur par défaut, ce qui n'est pas le cas pour un variable locales, qui a une valeur <code>null</code>.
+Rappel : lorsqu'une variable de classe ou d'instance est déclarée, elle est initialisée avec une valeur par défaut - mais ce n'est pas le cas pour une variable locale, qui a une valeur <code>null</code>.
 
-<br><br>Mais ces variables peuvent être modifiées et utilisées dans une lambda :
+<br><br>Ces variables peuvent être modifiées et utilisées dans une lambda :
 <pre>
 class ExterieurDemo4 {
     
@@ -360,6 +360,7 @@ class ExterieurDemo4 {
     int i2;         // variable d'instance
     
     public static void main(String args[]) {
+    
         // test pour variable de classe
         Runnable r = () -> System.out.println("i1 = " + i1);
         i1 = 5;
