@@ -94,7 +94,9 @@ class RegistrationManager {
         return _instance;
     }
     
-    public void registerUser (...) { ... }
+    // En plus du mécanisme propre au singleton, implémentation
+    // fonctionnélités propres à la classe
+    public void registerUser ( /* ... */ ) { /* ... */ }
 }
 </pre>
 La classe ne sera instanciée que lorsque <code>getInstance()</code> est appelée.
@@ -125,23 +127,23 @@ class RegistrationManager {
     }
     
     // méthode static qui délègue à une méthode d'instance
-    public static void registerUser (...) {
-        return <b>getInstance().doRegisterUser(...);</b> // ICI on utilise getInstance() et pas _instance
+    public static void registerUser (/* ... */) {
+        return <b>getInstance().doRegisterUser(/* ... */);</b> // ICI on utilise getInstance() et pas _instance
     }
     
     // méthode d'instance, en cohérence avec le pattern Singleton
-    private void <b>doRegisterUser</b> (...) { ... }
+    private void <b>doRegisterUser</b> (/* ... */) { /* ... */ }
 }
 </pre>
 L'utilisation est plus légère :
 <pre>
-RegistrationManager.registerUser(...);
+RegistrationManager.registerUser(/* ... */);
 </pre>
 Mais alors, pourquoi ne pas écrire une classe ne contenant que des membres static ?
 <br>(et éviter le <i>boilerplate code</i>).
 <pre>
 class RegistrationManager {
-    public static void registerUser (...) { ... }
+    public static void registerUser (/* ... */) { /* ... */ }
 }
 </pre>
 ATTENTION : cela n'est pas toujours possible, par exemple : on utilise une API permettant de travailler sur des données ; cette API définit une interface 
@@ -153,7 +155,7 @@ interface DBConnectionInterface {
 et fournit des méthodes du type <code>faireUnTraitement(DBConnectionInterface connection, ...)</code>.
 <br>Pour utiliser cette API, on écrit une classe
 <pre>
-public class MaConnexion implements DBConnectionInterface { ... }
+public class MaConnexion implements DBConnectionInterface { /* ... */ }
 </pre>
 Si la logique de notre code l'exige, on peut être amené à décider d'interdire que plus d'une instance de <code>MaConnexion</code> soit créee, et donc de faire un singleton. Mais l'API a besoin d'une instance, donc on ne peut pas travailler dans ce cas uniquement en static.
 
