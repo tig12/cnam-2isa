@@ -264,7 +264,7 @@ interface Shape{
 
 Mais cela obligerait par exemple <code>Square</code> à implémenter <code>volume()</code>.
 <br>
-<br>On peut faire :
+<br>On pourrait faire :
 <pre>
 interface Shape {
     public double area();
@@ -274,7 +274,7 @@ interface Volume extends Shape {
     public double volume();
 }
 </pre>
-dans la mesure où cela a un sens pour notre API (si on veut vraiment implémenter <code>area()</code> aussi pour les volumes).
+dans la mesure où cela aurait un sens pour notre API (si on voulait vraiment implémenter <code>area()</code> aussi pour les volumes).
 <br>
 <br>ATTENTION : respecter ce principe peut amener à faire des restructurations dans le code.
 <br>Si on voulait calculer les surfaces pour les objets 2D et uniquement les volumes pour les objets 3D, on pourrait faire :

@@ -13,11 +13,27 @@ class TestProtectionProxy{
             System.out.println("il manque le paramètre rôle.");
             System.exit(0);
         }
+        
         if(!Arrays.asList(possibles).contains(args[0])){
             System.out.println(usage);
             System.out.println("Valeur incorrecte : " + args[0]);
             System.exit(0);
         }
+        
+        /* 
+        // Sans utiliser l'API collection :
+        boolean found = false;
+        for(String current : possibles){
+            if(current == args[0]){
+                found = true;
+                break;
+            }
+        }
+        if(!found){
+            System.out.println("Valeur incorrecte : " + args[0]);
+            System.exit(0);
+        }
+        */
         
         String role = args[0];
         

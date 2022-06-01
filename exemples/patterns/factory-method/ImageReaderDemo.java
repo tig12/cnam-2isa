@@ -3,7 +3,7 @@
 **/
 
 interface ImageReader {
-    DecodedImage getDecodeImage();
+    DecodedImage getDecodedImage();
 }
 
 class DecodedImage {
@@ -27,7 +27,7 @@ class GifReader implements ImageReader {
     }
 
     @Override
-    public DecodedImage getDecodeImage() {
+    public DecodedImage getDecodedImage() {
         return decodedImage;
     }
 }
@@ -40,7 +40,7 @@ class JpegReader implements ImageReader {
     }
 
     @Override
-    public DecodedImage getDecodeImage() {
+    public DecodedImage getDecodedImage() {
         return decodedImage;
     }
 }
@@ -71,7 +71,7 @@ public class ImageReaderDemo {
             reader = new JpegReader(image);
         }
         
-        decodedImage = reader.getDecodeImage();
+        decodedImage = reader.getDecodedImage();
         System.out.println(decodedImage);
     }
 }

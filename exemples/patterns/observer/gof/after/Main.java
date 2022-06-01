@@ -27,17 +27,17 @@ class Main{
         o2.print();                                                                                  
         o3.print();
         
+        System.out.println("--------- 2 ---------");
         dataHolder.setState("a", 50.0);
         dataHolder.setState("b", 30.0);
         dataHolder.setState("c", 20.0);
-        System.out.println("--------- 2 ---------");
         o1.print();
         o2.print();
         o3.print();
         
+        System.out.println("--------- 3 ---------");
         dataHolder.setState("b", 35.0);
         dataHolder.setState("c", 15.0);
-        System.out.println("--------- 3 ---------");
         o1.print();
         o2.print();
         o3.print();
