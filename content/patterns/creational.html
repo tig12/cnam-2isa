@@ -57,21 +57,20 @@ ul.list-creational li{
     <li><a href="builder.html">Builder</a></li>
 </ul>
 
-
 Les patterns de création sont importants lorsque les systèmes deviennent complexes et reposent plus sur la composition que sur l'héritage.
-<br>
-<br>Plutôt que d'avoir un nombre fixe de comportements complexes, on cherche à avoir des comportements plus simples que l'on peut assembler pour fabriquer des comportements complexes.
+
+<br><br>Plutôt que d'avoir un nombre fixe de comportements complexes, on cherche à avoir des comportements plus simples que l'on peut assembler pour fabriquer des comportements complexes.
 <br>La simple instanciation d'objets ne suffit plus.
-<br>
-<br>Ils ont deux caractéristiques :
+
+<br><br>Ils ont deux caractéristiques :
 <br>- Ils encapsulent la connaissance des classes concrètes utilisées par le système.
 <br>- Ils cachent la manière de créer et d'assembler les objets.
-<br>
-<br>Donc le système ne connaît que les interfaces des objets.
+
+<br><br>Donc le système ne connaît que les interfaces des objets.
 <br>Cela donne de la souplesse sur le <i>quoi</i> (qu'est-ce qui est créé), sur <i>qui</i> crée les objets, <i>comment</i> et <i>quand</i> ils sont crées.
 <br>Cela permet de configurer le système pour fabriquer des objets dont la structure et les fonctionnalités varie. Cette configuration peut être statique (à la compilation) ou dynamique (à l'exécution).
-<br>
-<br>Patterns de création :
+
+<br><br>Patterns de création :
 <ul>
     <li><b>Singleton</b> (Singleton) : une seule instance.</li>
     <li><b>Factory method</b> (Fabrique) : déléguer la création aux sous-classes.</li>
@@ -84,25 +83,28 @@ Les patterns de création sont importants lorsque les systèmes deviennent compl
 <!-- ********************************************************************************* -->
 <h2><a name="1-le-labyrinthe">Le labyrinthe</a></h2>
 ( = <i>Maze</i> en anglais)
-<br>
-<br>Suivant les cas, les patterns de création peuvent être complémentaires ou en concurrence.
+
+<br><br>Suivant les cas, les patterns de création peuvent être complémentaires ou en concurrence.
 <br>Comme ils sont reliés, on va les étudier en utilisant un exemple commun.
 <br>Cet exemple est une adaptation java du livre du GOF, et utilise la terminologie originale en anglais.
 <br>Le code correspondant se trouve dans <a href="../../exemples/patterns/creation-gof/src/maze">exemples/patterns/creation-gof/src/maze</a>.
-<br>
-<br>Dans le cadre du développement d'un jeu, on a besoin de créer un labyrinthe.
+
+<br><br>Dans le cadre du développement d'un jeu, on a besoin de créer un labyrinthe.
 <br>Suivant le pattern étudié, les spécifications varieront un peu.
 <br>On va se concentrer sur la manière de créer le labyrinthe.
-<br>
-<br>Le labyrinthe est constitué d'un ensemble de pièces (<i>rooms</i>).
+
+<br><br>Dans l'exemple utilisé, on va créer un labyrinthe contenant 2 pièces avec une porte entre les deux.
+<img class="margin border padding" src="img/creation-example.svg" alt="Représentation du labyrinthe">
+
+Le labyrinthe est constitué d'un ensemble de pièces (<i>rooms</i>).
 <br>Une pièce connaît ses voisins.
 <br>Les voisins possibles sont : une autre pièce, un mur (<i>wall</i>) ou une porte (<i>door</i>).
 
-<img class="border margin" src="img/creation-diagram.jpg" alt="Classes formant le labyrinthe">
+<img class="border margin padding" src="img/creation-diagram.jpg" alt="Classes formant le labyrinthe">
 
 Chaque pièce peut avoir 4 directions (N S E W) contenues dans une enum.
-<br>
-<br><code>MapSite</code> est la classe abstraite commune pour tous les composants du labyrinthe.
+
+<br><br><code>MapSite</code> est la classe abstraite commune pour tous les composants du labyrinthe.
 <br>Elle définit une seule opération : <code>enter()</code> ; sa signification dépend du contexte :
 <ul class="margin-top0">
     <li>Si on entre dans une pièce, la position du joueur change.</li>
@@ -120,17 +122,14 @@ Chaque pièce peut avoir 4 directions (N S E W) contenues dans une enum.
 <br>Elle contient
 <br>- les références aux autres <code>MapSite</code>.
 <br>- un <i>room number</i> (chaque room est identifiée par son room number).
-<br>
-<br>On définit une dernière classe, <code>MazeGame</code>, chargée de créer le maze.
-<br>
-<br>L'exemple GOF fonctionne donc de la manière suivante :
+
+<br><br>On définit une dernière classe, <code>MazeGame</code>, chargée de créer le maze.
+
+<br><br>L'exemple GOF fonctionne donc de la manière suivante :
 <ul>
     <li>La fonction <code>main()</code> crée un objet <code>MazeGame</code>.</li>
     <li><code>MazeGame</code> a une fonction <code>createMaze()</code> chargée de créer les composants du labyrinthe.</li>
 </ul>
-
-Dans l'exemple utilisé, on va créer un labyrinthe contenant 2 pièces avec une porte entre les deux.
-
 
 <!-- ************************************* -->
 <h3><a name="1-1-implementation-java">Implémentation java</a></h3>
@@ -221,8 +220,6 @@ public class MazeGame{
 
 }
 </pre>
-
-<img class="margin border" src="../../exemples/patterns/creation-gof/doc/example-maze.svg" alt="Représentation du labyrinthe">
 
 La fonction <code>createMaze()</code> est rigide, car elle code en dur à la fois les composants utilisés et leur layout.
 <br>

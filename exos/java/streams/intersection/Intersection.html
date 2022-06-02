@@ -20,20 +20,30 @@
 <article>
 
 <a href="enonce">Code source de l'énoncé</a>
-<br>
-<br>Implémenter les méthodes <code>intersection1()</code> et <code>intersection2()</code> de la classe <code>Intersection</code> pour calculer l'intersection des deux listes de deux manières différentes :
 
-<ul class="spaced">
+<ol class="spaced margin-top">
+    <li>
+        Implémenter les méthodes <code>intersection1()</code>, <code>intersection2()</code> et <code>intersection3()</code> de la classe <code>Intersection</code> pour calculer l'intersection des deux listes de trois manières différentes :
+        <ul class="spaced margin-top">
+            <li>
+                Dans <code>intersection1()</code>, utiliser des itérations classiques sur des tableaux : boucles for avec index.
+            </li>
+            <li>
+                Dans <code>intersection2()</code>, convertir les tableaux en <code>ArrayList</code> et utiliser une boucle <i>foreach</i> pour itérer.
+            </li>
+            <li>
+                Dans <code>intersection3()</code>, utiliser l'API stream.
+            </li>
+        </ul>
+    </li>
     
     <li>
-        Dans <code>intersection1()</code>, utiliser des itérations classiques.
+        Ecrire une classe <code>BenchIntersection</code> contenant une fonction <code>main()</code>. Cette fonction doit prendre en paramètre un nombre entier positif, N.
+        <br>Appelez en boucle N fois chaque méthode de calcul et calculez le temps pris par chaque méthode.
     </li>
+</ol>
 
-    <li>
-        Dans <code>intersection2()</code>, utiliser l'API stream.
-    </li>
-
-</ul>
+Quelle est la plus rapide ?
 
 </article>
 </main>

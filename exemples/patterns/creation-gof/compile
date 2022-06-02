@@ -29,7 +29,7 @@ dirdest="$dirbin/exemples"
 mkdir -p $dirdest
 
 if [ $# == 0 ]; then
-    # compile all
+    # no argument, compile all
     command="javac -classpath $dirdest -d $dirdest $dirsrc/model/*.java"
     echo $command; $command
     command="javac -classpath $dirdest -d $dirdest $dirsrc/model/*/*.java"
