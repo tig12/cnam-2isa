@@ -106,7 +106,7 @@ class TestEnum1{
 Lorsqu'il crée une enum, le compilateur ajoute automatiquement certaines méthodes, notamment une méthode <code>values()</code>, qu'on peut utiliser dans un <code>foreach</code> :
 <pre>
 for(CouleurPrimaire cp : <b>CouleurPrimaire.values()</b>) {
-     System.out.println(<b>cp.ordinal() + " " + cp.name() + " " + cp</b>);
+     System.out.println(<b>cp.ordinal() + " " + cp.name()</b>);
 }
 </pre>
 (code dans <a href="../../exemples/java/enums/TestEnum2.java">TestEnum2.java</a>)

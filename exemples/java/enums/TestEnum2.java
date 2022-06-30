@@ -5,7 +5,7 @@ enum CouleurPrimaire {
 class TestEnum2{
     public static void main(String[] args) {
         for(CouleurPrimaire cp : CouleurPrimaire.values()) {
-         System.out.println(cp.ordinal() + " " + cp.name() + " " + cp);
+         System.out.println(cp.ordinal() + " " + cp.name());
       }
 
         
