@@ -239,6 +239,9 @@ doit fonctionner <i>exactement</i> de la même manière que si on faisait :
 Une <code>Ambulance</code> est une <code>Voiture</code> qui sait faire des choses supplémentaires (c'est une sous-classe).
 <br>Le principe de Liskov dit que l'aspect <code>Voiture</code> de l'<code>Ambulance</code> doit tester inchangé.
 
+<br><br>Il semble y avoir plusieurs interprétations de ce principe. Par exemple, appliqué de manière stricte, ce principe ne permet pas l'overriding.
+<br>Une autre manière de le comprendre consiste à dire que le comportement du sous-type peut différer de son parent, du moment que le <i>contrat</i> honoré par le parent est respecté (voir <a href="https://softwareengineering.stackexchange.com/questions/244773/is-method-overriding-always-a-violation-of-liskov-substitution-principle">stackexchange</a>).
+
 
 <!-- ********************************************************************************* -->
 <h2><a name="4-i-the-interface-segregation-principle">I - The Interface Segregation Principle</a></h2>

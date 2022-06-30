@@ -72,7 +72,7 @@ public class ExempleGOF{
         System.out.println("\n=== c3 (décoration par BorderDecorator) ===");
         VisualComponent c3 = new BorderDecorator(new TextView());
         c3.draw();
-
+        
         System.out.println("\n=== c4 (décoration par ScrollDecorator et BorderDecorator) ===");
         VisualComponent c4 = new ScrollDecorator(
                                 new BorderDecorator(
