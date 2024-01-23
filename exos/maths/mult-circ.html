@@ -58,7 +58,7 @@
 <div class="intro">
 Le but est d'utiliser javascript pour générer en SVG les animations exposées dans la vidéo "<a href="https://www.youtube.com/watch?v=-X49VQgi86E">La face cachée des tables de multiplication - Micmaths</a>".
 <br>Notions abordées : coordonnées, trigonométrie, modulo.
-<br>Prérequis : Javascript, SVG.
+<br>Prérequis : Javascript, <a href="svg-js.html">SVG</a>.
 </div>
 
 <!-- ********************************************************************************* -->
@@ -118,27 +118,40 @@ window.addEventListener('load', function(){
 </div><!-- end class="mulform" -->
 <!-- ************************* Fin mulform ************************************* -->
 
-<br>Nous allons diviser le travail en deux parties :
+<br>Ce dessin représente une table de multiplication ; l'état initial est un dessin de "la table de 2 modulo 200".
+<br>Les contrôles du bas permettent de changer la table représentée et le modulo utilisé.
+<br>Les contrôles de droite font la même chose et permettent de lancer une animation en changeant les valeurs et en rafraîchissant l'affichage à intervalles réguliers (100 ms).
+
+<!-- ********************************************************************************* -->
+<h2>Exercice (TD)</h2>
+<div class="exo">
+Nous allons diviser le travail en deux parties :
 <ol>
     <li>Dessiner une table circulaire.</li>
     <li>Ecrire une petite application javascript pour gérer le formulaire et les animations.</li>
 </ol>
+</div>
 
 <!-- ********************************************************************************* -->
 <h2>Dessiner une table circulaire</h2>
 
 Le but est donc d'écrire un programme qui dessine une table de multiplication donnée pour un modulo donné.
 <div class="definition">
-<b>Modulo</b> : nombre de points sur le cercle.
-<br>Les nombres sur le cercle vont de 0 à (modulo - 1).
+<b>Modulo</b>
 <br>Sur une horloge, les minutes fonctionnenent en modulo 60.
 <br>64 modulo 60 = 4
-<br>Les heures sont en modulo 24. 25 h = 1 h du matin le jour suivant.
-<br>Sur une montre, les heurees sont en modulo 12.
+<br>Les heures sont en modulo 24 : 25 h = 1 h du matin le jour suivant.
+<br>Sur une montre, les heures sont en modulo 12.
 <br>Les mois de l'année sont aussi modulo 12.
+<br>Dans la plupart des langages informatiques, l'opérateur modulo utilise le symbole <span class="bold big2">%</span>.
+<br>On a par exemple : <code>9 % 7 = 2</code>
 </div>
 
-<br>Exemple : table de 2 modulo 10, les nombres vont de 0 à 9.
+Sur notre cercle, le modulo représente le nombre de points sur le cercle.
+<br>Les nombres sur le cercle vont de 0 à (<code>modulo - 1</code>).
+
+<br><br>Exemple : table de 2 modulo 10, les nombres vont de 0 à 9.
+<br>On divise le cercle en 10, et chaque point sur le cercle représente un nombre.
 
 <div class="margin"><script>
 document.write(mymul.draw(mult=2, mod=10));
@@ -150,6 +163,7 @@ Si deux nombres sont reliés par la relation "multiplier par 2", on dessine une 
 <br>ligne 2 - 4
 <br>ligne 3 - 6
 <br>etc.
+<br>On a par exemple une ligne entre 8 et 6 parce que <code>8 x 2 = 16 = 6 % 10</code>
 </div>
 
 <div class="exo">
