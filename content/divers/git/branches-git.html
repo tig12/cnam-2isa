@@ -32,7 +32,7 @@
         <li>
             <a href="#2-creer-une-branche-et-faire-un-commit">Créer une branche et faire un commit</a>
             <ul>
-                <li><a href="#2-1-retour-sur-master">Retour sur master</a></li>
+                <li><a href="#2-1-retour-sur-main">Retour sur main</a></li>
             </ul>
         </li>
         <li>
@@ -50,9 +50,6 @@
                 <li><a href="#4-2-effacer-une-branche-distante">Effacer une branche distante</a></li>
                 <li><a href="#4-3-lier-une-branche-distante-par-defaut-a-une-branche-locale">Lier une branche distante par défaut à une branche locale</a></li>
             </ul>
-        </li>
-        <li>
-            <a href="#5-rebase">Rebase</a>
         </li>
     </ul>
 </nav>
@@ -108,13 +105,13 @@ Créer une branche ne pèse donc presque rien en mémoire, et changer de branche
 <!-- ********************************************************************************* -->
 <h2><a name="1-la-branche-courante">La branche courante</a></h2>
 
-Sous git, on est toujours sur une branche. Quand on initialise un dépôt, git crée une branche par défaut, appelée <b>master</b> (depuis 2020, la branche par défaut s'appelle <b>main</b>).
+Sous git, on est toujours sur une branche. Quand on initialise un dépôt, git crée une branche par défaut, appelée <b>main</b> (avant 2020, la branche par défaut s'appellait <b>master</b>).
 <br><code>git branch</code> permet de lister les branches du dépôt courant :
 <pre>git branch</pre>
 <pre>
-* master
+* main
 </pre>
-Git indique qu'il n'y a que la branche <code>master</code> ; l'astérisque indique que c'est la branche sur laquelle on se trouve.
+Git indique qu'il n'y a que la branche <code>main</code> ; l'astérisque indique que c'est la branche sur laquelle on se trouve.
 
 <!-- ********************************************************************************* -->
 <h2><a name="2-creer-une-branche-et-faire-un-commit">Créer une branche et faire un commit</a></h2>
@@ -129,7 +126,7 @@ git branch
 </pre>
 <pre>
   branche1
-* master
+* main
 </pre>
 
 <pre>
@@ -139,21 +136,21 @@ git checkout branche1
 
 Les 2 étapes précédentes auraient pu être faites en une instruction :
 <pre>
-git co -b branch1
+git checkout -b branch1
 </pre>
 
 Dans les deux cas, on peut vérifier qu'on se trouve sur <code>branch1</code>
 <pre>git branch</pre>
 <pre>
 * branche1
-  master
+  main
 </pre>
 
 Dans cette branche, on crée un nouveau fichier <code>fichier-branche1.txt</code>, on l'ajoute à git et on commit :
 <pre>
 echo "Fichier créé dans branche1" > fichier-branche1.txt
 git add -A
-git ci -m "Création de fichier-branche1.txt"
+git commit -m "Création de fichier-branche1.txt"
 </pre>
 
 <code>git slog</code> donne des indications intéressantes :
@@ -162,7 +159,7 @@ git ci -m "Création de fichier-branche1.txt"
 <pre>
 * 052f4d7 - (2019-01-20 11:33:43 +0100) Création de fichier-branche1.txt - Thierry (HEAD -> branch1)
 | 
-* 8c0ae1e - (2019-01-20 03:14:20 +0100) Ajout d'une troisième ligne dans test1.txt - Thierry (master)
+* 8c0ae1e - (2019-01-20 03:14:20 +0100) Ajout d'une troisième ligne dans test1.txt - Thierry (main)
 | 
 * 20dae34 - (2019-01-20 03:14:20 +0100) Ajout d'une seconde ligne dans test1.txt - Thierry
 | 
@@ -170,18 +167,18 @@ git ci -m "Création de fichier-branche1.txt"
 </pre>
 
 Le pointeur <code>HEAD</code> pointe bien vers l'état courant du répertoire de travail.
-<br>Le pointeur <code>master</code> pointe vers le dernier commit fait sur la branche <code>master</code>.
+<br>Le pointeur <code>main</code> pointe vers le dernier commit fait sur la branche <code>main</code>.
 <br>Le pointeur <code>branch1</code> pointe vers le dernier commit fait sur la branche <code>branch1</code>
 
 <!-- ************************************* -->
-<h3><a name="2-1-retour-sur-master">Retour sur master</a></h3>
+<h3><a name="2-1-retour-sur-main">Retour sur main</a></h3>
 
-On retourne sur la branche master :
-<pre>git co master</pre>
+On retourne sur la branche main :
+<pre>git checkout main</pre>
 On peut s'apercevoir de deux choses :
 <ul>
-    <li>Le fichier <code>fichier-branche1.txt</code> a disparu : git a remis le répertoire de travail dans l'état correspondant à <code>master</code>.</li>
-    <li><code>git slog</code> montre que le pointeur <code>HEAD</code> se trouve sur le commit correspondant à <code>master</code>.</li>
+    <li>Le fichier <code>fichier-branche1.txt</code> a disparu : git a remis le répertoire de travail dans l'état correspondant à <code>main</code>.</li>
+    <li><code>git slog</code> montre que le pointeur <code>HEAD</code> se trouve sur le commit correspondant à <code>main</code>.</li>
 </ul>
 
 <!-- ************************************* -->
@@ -217,10 +214,10 @@ git stash pop               # apply the stash and then immediately drop it
 <!-- ************************************* -->
 <h3><a name="3-1-fast-forward-merge">Fast-forward merge</a></h3>
 
-On va merger la branche <code>branch1</code> dans <code>master</code>.
-<br>On est dans un cas particulièrement simple car on n'a effectué aucune modification dans <code>master</code>.
-<br><code>master</code> pointe donc sur un ancêtre direct de <code>branch1</code>.
-<br>Git détecte cette situation et peut merger les deux branches simplement en déplaçant le pointeur <code>master</code>.
+On va merger la branche <code>branch1</code> dans <code>main</code>.
+<br>On est dans un cas particulièrement simple car on n'a effectué aucune modification dans <code>main</code>.
+<br><code>main</code> pointe donc sur un ancêtre direct de <code>branch1</code>.
+<br>Git détecte cette situation et peut merger les deux branches simplement en déplaçant le pointeur <code>main</code>.
 <br>
 <br>Ce type de merge s'appelle <b>fast-forward</b>.
 
@@ -235,32 +232,32 @@ Fast-forward
  create mode 100644 fichier-branche1.txt
 </pre>
 
-En listant les fichiers, on peut voir que le fichier <b>fichier-branche1.txt</b> est présent ; on peut voir en faisant slog que le pointeur <code>master</code> a été modifié.
+En listant les fichiers, on peut voir que le fichier <b>fichier-branche1.txt</b> est présent ; on peut voir en faisant slog que le pointeur <code>main</code> a été modifié.
 
 <!-- ************************************* -->
 <h3><a name="3-2-three-way-merge">Three-way merge</a></h3>
 
 On va créer une situation plus compliquée :
 <ul>
-    <li>Faire un commit sur <code>master</code></li>
+    <li>Faire un commit sur <code>main</code></li>
     <li>Aller sur <code>branch1</code></li>
     <li>Faire un commit sur branch1</li>
 </ul>
 Le merge fast-forward ne sera plus possible car une branche ne sera plus ancêtre direct de l'autre.
 <br>A chaque étape, on peut vérifier comment les choses évoluent avec <code>git status</code>, <code>git slog</code>, et en listant les fichiers du répertoire.
 <br>
-<br>Sur la branche <code>master</code> :
+<br>Sur la branche <code>main</code> :
 <pre>
-echo "Fichier créé dans master" > fichier-master.txt
+echo "Fichier créé dans main" > fichier-main.txt
 git add -A
-git ci -m "Création de fichier-master.txt"
+git commit -m "Création de fichier-main.txt"
 </pre>
 
 On va sur la branche <code>branch1</code> et on modifie <code>fichier-branche1.txt</code> :
 <pre>
-git co branch1 
+git checkout branch1 
 echo "Une deuxième ligne ajoutée dans branch1" >> fichier-branche1.txt
-git ci -am "Ajout d'une 2ème ligne dans fichier-branche1.txt"
+git commit -am "Ajout d'une 2ème ligne dans fichier-branche1.txt"
 </pre>
 
 <code>git slog</code> est intéressant :
@@ -269,7 +266,7 @@ git ci -am "Ajout d'une 2ème ligne dans fichier-branche1.txt"
 git slog 
 * 43bf826 - (2019-01-20 12:47:59 +0100) Ajout d'une 2ème ligne dans fichier-branche1.txt - Thierry (HEAD -> branch1)
 |   
-| * 549446f - (2019-01-20 12:40:16 +0100) Création de fichier-master.txt - Thierry (master)
+| * 549446f - (2019-01-20 12:40:16 +0100) Création de fichier-main.txt - Thierry (main)
 |/  
 | 
 * 052f4d7 - (2019-01-20 11:33:43 +0100) Création de fichier-branche1.txt - Thierry
@@ -280,11 +277,11 @@ Les 2 branches ont divergé. L'ancêtre commun est le commit <code>052f4d7</code
 <br>
 <br>On est toujours sur <code>branch1</code>, on fait le merge :
 <pre>
-git merge master
+git merge main
 Merge made by the 'recursive' strategy.
- fichier-master.txt | 1 +
+ fichier-main.txt | 1 +
  1 file changed, 1 insertion(+)
- create mode 100644 fichier-master.txt
+ create mode 100644 fichier-main.txt
 </pre>
 
 On voit que git n'a pas fait un fast-forward merge mais a utilisé la stratégie 'recursive'.
@@ -295,10 +292,10 @@ On voit que git n'a pas fait un fast-forward merge mais a utilisé la stratégie
 
 <pre>
 git slog 
-*   723fe55 - (2019-01-20 17:08:21 +0100) Merge branch 'master' into branch1 - Thierry (HEAD -> branch1)
+*   723fe55 - (2019-01-20 17:08:21 +0100) Merge branch 'main' into branch1 - Thierry (HEAD -> branch1)
 |\  
 | | 
-| * 549446f - (2019-01-20 12:40:16 +0100) Création de fichier-master.txt - Thierry (master)
+| * 549446f - (2019-01-20 12:40:16 +0100) Création de fichier-main.txt - Thierry (main)
 | | 
 * | 43bf826 - (2019-01-20 12:47:59 +0100) Ajout d'une 2ème ligne dans fichier-branche1.txt - Thierry
 |/  
@@ -321,26 +318,26 @@ Du contenu ajouté dans branch1
 Une troisième ligne
 </pre>
 
-Faire le commit dans <code>branch1</code> et basculer sur <code>master</code>
+Faire le commit dans <code>branch1</code> et basculer sur <code>main</code>
 
 <pre>
-git ci -am "Modification de test1.txt dans branch1"
+git commit -am "Modification de test1.txt dans branch1"
 
-git co master
+git checkout main
 </pre>
 
-Sur <code>master</code>, éditer le fichier <code>test1.txt</code>. On voit que les modifications faites sur <code>branch1</code> ne sont pas présentes.
+Sur <code>main</code>, éditer le fichier <code>test1.txt</code>. On voit que les modifications faites sur <code>branch1</code> ne sont pas présentes.
 <br>Modifier ce fichier de manière à avoir :
 
 <pre>
-Une première ligne modifiée dans master
+Une première ligne modifiée dans main
 Une seconde ligne
-Du contenu ajouté dans master
+Du contenu ajouté dans main
 Une troisième ligne
 </pre>
 
 Faire le commit :
-<pre>git ci -am "Modification de test1.txt dans master"</pre>
+<pre>git commit -am "Modification de test1.txt dans main"</pre>
 
 On peut maintenant faire le merge avec conflit
 
@@ -356,7 +353,7 @@ La phrase important du message est "réglez les conflits et validez le résultat
 <code>git status</code> donne plus d'information :
 <pre>
 git st
-Sur la branche master
+Sur la branche main
 Vous avez des chemins non fusionnés.
   (réglez les conflits puis lancez "git commit")
   (utilisez "git merge --abort" pour annuler la fusion)
@@ -377,9 +374,9 @@ Chemins non fusionnés :
 <br>Il contient :
 <pre>
 &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-Une première ligne modifiée dans master
+Une première ligne modifiée dans main
 Une seconde ligne
-Du contenu ajouté dans master
+Du contenu ajouté dans main
 =======
 Une première ligne modifiée dans branch1
 Une seconde ligne
@@ -398,9 +395,9 @@ Git a donc modifié ce fichier et identifié les conflits.
     <li>
         Dans la branche courante (<code>HEAD</code>), je vois :
 <pre>
-Une première ligne modifiée dans master
+Une première ligne modifiée dans main
 Une seconde ligne
-Du contenu ajouté dans master
+Du contenu ajouté dans main
 </pre>
         Dans la branche à merger (<code>branch1</code>), je vois :
 <pre>
@@ -414,9 +411,9 @@ Du contenu ajouté dans branch1
 Pour résoudre le conflit, il faut donc utiliser notre intelligence d'humain pour corriger le fichier et en obtenir une version satisfaisante, puis l'enregistrer.
 <br>La on peut par exemple faire :
 <pre>
-Une première ligne modifiée dans master et dans branch1
+Une première ligne modifiée dans main et dans branch1
 Une seconde ligne
-Du contenu ajouté dans master
+Du contenu ajouté dans main
 Du contenu ajouté dans branch1
 Une troisième ligne
 </pre>
@@ -425,27 +422,27 @@ Une troisième ligne
 <br>
 <br>On peut maintenant terminer la résolution du conflit comme un commit normal :
 <pre>
-git ci -am "Résolution manuelle du conflit"
+git commit -am "Résolution manuelle du conflit"
 </pre>
 
 <code>git slog</code> montre que le conflit est résolu :
 
 <pre>
-*   4494d4b - (2019-01-20 18:00:30 +0100) Résolution manuelle du conflit - Thierry (HEAD -> master)
+*   4494d4b - (2019-01-20 18:00:30 +0100) Résolution manuelle du conflit - Thierry (HEAD -> main)
 |\  
 | | 
 | * 8b04dc1 - (2019-01-20 17:24:35 +0100) Modification de test1.txt dans branch1 - Thierry (branch1)
 | |   
-| *   99c8465 - (2019-01-20 17:14:52 +0100) Merge branch 'master' into branch1 - Thierry
+| *   99c8465 - (2019-01-20 17:14:52 +0100) Merge branch 'main' into branch1 - Thierry
 | |\  
 | | | 
 | * | 43bf826 - (2019-01-20 12:47:59 +0100) Ajout d'une 2ème ligne dans fichier-branche1.txt - Thierry
 | | | 
-* | | 66abec5 - (2019-01-20 17:29:21 +0100) Modification de test1.txt dans master - Thierry
+* | | 66abec5 - (2019-01-20 17:29:21 +0100) Modification de test1.txt dans main - Thierry
 | |/  
 |/|   
 | | 
-* | 549446f - (2019-01-20 12:40:16 +0100) Création de fichier-master.txt - Thierry
+* | 549446f - (2019-01-20 12:40:16 +0100) Création de fichier-main.txt - Thierry
 |/  
 | 
 * 052f4d7 - (2019-01-20 11:33:43 +0100) Création de fichier-branche1.txt - Thierry
@@ -504,19 +501,12 @@ La prochaine fois qu'on fait
 <pre>git push</pre>
 depuis la branche locale <code>content-git</code>, git pushera sur la branche distante <code>origin content-git</code>
 <br>
-<br>De la même manière, si on retourne sur la branche <code>master</code> et qu'on fait 
-<pre>git push --set-upstream origin master</pre>
-alors git pushera sur la branche distante <code>origin master</code> quand on est sur la branche locale <code>master</code>.
-
-<!-- ********************************************************************************* -->
-<h2><a name="5-rebase">Rebase</a></h2>
-
+<br>De la même manière, si on retourne sur la branche <code>main</code> et qu'on fait 
+<pre>git push --set-upstream origin main</pre>
+alors git pushera sur la branche distante <code>origin main</code> quand on est sur la branche locale <code>main</code>.
 
 </article>
 </main>
 
-<!-- ********************************************************************************* -->
-<!-- ************************************* -->
-<!-- ******************* -->
 </body>
 </html>

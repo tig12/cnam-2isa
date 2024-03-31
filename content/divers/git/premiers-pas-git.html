@@ -39,6 +39,7 @@
             <a href="#2-config">Config</a>
             <ul>
                 <li><a href="#2-1-modifier-la-config">Modifier la config</a></li>
+                <li><a href="#2-1b-alias-supplementaires">Alias supplémentaires</a></li>
                 <li><a href="#2-2-git-completion">Git completion</a></li>
                 <li><a href="#2-3-display-current-branch-in-console">Display current branch in console</a></li>
             </ul>
@@ -61,14 +62,13 @@
 <article>
 
 
+<!-- ********************************************************************************* -->
+<h2><a name="1-creer-un-depot">Créer un dépôt</a></h2>
 Créez un répertoire vide et allez dedans :
 <pre>
 mkdir git-tests
 cd git-tests
 </pre>
-
-<!-- ********************************************************************************* -->
-<h2><a name="1-creer-un-depot">Créer un dépôt</a></h2>
 
 
 <!-- ************************************* -->
@@ -206,8 +206,8 @@ file:.git/config	core.bare=false
 file:.git/config	core.logallrefupdates=true
 file:.git/config	remote.origin.url=ssh://user1@my-git-host.org/path/to/repo/repo-name.git
 file:.git/config	remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
-file:.git/config	branch.master.remote=origin
-file:.git/config	branch.master.merge=refs/heads/master
+file:.git/config	branch.main.remote=origin
+file:.git/config	branch.main.merge=refs/heads/main
 </pre>
 
 Dans l'exemple précédent, remarquer les alias ; cette syntaxe est parfois utilisée dans la suite.
@@ -227,7 +227,28 @@ Par exemple :
 <pre>git config --global alias.br "branch"</pre>
 (permet d'utiliser <code>git br</code> au lieu de <code>git branch</code>).
 <br>
-<br>Au lieu d'utiliser <code>git config</code>, on peut directement éditer et modifier le fichier <code>.git/config</code> ou les fichiers contenant les configs <code>global</code> et <code>system</code>.
+<br>Au lieu d'utiliser la commande <code>git config</code>, on peut directement éditer et modifier le fichier <code>.git/config</code> ou les fichiers contenant les configs <code>global</code> et <code>system</code>.
+
+<!-- ************************************* -->
+<h3><a name="2-1b-alias-supplementaires">Alias supplémentaires</a></h3>
+Si vous utilisez git toute la journée, certaines commandes se répètent souvent, et il peut être utile d'avoir des raccourcis encore plus court que ce que permet la config de git.
+<br>Sous Linux, on peut définir des alias, en général définis dans un fichier <code>.bash_aliases</code>, à la racine du dossier utilisateur.
+<br>Voilà quelques exemples, à adapter à vos besoins :
+<pre>
+alias ga='git add -A'
+alias gic='git commit -m '
+alias gid='git diff'
+alias gis='git status -uall'
+
+alias gip='git push '
+alias gipb='git push beta'
+alias gipg='git push github'
+alias gipp='git push prod'
+
+alias gl='git tree'
+alias gf='git fetch'
+alias gr='git remote -v'
+</pre>
 
 <!-- ************************************* -->
 <h3><a name="2-2-git-completion">Git completion</a></h3>
@@ -249,17 +270,17 @@ Aller dans le dépôt vide :
 <code>git status</code> permet de voir ce qui a été modifié depuis le dernier commit.
 <br>On peut vérifier que rien n'a été modifié :
 <pre>
-git st
-Sur la branche master
+git status
+Sur la branche main
 rien à valider, la copie de travail est propre
 </pre>
 
 Créer un premier fichier <code>test1.txt</code> dans lequel on écrit "<code>Une première ligne</code>" :
 <pre>echo 'Une première ligne' > test1.txt</pre>
 Maintenant, <code>git status</code> indique quelque chose :
-<pre>git st</pre>
+<pre>git status</pre>
 <pre>
-Sur la branche master
+Sur la branche main
 
 Aucun commit
 
@@ -279,9 +300,9 @@ Si on a plusieurs fichiers à versionner, on peut tous les ajouter en faisant
 <pre>git add -A</pre>
 
 Maintenant, <code>git status</code> donne un résultat différent :
-<pre>git st</pre>
+<pre>git status</pre>
 <pre>
-Sur la branche master
+Sur la branche main
 
 Aucun commit
 
@@ -294,9 +315,9 @@ Modifications qui seront validées :
 git indique que <code>test1.txt</code> est bien pris en compte et que ses modifications seront enregistrées au prochain commit.
 <br>
 <br>On peut maintenant faire un premier commit :
-<pre>git ci -m "Création de test1.txt"</pre>
+<pre>git commit -m "Création de test1.txt"</pre>
 <pre>
-[master (commit racine) 2eb9fa0] Création de test1.txt
+[main (commit racine) 2eb9fa0] Création de test1.txt
  1 file changed, 1 insertion(+)
  create mode 100644 test1.txt
 </pre>
@@ -304,7 +325,7 @@ git indique que <code>test1.txt</code> est bien pris en compte et que ses modifi
 <code>git slog</code> montre que ce commit a bien été pris en compte :
 <pre>git slog</pre>
 <pre>
-* 2eb9fa0 - (2019-01-19 12:35:48 +0100) Création de test1.txt - Thierry (HEAD -> master)
+* 2eb9fa0 - (2019-01-19 12:35:48 +0100) Création de test1.txt - Thierry (HEAD -> main)
 </pre>
 
 <!-- ************************************* -->
@@ -324,9 +345,9 @@ Si on fait <code>git status</code>, on voit que rien n'a été modifié.
 On ajoute une seconde ligne à <code>test1.txt</code>
 <pre>echo "Une seconde ligne" >> test1.txt</pre>
 On peut voir l'état des modifications avec <code>git diff</code> et <code>git status</code>.
-<pre>git st</pre>
+<pre>git status</pre>
 <pre>
-Sur la branche master
+Sur la branche main
 Modifications qui ne seront pas validées :
   (utilisez "git add &lt;fichier>..." pour mettre à jour ce qui sera validé)
   (utilisez "git checkout -- &lt;fichier>..." pour annuler les modifications dans la copie de travail)
@@ -340,9 +361,9 @@ Le fichier <code>test1.txt</code> est maintenant dans l'état <b>modified</b> : 
 <br>On indique à git que ces modifications seront à inclure dans le prochain commit en faisant :
 <pre>git add test1.txt</pre>
 <code>git status</code> donne maintenant :
-<pre>git st</pre>
+<pre>git status</pre>
 <pre>
-Sur la branche master
+Sur la branche main
 Modifications qui seront validées :
   (utilisez "git reset HEAD &lt;fichier>..." pour désindexer)
 
@@ -358,9 +379,9 @@ Le fichier <code>test1.txt</code> est maintenant dans l'état <b>staged</b> : il
 <pre>echo "Une troisième ligne" >> test1.txt</pre>
 
 <code>test1.txt</code> se trouve maintenant à la fois dans l'état <b>modified</b> et <b>staged</b>, comme l'indique <code>git status</code> :
-<pre>git st</pre>
+<pre>git status</pre>
 <pre>
-Sur la branche master
+Sur la branche main
 Modifications qui seront validées :
   (utilisez "git reset HEAD &lt;fichier>..." pour désindexer)
 
@@ -373,17 +394,17 @@ Modifications qui ne seront pas validées :
 	modifié :         test1.txt
 </pre>
 Si on fait un commit maintenant, seules les modifications enregistrées dans l'index seront enregistrées :
-<pre>git ci -m "Ajout d'une seconde ligne dans test1.txt"</pre>
+<pre>git commit -m "Ajout d'une seconde ligne dans test1.txt"</pre>
 
 <code>git status</code> permet de voir que <code>test1.txt</code> reste dans l'état <b>modified</b>.
 
 On peut enregistrer ces modifications en faisant :
 <pre>
 git add test1.txt
-git ci -m "Ajout d'une troisième ligne dans test1.txt"
+git commit -m "Ajout d'une troisième ligne dans test1.txt"
 </pre>
 Ou de manière plus courte :
-<pre>git ci -am "Ajout d'une troisième ligne dans test1.txt"</pre>
+<pre>git commit -am "Ajout d'une troisième ligne dans test1.txt"</pre>
 Le "a" indique qu'on fait un add juste avant de faire le commit.
 <br>Mais attention : ce "a" ne va concerner que les fichiers déjà gérés par git. Si vous voulez ajouter un fichier qui n'a jamais été versionné, il faut faire explicitement <code>git add</code>.
 <br>
@@ -441,9 +462,9 @@ Lorsqu'on a cloné le dépot <code>repo1</code>, git a automatiquement créé un
 [remote "origin"]
 	url = /path/to/git-test/repo1/
 	fetch = +refs/heads/*:refs/remotes/origin/*
-[branch "master"]
+[branch "main"]
 	remote = origin
-	merge = refs/heads/master
+	merge = refs/heads/main
 </pre>
 
 Si on fait <code>git slog</code>, git ne renvoie rien car on a créé <code>clone-repo1</code> alors que <code>repo1</code> ne contenait aucun commit.
@@ -456,7 +477,7 @@ remote: Compression des objets: 100% (4/4), fait.
 remote: Total 9 (delta 0), reused 0 (delta 0)
 Dépaquetage des objets: 100% (9/9), fait.
 Depuis /home/thierry/dev/jobs/cnam/git-repos/git-test/repo1
- * [nouvelle branche] master     -> origin/master
+ * [nouvelle branche] main     -> origin/main
 </pre>
 
 On peut constater deux effets de <code>git pull</code> :
@@ -477,7 +498,7 @@ On crée un fichier <code>clone.txt</code>, on le versionne et on commit :
 <pre>
 echo "Fichier créé dans clone-repo1" > clone.txt
 git add -A
-git ci -m "Création de clone.txt, effectuée depuis clone-repo1"
+git commit -m "Création de clone.txt, effectuée depuis clone-repo1"
 </pre>
 
 Si on veut envoyer ce commit dans le dépôt <code>repo1</code> :
@@ -518,15 +539,12 @@ git push origin
 git remote add clone ../clone-repo1/
 </pre>
         Et on peut faire
-        <pre>git pull --ff-only clone master</pre>
+        <pre>git pull --ff-only clone main</pre>
         
     </li>
 
 </ol>
 -->
 
-<!-- ********************************************************************************* -->
-<!-- ************************************* -->
-<!-- ******************* -->
 </body>
 </html>

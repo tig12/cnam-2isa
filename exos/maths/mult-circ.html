@@ -29,17 +29,11 @@
         background:#ddd;
     }
     </style>
-    <script>
-        // Objets pour générer des exemples
-        const mymul = new mul(300);
-        const mysvg = new svg(300, 300, {'class': "svg"});
-        mymul.INTERVAL = 500;
-    </script>
     <!-- 
         FIN Incrustation mulform
     -->
-    
 </head>
+
 <body>
 
 <nav class="prevnext">
@@ -138,13 +132,15 @@ Nous allons diviser le travail en deux parties :
 Le but est donc d'écrire un programme qui dessine une table de multiplication donnée pour un modulo donné.
 <div class="definition">
 <b>Modulo</b>
-<br>Sur une horloge, les minutes fonctionnenent en modulo 60.
+<br>Sur une horloge, les minutes fonctionnenent en modulo 60 et les heures en modulo 12.
 <br>64 modulo 60 = 4
-<br>Les heures sont en modulo 24 : 25 h = 1 h du matin le jour suivant.
-<br>Sur une montre, les heures sont en modulo 12.
-<br>Les mois de l'année sont aussi modulo 12.
+<br>13 modulo 12 = 1
+<br>On utilise aussi souvent les heures en modulo 24 : 25 h = 1 h du matin le jour suivant.
+<br>Les mois de l'année sont en modulo 12.
 <br>Dans la plupart des langages informatiques, l'opérateur modulo utilise le symbole <span class="bold big2">%</span>.
 <br>On a par exemple : <code>9 % 7 = 2</code>
+<br><br>D'une manière générale, la définition du modulo est : 
+<br>"<i>Opération binaire qui associe à deux entiers naturels le reste de la division euclidienne du premier par le second</i>".
 </div>
 
 Sur notre cercle, le modulo représente le nombre de points sur le cercle.
@@ -239,17 +235,47 @@ Utilisez votre code pour générer une gallerie comme ci-dessous.
 </div>
 
 <script>
+    const mymul = new mul(300);
+    // const mysvg = new svg(300, 300, {'class': "svg"});
+    // mymul.INTERVAL = 500;
+    
     const mymod = 210;
     const modfrom = 2;
     const modto = 20
     document.write('<div class="center big3 bold">Tables modulo ' + mymod + '</div>\n');
-    for(let i = 2; i <= 20; i++){
+    for(let i = modfrom; i <= modto; i++){
         document.write('<div style="float:left;">\n');
         document.write('<center><h2>' + i + '</h2></center>\n');
         document.write(mymul.draw(mult=i, mod=mymod));
         document.write('</div>\n');
     }
+    document.write('<br style="clear:left;">\n');
+    
+    const mymul2 = new mul(180, 5);
+    // const mysvg = new svg(300, 300, {'class': "svg"});
+    // mymul.INTERVAL = 500;
+    
+    const mymod2 = 180;
+    const modfrom2 = 2;
+    const modto2 = 20
+    for(let i = modfrom2; i <= modto2; i++){
+        document.write('<div>\n');
+        document.write(mymul2.draw(mult=i, mod=mymod2));
+        document.write('</div>\n');
+    }
+    
 </script>
+
+<!-- 
+    const modulo = 200;
+    const table = 2;
+    const svgSize = 400;
+    const form = new mulform(modulo, table, svgSize);
+-->
+
+
+
+
 
 
 </article>
