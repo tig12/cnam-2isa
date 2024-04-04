@@ -260,7 +260,7 @@ public class MyClass { ... }
 <!-- ********************************************************************************* -->
 <h2 id="meta-annotations-ou-annotations-d-annotations">Meta-annotations (ou annotations d'annotations)</h2>
 
-Permettent d'annoter la définition des annotations, pour spécifier où le nouveau type d'annotation peut être utilisé et comment il sera utilisé à la compilation et à l'exécution.
+Permettent d'annoter la définition des annotations, pour spécifier <b>où le nouveau type d'annotation peut être utilisé</b> et <b>comment il sera utilisé</b> à la compilation et à l'exécution.
 <br>
 <br>Par exemple, si on veut que les annotations soient utilisées par javadoc, il faut annoter la déclaration de l'annotation ("meta-annotation") avec <code>@Documented</code>:
 <pre>
@@ -294,8 +294,7 @@ Permet de spécifier où la nouvelle annotation peut être utilisée.
     TYPE_PARAMETER
     TYPE_USE
 </pre>
-<br>
-<br>Par exemple pour indiquer qu'une annotation ne peut s'appliquer qu'aux méthodes :
+Par exemple pour indiquer qu'une annotation ne peut s'appliquer qu'aux méthodes :
 <pre>
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
