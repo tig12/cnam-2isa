@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Jointures | BDD CNAM 2ISA Millau</title>
+    <link href="../../static/cnam-2isa.css" rel="stylesheet" type="text/css">
+    <meta name="description" content="">
+    <meta name="robots" content="index,follow">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2021">
+    <style>
+        .jointures td:nth-child(1){font-weight:bold; font-size:1.2rem;}
+    </style>
+</head>
+
+<body>
+
+<nav class="prevnext">
+    <a class="top" href="index.html">&uarr;</a>
+    <!--
+    <a class="prev" rel="prev" href="../index.html">&larr;</a>
+    <a class="next" rel="next" href=".html">&rarr;</a>
+    -->
+</nav>
+
+<header>
+<h1>Jointures</h1>
+</header>
+
+<article>
+
+<h2>Types de jointures</h2>
+
+<table class="wikitable jointures margin">
+    <tr><th>Nom</th><th>Commentaires</th></tr>
+    <tr>
+        <td>JOIN</td>
+        <td>
+            Synonyme de <code>INNER JOIN</code>
+        </td>
+    </tr>
+
+    <tr>
+        <td>INNER JOIN</td>
+        <td>
+            Type par défaut, synonyme de <code>JOIN</code>
+            <br>Seules les lignes correspondant au critère de jointure dans les deux tables sont renvoyées.
+        </td>
+    </tr>
+
+    <tr>
+        <td>OUTER JOIN</td>
+        <td>
+            Désigne soit <code>LEFT JOIN</code>, <code>RIGHT JOIN</code> et <code>FULL JOIN</code>
+        </td>
+    </tr>
+
+    <tr>
+        <td>LEFT JOIN</td>
+        <td>
+            Les lignes de la première table (table de gauche) de la clause <code>FROM</code> sont aussi renvoyées.
+        </td>
+    </tr>
+
+    <tr>
+        <td>RIGHT JOIN</td>
+        <td>
+            Les lignes de la seconde table (table de droite) de la clause <code>FROM</code> sont aussi renvoyées.
+        </td>
+    </tr>
+
+    <tr>
+        <td>FULL JOIN</td>
+        <td>
+            A la fois <code>LEFT JOIN</code> et <code>RIGHT JOIN</code>.
+        </td>
+    </tr>
+
+    <tr>
+        <td>NATURAL JOIN</td>
+        <td>
+            A utiliser lorsque les noms des colonnes des tables jointes sont identiques.
+<pre>
+select empno, job, <b>e.deptno</b>, dname
+    from emp e
+    <b>join</b> dept d on e.deptno=d.deptno;
+</pre>
+            Equivalent à :
+<pre>
+select empno, job, <b>deptno</b>, dname
+    from emp e
+    <b>natural join</b> dept d;
+</pre>
+            Noter que si on n'utilise pas <code>NATURAL JOIN</code>, il faut préciser <code>e.deptno</code> ou <code>d.deptno</code> dans la clause <code>SELECT</code>
+        </td>
+    </tr>
+</table>
+
+<h2>Jointures sur 3 tables et plus</h2>
+
+Voir <a href="https://codingstatus.com/sql-join-3-tables/">https://codingstatus.com/sql-join-3-tables/</a>
+
+<pre>
+-- jointure sur 3 tables
+SELECT
+    e.empno, e.ename, e.deptno,
+    d.dname, d.loc,
+    e.sal,
+    s.grade, s.losal, s.hisal
+FROM emp e
+JOIN dept d
+    ON e.deptno= d.deptno
+JOIN salgrade s
+    ON e.sal between s.losal and s.hisal;
+
+-- 3 tables, autre syntaxe
+SELECT e.ename, e.sal, e.deptno, d.dname, s.grade, s.losal, s.hisal
+FROM emp e, dept d, salgrade s
+WHERE
+    e.sal BETWEEN s.losal AND s.hisal
+    AND e.deptno = d.deptno;
+</pre>
+
+<h2>Quizz jointures</h2>
+<img class="padding margin border" src="img/quizz-jointures.svg" alt="Table utilisé pour le quizz sur les jointures">
+<!--
+drop table table1;
+drop table table2;
+create table TABLE1(col1 varchar(1) );
+create table TABLE2(col2 varchar(1) );
+
+insert into table1 values('A');
+insert into table1 values('B');
+insert into table1 values('C');
+
+insert into table2 values('A');
+insert into table2 values('A');
+insert into table2 values('B');
+insert into table2 values('D');
+insert into table2 values('E');
+
+select * from table2;
+SELECT * FROM TABLE1 right JOIN TABLE2 ON TABLE1.COL1 = TABLE2.COL2;
+select * from TABLE1, TABLE2;
+
+
+-->
+
+</article>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>SQL Référence | BDD CNAM 2ISA Millau</title>
+    <link href="../../static/cnam-2isa.css" rel="stylesheet" type="text/css">
+    <meta name="description" content="">
+    <meta name="robots" content="index,follow">
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.rights" content="Creative commons by-sa 4.0">
+    <meta name="dcterms.rightsHolder" content="Thierry Graff">
+    <meta name="dcterms.dateCopyrighted" content="2021">
+</head>
+
+<body>
+
+<nav class="prevnext">
+    <a class="top" href="index.html">&uarr;</a>
+    <!--
+    <a class="prev" rel="prev" href=".html">&larr;</a>
+    <a class="next" rel="next" href=".html">&rarr;</a>
+    -->
+</nav>
+
+<header>
+<h1>Référence SQL</h1>
+</header>
+
+<article>
+
+
+<!-- ********************************************************************************* -->
+<h2>Opérateurs</h2>
+<table class="wikitable cheatsheet margin">
+    <tr><td>=</td><td>Egal</td></tr>
+    <tr><td>></td><td>Plus grand</td></tr>
+    <tr><td>>=</td><td>Plus grand ou égal</td></tr>
+    <tr><td>&lt;</td><td>Plus petit</td></tr>
+    <tr><td>&lt;=</td><td>Plus petit ou égal</td></tr>
+    <tr><td>&lt;> ou !=</td><td>Différent</td></tr>
+    <tr><td>IS NULL</td><td>Egal à NULL</td></tr>
+</table>
+
+<table class="wikitable cheatsheet margin">
+    <tr><td>AND</td><td>Renvoie TRUE uniquement si les 2 opérandes sont TRUE</td></tr>
+    <tr><td>OR</td><td>Renvoie TRUE si un des 2 opérandes est TRUE</td></tr>
+    <tr><td>NOT</td><td>Renvoie TRUE si la condition est FALSE</td></tr>
+</table>
+
+Priorité :
+<table class="wikitable margin">
+    <tr><td>1</td><td>Tous les opérateurs de comparaison</td></tr>
+    <tr><td>2</td><td>NOT</td></tr>
+    <tr><td>3</td><td>AND</td></tr>
+    <tr><td>4</td><td>OR</td></tr>
+</table>
+
+<table class="wikitable cheatsheet margin">
+    <tr>
+        <td>BETWEEN ...AND...</td>
+        <td>
+            Entre 2 valeurs (bornes comprises)
+            <pre>SELECT * FROM dept WHERE sal BETWEEN 1000 and 2000</pre>
+        </td>
+    </tr>
+    <tr><td>LIKE</td>
+        <td>
+            Utilisation de jokers
+            <pre>SELECT ename FROM emp WHERE ename LIKE '_A%';</pre>
+            <code>%</code> : 0 ou + caractères
+            <br><code>_</code> : 1 seul caractère
+        </td>
+    </tr>
+</table>
+
+<table class="wikitable cheatsheet margin">
+    <tr>
+        <td>IN</td>
+        <td>
+            Egal à une des valeurs de la liste
+            <pre>SELECT empno, ename FROM emp WHERE deptno IN(10, 20)</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>NOT IN</td>
+        <td>
+            Egal à aucune des valeurs de la liste
+        </td>
+    </tr>
+    <tr>
+        <td>ANY</td>
+        <td>
+            Compare à une les valeurs de la liste
+        </td>
+    </tr>
+    <tr>
+        <td>ALL</td>
+        <td>
+            Compare à toutes les valeurs de la liste
+        </td>
+    </tr>
+    <tr>
+        <td>SOME</td>
+        <td>
+        </td>
+    </tr>
+</table>
+
+<table class="wikitable cheatsheet margin">
+    <tr>
+        <td>EXISTS</td>
+        <td>
+            Evalué à TRUE quand la sous-requête renvoie au moins une ligne
+            <br>FALSE sinon
+            <pre></pre>
+        </td>
+    </tr>
+    <tr>
+        <td>NOT EXISTS</td>
+        <td>
+        </td>
+    </tr>
+</table>
+
+<!-- ********************************************************************************* -->
+<h2>Fonctions</h2>
+Les fonctions de groupe ignorent les valeurs nulles de la colonne.
+<table class="wikitable cheatsheet margin">
+    <tr>
+        <td>AVG</td>
+        <td>
+            Moyenne (average)
+            <br><code>SELECT AVG(DISTINCT sal) FROM emp</code> : élimine les doublons avant de compter
+        </td>
+    </tr>
+    <tr>
+        <td>COUNT</td>
+        <td>
+            <code>SELECT COUNT(*)</code> : nombre de lignes
+            <br><code>SELECT COUNT(avno)</code> : nombre de lignes où <code>avno</code> est non null
+            <br><code>COUNT(DISTINCT mgr)</code> : élimine les doublons avant de compter
+        </td>
+    </tr>
+    <tr><td>MAX</td><td>Maximum</td></tr>
+    <tr><td>MIN</td><td>Minimum</td></tr>
+    <tr>
+        <td>SUM</td>
+        <td>
+            Somme
+            <br><code>SUM(sal)</code>
+            <br><code>SUM(DISTINCT sal)</code> : élimine les doublons avant de compter
+        </td>
+    </tr>
+    <tr>
+        <td>COALESCE</td>
+        <td>
+            Remplacer les NULL par une valeur
+            <br><code>SELECT COALESCE(comm, 0)</code> : si <code>comm</code> est NULL, 0 est renvoyé
+        </td>
+    </tr>
+</table>
+
+<!-- ********************************************************************************* -->
+<h2></h2>
+
+<!-- ********************************************************************************* -->
+<h2>Variables spéciales</h2>
+<table class="wikitable cheatsheet margin">
+    <tr>
+        <td>ROWNUM</td>
+        <td>
+            Numéro de la ligne courante
+            <pre>SELECT ROWNUM as rank, ...</pre>
+        </td>
+    </tr>
+</table>
+
+<!-- ********************************************************************************* -->
+<h2></h2>
+
+</article>
+
+</body>
+</html>
