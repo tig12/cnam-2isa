@@ -31,6 +31,44 @@
 
 <header>
 <h1>Les ensembles</h1>
+
+<nav class="toc">
+    <ul>
+        <li>
+            <a href="#1-ensemble-vide">Ensemble vide</a>
+        </li>
+        <li>
+            <a href="#2-elements-cardinal">Eléments, Cardinal</a>
+        </li>
+        <li>
+            <a href="#3-appartenance">Appartenance</a>
+        </li>
+        <li>
+            <a href="#4-sous-ensemble-inclusion">Sous-ensemble, inclusion</a>
+        </li>
+        <li>
+            <a href="#5-complementaire">Complémentaire</a>
+        </li>
+        <li>
+            <a href="#6-union-intersection">Union, intersection</a>
+            <ul>
+                <li>
+                    <a href="#6-1-et-ou-logiques">ET, OU logiques</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#7-somme-ou-union-disjointe">Somme ou Union disjointe</a>
+        </li>
+        <li>
+            <a href="#8-produit">Produit</a>
+        </li>
+        <li>
+            <a href="#9-autres-notions">Autres notions</a>
+        </li>
+    </ul>
+</nav>
+
 <div class="intro">
 Une longue évolution a conduit à utiliser les ensembles comme briques de base pour exprimer une grande partie des mathématiques. On verra plus loin que <a href="categories.html">les catégories</a> ont remplacé les ensembles dans la seconde moitié du vingtième siècle.
 <br>Les ensembles sont très pratiques ; avec quelques notions très simples, on peut exprimer un grand nombre de choses en mathématiques.
@@ -49,12 +87,12 @@ Cette définition ne précise pas la nature des éléments, un ensemble peut con
 <main>
 <article>
 
-<h2>Ensemble vide</h2>
+<h2 id="1-ensemble-vide">Ensemble vide</h2>
 On note <code class="formula big5">&nbsp;&empty;&nbsp;</code> l'ensemble vide, qui ne contient aucun élément.
 
 
 <!-- ********************************************************************************* -->
-<h2>Eléments, Cardinal</h2>
+<h2 id="2-elements-cardinal">Eléments, Cardinal</h2>
 Un ensemble peut contenir un nombre fini d'éléments ou une infinité.
 
 <img class="margin padding border" src="img/ens-a-b.svg" alt="Ensembles A et B">
@@ -70,7 +108,7 @@ On a : <span class="formula padding big3">card( &empty; ) = 0</span>
 
 
 <!-- ********************************************************************************* -->
-<h2>Appartenance</h2>
+<h2 id="3-appartenance">Appartenance</h2>
 Un élément peut appartenir ou pas à un ensemble :
 <br>La relation d'<b>appartenance</b> entre un élément et un ensemble est notée <code class="formula">&nbsp;&in;&nbsp;</code>
 
@@ -84,7 +122,7 @@ Un élément peut appartenir ou pas à un ensemble :
 
 
 <!-- ********************************************************************************* -->
-<h2>Sous-ensemble, inclusion</h2>
+<h2 id="4-sous-ensemble-inclusion">Sous-ensemble, inclusion</h2>
 
 Si tous les éléments de A appartiennent à B, on dit que A est un <b>sous-ensemble</b>, ou une <b>partie</b> de B.
 <div class="flex-wrap">
@@ -99,12 +137,12 @@ Une notion très utile est <b>l'ensemble de toutes les parties de A</b>, notée 
 
 
 <!-- ********************************************************************************* -->
-<h2>Complémentaire</h2>
+<h2 id="5-complementaire">Complémentaire</h2>
 On se place dans l'ensemble U, &laquo;l'ensemble universel&raquo;, qui contient tous les éléments possibles de l'univers qu'on étudie.
 
 
 <!-- ********************************************************************************* -->
-<h2>Union, intersection</h2>
+<h2 id="6-union-intersection">Union, intersection</h2>
 <div class="flex-wrap">
 <img class="border margin padding" src="img/ens-union1.svg" alt="Union de deux ensembles">
 <div class="margin">L'union de deux ensembles est notée <code class="formula big5 padding-left">A &cup; B</code></div>
@@ -125,7 +163,7 @@ On se place dans l'ensemble U, &laquo;l'ensemble universel&raquo;, qui contient 
 </div>
 </div><!-- end class="flex-wrap" -->
 
-<h3>ET, OU logiques</h3>
+<h3 id="6-1-et-ou-logiques">ET, OU logiques</h3>
 Avec les notions très naturelles et intuitives d'union et d'intersection, on peut par exemple exprimer le ET et le OU logiques :
 <ul class="spaced">
     <li>
@@ -141,7 +179,7 @@ Avec les notions très naturelles et intuitives d'union et d'intersection, on pe
 </ul>
 
 <!-- ********************************************************************************* -->
-<h2>Somme ou Union disjointe</h2>
+<h2 id="7-somme-ou-union-disjointe">Somme ou Union disjointe</h2>
 <div class="flex-wrap">
 <img class="border margin padding" src="img/ens-union-disjointe.svg" alt="Union disjointe de deux ensembles">
 <div class="margin">L'union disjointe de deux ensembles est notée <code class="formula big5 padding-left">A &#8852; B</code></div>
@@ -154,7 +192,7 @@ La somme, ou union disjointe de deux ensembles : ensemble qui contient tous les 
 <div class="formula big5 margin">card(A &#8852; B) = card(A) + card(B)</div>
 
 <!-- ********************************************************************************* -->
-<h2>Produit</h2>
+<h2 id="8-produit">Produit</h2>
 
 <div class="flex-wrap">
 <img class="border margin padding" src="img/ens-produit.svg" alt="Produit cartésien de deux ensembles">
@@ -171,7 +209,7 @@ On a la propriété :
 
 
 <!-- ********************************************************************************* -->
-<h2>Autres notions</h2>
+<h2 id="9-autres-notions">Autres notions</h2>
 D'autres notions importantes existent, mais ne sont pas abordées dans cette introduction. On peut citer
 <ul>
     <li>La différence, la différence symétrique</li>

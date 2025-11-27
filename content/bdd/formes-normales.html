@@ -25,9 +25,23 @@
     -->
 </nav>
 
+<!-- 
+https://vladimirzdrazil.com/til/databases/relational-database-normal-forms-mnemonic/
+-->
+
 <header>
 <h1>Formes normales</h1>
 </header>
+<div class="intro">
+En résumé, la phrase à prononcer lorsqu'on témoigne devant un tribunal anglophone : &laquo; <i>the truth, the whole truth, and nothing but the truth</i> &raquo; peut être détournée en &laquo; <i>la clé, toute la clé, rien que la clé</i> &raquo;.
+<br>Plus précisément : &laquo; <i>Chaque attribut ne faisant pas partie de la clé doit fournir une information à propos de la clé, toute la clé, rien que la clé</i> &raquo;
+<ul class="margin0">
+    <li>1NF : la clé</li>
+    <li>2NF : toute la clé</li>
+    <li>3NF : rien que la clé</li>
+</ul>
+
+</div>
 
 <article>
 
@@ -35,7 +49,7 @@
 <h2>1NF - 1ère forme normale</h2>
 <ul class="spaced">
     <li>
-        <b>Unicité des lignes</b>
+        <b>Unicité des lignes</b>, donc chaque ligne doit avoir un identifiant unique (la clé).
     </li>
     <li>
         <b>Ordre des lignes indifférent</b>, en lecture comme en écriture.
@@ -201,7 +215,7 @@ Exemple : base permettant de gérer les notes des étudiants.
 
 <!-- ********************************************************************************* -->
 <h2>2NF - 2ème forme normale</h2>
-<b>Pas de dépendance partielle</b>.
+<b>1NF + pas de dépendance partielle</b>.
 <br>Concerne des tables dont la clé primaire (ou identifiant) est une combinaison de plusieurs colonnes.
 <br>On distingue:
 <ul class="margin0">
@@ -267,7 +281,7 @@ La clé est ici une combinaison de <code>id_etudiant</code> et <code>id_cours</c
 
 <!-- ********************************************************************************* -->
 <h2>3NF - 3ème forme normale</h2>
-<b>Pas de dépendance transitive par l'intermédiaire d'attributs non identifiants</b>
+<b>2NF + pas de dépendance transitive par l'intermédiaire d'attributs non identifiants</b>
 <br>Comme pour la 2NF, on distingue:
 <ul class="margin-top0">
     <li>les attributs faisant partie de l'identifiant</li>
@@ -297,13 +311,15 @@ La 3NF peut s'exprimer ainsi : <b>Un attribut non identifiant ne dépend pas d�
 </table>
 
 Ici, l'identifiant est <code>id_avion</code>.
-<br>Sachant que la capacité d'un avion et son constructeur dépendent de son modèle, cette table enfreint la 3NF à deux reprises :
+<br>Sachant que la capacité d'un avion et son constructeur dépendent de son modèle, cette table ne respecte pas la 3NF à deux reprises :
 <ul class="margin-top0">
     <li><code>constructeur</code> dépend de <code>modele</code>, qui ne fait pas partie de l'identifiant</li>
     <li><code>capacite</code> dépend de <code>modele</code>, qui ne fait pas partie de l'identifiant</li>
 </ul>
 
-Pour respecter la 3NF, il faudrait :
+(cf "rien que la clé" : ici, <code>constructeur</code> et <code>capacite</code> fournissent des informations sur <code>modele</code>, qui ne fait pas partie de la clé).
+
+<br><br>Pour respecter la 3NF, il faudrait :
 
 <br>
 <div class="float-left margin">
