@@ -252,20 +252,7 @@ La clé est ici une combinaison de <code>id_etudiant</code> et <code>id_cours</c
 <br>Il faut alors introduire une table supplémentaire :
 <br>
 <div class="float-left margin">
-    <table class="wikitable">
-        <tr><th>id_etudiant</th><th>id_cours</th></tr>
-        <tr>
-            <td>1</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-        </tr>
-    </table>
-</div>
-
-<div class="float-left margin">
+    Table <code>cours</code>
     <table class="wikitable">
         <tr><th>id_cours</th><th>salle</th></tr>
         <tr>
@@ -275,6 +262,21 @@ La clé est ici une combinaison de <code>id_etudiant</code> et <code>id_cours</c
         <tr>
             <td>2</td>
             <td>B</td>
+        </tr>
+    </table>
+</div>
+
+<div class="float-left margin">
+    Table de liaison
+    <table class="wikitable">
+        <tr><th>id_etudiant</th><th>id_cours</th></tr>
+        <tr>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
         </tr>
     </table>
 </div>
@@ -359,7 +361,7 @@ Ici, l'identifiant est <code>id_avion</code>.
 <br class="clear-left">
 
 Rappel : une relation est dit <i>transitive</i> si <code>A est en relation avec B et B est en relation avec C => A est en relation avec C</code>.
-<br>Exemple : la relation "est inférieur à" est transitive : <code>A &lt; B et A &lt; C => A &lt; C</code>
+<br>Exemple : la relation "est inférieur à" est transitive : <code>A &lt; B et B &lt; C => A &lt; C</code>
 
 <br><br>On parle de "dépendance transitive" par le biais de la relation "dépend de" :
 <br><code>capacite</code> dépend de <code>modele</code> et <code>modele</code> dépend de <code>id_avion</code>.
