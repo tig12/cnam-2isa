@@ -78,7 +78,7 @@ body{
 .prevnext a.next{top:25px; right:5px;}
 
 /* table of content */
-.toc{
+.pagetoc{
     display:inline-block;
     background: rgb(207,236,23);
     background: radial-gradient(circle, rgba(207,236,23,0.0578) 17%, rgba(193,236,245,0.3827) 40%, rgba(213,235,204,0.4415) 47%); 
@@ -89,15 +89,15 @@ body{
     font-family:Arial,Helvetica,sans-serif;
     line-height:1.6;
 }
-.toc ul{list-style-type:none;margin:0;}
-.toc ul>li{}
-.toc>ul>li>a{font-weight:bold;}
+.pagetoc ul{list-style-type:none;margin:0;}
+.pagetoc ul>li{}
+.pagetoc>ul>li>a{font-weight:bold;}
 /* 
-.toc{font-family:Arial,Helvetica,sans-serif;}
-.toc ul{list-style-type:none;}
-.toc{padding:0;}
-.toc>ul>li>a{font-weight:bold;}
-.toc>ul>li>ul{padding-left:1.3rem;}
+.pagetoc{font-family:Arial,Helvetica,sans-serif;}
+.pagetoc ul{list-style-type:none;}
+.pagetoc{padding:0;}
+.pagetoc>ul>li>a{font-weight:bold;}
+.pagetoc>ul>li>ul{padding-left:1.3rem;}
 */
 
 /* ================ index page ================ */
