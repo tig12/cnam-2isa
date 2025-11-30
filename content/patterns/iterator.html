@@ -26,6 +26,9 @@
 Iterator
 <div class="subtitle">(Itérateur)</div>
 </h1>
+<div class="intro">
+    But : fournit un moyen d'accéder séquentiellement aux éléments d'un aggrégat sans exposer sa représentation interne.
+</div>
 <nav class="pagetoc">
     <ul>
         <li>
@@ -39,16 +42,11 @@ Iterator
         </li>
     </ul>
 </nav>
-
-
 </header>
 
 <main>
 <article>
 
-<div class="intro">
-But : fournit un moyen d'accéder séquentiellement aux éléments d'un aggrégat sans exposer sa représentation interne.
-</div>
 
 Un aggrégat (par exemple une liste) doit fournir une manière de le parcourir sans devoir connaître sa représentation interne.
 <br>On peut aussi avoir besoin de parcourir l'aggrégat de différentes manières ; mais il est préférable de ne pas alourdir l'API de l'aggrégat avec des méthodes liées à chaque manière de le parcourir.

@@ -22,43 +22,58 @@
 
 <header>
 <h1>Reflection</h1>
+<div class="intro">
+    Capacité du langage à se décrire et se manipuler.
+    <br>Java permet de manipuler toute classe que la JVM peut charger en mémoire : nos classes, les classes de l'api java, les classes des libs chargées ...
+    <br>NB : Il s'agit de reflection comme "refléter", et non pas de réfexion comme "réfléchir".
+</div>
 <nav class="pagetoc">
     <ul>
         <li>
-            <a href="#analyser-une-classe">Analyser une classe</a>
+            <a href="#1-analyser-une-classe">Analyser une classe</a>
             <ul>
-                <li><a href="#1-1-creation">Création</a></li>
-                <li><a href="#1-2-nom-de-la-classe">Nom de la classe</a></li>
-                <li><a href="#1-3-autres-infos">Autres infos</a></li>
-                <li><a href="#1-4-details-sur-les-membres-d-une-classe">Détails sur les membres d'une classe</a></li>
+                <li>
+                    <a href="#1-1-creation">Création</a>
+                </li>
+                <li>
+                    <a href="#1-2-nom-de-la-classe">Nom de la classe</a>
+                </li>
+                <li>
+                    <a href="#1-3-autres-infos">Autres infos</a>
+                </li>
+                <li>
+                    <a href="#1-4-details-sur-les-membres-d-une-classe">Détails sur les membres d'une classe</a>
+                </li>
             </ul>
         </li>
         <li>
-            <a href="#travailler-avec-des-instances">Travailler avec des instances</a>
+            <a href="#2-travailler-avec-des-instances">Travailler avec des instances</a>
             <ul>
-                <li><a href="#2-1-inspecter-un-objet">Inspecter un objet</a></li>
-                <li><a href="#2-2-invoquer-une-methode">Invoquer une méthode</a></li>
-                <li><a href="#2-3-construire-un-objet">Construire un objet</a></li>
+                <li>
+                    <a href="#2-1-inspecter-un-objet">Inspecter un objet</a>
+                </li>
+                <li>
+                    <a href="#2-2-invoquer-une-methode">Invoquer une méthode</a>
+                </li>
+                <li>
+                    <a href="#2-3-construire-un-objet">Construire un objet</a>
+                </li>
             </ul>
         </li>
         <li>
-            <a href="#divers">Divers</a>
+            <a href="#3-divers">Divers</a>
             <ul>
-                <li><a href="#2-4-infos-sur-le-fichier-java-courant">Infos sur le fichier .java courant</a></li>
+                <li>
+                    <a href="#3-1-infos-sur-le-fichier-java-courant">Infos sur le fichier .java courant</a>
+                </li>
             </ul>
         </li>
     </ul>
 </nav>
-
 </header>
 
 <main>
 <article>
-
-<div class="intro">Capacité du langage à se décrire et se manipuler</div>
-
-NB : Il s'agit de reflection comme "refléter", et non pas de réfexion comme "réfléchir".
-<br>Java permet de manipuler toute classe que la JVM peut charger en mémoire : nos classes, les classes de l'api java, les classes des libs chargées ...
 
 <!-- ************************************* -->
 <h3>ReflectiveOperationException</h3>
@@ -78,7 +93,7 @@ Direct Known Subclasses:
 </div>
 
 <!-- ********************************************************************************* -->
-<h2 id="analyser-une-classe">Analyser une classe</h2>
+<h2 id="1-analyser-une-classe">Analyser une classe</h2>
 Les classes étant le type le plus utilisé en java, <code>java.lang.Class</code> (qui représente une classe) est une classe centrale de la reflection.
 <br>
 <br>On peut connaître la <code>Class</code> de tout objet via <code>getClass()</code>, définie dans <code>java.lang.Object</code>.
@@ -223,7 +238,7 @@ isProtected(int mod)    isVolatile(int mod)
 </pre>
 
 <!-- ********************************************************************************* -->
-<h2 id="travailler-avec-des-instances">Travailler avec des instances</h2>
+<h2 id="2-travailler-avec-des-instances">Travailler avec des instances</h2>
 
 <!-- ************************************* -->
 <h3 id="2-1-inspecter-un-objet">Inspecter un objet</h3>
@@ -302,10 +317,10 @@ System.out.println(((Person)obj).getName());
 <br>Attention, bien utiliser <code>Constructor.newInstance()</code> et non pas <code>Class.newInstance()</code> (a été déprécié en java 9).
 
 <!-- ********************************************************************************* -->
-<h2 id="divers">Divers</h2>
+<h2 id="3-divers">Divers</h2>
 
 <!-- ************************************* -->
-<h3 id="2-4-infos-sur-le-fichier-java-courant">Infos sur le fichier .java courant</h3>
+<h3 id="3-1-infos-sur-le-fichier-java-courant">Infos sur le fichier .java courant</h3>
 Equivalent java de php pour :
 <pre class="normal">
                                           PHP               Java

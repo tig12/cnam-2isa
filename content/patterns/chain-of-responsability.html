@@ -26,9 +26,14 @@ cf p 649 de headfirst
 -->
 
 <header>
-<h1>Chain of Responsability
-<div class="subtitle">(Chaîne de responsabilité)</div>
+<h1>
+    Chain of Responsability
+    <div class="subtitle">(Chaîne de responsabilité)</div>
 </h1>
+<div class="intro">
+    But : Découpler l'émetteur d'une requête du receveur en permettant à plus d'un objet de gérer la requête.
+    <br>Faire un chaîne de receveurs, et passer la requête à la chaîne jusqu'à ce qu'un receveur gère la requête.
+</div>
 <nav class="pagetoc">
     <ul>
         <li>
@@ -52,10 +57,6 @@ cf p 649 de headfirst
 <main>
 <article>
 
-<div class="intro">
-But : Découpler l'émetteur d'une requête du receveur en permettant à plus d'un objet de gérer la requête.
-<br>Faire un chaîne de receveurs, et passer la requête à la chaîne jusqu'à ce qu'un receveur gère la requête.
-</div>
 
 <!-- ********************************************************************************* -->
 <h2><a name="1-structure">Structure</a></h2>

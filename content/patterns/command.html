@@ -23,9 +23,15 @@
 
 <header>
 <h1>
-Command
-<div class="subtitle">(Commande)</div>
+    Command
+    <div class="subtitle">(Commande)</div>
 </h1>
+<div class="intro">
+    But : encapsuler une requête dans un objet.
+    <br>Lorsqu'on a besoin d'envoyer des requêtes à des objets sans rien savoir
+    <br>de l'opération demandée ni de l'objet qui exécutera la requête.
+    <br>Autres noms : <b>Action</b>, <b>Transaction</b>
+</div>
 <nav class="pagetoc">
     <ul>
         <li>
@@ -41,21 +47,13 @@ Command
         </li>
     </ul>
 </nav>
-
-
 </header>
 
 <main>
 <article>
 
-Autres noms : Action, Transaction
-
-<div class="intro">
-But : encapsuler une requête dans un objet.
-<br>Lorsqu'on a besoin d'envoyer des requêtes à des objets sans rien savoir
-<br>de l'opération demandée ni de l'objet qui exécutera la requête.
-</div>
-
+<!-- ********************************************************************************* -->
+<h2>Présentation</h2>
 Permet de paramétrer les clients avec différentes requêtes, faire des queues de requêtes, logger les requêtes, gérer l'annulation (undo).
 <br>
 <br><i>Command</i> découple l'objet qui invoque une opération (<code><b>Invoker</b></code>) de l'objet qui l'exécute (<code><b>Reciever</b></code>).

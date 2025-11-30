@@ -23,9 +23,13 @@
 
 <header>
 <h1>
-Memento
-<div class="subtitle">(Mémento)</div>
+    Memento
+    <div class="subtitle">(Mémento)</div>
 </h1>
+<div class="intro">
+    But : Sans violer l'encapsulation, isoler et externaliser une partie de l'état interne d'un objet, afin de pouvoir restaurer ultérieurement l'objet dans cet état.
+    <br>Permet de fournir un "undo" ou un "rollback".
+</div>
 <nav class="pagetoc">
     <ul>
         <li>
@@ -43,27 +47,19 @@ Memento
         </li>
     </ul>
 </nav>
-
-
 </header>
 
 <main>
 <article>
-
-
 <!-- 
 p 658 de headfirst
 -->
-
-<div class="intro">
-But : Sans violer l'encapsulation, isoler et externaliser une partie de l'état interne d'un objet, afin de pouvoir restaurer ultérieurement l'objet dans cet état.
-<br>Permet de fournir un "undo" ou un "rollback".
-</div>
-
 <!-- 
 Briefly, the Originator (the object to be saved) creates a snap-shot of itself as a Memento object, and passes that reference to the Caretaker object. The Caretaker object keeps the Memento until such a time as the Originator may want to revert to a previous state as recorded in the Memento object.
 -->
 
+<!-- ********************************************************************************* -->
+<h2>Présentation</h2>
 Ce pattern définit 3 rôles :
 <ul>
     <li>

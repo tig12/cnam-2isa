@@ -25,18 +25,15 @@
 
 <header>
 <h1>Git submodules</h1>
-
+<div class="intro">
+    La notion de submodule permet d'avoir des dépôts git à l'intérieur d'un dépôt, tout en gardant la gestion des différents dépôts séparée.
+    <br>Permet par exemple d'intégrer une lib à l'intérieur d'un projet, ou de séparer la gestion d'un projet en plusieurs sous-projets tout en pouvant les utiliser ensemble.
+    <br><br>Référence : <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">https://git-scm.com/book/en/v2/Git-Tools-Submodules</a>
+</div>
 </header>
 
 <main>
 <article>
-
-<div class="intro">
-La notion de submodule permet d'avoir des dépôts git à l'intérieur d'un dépôt, tout en gardant la gestion des différents dépôts séparée.
-<br>Permet par exemple d'intégrer une lib à l'intérieur d'un projet, ou de séparer la gestion d'un projet en plusieurs sous-projets tout en pouvant les utiliser ensemble.
-
-<br><br>Référence : <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">https://git-scm.com/book/en/v2/Git-Tools-Submodules</a>
-</div>
 
 <!-- ********************************************************************************* -->
 <h2>Premiers pas</h2>
@@ -229,8 +226,6 @@ Attention, si on oublie <code>--merge</code> ou <code>--rebase</code>, git va r�
 <pre>git push --recurse-submodules=check</pre>
 
 <pre>git config push.recurseSubmodules check</pre>
-</article>
-</main>
 
 <!-- ********************************************************************************* -->
 <h2>Supprimer un submodule</h2>
@@ -246,6 +241,9 @@ rm -rf .git/modules/path/to/submodule
 # Remove the entry in .gitmodules and remove the submodule directory located at path/to/submodule
 git rm -f path/to/submodule
 </pre>
+
+</article>
+</main>
 
 </body>
 </html>
