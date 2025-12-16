@@ -25,13 +25,62 @@
 
 <header>
 <h1>Référence SQL</h1>
+
+<nav class="pagetoc">
+    <ul>
+        <li>
+            <a href="#1-commentaires">Commentaires</a>
+        </li>
+        <li>
+            <a href="#2-operateurs">Opérateurs</a>
+        </li>
+        <li>
+            <a href="#3-fonctions">Fonctions</a>
+        </li>
+        <li>
+            <a href="#4-"></a>
+        </li>
+        <li>
+            <a href="#5-variables-speciales">Variables spéciales</a>
+        </li>
+        <li>
+            <a href="#6-"></a>
+        </li>
+    </ul>
+</nav>
 </header>
 
 <article>
 
 
 <!-- ********************************************************************************* -->
-<h2>Opérateurs</h2>
+<h2 id="1-commentaires">Commentaires</h2>
+<table class="wikitable cheatsheet margin">
+    <tr><th></th><th></th><th>Exemples</th></tr>
+    <tr>
+        <td>Simple ligne</td>
+        <td><code>--</code></td>
+        <td>
+            <pre>-- un commentaire sur une ligne dans un fichier sql</pre>
+            <pre>create table personnes(
+    nom varchar(255),       -- commentaire en fin de ligne
+    prenom varchar(255)
+)</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>Multiples lignes</td>
+        <td><code>/* */</code></td>
+        <td><pre>/*
+Un commentaire
+sur plusieurs lignes dans un fichier sql
+*/</pre>
+        </td>
+    </tr>
+</table>
+
+<!-- ********************************************************************************* -->
+<h2 id="2-operateurs">Opérateurs</h2>
 <table class="wikitable cheatsheet margin">
     <tr><td>=</td><td>Egal</td></tr>
     <tr><td>></td><td>Plus grand</td></tr>
@@ -124,7 +173,7 @@ Priorité :
 </table>
 
 <!-- ********************************************************************************* -->
-<h2>Fonctions</h2>
+<h2 id="3-fonctions">Fonctions</h2>
 Les fonctions de groupe ignorent les valeurs nulles de la colonne.
 <table class="wikitable cheatsheet margin">
     <tr>
@@ -162,10 +211,10 @@ Les fonctions de groupe ignorent les valeurs nulles de la colonne.
 </table>
 
 <!-- ********************************************************************************* -->
-<h2></h2>
+<h2 id="4-"></h2>
 
 <!-- ********************************************************************************* -->
-<h2>Variables spéciales</h2>
+<h2 id="5-variables-speciales">Variables spéciales</h2>
 <table class="wikitable cheatsheet margin">
     <tr>
         <td>ROWNUM</td>
@@ -177,7 +226,7 @@ Les fonctions de groupe ignorent les valeurs nulles de la colonne.
 </table>
 
 <!-- ********************************************************************************* -->
-<h2></h2>
+<h2 id="6-"></h2>
 
 </article>
 

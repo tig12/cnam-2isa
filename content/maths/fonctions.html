@@ -28,13 +28,33 @@
 <div class="intro">
     Le but est d'illustrer la différence de manière de travailler, suivant qu'on utilise la théorie des ensembles ou des catégories.
 </div>
+
+<nav class="pagetoc">
+    <ul>
+        <li>
+            <a href="#1-relations-fonctions">Relations, fonctions</a>
+        </li>
+        <li>
+            <a href="#2-definition-d-une-fonction">Définition d'une fonction</a>
+        </li>
+        <li>
+            <a href="#3-bijection-isomorphisme">Bijection, isomorphisme</a>
+        </li>
+        <li>
+            <a href="#4-injections-monomorphismes">Injections, monomorphismes</a>
+        </li>
+        <li>
+            <a href="#5-surjection-epimorphisme">Surjection, épimorphisme</a>
+        </li>
+    </ul>
+</nav>
 </header>
 
 <main>
 <article>
 
 <!-- ********************************************************************************* -->
-<h2>Relations, fonctions</h2>
+<h2 id="1-relations-fonctions">Relations, fonctions</h2>
 
 Une relation entre deux ensembles est la description de liens entre les éléments du premier ensemble et ceux du deuxième.
 
@@ -58,7 +78,7 @@ Ce schéma représente bien une fonction.
 
 
 <!-- ********************************************************************************* -->
-<h2>Définition d'une fonction</h2>
+<h2 id="2-definition-d-une-fonction">Définition d'une fonction</h2>
 
 En utilisant la théorie des ensembles, une fonction est définie comme un sous-ensemble du produit cartésien.
 
@@ -71,7 +91,7 @@ Parmi tous les couples du produit cartésien, on en choisit un certain nombre (e
 <br><br>En utilisant les ensembles, une fonction est donc définie en utilisant les éléments des ensembles. Si on se place dans <code class="bold">Ens</code>, la catégorie des ensembles, on n'a plus cette possibilité. Dans cette catégorie, un ensemble est un objet, on ne sait rien des éléments qu'il contient. Une fonction est juste représentée par une flèche. On va voir qu'il est malgré tout possible d'étudier les propriétés d'une fonction en étudiant comment elles se composent entre elles.
 
 <!-- ********************************************************************************* -->
-<h2>Bijection, isomorphisme</h2>
+<h2 id="3-bijection-isomorphisme">Bijection, isomorphisme</h2>
 
 Les fonctions les plus simples à étudier sont les <b>bijections</b>.
 <br>Une application <code class="bold big2">f</code> est bijective si, et seulement si, tout élément de son ensemble d'arrivée a un et un seul antécédent, c'est-à-dire est image d'exactement un élément du domaine de définition de <code class="bold big2">f</code>.
@@ -98,7 +118,7 @@ On voit qu'en utilisant la théorie des ensembles, on utilise les éléments des
 
 
 <!-- ********************************************************************************* -->
-<h2>Injections, monomorphismes</h2>
+<h2 id="4-injections-monomorphismes">Injections, monomorphismes</h2>
 
 Raison 1 : si plusieurs éléments du domaine de définition ont la même image.
 
@@ -130,7 +150,7 @@ Cette situation nous donne la définition d'un monomorphisme :
 
 
 <!-- ********************************************************************************* -->
-<h2>Surjection, épimorphisme</h2>
+<h2 id="5-surjection-epimorphisme">Surjection, épimorphisme</h2>
 
 La deuxième raison pour qu'une application ne soit pas bijective est que l'image de la fonction ne couvre pas tout l'ensemble d'arrivée.
 <br>On dit que la fonction est <b>surjective</b> si cela ne peut pas se produire. ; voir un <a href="https://fr.wikipedia.org/wiki/Surjection#Exemple_concret">exemple sur Wikipedia</a>.

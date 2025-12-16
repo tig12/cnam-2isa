@@ -28,11 +28,25 @@
 
 <header>
 <h1>Jointures</h1>
+
+<nav class="pagetoc">
+    <ul>
+        <li>
+            <a href="#1-types-de-jointures">Types de jointures</a>
+        </li>
+        <li>
+            <a href="#2-jointures-sur-3-tables-et-plus">Jointures sur 3 tables et plus</a>
+        </li>
+        <li>
+            <a href="#3-quizz-jointures">Quizz jointures</a>
+        </li>
+    </ul>
+</nav>
 </header>
 
 <article>
 
-<h2>Types de jointures</h2>
+<h2 id="1-types-de-jointures">Types de jointures</h2>
 
 <table class="wikitable jointures margin">
     <tr><th>Nom</th><th>Commentaires</th></tr>
@@ -54,7 +68,7 @@
     <tr>
         <td>OUTER JOIN</td>
         <td>
-            Désigne soit <code>LEFT JOIN</code>, <code>RIGHT JOIN</code> et <code>FULL JOIN</code>
+            Désigne soit <code>LEFT JOIN</code>, <code>RIGHT JOIN</code> ou <code>FULL JOIN</code>
         </td>
     </tr>
 
@@ -99,7 +113,7 @@ select empno, job, <b>deptno</b>, dname
     </tr>
 </table>
 
-<h2>Jointures sur 3 tables et plus</h2>
+<h2 id="2-jointures-sur-3-tables-et-plus">Jointures sur 3 tables et plus</h2>
 
 Voir <a href="https://codingstatus.com/sql-join-3-tables/">https://codingstatus.com/sql-join-3-tables/</a>
 
@@ -124,9 +138,9 @@ WHERE
     AND e.deptno = d.deptno;
 </pre>
 
-<h2>Quizz jointures</h2>
-<img class="padding margin border" src="img/quizz-jointures.svg" alt="Table utilisé pour le quizz sur les jointures">
 <!--
+<h2 id="3-quizz-jointures">Quizz jointures</h2>
+<img class="padding margin border" src="img/quizz-jointures.svg" alt="Table utilisé pour le quizz sur les jointures">
 drop table table1;
 drop table table2;
 create table TABLE1(col1 varchar(1) );

@@ -43,13 +43,27 @@ https://vladimirzdrazil.com/til/databases/relational-database-normal-forms-mnemo
         <li>3NF : rien que la clé</li>
     </ul>
 </div>
+
+<nav class="pagetoc">
+    <ul>
+        <li>
+            <a href="#1-1nf-1ere-forme-normale">1NF - 1ère forme normale</a>
+        </li>
+        <li>
+            <a href="#2-2nf-2eme-forme-normale">2NF - 2ème forme normale</a>
+        </li>
+        <li>
+            <a href="#3-3nf-3eme-forme-normale">3NF - 3ème forme normale</a>
+        </li>
+    </ul>
+</nav>
 </header>
 
 <main>
 <article>
 
 <!-- ********************************************************************************* -->
-<h2>1NF - 1ère forme normale</h2>
+<h2 id="1-1nf-1ere-forme-normale">1NF - 1ère forme normale</h2>
 <ul class="spaced">
     <li>
         <b>Unicité des lignes</b>, donc chaque ligne doit avoir un identifiant unique (la clé).
@@ -217,7 +231,7 @@ Exemple : base permettant de gérer les notes des étudiants.
 <br class="clear-left">
 
 <!-- ********************************************************************************* -->
-<h2>2NF - 2ème forme normale</h2>
+<h2 id="2-2nf-2eme-forme-normale">2NF - 2ème forme normale</h2>
 <b>1NF + pas de dépendance partielle</b>.
 <br>Concerne des tables dont la clé primaire (ou identifiant) est une combinaison de plusieurs colonnes.
 <br>On distingue:
@@ -285,7 +299,7 @@ La clé est ici une combinaison de <code>id_etudiant</code> et <code>id_cours</c
 <br class="clear-left">
 
 <!-- ********************************************************************************* -->
-<h2>3NF - 3ème forme normale</h2>
+<h2 id="3-3nf-3eme-forme-normale">3NF - 3ème forme normale</h2>
 <b>2NF + pas de dépendance transitive par l'intermédiaire d'attributs non identifiants</b>
 <br>Comme pour la 2NF, on distingue:
 <ul class="margin-top0">

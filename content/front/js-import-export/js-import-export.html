@@ -23,18 +23,57 @@
     <br>Bien noter qu'on est ici dans un contexte de javascript <b>côté client</b>, et non pas côté serveur, comme avec node.js, qui possède sa propre manière d'importer les modules.
     <br><br>Pour une référence plus complète, voir <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide/Modules">developer.mozilla.org/fr/docs/Web/JavaScript/Guide/Modules</a>
 </div>
+
+<nav class="pagetoc">
+    <ul>
+        <li>
+            <a href="#1-importer-exporter-une-fonction">Importer / exporter une fonction</a>
+            <ul>
+                <li>
+                    <a href="#1-1-function2-js">function2.js</a>
+                </li>
+                <li>
+                    <a href="#1-2-function1-js">function1.js</a>
+                </li>
+                <li>
+                    <a href="#1-3-utilisation">Utilisation</a>
+                </li>
+                <li>
+                    <a href="#1-4-execution">Exécution</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-importer-exporter-une-classe">Importer / exporter une classe</a>
+            <ul>
+                <li>
+                    <a href="#2-1-class2-js">class2.js</a>
+                </li>
+                <li>
+                    <a href="#2-2-class1-js">class1.js</a>
+                </li>
+                <li>
+                    <a href="#2-3-utilisation">Utilisation</a>
+                </li>
+                <li>
+                    <a href="#2-4-execution">Exécution</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>
 </header>
 
 <main>
 <article>
 
 <!-- ********************************************************************************* -->
-<h2>Importer / exporter une fonction</h2>
+<h2 id="1-importer-exporter-une-fonction">Importer / exporter une fonction</h2>
 
 Exemple d'utilisation : voir les fichiers <a href="function1.js">function1.js</a> et <a href="function2.js">function2.js</a>.
 
 <!-- ************************************* -->
-<h3>function2.js</h3>
+<h3 id="1-1-function2-js">function2.js</h3>
 On indique avec <code>export</code> la possibilité d'utiliser <code>f2</code> dans d'autres fichiers.
 <pre>
 <b>export</b> function f2(){
@@ -43,7 +82,7 @@ On indique avec <code>export</code> la possibilité d'utiliser <code>f2</code> d
 </pre>
 
 <!-- ************************************* -->
-<h3>function1.js</h3>
+<h3 id="1-2-function1-js">function1.js</h3>
 On indique avec <code>import</code> qu'on va utiliser <code>f2</code>, déclarée et exportée dans un autre fichier.
 <br>On indique aussi avec <code>export</code> la possibilité d'utiliser <code>f1</code> dans d'autres fichiers.
 
@@ -57,7 +96,7 @@ On indique avec <code>import</code> qu'on va utiliser <code>f2</code>, déclaré
 </pre>
 
 <!-- ************************************* -->
-<h3>Utilisation</h3>
+<h3 id="1-3-utilisation">Utilisation</h3>
 <pre>
 &lt;script <b>type="module"</b>>
     import {f1} from './function1.js';
@@ -67,7 +106,7 @@ On indique avec <code>import</code> qu'on va utiliser <code>f2</code>, déclaré
 </pre>
 
 <!-- ************************************* -->
-<h3>Exécution</h3>
+<h3 id="1-4-execution">Exécution</h3>
 Si vous êtes sur une URL utilisant le protocole <code>http://</code> ou <code>https://</code>, ouvrez une console javascript et vous verrez le code précédent s'exécuter.
 <script type="module">
     import {f1} from './function1.js';
@@ -76,12 +115,12 @@ Si vous êtes sur une URL utilisant le protocole <code>http://</code> ou <code>h
 </script>
 
 <!-- ********************************************************************************* -->
-<h2>Importer / exporter une classe</h2>
+<h2 id="2-importer-exporter-une-classe">Importer / exporter une classe</h2>
 
 Exemple d'utilisation : voir les fichiers <a href="class1.js">class1.js</a> et <a href="class2.js">class2.js</a>.
 
 <!-- ************************************* -->
-<h3>class2.js</h3>
+<h3 id="2-1-class2-js">class2.js</h3>
 <pre>
 export class class2 {
 
@@ -93,7 +132,7 @@ export class class2 {
 </pre>
 
 <!-- ************************************* -->
-<h3>class1.js</h3>
+<h3 id="2-2-class1-js">class1.js</h3>
 <pre>
 import {class2} from './class2.js';
 
@@ -112,7 +151,7 @@ export class class1 {
 </pre>
 
 <!-- ************************************* -->
-<h3>Utilisation</h3>
+<h3 id="2-3-utilisation">Utilisation</h3>
 <pre>
 &lt;script type="module">
     import {class1} from './class1.js';
@@ -124,7 +163,7 @@ export class class1 {
 </pre>
 
 <!-- ************************************* -->
-<h3>Exécution</h3>
+<h3 id="2-4-execution">Exécution</h3>
 Si vous êtes sur une URL utilisant le protocole <code>http://</code> ou <code>https://</code>, ouvrez une console javascript et vous verrez le code précédent s'exécuter.
 
 <script type="module">

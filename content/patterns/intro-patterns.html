@@ -25,20 +25,31 @@
 <nav class="pagetoc">
     <ul>
         <li>
-            <a href="#1"></a>
+            <a href="#1-presentation">Présentation</a>
+        </li>
+        <li>
+            <a href="#2-catalogue-classique">Catalogue classique</a>
             <ul>
-                <li><a href="#1-1-catalogue">Catalogue</a></li>
+                <li>
+                    <a href="#2-1-creational">Creational</a>
+                </li>
+                <li>
+                    <a href="#2-2-structural">Structural</a>
+                </li>
+                <li>
+                    <a href="#2-3-behavioral">Behavioral</a>
+                </li>
             </ul>
         </li>
     </ul>
 </nav>
-
-
 </header>
 
 <main>
 <article>
 
+<!-- ********************************************************************************* -->
+<h2 id="1-presentation">Présentation</h2>
 (en français : <b>Patron de conception</b>)
 <br>
 <br>Vient de l'architecture : "A Pattern Language: Towns, Buildings, Construction" (Christopher Alexander, 1977).
@@ -96,12 +107,12 @@ it’s never exactly the same.
 
 <br><br>Bien noter que les patterns ne sont pas spécifiques à java (mais s'appliquent aux langages objet).
 
-<!-- ************************************* -->
-<h3><a name="1-1-catalogue">Catalogue</a></h3>
+<!-- ********************************************************************************* -->
+<h2 id="2-catalogue-classique">Catalogue classique</h2>
 Les 23 patterns historiques sont habituellement classés de cette manière :
     
-<!-- ************************************* -->
-<h4>Creational</h4>
+<!-- ********************************************************************************* -->
+<h3 id="2-1-creational">Creational</h3>
 Concernent l'instanciation des objets, fournissent un moyen de découpler un client des objets qu'il a besoin d'instancier.
 <br>Donnent aux programmes plus de flexibilité, en permettant de décider quels objets doivent être créées suivant les besoins.
 <ul>
@@ -112,8 +123,8 @@ Concernent l'instanciation des objets, fournissent un moyen de découpler un cli
     <li><b><a href="singleton.html">Singleton</a></b> (Singleton) : restricts object creation for a class to only one instance.</li>
 </ul>
 
-<!-- ************************************* -->
-<h4>Structural</h4>
+<!-- ********************************************************************************* -->
+<h3 id="2-2-structural">Structural</h3>
 Permettent de composer des classes ou des objets pour former des structures plus vastes.
 <ul>
     <li><b><a href="adapter.html">Adapter</a></b> (Adapteur) :  allows classes with incompatible interfaces to work together by wrapping its own interface around that of an already existing class.</li>
@@ -125,8 +136,8 @@ Permettent de composer des classes ou des objets pour former des structures plus
     <li><b><a href="proxy.html">Proxy</a></b> (Proxy) :  provides a placeholder for another object to control access, reduce cost, and reduce complexity.</li>
 </ul>
 
-<!-- ************************************* -->
-<h4>Behavioral</h4>
+<!-- ********************************************************************************* -->
+<h3 id="2-3-behavioral">Behavioral</h3>
 Concernent les interactions des classes et des objets et la distribution des resposabilités.
 <ul>
     <li><b><a href="chain-of-responsability.html">Chain of responsibility</a></b> (Chaîne de responsabilité) :  delegates commands to a chain of processing objects.</li>

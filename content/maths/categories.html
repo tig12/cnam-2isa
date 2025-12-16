@@ -27,6 +27,36 @@
     <br>En travaillant comme ça, on dispose d'un outil bien plus adapté pour décrire des systèmes. Les catégories permettent à la fois de décrire la structure et le comportement, l'intelligence des systèmes.
     <br>Le définition d'une catégorie est très simple, mais on est vite confrontés à une avalanche de notions : foncteurs, transformations naturelles, objet initial et terminal, construction universelle, ordres, monoïdes, catégorie de Kleisli, lemme de Yoneda... Voir <a href="https://larzac.info/maths/categories/milewski/">le sommaire du cours de Bartosz Milewski</a>.
 </div>
+
+<nav class="pagetoc">
+    <ul>
+        <li>
+            <a href="#1-historique">Historique</a>
+        </li>
+        <li>
+            <a href="#2-definition">Définition</a>
+        </li>
+        <li>
+            <a href="#3-categorie-des-ensembles">Catégorie des ensembles</a>
+            <ul>
+                <li>
+                    <a href="#3-1-categorie-des-types-et-des-fonctions">Catégorie des types et des fonctions</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#4-foncteurs">Foncteurs</a>
+            <ul>
+                <li>
+                    <a href="#4-1-constructeur">Constructeur</a>
+                </li>
+                <li>
+                    <a href="#4-2-quelques-liens">Quelques liens</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>
 </header>
 
 <main>
@@ -34,7 +64,7 @@
 
 <!-- ********************************************************************************* -->
 <!-- 
-<h2>Historique</h2>
+<h2 id="1-historique">Historique</h2>
 Les catégories ont été créées par deux mathématiciens américains, Saunders Mac Lane et Samuel Eilenberg. Les catégories ont intégré l'informatique théorique officiellement en 1980, par ce qu'on appelle <b>l'isomorphisme de Curry-Howard-Lambek</b>, qui établit la correspondance entre un langage de programmation et une catégorie.
 <br>On avait déjà l'isomorphisme de Curry-Howard, qui assimile un langage fonctionnel pur à une théorie logique.
 <table class="wikitable margin">
@@ -71,7 +101,7 @@ Les catégories ont été créées par deux mathématiciens américains, Saunder
 
 
 <!-- ********************************************************************************* -->
-<h2>Définition</h2>
+<h2 id="2-definition">Définition</h2>
 Dans une catégorie, on a des <b>objets</b> et des <b>flèches</b> qui vont d'un objet à l'autre. Une flèche exprime une relation entre 2 objets.
 
 <br><br>Une catégorie est donc un <b>graphe orienté</b> : les objets sont les sommets et les flèches sont les arêtes.
@@ -108,7 +138,7 @@ Et c'est tout.
 
 
 <!-- ********************************************************************************* -->
-<h2>Catégorie des ensembles</h2>
+<h2 id="3-categorie-des-ensembles">Catégorie des ensembles</h2>
 
 La catégorie la plus familière à étudier est la <b>catégorie des ensembles</b>, notée <code class="big2 bold">Set</code> ou <code class="big2 bold">Ens</code>, qui contient tous les ensembles possibles.
 <br>Dans cette catégorie,
@@ -121,7 +151,7 @@ La catégorie la plus familière à étudier est la <b>catégorie des ensembles<
 
 
 <!-- ************************************* -->
-<h3>Catégorie des types et des fonctions</h3>
+<h3 id="3-1-categorie-des-types-et-des-fonctions">Catégorie des types et des fonctions</h3>
 Cette catégorie permet de modéliser un langage informatique comprenant :
 <ul class="margin-top0">
     <li>des types de données (objets)</li>
@@ -193,7 +223,7 @@ Mais toutes ces complexités peuvent être construites à partir de fonctions pu
 
 
 <!-- ********************************************************************************* -->
-<h2>Foncteurs</h2>
+<h2 id="4-foncteurs">Foncteurs</h2>
 Un foncteur transforme une catégorie en une autre.
 <br>Lorsqu'on spécifie un foncteur, il faut
 <ul>
@@ -202,7 +232,7 @@ Un foncteur transforme une catégorie en une autre.
 </ul>
 
 <!-- ************************************* -->
-<h3>Constructeur</h3>
+<h3 id="4-1-constructeur">Constructeur</h3>
 Un foncteur couramment utilisé en informatique est le <b>contructeur de type</b>.
 
 <br><br>Lorsqu'on écrit en java :
@@ -215,7 +245,7 @@ On passe bien d'une première catégorie, dont les objets sont les types manipul
 
 
 <!-- ************************************* -->
-<h3>Quelques liens</h3>
+<h3 id="4-2-quelques-liens">Quelques liens</h3>
 <ul>
     <li><a href="https://larzac.info/maths/categories/milewski">larzac.info/maths/categories/milewski</a> : notes d'un cours sur youtube</li>
     <li><a href="https://en.wikibooks.org/wiki/Haskell/Category_theory">en.wikibooks.org/wiki/Haskell/Category_theory</a></li>

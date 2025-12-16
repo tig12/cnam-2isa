@@ -26,13 +26,36 @@
 
 <header>
 <h1>Cheatsheet SVG</h1>
+
+<nav class="pagetoc">
+    <ul>
+        <li>
+            <a href="#1-elements-d-un-svg">Elements d'un SVG</a>
+        </li>
+        <li>
+            <a href="#2-attributs">Attributs</a>
+        </li>
+        <li>
+            <a href="#3-balise-lt-g">Balise &lt;g></a>
+        </li>
+        <li>
+            <a href="#4-balise-lt-defs">Balise &lt;defs></a>
+        </li>
+        <li>
+            <a href="#5-stroke">Stroke</a>
+        </li>
+        <li>
+            <a href="#6-gradients">Gradients</a>
+        </li>
+    </ul>
+</nav>
 </header>
 
 <main>
 <article>
 
 <!-- ********************************************************************************* -->
-<h2>Elements d'un SVG</h2>
+<h2 id="1-elements-d-un-svg">Elements d'un SVG</h2>
 <table class="wikitable margin">
 <tbody>
 <tr>
@@ -78,7 +101,7 @@
 </table>
 
 <!-- ********************************************************************************* -->
-<h2>Attributs</h2>
+<h2 id="2-attributs">Attributs</h2>
 Les attributs des objets SVG peuvent être définis de deux manières :
 <ul class="margin-top0">
     <li>Ils peuvent toujours se trouver sous la forme <i>attribute="value"</i> au sein de chaque objet.</li>
@@ -141,7 +164,7 @@ stroke-width="1" fill="blue"/&gt;</td>
 </table>
 
 <!-- ********************************************************************************* -->
-<h2>Balise &lt;g></h2>
+<h2 id="3-balise-lt-g">Balise <g></h2>
 Permet de grouper des éléments. Tous ses enfants hériteront de ses attributs
 <pre>
 &lt;svg height="50" width="100">
@@ -154,7 +177,7 @@ Permet de grouper des éléments. Tous ses enfants hériteront de ses attributs
 </pre>
 
 <!-- ********************************************************************************* -->
-<h2>Balise &lt;defs></h2>
+<h2 id="4-balise-lt-defs">Balise <defs></h2>
 Permet de stocker des éléments graphiques qui vont pouvoir être réutilisés (ces éléments ne sont pas dessinés).
 <br>L'attribut <code>id</code> est utilisé pour permettre de les référencer.
 <pre>
@@ -173,7 +196,7 @@ Permet de stocker des éléments graphiques qui vont pouvoir être réutilisés 
 </pre>
 
 <!-- ********************************************************************************* -->
-<h2>Stroke</h2>
+<h2 id="5-stroke">Stroke</h2>
 
 <table class="wikitable">
     <thead><th>Propriété</th><th>Utilité</th><th>Exemple</th></thead>
@@ -280,7 +303,7 @@ Permet de stocker des éléments graphiques qui vont pouvoir être réutilisés 
 
 
 <!-- ********************************************************************************* -->
-<h2>Gradients</h2>
+<h2 id="6-gradients">Gradients</h2>
 Les gradients peuvent être définis dans le tag &lt;def&gt;.
 <table class="wikitable margin">
 <tbody>

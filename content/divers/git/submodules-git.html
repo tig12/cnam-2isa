@@ -30,13 +30,52 @@
     <br>Permet par exemple d'intégrer une lib à l'intérieur d'un projet, ou de séparer la gestion d'un projet en plusieurs sous-projets tout en pouvant les utiliser ensemble.
     <br><br>Référence : <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">https://git-scm.com/book/en/v2/Git-Tools-Submodules</a>
 </div>
+
+<nav class="pagetoc">
+    <ul>
+        <li>
+            <a href="#1-premiers-pas">Premiers pas</a>
+            <ul>
+                <li>
+                    <a href="#1-1-fichier-gitmodules">Fichier .gitmodules</a>
+                </li>
+                <li>
+                    <a href="#1-2-fichier-git-config">Fichier .git/config</a>
+                </li>
+                <li>
+                    <a href="#1-3-recapitulation">Récapitulation</a>
+                </li>
+                <li>
+                    <a href="#1-4-dans-le-submodule">Dans le submodule</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#2-cloner-un-depot-avec-submodules">Cloner un dépôt avec submodules</a>
+        </li>
+        <li>
+            <a href="#3-travailler-avec-les-submodules">Travailler avec les submodules</a>
+            <ul>
+                <li>
+                    <a href="#3-1-recuperer-les-changements-dans-un-submodule">Récupérer les changements dans un submodule</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#4-travailler-sur-un-submodule">Travailler sur un submodule</a>
+        </li>
+        <li>
+            <a href="#5-supprimer-un-submodule">Supprimer un submodule</a>
+        </li>
+    </ul>
+</nav>
 </header>
 
 <main>
 <article>
 
 <!-- ********************************************************************************* -->
-<h2>Premiers pas</h2>
+<h2 id="1-premiers-pas">Premiers pas</h2>
 
 On se place dans le répertoire <code>git-tests</code>, qui contient déjà les dépôts <code>repo1</code>, <code>clone-repo1</code>, et on initialise un nouveau dépôt de test :
 <pre>git init submodule-test</pre>
@@ -76,7 +115,7 @@ met une copie de <code>repo1</code> à la racine. Pour que <code>repo1</code> so
 <pre><b>git submodule add</b> ../repo1/ path/to/subdirectory</pre>
 
 <!-- ************************************* -->
-<h3>Fichier .gitmodules</h3>
+<h3 id="1-1-fichier-gitmodules">Fichier .gitmodules</h3>
 
 Le fichier <code>.gitmodules</code> a été créé par git :
 <pre>cat .gitmodules</pre>
@@ -87,7 +126,7 @@ Le fichier <code>.gitmodules</code> a été créé par git :
 </pre>
 
 <!-- ************************************* -->
-<h3>Fichier .git/config</h3>
+<h3 id="1-2-fichier-git-config">Fichier .git/config</h3>
 On peut voir aussi que <code>.git/config</code> a été modifié :
 <pre>
 [submodule "repo1"]
@@ -104,7 +143,7 @@ Ce qu'on a fait est correct dans le cadre d'un exercice, mais pas adapté à la 
 Cela modifie <code>.git/config</code>, donc affecte uniquement la version locale du dépôt <code>submodule-test</code>.
 
 <!-- ************************************* -->
-<h3>Récapitulation</h3>
+<h3 id="1-3-recapitulation">Récapitulation</h3>
 <pre>
 project
     ├── .gitmodules
@@ -115,7 +154,7 @@ project
 </pre>
 
 <!-- ************************************* -->
-<h3>Dans le submodule</h3>
+<h3 id="1-4-dans-le-submodule">Dans le submodule</h3>
 Si on va dedans, on peut voir que ce dépôt a été cloné avec tout son historique :
 <pre>
 cd repo1
@@ -130,7 +169,7 @@ Le répertoire <code>.git/modules/repo1</code> est un répertoire (bare) qui con
 
 
 <!-- ********************************************************************************* -->
-<h2>Cloner un dépôt avec submodules</h2>
+<h2 id="2-cloner-un-depot-avec-submodules">Cloner un dépôt avec submodules</h2>
 
 <pre>git clone https://github.com/some-user/Project</pre>
 <pre>git submodule init</pre>
@@ -143,7 +182,7 @@ ou, directement :
 <pre>git submodule update --init --recursive</pre>
 
 <!-- ********************************************************************************* -->
-<h2>Travailler avec les submodules</h2>
+<h2 id="3-travailler-avec-les-submodules">Travailler avec les submodules</h2>
 
 <pre>
 cd path/to/MyNewModule
@@ -187,7 +226,7 @@ Une fois les modifications enregistrées dans un commit, on peut les voir avec :
 <pre>git log -p --submodule</pre>
 
 <!-- ************************************* -->
-<h3>Récupérer les changements dans un submodule</h3>
+<h3 id="3-1-recuperer-les-changements-dans-un-submodule">Récupérer les changements dans un submodule</h3>
 
 Un simple <code>git pull</code> fait un <code>git fetch</code> dans nos submodules, mais pas un <code>update</code>.
 <br>Il faut faire : 
@@ -200,7 +239,7 @@ Un simple <code>git pull</code> fait un <code>git fetch</code> dans nos submodul
 
 
 <!-- ********************************************************************************* -->
-<h2>Travailler sur un submodule</h2>
+<h2 id="4-travailler-sur-un-submodule">Travailler sur un submodule</h2>
 Cas où on travaille à la fois sur le projet principal et dans différents submodules.
 <br>Jusqu'à présent, <code>git submodule update</code> sert à rappatrier les changements dans les submodules, mais les sous-répertoires se trouvent dans un état de “detached HEAD”.
 <br>Pour remédier à cela, il faut aller dans chaque sous-module et indiquer à git quelle branche suivre :
@@ -228,7 +267,7 @@ Attention, si on oublie <code>--merge</code> ou <code>--rebase</code>, git va r�
 <pre>git config push.recurseSubmodules check</pre>
 
 <!-- ********************************************************************************* -->
-<h2>Supprimer un submodule</h2>
+<h2 id="5-supprimer-un-submodule">Supprimer un submodule</h2>
 
 Voir <a href="https://stackoverflow.com/questions/1260748/how-do-i-remove-a-submodule/36593218#36593218">stackoverflow</a> :
 <pre>

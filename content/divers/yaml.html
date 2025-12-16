@@ -26,22 +26,46 @@
 
 <header>
 <h1>Manipuler du YAML</h1>
+<div class="intro">
+    YAML (YAML Ain't Markup Language) est un langage de sérialisation de données, similaire à JSON ou XML ; voir <a href="https://yaml.org/">https://yaml.org/</a>.
+    <br>YAML peut être vu comme une extension de json : tout document json valide est un document yaml valide (le contraire n'est pas vrai).
+</div>
+<nav class="pagetoc">
+    <ul>
+        <li>
+            <a href="#1-modes-inline-mutiline">Modes inline / mutiline</a>
+        </li>
+        <li>
+            <a href="#2-tester-l-utilisation-de-yaml">Tester l'utilisation de YAML</a>
+        </li>
+        <li>
+            <a href="#3-yaml-en-java">YAML en java</a>
+            <ul>
+                <li>
+                    <a href="#3-1-installation">Installation</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#4-yaml-en-php">YAML en php</a>
+        </li>
+    </ul>
+</nav>
 </header>
 
 <main>
 <article>
 
-YAML (YAML Ain't Markup Language) est un langage de sérialisation de données, similaire à JSON ou XML ; voir <a href="https://yaml.org/">https://yaml.org/</a>.
-<br>YAML peut être vu comme une extension de json : tout document json valide est un document yaml valide (le contraire n'est pas vrai).
-
-<br><br>Un des intérêts de yaml est de supporter 2 modes : un mode "inline", comme json et un mode "multiligne" utilisant les tabulations pour exprimer la structure des objets, ce qui permet d'écrire des fichiers de configuration sans caractères tels que <code>[ ] { } " ,</code>.
+<!-- ********************************************************************************* -->
+<h2 id="1-modes-inline-mutiline">Modes inline / mutiline</h2>
+Un des intérêts de yaml est de supporter 2 modes : un mode "inline", comme json et un mode "multiligne" utilisant les tabulations pour exprimer la structure des objets, ce qui permet d'écrire des fichiers de configuration sans caractères tels que <code>[ ] { } " ,</code>.
 
 <br><br>Exemple d'un tableau contenant 2 maps en json :
 <pre>
 [
     {
         "nom": "Curry",
-        "pr\u00e9nom": "Haskell Brooks",
+        "prenom": "Haskell Brooks",
         "naissance": {
             "date": "1900-12-09",
             "lieu": "Millis",
@@ -57,7 +81,7 @@ YAML (YAML Ain't Markup Language) est un langage de sérialisation de données, 
     },
     {
         "nom": "Howard",
-        "pr\u00e9nom": "William Alvin",
+        "prenom": "William Alvin",
         "naissance": {
             "date": "1926",
             "pays": "US"
@@ -70,7 +94,7 @@ Le même tableau écrit en yaml, mode multiline :
 <pre>
 -
   nom: Curry
-  "pr\xE9nom": Haskell Brooks
+  "prenom": Haskell Brooks
   naissance:
     date: "1900-12-09"
     lieu: Millis
@@ -83,7 +107,7 @@ Le même tableau écrit en yaml, mode multiline :
     pays: US
 - 
   nom: Howard
-  "pr\xE9nom": William Alvin
+  "prenom": William Alvin
   naissance:
     date: "1926"
     pays: US
@@ -93,12 +117,12 @@ Note : on peut mélanger les 2 syntaxes, par exemple écrire :
 <pre>
 - 
   nom: Howard
-  "pr\xE9nom": William Alvin
+  "prenom": William Alvin
   naissance: {date: "1926", pays: US}
 </pre>
 
 <!-- ********************************************************************************* -->
-<h2>Tester l'utilisation de YAML</h2>
+<h2 id="2-tester-l-utilisation-de-yaml">Tester l'utilisation de YAML</h2>
 Créez un répertoire de test et allez dedans :
 <pre>
 mkdir test-yaml
@@ -107,12 +131,12 @@ cd test-yaml
 Créez un fichier <code>test.yml</code> contenant le yaml d'exemple.
 
 <!-- ********************************************************************************* -->
-<h2>YAML en java</h2>
+<h2 id="3-yaml-en-java">YAML en java</h2>
 L'API java ne fournit pas de classes pour gérer le yaml. Il faut donc utiliser une bibliothèque ; il en existe plusieurs, par exemple <a href="https://github.com/snakeyaml/snakeyaml">SnakeYAML</a>, <a href="https://github.com/decorators-squad/eo-yaml">eo-yaml</a>, <a href="https://github.com/EsotericSoftware/yamlbeans">YamlBeans</a>.
 
 <br><br>On va utiliser  <a href="https://github.com/EsotericSoftware/yamlbeans">YamlBeans</a>.
 
-<h3>Installation</h3>
+<h3 id="3-1-installation">Installation</h3>
 Téléchargez sur votre machine locale le jar contenant le code de YamlBeans, à partir de
 <a href="https://repo1.maven.org/maven2/com/esotericsoftware/yamlbeans/yamlbeans">https://repo1.maven.org/maven2/com/esotericsoftware/yamlbeans/yamlbeans</a>.
 <pre>
@@ -165,7 +189,7 @@ java -cp yamlbeans/src:. YamlTest
 
 
 <!-- ********************************************************************************* -->
-<h2>YAML en php</h2>
+<h2 id="4-yaml-en-php">YAML en php</h2>
 Installer l'extension yaml de php :
 <pre>
 sudo apt install php8.0-yaml
