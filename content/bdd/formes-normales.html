@@ -62,6 +62,9 @@ https://vladimirzdrazil.com/til/databases/relational-database-normal-forms-mnemo
 <main>
 <article>
 
+<br>Une définition au préalable : on dit qu'il existe une <b>dépendance fonctionnelle</b> d'un attribut A envers un attribut B si la connaissance de A entraîne la connaissance de B.
+<br>On note souvent <code>A -> B</code>
+
 <!-- ********************************************************************************* -->
 <h2 id="1-1nf-1ere-forme-normale">1NF - 1ère forme normale</h2>
 <ul class="spaced">
@@ -375,12 +378,18 @@ Ici, l'identifiant est <code>id_avion</code>.
 
 <br class="clear-left">
 
-Rappel : une relation est dit <i>transitive</i> si <code>A est en relation avec B et B est en relation avec C => A est en relation avec C</code>.
+Rappel : une relation est dite <i>transitive</i> si <code>A est en relation avec B et B est en relation avec C => A est en relation avec C</code>.
 <br>Exemple : la relation "est inférieur à" est transitive : <code>A &lt; B et B &lt; C => A &lt; C</code>
 
 <br><br>On parle de "dépendance transitive" par le biais de la relation "dépend de" :
 <br><code>capacite</code> dépend de <code>modele</code> et <code>modele</code> dépend de <code>id_avion</code>.
 <br>Donc <code>capacite</code> dépend de <code>id_avion</code> par le biais de <code>modele</code>, c'est à dire par transitivité.
+
+
+<!-- ********************************************************************************* -->
+<!-- 
+<h2>BCNF - Forme normale de Boyce-Codd</h2>
+-->
 
 </article>
 </main>
