@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Exos Relation avec attributs | BDD CNAM 2ISA Millau</title>
+    <title>Exercices Relation avec attributs | BDD CNAM 2ISA Millau</title>
     <link rel="icon" type="image/jpeg" href="../../static/favicon.jpg">
     <link href="../../static/cnam-2isa.css" rel="stylesheet" type="text/css">
     <meta name="description" content="">
@@ -12,7 +12,9 @@
     <meta name="dcterms.rightsHolder" content="Thierry Graff">
     <meta name="dcterms.dateCopyrighted" content="2025-12-19 14:49:36+01:00">
     <style>
-        .jointures td:nth-child(1){font-weight:bold; font-size:1.2rem;}
+        summary {
+          cursor: pointer;
+        }
     </style>
 </head>
 
@@ -27,16 +29,60 @@
 </nav>
 
 <header>
-<h1>Exos MCD Relation avec attributs</h1>
+<h1>Exercices MCD Relation avec attributs</h1>
+<div class="intro">
+Exemples de relations contenant des attributs.
+<br>La règle est : un attribut doit être mis dans une relation lorsqu'il ne dépend pas d'une seule entité, mais de l'association entre ces entités.
+</div>
+
 </header>
 
 <article>
 
 <!-- ********************************************************************************* -->
+<h2>Consultation</h2>
+Pour modéliser une consultation, on a les entités <code>médecin (id, nom, spécialité)</code> et <code>patient (id, nom, date_naissance)</code>
+<br>Lors d'une consultation, le médecin établit un diagnostique et une prescription (chaînes de caractères) à une date donnée.
+<br>Faites le MCD correspondant.
+
+<details class="margin-top">
+    <summary>Voir la solution</summary>
+    <img class="margin" src="img/mcd-consultation.jpg" alt="MCD consultation - correction">
+    En effet, la date de consultation, le diagnostique et la prescription dépendent de l'interaction entre le patient et le médecin.
+</details>
+
+<!-- ********************************************************************************* -->
+<h2>Employé - projet</h2>
+On modélise la participation des employés d'une entreprise à différents projets.
+<br>On souhaite intégrer au modèle les informations suivantes :
+<ul>
+    <li>Identifiant de l'employé</li>
+    <li>Nom de l'employé</li>
+    <li>Identifiant du projet</li>
+    <li>Nom du projet</li>
+    <li>Date de début de participation d'un employé à un projet</li>
+    <li>Nombres d'heures travaillées sur un projet</li>
+</ul>
+Faites le MCD correspondant.
+
+<details class="margin-top">
+    <summary>Voir la solution</summary>
+    <img class="margin" src="img/mcd-employe-projet.jpg" alt="MCD employé - projet - correction">
+</details>
+
+<!-- ********************************************************************************* -->
 <h2>Boire dans un verre</h2>
 Pour enregistrer qui a bu dans quel verre, on a cette portion de MCD :
-<img class="margin" src="img/mcd-boire-verre.jpg" alt="MCD personneboire verre">
-Est-ce que ça vous semble correct ?
+<img class="margin" src="img/mcd-boire-verre.jpg" alt="MCD personne boire verre - exercice">
+Est-ce que cela vous semble correct ?
+
+<details class="margin-top">
+    <summary>Voir la solution</summary>
+    La quantité qui a été bue et la date ne dépendent pas seulement de la personne ou du verre, mais de l'action de boire, qui se traduit par la relation entre verre et personne.
+    <img class="margin" src="img/mcd-boire-verre-corr.jpg" alt="MCD personne boire verre - correction">
+</details>
+
+
 </article>
 </body>
 </html>
